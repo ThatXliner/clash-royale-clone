@@ -1,0 +1,103 @@
+{
+  "allMainArtifactsPreserved": true,
+  "allOtherSourceAndTestsEqualMain": true,
+  "baselineCommit": "22fc972fcba5357957ffacfe43c59662f95344b2",
+  "candidateSourceCommit": "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+  "cards023kPaths": [
+    "src/content/editable-deck.js",
+    "src/rl/environment.js",
+    "tests/cards023k-aether-well.test.js",
+    "tests/editable-deck.test.js",
+    "tests/rl-environment.test.js"
+  ],
+  "changedPathCount": 12,
+  "changedPaths": [
+    {
+      "after": "0a09201295c073c1194245c94334e31b7b8c2daf",
+      "before": "90375304b9f542dd194ad7c84c1fadcdcf851149",
+      "path": "src/content/cards/buildings-resource.js",
+      "status": "M"
+    },
+    {
+      "after": "cdfb7f081400b8a4f797f0cf577a6923c6004347",
+      "before": "0d3ee0bb73e7321e889a7a10ef233a7f24cd5ead",
+      "path": "src/content/editable-deck.js",
+      "status": "M"
+    },
+    {
+      "after": "76150630402df875e0a0336fc9708feb7b0993a9",
+      "before": "8ed1f919826f06efb728ab6cf52bb9edc5eb62c7",
+      "path": "src/content/session-card-catalog.js",
+      "status": "M"
+    },
+    {
+      "after": "7fd3f017880a822975d76e864dcef6fa5beea45a",
+      "before": "bbefdb6542050c6aa1fe183f2d71cdf18078946e",
+      "path": "src/rl/environment.js",
+      "status": "M"
+    },
+    {
+      "after": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb",
+      "before": "aa9a3b0e1dd1d4d05f01e0e649109cfb917f4ff6",
+      "path": "src/sim/session-building-profile-receipts.js",
+      "status": "M"
+    },
+    {
+      "after": "55f326c1ce1231c72c6c74612dff4d601f79af05",
+      "before": "c436bb4ccae289608fddf737d656127122e5dd72",
+      "path": "src/sim/session-building-runtime.js",
+      "status": "M"
+    },
+    {
+      "after": "924ba42f34ba9c68e919cce7ce24ef4c8405a133",
+      "before": null,
+      "path": "tests/cards023k-aether-well.test.js",
+      "status": "A"
+    },
+    {
+      "after": "7a70a301f1b43edd8faf5dca3f2b6805a24ce691",
+      "before": "ac6d6540ccbbd490a5b3698135a6fd5ab85a4eb8",
+      "path": "tests/editable-deck.test.js",
+      "status": "M"
+    },
+    {
+      "after": "4c11bbfa985766a20c01fd9ffb3159082d9e39e1",
+      "before": "7b08d767cb2d61dcc38e7d37e514e26884a527bf",
+      "path": "tests/game-building-policy.test.js",
+      "status": "M"
+    },
+    {
+      "after": "18ad59bcd2b95095182b6246ca5125518fe01156",
+      "before": "c1b2c38a6dda0885c611aabf66fb8c64d91dfefc",
+      "path": "tests/game-building-runtime.test.js",
+      "status": "M"
+    },
+    {
+      "after": "3fb814f23b7c15d09d7c61fea216642ee039952b",
+      "before": "2da98137ce094540143c615d146097760702c7ae",
+      "path": "tests/game-roster-buildings.test.js",
+      "status": "M"
+    },
+    {
+      "after": "5195f91377a68b558ae2f9870f05aeca1726e7d0",
+      "before": "c022b17613157e9421cb97716c1791cc120322d2",
+      "path": "tests/rl-environment.test.js",
+      "status": "M"
+    }
+  ],
+  "hbrLayerPaths": [
+    "src/content/cards/buildings-resource.js",
+    "src/content/session-card-catalog.js",
+    "src/sim/session-building-profile-receipts.js",
+    "src/sim/session-building-runtime.js",
+    "tests/game-building-policy.test.js",
+    "tests/game-building-runtime.test.js",
+    "tests/game-roster-buildings.test.js"
+  ],
+  "mainCommit": "950c2b8780521234aa6ab08af677f4892794eebb",
+  "retainedPublicationStamps": [
+    "artifacts/publication-91b99fb/github-pages-run.json",
+    "artifacts/publication-91b99fb/live-http-receipt.json"
+  ],
+  "scriptsDistAndPackageEqualMain": true
+}

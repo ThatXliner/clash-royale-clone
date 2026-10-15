@@ -1,0 +1,26 @@
+Initial combined focused command
+  /Users/me/.hermes/node/bin/node --test tests/editable-deck.test.js tests/rl-environment.test.js tests/cards023k-aether-well.test.js
+
+Direct final result
+  exit code: 1
+  tests: 29
+  pass: 27
+  fail: 2
+
+Failure 1
+  CARDS-023K admits a real Aether Well player and seeded AI lifecycle
+  The harness selected session-structure-deployed events by a top-level cardId.
+  The event carries cardId under materialization.cardId, so the assertion saw []
+  where it expected the north and south six-elixir deployments.
+
+Failure 2
+  RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+  Actual targetMode: ground-and-air
+  Expected targetMode: air_and_ground
+  The first projection edit copied the card-level spelling over the defensive runtime
+  value. The final edit keeps a defensive runtime targetMode and falls back to the card
+  projection only when a runtime role has no attack targetMode (Aether Well).
+
+The Aether Well RL admission, legal mask, observation, receipt, JSON-safety, invalid
+restore, valid restore, and continuation test passed in this initial run. The complete
+initial TAP output was emitted across the initial command response and its final poll.

@@ -1,0 +1,101 @@
+{
+  "cwd": "/private/tmp/aether-well-core-builder-950",
+  "checks": [
+    {
+      "name": "card-source-delta",
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "22fc972fcba5357957ffacfe43c59662f95344b2",
+        "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+        "--",
+        "src",
+        "tests"
+      ]
+    },
+    {
+      "name": "candidate-source-delta-from-950",
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "950c2b8780521234aa6ab08af677f4892794eebb",
+        "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+        "--",
+        "src",
+        "tests"
+      ]
+    },
+    {
+      "name": "scripts-dist-package-delta",
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "950c2b8780521234aa6ab08af677f4892794eebb",
+        "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+        "--",
+        "scripts",
+        "dist",
+        "package.json",
+        "package-lock.json"
+      ]
+    },
+    {
+      "name": "hbr-frozen-source-delta",
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "44e69d6b5fe0aad9a55f958bb8ce460fe877aa28",
+        "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+        "--",
+        "src/content/cards/buildings-resource.js",
+        "src/content/session-card-catalog.js",
+        "src/sim/session-building-profile-receipts.js",
+        "src/sim/session-building-runtime.js",
+        "tests/game-building-policy.test.js",
+        "tests/game-building-runtime.test.js",
+        "tests/game-roster-buildings.test.js"
+      ]
+    },
+    {
+      "name": "cards-frozen-source-delta",
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "95cce2f7a154ab7137d679fcf07092e03cfc7f70",
+        "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+        "--",
+        "src/content/editable-deck.js",
+        "src/rl/environment.js",
+        "tests/cards023k-aether-well.test.js",
+        "tests/editable-deck.test.js",
+        "tests/rl-environment.test.js"
+      ]
+    },
+    {
+      "name": "source-test-diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "22fc972fcba5357957ffacfe43c59662f95344b2",
+        "d87319857f48534a1d207fc3610c1f4ecdb3de99",
+        "--",
+        "src",
+        "tests"
+      ]
+    },
+    {
+      "name": "working-tree-after-tests",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ]
+    }
+  ]
+}

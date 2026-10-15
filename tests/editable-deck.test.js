@@ -136,6 +136,7 @@ test("editable mixed witnesses retain troop questions and exact non-unit profile
     ["squall-orb", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
     ["ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
     ["buried-coil", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
+    ["aether-well", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
     ["squall-orb", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)],
     ["buried-coil", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)],
   ];
@@ -145,7 +146,8 @@ test("editable mixed witnesses retain troop questions and exact non-unit profile
     assert.equal(witness.roster.filter(({ kind }) => kind === "effect").length,
       Number(deck.includes("squall-orb")));
     assert.equal(witness.roster.filter(({ kind }) => kind === "structure").length,
-      Number(deck.includes("ember-basin")) + Number(deck.includes("buried-coil")));
+      Number(deck.includes("ember-basin")) + Number(deck.includes("buried-coil")) +
+      Number(deck.includes("aether-well")));
     assert.deepEqual(witness.questions.map(({ key }) => key),
       [...new Set(questionReferences(witness.roster))].sort());
 
@@ -196,6 +198,36 @@ test("editable mixed witnesses retain troop questions and exact non-unit profile
           `Buried Coil ${field} remains unverified`);
       }
     }
+    if (deck.includes("aether-well")) {
+      const actual = battleSetup.roster.find(({ id }) => id === "aether-well");
+      assert.deepEqual(actual, projectSessionNonUnitBattleCard("aether-well"),
+        "the editable witness retains the versioned resource profile receipt exactly");
+      const { policy } = actual.buildingRuntime;
+      assert.equal(policy.version, 2);
+      for (const [field, value] of [["generationCadenceTicks", 540],
+        ["lifetimeTicks", 3_900], ["destructionAmount", 1]]) {
+        assert.deepEqual(policy[field], {
+          authoritative: true,
+          confidence: "high",
+          disposition: "source-aligned",
+          key: policy[field].key,
+          source: policy[field].source,
+          value,
+        }, `${field} retains its source-aligned resource-v2 receipt`);
+      }
+      for (const field of ["generationAmount", "deployTicks", "hitpoints",
+        "recipientPolicy", "resourceCapacity", "cadenceAnchorPolicy",
+        "cadenceResetPolicy", "expiryOrderingPolicy", "sameTickOrderingPolicy",
+        "simultaneousGenerationOrder", "placementPolicy"]) {
+        assert.equal(policy[field].authoritative, false,
+          `${field} remains non-authoritative in the resource receipt`);
+        assert.equal(policy[field].disposition, "question",
+          `${field} remains a QUESTION in the resource receipt`);
+      }
+      assert.equal(policy.generationAmount.confidence, "datamine-only");
+      assert.equal(policy.deployTicks.confidence, "unverified");
+      assert.equal(policy.hitpoints.confidence, "unverified");
+    }
     assert.throws(() => createEditableDeckWitness(deck), /not supported/u,
       "the closed troop witness stays troop-only");
   }
@@ -203,7 +235,8 @@ test("editable mixed witnesses retain troop questions and exact non-unit profile
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("squall-orb"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("ember-basin"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("buried-coil"));
-  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 22);
+  assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("aether-well"));
+  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 23);
   assert.throws(() => createEditableMixedDeckWitness(PLAYABLE_CARD_IDS),
     /requires an admitted spell or structure/u);
   assert.throws(() => createEditableMixedDeckWitness([

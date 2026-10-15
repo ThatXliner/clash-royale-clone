@@ -24,7 +24,10 @@ const ACTIONS = buildActionCatalog();
 const STRUCTURE_RUNTIMES = new Map(EDITABLE_MIXED_DECK_CARD_IDS.flatMap((id) => {
   if (EDITABLE_DECK_CARD_IDS.includes(id)) return [];
   const card = projectSessionNonUnitBattleCard(id);
-  return card.kind === "structure" ? [[id, card.buildingRuntime]] : [];
+  return card.kind === "structure" ? [[id, {
+    ...card.buildingRuntime,
+    targetMode: card.buildingRuntime.targetMode ?? card.targetMode,
+  }]] : [];
 }));
 const DEFENSIVE_BUILDING_QUESTIONS = createDefensiveBuildingQuestionRecords();
 const PLACEMENT_MASKS = new Map([
@@ -135,6 +138,12 @@ function publicStructure(structure, tick) {
   const runtime = STRUCTURE_RUNTIMES.get(structure.cardId);
   if (!runtime) throw new TypeError(`RL observation has no admitted runtime for ${structure.cardId}`);
   const elapsedLifetimeTicks = Math.max(0, tick - structure.placedTick);
+  const resourceLifetime = runtime.class === "resource"
+    ? structure.policy.lifetimeTicks
+    : null;
+  const lifetimeTicks = resourceLifetime === null
+    ? runtime.lifetimeTicks
+    : resourceLifetime.value;
   const attackCycle = typeof structure.attackCycle === "string"
     ? AttackCycle.restore(structure.attackCycle).state
     : null;
@@ -153,9 +162,11 @@ function publicStructure(structure, tick) {
     layer: "ground",
     lifetime: {
       elapsedTicks: elapsedLifetimeTicks,
-      remainingTicks: Math.max(0, runtime.lifetimeTicks - elapsedLifetimeTicks),
-      totalTicks: runtime.lifetimeTicks,
-      question: clone(DEFENSIVE_BUILDING_QUESTIONS.lifetimeTicks),
+      remainingTicks: Math.max(0, lifetimeTicks - elapsedLifetimeTicks),
+      totalTicks: lifetimeTicks,
+      question: clone(resourceLifetime !== null
+        ? resourceLifetime
+        : DEFENSIVE_BUILDING_QUESTIONS.lifetimeTicks),
     },
     maxHitpoints: structure.maxHitpoints,
     owner: structure.side,

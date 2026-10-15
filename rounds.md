@@ -9552,3 +9552,12 @@ EVIDENCE: Fresh critic Chrome155 full540x960DPR1light/dark captures at13/26CSSpx
 BIGGEST GAP: Dark-background13px boots have modest contrast, but their separation remains visible and meets the silhouette bar.
 
 Adopt exact9isolatedasset/helper/fixture/provenance/testpaths. Builderchecked-in capture usesGPUoverrideflags andits screenshots are excluded fromfreshvisualproof; criticexternalcorrectedharness usedno customlauncharguments, exactdiff/argv/rawcaptures retained. Fourreleaseartifactsideeffects restored, distbyteequal, candidateclean, correctedprocessclosureexit0, userChromeuntouched. Initialself-matchingprocessprobe andbrowserpathdiscoverymethodcorrections preserved. Unrelatedfullhistoricalreleasebackup excludedfromboundedcriticpacket. This doesnotretroactivelypassstoppedART022B; newnative-small/painted-large methodindependentlymeetssamebar. ActualCARDS022Icollection/battleintegration andCARDS022Qmatching-sourcefullendurance remainrequired.
+
+## Round 499 - CARDS-023K Aether Well editable and RL admission
+
+PIECE: CARDS-023K
+VERDICT: PASS
+EVIDENCE: Fresh independent392dc987 assembly editable12/RL16/lifecycle1/nondeterminism10/shippingguard13/rosteradmission7/audit6,65/65 directexit0, rawstdout/stderr retained. Canonical68occurrences/63IDs/hash259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1. Natural seed2 actualGameSession cost6bothsides, combatdeath474, cadence540..3780, expiry3900, restorefork3901equal. Sourcefiveownedpaths exact95 andsevenHBR exact44; cleancheckout. Rootverified42critic hash/sizeentries andprevious73builder/assemblyentries.
+BIGGEST GAP: Resource amount, deploy/HP, recipient, cap, placement andordering historical semantics remain QUESTION; local admission is proven, not historical parity.
+
+Adopt exact5editable/RL source-test paths, preserving acceptedART022L manifest/helper/assets andallothermainchanges. Naturaltrace maxpostgrant7 did not hitcap; retained exactunchangedHBR test proves expiry3900 atElixir10 requests1/grants0 andrestore/replayexact. FreshK23case verifiespublicRLpolicy/targetnone/lifetime, missing/forgedreceipttransactionalreject andlegacyv1hostvalid/currentRLconfigreject. Initialbuilder27/29rawTAPmissing stays explicit; finalfreshcritic65rawcaptures available. Assemblywhitespacecheck flaggedonlypreservedrawbuilderTAP trailing spaces, source/testdiffcheckclean. ActualgameUI andmatching-sourcefull18000/browserrestore/input/audio/restart qualification remainpending.

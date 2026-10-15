@@ -1,0 +1,114 @@
+{
+  "tick": 3901,
+  "deployments": [
+    {
+      "side": "south",
+      "cost": 6,
+      "amountAfter": 4
+    },
+    {
+      "side": "north",
+      "cost": 6,
+      "amountAfter": 4
+    }
+  ],
+  "southDeath": [
+    {
+      "tick": 474,
+      "cause": "combat-damage",
+      "reason": "damage"
+    }
+  ],
+  "northCadenceTicks": [
+    540,
+    1080,
+    1620,
+    2160,
+    2700,
+    3240,
+    3780
+  ],
+  "northExpiry": [
+    {
+      "tick": 3900,
+      "cause": "expiry",
+      "reason": "lifetime"
+    }
+  ],
+  "grants": [
+    {
+      "amountAfter": 7,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 1,
+      "side": "south",
+      "tick": 474
+    },
+    {
+      "amountAfter": 1,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 540
+    },
+    {
+      "amountAfter": 2,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 1080
+    },
+    {
+      "amountAfter": 3,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 1620
+    },
+    {
+      "amountAfter": 3,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 2160
+    },
+    {
+      "amountAfter": 1,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 2700
+    },
+    {
+      "amountAfter": 2,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 3240
+    },
+    {
+      "amountAfter": 3,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 3780
+    },
+    {
+      "amountAfter": 1,
+      "amountGranted": 1,
+      "amountRequested": 1,
+      "buildingId": 2,
+      "side": "north",
+      "tick": 3900
+    }
+  ],
+  "maxAmountAfter": 7,
+  "restoreForkEqual": true
+}

@@ -1,0 +1,47 @@
+TAP version 13
+# {"manifestSha256":"259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1","occurrences":["aegis-sage:createChampionAbilityCatalog","aegis-sage:createReflectionSpecialCatalog","aether-well:createResourceBuildingCatalog","ashen-nest:DEATH_SPAWN_IDENTITY","blight-ring:createPeriodicSpellCatalog","bloom-wisp:createHealCatalog","bone-regent:createChampionAbilityCatalog","brackenwheel:createBasicMeleeCatalog","bramble-cage:SPAWNER_BUILDING_IDENTITIES","brassbolt:createBasicRangedCatalog","briar-band:createSwarmCatalog","bulwark-needle:createDefensiveBuildingCatalog","buried-coil:createDefensiveBuildingCatalog","burrow-rig:createUndergroundTravelBuildingCatalog","cinder-host:createSwarmCatalog","cinder-ray:createRampSpecialCatalog","cinder-reliquary:createDeathEffectsCatalog","cinderback:createRecoilSpecialCatalog","cinderlings:createSwarmCatalog","cloudseed-flask:SPAWN_SPELL_IDENTITIES","coilblade:createBasicMeleeCatalog","coppershade-flock:createOrdinaryProjectileSquadCatalog","copperskiff:createBasicFlyingCatalog","dawnmender:createHealCatalog","dusk-ranger:createChampionAbilityCatalog","duskwing-trio:createOrdinaryProjectileSquadCatalog","ember-basin:createDefensiveBuildingCatalog","ember-roost:SPAWNER_BUILDING_IDENTITIES","emberlance:createChargeKnockbackCatalog","emberlance:createChargeSpecialCatalog","fault-pulse:createPeriodicSpellCatalog","forgeguard:createSwarmCatalog","gilded-lancer:createChampionAbilityCatalog","gloam-shepherd:DEATH_CONVERSION_IDENTITY","gloamwing-cluster:createSwarmCatalog","gravity-well:createPeriodicSpellCatalog","hollowgarden:SPAWN_SPELL_IDENTITIES","horizon-caster:createDefensiveBuildingCatalog","iron-borer:createChampionAbilityCatalog","ironbark-roller:createRollingSpellCatalog","ironroot:createBasicMeleeCatalog","kilnkeeper:createOrdinaryProjectileSplashCatalog","mossguard:createBasicMeleeCatalog","prism-furnace:createDefensiveBuildingCatalog","prism-warden:createPierceSpecialCatalog","pulse-sentry:createStunSpecialCatalog","railward:createShieldFormCatalog","reedsting:createBasicRangedCatalog","rime-adept:createSlowSpecialCatalog","rune-reaver:createReturnSpecialCatalog","scatterguard:createPelletSpecialCatalog","skymaul:createBasicFlyingCatalog","skyshard-volley:createThreeWaveTravelingSpellCatalog","squall-orb:createInstantSpellCatalog","squall-orb:createKnockbackSpecialCatalog","squall-orb:createReturningSpellCatalog","squall-orb:createTravelingLineSpellCatalog","static-burst:createResetSpecialCatalog","stonehauler:createStructureSeekerCatalog","stonevault:createJumpSpecialCatalog","stormkite:createChainSpecialCatalog","sunthread-pair:createOrdinaryProjectileSquadCatalog","tempo-field:createRageSpecialCatalog","tether-rider:createSnareSpecialCatalog","thornscouts:createSwarmCatalog","veil-prowler:createInvisibilitySpecialCatalog","veilrunner:createDashSpecialCatalog","wayfinder:createRetargetSpecialCatalog"],"supported":68,"uniqueSupportedIds":63}
+# Subtest: canonical integration audit strictly parses complete TAP
+ok 1 - canonical integration audit strictly parses complete TAP
+  ---
+  duration_ms: 5.315042
+  type: 'test'
+  ...
+# Subtest: canonical integration audit imports without CLI side effects
+ok 2 - canonical integration audit imports without CLI side effects
+  ---
+  duration_ms: 121.119041
+  type: 'test'
+  ...
+# Subtest: canonical integration audit removes temporary output after rename failure
+ok 3 - canonical integration audit removes temporary output after rename failure
+  ---
+  duration_ms: 1.582958
+  type: 'test'
+  ...
+# Subtest: canonical integration audit samples all direct occurrence mechanics
+ok 4 - canonical integration audit samples all direct occurrence mechanics
+  ---
+  duration_ms: 4071.596292
+  type: 'test'
+  ...
+# Subtest: canonical integration audit rejects missing and swapped raw bindings
+ok 5 - canonical integration audit rejects missing and swapped raw bindings
+  ---
+  duration_ms: 3633.303542
+  type: 'test'
+  ...
+# Subtest: canonical integration audit executes every supported card and reproduces artifacts
+ok 6 - canonical integration audit executes every supported card and reproduces artifacts
+  ---
+  duration_ms: 441631.05375
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 449605.681834

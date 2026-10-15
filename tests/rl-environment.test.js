@@ -6,8 +6,11 @@ import {
   RLEnvironment,
 } from "../src/rl/environment.js";
 import { EDITABLE_DECK_CARD_IDS } from "../src/content/session-troop-roster.js";
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { createDefensiveBuildingQuestionRecords } from "../src/content/cards/buildings-defensive.js";
+import { createResourceBuildingQuestionRecords } from "../src/content/cards/buildings-resource.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 
@@ -90,6 +93,46 @@ function checkpointWithBuriedCoilPolicyMutation(serialized, mutate) {
   }
   wrapper.session = canonical(session);
   return canonical(wrapper);
+}
+
+function checkpointWithAetherWellPolicyMutation(serialized, mutate) {
+  const wrapper = JSON.parse(serialized);
+  const session = JSON.parse(wrapper.session);
+  for (const key of ["battleSetup", "rosterWitness"]) {
+    const witness = JSON.parse(session.setup[key]);
+    const card = witness.roster.find(({ id }) => id === "aether-well");
+    assert.ok(card?.buildingRuntime?.policy,
+      "the canonical setup carries the complete Aether Well resource receipt");
+    mutate(card.buildingRuntime.policy);
+    session.setup[key] = canonical(witness);
+  }
+  wrapper.session = canonical(session);
+  return canonical(wrapper);
+}
+
+function legacyV1AetherWellProfile() {
+  const questions = createResourceBuildingQuestionRecords();
+  return {
+    class: "resource",
+    deployTicks: 60,
+    generationAmount: questions.generationAmount.value,
+    generationCadenceTicks: questions.generationCadenceTicks.value,
+    hitpoints: 1_070,
+    lifetimeTicks: questions.lifetimeTicks.value,
+    policy: Object.fromEntries(["generationAmount", "generationCadenceTicks", "lifetimeTicks"]
+      .map((key) => [key, questions[key]])),
+  };
+}
+
+function legacyV1AetherWellSetup(deck, seed) {
+  const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
+  for (const key of ["battleSetup", "rosterWitness"]) {
+    const witness = JSON.parse(setup[key]);
+    witness.roster.find(({ id }) => id === "aether-well").buildingRuntime =
+      legacyV1AetherWellProfile();
+    setup[key] = canonical(witness);
+  }
+  return canonical(setup);
 }
 
 test("RL environment exposes a finite action catalogue and masks legal deploys", () => {
@@ -351,6 +394,94 @@ test("RL observes Ember Basin targeting, damage, lifetime, and exact in-flight r
   assert.deepEqual(restored.step(0), env.step(0));
   assert.equal(restored.serialize(), env.serialize(),
     "damaged structure state and queued contacts continue exactly after RL restore");
+});
+
+test("RL admits Aether Well with source-aligned resource observation and exact restore", () => {
+  const deck = ["aether-well", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)];
+  const config = { deck, seed: 2, strideTicks: 1, horizonTicks: 3_900 };
+  const env = createRLEnvironment(config);
+  const initial = env.observe();
+  assert.deepEqual(JSON.parse(env.serialize()).config.deck, deck);
+  const slot = initial.hand.indexOf("aether-well");
+  assert.notEqual(slot, -1, "the real RL setup places the selected structure in the player hand");
+  const action = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 3_500 && point.y === 14_500);
+  assert.ok(action, "the finite action catalog contains the legal building center point");
+  assert.equal(initial.actionMask[action.id], true,
+    "the selected resource structure is admitted by the public legal action mask");
+  assert.deepEqual(initial.structures, []);
+
+  const transition = env.step(action.id);
+  assert.equal(transition.info.actionId, action.id);
+  assert.equal(transition.observation.tick, 1);
+  assert.equal(transition.observation.elixir, initial.elixir - 6);
+  assert.notEqual(transition.observation.hand[slot], "aether-well",
+    "the actual player command spends and cycles the selected card once");
+  const structures = transition.observation.structures.filter(({ cardId }) =>
+    cardId === "aether-well");
+  assert.deepEqual(structures.map(({ owner }) => owner).sort(), ["north", "south"],
+    "seed 2 naturally deploys Aether Well for the opponent in the same GameSession tick");
+
+  const profile = projectSessionNonUnitBattleCard("aether-well").buildingRuntime;
+  const [south] = structures.filter(({ owner }) => owner === "south");
+  assert.deepEqual(south, {
+    ...south,
+    attackState: null,
+    cardId: "aether-well",
+    deathCause: null,
+    hitpoints: 1_070,
+    layer: "ground",
+    lifetime: {
+      elapsedTicks: 1,
+      remainingTicks: 3_899,
+      totalTicks: 3_900,
+      question: profile.policy.lifetimeTicks,
+    },
+    maxHitpoints: 1_070,
+    owner: "south",
+    policy: profile.policy,
+    targetKey: null,
+    targetMode: "none",
+  });
+  assert.deepEqual(south.policy, profile.policy,
+    "the observation carries every canonical resource receipt unchanged");
+  assert.equal(south.policy.generationAmount.authoritative, false);
+  assert.equal(south.policy.generationAmount.confidence, "datamine-only");
+  assert.equal(south.policy.deployTicks.authoritative, false);
+  assert.equal(south.policy.hitpoints.authoritative, false);
+  assert.equal(south.policy.resourceCapacity.authoritative, false);
+  assert.equal(south.policy.recipientPolicy.authoritative, false);
+  assert.deepEqual(JSON.parse(JSON.stringify(transition.observation)), transition.observation,
+    "resource observations contain no undefined fields and remain canonical JSON data");
+
+  const checkpoint = env.serialize();
+  assert.throws(() => RLEnvironment.restore(checkpointWithAetherWellPolicyMutation(
+    checkpoint, (policy) => { delete policy.lifetimeTicks; },
+  )), /canonical session-card receipt/u,
+  "the public restore API rejects a missing resource lifetime receipt");
+  assert.throws(() => RLEnvironment.restore(checkpointWithAetherWellPolicyMutation(
+    checkpoint, (policy) => { policy.generationCadenceTicks.value = 539; },
+  )), /canonical session-card receipt/u,
+  "the public restore API rejects a forged source-aligned cadence receipt");
+  assert.equal(env.serialize(), checkpoint,
+    "rejected restore candidates do not mutate the live RL environment");
+
+  const legacySession = new GameSession(legacyV1AetherWellSetup(deck, 2));
+  assert.equal(GameSession.restore(legacySession.serialize()).serialize(),
+    legacySession.serialize(), "the host still restores its explicit v1 resource receipt");
+  const legacyWrapper = JSON.parse(checkpoint);
+  legacyWrapper.session = legacySession.serialize();
+  legacyWrapper.nextCommandId = 0;
+  assert.throws(() => RLEnvironment.restore(canonical(legacyWrapper)),
+    /serialized environment configuration does not match its GameSession/u,
+    "the RL restore API rejects a valid legacy setup against its current v2 deck configuration");
+
+  const restored = RLEnvironment.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint);
+  assert.deepEqual(restored.observe(), transition.observation);
+  assert.deepEqual(restored.step(0), env.step(0));
+  assert.equal(restored.serialize(), env.serialize(),
+    "restored observations and deterministic continuation remain byte-identical");
 });
 
 test("RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation", () => {

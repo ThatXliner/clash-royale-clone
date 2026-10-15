@@ -1,0 +1,1122 @@
+ PLAN.md                                            |    15 +-
+ .../builder/extractor.py                           |   241 +
+ .../builder/pinned-linked-rows.json                |   758 +
+ .../builder/primary-evidence.md                    |     7 +
+ .../builder/root-sealed-checksums.sha256           |     6 +
+ .../builder/scope.md                               |    44 +
+ .../builder/source-query-results.txt               |    65 +
+ .../builder/source-receipts.json                   |   157 +
+ .../COMMANDS.txt                                   |    15 +
+ .../README.md                                      |    45 +
+ .../SHA256SUMS.txt                                 |    12 +
+ .../accepted-player-command-snapshot.json          |     1 +
+ .../capture-natural-ai-decision.mjs                |    41 +
+ .../final-public-projection.json                   | 20491 +++++++++++++++++++
+ .../final-session-replay.json                      |     1 +
+ .../final-session-snapshot.json                    |     1 +
+ .../natural-ai-decision.json                       |   226 +
+ .../natural-ai-seed-search.mjs                     |    86 +
+ .../pre-expiry-checkpoint.json                     |     1 +
+ .../probe-report.json                              |  1548 ++
+ .../source-bound-probe.mjs                         |   265 +
+ .../builder/after-vector-rig-1440x1200.png         |   Bin 0 -> 567629 bytes
+ .../builder/before-original-vector-1440x1200.png   |   Bin 0 -> 182134 bytes
+ .../art-005mr-round-2/builder/checksums.sha256     |    19 +
+ .../builder/comparison-default-1440x1252.png       |   Bin 0 -> 606793 bytes
+ .../after-vector-rig-1440x1200.png                 |   Bin 0 -> 567629 bytes
+ .../before-original-vector-1440x1200.png           |   Bin 0 -> 182134 bytes
+ .../comparison-default-1440x1252.png               |   Bin 0 -> 606793 bytes
+ .../native-render-command-and-exit.txt             |   946 +
+ .../native-render-evidence.json                    |   958 +
+ .../native-render-runner-output.json               |   940 +
+ .../builder/native-render-command-and-exit.txt     |   946 +
+ .../builder/native-render-evidence.json            |   940 +
+ .../builder/owned-test-command-and-exit.txt        |    22 +
+ .../builder/render-native-corrected.mjs            |   143 +
+ .../art-005mr-round-2/builder/render-native.mjs    |   141 +
+ .../archive.stderr.txt                             |     0
+ .../method-failure.json                            |    10 +
+ .../private-checkout-receipt.json                  |    14 +
+ .../AGENTS.md.git-show.stderr                      |     0
+ .../AGENTS.md.git-show.stdout                      |    38 +
+ .../PLAN.md.git-show.stderr                        |     0
+ .../PLAN.md.git-show.stdout                        |   394 +
+ .../actual-chrome-review-receipt.json              |    14 +
+ .../actual-chrome-review.cjs                       |   258 +
+ .../actual-chrome-review.stderr.txt                |     0
+ .../actual-chrome-review.stdout.txt                |   208 +
+ .../after-vector-rig-1440x1200.png                 |   Bin 0 -> 567629 bytes
+ .../before-original-vector-1440x1200.png           |   Bin 0 -> 182134 bytes
+ .../browser-evidence.json                          |  1609 ++
+ .../candidate-AGENTS.md                            |    38 +
+ .../candidate-PLAN-rows.txt                        |     2 +
+ .../candidate-SOURCES.md                           |    64 +
+ .../candidate-original-combat-art.js               |   368 +
+ .../candidate-owned-files-sha256.json              |    57 +
+ .../candidate-provenance.json                      |   148 +
+ .../checksums.sha256                               |    52 +
+ .../chrome-commandline.txt                         |     1 +
+ .../chrome-process-family.json                     |    60 +
+ .../chrome-process.stderr.txt                      |    48 +
+ .../chrome-process.stdout.txt                      |     0
+ .../comparison-default-1440x1200.png               |   Bin 0 -> 606793 bytes
+ ...demo__mossguard-vector-rig.html.git-show.stderr |     0
+ ...demo__mossguard-vector-rig.html.git-show.stdout |    59 +
+ .../demo__mossguard-vector-rig.js.git-show.stderr  |     0
+ .../demo__mossguard-vector-rig.js.git-show.stdout  |   384 +
+ ...uard-vector-rig-provenance.json.git-show.stderr |     0
+ ...uard-vector-rig-provenance.json.git-show.stdout |   148 +
+ .../enlarged-diagnostic-only.png                   |   Bin 0 -> 248329 bytes
+ .../final-verdict.md                               |     9 +
+ .../focused-test-receipt.json                      |    15 +
+ .../focused-test.stderr.txt                        |     0
+ .../focused-test.stdout.txt                        |    16 +
+ .../geometry-audit-corrected.json                  |   754 +
+ .../integrity-verification.json                    |   281 +
+ .../npm-ci-receipt.json                            |    14 +
+ .../npm-ci.stderr.txt                              |     0
+ .../npm-ci.stdout.txt                              |     2 +
+ .../package-lock.json.git-show.stderr              |     0
+ .../package-lock.json.git-show.stdout              |   850 +
+ .../package.json.git-show.stderr                   |     0
+ .../package.json.git-show.stdout                   |   168 +
+ ...ts__card-portraits-painted.webp.git-show.stderr |     0
+ ...ts__card-portraits-painted.webp.git-show.stdout |   Bin 0 -> 320516 bytes
+ .../reference__stats__SOURCES.md.git-show.stderr   |     0
+ .../reference__stats__SOURCES.md.git-show.stdout   |    64 +
+ .../resource-release.json                          |    11 +
+ .../source-fences.json                             |    95 +
+ .../src__ui__combat-art.js.git-show.stderr         |     0
+ .../src__ui__combat-art.js.git-show.stdout         |   368 +
+ ...s__mossguard-vector-rig.test.js.git-show.stderr |     0
+ ...s__mossguard-vector-rig.test.js.git-show.stdout |    54 +
+ .../demo/mossguard-vector-rig.html                 |    59 +
+ .../failed-candidate/demo/mossguard-vector-rig.js  |   384 +
+ .../docs/art/mossguard-vector-rig-provenance.json  |   148 +
+ .../tests/mossguard-vector-rig.test.js             |    54 +
+ .../builder/after-rig-diagnostic96-1340x615.png    |   Bin 0 -> 252815 bytes
+ .../builder/after-rig-native13-1340x311.png        |   Bin 0 -> 134022 bytes
+ .../builder/before-original-native13-1340x97.png   |   Bin 0 -> 31640 bytes
+ .../art-005mr-round-3/builder/checksums.sha256     |    16 +
+ .../builder/comparison-page-full-1440x1286.png     |   Bin 0 -> 665635 bytes
+ .../builder/focused-test-command-and-exit.txt      |    27 +
+ .../art-005mr-round-3/builder/focused-test.tap     |    22 +
+ ...nitial-west-coordinate-failure-availability.txt |     1 +
+ .../builder/native-render-command-and-exit.txt     |    12 +
+ .../builder/native-render-evidence.json            |  1078 +
+ .../art-005mr-round-3/builder/native-render.stdout |  1078 +
+ .../builder/render-native-rig.mjs                  |   200 +
+ .../builder/source-pre-post-sha256.txt             |    13 +
+ .../after-rig-native.png                           |   Bin 0 -> 637531 bytes
+ .../before-original-native.png                     |   Bin 0 -> 202554 bytes
+ .../comparison-before-after-native.png             |   Bin 0 -> 686015 bytes
+ .../dependency-install.command.txt                 |     2 +
+ .../dependency-install.stderr.raw                  |     0
+ .../dependency-install.stdout.raw                  |     2 +
+ .../diagnostic-96px-labeled-not-native-proof.png   |   Bin 0 -> 283279 bytes
+ .../20261015T210000Z-independent/final-verdict.md  |    11 +
+ .../focused-test-command-and-exit.txt              |     2 +
+ .../focused-test-runtime.txt                       |     1 +
+ .../focused-test.stderr.raw                        |     0
+ .../20261015T210000Z-independent/focused-test.tap  |    22 +
+ .../native-review-command-and-exit.txt             |     1 +
+ .../native-review-direct-exit-unavailable.txt      |     1 +
+ .../native-review-evidence.json                    |  1064 +
+ .../native-review-summary.json                     |   507 +
+ .../native-review-wrapper-failure.command.txt      |     1 +
+ .../native-review-wrapper-failure.raw              |     1 +
+ .../20261015T210000Z-independent/native-review.mjs |   301 +
+ .../native-review.stderr.raw                       |     0
+ .../native-review.stdout.raw                       |  1064 +
+ .../profile-cleanup.json                           |     6 +
+ .../root-seal-note.json                            |     7 +
+ .../root-sealed-checksums.sha256                   |    28 +
+ .../source-fence-audit.command-and-exit.txt        |     2 +
+ .../source-fence-audit.stderr.raw                  |     0
+ .../source-fence-audit.stdout.raw                  |    12 +
+ .../source-hash-diff.txt                           |     0
+ .../source-post.sha256.txt                         |     7 +
+ .../source-pre.sha256.txt                          |     7 +
+ .../demo/mossguard-vector-rig.html                 |    59 +
+ .../failed-candidate/demo/mossguard-vector-rig.js  |   411 +
+ .../docs/art/mossguard-vector-rig-provenance.json  |   166 +
+ .../tests/mossguard-vector-rig.test.js             |   122 +
+ .../builder/attempt-1-opaque-checkerboard.png      |   Bin 0 -> 2602313 bytes
+ .../builder/attempt-2-transparent-tight.png        |   Bin 0 -> 1111832 bytes
+ .../builder/attempt-3-transparent-84pct.png        |   Bin 0 -> 1090140 bytes
+ .../builder/attempt-4-transparent-78pct.png        |   Bin 0 -> 1009789 bytes
+ .../builder/capture-method-failure-1.log           |    13 +
+ .../builder/capture-native-preview.mjs             |   193 +
+ .../builder/generation-attempts.json               |   167 +
+ .../native-13-dark-diagnostic-8x-nearest.png       |   Bin 0 -> 25284 bytes
+ .../art-022b-round-1/builder/native-13-dark.png    |   Bin 0 -> 1013599 bytes
+ .../native-13-light-diagnostic-8x-nearest.png      |   Bin 0 -> 26182 bytes
+ .../art-022b-round-1/builder/native-13-light.png   |   Bin 0 -> 1013665 bytes
+ .../native-26-dark-diagnostic-8x-nearest.png       |   Bin 0 -> 25344 bytes
+ .../art-022b-round-1/builder/native-26-dark.png    |   Bin 0 -> 1013648 bytes
+ .../native-26-light-diagnostic-8x-nearest.png      |   Bin 0 -> 26319 bytes
+ .../art-022b-round-1/builder/native-26-light.png   |   Bin 0 -> 1013843 bytes
+ .../builder/native-preview-evidence.json           |   278 +
+ .../art-022b-round-1/builder/npm-ci-attempt-1.log  |    11 +
+ .../art-022b-round-1/builder/npm-ci-node22.log     |    15 +
+ .../builder/portrait-cutout-comparison.png         |   Bin 0 -> 1018567 bytes
+ .../builder/release-build-method-failure-1.log     |    45 +
+ .../release-manifest-inspection-attempt-2.log      |    22 +
+ .../release-manifest-inspection-failure-1.log      |    26 +
+ .../builder/release-verification.json              |    92 +
+ .../builder/reproducibility-repeat.webp            |   Bin 0 -> 47854 bytes
+ .../shipping-isolation-release-evidence.json       |   809 +
+ .../images/diagnostic-13-light-8x.png              |   Bin 0 -> 79011 bytes
+ .../images/native-13-dark.png                      |   Bin 0 -> 55378 bytes
+ .../images/native-13-light.png                     |   Bin 0 -> 68513 bytes
+ .../images/native-26-dark.png                      |   Bin 0 -> 56071 bytes
+ .../images/native-26-light.png                     |   Bin 0 -> 69424 bytes
+ .../receipts/asset-audit.json                      |   117 +
+ .../receipts/chrome-version.json                   |    27 +
+ .../receipts/chrome-version.stderr.raw             |     0
+ .../receipts/chrome-version.stdout.raw             |     1 +
+ .../receipts/cwebp-reencode.json                   |    39 +
+ .../receipts/cwebp-reencode.stderr.raw             |    20 +
+ .../receipts/cwebp-reencode.stdout.raw             |     0
+ .../receipts/cwebp-reproduction-audit.json         |     9 +
+ .../receipts/cwebp-version.json                    |    27 +
+ .../receipts/cwebp-version.stderr.raw              |     0
+ .../receipts/cwebp-version.stdout.raw              |     2 +
+ .../receipts/final-audit-after-restoration.json    |    44 +
+ .../receipts/final-audit-attempt-1.stderr.raw      |     3 +
+ .../receipts/final-audit-before-restoration.json   |    44 +
+ .../receipts/independent-native-render.json        |   216 +
+ .../receipts/native-render-retry1.json             |    27 +
+ .../receipts/native-render-retry1.stderr.raw       |     8 +
+ .../receipts/native-render-retry1.stdout.raw       |     0
+ .../receipts/native-render-retry2.json             |    27 +
+ .../receipts/native-render-retry2.stderr.raw       |     0
+ .../receipts/native-render-retry2.stdout.raw       |   216 +
+ .../receipts/native-render.json                    |    27 +
+ .../receipts/native-render.stderr.raw              |    18 +
+ .../receipts/native-render.stdout.raw              |     0
+ .../receipts/node-version.json                     |    27 +
+ .../receipts/node-version.stderr.raw               |     0
+ .../receipts/node-version.stdout.raw               |     1 +
+ .../receipts/npm-ci.json                           |    27 +
+ .../receipts/npm-ci.stderr.raw                     |     0
+ .../receipts/npm-ci.stdout.raw                     |     7 +
+ .../receipts/npm-version.json                      |    27 +
+ .../receipts/npm-version.stderr.raw                |     0
+ .../receipts/npm-version.stdout.raw                |     1 +
+ .../receipts/playwright-version.json               |    27 +
+ .../receipts/playwright-version.stderr.raw         |     0
+ .../receipts/playwright-version.stdout.raw         |     1 +
+ .../release-artifacts-after-isolation-release.json |     5 +
+ .../release-artifacts-after-release-build.json     |     5 +
+ .../receipts/release-artifacts-before.json         |     6 +
+ .../receipts/release-artifacts-restored.json       |     6 +
+ .../receipts/release-build.json                    |    28 +
+ .../receipts/release-build.stderr.raw              |     0
+ .../receipts/release-build.stdout.raw              |   256 +
+ .../receipts/shipping-isolation-guard.json         |    29 +
+ .../receipts/shipping-isolation-guard.stderr.raw   |     0
+ .../receipts/shipping-isolation-guard.stdout.raw   |    95 +
+ .../receipts/shipping-isolation-release.json       |    28 +
+ .../receipts/shipping-isolation-release.stderr.raw |     0
+ .../receipts/shipping-isolation-release.stdout.raw |    57 +
+ .../receipts/test-side-effects-restoration.json    |    64 +
+ .../receipts/test-side-effects.patch               |  3115 +++
+ .../receipts/visual-asset-manifest.json            |    28 +
+ .../receipts/visual-asset-manifest.stderr.raw      |     0
+ .../receipts/visual-asset-manifest.stdout.raw      |    50 +
+ .../20261015T162300Z-critic-01/reports/verdict.md  |    16 +
+ .../root-sealed-checksums.sha256                   |    64 +
+ .../runner/audit_asset.py                          |   102 +
+ .../runner/capture_native.mjs                      |   116 +
+ .../runner/run_command.py                          |    67 +
+ .../runner/snapshot_release_artifacts.py           |    78 +
+ .../demo/assets/brackenwheel-battle-sprite.png     |   Bin 0 -> 1009789 bytes
+ .../art/brackenwheel-battle-sprite-provenance.json |   168 +
+ .../public/assets/brackenwheel-battle-sprite.webp  |   Bin 0 -> 47854 bytes
+ .../src/content/visual-asset-manifest.js           |   615 +
+ .../art-022b-round-2/builder/checksums.sha256      |     9 +
+ .../builder/encoding-evidence.json                 |     9 +
+ .../builder/raw-generation/attempt-01-prompt.txt   |    14 +
+ .../raw-generation/attempt-01-tool-receipt.json    |    45 +
+ artifacts/art-022b-round-2/builder/report.md       |    11 +
+ .../builder/reproducibility-repeat.webp            |   Bin 0 -> 67688 bytes
+ .../13-css-dark-native.png                         |   Bin 0 -> 770469 bytes
+ .../13-css-light-native.png                        |   Bin 0 -> 1021891 bytes
+ .../26-css-dark-native.png                         |   Bin 0 -> 770781 bytes
+ .../26-css-light-native.png                        |   Bin 0 -> 1021971 bytes
+ .../asset-builder-report.md                        |    11 +
+ .../asset-encoding-evidence.json                   |     9 +
+ .../asset-generation-prompt.txt                    |    14 +
+ .../asset-generation-receipt.json                  |    45 +
+ .../asset-provenance.json                          |   164 +
+ .../baseline-dist-status.json                      |   391 +
+ .../20261015T164221Z-49faa381/browser-closure.json |     6 +
+ .../browser-ownership.json                         |    10 +
+ .../20261015T164221Z-49faa381/browser.exit.txt     |     1 +
+ .../20261015T164221Z-49faa381/browser.stderr.raw   |     0
+ .../20261015T164221Z-49faa381/browser.stdout.raw   |    62 +
+ .../20261015T164221Z-49faa381/candidate-fence.json |   101 +
+ .../critic/20261015T164221Z-49faa381/checkout.txt  |     2 +
+ .../20261015T164221Z-49faa381/checksums.sha256     |    79 +
+ .../20261015T164221Z-49faa381/critic-repeat.webp   |   Bin 0 -> 67688 bytes
+ .../20261015T164221Z-49faa381/critic-report.md     |    16 +
+ .../cwebp-repeat.exit.txt                          |     1 +
+ .../cwebp-repeat.stderr.raw                        |    19 +
+ .../cwebp-repeat.stdout.raw                        |     0
+ .../cwebp-reproducibility.json                     |    27 +
+ .../cwebp-version.exit.txt                         |     1 +
+ .../cwebp-version.stderr.raw                       |     0
+ .../cwebp-version.stdout.raw                       |     2 +
+ ...iagnostic-13px-light-center-crop-8x-nearest.png |   Bin 0 -> 9558 bytes
+ .../diagnostic-8x-readme.txt                       |     1 +
+ .../20261015T164221Z-49faa381/environment.json     |    18 +
+ .../native-measurements.json                       |    52 +
+ .../native-visual-review.json                      |    68 +
+ .../node-version.exit.txt                          |     1 +
+ .../node-version.stderr.raw                        |     0
+ .../node-version.stdout.raw                        |     1 +
+ .../20261015T164221Z-49faa381/npm-ci.exit.txt      |     1 +
+ .../20261015T164221Z-49faa381/npm-ci.stderr.raw    |     0
+ .../20261015T164221Z-49faa381/npm-ci.stdout.raw    |     7 +
+ .../20261015T164221Z-49faa381/npm-version.exit.txt |     1 +
+ .../npm-version.stderr.raw                         |     0
+ .../npm-version.stdout.raw                         |     1 +
+ .../playwright-capture.mjs                         |    90 +
+ .../20261015T164221Z-49faa381/post-test-fence.json |   408 +
+ .../release-build-process-audit-summary.json       |   136 +
+ .../release-build-process-audit.json               |   511 +
+ .../release-build.chrome-after.raw                 |    14 +
+ .../release-build.chrome-before.raw                |    14 +
+ .../release-build.chrome-during.json               |  4109 ++++
+ .../release-build.exit.txt                         |     1 +
+ .../release-build.process.json                     |    12 +
+ .../release-build.stderr.raw                       |     0
+ .../release-build.stdout.raw                       |   255 +
+ .../root-sealed-checksums.sha256                   |    80 +
+ .../shipping-isolation-guard.exit.txt              |     1 +
+ .../shipping-isolation-guard.stderr.raw            |     0
+ .../shipping-isolation-guard.stdout.raw            |    95 +
+ ...g-isolation-release-corrected.chrome-after.json |     7 +
+ ...isolation-release-corrected.chrome-during.jsonl |    65 +
+ ...-isolation-release-corrected.closure-final.json |    61 +
+ ...ipping-isolation-release-corrected.command.json |    13 +
+ .../shipping-isolation-release-corrected.exit      |     1 +
+ .../shipping-isolation-release-corrected.pid       |     1 +
+ .../shipping-isolation-release-corrected.stderr    |     0
+ .../shipping-isolation-release-corrected.stdout    |    57 +
+ ...pping-isolation-release-evidence-corrected.json |   809 +
+ .../shipping-isolation-release-evidence.json       |    11 +
+ ...ng-isolation-release-process-audit-summary.json |    55 +
+ .../shipping-isolation-release.chrome-after.raw    |    14 +
+ .../shipping-isolation-release.chrome-before.raw   |    14 +
+ .../shipping-isolation-release.chrome-during.json  |  3125 +++
+ .../shipping-isolation-release.exit.txt            |     1 +
+ .../shipping-isolation-release.process.json        |    12 +
+ .../shipping-isolation-release.stderr.raw          |     0
+ .../shipping-isolation-release.stdout.raw          |    69 +
+ .../20261015T164221Z-49faa381/source-audit.json    |    82 +
+ .../20261015T164221Z-49faa381/source-fences.txt    |    13 +
+ .../20261015T164221Z-49faa381/test-census.json     |    66 +
+ .../critic/20261015T164221Z-49faa381/verdict.md    |     4 +
+ .../visual-asset-manifest.exit.txt                 |     1 +
+ .../visual-asset-manifest.stderr.raw               |     0
+ .../visual-asset-manifest.stdout.raw               |    46 +
+ .../demo/assets/brackenwheel-battle-sprite.png     |   Bin 0 -> 1405765 bytes
+ .../art/brackenwheel-battle-sprite-provenance.json |   164 +
+ .../public/assets/brackenwheel-battle-sprite.webp  |   Bin 0 -> 67688 bytes
+ .../src/content/visual-asset-manifest.js           |   615 +
+ .../builder/attempt-01-candidate.webp              |   Bin 0 -> 52038 bytes
+ .../attempt-01-evidence/browser-closure.json       |     7 +
+ .../attempt-01-evidence/browser-ownership.json     |    11 +
+ .../native-capture-receipt.json                    |    11 +
+ .../attempt-01-evidence/native-capture.stderr.raw  |     0
+ .../attempt-01-evidence/native-capture.stdout.raw  |    63 +
+ .../native-captures/13-css-dark-native.png         |   Bin 0 -> 770545 bytes
+ .../native-captures/13-css-light-native.png        |   Bin 0 -> 1021832 bytes
+ .../native-captures/26-css-dark-native.png         |   Bin 0 -> 770954 bytes
+ .../native-captures/26-css-light-native.png        |   Bin 0 -> 1022116 bytes
+ .../attempt-01-evidence/native-measurements.json   |    62 +
+ .../reproducibility-repeat.webp                    |   Bin 0 -> 52038 bytes
+ .../art-022b-round-3/builder/browser-closure.json  |    16 +
+ .../builder/browser-ownership.json                 |    41 +
+ .../art-022b-round-3/builder/capture-native.mjs    |   150 +
+ .../art-022b-round-3/builder/checksums.sha256      |    58 +
+ .../builder/cwebp-repeat-receipt.json              |    25 +
+ .../builder/cwebp-repeat.stderr.raw                |    19 +
+ .../builder/cwebp-repeat.stdout.raw                |     0
+ .../art-022b-round-3/builder/dist-after-tests.json |     5 +
+ .../art-022b-round-3/builder/dist-before-test.json |   390 +
+ .../builder/native-capture-receipt.json            |    11 +
+ .../builder/native-capture.stderr.raw              |     0
+ .../builder/native-capture.stdout.raw              |    93 +
+ .../builder/native-captures/13-css-dark-native.png |   Bin 0 -> 770543 bytes
+ .../native-captures/13-css-light-native.png        |   Bin 0 -> 1021844 bytes
+ .../builder/native-captures/26-css-dark-native.png |   Bin 0 -> 770987 bytes
+ .../native-captures/26-css-light-native.png        |   Bin 0 -> 1022142 bytes
+ .../builder/native-measurements.json               |    62 +
+ .../art-022b-round-3/builder/npm-ci-receipt.json   |    10 +
+ .../art-022b-round-3/builder/npm-ci.stderr.raw     |     0
+ .../art-022b-round-3/builder/npm-ci.stdout.raw     |     7 +
+ .../art-022b-round-3/builder/post-test-fence.json  |    72 +
+ .../builder/pre-commit-integrity.json              |   207 +
+ .../builder/raw-generation/attempt-01-prompt.txt   |    14 +
+ .../builder/raw-generation/attempt-01-source.png   |   Bin 0 -> 1179764 bytes
+ .../raw-generation/attempt-01-tool-receipt.json    |    33 +
+ .../builder/raw-generation/attempt-02-prompt.txt   |    14 +
+ .../raw-generation/attempt-02-tool-receipt.json    |    49 +
+ .../builder/release-build.receipt.json             |     8 +
+ .../builder/release-build.stderr.raw               |     0
+ .../builder/release-build.stdout.raw               |   255 +
+ artifacts/art-022b-round-3/builder/report.md       |    18 +
+ .../builder/reproducibility-repeat.webp            |   Bin 0 -> 49440 bytes
+ .../builder/shipping-isolation-guard.receipt.json  |     8 +
+ .../builder/shipping-isolation-guard.stderr.raw    |     0
+ .../builder/shipping-isolation-guard.stdout.raw    |    95 +
+ .../shipping-isolation-release.receipt.json        |     9 +
+ .../builder/shipping-isolation-release.stderr.raw  |     0
+ .../builder/shipping-isolation-release.stdout.raw  |    57 +
+ .../builder/test-evidence-mutations.json           |    44 +
+ .../builder/test-evidence-restore.json             |    45 +
+ .../builder/visual-asset-manifest.receipt.json     |     8 +
+ .../builder/visual-asset-manifest.stderr.raw       |     0
+ .../builder/visual-asset-manifest.stdout.raw       |    50 +
+ .../accepted-portrait-provenance.json              |    77 +
+ .../20261015T171926Z-b0b68d/asset-audit.json       |    39 +
+ .../asset-verification.json                        |    26 +
+ .../20261015T171926Z-b0b68d/browser-closure.json   |    16 +
+ .../20261015T171926Z-b0b68d/browser-ownership.json |    41 +
+ .../candidate-provenance.json                      |   266 +
+ .../20261015T171926Z-b0b68d/capture-native.mjs     |   156 +
+ .../20261015T171926Z-b0b68d/checksums.sha256       |    55 +
+ .../cwebp-repeat.stderr.raw                        |    19 +
+ .../cwebp-repeat.stdout.raw                        |     0
+ .../20261015T171926Z-b0b68d/cwebp-repeat.webp      |   Bin 0 -> 49440 bytes
+ .../diagnostic-8x-13-css-dark-native.png           |   Bin 0 -> 30394 bytes
+ .../diagnostic-8x-13-css-light-native.png          |   Bin 0 -> 38280 bytes
+ .../diagnostic-8x-26-css-dark-native.png           |   Bin 0 -> 30935 bytes
+ .../diagnostic-8x-26-css-light-native.png          |   Bin 0 -> 38549 bytes
+ .../dist-after-tests.sha256                        |    77 +
+ .../20261015T171926Z-b0b68d/dist-before.sha256     |    77 +
+ .../20261015T171926Z-b0b68d/environment.json       |    29 +
+ .../evidence-after-restore.sha256                  |     8 +
+ .../evidence-after-tests-before-restore.sha256     |     8 +
+ .../20261015T171926Z-b0b68d/evidence-before.sha256 |     8 +
+ .../20261015T171926Z-b0b68d/generation-prompt.txt  |    14 +
+ .../generation-tool-receipt.json                   |    49 +
+ .../native-capture-receipt.json                    |    16 +
+ .../native-capture.stderr.raw                      |     0
+ .../native-capture.stdout.raw                      |   107 +
+ .../native-captures/13-css-dark-native.png         |   Bin 0 -> 770543 bytes
+ .../native-captures/13-css-light-native.png        |   Bin 0 -> 1021844 bytes
+ .../native-captures/26-css-dark-native.png         |   Bin 0 -> 770987 bytes
+ .../native-captures/26-css-light-native.png        |   Bin 0 -> 1022142 bytes
+ .../native-measurements.json                       |    64 +
+ .../native-visual-review.json                      |    32 +
+ .../20261015T171926Z-b0b68d/npm-ci-receipt.json    |     9 +
+ .../20261015T171926Z-b0b68d/npm-ci.stderr.raw      |     0
+ .../20261015T171926Z-b0b68d/npm-ci.stdout.raw      |     7 +
+ .../20261015T171926Z-b0b68d/post-test-fence.json   |    30 +
+ .../release-build.stderr.raw                       |     0
+ .../release-build.stdout.raw                       |   256 +
+ .../root-sealed-checksums.sha256                   |    56 +
+ .../shipping-isolation-guard.stderr.raw            |     0
+ .../shipping-isolation-guard.stdout.raw            |    95 +
+ .../shipping-isolation-release.stderr.raw          |     0
+ .../shipping-isolation-release.stdout.raw          |    57 +
+ .../20261015T171926Z-b0b68d/source-after.sha256    |     6 +
+ .../20261015T171926Z-b0b68d/source-before.sha256   |     6 +
+ .../20261015T171926Z-b0b68d/test-census.json       |    46 +
+ .../escaped-css-producer-rejection.json            |    11 +
+ .../external-base-producer-rejection.json          |     8 +
+ .../guard-release-isolation-evidence.json          |  1549 ++
+ .../opaque-srcdoc-producer-rejection.json          |    51 +
+ .../test-restore-baseline/release-evidence.json    |   932 +
+ .../critic/20261015T171926Z-b0b68d/verdict.md      |     4 +
+ .../visual-asset-manifest.stderr.raw               |     0
+ .../visual-asset-manifest.stdout.raw               |    50 +
+ .../worktree-after-restore.txt                     |     1 +
+ .../worktree-after-tests-before-restore.txt        |     6 +
+ .../20261015T171926Z-b0b68d/worktree-final.txt     |     1 +
+ .../demo/assets/brackenwheel-battle-sprite.png     |   Bin 0 -> 996149 bytes
+ .../art/brackenwheel-battle-sprite-provenance.json |   266 +
+ .../public/assets/brackenwheel-battle-sprite.webp  |   Bin 0 -> 49440 bytes
+ .../src/content/visual-asset-manifest.js           |   615 +
+ .../builder/brackenwheel-reencode-check.webp       |   Bin 0 -> 62014 bytes
+ .../browser-capture-first-attempt.stderr.raw       |     0
+ .../browser-capture-first-attempt.stdout.raw       |    49 +
+ .../art-022p-round-1/builder/browser-capture.exit  |     1 +
+ .../art-022p-round-1/builder/browser-capture.json  |    49 +
+ .../builder/browser-capture.stderr.raw             |     0
+ .../builder/browser-capture.stdout.raw             |    49 +
+ .../builder/capture-native-thumbnails.mjs          |    74 +
+ .../art-022p-round-1/builder/checksums.sha256      |    37 +
+ artifacts/art-022p-round-1/builder/commands.raw    |    11 +
+ artifacts/art-022p-round-1/builder/copy.exit       |     1 +
+ artifacts/art-022p-round-1/builder/cwebp.exit      |     1 +
+ .../art-022p-round-1/builder/cwebp.stderr.raw      |    14 +
+ .../art-022p-round-1/builder/cwebp.stdout.raw      |     0
+ .../builder/encoding-reproducibility.txt           |     1 +
+ .../art-022p-round-1/builder/generation-prompt.txt |    13 +
+ .../art-022p-round-1/builder/manifest-test.exit    |     1 +
+ .../builder/manifest-test.stderr.raw               |     0
+ .../builder/manifest-test.stdout.raw               |    50 +
+ .../builder/native-thumbnails-fixture.png          |   Bin 0 -> 53379 bytes
+ .../art-022p-round-1/builder/portrait-128px.png    |   Bin 0 -> 36712 bytes
+ .../art-022p-round-1/builder/portrait-64px.png     |   Bin 0 -> 9552 bytes
+ .../builder/portrait-thumbnails.html               |    31 +
+ artifacts/art-022p-round-1/builder/reencode.exit   |     1 +
+ .../art-022p-round-1/builder/reencode.stderr.raw   |    14 +
+ .../art-022p-round-1/builder/reencode.stdout.raw   |     0
+ .../builder/release-build-evidence.generated.json  |  1086 +
+ .../builder/release-build-wrapper-outcome.txt      |     5 +
+ .../builder/release-build.stderr.raw               |     0
+ .../builder/release-build.stdout.raw               |   255 +
+ .../builder/shipping-isolation.exit                |     1 +
+ .../builder/shipping-isolation.stderr.raw          |     0
+ .../builder/shipping-isolation.stdout.raw          |    95 +
+ .../art-022p-round-1/builder/source-fences.txt     |    19 +
+ .../independent-20261015-1/asset-verification.json |    32 +
+ .../brackenwheel-reencode-check.webp               |   Bin 0 -> 62014 bytes
+ .../independent-20261015-1/browser-runtime.json    |    13 +
+ .../independent-20261015-1/candidate-commit.txt    |     1 +
+ .../capture-portrait-native-attempt-2.mjs          |   166 +
+ .../capture-portrait-native.mjs                    |   166 +
+ .../independent-20261015-1/chrome-version.exit     |     1 +
+ .../chrome-version.stderr.raw                      |     0
+ .../chrome-version.stdout.raw                      |     1 +
+ .../independent-20261015-1/cwebp-reencode-cmp.exit |     1 +
+ .../cwebp-reencode.command.txt                     |     1 +
+ .../independent-20261015-1/cwebp-reencode.exit     |     1 +
+ .../independent-20261015-1/cwebp-reencode.sha256   |     1 +
+ .../cwebp-reencode.stderr.raw                      |    14 +
+ .../cwebp-reencode.stdout.raw                      |     0
+ .../independent-20261015-1/cwebp-version.exit      |     1 +
+ .../cwebp-version.stderr.raw                       |     0
+ .../cwebp-version.stdout.raw                       |     2 +
+ .../final-evidence-checksums.sha256                |    19 +
+ .../independent-20261015-1/git-common-dir.txt      |     1 +
+ .../git-status.after-release-before-restore.txt    |     5 +
+ .../independent-20261015-1/git-status.before.txt   |     1 +
+ .../independent-20261015-1/manifest-compare.json   |    20 +
+ .../independent-20261015-1/manifest-compare.mjs    |    27 +
+ .../manifest.sha256.after-release                  |     1 +
+ .../independent-20261015-1/manifest.sha256.before  |     1 +
+ .../native-capture-attempt-2.command.txt           |     1 +
+ .../native-capture-attempt-2.exit                  |     1 +
+ .../native-capture-attempt-2.stderr.raw            |    10 +
+ .../native-capture-attempt-2.stdout.raw            |   104 +
+ .../native-capture-corrected/capture-128px.png     |   Bin 0 -> 36714 bytes
+ .../native-capture-corrected/capture-64px.png      |   Bin 0 -> 9547 bytes
+ .../capture-metadata.corrected-path-map.json       |   105 +
+ .../capture-metadata.raw.json                      |   104 +
+ .../native-capture-corrected/capture-runner.mjs    |   166 +
+ .../native-capture-corrected/capture.command.txt   |     1 +
+ .../native-capture-corrected/capture.exit          |     1 +
+ .../native-capture-corrected/capture.stderr.raw    |    10 +
+ .../native-capture-corrected/capture.stdout.raw    |   104 +
+ .../native-capture-corrected/fixture-272x184.png   |   Bin 0 -> 51483 bytes
+ .../native-capture-corrected/fixture.html          |    25 +
+ .../native-capture-corrected/method-notes.md       |     5 +
+ .../native-capture.command.txt                     |     1 +
+ .../independent-20261015-1/native-capture.exit     |     1 +
+ .../native-capture.stderr.raw                      |     8 +
+ .../native-capture.stdout.raw                      |   105 +
+ .../critic/independent-20261015-1/node-version.txt |     1 +
+ .../critic/independent-20261015-1/npm-version.txt  |     1 +
+ .../portrait-native-capture-attempt-2.json         |   104 +
+ .../portrait-native-capture.json                   |   105 +
+ .../portrait-thumbnail-128px-attempt-2.png         |   Bin 0 -> 36714 bytes
+ .../portrait-thumbnail-128px.png                   |   Bin 0 -> 35514 bytes
+ .../portrait-thumbnail-64px-attempt-2.png          |   Bin 0 -> 9547 bytes
+ .../portrait-thumbnail-64px.png                    |   Bin 0 -> 9547 bytes
+ .../portrait-thumbnail-fixture-attempt-2.png       |   Bin 0 -> 51483 bytes
+ .../portrait-thumbnail-fixture.png                 |   Bin 0 -> 50028 bytes
+ .../portrait-thumbnails-attempt-2.html             |    25 +
+ .../portrait-thumbnails.html                       |    25 +
+ .../release-browser-command-lines.txt              |    13 +
+ .../release-browser-launch-audit.json              |   175 +
+ .../release-build-evidence.after.json              |  1086 +
+ .../release-build-evidence.after.sha256            |     1 +
+ .../release-build-evidence.before.json             |   932 +
+ .../release-build-evidence.before.sha256           |     1 +
+ .../release-build.command.txt                      |     1 +
+ .../release-build.environment.json                 |     4 +
+ .../independent-20261015-1/release-build.exit      |     1 +
+ .../release-build.stderr.raw                       |     0
+ .../release-build.stdout.raw                       |   504 +
+ ...-escaped-css-producer-rejection.json.after.json |    11 +
+ ...escaped-css-producer-rejection.json.before.json |    11 +
+ .../release-generated-evidence.json.after.json     |   932 +
+ .../release-generated-evidence.json.before.json    |   932 +
+ ...xternal-base-producer-rejection.json.after.json |     8 +
+ ...ternal-base-producer-rejection.json.before.json |     8 +
+ .../release-generated-files.json                   |    34 +
+ ...paque-srcdoc-producer-rejection.json.after.json |    51 +
+ ...aque-srcdoc-producer-rejection.json.before.json |    51 +
+ .../release-generated-restore-check.json           |    22 +
+ .../release-size-audit-attempt-2.command.txt       |     1 +
+ .../release-size-audit-attempt-2.exit              |     1 +
+ .../release-size-audit-attempt-2.mjs               |    36 +
+ .../release-size-audit-attempt-2.stderr.raw        |     0
+ .../release-size-audit-attempt-2.stdout.raw        |    57 +
+ .../release-size-audit.command.txt                 |     1 +
+ .../independent-20261015-1/release-size-audit.exit |     1 +
+ .../independent-20261015-1/release-size-audit.mjs  |    37 +
+ .../release-size-audit.stderr.raw                  |    10 +
+ .../release-size-audit.stdout.raw                  |     0
+ .../shipping-isolation-selector.command.txt        |     1 +
+ .../shipping-isolation-selector.exit               |     1 +
+ .../shipping-isolation-selector.stderr.raw         |     0
+ .../shipping-isolation-selector.stdout.raw         |    95 +
+ .../sourcepost-resource-release-check.json         |   118 +
+ .../tracked-changes.after-release.txt              |     4 +
+ .../critic/independent-20261015-1/verdict.md       |    19 +
+ .../visual-manifest.command.txt                    |     1 +
+ .../independent-20261015-1/visual-manifest.exit    |     1 +
+ .../visual-manifest.stderr.raw                     |     0
+ .../visual-manifest.stdout.raw                     |    50 +
+ ...rds022k-default-session-candidate-20261015.json |     1 +
+ .../cards022k-default-session-parent-20261015.json |     1 +
+ .../cards022k-default-session-parity-20261015.mjs  |    61 +
+ ...t-focused-failure-reproduction-20261015-001.log |   134 +
+ ...used-failure-reproduction-20261015-001.note.txt |     3 +
+ .../cards022k-focused-suite-20261015-001.log       |   536 +
+ .../cards022k-focused-suite-20261015-002.log       |   576 +
+ .../builder/root-evidence-note.json                |     4 +
+ .../checkout-command.txt                           |     1 +
+ .../checkout.exit                                  |     1 +
+ .../checkout.stderr                                |    76 +
+ .../checkout.stdout                                |     1 +
+ .../checksums.sha256                               |    62 +
+ .../candidate-7ef53c7.command.json                 |     9 +
+ .../candidate-7ef53c7.exit                         |     1 +
+ .../candidate-7ef53c7.stderr                       |     0
+ .../candidate-7ef53c7.stdout                       |     1 +
+ .../comparison-summary.json                        |   945 +
+ .../parent-09eae7f.command.json                    |     9 +
+ .../comparison-canonical-order/parent-09eae7f.exit |     1 +
+ .../parent-09eae7f.stderr                          |     0
+ .../parent-09eae7f.stdout                          |     1 +
+ .../comparison/parent-09eae7f.command.json         |     9 +
+ .../comparison/parent-09eae7f.exit                 |     1 +
+ .../comparison/parent-09eae7f.stderr               |    17 +
+ .../comparison/parent-09eae7f.stdout               |     0
+ .../fences/candidate-status.command.json           |     9 +
+ .../fences/candidate-status.exit                   |     1 +
+ .../fences/candidate-status.stderr                 |     0
+ .../fences/candidate-status.stdout                 |     0
+ .../fences/changed-src-tests.command.json          |    12 +
+ .../fences/changed-src-tests.exit                  |     1 +
+ .../fences/changed-src-tests.stderr                |     0
+ .../fences/changed-src-tests.stdout                |    17 +
+ .../dependency-and-release-config.command.json     |    15 +
+ .../fences/dependency-and-release-config.exit      |     1 +
+ .../fences/dependency-and-release-config.stderr    |     0
+ .../fences/dependency-and-release-config.stdout    |     0
+ .../fences/index-src-tests.command.json            |    13 +
+ .../fences/index-src-tests.exit                    |     1 +
+ .../fences/index-src-tests.stderr                  |     0
+ .../fences/index-src-tests.stdout                  |     0
+ .../fences/source-fence.json                       |   195 +
+ .../fences/working-tree-src-tests.command.json     |    12 +
+ .../fences/working-tree-src-tests.exit             |     1 +
+ .../fences/working-tree-src-tests.stderr           |     0
+ .../fences/working-tree-src-tests.stdout           |     0
+ .../final-verdict.md                               |    20 +
+ .../parent-checkout-command.txt                    |     1 +
+ .../parent-checkout.exit                           |     1 +
+ .../parent-checkout.stderr                         |    84 +
+ .../parent-checkout.stdout                         |     1 +
+ .../resource-closure/resource-closure.json         |    47 +
+ .../resource-closure/worktree-list.exit            |     1 +
+ .../resource-closure/worktree-list.stderr          |     0
+ .../tests/adjacent-core.command.json               |    11 +
+ .../tests/adjacent-core.exit                       |     1 +
+ .../tests/adjacent-core.stderr                     |     0
+ .../tests/adjacent-core.stdout                     |   191 +
+ .../tests/adjacent-shipping.command.json           |    10 +
+ .../tests/adjacent-shipping.exit                   |     1 +
+ .../tests/adjacent-shipping.stderr                 |     0
+ .../tests/adjacent-shipping.stdout                 |   145 +
+ .../tests/focused-suite.command.json               |    13 +
+ .../tests/focused-suite.exit                       |     1 +
+ .../tests/focused-suite.stderr                     |     0
+ .../tests/focused-suite.stdout                     |   576 +
+ .../tests/source-and-nondeterminism.command.json   |    10 +
+ .../tests/source-and-nondeterminism.exit           |     1 +
+ .../tests/source-and-nondeterminism.stderr         |     0
+ .../tests/source-and-nondeterminism.stdout         |   162 +
+ .../src/content/cards/basic-melee.js               |   160 +
+ .../src/content/session-card-catalog.js            |   352 +
+ .../src/content/session-troop-profile-catalog.js   |   405 +
+ .../content/session-troop-projectile-profiles.js   |  1441 ++
+ .../session-troop-projectile-source-admission.js   |   853 +
+ .../src/content/session-troop-roster.js            |   593 +
+ .../shared/session-troop-melee-area-authority.js   |    75 +
+ .../shared/session-troop-projectile-authority.js   |   188 +
+ .../session-troop-source-confidence-authority.js   |   278 +
+ .../src/sim/area-target-selection.js               |   199 +
+ .../src/sim/ordinary-projectile-splash.js          |   297 +
+ .../tests/cards-basic-melee.test.js                |   537 +
+ .../tests/cards-basic-ranged.test.js               |   532 +
+ .../tests/cards022k-brackenwheel.test.js           |   319 +
+ .../tests/game-roster-troop-profiles.test.js       |   360 +
+ .../tests/game-roster-troops-ordinary.test.js      |  1670 ++
+ .../game-roster-troops-projectile-profiles.test.js |  1432 ++
+ .../builder/adjacent-core-repair.command.json      |    11 +
+ .../builder/adjacent-core-repair.exit              |     1 +
+ .../builder/adjacent-core-repair.stderr            |     0
+ .../builder/adjacent-core-repair.stdout            |   160 +
+ ...enwheel-binding-after-area-fixture.command.json |    16 +
+ .../brackenwheel-binding-after-area-fixture.exit   |     1 +
+ .../brackenwheel-binding-after-area-fixture.stderr |     0
+ .../brackenwheel-binding-after-area-fixture.stdout |     1 +
+ .../builder/brackenwheel-binding-result.json       |     5 +
+ .../builder/brackenwheel-binding.command.json      |    16 +
+ .../builder/brackenwheel-binding.exit              |     1 +
+ .../builder/brackenwheel-binding.stderr            |    15 +
+ .../builder/brackenwheel-binding.stdout            |     0
+ .../builder/builder-environment.json               |    10 +
+ .../cards022k-round-2/builder/builder-summary.md   |    11 +
+ .../cards022k-round-2/builder/candidate-status.txt |    59 +
+ .../builder/cards022k-brackenwheel.command.json    |     9 +
+ .../builder/cards022k-brackenwheel.exit            |     1 +
+ .../builder/cards022k-brackenwheel.stderr          |     0
+ .../builder/cards022k-brackenwheel.stdout          |    40 +
+ .../cards022k-round-2/builder/checksums.sha256     |    69 +
+ .../builder/diff-check.command.json                |     8 +
+ .../cards022k-round-2/builder/diff-check.exit      |     1 +
+ .../cards022k-round-2/builder/diff-check.stderr    |     0
+ .../cards022k-round-2/builder/diff-check.stdout    |     0
+ .../builder/game-roster-admission.command.json     |     9 +
+ .../builder/game-roster-admission.exit             |     1 +
+ .../builder/game-roster-admission.stderr           |     0
+ .../builder/game-roster-admission.stdout           |    52 +
+ .../immutable-production-source-after.sha256       |    11 +
+ .../immutable-production-source-before.sha256      |    11 +
+ .../builder/integrity-qualification.json           |    23 +
+ .../nondeterminism-guard-retry-1.command.json      |     9 +
+ .../builder/nondeterminism-guard-retry-1.exit      |     1 +
+ .../builder/nondeterminism-guard-retry-1.stderr    |     0
+ .../builder/nondeterminism-guard-retry-1.stdout    |    70 +
+ .../builder/nondeterminism-guard.command.json      |     9 +
+ .../builder/nondeterminism-guard.exit              |     1 +
+ .../builder/nondeterminism-guard.stderr            |     0
+ .../builder/nondeterminism-guard.stdout            |    83 +
+ .../cards022k-round-2/builder/npm-ci.command.json  |     7 +
+ artifacts/cards022k-round-2/builder/npm-ci.exit    |     1 +
+ artifacts/cards022k-round-2/builder/npm-ci.stderr  |     0
+ artifacts/cards022k-round-2/builder/npm-ci.stdout  |     7 +
+ .../builder/precommit-status.command.json          |     9 +
+ .../builder/precommit-status.exit                  |     1 +
+ .../builder/precommit-status.stderr                |     0
+ .../builder/precommit-status.stdout                |    72 +
+ .../builder/release-host-after-npm-ci.command.json |    10 +
+ .../builder/release-host-after-npm-ci.exit         |     1 +
+ .../builder/release-host-after-npm-ci.stderr       |     0
+ .../builder/release-host-after-npm-ci.stdout       |   224 +
+ .../release-host-distinct-tmpdir.command.json      |    13 +
+ .../builder/release-host-distinct-tmpdir.exit      |     1 +
+ .../builder/release-host-distinct-tmpdir.stderr    |     0
+ .../builder/release-host-distinct-tmpdir.stdout    |   190 +
+ .../builder/round1-adjacent-core.command.json      |    11 +
+ .../builder/round1-adjacent-core.exit              |     1 +
+ .../builder/round1-adjacent-core.stderr            |     0
+ .../builder/round1-adjacent-core.stdout            |   191 +
+ .../builder/round1-copy-receipt.json               |    79 +
+ .../builder/round1-critic-checksums.sha256         |    62 +
+ .../builder/round1-critic-source-path.txt          |     1 +
+ .../builder/round1-final-verdict.md                |    20 +
+ .../round1-source-and-nondeterminism.command.json  |    10 +
+ .../builder/round1-source-and-nondeterminism.exit  |     1 +
+ .../round1-source-and-nondeterminism.stderr        |     0
+ .../round1-source-and-nondeterminism.stdout        |   162 +
+ .../builder/round1-source-fence.json               |   195 +
+ .../builder/round2-test-results.json               |    65 +
+ .../environment/node.exit                          |     1 +
+ .../environment/node.stderr                        |     0
+ .../environment/node.stdout                        |     1 +
+ .../environment/npm-ci.command.txt                 |     4 +
+ .../environment/npm-ci.exit                        |     1 +
+ .../environment/npm-ci.stderr                      |     0
+ .../environment/npm-ci.stdout                      |     7 +
+ .../environment/npm.exit                           |     1 +
+ .../environment/npm.stderr                         |     0
+ .../environment/npm.stdout                         |     1 +
+ .../fences/candidate-head.exit                     |     1 +
+ .../fences/candidate-head.stderr                   |     0
+ .../fences/candidate-head.stdout                   |     1 +
+ .../fences/candidate-status-before.exit            |     1 +
+ .../fences/candidate-status-before.stderr          |     0
+ .../fences/candidate-status-before.stdout          |     0
+ .../fences/round1-production-paths.exit            |     1 +
+ .../fences/round1-production-paths.stderr          |     0
+ .../fences/round1-production-paths.stdout          |    11 +
+ .../round2-production-and-package-paths.exit       |     1 +
+ .../round2-production-and-package-paths.stderr     |     0
+ .../round2-production-and-package-paths.stdout     |     0
+ .../fences/round2-script-test-paths.exit           |     1 +
+ .../fences/round2-script-test-paths.stderr         |     0
+ .../fences/round2-script-test-paths.stdout         |     7 +
+ .../release-isolation-evidence.json                |   809 +
+ .../resource-closure.json                          |    56 +
+ .../review-20261015T162259Z-brackenwheel/review.md |    19 +
+ .../root-sealed-checksums.sha256                   |    99 +
+ .../runners/run-host-release-gates.sh              |    44 +
+ .../runners/run-light-gates.sh                     |    55 +
+ .../source-fences.txt                              |    34 +
+ .../tests/area-damage.command.txt                  |     3 +
+ .../tests/area-damage.exit                         |     1 +
+ .../tests/area-damage.stderr                       |     0
+ .../tests/area-damage.stdout                       |    80 +
+ .../tests/deck.command.txt                         |     3 +
+ .../tests/deck.exit                                |     1 +
+ .../tests/deck.stderr                              |     0
+ .../tests/deck.stdout                              |    56 +
+ .../tests/editable-deck.command.txt                |     3 +
+ .../tests/editable-deck.exit                       |     1 +
+ .../tests/editable-deck.stderr                     |     0
+ .../tests/editable-deck.stdout                     |   106 +
+ .../tests/elixir.command.txt                       |     3 +
+ .../tests/elixir.exit                              |     1 +
+ .../tests/elixir.stderr                            |     0
+ .../tests/elixir.stdout                            |   135 +
+ .../tests/focused-suite.command.txt                |     3 +
+ .../tests/focused-suite.exit                       |     1 +
+ .../tests/focused-suite.stderr                     |     0
+ .../tests/focused-suite.stdout                     |   582 +
+ .../tests/game-history-cap.command.txt             |     3 +
+ .../tests/game-history-cap.exit                    |     1 +
+ .../tests/game-history-cap.stderr                  |     0
+ .../tests/game-history-cap.stdout                  |    44 +
+ .../tests/game-roster-admission.command.txt        |     3 +
+ .../tests/game-roster-admission.exit               |     1 +
+ .../tests/game-roster-admission.stderr             |     0
+ .../tests/game-roster-admission.stdout             |    56 +
+ .../tests/game-session.command.txt                 |     3 +
+ .../tests/game-session.exit                        |     1 +
+ .../tests/game-session.stderr                      |     0
+ .../tests/game-session.stdout                      |    68 +
+ .../tests/integration-audit.command.txt            |     3 +
+ .../tests/integration-audit.exit                   |     1 +
+ .../tests/integration-audit.stderr                 |     0
+ .../tests/integration-audit.stdout                 |    90 +
+ .../tests/melee-area.command.txt                   |     3 +
+ .../tests/melee-area.exit                          |     1 +
+ .../tests/melee-area.stderr                        |     0
+ .../tests/melee-area.stdout                        |    40 +
+ .../tests/melee.command.txt                        |     3 +
+ .../tests/melee.exit                               |     1 +
+ .../tests/melee.stderr                             |     0
+ .../tests/melee.stdout                             |    50 +
+ .../tests/nondeterminism-guard.command.txt         |     3 +
+ .../tests/nondeterminism-guard.exit                |     1 +
+ .../tests/nondeterminism-guard.stderr              |     0
+ .../tests/nondeterminism-guard.stdout              |    74 +
+ .../tests/playable-roster.command.txt              |     3 +
+ .../tests/playable-roster.exit                     |     1 +
+ .../tests/playable-roster.stderr                   |     0
+ .../tests/playable-roster.stdout                   |    68 +
+ .../tests/rl-environment.command.txt               |     3 +
+ .../tests/rl-environment.exit                      |     1 +
+ .../tests/rl-environment.stderr                    |     0
+ .../tests/rl-environment.stdout                    |   104 +
+ .../tests/shipping-isolation-guard.command.txt     |     3 +
+ .../tests/shipping-isolation-guard.exit            |     1 +
+ .../tests/shipping-isolation-guard.stderr          |     0
+ .../tests/shipping-isolation-guard.stdout          |    95 +
+ .../tests/shipping-isolation-host.command.txt      |     6 +
+ .../tests/shipping-isolation-host.exit             |     1 +
+ .../tests/shipping-isolation-host.stderr           |     0
+ .../tests/shipping-isolation-host.stdout           |    20 +
+ .../tests/shipping-isolation-release.command.txt   |     6 +
+ .../tests/shipping-isolation-release.exit          |     1 +
+ .../tests/shipping-isolation-release.stderr        |     0
+ .../tests/shipping-isolation-release.stdout        |    57 +
+ .../failed-candidate/scripts/integration-audit.js  |   780 +
+ .../scripts/nondeterminism-guard.js                |  1086 +
+ .../tests/cards022k-brackenwheel.test.js           |   372 +
+ .../fixtures/integration-occurrence-adapters.js    |   853 +
+ .../fixtures/integration-occurrence-bindings.json  |    70 +
+ .../tests/game-roster-admission.test.js            |   282 +
+ .../tests/nondeterminism-guard.test.js             |   612 +
+ .../cards022k-round-3/builder/builder-summary.md   |     9 +
+ .../builder/canonical-audit-manifest.json          |     1 +
+ .../builder/canonical-audit.command.txt            |     1 +
+ .../cards022k-round-3/builder/canonical-audit.exit |     1 +
+ .../builder/canonical-audit.stderr                 |     0
+ .../builder/canonical-audit.stdout                 |     1 +
+ .../builder/checksums.command.txt                  |     1 +
+ artifacts/cards022k-round-3/builder/checksums.exit |     1 +
+ .../cards022k-round-3/builder/checksums.sha256     |    28 +
+ .../cards022k-round-3/builder/checksums.stderr     |     0
+ .../cards022k-round-3/builder/checksums.stdout     |     0
+ .../builder/editable-deck.command.txt              |     1 +
+ .../cards022k-round-3/builder/editable-deck.exit   |     1 +
+ .../cards022k-round-3/builder/editable-deck.stderr |     0
+ .../cards022k-round-3/builder/editable-deck.stdout |    86 +
+ .../builder/immutable-source-after.sha256          |   228 +
+ .../builder/immutable-source-before.sha256         |   228 +
+ .../builder/immutable-source-fence.command.txt     |     1 +
+ .../builder/immutable-source-fence.exit            |     1 +
+ .../builder/immutable-source-fence.stderr          |     0
+ .../builder/immutable-source-fence.stdout          |     1 +
+ .../builder/integration-audit.command.txt          |     1 +
+ .../builder/integration-audit.exit                 |     1 +
+ .../builder/integration-audit.stderr               |     0
+ .../builder/integration-audit.stdout               |    51 +
+ .../cards022k-round-3/builder/npm-ci.command.txt   |     1 +
+ artifacts/cards022k-round-3/builder/npm-ci.exit    |     1 +
+ artifacts/cards022k-round-3/builder/npm-ci.stderr  |     0
+ artifacts/cards022k-round-3/builder/npm-ci.stdout  |     7 +
+ .../critic/a1f6605b/checksums.sha256               |    13 +
+ .../critic/a1f6605b/editable-deck.command.txt      |     1 +
+ .../critic/a1f6605b/editable-deck.exit.txt         |     1 +
+ .../critic/a1f6605b/editable-deck.stderr.raw       |     0
+ .../critic/a1f6605b/editable-deck.stdout.raw       |    86 +
+ .../critic/a1f6605b/environment.txt                |     4 +
+ .../critic/a1f6605b/integration-audit.command.txt  |     1 +
+ .../critic/a1f6605b/integration-audit.exit.txt     |     1 +
+ .../critic/a1f6605b/integration-audit.stderr.raw   |     0
+ .../critic/a1f6605b/integration-audit.stdout.raw   |    51 +
+ .../critic/a1f6605b/process-exits.txt              |     2 +
+ .../cards022k-round-3/critic/a1f6605b/review.md    |     7 +
+ .../critic/a1f6605b/root-sealed-checksums.sha256   |    14 +
+ .../critic/a1f6605b/source-audit-post.json         |    75 +
+ .../critic/a1f6605b/source-audit.json              |    38 +
+ artifacts/cards022k-round-3/root-adoption.json     |    34 +
+ .../builder/identity-search.txt                    |    20 +
+ .../builder/root-sealed-checksums.sha256           |     4 +
+ .../builder/scope.md                               |    46 +
+ .../builder/source-query-results.txt               |    12 +
+ .../builder/source-receipts.json                   |    34 +
+ .../root-scope-note.json                           |     8 +
+ .../src/content/cards/buildings-resource.js        |   684 +
+ .../src/content/session-card-catalog.js            |   350 +
+ .../src/sim/session-building-profile-receipts.js   |   206 +
+ .../src/sim/session-building-runtime.js            |  1031 +
+ .../tests/game-building-policy.test.js             |   357 +
+ .../tests/game-building-runtime.test.js            |   660 +
+ .../tests/game-roster-buildings.test.js            |   483 +
+ .../59-to-c1-source-exact.command                  |     1 +
+ .../59-to-c1-source-exact.exit                     |     1 +
+ .../59-to-c1-source-exact.stderr                   |     0
+ .../59-to-c1-source-exact.stdout                   |     0
+ .../aether-pinned-linked-rows.command              |     1 +
+ .../aether-pinned-linked-rows.exit                 |     1 +
+ .../aether-pinned-linked-rows.stderr               |     0
+ .../aether-pinned-linked-rows.stdout               |   758 +
+ .../aether-primary-evidence.command                |     1 +
+ .../aether-primary-evidence.exit                   |     1 +
+ .../aether-primary-evidence.stderr                 |     0
+ .../aether-primary-evidence.stdout                 |     7 +
+ .../aether-scope.command                           |     1 +
+ .../aether-scope.exit                              |     1 +
+ .../aether-scope.stderr                            |     0
+ .../aether-scope.stdout                            |    44 +
+ .../aether-source-receipts.command                 |     1 +
+ .../aether-source-receipts.exit                    |     1 +
+ .../aether-source-receipts.stderr                  |     0
+ .../aether-source-receipts.stdout                  |   157 +
+ .../brackenwheel.command                           |     1 +
+ .../brackenwheel.exit                              |     1 +
+ .../brackenwheel.stderr                            |     0
+ .../brackenwheel.stdout                            |    40 +
+ .../c72-hbr-src-match.command                      |     1 +
+ .../c72-hbr-src-match.exit                         |     1 +
+ .../c72-hbr-src-match.stderr                       |     0
+ .../c72-hbr-src-match.stdout                       |   459 +
+ .../c72-seven-file-byte-match.command              |     1 +
+ .../c72-seven-file-byte-match.exit                 |     1 +
+ .../c72-seven-file-byte-match.stderr               |     0
+ .../c72-seven-file-byte-match.stdout               |     0
+ .../c72-seven-files-again.command                  |     1 +
+ .../c72-seven-files-again.exit                     |     1 +
+ .../c72-seven-files-again.stderr                   |     0
+ .../c72-seven-files-again.stdout                   |     0
+ .../c72-source-equals-7ef.command                  |     1 +
+ .../c72-source-equals-7ef.exit                     |     1 +
+ .../c72-source-equals-7ef.stderr                   |     0
+ .../c72-source-equals-7ef.stdout                   |     0
+ .../c72-to-59-source-delta.command                 |     1 +
+ .../c72-to-59-source-delta.exit                    |     1 +
+ .../c72-to-59-source-delta.stderr                  |     0
+ .../c72-to-59-source-delta.stdout                  |     4 +
+ .../c72-vs-hbr-source-name-list.command            |     1 +
+ .../c72-vs-hbr-source-name-list.exit               |     1 +
+ .../c72-vs-hbr-source-name-list.stderr             |     0
+ .../c72-vs-hbr-source-name-list.stdout             |     4 +
+ .../candidate-change-file-list.command             |     1 +
+ .../candidate-change-file-list.exit                |     1 +
+ .../candidate-change-file-list.stderr              |     0
+ .../candidate-change-file-list.stdout              |    16 +
+ .../candidate-commit.command                       |     1 +
+ .../candidate-commit.exit                          |     1 +
+ .../candidate-commit.stderr                        |     0
+ .../candidate-commit.stdout                        |     1 +
+ .../candidate-current-files.command                |     1 +
+ .../candidate-current-files.exit                   |     1 +
+ .../candidate-current-files.stderr                 |     0
+ .../candidate-current-files.stdout                 |     0
+ .../candidate-current-vs-head-tracked.command      |     1 +
+ .../candidate-current-vs-head-tracked.exit         |     1 +
+ .../candidate-current-vs-head-tracked.stderr       |     0
+ .../candidate-current-vs-head-tracked.stdout       |     0
+ .../candidate-index-vs-head.command                |     1 +
+ .../candidate-index-vs-head.exit                   |     1 +
+ .../candidate-index-vs-head.stderr                 |     0
+ .../candidate-index-vs-head.stdout                 |     0
+ .../candidate-package-hashes.command               |     1 +
+ .../candidate-package-hashes.exit                  |     1 +
+ .../candidate-package-hashes.stderr                |     0
+ .../candidate-package-hashes.stdout                |     2 +
+ .../candidate-staged.command                       |     1 +
+ .../candidate-staged.exit                          |     1 +
+ .../candidate-staged.stderr                        |     0
+ .../candidate-staged.stdout                        |     0
+ .../candidate-unstaged.command                     |     1 +
+ .../candidate-unstaged.exit                        |     1 +
+ .../candidate-unstaged.stderr                      |     0
+ .../candidate-unstaged.stdout                      |     0
+ .../candidate-worktree-status.command              |     1 +
+ .../candidate-worktree-status.exit                 |     1 +
+ .../candidate-worktree-status.stderr               |     0
+ .../candidate-worktree-status.stdout               |     1 +
+ .../checksums.sha256                               |   196 +
+ .../comparison-exit.command                        |     1 +
+ .../comparison-exit.exit                           |     1 +
+ .../comparison-exit.stderr                         |     0
+ .../comparison-exit.stdout                         |     1 +
+ .../comparison-source-delta.command                |     1 +
+ .../comparison-source-delta.exit                   |     1 +
+ .../comparison-source-delta.stderr                 |     0
+ .../comparison-source-delta.stdout                 |    17 +
+ .../fixed-kernel-files.command                     |     0
+ .../fixed-kernel-files.exit                        |     1 +
+ .../fixed-kernel-files.stderr                      |     0
+ .../fixed-kernel-files.stdout                      |     2 +
+ .../fixed-step-source-hashes.command               |     1 +
+ .../fixed-step-source-hashes.exit                  |     1 +
+ .../fixed-step-source-hashes.stderr                |     0
+ .../fixed-step-source-hashes.stdout                |     2 +
+ .../fixed-step-source-parent-diff.command          |     1 +
+ .../fixed-step-source-parent-diff.exit             |     1 +
+ .../fixed-step-source-parent-diff.stderr           |     0
+ .../fixed-step-source-parent-diff.stdout           |     0
+ .../fixed-step-source-sizes.command                |     1 +
+ .../fixed-step-source-sizes.exit                   |     1 +
+ .../fixed-step-source-sizes.stderr                 |     0
+ .../fixed-step-source-sizes.stdout                 |     3 +
+ .../fixedkernel-search.command                     |     0
+ .../fixedkernel-search.exit                        |     1 +
+ .../fixedkernel-search.stderr                      |     0
+ .../fixedkernel-search.stdout                      |    33 +
+ .../guard-overlaid-test-delta.command              |     1 +
+ .../guard-overlaid-test-delta.exit                 |     1 +
+ .../guard-overlaid-test-delta.stderr               |     0
+ .../guard-overlaid-test-delta.stdout               |     2 +
+ .../hbr-source-unchanged-since-59c.command         |     1 +
+ .../hbr-source-unchanged-since-59c.exit            |     1 +
+ .../hbr-source-unchanged-since-59c.stderr          |     0
+ .../hbr-source-unchanged-since-59c.stdout          |     0
+ .../legacy-compare-corrected.command               |     1 +
+ .../legacy-compare-corrected.exit                  |     1 +
+ .../legacy-compare-corrected.stderr                |     0
+ .../legacy-compare-corrected.stdout                |  1934 ++
+ .../legacy-compare-first.exit                      |     1 +
+ .../legacy-compare-first.mjs                       |   152 +
+ .../legacy-compare-first.stderr                    |     0
+ .../legacy-compare-first.stdout                    |  1832 ++
+ .../legacy-compare-summary-corrected.command       |     1 +
+ .../legacy-compare-summary-corrected.exit          |     1 +
+ .../legacy-compare-summary-corrected.stderr        |     0
+ .../legacy-compare-summary-corrected.stdout        |    99 +
+ .../legacy-compare-summary-first.command           |     1 +
+ .../legacy-compare-summary-first.exit              |     1 +
+ .../legacy-compare-summary-first.stderr            |     5 +
+ .../legacy-compare-summary-first.stdout            |     0
+ .../legacy-compare.command                         |     1 +
+ .../legacy-compare.exit                            |     1 +
+ .../legacy-compare.mjs                             |   156 +
+ .../legacy-compare.stderr                          |     0
+ .../legacy-compare.stdout                          |  1832 ++
+ .../method-corrections.md                          |     9 +
+ .../nondeterminism-guard.command                   |     1 +
+ .../nondeterminism-guard.exit                      |     1 +
+ .../nondeterminism-guard.stderr                    |     0
+ .../nondeterminism-guard.stdout                    |    74 +
+ .../package-lock-unchanged.command                 |     1 +
+ .../package-lock-unchanged.exit                    |     1 +
+ .../package-lock-unchanged.stderr                  |     0
+ .../package-lock-unchanged.stdout                  |     0
+ .../parent-commit.command                          |     1 +
+ .../parent-commit.exit                             |     1 +
+ .../parent-commit.stderr                           |     0
+ .../parent-commit.stdout                           |     1 +
+ .../parent-worktree-status.command                 |     1 +
+ .../parent-worktree-status.exit                    |     1 +
+ .../parent-worktree-status.stderr                  |     0
+ .../parent-worktree-status.stdout                  |     1 +
+ .../review-20261015164505Z-b7b258b8/policy.command |     1 +
+ .../review-20261015164505Z-b7b258b8/policy.exit    |     1 +
+ .../review-20261015164505Z-b7b258b8/policy.stderr  |     0
+ .../review-20261015164505Z-b7b258b8/policy.stdout  |    50 +
+ .../resource-row-search.command                    |     0
+ .../resource-row-search.exit                       |     1 +
+ .../resource-row-search.stderr                     |     0
+ .../resource-row-search.stdout                     |     3 +
+ .../root-sealed-checksums.sha256                   |   197 +
+ .../roster-admission.command                       |     1 +
+ .../roster-admission.exit                          |     1 +
+ .../roster-admission.stderr                        |     0
+ .../roster-admission.stdout                        |    56 +
+ .../roster-buildings-corrected.command             |     1 +
+ .../roster-buildings-corrected.exit                |     1 +
+ .../roster-buildings-corrected.stderr              |     0
+ .../roster-buildings-corrected.stdout              |    76 +
+ .../roster-buildings.command                       |     1 +
+ .../roster-buildings.exit                          |     1 +
+ .../roster-buildings.stderr                        |    10 +
+ .../roster-buildings.stdout                        |     0
+ .../runtime.command                                |     1 +
+ .../review-20261015164505Z-b7b258b8/runtime.exit   |     1 +
+ .../review-20261015164505Z-b7b258b8/runtime.stderr |     0
+ .../review-20261015164505Z-b7b258b8/runtime.stdout |   110 +
+ .../source-diff-check.command                      |     1 +
+ .../source-diff-check.exit                         |     1 +
+ .../source-diff-check.stderr                       |     0
+ .../source-diff-check.stdout                       |     0
+ .../review-20261015164505Z-b7b258b8/sourcegraph.md |    14 +
+ .../sources-md-excerpt.command                     |     1 +
+ .../sources-md-excerpt.exit                        |     1 +
+ .../sources-md-excerpt.stderr                      |     0
+ .../sources-md-excerpt.stdout                      |    64 +
+ .../standalone-resource.command                    |     1 +
+ .../standalone-resource.exit                       |     1 +
+ .../standalone-resource.stderr                     |     0
+ .../standalone-resource.stdout                     |    92 +
+ .../review-20261015164505Z-b7b258b8/verdict.md     |    17 +
+ .../game001hbr-round-1/root-adoption-scope.json    |     9 +
+ .../evidence.md                                    |    48 +
+ .../publication-09eae7f/github-pages-run.json      |     1 +
+ .../publication-09eae7f/live-http-receipt.json     |    24 +
+ .../publication-91b99fb/github-pages-run.json      |     1 +
+ .../publication-91b99fb/live-http-receipt.json     |    24 +
+ .../publication-a28bd70/github-pages-run.json      |     1 +
+ .../publication-a28bd70/live-http-receipt.json     |    24 +
+ .../evidence.md                                    |    26 +
+ demo/assets/brackenwheel-portrait.png              |   Bin 0 -> 2650041 bytes
+ docs/art/brackenwheel-portrait-provenance.json     |    77 +
+ progress.html                                      |    88 +-
+ public/assets/brackenwheel-portrait-painted.webp   |   Bin 0 -> 62014 bytes
+ rounds.md                                          |    90 +
+ src/content/cards/buildings-resource.js            |    64 -
+ src/content/session-card-catalog.js                |    18 +-
+ src/content/visual-asset-manifest.js               |    11 +
+ src/sim/session-building-profile-receipts.js       |    47 -
+ src/sim/session-building-runtime.js                |   146 +-
+ tests/game-building-policy.test.js                 |   138 +-
+ tests/game-building-runtime.test.js                |    69 +-
+ tests/game-roster-buildings.test.js                |    70 +-
+ 1121 files changed, 115105 insertions(+), 505 deletions(-)

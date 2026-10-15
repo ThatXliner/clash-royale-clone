@@ -1,0 +1,5612 @@
+{
+  "comparison": "old-ff562-to-layered-baseline-22fc",
+  "oldCommit": "ff562bd3027f40509f0e5e7e6f9848d98faf6346",
+  "newCommit": "22fc972fcba5357957ffacfe43c59662f95344b2",
+  "totalChangedPathCount": 1114,
+  "statusCounts": {
+    "A": 1110,
+    "M": 4
+  },
+  "productPathCount": 1,
+  "productStatusCounts": {
+    "M": 1
+  },
+  "productPaths": [
+    {
+      "status": "M",
+      "path": "src/content/visual-asset-manifest.js",
+      "scope": "product",
+      "old": {
+        "gitBlob": "84843a896eb2e8ba99183f630f0aef2edf08d703",
+        "sizeBytes": 19291,
+        "sha256": "bc0255f4751f1056260a06e19327c2e0c274d6ebbcb545fb26b9365f8897706d"
+      },
+      "new": {
+        "gitBlob": "16da033df68a6fae6fdcfecfab7cd07732c92d05",
+        "sizeBytes": 19649,
+        "sha256": "0e2a67256be42195027a569478b3d7400ba2c37982f57835b9bb23aaa499f91c"
+      }
+    }
+  ],
+  "nonProductPathCount": 1113,
+  "nonProductStatusCounts": {
+    "A": 1110,
+    "M": 3
+  },
+  "nonProductTopLevelPathCounts": {
+    "PLAN.md": 1,
+    "artifacts": 1107,
+    "demo": 1,
+    "docs": 1,
+    "progress.html": 1,
+    "public": 1,
+    "rounds.md": 1
+  },
+  "nonProductPaths": [
+    {
+      "status": "M",
+      "path": "PLAN.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/extractor.py",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/pinned-linked-rows.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/primary-evidence.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/scope.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/source-query-results.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-full-signature-scope/builder/source-receipts.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/COMMANDS.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/README.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/SHA256SUMS.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/accepted-player-command-snapshot.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/capture-natural-ai-decision.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/final-public-projection.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/final-session-replay.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/final-session-snapshot.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/natural-ai-decision.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/natural-ai-seed-search.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/pre-expiry-checkpoint.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/probe-report.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/aether-well-role-admission-recon-20261015/source-bound-probe.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/after-vector-rig-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/before-original-vector-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/comparison-default-1440x1252.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/after-vector-rig-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/before-original-vector-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/comparison-default-1440x1252.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/native-render-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/native-render-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/native-render-runner-output.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/native-render-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/native-render-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/owned-test-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/render-native-corrected.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/builder/render-native.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150334Z-5AE68BE3/archive.stderr.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150334Z-5AE68BE3/method-failure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150334Z-5AE68BE3/private-checkout-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/AGENTS.md.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/AGENTS.md.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/PLAN.md.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/PLAN.md.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/actual-chrome-review-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/actual-chrome-review.cjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/actual-chrome-review.stderr.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/actual-chrome-review.stdout.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/after-vector-rig-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/before-original-vector-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/browser-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/candidate-AGENTS.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/candidate-PLAN-rows.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/candidate-SOURCES.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/candidate-original-combat-art.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/candidate-owned-files-sha256.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/candidate-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-commandline.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-process-family.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-process.stderr.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-process.stdout.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/comparison-default-1440x1200.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/demo__mossguard-vector-rig.html.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/demo__mossguard-vector-rig.html.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/demo__mossguard-vector-rig.js.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/demo__mossguard-vector-rig.js.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/docs__art__mossguard-vector-rig-provenance.json.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/docs__art__mossguard-vector-rig-provenance.json.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/enlarged-diagnostic-only.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/final-verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/focused-test-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/focused-test.stderr.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/focused-test.stdout.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/geometry-audit-corrected.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/integrity-verification.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/npm-ci-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/npm-ci.stderr.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/npm-ci.stdout.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/package-lock.json.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/package-lock.json.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/package.json.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/package.json.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/public__assets__card-portraits-painted.webp.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/public__assets__card-portraits-painted.webp.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/reference__stats__SOURCES.md.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/reference__stats__SOURCES.md.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/resource-release.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/source-fences.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/src__ui__combat-art.js.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/src__ui__combat-art.js.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/tests__mossguard-vector-rig.test.js.git-show.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/tests__mossguard-vector-rig.test.js.git-show.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/failed-candidate/demo/mossguard-vector-rig.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/failed-candidate/demo/mossguard-vector-rig.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/failed-candidate/docs/art/mossguard-vector-rig-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-2/failed-candidate/tests/mossguard-vector-rig.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/after-rig-diagnostic96-1340x615.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/after-rig-native13-1340x311.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/before-original-native13-1340x97.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/comparison-page-full-1440x1286.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/focused-test-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/focused-test.tap",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/initial-west-coordinate-failure-availability.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/native-render-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/native-render-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/native-render.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/render-native-rig.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/builder/source-pre-post-sha256.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/after-rig-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/before-original-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/comparison-before-after-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/dependency-install.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/dependency-install.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/dependency-install.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/diagnostic-96px-labeled-not-native-proof.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/final-verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/focused-test-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/focused-test-runtime.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/focused-test.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/focused-test.tap",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review-command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review-direct-exit-unavailable.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review-summary.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review-wrapper-failure.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review-wrapper-failure.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/native-review.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/profile-cleanup.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/root-seal-note.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/source-fence-audit.command-and-exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/source-fence-audit.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/source-fence-audit.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/source-hash-diff.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/source-post.sha256.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/critic/20261015T210000Z-independent/source-pre.sha256.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/failed-candidate/demo/mossguard-vector-rig.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/failed-candidate/demo/mossguard-vector-rig.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/failed-candidate/docs/art/mossguard-vector-rig-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-005mr-round-3/failed-candidate/tests/mossguard-vector-rig.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/attempt-1-opaque-checkerboard.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/attempt-2-transparent-tight.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/attempt-3-transparent-84pct.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/attempt-4-transparent-78pct.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/capture-method-failure-1.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/capture-native-preview.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/generation-attempts.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-13-dark-diagnostic-8x-nearest.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-13-dark.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-13-light-diagnostic-8x-nearest.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-13-light.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-26-dark-diagnostic-8x-nearest.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-26-dark.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-26-light-diagnostic-8x-nearest.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-26-light.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/native-preview-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/npm-ci-attempt-1.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/npm-ci-node22.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/portrait-cutout-comparison.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/release-build-method-failure-1.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/release-manifest-inspection-attempt-2.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/release-manifest-inspection-failure-1.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/release-verification.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/reproducibility-repeat.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/builder/shipping-isolation-release-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/diagnostic-13-light-8x.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-13-dark.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-13-light.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-26-dark.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-26-light.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/asset-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/chrome-version.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/chrome-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/chrome-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-reencode.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-reencode.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-reencode.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-reproduction-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-version.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/cwebp-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/final-audit-after-restoration.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/final-audit-attempt-1.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/final-audit-before-restoration.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/independent-native-render.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render-retry1.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render-retry1.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render-retry1.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render-retry2.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render-retry2.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render-retry2.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/native-render.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/node-version.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/node-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/node-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/npm-ci.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/npm-ci.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/npm-ci.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/npm-version.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/npm-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/npm-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/playwright-version.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/playwright-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/playwright-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-artifacts-after-isolation-release.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-artifacts-after-release-build.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-artifacts-before.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-artifacts-restored.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-build.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-build.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/release-build.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/shipping-isolation-guard.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/shipping-isolation-guard.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/shipping-isolation-guard.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/shipping-isolation-release.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/shipping-isolation-release.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/shipping-isolation-release.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/test-side-effects-restoration.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/test-side-effects.patch",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/visual-asset-manifest.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/visual-asset-manifest.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/receipts/visual-asset-manifest.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/reports/verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/runner/audit_asset.py",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/runner/capture_native.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/runner/run_command.py",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/runner/snapshot_release_artifacts.py",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/failed-candidate/demo/assets/brackenwheel-battle-sprite.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/failed-candidate/docs/art/brackenwheel-battle-sprite-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/failed-candidate/public/assets/brackenwheel-battle-sprite.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-1/failed-candidate/src/content/visual-asset-manifest.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/builder/encoding-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/builder/raw-generation/attempt-01-prompt.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/builder/raw-generation/attempt-01-tool-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/builder/report.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/builder/reproducibility-repeat.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/13-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/13-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/26-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/26-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/asset-builder-report.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/asset-encoding-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/asset-generation-prompt.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/asset-generation-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/asset-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/baseline-dist-status.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/browser-closure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/browser-ownership.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/browser.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/browser.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/browser.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/candidate-fence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/checkout.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/critic-repeat.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/critic-report.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-repeat.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-repeat.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-repeat.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-reproducibility.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-version.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/cwebp-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/diagnostic-13px-light-center-crop-8x-nearest.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/diagnostic-8x-readme.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/environment.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/native-measurements.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/native-visual-review.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/node-version.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/node-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/node-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/npm-ci.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/npm-ci.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/npm-ci.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/npm-version.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/npm-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/npm-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/playwright-capture.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/post-test-fence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build-process-audit-summary.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build-process-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.chrome-after.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.chrome-before.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.chrome-during.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.process.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/release-build.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-guard.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-guard.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-guard.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.chrome-after.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.chrome-during.jsonl",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.closure-final.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.pid",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-corrected.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-evidence-corrected.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release-process-audit-summary.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.chrome-after.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.chrome-before.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.chrome-during.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.process.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/shipping-isolation-release.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/source-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/source-fences.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/test-census.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/visual-asset-manifest.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/visual-asset-manifest.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/critic/20261015T164221Z-49faa381/visual-asset-manifest.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/failed-candidate/demo/assets/brackenwheel-battle-sprite.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/failed-candidate/docs/art/brackenwheel-battle-sprite-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/failed-candidate/public/assets/brackenwheel-battle-sprite.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-2/failed-candidate/src/content/visual-asset-manifest.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-candidate.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/browser-closure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/browser-ownership.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-capture-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-capture.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-capture.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/13-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/13-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/26-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/26-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-measurements.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/attempt-01-evidence/reproducibility-repeat.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/browser-closure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/browser-ownership.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/capture-native.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/cwebp-repeat-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/cwebp-repeat.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/cwebp-repeat.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/dist-after-tests.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/dist-before-test.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-capture-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-capture.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-capture.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-captures/13-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-captures/13-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-captures/26-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-captures/26-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/native-measurements.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/npm-ci-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/npm-ci.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/npm-ci.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/post-test-fence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/pre-commit-integrity.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-prompt.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-source.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-tool-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-prompt.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-tool-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/release-build.receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/release-build.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/release-build.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/report.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/reproducibility-repeat.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/shipping-isolation-guard.receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/shipping-isolation-guard.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/shipping-isolation-guard.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/shipping-isolation-release.receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/shipping-isolation-release.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/shipping-isolation-release.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/test-evidence-mutations.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/test-evidence-restore.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/visual-asset-manifest.receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/visual-asset-manifest.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/builder/visual-asset-manifest.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/accepted-portrait-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/asset-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/asset-verification.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/browser-closure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/browser-ownership.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/candidate-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/capture-native.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/cwebp-repeat.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/cwebp-repeat.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/cwebp-repeat.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/diagnostic-8x-13-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/diagnostic-8x-13-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/diagnostic-8x-26-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/diagnostic-8x-26-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/dist-after-tests.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/dist-before.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/environment.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/evidence-after-restore.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/evidence-after-tests-before-restore.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/evidence-before.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/generation-prompt.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/generation-tool-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-capture-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-capture.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-capture.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-captures/13-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-captures/13-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-captures/26-css-dark-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-captures/26-css-light-native.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-measurements.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/native-visual-review.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/npm-ci-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/npm-ci.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/npm-ci.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/post-test-fence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/release-build.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/release-build.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/shipping-isolation-guard.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/shipping-isolation-guard.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/shipping-isolation-release.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/shipping-isolation-release.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/source-after.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/source-before.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/test-census.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/test-restore-baseline/escaped-css-producer-rejection.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/test-restore-baseline/external-base-producer-rejection.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/test-restore-baseline/guard-release-isolation-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/test-restore-baseline/opaque-srcdoc-producer-rejection.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/test-restore-baseline/release-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/visual-asset-manifest.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/visual-asset-manifest.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/worktree-after-restore.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/worktree-after-tests-before-restore.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/worktree-final.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/failed-candidate/demo/assets/brackenwheel-battle-sprite.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/failed-candidate/docs/art/brackenwheel-battle-sprite-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/failed-candidate/public/assets/brackenwheel-battle-sprite.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022b-round-3/failed-candidate/src/content/visual-asset-manifest.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/brackenwheel-reencode-check.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/browser-capture-first-attempt.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/browser-capture-first-attempt.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/browser-capture.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/browser-capture.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/browser-capture.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/browser-capture.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/capture-native-thumbnails.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/commands.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/copy.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/cwebp.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/cwebp.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/cwebp.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/encoding-reproducibility.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/generation-prompt.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/manifest-test.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/manifest-test.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/manifest-test.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/native-thumbnails-fixture.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/portrait-128px.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/portrait-64px.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/portrait-thumbnails.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/reencode.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/reencode.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/reencode.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/release-build-evidence.generated.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/release-build-wrapper-outcome.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/release-build.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/release-build.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/shipping-isolation.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/shipping-isolation.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/shipping-isolation.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/builder/source-fences.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/asset-verification.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/brackenwheel-reencode-check.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/browser-runtime.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/candidate-commit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/capture-portrait-native-attempt-2.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/capture-portrait-native.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/chrome-version.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/chrome-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/chrome-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-reencode-cmp.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-reencode.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-reencode.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-reencode.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-reencode.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-reencode.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-version.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-version.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/cwebp-version.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/final-evidence-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/git-common-dir.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/git-status.after-release-before-restore.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/git-status.before.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/manifest-compare.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/manifest-compare.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/manifest.sha256.after-release",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/manifest.sha256.before",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-attempt-2.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-attempt-2.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-attempt-2.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-attempt-2.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture-128px.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture-64px.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture-metadata.corrected-path-map.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture-metadata.raw.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture-runner.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/capture.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/fixture-272x184.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/fixture.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture-corrected/method-notes.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/native-capture.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/node-version.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/npm-version.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-native-capture-attempt-2.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-native-capture.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnail-128px-attempt-2.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnail-128px.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnail-64px-attempt-2.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnail-64px.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnail-fixture-attempt-2.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnail-fixture.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnails-attempt-2.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/portrait-thumbnails.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-browser-command-lines.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-browser-launch-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build-evidence.after.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build-evidence.after.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build-evidence.before.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build-evidence.before.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build.environment.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-build.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-escaped-css-producer-rejection.json.after.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-escaped-css-producer-rejection.json.before.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-evidence.json.after.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-evidence.json.before.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-external-base-producer-rejection.json.after.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-external-base-producer-rejection.json.before.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-files.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-opaque-srcdoc-producer-rejection.json.after.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-opaque-srcdoc-producer-rejection.json.before.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-generated-restore-check.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit-attempt-2.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit-attempt-2.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit-attempt-2.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit-attempt-2.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit-attempt-2.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/release-size-audit.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/shipping-isolation-selector.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/shipping-isolation-selector.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/shipping-isolation-selector.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/shipping-isolation-selector.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/sourcepost-resource-release-check.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/tracked-changes.after-release.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/visual-manifest.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/visual-manifest.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/visual-manifest.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-022p-round-1/critic/independent-20261015-1/visual-manifest.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-default-session-candidate-20261015.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-default-session-parent-20261015.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-default-session-parity-20261015.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-first-focused-failure-reproduction-20261015-001.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-first-focused-failure-reproduction-20261015-001.note.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-focused-suite-20261015-001.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/cards022k-focused-suite-20261015-002.log",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/builder/root-evidence-note.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/checkout-command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/checkout.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/checkout.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/checkout.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/candidate-7ef53c7.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/candidate-7ef53c7.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/candidate-7ef53c7.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/candidate-7ef53c7.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/comparison-summary.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/parent-09eae7f.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/parent-09eae7f.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/parent-09eae7f.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison-canonical-order/parent-09eae7f.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison/parent-09eae7f.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison/parent-09eae7f.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison/parent-09eae7f.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/comparison/parent-09eae7f.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/candidate-status.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/candidate-status.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/candidate-status.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/candidate-status.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/changed-src-tests.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/changed-src-tests.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/changed-src-tests.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/changed-src-tests.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/dependency-and-release-config.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/dependency-and-release-config.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/dependency-and-release-config.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/dependency-and-release-config.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/index-src-tests.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/index-src-tests.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/index-src-tests.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/index-src-tests.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/source-fence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/working-tree-src-tests.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/working-tree-src-tests.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/working-tree-src-tests.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/fences/working-tree-src-tests.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/final-verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/parent-checkout-command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/parent-checkout.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/parent-checkout.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/parent-checkout.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/resource-closure/resource-closure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/resource-closure/worktree-list.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/resource-closure/worktree-list.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-core.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-core.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-core.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-core.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-shipping.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-shipping.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-shipping.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/adjacent-shipping.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/focused-suite.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/focused-suite.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/focused-suite.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/focused-suite.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/source-and-nondeterminism.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/source-and-nondeterminism.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/source-and-nondeterminism.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/critic/review-2026-10-15T155144TZ-brackenwheel/tests/source-and-nondeterminism.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/content/cards/basic-melee.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/content/session-card-catalog.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/content/session-troop-profile-catalog.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/content/session-troop-projectile-profiles.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/content/session-troop-projectile-source-admission.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/content/session-troop-roster.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/shared/session-troop-melee-area-authority.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/shared/session-troop-projectile-authority.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/shared/session-troop-source-confidence-authority.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/sim/area-target-selection.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/src/sim/ordinary-projectile-splash.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/tests/cards-basic-melee.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/tests/cards-basic-ranged.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/tests/cards022k-brackenwheel.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/tests/game-roster-troop-profiles.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/tests/game-roster-troops-ordinary.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-1/failed-candidate/tests/game-roster-troops-projectile-profiles.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/adjacent-core-repair.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/adjacent-core-repair.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/adjacent-core-repair.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/adjacent-core-repair.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding-after-area-fixture.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding-after-area-fixture.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding-after-area-fixture.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding-after-area-fixture.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding-result.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/brackenwheel-binding.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/builder-environment.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/builder-summary.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/candidate-status.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/cards022k-brackenwheel.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/cards022k-brackenwheel.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/cards022k-brackenwheel.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/cards022k-brackenwheel.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/diff-check.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/diff-check.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/diff-check.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/diff-check.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/game-roster-admission.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/game-roster-admission.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/game-roster-admission.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/game-roster-admission.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/immutable-production-source-after.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/immutable-production-source-before.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/integrity-qualification.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard-retry-1.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard-retry-1.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard-retry-1.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard-retry-1.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/nondeterminism-guard.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/npm-ci.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/npm-ci.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/npm-ci.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/npm-ci.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/precommit-status.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/precommit-status.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/precommit-status.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/precommit-status.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-after-npm-ci.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-after-npm-ci.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-after-npm-ci.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-after-npm-ci.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-distinct-tmpdir.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-distinct-tmpdir.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-distinct-tmpdir.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/release-host-distinct-tmpdir.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-adjacent-core.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-adjacent-core.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-adjacent-core.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-adjacent-core.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-copy-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-critic-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-critic-source-path.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-final-verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-source-and-nondeterminism.command.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-source-and-nondeterminism.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-source-and-nondeterminism.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-source-and-nondeterminism.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round1-source-fence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/builder/round2-test-results.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/node.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/node.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/node.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm-ci.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm-ci.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm-ci.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm-ci.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/environment/npm.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/candidate-head.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/candidate-head.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/candidate-head.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/candidate-status-before.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/candidate-status-before.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/candidate-status-before.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round1-production-paths.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round1-production-paths.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round1-production-paths.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round2-production-and-package-paths.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round2-production-and-package-paths.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round2-production-and-package-paths.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round2-script-test-paths.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round2-script-test-paths.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/fences/round2-script-test-paths.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/release-isolation-evidence.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/resource-closure.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/review.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/runners/run-host-release-gates.sh",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/runners/run-light-gates.sh",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/source-fences.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/area-damage.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/area-damage.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/area-damage.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/area-damage.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/deck.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/deck.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/deck.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/deck.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/editable-deck.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/editable-deck.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/editable-deck.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/editable-deck.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/elixir.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/elixir.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/elixir.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/elixir.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/focused-suite.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/focused-suite.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/focused-suite.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/focused-suite.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-history-cap.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-history-cap.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-history-cap.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-history-cap.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-roster-admission.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-roster-admission.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-roster-admission.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-roster-admission.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-session.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-session.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-session.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/game-session.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/integration-audit.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/integration-audit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/integration-audit.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/integration-audit.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee-area.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee-area.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee-area.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee-area.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/melee.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/nondeterminism-guard.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/nondeterminism-guard.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/nondeterminism-guard.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/nondeterminism-guard.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/playable-roster.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/playable-roster.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/playable-roster.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/playable-roster.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/rl-environment.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/rl-environment.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/rl-environment.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/rl-environment.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-guard.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-guard.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-guard.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-guard.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-host.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-host.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-host.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-host.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-release.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-release.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-release.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/critic/review-20261015T162259Z-brackenwheel/tests/shipping-isolation-release.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/scripts/integration-audit.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/scripts/nondeterminism-guard.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/tests/cards022k-brackenwheel.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/tests/fixtures/integration-occurrence-adapters.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/tests/fixtures/integration-occurrence-bindings.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/tests/game-roster-admission.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-2/failed-candidate/tests/nondeterminism-guard.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/builder-summary.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/canonical-audit-manifest.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/canonical-audit.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/canonical-audit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/canonical-audit.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/canonical-audit.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/checksums.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/checksums.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/checksums.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/checksums.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/editable-deck.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/editable-deck.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/editable-deck.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/editable-deck.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/immutable-source-after.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/immutable-source-before.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/immutable-source-fence.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/immutable-source-fence.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/immutable-source-fence.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/immutable-source-fence.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/integration-audit.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/integration-audit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/integration-audit.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/integration-audit.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/npm-ci.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/npm-ci.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/npm-ci.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/builder/npm-ci.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/editable-deck.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/editable-deck.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/editable-deck.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/editable-deck.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/environment.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/integration-audit.command.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/integration-audit.exit.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/integration-audit.stderr.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/integration-audit.stdout.raw",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/process-exits.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/review.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/source-audit-post.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/critic/a1f6605b/source-audit.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cards022k-round-3/root-adoption.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cinder-reliquary-full-signature-scope/builder/identity-search.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cinder-reliquary-full-signature-scope/builder/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cinder-reliquary-full-signature-scope/builder/scope.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cinder-reliquary-full-signature-scope/builder/source-query-results.txt",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cinder-reliquary-full-signature-scope/builder/source-receipts.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/cinder-reliquary-full-signature-scope/root-scope-note.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/src/content/cards/buildings-resource.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/src/content/session-card-catalog.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/src/sim/session-building-profile-receipts.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/src/sim/session-building-runtime.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/tests/game-building-policy.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/tests/game-building-runtime.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/accepted-candidate-deferred/tests/game-roster-buildings.test.js",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/59-to-c1-source-exact.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/59-to-c1-source-exact.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/59-to-c1-source-exact.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/59-to-c1-source-exact.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-pinned-linked-rows.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-pinned-linked-rows.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-pinned-linked-rows.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-pinned-linked-rows.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-primary-evidence.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-primary-evidence.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-primary-evidence.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-primary-evidence.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-scope.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-scope.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-scope.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-scope.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-source-receipts.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-source-receipts.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-source-receipts.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/aether-source-receipts.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/brackenwheel.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/brackenwheel.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/brackenwheel.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/brackenwheel.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-hbr-src-match.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-hbr-src-match.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-hbr-src-match.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-hbr-src-match.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-file-byte-match.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-file-byte-match.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-file-byte-match.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-file-byte-match.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-files-again.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-files-again.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-files-again.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-seven-files-again.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-source-equals-7ef.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-source-equals-7ef.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-source-equals-7ef.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-source-equals-7ef.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-to-59-source-delta.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-to-59-source-delta.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-to-59-source-delta.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-to-59-source-delta.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-vs-hbr-source-name-list.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-vs-hbr-source-name-list.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-vs-hbr-source-name-list.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/c72-vs-hbr-source-name-list.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-change-file-list.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-change-file-list.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-change-file-list.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-change-file-list.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-commit.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-commit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-commit.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-commit.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-files.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-files.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-files.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-files.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-vs-head-tracked.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-vs-head-tracked.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-vs-head-tracked.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-current-vs-head-tracked.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-index-vs-head.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-index-vs-head.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-index-vs-head.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-index-vs-head.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-package-hashes.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-package-hashes.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-package-hashes.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-package-hashes.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-staged.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-staged.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-staged.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-staged.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-unstaged.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-unstaged.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-unstaged.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-unstaged.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-worktree-status.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-worktree-status.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-worktree-status.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/candidate-worktree-status.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-exit.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-exit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-exit.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-exit.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-source-delta.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-source-delta.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-source-delta.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/comparison-source-delta.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-kernel-files.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-kernel-files.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-kernel-files.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-kernel-files.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-hashes.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-hashes.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-hashes.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-hashes.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-parent-diff.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-parent-diff.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-parent-diff.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-parent-diff.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-sizes.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-sizes.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-sizes.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixed-step-source-sizes.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixedkernel-search.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixedkernel-search.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixedkernel-search.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/fixedkernel-search.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/guard-overlaid-test-delta.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/guard-overlaid-test-delta.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/guard-overlaid-test-delta.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/guard-overlaid-test-delta.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/hbr-source-unchanged-since-59c.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/hbr-source-unchanged-since-59c.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/hbr-source-unchanged-since-59c.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/hbr-source-unchanged-since-59c.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-corrected.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-corrected.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-corrected.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-corrected.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-first.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-first.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-first.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-first.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-corrected.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-corrected.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-corrected.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-corrected.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-first.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-first.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-first.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare-summary-first.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare.mjs",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/legacy-compare.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/method-corrections.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/nondeterminism-guard.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/nondeterminism-guard.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/nondeterminism-guard.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/nondeterminism-guard.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/package-lock-unchanged.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/package-lock-unchanged.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/package-lock-unchanged.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/package-lock-unchanged.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-commit.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-commit.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-commit.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-commit.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-worktree-status.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-worktree-status.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-worktree-status.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/parent-worktree-status.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/policy.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/policy.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/policy.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/policy.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/resource-row-search.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/resource-row-search.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/resource-row-search.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/resource-row-search.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/root-sealed-checksums.sha256",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-admission.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-admission.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-admission.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-admission.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings-corrected.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings-corrected.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings-corrected.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings-corrected.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/roster-buildings.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/runtime.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/runtime.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/runtime.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/runtime.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/source-diff-check.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/source-diff-check.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/source-diff-check.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/source-diff-check.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/sourcegraph.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/sources-md-excerpt.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/sources-md-excerpt.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/sources-md-excerpt.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/sources-md-excerpt.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/standalone-resource.command",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/standalone-resource.exit",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/standalone-resource.stderr",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/standalone-resource.stdout",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/critic/review-20261015164505Z-b7b258b8/verdict.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/game001hbr-round-1/root-adoption-scope.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/next-roster-dependency-audit-20261015/evidence.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/publication-09eae7f/github-pages-run.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/publication-09eae7f/live-http-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/publication-91b99fb/github-pages-run.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/publication-91b99fb/live-http-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/publication-a28bd70/github-pages-run.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/publication-a28bd70/live-http-receipt.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/remaining-roster-actionability-audit-20261015/evidence.md",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "demo/assets/brackenwheel-portrait.png",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "docs/art/brackenwheel-portrait-provenance.json",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "M",
+      "path": "progress.html",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "A",
+      "path": "public/assets/brackenwheel-portrait-painted.webp",
+      "scope": "nonProduct"
+    },
+    {
+      "status": "M",
+      "path": "rounds.md",
+      "scope": "nonProduct"
+    }
+  ]
+}

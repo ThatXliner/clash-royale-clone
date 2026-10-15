@@ -1,0 +1,3007 @@
+{
+  "dist/public/ui-arena-shell.html": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "49e4a7fce7524950f0d462a3d7e9100bd7deb161"
+  },
+  "dist/release-manifest.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1d316ac20ecfe066d949cdfb7181cedf4da78a32"
+  },
+  "dist/src/content/cards/basic-flying.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "db76c543c24cf0439a92da2cb36f4c84ad4f217a"
+  },
+  "dist/src/content/cards/basic-melee.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2b07cfad09ce67365ac5257ccd5f0455117209c3"
+  },
+  "dist/src/content/cards/basic-ranged.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d80208caa7edbdd6169a1fa9cac3dd4c69a54795"
+  },
+  "dist/src/content/cards/buildings-defensive.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f72374d74c2486203d4f5ec89b06d44f34bcbcb5"
+  },
+  "dist/src/content/cards/buildings-resource.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "90375304b9f542dd194ad7c84c1fadcdcf851149"
+  },
+  "dist/src/content/cards/buildings-spawner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "33c0ec97d86b52b9570e5f80e5ac9cbd163e8e7d"
+  },
+  "dist/src/content/cards/buildings-travel.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "031fcf4b7e21e56a19cf75c460a89c36efef2469"
+  },
+  "dist/src/content/cards/champion-abilities.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0d5eaa88883b4bd67207d04c65ef18c64ec03450"
+  },
+  "dist/src/content/cards/combat-status-heal.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d4e7531a0ee4636e12dae670cbbd80ada8788526"
+  },
+  "dist/src/content/cards/combat-status-invisibility.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "95c5971f3f5bcc7027254ecd0488e724727248c7"
+  },
+  "dist/src/content/cards/combat-status-stun.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f89c4c12922c748c06b3efee0fab1c581733821a"
+  },
+  "dist/src/content/cards/death-conversion-delegated.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0e2175bd7c8b3e0e54b315ddcfc45b7a8c855b86"
+  },
+  "dist/src/content/cards/death-conversion.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ba41a68513977d35866f646de79247edf3114b2e"
+  },
+  "dist/src/content/cards/death-effects.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "919fb76fba634ff951be392251f8b64b0e36f4d3"
+  },
+  "dist/src/content/cards/death-spawns.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f739e0c97f083387a4ccc9677594937bb6f08efc"
+  },
+  "dist/src/content/cards/periodic-spawns.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "530ee3950ddbc550f5a26c22ef09d107e4e76bed"
+  },
+  "dist/src/content/cards/shields-forms.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "87409ec06b89bfb1e55196e3ed4645a6337eb8a5"
+  },
+  "dist/src/content/cards/spawn-placement.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b4bee6b12a655e66307a5852742a5dd05e83ca86"
+  },
+  "dist/src/content/cards/special-combat-rage.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d1a13d2a914ae26191dc854a40f1c686f22ba1bb"
+  },
+  "dist/src/content/cards/special-combat-ramp.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "39b75aa56126faafc225d7730709a0639ca33ae6"
+  },
+  "dist/src/content/cards/special-combat-reset.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e9a833ec92dac7dfbcb3ff456e008ca76eec4736"
+  },
+  "dist/src/content/cards/special-combat-slow.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a5355f5027d2d3ad40093c166bb16532adabc036"
+  },
+  "dist/src/content/cards/special-combat-snare.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ab4cf5f7a904988f77c84d8c71e53ae86c507d1f"
+  },
+  "dist/src/content/cards/special-movement-charge-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e1232ab45a56fb47476fec0ebb8216e25607e067"
+  },
+  "dist/src/content/cards/special-movement-charge.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a70c723e8371f961794315d4a690f9717576b30f"
+  },
+  "dist/src/content/cards/special-movement-dash-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "92e31a26d40f79f217d03ea113337a37deeac562"
+  },
+  "dist/src/content/cards/special-movement-dash.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f7b6708aee6e40f642e1f55513318a63c57cbac5"
+  },
+  "dist/src/content/cards/special-movement-jump.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b9383565e11e6d4f9e35c595ef3e85414bff6498"
+  },
+  "dist/src/content/cards/special-movement-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1bc4ede449d5de5b99851c6cea73c3b00996a3f2"
+  },
+  "dist/src/content/cards/special-movement-leap-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ef0819dba8d501f9507f57d665214680f49954b0"
+  },
+  "dist/src/content/cards/special-movement-recoil.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b85776114f959d2e9b39aac4a49510743414d444"
+  },
+  "dist/src/content/cards/special-movement-retarget.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d174b290c7b07573003c498e026a397d34a6c700"
+  },
+  "dist/src/content/cards/special-projectiles-chain.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "059abba02b8e84839efa747c374590bbbf786e05"
+  },
+  "dist/src/content/cards/special-projectiles-pellets.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ad9b5e57b7c5b3dc2447c10b9bbc757187bb88c9"
+  },
+  "dist/src/content/cards/special-projectiles-pierce.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c815868cceaa011d62eb7cca6d2f851cae4c0628"
+  },
+  "dist/src/content/cards/special-projectiles-reflection.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "902eb7826390dcb92ec9532ae49e18b226a5ccd9"
+  },
+  "dist/src/content/cards/special-projectiles-return.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "354bb7f32b0cdef5f546edb60c68745fde85c1af"
+  },
+  "dist/src/content/cards/spells-clone-unit.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f706a29e404d8b2136b5d6bd9359062e79fd5f74"
+  },
+  "dist/src/content/cards/spells-copy-card.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3d01cf186a6af36a5da361259333a3427bf79f95"
+  },
+  "dist/src/content/cards/spells-instant.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "82d9ae618122851dabe8f02389e88e909a4a30b9"
+  },
+  "dist/src/content/cards/spells-periodic.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5395a25a4a2e1cc0d27b1cacdb0a3018dcc6ebb5"
+  },
+  "dist/src/content/cards/spells-return.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "51a3aab797d3b41d931ddf5d9e3039bbdf5cf381"
+  },
+  "dist/src/content/cards/spells-roll.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d20ad00580eef1152fbc2e4d18149ae6dbcc46cb"
+  },
+  "dist/src/content/cards/spells-spawn.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "be85be44954a48151ef984a518f7b0a9c1f46b77"
+  },
+  "dist/src/content/cards/spells-three-wave.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e5ad102e54f0703c2382df98e95858db877b2f7a"
+  },
+  "dist/src/content/cards/spells-travel-line.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9a53bea04be757bf7cc7e9f94d37173ec8332d56"
+  },
+  "dist/src/content/cards/structure-seeker.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8ab8882539882f4699fc4a9afb0850e41da18cce"
+  },
+  "dist/src/content/cards/swarms.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "58ecd29694466c93eb88158ff8c8770314cca67d"
+  },
+  "dist/src/content/index.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "82f61c4a74a3b034a60f87596f9dd294fe76ab5f"
+  },
+  "dist/src/content/schema.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e58f6560b6429a38aee90452385eaa28c3e1454e"
+  },
+  "dist/src/sim/area-damage.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5e3402420913287d065fad2f371fc0542dc214df"
+  },
+  "dist/src/sim/arena-geometry.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "aae5c1e64cbd06cfbc580cad7d997043c3f78d5c"
+  },
+  "dist/src/sim/attack-cycle.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e9700742334fcfc63c3f1358d376225075143c1c"
+  },
+  "dist/src/sim/damage.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4d6260b86130d73b74c96607a8d66a8f85104d18"
+  },
+  "dist/src/sim/deck.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3c6dbd8a19d8d6558ce12ad8465202b3be56d069"
+  },
+  "dist/src/sim/deployment.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9d48eeef32f2a0ef2af3e392d9edff65c10f6e0e"
+  },
+  "dist/src/sim/elixir.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "97aec0004163f8b78b7c52473307cc0848dc6da2"
+  },
+  "dist/src/sim/entities.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5a89c34b3718791d29af0bbcf0e9868d76f7e6ad"
+  },
+  "dist/src/sim/flying.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d12f6eb0780d671dced10ef76f487965745163f6"
+  },
+  "dist/src/sim/formations.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "396ef8c2459441f7eeef25d01d24d69c6d9d199d"
+  },
+  "dist/src/sim/match.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "64e87d33220f29351992ec2fe5400af7b78a549e"
+  },
+  "dist/src/sim/movement.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0be315e14b1dceeb1c3b62d02d6e4608cc58fece"
+  },
+  "dist/src/sim/pathfinding.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "448b5e3f695108e0bb1c4ec9442545ec9c4579d9"
+  },
+  "dist/src/sim/projectile.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "428ddf2f7f28b80fc785964b82cd60c2c6c872c2"
+  },
+  "dist/src/sim/rng.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "411ca70c3af3bec914dfac7c5cefff32ef48e13c"
+  },
+  "dist/src/sim/spatial.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d8b0701f132205bf245af5933f07d5dcb47ea67e"
+  },
+  "dist/src/sim/targeting.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5996532fec6120c6598cf425bb105ef772027743"
+  },
+  "dist/src/sim/towers.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "594f9015b1feef2496b291feb3be64f30457ec87"
+  },
+  "dist/src/ui/arena-shell-entry.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a97807e51c2848c594dc29ca81b3cad41120c8bf"
+  },
+  "dist/src/ui/arena-shell.css": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f1a2a9c44a21734dd3293de3b9b5513639eada06"
+  },
+  "dist/src/ui/arena-shell.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bb962a78fcd223c8e841614de61550c248bd1305"
+  },
+  "dist/src/ui/combat-state.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a27aefbc12f687cf65e8ac1105b3ad1d1823ad2e"
+  },
+  "dist/src/ui/hud-state.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7baf4d803f55448b83dae6db3816184576679f9b"
+  },
+  "dist/src/ui/input-controller.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0ccc4b1e0edea9e30740040469bb44bbe27dd17e"
+  },
+  "dist/src/ui/placement-feedback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4d8417b9fbde18284fd21892c0689a94acf8c83d"
+  },
+  "package-lock.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "57d4f206ec6d041922c394cd67db615333eb8af5"
+  },
+  "package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6"
+  },
+  "scripts/build-pages.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cec8f19f4e21928bd83f868ec75ec432b97287d0"
+  },
+  "scripts/build-release.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "58f65d0c20de2c26a08c13ba3ea335e19256d86d"
+  },
+  "scripts/integration-audit.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ce1fa8bed0da565cd1387576156f7d29c7b52750"
+  },
+  "scripts/nondeterminism-guard.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2a7bb7a464186dfc8abbc80ce7f470dddb4d9f36"
+  },
+  "scripts/preview-pages.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e269346234479c9772fcf49bbb65f3bbbdd92962"
+  },
+  "scripts/release-browser-qualification.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c2349d29a7c8cd0717213494f518cdb73b620f1b"
+  },
+  "scripts/release-build.config.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "028399c9d2518a666e0740c0f0bffec805c58ffa"
+  },
+  "scripts/release-isolation-guard.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3a39cb4ab3fd448307fa0ad74a96fb03a1a91477"
+  },
+  "scripts/render-progress.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "dceec1b8fdafff7ed961fb258c0d6a91db925c48"
+  },
+  "scripts/serve-release.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1364c56f309038b361fc0a75557dd9dd28a0127f"
+  },
+  "scripts/shipping-isolation-guard.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3e03a0794cb3ce76f3a303cd8c6f58fb9e482020"
+  },
+  "scripts/spell-profile-audit.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3a7ed83538b5c31e3db33a398330ea94df928ff5"
+  },
+  "scripts/test-portable.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "44c27f794454b0ef11b767e5e369e1d190fe6a9e"
+  },
+  "src/audio/audio-events.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "33d6db646434169d0a43ed46f62a09723ce65a70"
+  },
+  "src/audio/audio-production-provenance.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "93c26a325db4dc9dc3237ab172fef89505f40cca"
+  },
+  "src/audio/audio-provenance.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5320fafda379d10680c5f36a03a8533fa52c7ecc"
+  },
+  "src/audio/audio-renderer.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e677d3302ca03ba3a9839a76ce4fbe2edf42c11e"
+  },
+  "src/audio/browser-audio.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "51384fa397a9c44e870f212f5766a1a3d5dea31c"
+  },
+  "src/audio/game-audio-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "feaef3dc9a0a07ed6a3448a0e57e0d2f29ef75f9"
+  },
+  "src/content/cards/basic-flying.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "db76c543c24cf0439a92da2cb36f4c84ad4f217a"
+  },
+  "src/content/cards/basic-melee.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "380857b92489b4086615e689a06c686e2c3c931c"
+  },
+  "src/content/cards/basic-ranged.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d80208caa7edbdd6169a1fa9cac3dd4c69a54795"
+  },
+  "src/content/cards/buildings-defensive.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "253a2008584e95b1d42e852a3f5cafe2e20b8622"
+  },
+  "src/content/cards/buildings-resource.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0a09201295c073c1194245c94334e31b7b8c2daf"
+  },
+  "src/content/cards/buildings-spawner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "33c0ec97d86b52b9570e5f80e5ac9cbd163e8e7d"
+  },
+  "src/content/cards/buildings-travel.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "031fcf4b7e21e56a19cf75c460a89c36efef2469"
+  },
+  "src/content/cards/champion-abilities.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0d5eaa88883b4bd67207d04c65ef18c64ec03450"
+  },
+  "src/content/cards/combat-status-heal.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d4e7531a0ee4636e12dae670cbbd80ada8788526"
+  },
+  "src/content/cards/combat-status-invisibility.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "95c5971f3f5bcc7027254ecd0488e724727248c7"
+  },
+  "src/content/cards/combat-status-stun.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f89c4c12922c748c06b3efee0fab1c581733821a"
+  },
+  "src/content/cards/death-conversion-delegated.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0e2175bd7c8b3e0e54b315ddcfc45b7a8c855b86"
+  },
+  "src/content/cards/death-conversion.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ba41a68513977d35866f646de79247edf3114b2e"
+  },
+  "src/content/cards/death-effects.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "919fb76fba634ff951be392251f8b64b0e36f4d3"
+  },
+  "src/content/cards/death-spawns.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f739e0c97f083387a4ccc9677594937bb6f08efc"
+  },
+  "src/content/cards/ordinary-projectile-splash.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b0eb9b1a2454dd5b49792bf8a404bf2ba549d67e"
+  },
+  "src/content/cards/ordinary-projectile-squads.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ffaa243a599e7466e47c32c281af04a1def8e9bb"
+  },
+  "src/content/cards/periodic-spawns.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "530ee3950ddbc550f5a26c22ef09d107e4e76bed"
+  },
+  "src/content/cards/shields-forms.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "87409ec06b89bfb1e55196e3ed4645a6337eb8a5"
+  },
+  "src/content/cards/spawn-placement.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b4bee6b12a655e66307a5852742a5dd05e83ca86"
+  },
+  "src/content/cards/special-combat-rage.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d1a13d2a914ae26191dc854a40f1c686f22ba1bb"
+  },
+  "src/content/cards/special-combat-ramp.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "39b75aa56126faafc225d7730709a0639ca33ae6"
+  },
+  "src/content/cards/special-combat-reset.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e9a833ec92dac7dfbcb3ff456e008ca76eec4736"
+  },
+  "src/content/cards/special-combat-slow.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ec2d1c836d77017af0c7d8420163258390df4d9c"
+  },
+  "src/content/cards/special-combat-snare.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ab4cf5f7a904988f77c84d8c71e53ae86c507d1f"
+  },
+  "src/content/cards/special-movement-charge-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0d8ce4c74d8d7b3d79a732acd6398aecc5942551"
+  },
+  "src/content/cards/special-movement-charge.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9751b948f6e9003012422981d39dbcb8f18c1b4d"
+  },
+  "src/content/cards/special-movement-dash-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "92e31a26d40f79f217d03ea113337a37deeac562"
+  },
+  "src/content/cards/special-movement-dash.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2b3437fb1524bcc504f01c16eabda57cc69a999b"
+  },
+  "src/content/cards/special-movement-jump.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "65aa8cc963188ca8fc65f8514dd93c23f4d3b770"
+  },
+  "src/content/cards/special-movement-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1bc4ede449d5de5b99851c6cea73c3b00996a3f2"
+  },
+  "src/content/cards/special-movement-leap-knockback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ef0819dba8d501f9507f57d665214680f49954b0"
+  },
+  "src/content/cards/special-movement-recoil.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b6d2ecd39420bf6c8903a73951f6518d0c276688"
+  },
+  "src/content/cards/special-movement-retarget.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6b309f7e4b28e8319bbe2a6935c178f9c55228ec"
+  },
+  "src/content/cards/special-projectiles-chain.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "059abba02b8e84839efa747c374590bbbf786e05"
+  },
+  "src/content/cards/special-projectiles-pellets.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cba018136fd4a4855771f2d0da56655ebba7e5da"
+  },
+  "src/content/cards/special-projectiles-pierce.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "98248991fd78bd10dfa0ae5fb1606762a73f428a"
+  },
+  "src/content/cards/special-projectiles-reflection.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "902eb7826390dcb92ec9532ae49e18b226a5ccd9"
+  },
+  "src/content/cards/special-projectiles-return.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5f1c8871b0253cad8f8ebbee1765a0d46a1b9a0f"
+  },
+  "src/content/cards/spells-clone-unit.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f706a29e404d8b2136b5d6bd9359062e79fd5f74"
+  },
+  "src/content/cards/spells-copy-card.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3d01cf186a6af36a5da361259333a3427bf79f95"
+  },
+  "src/content/cards/spells-instant.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "82d9ae618122851dabe8f02389e88e909a4a30b9"
+  },
+  "src/content/cards/spells-periodic.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3032683aeabf0031a80128f14d5eb17a43a3836f"
+  },
+  "src/content/cards/spells-return.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8ae55aeb5838cb12e6652cd54fca7f4139abd7df"
+  },
+  "src/content/cards/spells-roll.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d20ad00580eef1152fbc2e4d18149ae6dbcc46cb"
+  },
+  "src/content/cards/spells-spawn.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "be85be44954a48151ef984a518f7b0a9c1f46b77"
+  },
+  "src/content/cards/spells-three-wave.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e5ad102e54f0703c2382df98e95858db877b2f7a"
+  },
+  "src/content/cards/spells-travel-line.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9d9becdee21b2c026e08c18873fe35523eeeb96b"
+  },
+  "src/content/cards/structure-seeker.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8ab8882539882f4699fc4a9afb0850e41da18cce"
+  },
+  "src/content/cards/swarms.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3262791442227989d5294296cd2d1e2b19d6ec24"
+  },
+  "src/content/editable-deck.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cdfb7f081400b8a4f797f0cf577a6923c6004347"
+  },
+  "src/content/index.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "03c672e10fca2d7f4b18e8925585ecb89b3f81d9"
+  },
+  "src/content/movement-question-graph.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "683845a4766eeb5f3fbdd7172ecb63466e548cd0"
+  },
+  "src/content/playable-roster.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9ce4c06226f2a4c2b54da3893849a85759fa00f5"
+  },
+  "src/content/schema.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "975607547254430b57b06e871042d217c6c47604"
+  },
+  "src/content/session-card-catalog.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "76150630402df875e0a0336fc9708feb7b0993a9"
+  },
+  "src/content/session-spell-profile-receipts.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6fcdc939d693f53c3373b40e69d9696cbbdced2c"
+  },
+  "src/content/session-troop-movement-profiles.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b2ac0abb2bae8c21093d4bb0dab9676ff25b08b7"
+  },
+  "src/content/session-troop-movement-question-authority.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6a22d52a3edb2e8d8bcb3c8e13167668b9f0cc22"
+  },
+  "src/content/session-troop-movement-runtime-profiles.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "52012f3973cd47bc7097872c9cb1d96194ae128e"
+  },
+  "src/content/session-troop-profile-catalog.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b3ae967477ff387a2a192a9ab811610312a13043"
+  },
+  "src/content/session-troop-projectile-admission.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0ddfcb469016cbb1adc1d1066630472acf36278b"
+  },
+  "src/content/session-troop-projectile-profiles.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f201128dc0285a3f3963f717d4cb9d4a47a86db3"
+  },
+  "src/content/session-troop-projectile-source-admission.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4d363ae5f672141bc977f08e898411520677cf39"
+  },
+  "src/content/session-troop-roster.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "75fb7af5675c25e418bb06483bcf84d67eda1a4d"
+  },
+  "src/content/session-troop-status-profiles.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "703de20f84ef4072566045ce12659a8157a7df10"
+  },
+  "src/content/session-troop-status-runtime-profiles.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8b6c89b46bbc24922aa043eb5f8f1dd624a0b979"
+  },
+  "src/content/visual-art-direction.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5c5ae4fcdc3ed12a3539bf155bff9d032c5d845f"
+  },
+  "src/content/visual-asset-manifest.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "16da033df68a6fae6fdcfecfab7cd07732c92d05"
+  },
+  "src/rl/environment.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7fd3f017880a822975d76e864dcef6fa5beea45a"
+  },
+  "src/shared/ordinary-projectile-delivery-authority.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b950c8856fa09f4f7ae40bf7ffeeab7864759b6a"
+  },
+  "src/shared/session-troop-melee-area-authority.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7616de05e54061cfd0a0167e87abcb88f01ec1a0"
+  },
+  "src/shared/session-troop-projectile-authority.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "358096a62c01fcf1e1ec9df863c7a36eb15a27ef"
+  },
+  "src/shared/session-troop-source-confidence-authority.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "874b41447edbfed08350f0fb963f0bde70700839"
+  },
+  "src/sim/area-damage.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6c4fe87b7da28cdfb93bdb85dad03c8e3c36f92c"
+  },
+  "src/sim/area-target-selection.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c0cda7af824ca48dae463e294e86d9f54fa011d3"
+  },
+  "src/sim/arena-geometry.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3f09b6f47b1a103d513a4ef3779cfa13c9d30398"
+  },
+  "src/sim/attack-cycle.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f915e770cb601f5744e7d4e811162b0d6912d1ed"
+  },
+  "src/sim/battle-combat.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5b20900fc278376018808a54fc1e311ef462529b"
+  },
+  "src/sim/battle-continuation-kernel.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3426d73673cd532418eadcbe4cd704cd0f4c3614"
+  },
+  "src/sim/battle-movement.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d0ca619347b5e4c04bc2f762555310255ec4a92d"
+  },
+  "src/sim/battle-towers.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8fe2daeb877fc1bfc239daa02e912ec00a01fa8c"
+  },
+  "src/sim/combat-effect-feed.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2c2ee7a40f1052beee6fa0a16f3d509e5b7c363a"
+  },
+  "src/sim/damage.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7c5d120f7b86ada8d9eb1b35a964888882a28880"
+  },
+  "src/sim/deck.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3c6dbd8a19d8d6558ce12ad8465202b3be56d069"
+  },
+  "src/sim/deployment.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9d48eeef32f2a0ef2af3e392d9edff65c10f6e0e"
+  },
+  "src/sim/elixir.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2a1001290b1b2dfe51189c85bba887dde1a0b088"
+  },
+  "src/sim/entities.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5a89c34b3718791d29af0bbcf0e9868d76f7e6ad"
+  },
+  "src/sim/fixed-step.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8c04d4a34c981f7d6c3b0bb141e646d7483c4d6a"
+  },
+  "src/sim/flying.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d12f6eb0780d671dced10ef76f487965745163f6"
+  },
+  "src/sim/formations.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "396ef8c2459441f7eeef25d01d24d69c6d9d199d"
+  },
+  "src/sim/game-opponent.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b30c1022a4efe2ad3d7a912ffdbf6e82ec40b933"
+  },
+  "src/sim/game-player-deploy.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "86246c000cd6fe5f4f13c4d72b1facb5832be911"
+  },
+  "src/sim/game-session.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c3e86cb21fa926fc985120044d0adfd45e9f69c2"
+  },
+  "src/sim/game-side-deploy-core.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2916d0b2b35b582194f2df76af8c11841b2dede0"
+  },
+  "src/sim/game-side-deploy.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8c69ce4e9fdd5cb1f99a71211891e674f068b1d0"
+  },
+  "src/sim/live-battle.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "55286bda922f84ae496dbb7a89bcce5a58d140da"
+  },
+  "src/sim/match.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2a280881d54bbc7dfb72b419c575c47ab6547ae8"
+  },
+  "src/sim/melee.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2e7c7ae9ececae2ed18ad7108839f3daa9c9179f"
+  },
+  "src/sim/movement.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0be315e14b1dceeb1c3b62d02d6e4608cc58fece"
+  },
+  "src/sim/opponent-controller.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3bbb5c69cc3a14eea0ec68a775e22f557f3c5936"
+  },
+  "src/sim/ordinary-projectile-homing.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "769aa45f8048f1e195f0d09791e03c27b5d6a67e"
+  },
+  "src/sim/ordinary-projectile-splash.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b9d3d9eec1d55341178c25e562482ef64d9655cc"
+  },
+  "src/sim/pathfinding.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "448b5e3f695108e0bb1c4ec9442545ec9c4579d9"
+  },
+  "src/sim/projectile.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "615a474aa1af9e560db1c83cf72d9b00364c9278"
+  },
+  "src/sim/rng.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "411ca70c3af3bec914dfac7c5cefff32ef48e13c"
+  },
+  "src/sim/session-building-profile-receipts.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb"
+  },
+  "src/sim/session-building-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "55f326c1ce1231c72c6c74612dff4d601f79af05"
+  },
+  "src/sim/session-card-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e0a6bfaea551521cd8413ac7f04314f548961b48"
+  },
+  "src/sim/session-troop-projectile-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "85a46c2fa285b675ade18558c54475ef0e245b94"
+  },
+  "src/sim/session-troop-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5bf72444924d7136601e9cf7cd1f1145f81ae217"
+  },
+  "src/sim/session-troop-status-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "03f1665063d1442a90811e9714269896538b89c3"
+  },
+  "src/sim/spatial.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d8b0701f132205bf245af5933f07d5dcb47ea67e"
+  },
+  "src/sim/spell-area-impact.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e2988c0b53ad27860139d0192df372f70583f23a"
+  },
+  "src/sim/spell-intent-runtime.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bffe9cc6a2bb109c65ad4811596fc2e02aa45c30"
+  },
+  "src/sim/targeting.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5996532fec6120c6598cf425bb105ef772027743"
+  },
+  "src/sim/tower-evidence-map.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "177a1900714cbc73016e3b70f613e6bca18ba5ba"
+  },
+  "src/sim/tower-evidence.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e9cb626854afa5c4cb85394d691d0df928514deb"
+  },
+  "src/sim/towers.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5858fde133d53b63ff90d1480148cca3ee713dbf"
+  },
+  "src/ui/app-shell.css": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "69da01d551f378dfe27c7b274d58d3f611affb01"
+  },
+  "src/ui/app-shell.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "61117e3375c33262b226677450d9c2a03987c1f4"
+  },
+  "src/ui/arena-shell-entry.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5d0724399770366d0a0927965a4d2c01d5a71330"
+  },
+  "src/ui/arena-shell.css": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7dd1733e2cd7e4b160cc28877a3cdd232248754d"
+  },
+  "src/ui/arena-shell.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6c3306106e2ed4896cc6b3d22e51c08b2dc26efb"
+  },
+  "src/ui/card-lore.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cf00c27c3d4767dd5f26bf12a27d5907aa377859"
+  },
+  "src/ui/card-portrait-art.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0b0117fe871d56586231b65f9f304fdbb5ef0fd6"
+  },
+  "src/ui/combat-art.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5757522ce19742b30bf28360f9b1b425ebdb8a46"
+  },
+  "src/ui/combat-effects.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "209337cf3e55bda503918bdd9856e4192dac9d6f"
+  },
+  "src/ui/combat-motion.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fa31b6a9d5b79a1f21fb4890b920c15e529691f6"
+  },
+  "src/ui/combat-sprite-prototype.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c8f11dd4cb2e2de3e760e1477b83bfbc2c556f22"
+  },
+  "src/ui/combat-state.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3180434a499931f5253ec2cfdf5dfb86b7bd8c67"
+  },
+  "src/ui/game-audio-bridge.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "215645684f0a1fa15cf93087e7782e9094ae59e1"
+  },
+  "src/ui/game-audio-controls.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c039fc147a70db1f9a3fd693bae3e6d0643e68bf"
+  },
+  "src/ui/game-browser-entry.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ca256584329f387a322091383a9e506439335fe7"
+  },
+  "src/ui/game-browser-loop.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d3d09e0cfc46e1aab23e1e872f75dd3eefc943cf"
+  },
+  "src/ui/game-input-bridge.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7dda37e62390e39a042d993e204d06dcf69cd2fb"
+  },
+  "src/ui/game-session-restore-continuation.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "63240fc584dcf7e7aa132bee25ea4bd9aa775d43"
+  },
+  "src/ui/game-ui-projection.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1d1b589b501278cebd2696312f4cc7f1f3b80b20"
+  },
+  "src/ui/hud-motion.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "aa54f89e9ee910ae508b8fb14524606ffcd328c9"
+  },
+  "src/ui/hud-state.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7baf4d803f55448b83dae6db3816184576679f9b"
+  },
+  "src/ui/input-controller.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9b04d40f473e59f2d341d21d2ee79869e3313bb9"
+  },
+  "src/ui/match-feedback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "059ae2216d6635863b46f5bbdb7da20a6f132782"
+  },
+  "src/ui/placement-feedback.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6d39725a4328fa167120ff8a403b0dc13fe55a0a"
+  },
+  "tests/app-polish-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b5c57da4e7c87dae2f03d158aecd9b6c3a60d8dd"
+  },
+  "tests/app-polish.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "09ca6bb0e12458daac5e07f4bfc8034b8a0c32ab"
+  },
+  "tests/app-shell-layout.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0a7e24ea6e7ec0755f5ffec570f4b7f24bc28cd4"
+  },
+  "tests/app-shell-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4498ea85ae44fbe108a30c4448b32966e3aab3ac"
+  },
+  "tests/app-shell.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a9801fd555ee2f1b754ba185609eb0f90c23fb91"
+  },
+  "tests/area-damage-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8b45057b482132411bdf7d6f5825d76278cf3879"
+  },
+  "tests/area-damage.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3ac12b84396218d70d1ad60324ab18ae78554b63"
+  },
+  "tests/arena-geometry-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bf600afbc611d82aa0c5dd0c7bc46b007e41aa26"
+  },
+  "tests/arena-geometry.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8ba02e8fbb1dfafea8aaa4d6ade617c6dd53230d"
+  },
+  "tests/attack-cycle-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4a5bc980e3f613a0d630083b91245f8443a6f167"
+  },
+  "tests/attack-cycle.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "265191e4d13aa7eb79cd66b42792a2b543741c4c"
+  },
+  "tests/audio-events-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "76e1188371b5024d6720f2ff37a8a4bcfcd54b46"
+  },
+  "tests/audio-events.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5eb855f696f43bda6fd7e4a86f97eaa3ca824ed1"
+  },
+  "tests/audio-production-assets-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c04edfb3abb37fe7a9bde85fa4f5792ca7deeb5a"
+  },
+  "tests/audio-production-assets.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "10d550c9806093a7e643663c5bedfda0a557fc06"
+  },
+  "tests/audio-renderer-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f76b25ad45ebd39a83b6d5277714069359ca47f9"
+  },
+  "tests/audio-renderer.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f87d42e6a29cdf426ae2e53bc592156b9a74039f"
+  },
+  "tests/battle-combat-external-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "dd11bbd119b02810762bb458f0d1996d9b7dcc24"
+  },
+  "tests/battle-combat-external.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "169939289aa384ac281242237f4e13b4ff185421"
+  },
+  "tests/battle-combat-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fc7ef2149108b209a21dff0e3c6c59761f2d4fa5"
+  },
+  "tests/battle-combat.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "278c9c71783e0736ce0cf24d40b15fe7fce254e6"
+  },
+  "tests/battle-hand-polish-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "704e22171ada58baab7b44a67dfc01739095b1dc"
+  },
+  "tests/battle-hand-polish.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "69888b58d46fa31b67a71c4880d68d4ca7790436"
+  },
+  "tests/battle-movement-history-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "638b523b7059deb9aa44488e3ee6b744370c892e"
+  },
+  "tests/battle-movement-history.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7e23654c20f4336838f9e49d9965453928511717"
+  },
+  "tests/battle-movement-kernel-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "108179eb705e72d8057884edf3a09e63fbfb75f3"
+  },
+  "tests/battle-movement-kernel.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "696fe1d698def2a625699f9c2fa8212d186aafc5"
+  },
+  "tests/battle-movement-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a586f265cf39a15868b5cf54525e68f8b61d8073"
+  },
+  "tests/battle-movement.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7cf8699ab13898d8bfd431a19b0e87ff5f71cdef"
+  },
+  "tests/battle-projectile-history-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fd414868b1c0ae9895d3290dd1749baf448581e3"
+  },
+  "tests/battle-projectile-history.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ac3ae980a7e7fa0663ee23da47cabbc2ad5f7b7c"
+  },
+  "tests/battle-towers-kernel-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a9a4061583aa8f308ab92922e6c163cf018211ef"
+  },
+  "tests/battle-towers-kernel.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "db4a5df96581eab7452961fead0d891b6f33da13"
+  },
+  "tests/battle-towers-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e9f96581dc4ed23d66863e7b6f829959d1d226ee"
+  },
+  "tests/battle-towers.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "da3f30f00eab347c0f69fc97e1cd9d9214e60c16"
+  },
+  "tests/browser-frame-restore-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3c8842184779f20ab69f06fa78e8696e8a3eb2e5"
+  },
+  "tests/browser-frame-restore.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c9eaef22eaf8fae991025b5f9fc1dc40225d2df0"
+  },
+  "tests/buildings-defensive-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "98486422c1f35ed9a8cbb7e9e7e5acbe566ff8db"
+  },
+  "tests/buildings-defensive.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7def24f4f8374971718b71ccc48cceb6b1e83603"
+  },
+  "tests/buildings-resource-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2d369f748dde14393fee8216c5cbebdd440ff69f"
+  },
+  "tests/buildings-resource.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d3789f759f7fffc94f4dc1978996521fafca0f99"
+  },
+  "tests/buildings-spawner-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4ca1428c6e05d2c2447abbfff9d135171eeb2a49"
+  },
+  "tests/buildings-spawner.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e538e48a76c8094890d42590a7c71d5e24440b39"
+  },
+  "tests/buildings-travel-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3b0f072129bf4c2757a78662e821b67bc1256f3f"
+  },
+  "tests/buildings-travel.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0a1bbdfed019646edfb02f28b403690007b4f6d0"
+  },
+  "tests/card-expansion-art.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f9f019c1110d953941a6163b28b80978ad171c08"
+  },
+  "tests/cards-basic-flying-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "aae4d6d53bd1f1ee414e0cc63b16dd12ba7cd59b"
+  },
+  "tests/cards-basic-flying.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0741c8a1696d23a82c3297c3daa7eb82f519946b"
+  },
+  "tests/cards-basic-melee-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cbb2505d2382b2062abfc1ce04483bffab4362aa"
+  },
+  "tests/cards-basic-melee.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fb43aaeb422339d4ee7b77f21e7605553a6d5365"
+  },
+  "tests/cards-basic-ranged-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "dc0c56231ae506a9552318ac7bcc9f4f3e39d6b9"
+  },
+  "tests/cards-basic-ranged.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "acef56e0df02bbf576ddf86176aad0ae7fdff8e0"
+  },
+  "tests/cards-expansion-round-2.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b136b50aab0b10bd7c7d203ede0a085a0167bea6"
+  },
+  "tests/cards-structure-seeker-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2cd805749790b87f780cbbccb21a7ce2ff2659a3"
+  },
+  "tests/cards-structure-seeker.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "55108e9d55514695f91817c8a3395c4add34c0a4"
+  },
+  "tests/cards-swarms-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "85c8c21848b0372d2c791eb1dcd15a32fffadb85"
+  },
+  "tests/cards-swarms.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1d4f842a999edd3eaa754b2d75516c8b63f62737"
+  },
+  "tests/cards016-integration.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "74c8a49523b5018fa377f0cdf67f5fdbd662418f"
+  },
+  "tests/cards016-stagger.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2f79053aa66b52a21f5a1ede4b791b9570d0b0bb"
+  },
+  "tests/cards017-stagger.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b4c694157c77ead0840dbfe463f0c62fdd0fcc16"
+  },
+  "tests/cards018-browser-integration.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9829b786b6de2f7d6d6580cc2f09ee84b99a0e65"
+  },
+  "tests/cards019-browser-integration.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "33c9cd0ccc2da2442c363ce5d2716f81c55fff0b"
+  },
+  "tests/cards019-card-details.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fc853763193619add5915e483dd3c5e557bdee94"
+  },
+  "tests/cards021-browser-integration.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d4926342d93ddd32353ebd4946d76b03e571e1cf"
+  },
+  "tests/cards021-integration.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "67045854ada3fc1fa83c42c1ef9ddd7f5b211452"
+  },
+  "tests/cards022k-brackenwheel.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3839a50521596326858609de52de8a9e5e789c59"
+  },
+  "tests/cards023k-aether-well.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "924ba42f34ba9c68e919cce7ce24ef4c8405a133"
+  },
+  "tests/champions-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e4382ff696df05176f8f5345444a68669139fb99"
+  },
+  "tests/champions.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7fde79817fcc9d72927bc9eaedfa873f21ad0547"
+  },
+  "tests/combat-art-asset-browser.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "536a186040d8f66b334003875fee5304c561eabf"
+  },
+  "tests/combat-art-asset-fixture.html": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c29f97b6b390727457440011f23139b56bdfa351"
+  },
+  "tests/combat-art-asset-fixture.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b7a850f56d4a8de776e5e437b323b20b93bab51e"
+  },
+  "tests/combat-effect-feed-bound.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "24f33ab149a144f284c7c6e86d28592e76df9d2a"
+  },
+  "tests/combat-effect-protocol-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cafdf1005d68a574986ea4bb4b7265f9786a5d22"
+  },
+  "tests/combat-effect-protocol.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d811ed91f090b92727aebb8a563356f7f8d017d7"
+  },
+  "tests/combat-sprite-prototype-browser.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b693955aa224492fab9a1746068dd18a3d666f7e"
+  },
+  "tests/combat-sprite-prototype.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3f23610c5535b04d2d8162be717f524e90230de4"
+  },
+  "tests/combat-status-heal-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d3593919892d3f6de140c373a16e0c1594b31ca4"
+  },
+  "tests/combat-status-heal.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "21895c1456546b0ae74336ac80779249067e9653"
+  },
+  "tests/combat-status-invisibility-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "83f5bb9587bb842086caede1e88cb67286f490a6"
+  },
+  "tests/combat-status-invisibility.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6bb4d14002345e15b138add2fc9ff934b29677db"
+  },
+  "tests/combat-status-rage-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "35224d4fe3b07636b43b7696d3499b8053c4bc76"
+  },
+  "tests/combat-status-rage.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1938513aa4e472ab03fe159f2aebe9ed16a90571"
+  },
+  "tests/combat-status-ramp-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3131148b0b868df54c6d72580eb62b8425dced2b"
+  },
+  "tests/combat-status-ramp.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d67fffdcdb00b7f986d5764c2052c5bacae56516"
+  },
+  "tests/combat-status-reset-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d88f3d2d0ea05e6e7b96050077d340dd36dc8177"
+  },
+  "tests/combat-status-reset.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0b6b4629770b99c5a6d282a1659543fd5954a007"
+  },
+  "tests/combat-status-slow-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "37e070681918eb260169342d77ef69b085071148"
+  },
+  "tests/combat-status-slow.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1d2daf40adad1959feb3f4e331326994b277c3d2"
+  },
+  "tests/combat-status-snare-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e155024e034183c78299f67773e01b33fa902762"
+  },
+  "tests/combat-status-snare.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "62a9cdf5aa45429eba65c5aa79dc01d70e0fb8e4"
+  },
+  "tests/combat-status-stun-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4a7b5dedb1e5836e1e0209c51a0066a8394ab110"
+  },
+  "tests/combat-status-stun.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bf4627f186d70a2c7822db242df6ffafe117f114"
+  },
+  "tests/compact-capability-hostile.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cbe6771c30e12ca6334e3377fafff70c0873c37d"
+  },
+  "tests/content-schema-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "84e695d822ef899f621bcc938a59c1e7d3dfbc64"
+  },
+  "tests/content-schema.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "97986c9bfd9ca040d5af7f0637c18aea49c7a278"
+  },
+  "tests/damage-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b618c73bc475295f79dcaf084e86c3cd76a1d777"
+  },
+  "tests/damage.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "118a126e8712dfc4d1580462d0b1279bf73c5ea2"
+  },
+  "tests/death-conversion-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6d13fb90657cf0ff7143c707a19f7f9114ca90a4"
+  },
+  "tests/death-conversion.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "13d25971d53e0a1fb78eadcd694fa1a9c6ffb512"
+  },
+  "tests/death-effects-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "659f0933582e08170691bb7adbf143bd6d5fd234"
+  },
+  "tests/death-effects.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "59eb8450dc5d495b6e6da220f3b5783bb68e0164"
+  },
+  "tests/death-spawns-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "21f8735a1a6510a7ac2a8a73ebd1f2ce94edda11"
+  },
+  "tests/death-spawns.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "19fcd736258ca167f556d176425d8217c3cf07b1"
+  },
+  "tests/deck-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4cb8252369c1897da9415f17aae0443e1cf19ff4"
+  },
+  "tests/deck.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "652659616cde5e25c7d9665f5b70f7fff897b447"
+  },
+  "tests/deployment-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b51cdf69d6efc91207edf1f33f6ff8144e5ebe65"
+  },
+  "tests/deployment.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d40bfa88273b4d94283452e38d39017c94aa1ce4"
+  },
+  "tests/editable-deck-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "438aae572e00bcdb049f56eafb0d7a9894bd980f"
+  },
+  "tests/editable-deck.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7a70a301f1b43edd8faf5dca3f2b6805a24ce691"
+  },
+  "tests/elixir-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1157e4d1004e864d3d84abd2fedbeaf64ed60110"
+  },
+  "tests/elixir.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e223b9865dfd43779259d7b76dfce51d0047783b"
+  },
+  "tests/endurance-workload.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "94af9b03b87b01acf73503c0029bc00d11116170"
+  },
+  "tests/entities-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "464263bec5ede972689831be910767b70cbcde5f"
+  },
+  "tests/entities.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a818bbb3bf8e8cf1a9f69417fb1f4afb7a5ef303"
+  },
+  "tests/fixed-step-kernel.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d51476e9a1e5907dd5a98ca56fed85d1a9c165c5"
+  },
+  "tests/fixed-step-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "30b433419e44c27e9dacd563e7b6ada646014474"
+  },
+  "tests/fixed-step.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5981371394bba98982b77951e5e1b01bb8eec3de"
+  },
+  "tests/fixtures/integration-occurrence-adapters.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "344c8b31eaea28c50eac7338373f400fed4d4dec"
+  },
+  "tests/fixtures/integration-occurrence-bindings.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2cb5e248a337f34d113a31355ea24d47ac7ec21c"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-map-hides-main/node_modules/critic-package/browser.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "43d916384acad2431a5057b2accde33299f5c9b2"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-map-hides-main/node_modules/critic-package/main.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8babe5f15e32770f234283ed5fab842e11b56ba2"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-map-hides-main/node_modules/critic-package/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "436d97cdc5584ae5e3caa8d48711eaaa6a476c40"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-map-hides-main/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1a8610b430dc2ae12f708e5826bf3b1b68bce2f1"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-map-hides-main/src/index.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4b557b4b2de0ac7c64ed70ac0975a9182e9e6a6f"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-string-hides-main/node_modules/critic-package/browser.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "43d916384acad2431a5057b2accde33299f5c9b2"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-string-hides-main/node_modules/critic-package/main.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8babe5f15e32770f234283ed5fab842e11b56ba2"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-string-hides-main/node_modules/critic-package/module.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7986dd8d411e52deba502c625f937bd718ace820"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-string-hides-main/node_modules/critic-package/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "343f4b48e827bbc4a709605f19762b0c5e78ffe1"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-string-hides-main/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "005b7ad4193f7968b855fb268a58a62fce4b9510"
+  },
+  "tests/fixtures/shipping-isolation-guard/browser-string-hides-main/src/index.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4b557b4b2de0ac7c64ed70ac0975a9182e9e6a6f"
+  },
+  "tests/fixtures/shipping-isolation-guard/clean/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "24e4e6941ae11c0b9a091a3d73e34a059d2f1922"
+  },
+  "tests/fixtures/shipping-isolation-guard/clean/src/feature.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9acbd8832fcf48583366c4d2ee19f64563af15c4"
+  },
+  "tests/fixtures/shipping-isolation-guard/clean/src/index.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c52d5edb47ab57a7b501a5ec6302f40e20e11a13"
+  },
+  "tests/fixtures/shipping-isolation-guard/clean/src/leaf.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9a00b490603736f23b9d9fd32725a17bbc61560f"
+  },
+  "tests/fixtures/shipping-isolation-guard/clean/tests/comparison-only.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3aa0aaa3c06e37a73cee5d318eee289eb16c7b2a"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-import/node_modules/critic-package/browser.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "44f2e3df6e1b144a4e4ca1f3be918595aab7250c"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-import/node_modules/critic-package/import.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1c4ecf8f2ea207838bc374af648055b7808e6bbf"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-import/node_modules/critic-package/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5de5cedf89fc7a946988f492c4ecc91c03e3fc8f"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-import/node_modules/critic-package/secondary.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9e26044cf2c92724192a7efd4481bc6b0b0b017b"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-import/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ebd5a5e5834f926444cfaf485384c9a78c0559bd"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-import/src/index.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "baf06e398bfb3e1ab3ac8a16cd5e3250f2347f8f"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-require/node_modules/critic-package/browser.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "43d916384acad2431a5057b2accde33299f5c9b2"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-require/node_modules/critic-package/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "70761f5ac0ae3a054365afbcfdb83c11118d2ead"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-require/node_modules/critic-package/require.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c5f474e6197c5220c353a13b619b8f4689231182"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-require/package.json": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "923b3eb65a463cd34beff9af4291443549a2cada"
+  },
+  "tests/fixtures/shipping-isolation-guard/exports-browser-before-require/src/index.cjs": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4b557b4b2de0ac7c64ed70ac0975a9182e9e6a6f"
+  },
+  "tests/flying-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8b4bcf051bfc70e07a2ee0c071c58036f5c901d5"
+  },
+  "tests/flying.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a59f8bab571e5769597294e06ff86063c70cc200"
+  },
+  "tests/formations-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "88b5ad004ed27fdf71fe6dbd429299776fb9a609"
+  },
+  "tests/formations.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2c94706921eaacb2e8507b823db1a9842f4d6236"
+  },
+  "tests/game-audio-runtime-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "93285eb392ee518622744dda64531afec0bbb41a"
+  },
+  "tests/game-audio-runtime.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b150ec7c3e0f2865aba67729a5e5fbb7f0df4c64"
+  },
+  "tests/game-battle-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "35ceeaff7a1278f91cf3a40e6dae1ebb49b57741"
+  },
+  "tests/game-battle.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9fa1fcb5933439e4707be6d7f4fc699c5b1b446d"
+  },
+  "tests/game-browser-audio-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9a020147dd001b3bde34d342789396a7e8791908"
+  },
+  "tests/game-browser-audio.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "78060c37b6ad6f97b7f969def80181361a33cc9d"
+  },
+  "tests/game-browser-building-choice-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "70adf369f515f1910ae0399b25597383d746c58d"
+  },
+  "tests/game-browser-building-choice.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1040a1b688d1caff8d51c4de9c416d1534d0930d"
+  },
+  "tests/game-browser-deck-choice-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8a892601f3f97fa9477ac2e10008b642daa65d42"
+  },
+  "tests/game-browser-deck-choice.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "894bebe77475f9007ccbb8f34301ef7568e9f34f"
+  },
+  "tests/game-browser-deck-keyboard-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9569b669b6f5613d4c5567329a52ea9acfa3d835"
+  },
+  "tests/game-browser-deck-keyboard.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c52fbf9d78913fa4bd52a13ea177922839fdcce0"
+  },
+  "tests/game-browser-endurance-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "eb60203c049114b296f7b4cbcae1aabe0d638c6a"
+  },
+  "tests/game-browser-endurance-server.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "075a87d9183d67c6fb3886606c071fb33d776ccd"
+  },
+  "tests/game-browser-endurance.html": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b6c7bd70eb467c33152a07daf6a91c6c31856dd2"
+  },
+  "tests/game-browser-endurance.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bbd293c8e8380399622b4ebff3d7a09a90e3a0de"
+  },
+  "tests/game-browser-journey-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7292355454798642b2a90a9fba5a1bae094ab2cc"
+  },
+  "tests/game-browser-journey-server.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3f83dead54512caf0f4bb51859ab12b2e768f2bb"
+  },
+  "tests/game-browser-journey.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d900691448b71174e14ea86766552ac930366c01"
+  },
+  "tests/game-browser-loop-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1f42c77f816c0f138f222da202b5761e79eb668e"
+  },
+  "tests/game-browser-loop.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "86a7dd777a425f3cfdb595d758087d0cc4b709b0"
+  },
+  "tests/game-browser-policy-notice.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "aa2ce39db72391980a82c3729358f8c992e988be"
+  },
+  "tests/game-browser-roster-witness-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "06a2a4fca5dfe18ce63440fa98777be3c4a76384"
+  },
+  "tests/game-browser-roster-witness.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "460efbdedddc96828abab422eb8f795015faf8ff"
+  },
+  "tests/game-building-policy-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0c4cdab4e73be47bc5529e40aafcdd1352314afd"
+  },
+  "tests/game-building-policy.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4c11bbfa985766a20c01fd9ffb3159082d9e39e1"
+  },
+  "tests/game-building-runtime-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "27c1a5a263825d74bae07449aa006ab02330d384"
+  },
+  "tests/game-building-runtime.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "18ad59bcd2b95095182b6246ca5125518fe01156"
+  },
+  "tests/game-history-cap-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "38e9c9c910e10afdad0c9086a1049cdbc4c94feb"
+  },
+  "tests/game-history-cap.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "981b68f01c737c2149e87f484f803b383547bae3"
+  },
+  "tests/game-hud-feedback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "11ba91efa319166c5b6c7a6f8e9ae1112a785989"
+  },
+  "tests/game-input-bridge-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b468487977aed445d4cbf1d3c4ab782cbf059c94"
+  },
+  "tests/game-input-bridge.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0be9d6118a69e4474e84e966c6dbff320baaf20f"
+  },
+  "tests/game-opponent-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "77db3ef0c734b9966fdf2278aaca2b4e66d69518"
+  },
+  "tests/game-opponent.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ecf1bcb1fd841c40a87db8117c83bcf3d34ad056"
+  },
+  "tests/game-player-deploy-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "08cb477d9001836f3347bde1969a2ee30e58c49b"
+  },
+  "tests/game-player-deploy.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1c9a093bf27509d0454ad1e2d7b1665a6b6bb901"
+  },
+  "tests/game-player-remount-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ec5bcaeebfd5595985296759d3113ec37a071cc8"
+  },
+  "tests/game-player-remount.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "31ad5f29426af943e1ff1b5da453c7fcd8253d5b"
+  },
+  "tests/game-presentation-journey-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5dca27a87b8dd03cff4f19a7002a6a1b014b01f4"
+  },
+  "tests/game-presentation-journey.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "777e09079be28ea815b89883e88ab6ac748d2554"
+  },
+  "tests/game-restart-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "775d6d44d042c04abe3fb63876d81eeb4677cecc"
+  },
+  "tests/game-restart.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5d93da7c9d1f79a1daf1f3245d6117ecc5e73463"
+  },
+  "tests/game-roster-admission-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d3fe06da396f5059394331483989c09a297f502a"
+  },
+  "tests/game-roster-admission.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ac40aa0276b303ddf1640bc8bb63cf725fc5d871"
+  },
+  "tests/game-roster-buildings-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c33d2d14996679d2b0329632aab2ed673f48371d"
+  },
+  "tests/game-roster-buildings.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3fb814f23b7c15d09d7c61fea216642ee039952b"
+  },
+  "tests/game-roster-spell-occurrences-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fbb82638a3311a876b0700afb6d4e9a5b0cb6297"
+  },
+  "tests/game-roster-spell-occurrences.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "aaffcbe7ff1e069d6bf139a9aa87a415a640f054"
+  },
+  "tests/game-roster-troop-profiles-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "be9272512782c47d0b988902d9db580674b544f1"
+  },
+  "tests/game-roster-troop-profiles.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9edefdf349fbed1c2532f4802b3f3d546314f08c"
+  },
+  "tests/game-roster-troops-air-swarms.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1c3b2b44d07c78c7670e9e79763a71d406813bc8"
+  },
+  "tests/game-roster-troops-movement-profiles-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7db9d856612aa19a6ed392893446b436910e22bb"
+  },
+  "tests/game-roster-troops-movement-profiles.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9333730e3b6f036d242470cdf9ce9495f68a38d1"
+  },
+  "tests/game-roster-troops-movement-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ab9f86f5788c060099f2b0174eeeff7dcd365f58"
+  },
+  "tests/game-roster-troops-movement.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1fd28188be356a94868cefdd4555f6158cfd1b58"
+  },
+  "tests/game-roster-troops-ordinary-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6f310163cf8492a90c79eab635571200aa114fb1"
+  },
+  "tests/game-roster-troops-ordinary.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8935a384519793a936c75720ae45a6645f026fbd"
+  },
+  "tests/game-roster-troops-projectile-profiles-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fa56a19b62a5ecfc95abf5c9a61c8ede3b243f0f"
+  },
+  "tests/game-roster-troops-projectile-profiles.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "91b107e335e18e6fc2cc99d052b58160dec3eff2"
+  },
+  "tests/game-roster-troops-projectile-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3af4ea70ed4621296f806c02f0c661a2fc8e6741"
+  },
+  "tests/game-roster-troops-projectile.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0d2a585c927a2b1ccaee4f143b84ea03e742b4ed"
+  },
+  "tests/game-roster-troops-status-profiles-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "54900f1eaba8e3f53b56ca3bddf581404f3983ce"
+  },
+  "tests/game-roster-troops-status-profiles.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "449589c2fce2c6abbba5e9cf95720a5559037232"
+  },
+  "tests/game-roster-troops-status-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d555b2fe632a471a649ddf33d9cc359dc4813329"
+  },
+  "tests/game-roster-troops-status.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5bb150fef8d0bc5369532ec1a47f0b44494aba46"
+  },
+  "tests/game-session-endurance-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "270406a403e7fcd5483fcb6e3e0844b85860fe23"
+  },
+  "tests/game-session-endurance.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "af9383568928d7f701edffdedfcac8978c9bf00f"
+  },
+  "tests/game-session-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b7e3140f772597580f7b0e5dbd0c0b8dad0193c0"
+  },
+  "tests/game-session.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "71f77a4ead5043f91bd96b2de8f50bbde18b71b7"
+  },
+  "tests/game-shared-runtime-integration-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fb7b258443c7a3f3fe7dc6d0c07ac97a7e72a18f"
+  },
+  "tests/game-shared-runtime-integration.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "dbb2e24f047f2488a979a095b7cc7548bb944348"
+  },
+  "tests/game-spell-runtime-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a01a04295fe7601fff6fe8a5e1b80fd950534048"
+  },
+  "tests/game-spell-runtime.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5f13793c50dee9cc0d8b9666d20e688eca080c0e"
+  },
+  "tests/game-troop-runtime-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a99b5b65b7dd52558e7319017ed09256fdae139c"
+  },
+  "tests/game-troop-runtime.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5c5dc7738fb2281833ff46991c3f36508658287f"
+  },
+  "tests/game-ui-projection-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "dac98a39a51d1b20a9e061cffc3f1f5bc226f404"
+  },
+  "tests/game-ui-projection.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "171e98a861a836c7b3411f5f9c4fff6ce456801a"
+  },
+  "tests/helpers/endurance-workload.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "03c1493dd3e57d8110369e6d32e333a07418e497"
+  },
+  "tests/helpers/png-crop.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ef914c9b2b9c023579738937f730060c4239b913"
+  },
+  "tests/helpers/protected-identity-scan.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cf9f91400456f022c5dfeb64b030fc2963617e9d"
+  },
+  "tests/helpers/reference-parity.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "78ede7664fe768bed2d3ecc9ac68cee2d297d55f"
+  },
+  "tests/helpers/release-browser-audit.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3b8cbc34cf743dd6bd44a895b4e23dfc531a72b8"
+  },
+  "tests/integration-audit-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6ba2ffb89607672c1322c54a402e1564fbd804ec"
+  },
+  "tests/integration-audit.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e84bf2acd89fd15b8881d12bc63dcba8fdb589a7"
+  },
+  "tests/match-timing-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2807bd3c370b398b57033cfecbc78f562ee7804b"
+  },
+  "tests/match-timing.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "220ce9df27f85560e850336dee51704342edd977"
+  },
+  "tests/melee-area.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d23e5a06553ddff8bbe6cc07f53640e274bcd467"
+  },
+  "tests/melee-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8c3b29746fffdce7f1a93f42c02b0b644af5d556"
+  },
+  "tests/melee.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c4f16f143c9f43a9485f9200d163b4e9e3693ee4"
+  },
+  "tests/movement-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2035c22b24e36ba8a251ebea98db92aaa5426a0b"
+  },
+  "tests/movement.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6155b6c8fb6e5adff3cc1f8e3409bf6b91dcd9e7"
+  },
+  "tests/nondeterminism-guard-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2462e638b3a263925808bc3f0a91f3e56d9b5c2a"
+  },
+  "tests/nondeterminism-guard.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "584e18e592ee080bfb243760770a420a8fd20206"
+  },
+  "tests/opponent-controller-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "79756d2a925eb85028e73c79e771ff3091e4e866"
+  },
+  "tests/opponent-controller.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ea019959b815937e56809b18a4d0fb4e5d160df3"
+  },
+  "tests/pathfinding-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "069e0980652c31ea24dbadee467d7f2c5f23431b"
+  },
+  "tests/pathfinding.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0d4da22a6d2bcfdb1f624e75b367c8a36e0294c7"
+  },
+  "tests/periodic-spawns-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "71b0e6c27626b2b19a10f83481ea3f633eaf15af"
+  },
+  "tests/periodic-spawns.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bccc8b97516b954af9ba4994f135d7070a0c9557"
+  },
+  "tests/playable-roster-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d4bdc141618a97a759383d916199b45f22793ab8"
+  },
+  "tests/playable-roster.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "756198c3289baa179b56342a7ea808071174cf42"
+  },
+  "tests/progress-renderer.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3be5538d18af2bb5a85ee385ccda466b7896851c"
+  },
+  "tests/projectile-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2cb75fdb1a11acd0de2748972847b2669b45b216"
+  },
+  "tests/projectile.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "650fd3541feed1709fd37c1662e98af34b792ec4"
+  },
+  "tests/publication-pages.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "411216144c720313f8ba46486ccd518a2766766f"
+  },
+  "tests/release-001b-guards.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b03fa95e3c7bcc9b9a35d3942b18e25f69a262ca"
+  },
+  "tests/release-001b.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1d8e38d06ff4bc5bc877f4d3235ae33c6ffd9a6b"
+  },
+  "tests/release-build-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1ae65d8250e5ff2cadc2bc3c9cd511cd681ebcf4"
+  },
+  "tests/release-build.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "96e7b14ed2cbb3f94a636caccfc06c67af104d76"
+  },
+  "tests/release-runtime-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ca0da6afa89208daaff3a1fb084f18b97875ca2b"
+  },
+  "tests/render-progress.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e4f4fa3b7b57f933efe71217871c5b16f970b1e1"
+  },
+  "tests/rl-environment-browser-smoke.html": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "42dd8c867595d680d64ab1174915f4e1ef2e2305"
+  },
+  "tests/rl-environment-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2ef58fee8b9d512b11f006b4fc33afbd96b88ebe"
+  },
+  "tests/rl-environment.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5195f91377a68b558ae2f9870f05aeca1726e7d0"
+  },
+  "tests/rng-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "560fac851502204a1c41ad6856da1d130e57bae0"
+  },
+  "tests/rng.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "245b4e34035d7224d4925c8d979385e251b27fd9"
+  },
+  "tests/shields-forms-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "9e4066af15ad5bdac280626672f694674a0cbaf9"
+  },
+  "tests/shields-forms.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7378dee5c79acb3921dda9bc1aa276a9744bcb9d"
+  },
+  "tests/shipping-isolation-guard-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b4b5e459e5b83bb860f1767944270981431bb192"
+  },
+  "tests/shipping-isolation-guard.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "6035e4aec794933642f01c3f2fab6a909e08233d"
+  },
+  "tests/shipping-isolation-host-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "93afcbfb4f877b907c5d9f36a1d5a2d00414e5e8"
+  },
+  "tests/shipping-isolation-host.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3617373172d64c7717b157c7fe9b857adbcb73d1"
+  },
+  "tests/shipping-isolation-release-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4801532b6275e7f39864ded18e0ea66e7f78e9a3"
+  },
+  "tests/shipping-isolation-release.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "aa3478018a384b3a762b95f1b3454450fbc7ec68"
+  },
+  "tests/spatial-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e9395c03503d5769ab5b60c3011bc399f461b00e"
+  },
+  "tests/spatial.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ade69d4104e5a32762d5f4520662e6bc20fd1bc2"
+  },
+  "tests/spawn-placement-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f8b583c49256d0d3a2363f3e7aa6a03849dd0b67"
+  },
+  "tests/spawn-placement.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cfd84f5e8d7a09b431495fab66758b10cacff6ab"
+  },
+  "tests/special-movement-charge-knockback-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "af688fe75f39548a23e2cdb071ac1b40f104afa4"
+  },
+  "tests/special-movement-charge-knockback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "edfb2687de4437c4252f5056461aa76bb8647219"
+  },
+  "tests/special-movement-charge-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f253122f9a34b293a08d7fb79850de01666863b5"
+  },
+  "tests/special-movement-charge.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "32c670e2808bd7e66a3968cbb6c78eba35d321c8"
+  },
+  "tests/special-movement-dash-knockback-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b552a95a86f4bd555ba2fd1db9316f14873796ec"
+  },
+  "tests/special-movement-dash-knockback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1dd2c63dfbb5f4ea8e7008385a2a472ebfc17bcf"
+  },
+  "tests/special-movement-dash-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "afdb817c8ff344d61138bf8e1e2ceeb374a268b5"
+  },
+  "tests/special-movement-dash.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ed9959bca2fba36a3bdd47d1bff40ea0111fbcc0"
+  },
+  "tests/special-movement-jump-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2d0e139259cffc1ff18fc13c61307f39f9ee698b"
+  },
+  "tests/special-movement-jump.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e77ea3dcba835ad51172c073b0c2a61a7508c278"
+  },
+  "tests/special-movement-knockback-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1d356fbbde294109e492d60068627a644718fcbe"
+  },
+  "tests/special-movement-knockback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b4d59b4e1da9b7722af21370d7514ba477b6e98a"
+  },
+  "tests/special-movement-leap-knockback-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2e7ede45cda2a0e1c047f5e2dfd53c086487d21d"
+  },
+  "tests/special-movement-leap-knockback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ce8aee3203c3c32addac4b2487c3c9774693ef90"
+  },
+  "tests/special-movement-recoil-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "39f36d5e51dab8c3f2e67245f29ef28c9973a188"
+  },
+  "tests/special-movement-recoil.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "07bc8c40cbf498f08c7925fcdb7b8a73bab26124"
+  },
+  "tests/special-movement-retarget-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "42c3d6cf650d43c1ec7c3115ab5fba871cf73a1f"
+  },
+  "tests/special-movement-retarget.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2d7b132584d25e04b10bc80e72f59ac33bdbbfad"
+  },
+  "tests/special-projectiles-chain-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e8aacd78adf91c0f79d0022f5d5424cc89a68fbe"
+  },
+  "tests/special-projectiles-chain.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4c5c03f503e38cbe1593e21a0a34bb5988bc1698"
+  },
+  "tests/special-projectiles-pellets-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0abc087af9ef366be19ce5e934bfeac6afc9e970"
+  },
+  "tests/special-projectiles-pellets.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "288d1405c51f8c68985e51daf280dfea6d0846a1"
+  },
+  "tests/special-projectiles-pierce-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "006c9b5791109ef31f4cf480323e43d43a9fa8d6"
+  },
+  "tests/special-projectiles-pierce.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1fd4d875dcca89a4840ee4127eedbad68e6e4c81"
+  },
+  "tests/special-projectiles-reflection-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a1c9aa37eb2445264fcaa80823b61a9c06aaddd6"
+  },
+  "tests/special-projectiles-reflection.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "81c1094f11a200d624321ad8b135bf21b6cd6006"
+  },
+  "tests/special-projectiles-return-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8d125f7f5e508eb78f8e098dca8884293f0024ba"
+  },
+  "tests/special-projectiles-return.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "d343c73d23e9a4d7afa475338d6340841b5c32e5"
+  },
+  "tests/spells-clone-unit-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "bf25c429ce6c7cf1a7db3fdf0f8c4d9a19a595f7"
+  },
+  "tests/spells-clone-unit.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "3a9eb4d5e7c1e488f75a8078cac6d3d9757ad68d"
+  },
+  "tests/spells-copy-card-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "945be6e90a1807f73a4bd001aa3d1efd557abb82"
+  },
+  "tests/spells-copy-card.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0e82ba07bee2e5a756d6b26c1ea3b9cd4ecfc525"
+  },
+  "tests/spells-instant-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "52a4b98bd0493daff455a4c7e865b9a3d8986201"
+  },
+  "tests/spells-instant.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "71e0476fafb1525228575034793f3817bc832a9b"
+  },
+  "tests/spells-periodic-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "f3b27db72cbf1c7febe2e57b50b7149782a12180"
+  },
+  "tests/spells-periodic.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7226aaf6ff0c051c97c11f73f977cd6a75bee652"
+  },
+  "tests/spells-return-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "95abce6957f2d1388b7b377f1c16a988e22872aa"
+  },
+  "tests/spells-return.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "98488998ff39e0663ed06d7dce58ef26bb5f1932"
+  },
+  "tests/spells-roll-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "1ba836904628bd8b815ce61c089ea77bf89c5e2d"
+  },
+  "tests/spells-roll.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c00dd840dcbff3d677560aa93d100d376f04d200"
+  },
+  "tests/spells-spawn-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "20c2e618aca737143b360a422b7e1196cad04e83"
+  },
+  "tests/spells-spawn.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "0c2a326d9ebd8dd2727d5c6f7e81d1b0f41ddae8"
+  },
+  "tests/spells-three-wave-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8d095c2668eb828dbce0ba1e245b9e9ac19a35b2"
+  },
+  "tests/spells-three-wave.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "62658ef8969482b5f4f6260364decd2655b88e0d"
+  },
+  "tests/spells-travel-line-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "cadf7fc2f11fccedfe427a64d3c3723ad7bde45d"
+  },
+  "tests/spells-travel-line.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "977d6d6d35e269138599fe4a3af6c078884a8f47"
+  },
+  "tests/targeting-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ba19a901de9d15e99e8770bf09e750925d7565cf"
+  },
+  "tests/targeting.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "670cba9d3c059d4c770af255ebdfab7cad5428b2"
+  },
+  "tests/tower-evidence-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "71fe03cf0ed8a99dddd7c5557aa9ec9b58e7e798"
+  },
+  "tests/tower-evidence.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "85b0c7cd618f97d017290de3bfd0abbf6dd7af35"
+  },
+  "tests/towers-live-targets-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "59d85a6a16908f4b0f917e15245722f87de161f2"
+  },
+  "tests/towers-live-targets.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7036d249c67ea9151f107f340db515e883a46960"
+  },
+  "tests/towers-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "5e7ff0f01ebbcb9f7c3629b9c989ec7ab4cb9447"
+  },
+  "tests/towers.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a0fd90e8c6de8c4bdc1a642808b5d04ff98f7fad"
+  },
+  "tests/ui-arena-shell-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c3d4bedcb2c3d5fe555d3845ce880b84e655e3cc"
+  },
+  "tests/ui-arena-shell.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "abdb209a732bb41cea81c49aed8b000376681af7"
+  },
+  "tests/ui-combat-effects-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a369e76e1d915a38e73666fd8467b5c213b6e066"
+  },
+  "tests/ui-combat-effects.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "fd639c100e7cccca70005b3994d622442b102975"
+  },
+  "tests/ui-combat-state-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "367984d04832bed405322f127d9fd8bf0b1ad33d"
+  },
+  "tests/ui-combat-state.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "da469e28413a18b68ceebbf5c1d9025383efcd87"
+  },
+  "tests/ui-hud-state-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "8378dd2720a372b4b5e441de3ada483fc060d8f3"
+  },
+  "tests/ui-hud-state.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "ed2e0e15107a92c74437a767a590552aee939b0f"
+  },
+  "tests/ui-input-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c01ae9a8d3ea897dc2dc99fd0f63dabc0799e624"
+  },
+  "tests/ui-input.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e1e3d73031602fbbcc3cc64039479a15b92a1f65"
+  },
+  "tests/ui-match-feedback-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "a2f223060938e28da3f04846202b0c075715f195"
+  },
+  "tests/ui-match-feedback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "47ef0ebf80aed3c5058d6d8b448e5eae346dbc09"
+  },
+  "tests/ui-placement-feedback-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "be53958cfd81901a06a58e1186adf45c07005eb1"
+  },
+  "tests/ui-placement-feedback.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "26d5b6664cfeaa32f0a5c1df152bd3a1633ad42f"
+  },
+  "tests/visual-arena-art-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e6c59b8bc1b07b3600be09c3b432b1e13d777551"
+  },
+  "tests/visual-arena-art.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "c9a982417bfe8a027bc261b8cdae77da57eddac4"
+  },
+  "tests/visual-asset-manifest-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "7a915359d5b4e9b6df11cbc650663e8e82f8fa8d"
+  },
+  "tests/visual-asset-manifest.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "468c0f7210987e864272adacd92260d1487372ef"
+  },
+  "tests/visual-combat-assets-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e6afc63dcaa5eac11fed35427f539931a814fee9"
+  },
+  "tests/visual-combat-assets.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "b83ece130cd93560b5fc9213a0285fefc710862f"
+  },
+  "tests/visual-interface-art-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "e855989f97a7371b6734e8a39fe411b0f8d4624e"
+  },
+  "tests/visual-interface-art.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4678fde24539254737e6bf6b4563637c0ed99766"
+  },
+  "tests/visual-motion-polish-browser.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "230275dbeb76beccba9646959ad2cb08e71668d1"
+  },
+  "tests/visual-motion-polish-runner.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "89275dfbe1e40d31e9d16ab6362611cde74af960"
+  },
+  "tests/visual-motion-polish.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "2ec2af53c4d6e84e1d5d7618072ae96d4af24ea1"
+  },
+  "tests/visual-terminal-motion-browser.test.js": {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "06e3919acb2dc76c932af727214b75602ee8daec"
+  }
+}

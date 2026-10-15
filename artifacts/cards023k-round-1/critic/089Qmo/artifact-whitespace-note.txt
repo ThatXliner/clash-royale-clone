@@ -1,0 +1,1 @@
+A separate whole-commit git diff --check returned 2 because the preserved builder TAP stdout contains trailing spaces on blank diagnostic lines; the source/test-only diff check above returned 0. No source/test whitespace issue.

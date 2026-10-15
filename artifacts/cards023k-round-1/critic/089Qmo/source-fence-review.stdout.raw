@@ -1,0 +1,31 @@
+[card-source-delta] exit=0
+src/content/editable-deck.js
+src/rl/environment.js
+tests/cards023k-aether-well.test.js
+tests/editable-deck.test.js
+tests/rl-environment.test.js
+[candidate-source-delta-from-950] exit=0
+src/content/cards/buildings-resource.js
+src/content/editable-deck.js
+src/content/session-card-catalog.js
+src/rl/environment.js
+src/sim/session-building-profile-receipts.js
+src/sim/session-building-runtime.js
+tests/cards023k-aether-well.test.js
+tests/editable-deck.test.js
+tests/game-building-policy.test.js
+tests/game-building-runtime.test.js
+tests/game-roster-buildings.test.js
+tests/rl-environment.test.js
+[scripts-dist-package-delta] exit=0
+
+[hbr-frozen-source-delta] exit=0
+
+[cards-frozen-source-delta] exit=0
+
+[source-test-diff-check] exit=0
+
+[working-tree-after-tests] exit=0
+
+[frozen-source-blob-ledger]
+{"allSourceBlobsMatched": true, "candidateSourceCommit": "d87319857f48534a1d207fc3610c1f4ecdb3de99", "entryCount": 12, "frozenCards023kSourceCommit": "95cce2f7a154ab7137d679fcf07092e03cfc7f70", "frozenHbrSourceCommit": "44e69d6b5fe0aad9a55f958bb8ce460fe877aa28"}
