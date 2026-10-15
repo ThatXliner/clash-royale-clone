@@ -1,0 +1,22 @@
+Emberlance / Prince bounded raw-signature packet
+Baseline: d23b66301fe270c68d307534fd6d0b90880e82ef
+Private checkout: codex/emberlance-prince-raw-scope-20261015
+
+Checkout creation (run from the shared repository before any task edits):
+  git worktree add -b codex/emberlance-prince-raw-scope-20261015 /tmp/clash-royale-clone-emberlance-prince-raw-scope d23b66301fe270c68d307534fd6d0b90880e82ef
+
+Bounded pinned-source extraction:
+  python3 artifacts/emberlance-prince-full-raw-scope/builder/extract_prince_signature.py
+  # exit 0; fetched seven pinned JSON tables in memory, retained only the selected rows and receipts
+
+Local comparator/consumer inventory:
+  python3 artifacts/emberlance-prince-full-raw-scope/builder/generate_field_disposition.py
+  # exit 0; wrote 427 primary raw-field dispositions, 14 comparator mappings, and 27 current QUESTION records
+
+Artifact integrity and checkout checks:
+  shasum -a 256 -c artifacts/emberlance-prince-full-raw-scope/builder/SHA256SUMS.txt
+  git diff --check
+  git status --short --branch
+  git rev-parse HEAD
+
+No tests, build, browser, gameplay, screenshot, or image/source-asset fetch was run. The whole upstream JSON tables are not stored in this packet; only selected card/rarity/troop/character rows, exact duplicate combined rows, receipts, source metadata, and analysis are retained.

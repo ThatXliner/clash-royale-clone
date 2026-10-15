@@ -1,0 +1,428 @@
+source_row	index	raw_field	value_class	raw_value_json	disposition_area	consumer_or_limit
+card	0	key	string	"""prince"""	identity/join	Exact local source selector; this test-only binding does not create a shipped benchmark identity.
+card	1	name	string	"""Prince"""	identity/join	Raw identity text retained in research evidence; not used as shipped card text.
+card	2	sc_key	string	"""Prince"""	raw roster metadata	Preserved in the selected research row; no runtime mechanics consumer.
+card	3	elixir	numeric-nonzero	5	cost comparator	Maps to local cost 5; source ledger rates card identity/cost high.
+card	4	type	string	"""Troop"""	kind comparator	Raw Troop normalizes to local unit; source ledger rates roster type high.
+card	5	rarity	string	"""Epic"""	identity/level join	Epic joins the single rarity row; tournament array index is 5.
+card	6	arena	numeric-nonzero	7	raw roster metadata	Preserved in the selected research row; no runtime mechanics consumer.
+card	7	description	string	"""Don't let the little pony fool you. Once the Prince gets a running start, you WILL be trampled. Deals double damage once he gets charging."""	raw roster metadata	Preserved in the selected research row; no runtime mechanics consumer.
+card	8	id	numeric-nonzero	26000016	identity cross-check	Retained as a corroborating source key, not the sole join basis.
+rarity	0	name	string	"""Epic"""	identity/join	Raw identity text retained in research evidence; not used as shipped card text.
+rarity	1	level_count	numeric-nonzero	9	level-array selector/context	Raw rarity values retained; the explicit tournament-level selector is index 5.
+rarity	2	relative_level	numeric-nonzero	5	level-array selector/context	Raw rarity values retained; the explicit tournament-level selector is index 5.
+rarity	3	tournament_level_index	numeric-nonzero	5	level-array selector/context	Raw rarity values retained; the explicit tournament-level selector is index 5.
+rarity	4	mirror_relative_level	numeric-nonzero	5	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	5	clone_relative_level	numeric-nonzero	5	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	6	donate_capacity	numeric-nonzero	10	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	7	sort_capacity	numeric-nonzero	80	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	8	donate_reward	numeric-nonzero	500	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	9	donate_xp	numeric-nonzero	10	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	10	overflow_prestige	numeric-nonzero	100	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	11	gold_conversion_value	numeric-nonzero	500	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	12	max_level_donation_cost	numeric-nonzero	500	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	13	trade_card_amount	numeric-nonzero	10	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	14	chance_weight	numeric-nonzero	40	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	15	balance_multiplier	numeric-nonzero	180	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	16	upgrade_exp	array	[25,100,200,400,600,800,1600,2000,0]	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	17	upgrade_material_count	array	[2,4,10,20,40,50,100,200,0]	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	18	original_upgrade_material_count	array	[2,4,10,20,50,100,200,0,0]	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	19	upgrade_cost	array	[400,2000,4000,8000,15000,35000,75000,100000,0]	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	20	power_level_multiplier	array	[110,121,133,146,160,176,193,212,233,256,282,310,341,375]	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	21	refund_gems	numeric-nonzero	300	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	22	tid	string	"""TID_RARITY_EPIC"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	23	cast_effect	string	"""SpellCasting"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	24	sort_order	numeric-nonzero	3	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	25	red	numeric-nonzero	255	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	26	green	numeric-nonzero	153	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	27	blue	numeric-nonzero	255	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	28	appear_effect	string	"""openChest_get_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	29	buy_sound	string	"""sound_buy_card_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	30	loop_effect	string	"""openChest_loop_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	31	card_txt_bg_frame_idx	numeric-nonzero	2	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	32	card_glow_instance_name	string	"""card_frame_glow_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	33	rotate_export_name	string	"""card_rotate_rare_short"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	34	gold_frame_export_name	string	"""card_frame_gold"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	35	icon_swf	string	"""sc/ui.sc"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	36	icon_export_name	string	"""icon_btn_card_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	37	token_swf	string	"""sc/ui_spells.sc"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	38	token_export_name	string	"""token_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	39	token_flying_icon_swf	string	"""sc/ui.sc"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	40	token_flying_icon_export_name	string	"""token_epic"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	41	token_gold_value	numeric-nonzero	1000	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	42	npc_trader_reroll_gem_cost	numeric-nonzero	10	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	43	can_be_in_chests	true	true	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	44	task_exp_reward	array	[0,75,125,175]	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	45	downgrade_rarity	string	"""Rare"""	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	46	downgrade_multiplier	numeric-nonzero	1	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+rarity	47	max_amount_in_chronos_shop_offers	numeric-nonzero	2000	raw rarity metadata	Preserved exactly; no battle/runtime consumer identified.
+troop	0	name	string	"""Prince"""	identity/join	Raw identity text retained in research evidence; not used as shipped card text.
+troop	1	icon_swf_china	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	2	icon_file	string	"""prince"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	3	highres_placeholder_asset	string	"""sc/ui_card_info_fx.sc#card_info_fx_epic"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	4	highres_image_filename	string	"""image/chr/prince_dl.png"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	5	unlock_arena	string	"""Arena7"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	6	unlock_level	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	7	rarity	string	"""Epic"""	identity/level join	Epic joins the single rarity row; tournament array index is 5.
+troop	8	not_visible	false	false	troop selector/cost cross-check	Selected visible troop row; mana_cost agrees with roster cost but does not drive this comparator.
+troop	9	tribe	string	"""Magic"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	10	mana_cost	numeric-nonzero	5	troop selector/cost cross-check	Selected visible troop row; mana_cost agrees with roster cost but does not drive this comparator.
+troop	11	prestige_count	numeric-nonzero	1	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	12	mana_cost_from_summoner_mana	false	false	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	13	not_in_use	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	14	mirror	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	15	custom_deploy_time	numeric-zero	0	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	16	summon_character	string	"""Prince"""	name relation only	The non-null Prince self-name resolves to the selected character row; zero summon counts remain literal and do not establish spawn behavior.
+troop	17	summon_number	numeric-zero	0	spawn/count QUESTION	Raw zero retained; it is not interpreted as infinite, absent, or normalized count 1.
+troop	18	summon_character_level_index	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	19	summon_character_second	null	null	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	20	summon_character_second_count	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	21	summon_radius	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	22	summon_width	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	23	summon_deploy_delay	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	24	summon_deploy_delay_second	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	25	character_skin	null	null	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	26	character_skin2	null	null	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	27	radius	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	28	height	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	29	projectile	null	null	delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+troop	30	projectile_interval	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	31	projectile_angle	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	32	projectile_waves	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	33	projectile_wave_interval	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	34	spell_as_deploy	false	false	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	35	can_place_on_buildings	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	36	can_place_on_water	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	37	instant_damage	numeric-zero	0	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	38	duration_seconds	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	39	instant_heal	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	40	heal_per_second	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	41	pushback	numeric-zero	0	knockback composition QUESTION	Raw zero retained; source does not define collision/displacement composition.
+troop	42	multiple_projectiles	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	43	custom_first_projectile	null	null	delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+troop	44	buff_time	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	45	buff_time_increase_per_level	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	46	buff_number	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	47	buff_type	null	null	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	48	buff_on_damage	null	null	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	49	only_own_troops	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	50	only_enemies	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	51	can_deploy_on_enemy_side	false	false	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	52	touchdown_limited_deploy	false	false	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	53	cast_sound	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	54	area_effect_object	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	55	tid_info	string	"""TID_SPELL_INFO_PRINCE"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	56	indicator_file_name	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	57	indicator_prestige_swf	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	58	indicator_prestige_export_name2	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	59	indicator_prestige_export_name3	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	60	hide_radius_indicator	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	61	release_date	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	62	elixir_production_stop_time	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	63	dark_mirror	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	64	stats_under_info	false	false	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	65	hero_ability	null	null	ability link screen	Raw null retained; no ability row selected and no separate ability table fetched.
+troop	66	passive_ability	null	null	ability link screen	Raw null retained; no ability row selected and no separate ability table fetched.
+troop	67	hp_modifier	numeric-zero	0	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	68	damage_modifier	numeric-zero	0	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	69	deploy_w_tile_margin	numeric-zero	0	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	70	full_lane_deploy	false	false	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	71	ability_cooldown	numeric-zero	0	link/deploy metadata screen	Raw value retained; null/false/zero values are not expanded into mechanics.
+troop	72	deploy_start_y	numeric-zero	0	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	73	deploy_end_y	numeric-zero	0	troop stat candidate	Raw troop value retained; no direct movement/composition consumer is established.
+troop	74	pve_defense_type	string	"""Attacker"""	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	75	type_of_spell	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	76	name_en	string	"""Prince"""	identity/join	Exact English-name join field; no numeric-ID-only binding.
+troop	77	hitpoints_per_level	null	null	base-combat stat candidate	Tournament index 5 yields 1920; normalized HP remains in the per-card unverified_fields list.
+troop	78	damage_per_level	null	null	base-combat stat candidate	Tournament index 5 yields 392; normalized damage remains in the per-card unverified_fields list.
+troop	79	dps_per_level	null	null	raw troop metadata	Preserved exactly; no local charge-composition consumer identified.
+troop	80	key	string	"""prince"""	identity/join	Exact local source selector; this test-only binding does not create a shipped benchmark identity.
+character	0	name	string	"""Prince"""	identity/join	Raw identity text retained in research evidence; not used as shipped card text.
+character	1	rarity	string	"""Epic"""	identity/level join	Epic joins the single rarity row; tournament array index is 5.
+character	2	flags	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	3	tribe	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	4	sight_range	numeric-nonzero	5500	base-combat sight candidate	5500 corresponds to normalized 5.5 tiles; this card flags sight_range_tiles unverified.
+character	5	deploy_time	numeric-nonzero	1000	base-combat deploy candidate	1000 ms maps to 60 ticks; this card flags deploy_time_seconds unverified.
+character	6	charge_range	numeric-nonzero	300	charge arming candidate	Raw 300 is preserved. Existing PLAN.md describes the cutoff as 3.0 tiles; this extraction does not infer raw units, edge inclusion, activation, cancellation, or reset behavior.
+character	7	speed	numeric-nonzero	60	base-combat movement candidate	60 maps to 1 tile/s under SOURCES.md; this card flags movement speed unverified.
+character	8	hitpoints	numeric-nonzero	1200	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	9	hit_speed	numeric-nonzero	1400	base-combat timing candidate	1400 ms maps to 84 ticks in the existing comparator; this card flags hit_speed_seconds unverified.
+character	10	load_time	numeric-nonzero	900	base-combat first-hit candidate	900 ms maps to 54 ticks; this card flags first_hit_seconds unverified.
+character	11	damage	numeric-nonzero	245	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	12	damage_special	numeric-nonzero	490	charge-damage candidate	Raw 490 is preserved alongside base damage and level arrays; the local +392 bonus fixture remains QUESTION and no scaling/application rule is inferred here.
+character	13	crown_tower_damage_percent	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	14	load_first_hit	false	false	retarget/load candidate	Raw value is retained; no first-hit/reset behavior is inferred beyond the existing QUESTION test contract.
+character	15	load_after_retarget	false	false	retarget/load QUESTION	Raw false is retained; no windup reset rule follows from this value alone.
+character	16	stop_time_after_attack	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	17	stop_time_after_special_attack	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	18	projectile	null	null	delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+character	19	custom_first_projectile	null	null	delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+character	20	multiple_projectiles	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	21	multiple_targets	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	22	all_targets_hit	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	23	range	numeric-nonzero	1600	base-combat range candidate	1600 raw distance corresponds to normalized 1.6 tiles in the corpus; this card flags range_tiles unverified.
+character	24	minimum_range	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	25	special_min_range	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	26	special_range	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	27	special_load_time	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	28	special_ignore_buildings	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	29	special_attacks_to_ignore_list	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	30	attacks_ground	true	true	base-combat targeting candidate	Retained with attacks_air; the normalized ground enum is question-backed.
+character	31	attacks_air	false	false	base-combat targeting candidate	Retained with attacks_ground; the normalized ground enum is question-backed.
+character	32	death_damage_radius	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	33	death_damage	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	34	death_push_back	numeric-zero	0	knockback composition QUESTION	Raw zero retained; no death-displacement consumer is established.
+character	35	attack_push_back	numeric-zero	0	knockback composition QUESTION	Raw zero retained; no mapping to the current fixture's forced-displacement policy.
+character	36	melee_pushback	numeric-zero	0	knockback composition QUESTION	Raw zero retained; not evidence that target displacement is absent.
+character	37	is_melee_pushback_all	false	false	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	38	life_time	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	39	projectile_special	null	null	delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+character	40	projectile_effect_special	null	null	delivery link screen	Raw link candidate is retained; selected field is null; no projectile/effect asset is fetched.
+character	41	area_damage_radius	numeric-zero	0	base-combat radius discrepancy	Raw zero is preserved; normalized null comparator match does not define zero-to-null semantics.
+character	42	target_only_buildings	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	43	target_only_troops	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	44	target_only_towers	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	45	target_only_king_tower	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	46	special_attack_interval	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	47	buff_on_damage	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	48	buff_on_damage_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	49	starting_buff	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	50	starting_buff_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	51	mesh	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	52	prestige_swf	string	"""sc/chr_prestige_dl.sc"""	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	53	prestige_export_name2	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	54	prestige_export_name3	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	55	prestige_red_export_name2	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	56	prestige_red_export_name3	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	57	attached_character	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	58	attached_character_height	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	59	damage_effect_special	string	"""prince_charge_hit"""	effect-name metadata	Raw string retained; no effect asset or external row is fetched or imported.
+character	60	spawn_effect_once	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	61	crowd_effects	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	62	pushback	numeric-zero	0	knockback composition QUESTION	Raw zero retained; source does not define collision/displacement composition.
+character	63	ignore_pushback	true	true	knockback composition QUESTION	Raw true retained; no rule is inferred for which displacement source it gates.
+character	64	scale	numeric-nonzero	92	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	65	collision_radius	numeric-nonzero	600	collision/mass QUESTION	Raw radius is retained; current isolated fixture geometry uses literal zero radii and no raw-to-runtime mapping is established.
+character	66	mass	numeric-nonzero	6	collision/mass QUESTION	Raw mass is retained; no current charge composition consumer maps it to displacement.
+character	67	tile_size_override	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	68	area_buff	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	69	area_buff_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	70	area_buff_radius	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	71	health_bar	string	"""Medium"""	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	72	health_bar_offset_y	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	73	show_health_number	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	74	flying_height	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	75	fly_direct_paths	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	76	fly_from_ground	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	77	hovering	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	78	grow_time	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	79	grow_size	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	80	morph_character	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	81	heal_on_morph	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	82	area_effect_on_morph	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	83	morph_time	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	84	morph_keep_target	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	85	attack_start_effect_special	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	86	dash_immune_to_damage_time	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	87	dash_cooldown	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	88	jump_height	numeric-nonzero	4000	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	89	dash_push_back	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	90	dash_radius	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	91	dash_damage	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	92	dash_filter	null	null	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	93	dash_constant_time	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	94	dash_landing_time	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	95	dash_min_range	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	96	dash_max_range	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	97	dash_distance	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	98	dash_count	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	99	dash_secondary_range	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	100	dashing_damage	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	101	dashing_pushback	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	102	dash_to_target_radius	false	false	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	103	jump_speed	numeric-nonzero	160	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	104	spawn_start_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	105	spawn_interval	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	106	spawn_number	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	107	spawn_limit	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	108	destroy_at_limit	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	109	spawn_pause_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	110	spawn_character_level_index	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	111	spawn_character	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	112	spawn_character_with_deploy	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	113	spawn_character_level_index2	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	114	spawn_character2	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	115	spawn_character_level_index3	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	116	spawn_character3	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	117	spawn_projectile	null	null	spawn/delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+character	118	spawn_deploy_base_anim	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	119	spawn_radius	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	120	spawn_attach	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	121	spawn_attach_max_rotation	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	122	death_spawn_deploy_base_anim	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	123	death_spawn_count	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	124	death_spawn_character	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	125	death_spawn_count2	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	126	death_spawn_character2	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	127	death_spawn_character3	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	128	death_spawn_is_same_unit	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	129	randomize_death_spawn	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	130	death_spawn_projectile	null	null	spawn/delivery link screen	Raw link candidate is retained; selected field is null and no projectile row resolves.
+character	131	death_spawn_radius	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	132	death_spawn_min_radius	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	133	death_spawn_allow_over_river	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	134	spawn_angle_shift	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	135	spawn_max_angle	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	136	death_spawn_deploy_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	137	death_spawn_pushback	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	138	death_inherit_ignore_list	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	139	kamikaze	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	140	kamikaze_time	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	141	spawn_pathfind_speed	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	142	spawn_pathfind_morph	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	143	spawn_pushback	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	144	spawn_pushback_radius	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	145	spawn_area_object	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	146	spawn_area_object_level_index	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	147	ingame_pathfind_speed	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	148	ingame_pathfind_stop_deploy_base_anim	null	null	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	149	projectile_start_radius	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	150	projectile_start_z	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	151	stop_movement_after_ms	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	152	wait_ms	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	153	dont_stop_move_anim	false	false	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	154	is_summoner_tower	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	155	no_deploy_size_w	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	156	no_deploy_size_h	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	157	attack_sequence	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	158	attack_seq_state_effect1	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	159	attack_seq_state_effect2	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	160	attack_seq_state_effect3	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	161	variable_damage_time1	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	162	variable_damage2	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	163	melee_pushback2	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	164	is_melee_pushback_all2	false	false	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	165	variable_damage_time2	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	166	variable_damage3	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	167	melee_pushback3	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	168	is_melee_pushback_all3	false	false	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	169	targetted_damage_effect1	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	170	targetted_damage_effect2	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	171	targetted_damage_effect3	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	172	damage_level_transition_effect12	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	173	damage_level_transition_effect23	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	174	flame_effect1	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	175	flame_effect2	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	176	flame_effect3	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	177	target_effect_y	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	178	self_as_aoe_center	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	179	hides_when_not_attacking	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	180	hide_time_ms	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	181	hide_before_first_hit	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	182	special_attack_when_hidden	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	183	targeted_hit_effect_special	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	184	targeted_effect_visual_pushback	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	185	up_time_ms	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	186	appear_pushback_radius	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	187	appear_pushback	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	188	appear_area_object	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	189	mana_collect_amount	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	190	mana_generate_time_ms	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	191	mana_generate_limit	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	192	mana_on_death	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	193	mana_on_death_for_opponent	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	194	has_rotation_on_timeline	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	195	turret_movement	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	196	projectile_y_offset	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	197	charge_speed_multiplier	numeric-nonzero	200	charged-movement candidate	Raw 200 is preserved. Existing PLAN.md describes 2× speed; this field alone does not define phase duration, interruption, or transition timing.
+character	198	deploy_delay	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	199	deploy_animation_override	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	200	jump_enabled	true	true	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	201	sight_clip	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	202	area_effect_on_dash	null	null	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	203	sight_clip_side	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	204	walking_speed_tweak_percentage	numeric-zero	0	walking-speed QUESTION	Raw value is retained; zero is not decoded as a percent default or absence.
+character	205	shield_hitpoints	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	206	shield_die_pushback	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	207	load_attack_effect1	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	208	load_attack_effect2	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	209	load_attack_effect3	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	210	load_attack_effect_ready	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	211	rotate_angle_speed	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	212	deploy_timer_delay	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	213	retarget_each_tick	false	false	retarget/load QUESTION	Raw false is retained; field-name semantics and transition timing remain unresolved.
+character	214	retarget_after_attack	false	false	retarget/load QUESTION	Raw false is retained; field-name semantics and target-change policy remain unresolved.
+character	215	attack_shake_time	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	216	visual_hit_speed	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	217	visual_hit_speed2	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	218	visual_hit_speed3	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	219	burst	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	220	burst_delay	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	221	burst_keep_target	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	222	burst_affect_animation	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	223	activation_time	numeric-zero	0	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	224	attack_dash_time	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	225	looping_filter	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	226	building_target	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	227	spawn_const_priority	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	228	buff_when_not_attacking	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	229	buff_when_not_attacking_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	230	area_effect_on_hit	null	null	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	231	attack_state_damage	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	232	speed_before_attack	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	233	move_effect2	null	null	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	234	reflected_attack_buff	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	235	reflected_attack_buff_duration	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	236	reflected_attack_radius	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	237	reflected_attack_damage	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	238	reflect_attack_crown_tower_damage	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	239	reflected_attack_targeted_effect_sources	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	240	ignore_targets_with_buff	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	241	deprioritize_targets_with_buff	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	242	override_attack_finish_time	false	false	attack-finish QUESTION	Raw false is retained; no consumer mapping or attack-finish meaning is established.
+character	243	attack_finish_time	numeric-zero	0	attack-finish QUESTION	Raw zero is retained; no zero-to-infinite or zero-to-default rule is inferred.
+character	244	buff_on_kill	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	245	buff_on_kill_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	246	buff_on50_hp	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	247	buff_on50_hp_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	248	buff_on_xhp	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	249	buff_on_xhp_percent	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	250	buff_on_xhp_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	251	suck_elixir_speed	numeric-zero	0	movement/charge candidate	Raw value retained; phase state, units, cancellation, ordering, and consumer mapping remain limited by the source packet.
+character	252	capturable_building	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	253	sight_range_for_characters	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	254	attack_state_count	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	255	neutral_object	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	256	buff_after_hits_count	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	257	buff_after_hits_time	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	258	buff_after_hits	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	259	morph_after_hits_count	numeric-zero	0	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	260	convert_on_kill	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	261	move_speed_by_friendly_mass	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	262	move_radius_by_friendly_mass	numeric-zero	0	collision/knockback QUESTION	Raw value retained; no source-backed shared-session composition is established.
+character	263	ignore_buff	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	264	target_lowest_hp	false	false	base/special combat candidate	Raw value retained; only the comparator fields are mapped, and all flagged per-card values remain QUESTION.
+character	265	ability	null	null	ability link screen	Raw null retained; no ability row selected and no separate ability table fetched.
+character	266	ignore_clone	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	267	custom_spawn_filter	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	268	custom_clone_filter	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	269	ignore_resurrect	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	270	allow_area_dmg_when_invisible	false	false	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	271	avoid_counting_for_buff_amount_stats	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	272	untargetable_when_spawned	false	false	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	273	boost_items	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.
+character	274	name_en	string	"""Prince"""	identity/join	Exact English-name join field; no numeric-ID-only binding.
+character	275	key	string	"""prince"""	identity/join	Exact local source selector; this test-only binding does not create a shipped benchmark identity.
+character	276	sc_key	string	"""Prince"""	duplicated roster metadata	Character row repeats roster metadata; standalone/combined row equality is checked in the extractor.
+character	277	elixir	numeric-nonzero	5	cost comparator	Maps to local cost 5; source ledger rates card identity/cost high.
+character	278	type	string	"""Troop"""	kind comparator	Raw Troop normalizes to local unit; source ledger rates roster type high.
+character	279	arena	numeric-nonzero	7	duplicated roster metadata	Character row repeats roster metadata; standalone/combined row equality is checked in the extractor.
+character	280	description	string	"""Don't let the little pony fool you. Once the Prince gets a running start, you WILL be trampled. Deals double damage once he gets charging."""	duplicated roster metadata	Character row repeats roster metadata; standalone/combined row equality is checked in the extractor.
+character	281	id	numeric-nonzero	26000016	identity cross-check	Retained as a corroborating source key, not the sole join basis.
+character	282	summon_character	string	"""Prince"""	name relation only	The non-null Prince self-name resolves to the selected character row; zero summon counts remain literal and do not establish spawn behavior.
+character	283	summon_number	numeric-zero	0	spawn/count QUESTION	Raw zero retained; it is not interpreted as infinite, absent, or normalized count 1.
+character	284	summon_character_second	null	null	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	285	summon_character_second_count	numeric-zero	0	linked-row screen	Raw value retained. Explicit non-null names are checked only against the bounded linked tables; no missing semantics are inferred.
+character	286	hitpoints_per_level	array	[1200,1320,1452,1596,1752,1920,2112,2316,2544,2796,3072,3384,3720,4092]	base-combat stat candidate	Tournament index 5 yields 1920; normalized HP remains in the per-card unverified_fields list.
+character	287	damage_per_level	array	[245,269,296,325,357,392,431,472,519,570,627,690,759,835]	base-combat stat candidate	Tournament index 5 yields 392; normalized damage remains in the per-card unverified_fields list.
+character	288	dps_per_level	null	null	raw character metadata	Preserved exactly; no local runtime consumer identified.

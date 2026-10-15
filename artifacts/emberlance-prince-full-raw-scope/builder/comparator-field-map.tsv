@@ -1,0 +1,15 @@
+runtime_field	normalized_corpus_field	test_transform	runtime_value	corpus_value	test_disposition	raw_source_field_or_value	source_confidence_note
+cost	elixir_cost	value exact	5	5	match	5	identity/cost high
+kind	type	troop→unit	"""unit"""	"""troop"""	match	"""Troop"""	identity/type high
+rarity	rarity	epic→special local alias	"""special"""	"""epic"""	match	"""Epic"""	identity/rarity high
+hitpoints	hitpoints	×1	1920	1920	question-backed match	1920	per-card field is unverified
+damage	damage	×1	392	392	question-backed match	392	per-card field is unverified
+hitSpeedTicks	hit_speed_seconds	seconds×60	84	1.4	question-backed match	1400	per-card field is unverified
+firstHitTicks	first_hit_seconds	seconds×60	54	0.9	question-backed match	900	per-card field is unverified
+deployTimeTicks	deploy_time_seconds	seconds×60	60	1.0	question-backed match	1000	per-card field is unverified
+rangeMillitiles	range_tiles	tiles×1000	1600	1.6	question-backed match	1600	per-card field is unverified
+sightRangeMillitiles	sight_range_tiles	tiles×1000	5500	5.5	question-backed match	5500	per-card field is unverified
+movementMillitilesPerSecond	movement_speed_tiles_per_second	tiles/s×1000 per SOURCES.md	1000	1.0	question-backed match	60	per-card field is unverified
+targetMode	targets	attacks_ground=true + attacks_air=false→ground	"""ground"""	"""ground"""	question-backed match	"""attacks_ground=True; attacks_air=False"""	per-card field is unverified
+count	count	integer exact	1	1	question-backed match	"""summon_number=0; summon_character='Prince'"""	per-card field is unverified; zero is retained literally
+areaDamageRadiusMillitiles	area_damage_radius_tiles	null→null; otherwise tiles×1000	null	null	normalized null match; raw zero semantics unresolved	0	normalized null match; raw zero semantics unresolved

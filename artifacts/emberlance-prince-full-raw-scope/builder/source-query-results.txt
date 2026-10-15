@@ -1,0 +1,36 @@
+Baseline: d23b66301fe270c68d307534fd6d0b90880e82ef (origin/main at extraction time)
+Working checkout: private branch codex/emberlance-prince-raw-scope-20261015
+
+Exact local test/source-name scan
+Command: git grep -n -i 'prince' -- tests src
+Relevant hits:
+  tests/special-movement-charge-knockback.test.js:815 "Prince"  (protected-name scan only)
+  tests/special-movement-charge-knockback.test.js:816 "Dark Prince"  (protected-name scan only)
+  tests/special-movement-charge.test.js:42 ["prince"]  (the sole explicit parity selector)
+  tests/special-movement-charge.test.js:188 parity(createChargeSpecialCatalog()[0], "prince")  (positive comparator call)
+The remaining case-insensitive hits are Princess Tower identifiers and are not troop-card mappings. No other direct test selector for Prince or Dark Prince was found in the test/source scan.
+
+Comparator contract
+File: tests/special-movement-charge.test.js
+  lines 16-36 define the 14-field comparator.
+  line 42 restricts its source selector to key=prince.
+  line 188 compares createChargeSpecialCatalog()[0] with that selector.
+  lines 189-201 expect no authoritative failures, exactly four ordinary matches (cost, kind, rarity, areaDamageRadiusMillitiles), and ten QUESTION-backed matches.
+These are source assertions; this task did not execute the test.
+
+Other known historical-key duplicates checked before counting
+  tests/cards-basic-melee.test.js:73 has Knight in the basic-melee parity-key set; the same file's lines 247-258 compare Mossguard to key=knight.
+  tests/special-movement-retarget.test.js:187 names Wayfinder as an original identity and Knight as its test-only corpus mapping; lines 211-247 select key=knight.
+  Thus Knight has two local original-identity comparators for one historical key; it is not a second Knight card.
+  src/content/session-troop-profile-catalog.js:37-48 and tests/game-roster-troop-profiles.test.js:37-46 list Emberlance's two exports under one id. tests/game-roster-troops-movement-profiles.test.js:921-929 expects one Emberlance profile with those two memberships.
+  The same profile contract lists Aegis Sage as the other duplicated composition id. Duplicate exports do not add unique runtime IDs.
+  tests/special-movement-charge-knockback.test.js:815-816 only keeps Prince and Dark Prince out of that shipped source; those lines do not bind either classic card to a runtime profile.
+
+Raw-source join counts
+  cards.json key=prince: 1
+  rarities.json name=Epic: 1
+  visible troop row key=prince/name_en=Prince/rarity=Epic/not_visible=false: 1
+  character row key=prince/id=26000016/name=Prince/rarity=Epic: 1
+  matching troop and character rows in combined cards_stats.json: 1 each; exact ordered values equal their standalone source rows.
+  troop summon_character=Prince and character summon_character=Prince each name-match one character row. This is recorded as a raw name join only.
+  non-null projectile/buff/ability/spawn-character links: none. No linked projectile, buff, ability, or spawn row was selected.
