@@ -1,0 +1,25 @@
+Wayfinder → Knight raw-signature packet command ledger
+
+Baseline commit: d25ff320c91dc0b35cc1b2bc2fcf3c6970ab09b5
+Private checkout: /private/tmp/knight-full-raw-knight-20261015
+Working branch: codex/knight-full-raw-scope-20261015
+
+Checkout commands (run from the task's project repository):
+  git worktree add --detach /private/tmp/knight-full-raw-knight-20261015 d25ff320c91dc0b35cc1b2bc2fcf3c6970ab09b5
+  git -C /private/tmp/knight-full-raw-knight-20261015 switch -c codex/knight-full-raw-scope-20261015
+
+Evidence commands (run from the private checkout root):
+  python3 artifacts/wayfinder-knight-full-raw-scope/builder/extract_knight_signature.py
+  # exit 0; pinned upstream JSON fetched in memory; selected source rows and receipts written
+  python3 artifacts/wayfinder-knight-full-raw-scope/builder/generate_field_disposition.py
+  # exit 0; 425 raw field rows and 14 comparator rows written from selected rows/local corpus
+  # retarget-question-dispositions.tsv transcribes the 24 existing QUESTION records
+  # from src/content/session-troop-movement-question-authority.js:485-516 and
+  # their exact expected keys/provenance from tests/special-movement-retarget.test.js:272-329
+
+Review commands:
+  git diff --check
+  shasum -a 256 -c artifacts/wayfinder-knight-full-raw-scope/builder/SHA256SUMS.txt
+  git status --short --branch
+
+No test, build, browser, gameplay, screenshot, or image/source-asset-fetch command was run. The extractor fetched only pinned JSON stat/roster tables named in source-receipts.json; it did not fetch artwork or retain full datasets.

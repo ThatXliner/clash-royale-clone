@@ -1,0 +1,25 @@
+question_key	current_fixture_value	current_disposition	coverage_area	why_raw_signature_does_not_close_it
+attackBoundaryInclusive	true	QUESTION	attack boundary	Raw range/timing fields do not document edge inclusion.
+attackReachEligibility	"independent-from-sight-retention"	QUESTION	sight versus attack eligibility	Raw range/sight values do not state whether sight retention and attack eligibility are independent.
+attackerPosition	{"x":0,"y":0}	QUESTION	attacker geometry	Test fixture origin is synthetic; no source-backed attacker placement policy.
+attackerRadiusMillitiles	300	QUESTION	collision/body geometry	Raw collision_radius=500 is not mapped to this fixed fixture radius.
+candidateMutationPriority	"commands-before-selection"	QUESTION	boundary order	Raw rows do not define command/entity mutation order.
+damageApplication	"ready-event-applies-one-damage-value"	QUESTION	attack resolution	Raw damage value does not establish event ordering/application policy.
+deathInvalidation	true	QUESTION	target invalidation	Raw target fields do not specify how death invalidates a selected target.
+deathOnReadyBoundarySuppression	true	QUESTION	death/readiness order	Raw constants do not define same-boundary death/readiness precedence.
+differentIdReacquisition	"full-first-hit-windup"	QUESTION	reacquisition/reset	Raw retarget flags do not specify a new target's windup reset.
+distanceMetric	"exact-bigint-squared-center-distance"	QUESTION	target selection geometry	Raw ranges do not define center/edge distance or tie metrics.
+eligibilityLossCancellation	true	QUESTION	attack cancellation	Raw retarget fields do not specify whether eligibility loss cancels an attack cycle.
+eligibilityReentry	"full-first-hit-windup"	QUESTION	attack cancellation/reentry	Raw retarget fields do not specify cycle reset on reentry.
+eventOrdering	["target-lost","target-acquired","attack-ready","damage","death"]	QUESTION	causal event order	No raw row or dated source establishes this order.
+idLossCancellation	true	QUESTION	attack cancellation	Raw rows do not define missing-ID cancellation.
+missingIdInvalidation	true	QUESTION	target invalidation	Raw rows do not define missing-target invalidation.
+modeInvalidation	true	QUESTION	target eligibility	Raw direct target flags do not define lifecycle invalidation order.
+readinessPriority	"selection-before-readiness"	QUESTION	causal event order	Raw rows do not establish target-selection versus ready-event priority.
+sameIdReentry	"full-first-hit-windup"	QUESTION	attack cancellation/reentry	Raw retarget fields do not specify same-ID return behavior.
+sightBoundaryInclusive	true	QUESTION	sight geometry	Raw sight value does not establish inclusive boundary behavior.
+sightInvalidation	true	QUESTION	target invalidation	Raw sight fields do not specify loss/invalidation timing.
+stickyRetention	"valid-current-target-is-retained"	QUESTION	retarget policy	Raw retarget_each_tick=false and retarget_after_attack=false are preserved, but their engine semantics are undocumented here.
+syntheticCandidateHealth	1000	QUESTION	fixture setup	Candidate health is synthetic and is not a Knight source stat.
+targetableInvalidation	true	QUESTION	target eligibility	Raw data does not specify how targetability changes affect the selected target.
+tieBreak	"ascending-stable-id"	QUESTION	target selection order	Raw data does not specify an equal-distance tie break.

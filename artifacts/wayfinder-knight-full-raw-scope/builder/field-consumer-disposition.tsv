@@ -1,0 +1,426 @@
+source_row	index	raw_field	value_class	raw_value_json	disposition	consumer_or_limit
+card	0	key	string	"""knight"""	positive test selector	test-only identity join; not an engine field
+card	1	name	string	"""Knight"""	roster join / identity	test-only source join; numeric ID is corroborative, not binding basis
+card	2	sc_key	string	"""Knight"""	raw roster metadata	preserved; no Wayfinder retarget consumer
+card	3	elixir	numeric-nonzero	3	normalized comparator input	cost/kind parity only; not retarget encounter mechanics
+card	4	type	string	"""Troop"""	normalized comparator input	cost/kind parity only; not retarget encounter mechanics
+card	5	rarity	string	"""Common"""	roster join / identity	test-only source join; numeric ID is corroborative, not binding basis
+card	6	arena	numeric-zero	0	raw roster metadata	preserved; no Wayfinder retarget consumer
+card	7	description	string	"""A tough melee fighter. The Barbarian's handsome, cultured cousin. Rumor has it that he was knighted based on the sheer awesomeness of his mustache alone."""	raw roster metadata	preserved; no Wayfinder retarget consumer
+card	8	id	numeric-nonzero	26000000	roster join / identity	test-only source join; numeric ID is corroborative, not binding basis
+rarity	0	name	string	"""Common"""	rarity join	Common row selected from roster rarity
+rarity	1	level_count	numeric-nonzero	14	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	2	relative_level	numeric-zero	0	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	3	tournament_level_index	numeric-nonzero	10	level-array interpretation	Common tournament level 11 index=10 per SOURCES.md
+rarity	4	mirror_relative_level	numeric-zero	0	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	5	clone_relative_level	numeric-zero	0	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	6	donate_capacity	numeric-nonzero	1	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	7	sort_capacity	numeric-nonzero	1	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	8	donate_reward	numeric-nonzero	5	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	9	donate_xp	numeric-nonzero	1	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	10	overflow_prestige	numeric-nonzero	1	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	11	gold_conversion_value	numeric-nonzero	5	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	12	max_level_donation_cost	numeric-nonzero	5	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	13	trade_card_amount	numeric-nonzero	250	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	14	chance_weight	numeric-nonzero	1000	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	15	balance_multiplier	numeric-nonzero	100	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	16	upgrade_exp	array	[4,5,6,10,25,50,100,200,400,600,800,1600,2000,0]	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	17	upgrade_material_count	array	[2,4,10,20,50,100,200,400,800,1000,1500,3000,5000,0]	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	18	original_upgrade_material_count	array	[2,4,10,20,50,100,200,400,800,1000,2000,5000,0,0]	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	19	upgrade_cost	array	[5,20,50,150,400,1000,2000,4000,8000,15000,35000,75000,100000,0]	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	20	power_level_multiplier	array	[110,121,133,146,160,176,193,212,233,256,281,309,339,372,409,450,495,545,600]	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	21	refund_gems	numeric-nonzero	2	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	22	tid	string	"""TID_RARITY_COMMON"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	23	cast_effect	string	"""SpellCasting"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	24	sort_order	numeric-nonzero	1	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	25	red	numeric-nonzero	153	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	26	green	numeric-nonzero	204	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	27	blue	numeric-nonzero	255	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	28	appear_effect	string	"""openChest_get_common"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	29	buy_sound	string	"""sound_buy_card_common"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	30	loop_effect	string	"""openChest_loop_common"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	31	card_txt_bg_frame_idx	numeric-zero	0	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	32	rotate_export_name	string	"""card_rotate_common_short"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	33	gold_frame_export_name	string	"""card_frame_gold"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	34	icon_swf	string	"""sc/ui.sc"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	35	icon_export_name	string	"""icon_btn_card_common"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	36	token_swf	string	"""sc/ui_spells.sc"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	37	token_export_name	string	"""token_common"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	38	token_flying_icon_swf	string	"""sc/ui.sc"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	39	token_flying_icon_export_name	string	"""token_common"""	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	40	token_gold_value	numeric-nonzero	250	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	41	npc_trader_reroll_gem_cost	numeric-nonzero	10	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	42	can_be_in_chests	true	true	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	43	task_exp_reward	array	[0,25,100,150]	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	44	downgrade_multiplier	numeric-zero	0	raw rarity metadata	preserved; no Wayfinder retarget consumer
+rarity	45	max_amount_in_chronos_shop_offers	numeric-nonzero	100000	raw rarity metadata	preserved; no Wayfinder retarget consumer
+troop	0	name	string	"""Knight"""	troop join	selected visible troop row by key/name/rarity
+troop	1	icon_swf_china	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	2	icon_file	string	"""knight"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	3	highres_placeholder_asset	string	"""sc/ui_card_info_fx.sc#card_info_fx_common"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	4	highres_image_filename	string	"""image/chr/knight.png"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	5	unlock_arena	string	"""TrainingCamp"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	6	unlock_level	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	7	rarity	string	"""Common"""	troop join	selected visible troop row by key/name/rarity
+troop	8	not_visible	false	false	troop join	selected visible troop row by key/name/rarity
+troop	9	tribe	string	"""Kingdom"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	10	mana_cost	numeric-nonzero	3	cost cross-check	raw troop cost; does not drive retarget encounter
+troop	11	prestige_count	numeric-nonzero	3	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	12	mana_cost_from_summoner_mana	false	false	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	13	not_in_use	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	14	mirror	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	15	custom_deploy_time	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	16	summon_character	string	"""Knight"""	resolved character relation	unique name join to the selected Knight character row; no count/spawn semantics inferred
+troop	17	summon_number	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	18	summon_character_level_index	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	19	summon_character_second	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	20	summon_character_second_count	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	21	summon_radius	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	22	summon_width	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	23	summon_deploy_delay	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	24	summon_deploy_delay_second	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	25	character_skin	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	26	character_skin2	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	27	radius	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	28	height	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	29	projectile	null	null	projectile link candidate	null; no projectile row selected
+troop	30	projectile_interval	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	31	projectile_angle	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	32	projectile_waves	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	33	projectile_wave_interval	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	34	spell_as_deploy	false	false	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	35	can_place_on_buildings	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	36	can_place_on_water	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	37	instant_damage	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	38	duration_seconds	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	39	instant_heal	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	40	heal_per_second	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	41	pushback	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	42	multiple_projectiles	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	43	custom_first_projectile	null	null	projectile link candidate	null; no projectile row selected
+troop	44	buff_time	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	45	buff_time_increase_per_level	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	46	buff_number	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	47	buff_type	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	48	buff_on_damage	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	49	only_own_troops	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	50	only_enemies	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	51	can_deploy_on_enemy_side	false	false	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	52	touchdown_limited_deploy	false	false	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	53	cast_sound	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	54	area_effect_object	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	55	tid_info	string	"""TID_SPELL_INFO_KNIGHT"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	56	indicator_file_name	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	57	indicator_prestige_swf	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	58	indicator_prestige_export_name2	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	59	indicator_prestige_export_name3	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	60	hide_radius_indicator	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	61	release_date	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	62	elixir_production_stop_time	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	63	dark_mirror	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	64	stats_under_info	false	false	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	65	hero_ability	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	66	passive_ability	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	67	hp_modifier	numeric-zero	0	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	68	damage_modifier	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	69	deploy_w_tile_margin	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	70	full_lane_deploy	false	false	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	71	ability_cooldown	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	72	deploy_start_y	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	73	deploy_end_y	numeric-zero	0	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	74	pve_defense_type	string	"""Defender"""	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	75	type_of_spell	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	76	name_en	string	"""Knight"""	troop join	selected visible troop row by key/name/rarity
+troop	77	hitpoints_per_level	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	78	damage_per_level	null	null	raw deploy/effect metadata	preserved; zero/false/null semantics unresolved and not consumed by this retarget fixture
+troop	79	dps_per_level	null	null	raw troop metadata	preserved; no Wayfinder retarget consumer
+troop	80	key	string	"""knight"""	troop join	selected visible troop row by key/name/rarity
+character	0	name	string	"""Knight"""	character join	exact card/troop/name/key/rarity join; ID is a cross-check, not sole basis
+character	1	rarity	string	"""Common"""	character join	exact card/troop/name/key/rarity join; ID is a cross-check, not sole basis
+character	2	flags	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	3	tribe	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	4	sight_range	numeric-nonzero	5500	normalized sight candidate	5500 raw millitiles; question-backed; targeting receives normalized sightRangeMillitiles
+character	5	deploy_time	numeric-nonzero	1000	normalized deploy candidate	1000 ms→1.0 s→60 ticks; question-backed; AttackCycle consumes normalized deployTimeTicks
+character	6	charge_range	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	7	speed	numeric-nonzero	60	normalized movement-rate candidate	60→1 tile/s→1000 millitiles/s per SOURCES.md; question-backed and movement is outside this encounter
+character	8	hitpoints	numeric-nonzero	690	base character constant	raw base value 690 differs from tournament-level normalized 1766; not used as attacker HP by this encounter
+character	9	hit_speed	numeric-nonzero	1200	normalized attack-cycle input	1200 ms→1.2 s→72 ticks; local field is not flagged unverified; AttackCycle consumes normalized hitSpeedTicks
+character	10	load_time	numeric-nonzero	700	normalized first-hit candidate	700 ms→0.7 s→42 ticks; question-backed; AttackCycle consumes normalized firstHitTicks
+character	11	damage	numeric-nonzero	79	base character constant	raw base value 79 differs from tournament-level normalized 202; normalized level value comes from the level array
+character	12	damage_special	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	13	crown_tower_damage_percent	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	14	load_first_hit	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	15	load_after_retarget	false	false	retarget-policy question	raw false; semantics do not follow from the field name; local retarget choices remain QUESTION
+character	16	stop_time_after_attack	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	17	stop_time_after_special_attack	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	18	projectile	null	null	projectile link candidate	null; no projectile row selected
+character	19	custom_first_projectile	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	20	multiple_projectiles	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	21	multiple_targets	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	22	all_targets_hit	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	23	range	numeric-nonzero	1200	normalized attack-range candidate	1200 raw millitiles; question-backed; inAttackReach uses normalized range plus fixed/input radii
+character	24	minimum_range	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	25	special_min_range	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	26	special_range	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	27	special_load_time	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	28	special_ignore_buildings	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	29	special_attacks_to_ignore_list	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	30	attacks_ground	true	true	normalized target-mode candidate	true combines with attacks_air=false in local normalized ground enum; question-backed; targeting uses normalized targetMode
+character	31	attacks_air	false	false	normalized target-mode candidate	false combines with attacks_ground=true in local normalized ground enum; question-backed; targeting uses normalized targetMode
+character	32	death_damage_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	33	death_damage	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	34	death_push_back	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	35	attack_push_back	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	36	melee_pushback	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	37	is_melee_pushback_all	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	38	life_time	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	39	projectile_special	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	40	projectile_effect_special	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	41	area_damage_radius	numeric-zero	0	raw-versus-normalized null gap	raw zero; normalized corpus and Wayfinder catalog are null and test comparator reports a match; no raw zero→null semantics inferred
+character	42	target_only_buildings	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	43	target_only_troops	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	44	target_only_towers	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	45	target_only_king_tower	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	46	special_attack_interval	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	47	buff_on_damage	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	48	buff_on_damage_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	49	starting_buff	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	50	starting_buff_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	51	mesh	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	52	prestige_swf	string	"""sc/chr_prestige4_dl.sc"""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	53	prestige_export_name2	string	"""Knight_prestige"""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	54	prestige_export_name3	string	"""Knight_prestige2"""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	55	prestige_red_export_name2	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	56	prestige_red_export_name3	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	57	attached_character	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	58	attached_character_height	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	59	damage_effect_special	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	60	spawn_effect_once	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	61	crowd_effects	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	62	pushback	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	63	ignore_pushback	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	64	scale	numeric-nonzero	98	raw character field	preserved; no Wayfinder retarget consumer identified
+character	65	collision_radius	numeric-nonzero	500	collision/body question	raw 500; no Wayfinder definition mapping; encounter attacker radius is fixed 300 and candidate radii are supplied by fixture
+character	66	mass	numeric-nonzero	6	mass/knockback question	raw 6; no mass field or consumer in this retarget encounter
+character	67	tile_size_override	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	68	area_buff	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	69	area_buff_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	70	area_buff_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	71	health_bar	string	"""Medium"""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	72	health_bar_offset_y	numeric-nonzero	35	raw character field	preserved; no Wayfinder retarget consumer identified
+character	73	show_health_number	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	74	flying_height	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	75	fly_direct_paths	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	76	fly_from_ground	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	77	hovering	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	78	grow_time	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	79	grow_size	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	80	morph_character	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	81	heal_on_morph	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	82	area_effect_on_morph	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	83	morph_time	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	84	morph_keep_target	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	85	attack_start_effect_special	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	86	dash_immune_to_damage_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	87	dash_cooldown	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	88	jump_height	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	89	dash_push_back	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	90	dash_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	91	dash_damage	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	92	dash_filter	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	93	dash_constant_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	94	dash_landing_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	95	dash_min_range	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	96	dash_max_range	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	97	dash_distance	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	98	dash_count	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	99	dash_secondary_range	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	100	dashing_damage	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	101	dashing_pushback	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	102	dash_to_target_radius	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	103	jump_speed	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	104	spawn_start_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	105	spawn_interval	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	106	spawn_number	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	107	spawn_limit	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	108	destroy_at_limit	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	109	spawn_pause_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	110	spawn_character_level_index	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	111	spawn_character	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	112	spawn_character_with_deploy	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	113	spawn_character_level_index2	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	114	spawn_character2	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	115	spawn_character_level_index3	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	116	spawn_character3	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	117	spawn_projectile	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	118	spawn_deploy_base_anim	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	119	spawn_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	120	spawn_attach	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	121	spawn_attach_max_rotation	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	122	death_spawn_deploy_base_anim	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	123	death_spawn_count	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	124	death_spawn_character	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	125	death_spawn_count2	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	126	death_spawn_character2	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	127	death_spawn_character3	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	128	death_spawn_is_same_unit	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	129	randomize_death_spawn	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	130	death_spawn_projectile	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	131	death_spawn_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	132	death_spawn_min_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	133	death_spawn_allow_over_river	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	134	spawn_angle_shift	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	135	spawn_max_angle	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	136	death_spawn_deploy_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	137	death_spawn_pushback	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	138	death_inherit_ignore_list	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	139	kamikaze	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	140	kamikaze_time	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	141	spawn_pathfind_speed	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	142	spawn_pathfind_morph	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	143	spawn_pushback	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	144	spawn_pushback_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	145	spawn_area_object	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	146	spawn_area_object_level_index	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	147	ingame_pathfind_speed	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	148	ingame_pathfind_stop_deploy_base_anim	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	149	projectile_start_radius	numeric-nonzero	450	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	150	projectile_start_z	numeric-nonzero	450	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	151	stop_movement_after_ms	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	152	wait_ms	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	153	dont_stop_move_anim	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	154	is_summoner_tower	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	155	no_deploy_size_w	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	156	no_deploy_size_h	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	157	attack_sequence	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	158	attack_seq_state_effect1	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	159	attack_seq_state_effect2	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	160	attack_seq_state_effect3	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	161	variable_damage_time1	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	162	variable_damage2	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	163	melee_pushback2	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	164	is_melee_pushback_all2	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	165	variable_damage_time2	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	166	variable_damage3	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	167	melee_pushback3	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	168	is_melee_pushback_all3	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	169	targetted_damage_effect1	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	170	targetted_damage_effect2	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	171	targetted_damage_effect3	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	172	damage_level_transition_effect12	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	173	damage_level_transition_effect23	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	174	flame_effect1	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	175	flame_effect2	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	176	flame_effect3	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	177	target_effect_y	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	178	self_as_aoe_center	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	179	hides_when_not_attacking	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	180	hide_time_ms	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	181	hide_before_first_hit	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	182	special_attack_when_hidden	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	183	targeted_hit_effect_special	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	184	targeted_effect_visual_pushback	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	185	up_time_ms	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	186	appear_pushback_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	187	appear_pushback	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	188	appear_area_object	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	189	mana_collect_amount	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	190	mana_generate_time_ms	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	191	mana_generate_limit	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	192	mana_on_death	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	193	mana_on_death_for_opponent	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	194	has_rotation_on_timeline	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	195	turret_movement	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	196	projectile_y_offset	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	197	charge_speed_multiplier	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	198	deploy_delay	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	199	deploy_animation_override	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	200	jump_enabled	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	201	sight_clip	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	202	area_effect_on_dash	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	203	sight_clip_side	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	204	walking_speed_tweak_percentage	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	205	shield_hitpoints	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	206	shield_die_pushback	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	207	load_attack_effect1	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	208	load_attack_effect2	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	209	load_attack_effect3	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	210	load_attack_effect_ready	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	211	rotate_angle_speed	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	212	deploy_timer_delay	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	213	retarget_each_tick	false	false	retarget-policy question	raw false; semantics do not follow from the field name; local retarget choices remain QUESTION
+character	214	retarget_after_attack	false	false	retarget-policy question	raw false; semantics do not follow from the field name; local retarget choices remain QUESTION
+character	215	attack_shake_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	216	visual_hit_speed	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	217	visual_hit_speed2	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	218	visual_hit_speed3	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	219	burst	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	220	burst_delay	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	221	burst_keep_target	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	222	burst_affect_animation	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	223	activation_time	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	224	attack_dash_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	225	looping_filter	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	226	building_target	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	227	spawn_const_priority	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	228	buff_when_not_attacking	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	229	buff_when_not_attacking_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	230	area_effect_on_hit	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	231	attack_state_damage	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	232	speed_before_attack	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	233	move_effect2	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	234	reflected_attack_buff	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	235	reflected_attack_buff_duration	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	236	reflected_attack_radius	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	237	reflected_attack_damage	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	238	reflect_attack_crown_tower_damage	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	239	reflected_attack_targeted_effect_sources	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	240	ignore_targets_with_buff	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	241	deprioritize_targets_with_buff	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	242	override_attack_finish_time	false	false	attack-finish question	raw false; no mapping to attack-cycle policy established
+character	243	attack_finish_time	numeric-zero	0	attack-finish question	raw zero; no mapping to attack-cycle policy established
+character	244	buff_on_kill	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	245	buff_on_kill_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	246	buff_on50_hp	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	247	buff_on50_hp_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	248	buff_on_xhp	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	249	buff_on_xhp_percent	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	250	buff_on_xhp_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	251	suck_elixir_speed	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	252	capturable_building	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	253	sight_range_for_characters	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	254	attack_state_count	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	255	neutral_object	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	256	buff_after_hits_count	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	257	buff_after_hits_time	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	258	buff_after_hits	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	259	morph_after_hits_count	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	260	convert_on_kill	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	261	move_speed_by_friendly_mass	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	262	move_radius_by_friendly_mass	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	263	ignore_buff	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	264	target_lowest_hp	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	265	ability	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	266	ignore_clone	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	267	custom_spawn_filter	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	268	custom_clone_filter	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	269	ignore_resurrect	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	270	allow_area_dmg_when_invisible	false	false	raw character field	preserved; no Wayfinder retarget consumer identified
+character	271	avoid_counting_for_buff_amount_stats	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	272	untargetable_when_spawned	false	false	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	273	boost_items	null	null	raw character field	preserved; no Wayfinder retarget consumer identified
+character	274	name_en	string	"""Knight"""	character join	exact card/troop/name/key/rarity join; ID is a cross-check, not sole basis
+character	275	key	string	"""knight"""	character join	exact card/troop/name/key/rarity join; ID is a cross-check, not sole basis
+character	276	sc_key	string	"""Knight"""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	277	elixir	numeric-nonzero	3	raw character field	preserved; no Wayfinder retarget consumer identified
+character	278	type	string	"""Troop"""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	279	arena	numeric-zero	0	raw character field	preserved; no Wayfinder retarget consumer identified
+character	280	description	string	"""A tough melee fighter. The Barbarian's handsome, cultured cousin. Rumor has it that he was knighted based on the sheer awesomeness of his mustache alone."""	raw character field	preserved; no Wayfinder retarget consumer identified
+character	281	id	numeric-nonzero	26000000	character join	exact card/troop/name/key/rarity join; ID is a cross-check, not sole basis
+character	282	summon_character	string	"""Knight"""	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	283	summon_number	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	284	summon_character_second	null	null	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	285	summon_character_second_count	numeric-zero	0	raw mechanic-shaped field	preserved; no Wayfinder consumer mapping or historical semantics inferred
+character	286	hitpoints_per_level	array	[690,759,834,917,1007,1104,1214,1331,1462,1607,1766,1938,2132,2339,2566,2822,3105,3415,3760]	normalized HP source candidate	index 10 gives 1766; local hitpoints is question-backed and catalog-only in this encounter
+character	287	damage_per_level	array	[79,86,95,105,115,126,139,152,167,184,202,221,244,267,293,323,355,391,430]	normalized damage source candidate	index 10 gives 202; local damage is question-backed and applied on attack-ready
+character	288	dps_per_level	null	null	raw character field	preserved; no Wayfinder retarget consumer identified

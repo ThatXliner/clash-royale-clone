@@ -1,0 +1,93 @@
+{
+  "accessed_utc": "2026-10-15T18:21:44+00:00",
+  "source_commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+  "source_commit_date_utc": "2023-02-18T11:25:16Z",
+  "fetch_implementation": "extract_knight_signature.py using Python urllib.request (User-Agent Wayfinder-Knight-pinned-signature-research/1.0)",
+  "actual_command": "python3 artifacts/wayfinder-knight-full-raw-scope/builder/extract_knight_signature.py",
+  "exit_code": 0,
+  "source_files": [
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards.json",
+      "filename": "cards.json",
+      "git_blob_sha1": "9a26927d54fbf358138e10d2f5bb5519e6f8602e",
+      "raw_bytes": 41785,
+      "raw_sha256": "312574f75ada2ff5ad605e1eb122c3b620d1163c5a675d67cd9e64122b3d6946",
+      "rows_or_groups_in_source_file": 112,
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards.json"
+    },
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/rarities.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/rarities.json",
+      "filename": "rarities.json",
+      "git_blob_sha1": "9457080e4a32f681483ef8da4ec20a309f409768",
+      "raw_bytes": 17007,
+      "raw_sha256": "04dfc711292d1edb87779634868959496e9ac0bda1398a437e70b7afeabbd10d",
+      "rows_or_groups_in_source_file": 6,
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/rarities.json"
+    },
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_troop.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_troop.json",
+      "filename": "cards_stats_troop.json",
+      "git_blob_sha1": "2fc9257051c37521f0ca2ad4a1931686ef94842b",
+      "raw_bytes": 261572,
+      "raw_sha256": "a6e044cb510ec280dacfd54e546558276e5f40d50fbd16f47f3ff16126add33a",
+      "rows_or_groups_in_source_file": 93,
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_troop.json"
+    },
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_characters.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_characters.json",
+      "filename": "cards_stats_characters.json",
+      "git_blob_sha1": "a86a93da5b27a27ae891cfa3c67b13b7f3b2080e",
+      "raw_bytes": 1156641,
+      "raw_sha256": "37734d1508584e43851395c01b2d10046667eb6dc27daef37e5df56e74f933ac",
+      "rows_or_groups_in_source_file": 113,
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_characters.json"
+    },
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
+      "filename": "cards_stats_projectile.json",
+      "git_blob_sha1": "091987427e84379a4c1d0ebacc1ce1fecd2d0364",
+      "raw_bytes": 137874,
+      "raw_sha256": "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197",
+      "rows_or_groups_in_source_file": 79,
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json"
+    },
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_character_buff.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_character_buff.json",
+      "filename": "cards_stats_character_buff.json",
+      "git_blob_sha1": "68ce48cb8a2087f48f2d24d4a8a36cc210fd2e62",
+      "raw_bytes": 75549,
+      "raw_sha256": "20da44c09a3e51c06b97291530f6b8fee909c57d2b5c7a7c64adf1721e0999f0",
+      "rows_or_groups_in_source_file": 38,
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_character_buff.json"
+    },
+    {
+      "canonical_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats.json",
+      "final_raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats.json",
+      "filename": "cards_stats.json",
+      "git_blob_sha1": "0098d94065703fdb81a7ee98255ce5652c358b5e",
+      "raw_bytes": 2795170,
+      "raw_sha256": "5a75c35e37b895a2c64223d4050f08008d8722531af248ac9fd251e9390f5e95",
+      "rows_or_groups_in_source_file": {
+        "troop": 93,
+        "building": 62,
+        "spell": 48,
+        "projectile": 79,
+        "characters": 113,
+        "character_buff": 38
+      },
+      "url_used": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats.json"
+    }
+  ],
+  "selected_rows_artifact": {
+    "file": "pinned-linked-rows.json",
+    "bytes": 66885,
+    "sha256": "644aab68b15507a2f3bad74a9d6d3b9ca2461796335cb9400410ea6136db3588"
+  },
+  "extractor_sha256": "53a9e46de98d615e8fe0e91a5e0f26f2d477aca96fe630984698318c93e6e729"
+}

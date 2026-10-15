@@ -1,0 +1,15 @@
+runtime_field	normalized_corpus_field	transform_in_existing_test	runtime_value	corpus_value	disposition	raw_source_note
+cost	elixir_cost	identity value; ×1	3	3	match	raw cards.elixir=3; source identity/cost high
+kind	type	troop→unit	"""unit"""	"""troop"""	match	raw cards.type=Troop; normalized comparator expects troop
+rarity	rarity	common→standard	"""standard"""	"""common"""	match	raw Common rarity joins rarity row; project alias
+hitpoints	hitpoints	×1	1766	1766	question-backed match	question-backed; source corpus unverified_fields
+damage	damage	×1	202	202	question-backed match	question-backed; source corpus unverified_fields
+hitSpeedTicks	hit_speed_seconds	seconds×60	72	1.2	match	normalized field not in unverified_fields
+firstHitTicks	first_hit_seconds	seconds×60	42	0.7	question-backed match	question-backed; source corpus unverified_fields
+deployTimeTicks	deploy_time_seconds	seconds×60	60	1.0	question-backed match	question-backed; source corpus unverified_fields
+rangeMillitiles	range_tiles	tiles×1000	1200	1.2	question-backed match	question-backed; source corpus unverified_fields
+sightRangeMillitiles	sight_range_tiles	tiles×1000	5500	5.5	question-backed match	question-backed; source corpus unverified_fields
+movementMillitilesPerSecond	movement_speed_tiles_per_second	tiles/s×1000	1000	1.0	question-backed match	question-backed; source corpus unverified_fields
+targetMode	targets	enum exact	"""ground"""	"""ground"""	question-backed match	question-backed; source corpus unverified_fields
+count	count	integer exact	1	1	question-backed match	question-backed; raw troop summon_number=0 is not interpreted as count
+areaDamageRadiusMillitiles	area_damage_radius_tiles	null→null; else tiles×1000	null	null	normalized null match; raw zero semantics unresolved	normalized null comparator match; raw character area_damage_radius=0 is preserved and not explained
