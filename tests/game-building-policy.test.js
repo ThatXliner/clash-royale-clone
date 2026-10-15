@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import test from "node:test";
 
 import { createDeathEffectsCatalog, createDeathEffectsQuestions } from "../src/content/cards/death-effects.js";
-import { createResourceBuildingQuestionRecords } from "../src/content/cards/buildings-resource.js";
+import { createResourceBuildingQuestionRecords,
+  createSharedHostResourcePolicyRecords } from "../src/content/cards/buildings-resource.js";
 import { createUndergroundTravelBuildingQuestionRecords } from "../src/content/cards/buildings-travel.js";
 import {
   createPlayableRoster,
@@ -90,15 +92,6 @@ function setupWithPolicyMutation(cardId, mutate) {
 
 const POLICY_CASES = Object.freeze([
   {
-    cardId: "aether-well",
-    fields: ["generationAmount", "generationCadenceTicks", "lifetimeTicks"],
-    policy: () => {
-      const records = createResourceBuildingQuestionRecords();
-      return Object.fromEntries(["generationAmount", "generationCadenceTicks", "lifetimeTicks"]
-        .map((key) => [key, records[key]]));
-    },
-  },
-  {
     cardId: "burrow-rig",
     fields: ["travelSpeedMillitilesPerSecond", "emergenceSpawnDelayTicks", "lifetimeTicks"],
     policy: () => {
@@ -117,6 +110,131 @@ const POLICY_CASES = Object.freeze([
     },
   },
 ]);
+
+function legacyV1ResourceProfile() {
+  const questions = createResourceBuildingQuestionRecords();
+  return { class: "resource", deployTicks: 60,
+    generationAmount: questions.generationAmount.value,
+    generationCadenceTicks: questions.generationCadenceTicks.value,
+    hitpoints: 1_070, lifetimeTicks: questions.lifetimeTicks.value,
+    policy: Object.fromEntries(["generationAmount", "generationCadenceTicks", "lifetimeTicks"]
+      .map((key) => [key, questions[key]])) };
+}
+
+function setupWithLegacyV1ResourceProfile() {
+  const setup = JSON.parse(sessionSetup("aether-well"));
+  setup.startingElixir = { north: 8, south: 8 };
+  for (const key of ["battleSetup", "rosterWitness"]) {
+    const witness = JSON.parse(setup[key]);
+    witness.roster.find(({ id }) => id === "aether-well").buildingRuntime = legacyV1ResourceProfile();
+    setup[key] = canonical(witness);
+  }
+  return canonical(setup);
+}
+
+test("game building policy: shared-host resource v2 pins corroborated values and keeps consumer choices QUESTION", () => {
+  const profile = projectSessionNonUnitBattleCard("aether-well").buildingRuntime;
+  const policy = createSharedHostResourcePolicyRecords();
+  assert.equal(policy.version, 2);
+  assert.deepEqual(profile.policy, policy);
+  assert.deepEqual({ cadence: profile.generationCadenceTicks, destruction: profile.destructionAmount,
+    generationAmount: profile.generationAmount, lifetime: profile.lifetimeTicks }, {
+    cadence: 540, destruction: 1, generationAmount: 1, lifetime: 3_900,
+  });
+  for (const [field, value] of [["generationCadenceTicks", 540], ["lifetimeTicks", 3_900],
+    ["destructionAmount", 1]]) {
+    assert.deepEqual({ authoritative: policy[field].authoritative,
+      confidence: policy[field].confidence, disposition: policy[field].disposition,
+      source: policy[field].source, value: policy[field].value }, {
+      authoritative: true, confidence: "high", disposition: "source-aligned",
+      source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+      value,
+    });
+  }
+  for (const field of ["generationAmount", "recipientPolicy", "cadenceAnchorPolicy",
+    "cadenceResetPolicy", "resourceCapacity", "sameTickOrderingPolicy", "expiryOrderingPolicy",
+    "placementPolicy", "simultaneousGenerationOrder", "deployTicks", "hitpoints"]) {
+    assert.equal(policy[field].authoritative, false, `${field} remains unresolved`);
+    assert.equal(policy[field].disposition, "question", `${field} remains QUESTION`);
+  }
+  assert.equal(policy.generationAmount.confidence, "datamine-only");
+  assert.equal(policy.generationAmount.value, 1);
+  assert.equal(policy.resourceCapacity.value, 10);
+  assert.equal(policy.recipientPolicy.value, "building-owner");
+  for (const [field, value, key] of [["deployTicks", 60, "deploy_time"],
+    ["hitpoints", 1_070, "hitpoints"]]) {
+    assert.deepEqual({ confidence: policy[field].confidence, key: policy[field].key,
+      source: policy[field].source, value: policy[field].value }, {
+      confidence: "unverified", key,
+      source: "pinned-pre-march-2023-building-constants", value,
+    }, `${field} remains explicitly unverified`);
+  }
+
+  const legacy = createResourceBuildingQuestionRecords();
+  assert.equal(legacy.generationCadenceTicks.value, 510, "the independent version-1 fixture stays intact");
+  assert.equal(legacy.lifetimeTicks.value, 4_200, "the independent version-1 fixture stays intact");
+
+  const runtime = createSessionBuildingRuntime(canonical({ profiles: [{ cardId: "aether-well",
+    profile: structuredClone(profile) }], version: 1 }));
+  const structure = runtime.materializePlacement(canonical({ cardId: "aether-well", destination: null,
+    id: 1, point: SOUTH, side: "south", tick: 0 }));
+  assert.equal(structure.policy.version, 2);
+  assert.equal(runtime.validateStructureReceipt(canonical(structure)).deathTriggered, false);
+});
+
+test("game building policy: v2 resource receipts reject missing, forged, stale, and extra fields before admission", () => {
+  const mutations = [
+    (profile) => { delete profile.policy.destructionAmount; },
+    (profile) => { profile.policy.generationCadenceTicks.value += 1; },
+    (profile) => { profile.policy.destructionAmount.authoritative = false; },
+    (profile) => { profile.policy.version = 1; },
+    (profile) => { profile.policy.unreviewedField = { value: 99 }; },
+    (profile) => { delete profile.policy; },
+    (profile) => { delete profile.destructionAmount; },
+  ];
+  for (const [index, mutate] of mutations.entries()) {
+    assert.throws(() => new GameSession(setupWithPolicyMutation("aether-well", mutate)),
+      /canonical session-card receipt/u, `forged v2 resource receipt ${index} is rejected`);
+  }
+});
+
+test("game building policy: legacy v1 and default-eight session snapshots remain byte-exact", () => {
+  const direct = new GameSession(setupWithLegacyV1ResourceProfile());
+  assert.deepEqual(direct.state.elixir.sides, {
+    north: { accumulator: 0, amount: 8 }, south: { accumulator: 0, amount: 8 },
+  });
+  const digest = (bytes) => createHash("sha256").update(bytes).digest("hex");
+  assert.equal(digest(direct.serialize()),
+    "d239a7932debbf13745f1e18c9292569aa3bdcc91fe5b3dd7ba7e3482b78b904",
+  "the untouched parent snapshot bytes remain exact");
+  deploy(direct, "aether-well");
+  assert.equal(digest(direct.serialize()),
+    "5da18620f58401a12e7caa8007dc1914156e613eec9a8e36e1cb6222a340bfc3",
+  "the parent v1 deployed snapshot bytes remain exact");
+  direct.stepMany(511);
+  assert.equal(digest(direct.serialize()),
+    "1817cca6a91a698cecf8ffacf63a5aae73c28765b7dc0bf4d6517fd573c858f4",
+  "the parent v1 first-pulse snapshot bytes remain exact");
+  assert.equal(digest(direct.replayBytes()),
+    "45e157fdb6b77ab5659969e2cec92809db2a97bc70deb573d42fc09086c784bb",
+  "the parent v1 replay bytes remain exact");
+  assert.deepEqual(direct.replay.filter(({ type }) => type === "building-resource-grant")
+    .map(({ tick }) => tick), [510]);
+  const restored = GameSession.restore(direct.serialize());
+  assert.equal(restored.serialize(), direct.serialize());
+  assert.deepEqual(restored.state, direct.state);
+
+  const shippedSetup = createShippedGameSessionSetup(0);
+  const shipped = new GameSession(shippedSetup);
+  assert.deepEqual(JSON.parse(shippedSetup).deck, ["coilblade", "mossguard", "copperskiff",
+    "skymaul", "brassbolt", "reedsting", "briar-band", "cinderlings"]);
+  assert.deepEqual(shipped.state.elixir.sides, {
+    north: { accumulator: 0, amount: 10 }, south: { accumulator: 0, amount: 10 },
+  });
+  assert.equal(digest(shipped.serialize()),
+    "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+  "the shipped default-eight v1 snapshot remains exact");
+});
 
 test("game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures", () => {
   for (const { cardId, fields, policy: expectedPolicy } of POLICY_CASES) {

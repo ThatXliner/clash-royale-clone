@@ -1,0 +1,91 @@
+TAP version 13
+# shipping guard Node package targets: 4/4 covered
+# shipping guard reference adversaries: 12/12 detected
+# shipping guard identity adversaries: 11/11 detected
+# Subtest: shipping isolation guard: clean graph is canonical and excludes test fixtures
+ok 1 - shipping isolation guard: clean graph is canonical and excludes test fixtures
+  ---
+  duration_ms: 161.519791
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects every encoded reference specifier form
+ok 2 - shipping isolation guard: rejects every encoded reference specifier form
+  ---
+  duration_ms: 11.191667
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects protected identities after static evaluation
+ok 3 - shipping isolation guard: rejects protected identities after static evaluation
+  ---
+  duration_ms: 8.8555
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: scans unreachable distributable outputs bytewise
+ok 4 - shipping isolation guard: scans unreachable distributable outputs bytewise
+  ---
+  duration_ms: 1.642875
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: detects embedded reference-file bytes
+ok 5 - shipping isolation guard: detects embedded reference-file bytes
+  ---
+  duration_ms: 1.9795
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+ok 6 - shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+  ---
+  duration_ms: 3.435625
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: benign words, similar paths, URLs, and comments pass
+ok 7 - shipping isolation guard: benign words, similar paths, URLs, and comments pass
+  ---
+  duration_ms: 3.050125
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: path traversal and symlink escapes are rejected
+ok 8 - shipping isolation guard: path traversal and symlink escapes are rejected
+  ---
+  duration_ms: 2.105958
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: in-root symlink aliases cannot conceal reference files
+ok 9 - shipping isolation guard: in-root symlink aliases cannot conceal reference files
+  ---
+  duration_ms: 1.574083
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: depth, count, byte, and token bounds fail closed
+ok 10 - shipping isolation guard: depth, count, byte, and token bounds fail closed
+  ---
+  duration_ms: 5.004375
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: failures are collected atomically without mutation
+ok 11 - shipping isolation guard: failures are collected atomically without mutation
+  ---
+  duration_ms: 1.173
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: executable CLI reports canonical success and failure
+ok 12 - shipping isolation guard: executable CLI reports canonical success and failure
+  ---
+  duration_ms: 98.403417
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: this repository's shipped entry graph passes
+ok 13 - shipping isolation guard: this repository's shipped entry graph passes
+  ---
+  duration_ms: 32460.7315
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32819.524917

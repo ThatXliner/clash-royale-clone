@@ -1,0 +1,79 @@
+{
+  "baseCommit": "52a18349a04b3d9fbbd0a0c82c1f08ed7c36942e",
+  "baseTreeHashes": {
+    "artifacts": "dc56d0aa0995316b5d500a10f9ded942768a77a6",
+    "dist": "5458f617a71ee610ed231d758384128f87b5e478"
+  },
+  "comparisonAgainstReviewedHbrCommit": {
+    "mainDiffUnderSrcSim": [
+      "src/sim/session-building-profile-receipts.js",
+      "src/sim/session-building-runtime.js"
+    ],
+    "ownedHbrFilesInSimDiff": [
+      "src/sim/session-building-profile-receipts.js",
+      "src/sim/session-building-runtime.js"
+    ],
+    "result": "all shared simulation authority files are unchanged between the previously reviewed HBR candidate and exact adoption base",
+    "reviewedCommit": "c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d",
+    "sharedSimulationAuthorityDiffPaths": []
+  },
+  "hbrSourceCommit": "c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d",
+  "node": "v22.22.3",
+  "npm": "10.9.8",
+  "ownedFiles": {
+    "src/content/cards/buildings-resource.js": {
+      "baseBlob": "0a09201295c073c1194245c94334e31b7b8c2daf",
+      "sha256": "6e04f448e102ad2f0239f28170d04e6c78d989ea9c42851d47995055623ee47e"
+    },
+    "src/content/session-card-catalog.js": {
+      "baseBlob": "76150630402df875e0a0336fc9708feb7b0993a9",
+      "sha256": "39d1e74bbb22e9738f685cd5d8174101bf379d6b100cd042438c61fd6c09fb26"
+    },
+    "src/sim/session-building-profile-receipts.js": {
+      "baseBlob": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb",
+      "sha256": "94beeb6a4a2de0b1bea761314f28faecbe8f0c85845144caa758eecdcfb0a60e"
+    },
+    "src/sim/session-building-runtime.js": {
+      "baseBlob": "55f326c1ce1231c72c6c74612dff4d601f79af05",
+      "sha256": "2a0ce9a523fbf2b0103114bdb34ef26a62c9a5f61c95083bce9e0fb823da051b"
+    },
+    "tests/game-building-policy.test.js": {
+      "baseBlob": "4c11bbfa985766a20c01fd9ffb3159082d9e39e1",
+      "sha256": "3f980762f94aab4e7c6b08d8c1f390347c7dbe835cac772c50302b0169030778"
+    },
+    "tests/game-building-runtime.test.js": {
+      "baseBlob": "18ad59bcd2b95095182b6246ca5125518fe01156",
+      "sha256": "090f77af759ecdd8692978bfc3406a9100024216d246ee0156f93d48e664d1c6"
+    },
+    "tests/game-roster-buildings.test.js": {
+      "baseBlob": "3fb814f23b7c15d09d7c61fea216642ee039952b",
+      "sha256": "5bbf8ec2b4bcbb7a0613fffee6fe91aab0825acc1e4576578d9a75608ac5dab3"
+    }
+  },
+  "productionDiffPaths": [
+    "src/content/cards/buildings-resource.js",
+    "src/content/session-card-catalog.js",
+    "src/sim/session-building-profile-receipts.js",
+    "src/sim/session-building-runtime.js"
+  ],
+  "protectedFilesUnchangedBeforeTests": [
+    "package.json",
+    "package-lock.json",
+    "src/sim/battle-continuation-kernel.js",
+    "src/sim/fixed-step.js",
+    "src/content/editable-deck.js",
+    "src/rl/environment.js",
+    "tests/editable-deck.test.js",
+    "tests/rl-environment.test.js"
+  ],
+  "result": "pre-test source-fence verification passed; candidate not yet sealed",
+  "trackedDiffPathsBeforeTests": [
+    "src/content/cards/buildings-resource.js",
+    "src/content/session-card-catalog.js",
+    "src/sim/session-building-profile-receipts.js",
+    "src/sim/session-building-runtime.js",
+    "tests/game-building-policy.test.js",
+    "tests/game-building-runtime.test.js",
+    "tests/game-roster-buildings.test.js"
+  ]
+}

@@ -1,0 +1,34 @@
+GAME001HBRC final checksum and result ledger
+candidate 44e69d6b5fe0aad9a55f958bb8ce460fe877aa28
+base 52a18349a04b3d9fbbd0a0c82c1f08ed7c36942e
+accepted HBR source/test commit c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d
+changed paths total=43 product-source-test=7 evidence-artifacts=36 other=0
+accepted scoped diff paths=0
+canonical manifest bytes=682350 sha256=259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1
+fresh canonical audit exit=0 TAP=6/6 duration_ms=451859.721459; original raw stdout/stderr not saved; not rerun
+source src/content/cards/buildings-resource.js candidate_blob=0a09201295c073c1194245c94334e31b7b8c2daf accepted_blob=0a09201295c073c1194245c94334e31b7b8c2daf identical=true sha256=6e04f448e102ad2f0239f28170d04e6c78d989ea9c42851d47995055623ee47e
+source src/content/session-card-catalog.js candidate_blob=76150630402df875e0a0336fc9708feb7b0993a9 accepted_blob=76150630402df875e0a0336fc9708feb7b0993a9 identical=true sha256=39d1e74bbb22e9738f685cd5d8174101bf379d6b100cd042438c61fd6c09fb26
+source src/sim/session-building-profile-receipts.js candidate_blob=5d050ded0c012128a9a9ab57d3ad0ae668dd14bb accepted_blob=5d050ded0c012128a9a9ab57d3ad0ae668dd14bb identical=true sha256=94beeb6a4a2de0b1bea761314f28faecbe8f0c85845144caa758eecdcfb0a60e
+source src/sim/session-building-runtime.js candidate_blob=55f326c1ce1231c72c6c74612dff4d601f79af05 accepted_blob=55f326c1ce1231c72c6c74612dff4d601f79af05 identical=true sha256=2a0ce9a523fbf2b0103114bdb34ef26a62c9a5f61c95083bce9e0fb823da051b
+source tests/game-building-policy.test.js candidate_blob=4c11bbfa985766a20c01fd9ffb3159082d9e39e1 accepted_blob=4c11bbfa985766a20c01fd9ffb3159082d9e39e1 identical=true sha256=3f980762f94aab4e7c6b08d8c1f390347c7dbe835cac772c50302b0169030778
+source tests/game-building-runtime.test.js candidate_blob=18ad59bcd2b95095182b6246ca5125518fe01156 accepted_blob=18ad59bcd2b95095182b6246ca5125518fe01156 identical=true sha256=090f77af759ecdd8692978bfc3406a9100024216d246ee0156f93d48e664d1c6
+source tests/game-roster-buildings.test.js candidate_blob=3fb814f23b7c15d09d7c61fea216642ee039952b accepted_blob=3fb814f23b7c15d09d7c61fea216642ee039952b identical=true sha256=5bbf8ec2b4bcbb7a0613fffee6fe91aab0825acc1e4576578d9a75608ac5dab3
+stdout nondeterminism-guard.final.stdout.txt bytes=2513 sha256=3679ddbe61fddc47a5d3e5614a840781869375d32c53342b63c0d6b0f2945719 stderr_bytes=0
+stdout shipping-isolation-guard.final.stdout.txt bytes=3146 sha256=e7085e17f0fe7da4e32fce77d670288cf67e6989588a8751f7430271e587ceb1 stderr_bytes=0
+stdout game-roster-admission.final.stdout.txt bytes=1835 sha256=aef4967e702e495e44edf3d350903ac0c79875bb0da00c5f947c8d6b99d8521d stderr_bytes=0
+stdout shipping-isolation-host.stdout.txt bytes=358 sha256=20775984e0c122b2610879c648b66b4395e5986392b59c3c3aa4f3b1898c5267 stderr_bytes=0
+stdout release-build.stdout.txt bytes=14114 sha256=7c93ca2142b953107e48140c37879d94c62280c369797afc708661d9a4a4619b stderr_bytes=0
+stdout shipping-isolation-release.stdout.txt bytes=1521 sha256=72d6ba679fa987d8aae16331f0ca700e5fab62bf26c8a8777c674e786e789828 stderr_bytes=0
+fresh gate nondeterminism-guard pid=75248 exit=0 elapsed_s=1.235
+fresh gate shipping-isolation-guard pid=75263 exit=0 elapsed_s=32.890
+fresh gate game-roster-admission pid=75338 exit=0 elapsed_s=5.097
+gate shipping-isolation-host exit=0
+gate release-build exit=0
+gate shipping-isolation-release exit=0
+worktree clean=True
+diff-check exit=0
+user Chrome PID 93861 remained running and untouched
+reviewed test/browser processes gone
+release qualification artifacts restored to pretest hashes
+The three *.final stdout logs are additional fresh capture executions; original first-run gate results remain in critic-results.json.
+Canonical audit raw stdout/stderr are missing; no output transcript was reconstructed and audit was not rerun.

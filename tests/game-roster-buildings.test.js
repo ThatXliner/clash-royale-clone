@@ -174,8 +174,8 @@ test("game roster buildings: the exact HA/INTEGRATION building occurrence subset
     staticOccurrences, "the HA manifest is the complete frozen INTEGRATION occurrence union");
   assert.deepEqual(occurrences.map(({ exportName, id, status }) => [exportName, id, status]), expected);
   assert.deepEqual(occurrences.map(({ exportName, id }) => ({ exportName, id })), integrationOccurrences);
-  assert.deepEqual(manifest.counts, { admittedIds: 56, admittedOccurrences: 61,
-    claimedIds: 62, claimedOccurrences: 67, excludedClaimedIds: 6,
+  assert.deepEqual(manifest.counts, { admittedIds: 57, admittedOccurrences: 62,
+    claimedIds: 63, claimedOccurrences: 68, excludedClaimedIds: 6,
     excludedClaimedOccurrences: 6, questionOnlyExports: 5 });
   assert.deepEqual(SESSION_BUILDING_ADMITTED_IDS, [
     "aether-well", "bulwark-needle", "buried-coil", "burrow-rig", "cinder-reliquary",
@@ -338,27 +338,79 @@ test("game roster buildings: simultaneous two-owner Aether grants enter ElixirMa
     deploy(session, "aether-well");
     return session;
   };
-  const direct = create(); direct.stepMany(511);
-  const chunked = create(); [1, 59, 451].forEach((count) => chunked.stepMany(count));
+  const direct = create(); direct.stepMany(541);
+  const chunked = create(); [1, 59, 481].forEach((count) => chunked.stepMany(count));
   const partial = create(); partial.stepMany(180);
-  const restored = GameSession.restore(partial.serialize()); restored.stepMany(331);
+  const restored = GameSession.restore(partial.serialize()); restored.stepMany(361);
   for (const candidate of [chunked, restored]) {
     assert.equal(candidate.serialize(), direct.serialize());
     assert.equal(candidate.replayBytes(), direct.replayBytes());
     assert.deepEqual(candidate.state, direct.state);
   }
   assert.deepEqual(direct.replay.filter(({ type }) => type === "building-resource-grant"), [
-    { amount: 1, side: "south", sourceId: 1, tick: 510, type: "building-resource-grant" },
-    { amount: 1, side: "north", sourceId: 2, tick: 510, type: "building-resource-grant" },
+    { amount: 1, side: "south", sourceId: 1, tick: 540, type: "building-resource-grant" },
+    { amount: 1, side: "north", sourceId: 2, tick: 540, type: "building-resource-grant" },
   ]);
   assert.deepEqual(direct.replay.filter(({ type }) => type === "building-resource-granted"), [
     { amountAfter: 8, amountGranted: 1, amountRequested: 1, buildingId: 1,
-      side: "south", tick: 510, type: "building-resource-granted" },
+      side: "south", tick: 540, type: "building-resource-granted" },
     { amountAfter: 8, amountGranted: 1, amountRequested: 1, buildingId: 2,
-      side: "north", tick: 510, type: "building-resource-granted" },
+      side: "north", tick: 540, type: "building-resource-granted" },
   ]);
   assert.equal(direct.replay.filter(({ type }) => type === "building-resource-grant").length, 2,
     "each causally emitted source grant reaches the sole ElixirMatch exactly once");
+});
+
+test("game roster buildings: an actual opposing unit destroys Aether and its shared-host payout is once-only", () => {
+  const create = () => {
+    const session = sessionFor("aether-well", {
+      legalNorthCardIds: ["mossguard"], requiredNorthCardId: "mossguard",
+    });
+    deploy(session, "aether-well");
+    return session;
+  };
+  const direct = create(); direct.stepMany(481);
+  const chunked = create(); [1, 478, 2].forEach((count) => chunked.stepMany(count));
+  const partial = create(); partial.stepMany(479);
+  const restored = GameSession.restore(partial.serialize()); restored.stepMany(2);
+  for (const candidate of [chunked, restored]) {
+    assert.equal(candidate.serialize(), direct.serialize());
+    assert.equal(candidate.replayBytes(), direct.replayBytes());
+    assert.deepEqual(candidate.state, direct.state);
+  }
+
+  const structure = direct.state.battle.structures.find(({ cardId }) => cardId === "aether-well");
+  assert.deepEqual({ alive: structure.alive, deathCause: structure.deathCause,
+    deathTriggered: structure.deathTriggered, hitpoints: structure.hitpoints }, {
+    alive: false, deathCause: "combat-damage", deathTriggered: true, hitpoints: 0,
+  });
+  assert.deepEqual(direct.replay.filter(({ buildingId, type }) =>
+    buildingId === structure.id && type === "structure-destroyed"), [{
+    buildingId: structure.id, cause: "combat-damage", reason: "damage", sourceId: 1,
+    tick: 479, type: "structure-destroyed",
+  }], "the admitted north Mossguard killed the structure through real combat damage");
+  assert.deepEqual(direct.replay.filter(({ buildingId, type }) =>
+    buildingId === structure.id && type === "building-resource-payout-triggered"), [{
+    amount: 1, buildingId: structure.id, cause: "combat-damage", recipientSide: "south",
+    tick: 479, type: "building-resource-payout-triggered",
+  }]);
+  assert.deepEqual(direct.replay.filter(({ type, tick }) =>
+    type === "building-resource-grant" && tick === 479), [{
+    amount: 1, side: "south", sourceId: structure.id, tick: 479,
+    type: "building-resource-grant",
+  }]);
+  assert.deepEqual(direct.replay.filter(({ buildingId, tick, type }) =>
+    buildingId === structure.id && tick === 479 && type === "building-resource-granted"), [{
+    amountAfter: 7, amountGranted: 1, amountRequested: 1, buildingId: structure.id,
+    side: "south", tick: 479, type: "building-resource-granted",
+  }], "the real GameSession ElixirMatch applies the death grant exactly once");
+
+  direct.stepMany(20);
+  assert.equal(direct.replay.filter(({ buildingId, type }) =>
+    buildingId === structure.id && type === "building-resource-payout-triggered").length, 1,
+  "the committed death receipt prevents a second payout on later shared ticks");
+  assert.equal(direct.replay.filter(({ type, tick }) =>
+    type === "building-resource-grant" && tick === 479).length, 1);
 });
 
 test("game roster buildings: Burrow Rig travels through the shared path state and freezes its unsourced child as QUESTION", () => {

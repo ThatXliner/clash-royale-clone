@@ -1,0 +1,418 @@
+{
+  "candidate": "44e69d6b5fe0aad9a55f958bb8ce460fe877aa28",
+  "base": "52a18349a04b3d9fbbd0a0c82c1f08ed7c36942e",
+  "acceptedHbrCommit": "c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d",
+  "head": "44e69d6b5fe0aad9a55f958bb8ce460fe877aa28",
+  "node": "v22.22.3",
+  "chrome": "Google Chrome 155.0.8059.40",
+  "suites": [
+    {
+      "name": "nondeterminism-guard",
+      "exitCode": 0,
+      "pass": 10,
+      "fail": 0,
+      "durationMs": 1207.01225
+    },
+    {
+      "name": "shipping-isolation-guard",
+      "exitCode": 0,
+      "pass": 13,
+      "fail": 0,
+      "durationMs": 32427.883708
+    },
+    {
+      "name": "game-roster-admission",
+      "exitCode": 0,
+      "pass": 7,
+      "fail": 0,
+      "durationMs": 4933.649167
+    },
+    {
+      "name": "integration-audit",
+      "exitCode": 0,
+      "pass": 6,
+      "fail": 0,
+      "durationMs": 451859.721459
+    },
+    {
+      "name": "shipping-isolation-host",
+      "exitCode": 0,
+      "pass": 1,
+      "fail": 0,
+      "durationMs": 16689.755583
+    },
+    {
+      "name": "release-build",
+      "exitCode": 0,
+      "pass": 22,
+      "fail": 0,
+      "durationMs": 51202.324459
+    },
+    {
+      "name": "shipping-isolation-release",
+      "exitCode": 0,
+      "pass": 4,
+      "fail": 0,
+      "durationMs": 69181.362667
+    }
+  ],
+  "scope": {
+    "changedPathCount": 43,
+    "productSourceTestPaths": [
+      "src/content/cards/buildings-resource.js",
+      "src/content/session-card-catalog.js",
+      "src/sim/session-building-profile-receipts.js",
+      "src/sim/session-building-runtime.js",
+      "tests/game-building-policy.test.js",
+      "tests/game-building-runtime.test.js",
+      "tests/game-roster-buildings.test.js"
+    ],
+    "productSourceTestCount": 7,
+    "evidencePathCount": 36,
+    "otherPaths": [],
+    "hbrBlobIdentity": {
+      "src/content/cards/buildings-resource.js": true,
+      "src/content/session-card-catalog.js": true,
+      "src/sim/session-building-profile-receipts.js": true,
+      "src/sim/session-building-runtime.js": true,
+      "tests/game-building-policy.test.js": true,
+      "tests/game-building-runtime.test.js": true,
+      "tests/game-roster-buildings.test.js": true
+    },
+    "allSevenHbrBlobsMatchAccepted": true,
+    "srcSimDiffAcceptedVsBase": [
+      "src/sim/session-building-profile-receipts.js",
+      "src/sim/session-building-runtime.js"
+    ],
+    "sharedSimulationAuthorityDiff": [],
+    "protectedPathsDiff": [],
+    "candidateReportLiteralSevenTrackedPathsClaimAccurate": false
+  },
+  "canonicalAudit": {
+    "manifestBytes": 682350,
+    "manifestSha256": "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1",
+    "priorDebe648Sha256": "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1",
+    "exactPriorBlob": true,
+    "supported": [
+      {
+        "exportName": "createChampionAbilityCatalog",
+        "id": "aegis-sage"
+      },
+      {
+        "exportName": "createReflectionSpecialCatalog",
+        "id": "aegis-sage"
+      },
+      {
+        "exportName": "createResourceBuildingCatalog",
+        "id": "aether-well"
+      },
+      {
+        "exportName": "DEATH_SPAWN_IDENTITY",
+        "id": "ashen-nest"
+      },
+      {
+        "exportName": "createPeriodicSpellCatalog",
+        "id": "blight-ring"
+      },
+      {
+        "exportName": "createHealCatalog",
+        "id": "bloom-wisp"
+      },
+      {
+        "exportName": "createChampionAbilityCatalog",
+        "id": "bone-regent"
+      },
+      {
+        "exportName": "createBasicMeleeCatalog",
+        "id": "brackenwheel"
+      },
+      {
+        "exportName": "SPAWNER_BUILDING_IDENTITIES",
+        "id": "bramble-cage"
+      },
+      {
+        "exportName": "createBasicRangedCatalog",
+        "id": "brassbolt"
+      },
+      {
+        "exportName": "createSwarmCatalog",
+        "id": "briar-band"
+      },
+      {
+        "exportName": "createDefensiveBuildingCatalog",
+        "id": "bulwark-needle"
+      },
+      {
+        "exportName": "createDefensiveBuildingCatalog",
+        "id": "buried-coil"
+      },
+      {
+        "exportName": "createUndergroundTravelBuildingCatalog",
+        "id": "burrow-rig"
+      },
+      {
+        "exportName": "createSwarmCatalog",
+        "id": "cinder-host"
+      },
+      {
+        "exportName": "createRampSpecialCatalog",
+        "id": "cinder-ray"
+      },
+      {
+        "exportName": "createDeathEffectsCatalog",
+        "id": "cinder-reliquary"
+      },
+      {
+        "exportName": "createRecoilSpecialCatalog",
+        "id": "cinderback"
+      },
+      {
+        "exportName": "createSwarmCatalog",
+        "id": "cinderlings"
+      },
+      {
+        "exportName": "SPAWN_SPELL_IDENTITIES",
+        "id": "cloudseed-flask"
+      },
+      {
+        "exportName": "createBasicMeleeCatalog",
+        "id": "coilblade"
+      },
+      {
+        "exportName": "createOrdinaryProjectileSquadCatalog",
+        "id": "coppershade-flock"
+      },
+      {
+        "exportName": "createBasicFlyingCatalog",
+        "id": "copperskiff"
+      },
+      {
+        "exportName": "createHealCatalog",
+        "id": "dawnmender"
+      },
+      {
+        "exportName": "createChampionAbilityCatalog",
+        "id": "dusk-ranger"
+      },
+      {
+        "exportName": "createOrdinaryProjectileSquadCatalog",
+        "id": "duskwing-trio"
+      },
+      {
+        "exportName": "createDefensiveBuildingCatalog",
+        "id": "ember-basin"
+      },
+      {
+        "exportName": "SPAWNER_BUILDING_IDENTITIES",
+        "id": "ember-roost"
+      },
+      {
+        "exportName": "createChargeKnockbackCatalog",
+        "id": "emberlance"
+      },
+      {
+        "exportName": "createChargeSpecialCatalog",
+        "id": "emberlance"
+      },
+      {
+        "exportName": "createPeriodicSpellCatalog",
+        "id": "fault-pulse"
+      },
+      {
+        "exportName": "createSwarmCatalog",
+        "id": "forgeguard"
+      },
+      {
+        "exportName": "createChampionAbilityCatalog",
+        "id": "gilded-lancer"
+      },
+      {
+        "exportName": "DEATH_CONVERSION_IDENTITY",
+        "id": "gloam-shepherd"
+      },
+      {
+        "exportName": "createSwarmCatalog",
+        "id": "gloamwing-cluster"
+      },
+      {
+        "exportName": "createPeriodicSpellCatalog",
+        "id": "gravity-well"
+      },
+      {
+        "exportName": "SPAWN_SPELL_IDENTITIES",
+        "id": "hollowgarden"
+      },
+      {
+        "exportName": "createDefensiveBuildingCatalog",
+        "id": "horizon-caster"
+      },
+      {
+        "exportName": "createChampionAbilityCatalog",
+        "id": "iron-borer"
+      },
+      {
+        "exportName": "createRollingSpellCatalog",
+        "id": "ironbark-roller"
+      },
+      {
+        "exportName": "createBasicMeleeCatalog",
+        "id": "ironroot"
+      },
+      {
+        "exportName": "createOrdinaryProjectileSplashCatalog",
+        "id": "kilnkeeper"
+      },
+      {
+        "exportName": "createBasicMeleeCatalog",
+        "id": "mossguard"
+      },
+      {
+        "exportName": "createDefensiveBuildingCatalog",
+        "id": "prism-furnace"
+      },
+      {
+        "exportName": "createPierceSpecialCatalog",
+        "id": "prism-warden"
+      },
+      {
+        "exportName": "createStunSpecialCatalog",
+        "id": "pulse-sentry"
+      },
+      {
+        "exportName": "createShieldFormCatalog",
+        "id": "railward"
+      },
+      {
+        "exportName": "createBasicRangedCatalog",
+        "id": "reedsting"
+      },
+      {
+        "exportName": "createSlowSpecialCatalog",
+        "id": "rime-adept"
+      },
+      {
+        "exportName": "createReturnSpecialCatalog",
+        "id": "rune-reaver"
+      },
+      {
+        "exportName": "createPelletSpecialCatalog",
+        "id": "scatterguard"
+      },
+      {
+        "exportName": "createBasicFlyingCatalog",
+        "id": "skymaul"
+      },
+      {
+        "exportName": "createThreeWaveTravelingSpellCatalog",
+        "id": "skyshard-volley"
+      },
+      {
+        "exportName": "createInstantSpellCatalog",
+        "id": "squall-orb"
+      },
+      {
+        "exportName": "createKnockbackSpecialCatalog",
+        "id": "squall-orb"
+      },
+      {
+        "exportName": "createReturningSpellCatalog",
+        "id": "squall-orb"
+      },
+      {
+        "exportName": "createTravelingLineSpellCatalog",
+        "id": "squall-orb"
+      },
+      {
+        "exportName": "createResetSpecialCatalog",
+        "id": "static-burst"
+      },
+      {
+        "exportName": "createStructureSeekerCatalog",
+        "id": "stonehauler"
+      },
+      {
+        "exportName": "createJumpSpecialCatalog",
+        "id": "stonevault"
+      },
+      {
+        "exportName": "createChainSpecialCatalog",
+        "id": "stormkite"
+      },
+      {
+        "exportName": "createOrdinaryProjectileSquadCatalog",
+        "id": "sunthread-pair"
+      },
+      {
+        "exportName": "createRageSpecialCatalog",
+        "id": "tempo-field"
+      },
+      {
+        "exportName": "createSnareSpecialCatalog",
+        "id": "tether-rider"
+      },
+      {
+        "exportName": "createSwarmCatalog",
+        "id": "thornscouts"
+      },
+      {
+        "exportName": "createInvisibilitySpecialCatalog",
+        "id": "veil-prowler"
+      },
+      {
+        "exportName": "createDashSpecialCatalog",
+        "id": "veilrunner"
+      },
+      {
+        "exportName": "createRetargetSpecialCatalog",
+        "id": "wayfinder"
+      }
+    ],
+    "uniqueSupportedIds": 63,
+    "questionOnlyCount": 5,
+    "runners": 47,
+    "freshTwoRunEqualityAssertionsPassed": true
+  },
+  "sideEffects": {
+    "worktreeStatus": "",
+    "qualificationRestored": true,
+    "qualificationBefore": {
+      "artifacts/release-001b-round-2/evidence.json": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "artifacts/release-001b-round-2/escaped-css-producer-rejection.json": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "artifacts/release-001b-round-2/external-base-producer-rejection.json": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a"
+    },
+    "qualificationAfter": {
+      "artifacts/release-001b-round-2/evidence.json": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "artifacts/release-001b-round-2/escaped-css-producer-rejection.json": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "artifacts/release-001b-round-2/external-base-producer-rejection.json": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a"
+    },
+    "distChecksumsEqual": true,
+    "releaseQualificationGeneratedCopies": [
+      "/private/tmp/game001hbr-combined-adoption-critic.cSUXvf/release-build-generated/evidence.json",
+      "/private/tmp/game001hbr-combined-adoption-critic.cSUXvf/release-build-generated/escaped-css-producer-rejection.json",
+      "/private/tmp/game001hbr-combined-adoption-critic.cSUXvf/release-build-generated/external-base-producer-rejection.json",
+      "/private/tmp/game001hbr-combined-adoption-critic.cSUXvf/release-build-generated/opaque-srcdoc-producer-rejection.json"
+    ]
+  },
+  "diffCheckExitCode": 0,
+  "processClosure": {
+    "reviewedPids": [
+      65050,
+      70914,
+      70937,
+      70945,
+      73608,
+      73618,
+      73619
+    ],
+    "processRows": [],
+    "userChromeAfter": "PID  PPID  ELAPSED STAT COMMAND\n93861     1 03:16:20 S    /Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  },
+  "limitations": [
+    "Prior HBR 68/68 scoped lifecycle acceptance was reused via exact source/test identity; it was not rerun in this combined pass.",
+    "No full 18,000-tick endurance or full historical parity claim.",
+    "Release-build emitted expected negative-fixture build failure diagnostics while all 22 TAP tests passed.",
+    "candidate-report.md says only seven tracked paths differ; actual candidate diff has seven product source/test paths plus 36 evidence paths."
+  ]
+}

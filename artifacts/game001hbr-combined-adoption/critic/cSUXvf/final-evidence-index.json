@@ -1,0 +1,195 @@
+{
+  "acceptedHbrCommit": "c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d",
+  "acceptedScopedDiffPaths": [],
+  "additionalFreshCaptureRuns": [
+    {
+      "elapsedSeconds": 1.2349119186401367,
+      "exitCode": 0,
+      "name": "nondeterminism-guard",
+      "pid": 75248
+    },
+    {
+      "elapsedSeconds": 32.88962364196777,
+      "exitCode": 0,
+      "name": "shipping-isolation-guard",
+      "pid": 75263
+    },
+    {
+      "elapsedSeconds": 5.096833944320679,
+      "exitCode": 0,
+      "name": "game-roster-admission",
+      "pid": 75338
+    }
+  ],
+  "base": "52a18349a04b3d9fbbd0a0c82c1f08ed7c36942e",
+  "candidate": "44e69d6b5fe0aad9a55f958bb8ce460fe877aa28",
+  "canonicalAudit": {
+    "copiedPriorManifestNotFreshCliOutput": true,
+    "durationMs": 451859.721459,
+    "exitCode": 0,
+    "expectedSha256": "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1",
+    "freshTwoRunEqualityAssertionsPassed": true,
+    "manifestBytes": 682350,
+    "manifestSha256": "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1",
+    "occurrences": 68,
+    "originalRawStderrCaptured": false,
+    "originalRawStdoutCaptured": false,
+    "originalResultRetainedIn": "critic-results.json",
+    "questionOnly": 5,
+    "rawOutputStatus": "not captured; no raw output was reconstructed or rerun",
+    "rerun": false,
+    "runners": 47,
+    "tap": "6/6",
+    "uniqueSupportedIds": 63
+  },
+  "capturedTestOutputHashes": {
+    "game-roster-admission.final.stdout.txt": {
+      "bytes": 1835,
+      "sha256": "aef4967e702e495e44edf3d350903ac0c79875bb0da00c5f947c8d6b99d8521d",
+      "stderrBytes": 0
+    },
+    "nondeterminism-guard.final.stdout.txt": {
+      "bytes": 2513,
+      "sha256": "3679ddbe61fddc47a5d3e5614a840781869375d32c53342b63c0d6b0f2945719",
+      "stderrBytes": 0
+    },
+    "release-build.stdout.txt": {
+      "bytes": 14114,
+      "sha256": "7c93ca2142b953107e48140c37879d94c62280c369797afc708661d9a4a4619b",
+      "stderrBytes": 0
+    },
+    "shipping-isolation-guard.final.stdout.txt": {
+      "bytes": 3146,
+      "sha256": "e7085e17f0fe7da4e32fce77d670288cf67e6989588a8751f7430271e587ceb1",
+      "stderrBytes": 0
+    },
+    "shipping-isolation-host.stdout.txt": {
+      "bytes": 358,
+      "sha256": "20775984e0c122b2610879c648b66b4395e5986392b59c3c3aa4f3b1898c5267",
+      "stderrBytes": 0
+    },
+    "shipping-isolation-release.stdout.txt": {
+      "bytes": 1521,
+      "sha256": "72d6ba679fa987d8aae16331f0ca700e5fab62bf26c8a8777c674e786e789828",
+      "stderrBytes": 0
+    }
+  },
+  "changedPaths": {
+    "evidenceArtifacts": 36,
+    "other": 0,
+    "productSourceTest": 7,
+    "total": 43
+  },
+  "cleanup": {
+    "diffCheckExitCode": 0,
+    "distChecksumsEqualPretest": true,
+    "qualificationArtifactsRestored": true,
+    "reviewedProcessesGone": true,
+    "userChrome93861Untouched": true,
+    "worktreeClean": true
+  },
+  "evidenceArtifactPaths": [
+    "artifacts/game001hbr-combined-adoption/builder/base-fences.json",
+    "artifacts/game001hbr-combined-adoption/builder/candidate-report.md",
+    "artifacts/game001hbr-combined-adoption/builder/canonical-audit-manifest.json",
+    "artifacts/game001hbr-combined-adoption/builder/canonical-audit-verification.json",
+    "artifacts/game001hbr-combined-adoption/builder/checksums.sha256",
+    "artifacts/game001hbr-combined-adoption/builder/chrome-version-shell-attempt.error.json",
+    "artifacts/game001hbr-combined-adoption/builder/chrome-version.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/final-verification.json",
+    "artifacts/game001hbr-combined-adoption/builder/game-roster-admission.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/game-roster-admission.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/game-roster-admission.stdout.txt",
+    "artifacts/game001hbr-combined-adoption/builder/integration-audit.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/integration-audit.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/integration-audit.stdout.txt",
+    "artifacts/game001hbr-combined-adoption/builder/node-guard-results.json",
+    "artifacts/game001hbr-combined-adoption/builder/nondeterminism-guard.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/nondeterminism-guard.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/nondeterminism-guard.stdout.txt",
+    "artifacts/game001hbr-combined-adoption/builder/release-build-evidence/copied-test-generated-evidence.json",
+    "artifacts/game001hbr-combined-adoption/builder/release-build-evidence/escaped-css-producer-rejection.json",
+    "artifacts/game001hbr-combined-adoption/builder/release-build-evidence/evidence.json",
+    "artifacts/game001hbr-combined-adoption/builder/release-build-evidence/external-base-producer-rejection.json",
+    "artifacts/game001hbr-combined-adoption/builder/release-build-evidence/opaque-srcdoc-producer-rejection.json",
+    "artifacts/game001hbr-combined-adoption/builder/release-build.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/release-build.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/release-build.stdout.txt",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-guard.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-guard.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-guard.stdout.txt",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-host.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-host.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-host.stdout.txt",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-release-evidence.json",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-release.status.json",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-release.stderr.txt",
+    "artifacts/game001hbr-combined-adoption/builder/shipping-isolation-release.stdout.txt"
+  ],
+  "hostReleaseExitCodes": {
+    "release-build": 0,
+    "shipping-isolation-host": 0,
+    "shipping-isolation-release": 0
+  },
+  "limitations": [
+    "Prior HBR scoped lifecycle result 68/68 reused via exact accepted source/test blob identity; not rerun in this combined pass.",
+    "No full 18,000-tick endurance or full historical parity claim.",
+    "Original audit stdout/stderr were not saved; its recorded result is in critic-results.json, and the audit was not rerun.",
+    "candidate-report.md says only seven tracked paths differ, but candidate has seven product source/test paths and 36 tracked evidence artifact paths."
+  ],
+  "originalSmallNodeGateResultsRetainedIn": "critic-results.json",
+  "otherPaths": [],
+  "productSourceTestPaths": [
+    "src/content/cards/buildings-resource.js",
+    "src/content/session-card-catalog.js",
+    "src/sim/session-building-profile-receipts.js",
+    "src/sim/session-building-runtime.js",
+    "tests/game-building-policy.test.js",
+    "tests/game-building-runtime.test.js",
+    "tests/game-roster-buildings.test.js"
+  ],
+  "sourceTestBlobs": {
+    "src/content/cards/buildings-resource.js": {
+      "acceptedGitBlob": "0a09201295c073c1194245c94334e31b7b8c2daf",
+      "candidateGitBlob": "0a09201295c073c1194245c94334e31b7b8c2daf",
+      "identical": true,
+      "sha256": "6e04f448e102ad2f0239f28170d04e6c78d989ea9c42851d47995055623ee47e"
+    },
+    "src/content/session-card-catalog.js": {
+      "acceptedGitBlob": "76150630402df875e0a0336fc9708feb7b0993a9",
+      "candidateGitBlob": "76150630402df875e0a0336fc9708feb7b0993a9",
+      "identical": true,
+      "sha256": "39d1e74bbb22e9738f685cd5d8174101bf379d6b100cd042438c61fd6c09fb26"
+    },
+    "src/sim/session-building-profile-receipts.js": {
+      "acceptedGitBlob": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb",
+      "candidateGitBlob": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb",
+      "identical": true,
+      "sha256": "94beeb6a4a2de0b1bea761314f28faecbe8f0c85845144caa758eecdcfb0a60e"
+    },
+    "src/sim/session-building-runtime.js": {
+      "acceptedGitBlob": "55f326c1ce1231c72c6c74612dff4d601f79af05",
+      "candidateGitBlob": "55f326c1ce1231c72c6c74612dff4d601f79af05",
+      "identical": true,
+      "sha256": "2a0ce9a523fbf2b0103114bdb34ef26a62c9a5f61c95083bce9e0fb823da051b"
+    },
+    "tests/game-building-policy.test.js": {
+      "acceptedGitBlob": "4c11bbfa985766a20c01fd9ffb3159082d9e39e1",
+      "candidateGitBlob": "4c11bbfa985766a20c01fd9ffb3159082d9e39e1",
+      "identical": true,
+      "sha256": "3f980762f94aab4e7c6b08d8c1f390347c7dbe835cac772c50302b0169030778"
+    },
+    "tests/game-building-runtime.test.js": {
+      "acceptedGitBlob": "18ad59bcd2b95095182b6246ca5125518fe01156",
+      "candidateGitBlob": "18ad59bcd2b95095182b6246ca5125518fe01156",
+      "identical": true,
+      "sha256": "090f77af759ecdd8692978bfc3406a9100024216d246ee0156f93d48e664d1c6"
+    },
+    "tests/game-roster-buildings.test.js": {
+      "acceptedGitBlob": "3fb814f23b7c15d09d7c61fea216642ee039952b",
+      "candidateGitBlob": "3fb814f23b7c15d09d7c61fea216642ee039952b",
+      "identical": true,
+      "sha256": "5bbf8ec2b4bcbb7a0613fffee6fe91aab0825acc1e4576578d9a75608ac5dab3"
+    }
+  }
+}

@@ -202,7 +202,8 @@ export function createSessionBuildingCatalog(...args) {
   return freeze({
     admitted: SESSION_BUILDING_ADMITTED_IDS.map((id) => ({
       id, kind: "structure", mechanics: CLASS_BY_ID[id],
-      ...(CLASS_BY_ID[id] === "defensive" ? { policyDisposition: "question" } : {}),
+      ...(["defensive", "resource"].includes(CLASS_BY_ID[id])
+        ? { policyDisposition: "question" } : {}),
     })),
     question: SESSION_BUILDING_QUESTION_IDS.map((id) => ({
       id,
@@ -295,6 +296,70 @@ function checkedDefensiveQuestionPolicy(value, cardId, label) {
   };
 }
 
+const RESOURCE_V2_POLICY_METADATA = Object.freeze({
+  cadenceAnchorPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "cadenceAnchorPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "placement-tick-multiples-after-deployment" },
+  cadenceResetPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "cadenceResetPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "nonlethal-damage-does-not-reset-placement-relative-cadence" },
+  deployTicks: { authoritative: false, confidence: "unverified", disposition: "question",
+    key: "deploy_time", source: "pinned-pre-march-2023-building-constants" },
+  destructionAmount: { authoritative: true, confidence: "high", disposition: "source-aligned",
+    key: "mana_on_death", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/" },
+  expiryOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "expiryOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event" },
+  hitpoints: { authoritative: false, confidence: "unverified", disposition: "question",
+    key: "hitpoints", source: "pinned-pre-march-2023-building-constants" },
+  generationAmount: { authoritative: false, confidence: "datamine-only", disposition: "question",
+    key: "mana_collect_amount", source: "pinned-pre-march-2023-building-constants" },
+  generationCadenceTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+    key: "mana_generate_time_ms", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/" },
+  lifetimeTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+    key: "life_time", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/" },
+  placementPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "placementPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "ordinary-ground-entity-deployment-mask-at-building-center" },
+  recipientPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "resourceRecipient", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "building-owner" },
+  resourceCapacity: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "mana_generate_limit", source: "pre-evolutions-resource-consumer-semantics-question", value: 10 },
+  sameTickOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "sameTickOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants" },
+  simultaneousGenerationOrder: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "simultaneousGenerationOrder", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "ascending-positive-building-id" },
+});
+
+function checkedSharedHostResourcePolicy(value, profile, label) {
+  const fields = Object.keys(RESOURCE_V2_POLICY_METADATA);
+  const policy = exact(value, [...fields, "version"], label);
+  if (policy.version !== 2) throw new TypeError(`${label}.version is unsupported`);
+  const values = {
+    deployTicks: profile.deployTicks,
+    destructionAmount: profile.destructionAmount,
+    generationAmount: profile.generationAmount,
+    generationCadenceTicks: profile.generationCadenceTicks,
+    hitpoints: profile.hitpoints,
+    lifetimeTicks: profile.lifetimeTicks,
+  };
+  const checked = { version: 2 };
+  for (const field of fields) {
+    const record = exact(policy[field], ["authoritative", "confidence", "disposition", "key", "source", "value"],
+      `${label}.${field}`);
+    const expected = { ...RESOURCE_V2_POLICY_METADATA[field],
+      ...(Object.hasOwn(values, field) ? { value: values[field] } : {}) };
+    if (canonical(record) !== canonical(expected)) {
+      throw new TypeError(`${label}.${field} has invalid source or QUESTION provenance`);
+    }
+    checked[field] = clone(record);
+  }
+  return checked;
+}
+
 function checkedProfile(value, cardId) {
   const expectedClass = CLASS_BY_ID[cardId];
   const label = `session building profile ${cardId}`;
@@ -340,8 +405,11 @@ function checkedProfile(value, cardId) {
     return result;
   }
   if (expectedClass === "resource") {
+    const v2 = Object.hasOwn(value, "destructionAmount") ||
+      (value.policy !== null && typeof value.policy === "object" && Object.hasOwn(value.policy, "version"));
     const profile = exact(value, ["class", "deployTicks", "generationAmount",
-      "generationCadenceTicks", "hitpoints", "lifetimeTicks", "policy"], label);
+      "generationCadenceTicks", "hitpoints", "lifetimeTicks", "policy",
+      ...(v2 ? ["destructionAmount"] : [])], label);
     if (profile.class !== expectedClass) throw new TypeError(`${label} is invalid`);
     const result = { class: expectedClass,
       deployTicks: profileInteger(profile, "deployTicks", label, 0, MAX_TICK),
@@ -349,11 +417,17 @@ function checkedProfile(value, cardId) {
       generationCadenceTicks: profileInteger(profile, "generationCadenceTicks", label, 1, MAX_TICK),
       hitpoints: profileInteger(profile, "hitpoints", label, 1),
       lifetimeTicks: profileInteger(profile, "lifetimeTicks", label, 1, MAX_TICK) };
-    result.policy = checkedQuestionPolicy(profile.policy, [
-      ["generationAmount", "generationAmount", result.generationAmount],
-      ["generationCadenceTicks", "generationCadenceTicks", result.generationCadenceTicks],
-      ["lifetimeTicks", "lifetimeTicks", result.lifetimeTicks],
-    ], `${label}.policy`, "pre-evolutions-building-corpus-and-absent-resource-policy");
+    if (v2) {
+      result.destructionAmount = profileInteger(profile, "destructionAmount", label, 1, 10);
+      result.policy = checkedSharedHostResourcePolicy(profile.policy, result,
+        `${label}.policy`);
+    } else {
+      result.policy = checkedQuestionPolicy(profile.policy, [
+        ["generationAmount", "generationAmount", result.generationAmount],
+        ["generationCadenceTicks", "generationCadenceTicks", result.generationCadenceTicks],
+        ["lifetimeTicks", "lifetimeTicks", result.lifetimeTicks],
+      ], `${label}.policy`, "pre-evolutions-building-corpus-and-absent-resource-policy");
+    }
     return result;
   }
   if (expectedClass === "travel") {
@@ -565,7 +639,8 @@ function checkedStructure(value, index, profiles) {
   if (raw.maxHitpoints !== profile.hitpoints || raw.hitpoints > raw.maxHitpoints ||
       (raw.alive && (raw.hitpoints === 0 || raw.deathCause !== null)) ||
       (!raw.alive && (raw.hitpoints !== 0 || raw.targetable)) ||
-      (profile.class !== "death-effect" && raw.deathTriggered)) {
+      (profile.class !== "death-effect" &&
+        !(profile.class === "resource" && profile.policy.version === 2) && raw.deathTriggered)) {
     throw new TypeError("session building structure hitpoints or life state diverges");
   }
   if (canonical(raw.policy) !== canonical(profile.policy)) {
@@ -584,7 +659,11 @@ function checkedStructure(value, index, profiles) {
       throw new TypeError(`${label} attack cycle must be canonical`);
     }
   } else if (profile.class === "resource") {
-    if (typeof raw.deployed !== "boolean" || raw.targetable !== raw.alive) {
+    const version2 = profile.policy.version === 2;
+    if (typeof raw.deployed !== "boolean" || raw.targetable !== raw.alive ||
+        (version2 && !raw.alive && !["combat-damage", "expiry"].includes(raw.deathCause)) ||
+        (version2 && raw.deathTriggered && (raw.alive ||
+          !["combat-damage", "expiry"].includes(raw.deathCause)))) {
       throw new TypeError(`${label} resource state is invalid`);
     }
   } else if (profile.class === "travel") {
@@ -766,24 +845,51 @@ function buildDefensiveIntents(intents, boundary, structure, profile) {
 }
 function buildResourceIntents(intents, boundary, structure, profile) {
   const next = clone(structure);
+  const version2 = profile.policy.version === 2;
+  let grant = null;
+  if (!next.alive) {
+    if (version2 && !next.deathTriggered) {
+      next.deathTriggered = true;
+      event(intents, { amount: profile.destructionAmount, buildingId: next.id,
+        cause: next.deathCause, recipientSide: next.side, tick: boundary.tick,
+        type: "building-resource-payout-triggered" });
+      grant = { amount: profile.destructionAmount, side: next.side, sourceId: next.id,
+        tick: boundary.tick, type: "resource-grant" };
+      replace(intents, next);
+      intents.push(grant);
+    }
+    return;
+  }
   const age = boundary.tick - next.placedTick;
   if (age >= profile.lifetimeTicks) {
     destroy(next, "expiry");
-    replace(intents, next);
     event(intents, { buildingId: next.id, cause: "expiry", reason: "lifetime", tick: boundary.tick,
       type: "structure-destroyed" });
-    return;
+  } else {
+    if (!next.deployed && age === profile.deployTicks) {
+      next.deployed = true;
+      event(intents, { buildingId: next.id, side: next.side, tick: boundary.tick,
+        type: "building-deployed" });
+    }
+    if (next.deployed && age > 0 && age % profile.generationCadenceTicks === 0) {
+      grant = { amount: profile.generationAmount, side: next.side, sourceId: next.id,
+        tick: boundary.tick, type: "resource-grant" };
+      if (version2) {
+        event(intents, { amount: profile.generationAmount, buildingId: next.id,
+          tick: boundary.tick, type: "building-resource-cadence-triggered" });
+      }
+    }
   }
-  if (!next.deployed && age === profile.deployTicks) {
-    next.deployed = true;
-    event(intents, { buildingId: next.id, side: next.side, tick: boundary.tick,
-      type: "building-deployed" });
-  }
-  if (next.deployed && age > 0 && age % profile.generationCadenceTicks === 0) {
-    intents.push({ amount: profile.generationAmount, side: next.side, sourceId: next.id,
-      tick: boundary.tick, type: "resource-grant" });
+  if (version2 && !next.alive && !next.deathTriggered) {
+    next.deathTriggered = true;
+    event(intents, { amount: profile.destructionAmount, buildingId: next.id,
+      cause: next.deathCause, recipientSide: next.side, tick: boundary.tick,
+      type: "building-resource-payout-triggered" });
+    grant = { amount: profile.destructionAmount, side: next.side, sourceId: next.id,
+      tick: boundary.tick, type: "resource-grant" };
   }
   replace(intents, next);
+  if (grant !== null) intents.push(grant);
 }
 function emerge(intents, boundary, next) {
   next.emergedTick = boundary.tick;
@@ -882,7 +988,7 @@ function reduceSessionBuildingBoundary(boundaryText, profiles) {
   for (const structure of boundary.structures) {
     if (structure.class === "defensive" && structure.alive) {
       buildDefensiveIntents(intents, boundary, structure, profiles.get(structure.cardId));
-    } else if (structure.class === "resource" && structure.alive) {
+    } else if (structure.class === "resource") {
       buildResourceIntents(intents, boundary, structure, profiles.get(structure.cardId));
     } else if (structure.class === "travel" && structure.alive) {
       buildTravelIntents(intents, boundary, structure, profiles.get(structure.cardId));

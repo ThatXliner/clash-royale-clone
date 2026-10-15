@@ -18,6 +18,52 @@ const RECEIPTS = Object.freeze({
   "prism-furnace": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":42,\"deployTicks\":60,\"firstHitTicks\":72,\"hitSpeedTicks\":24,\"hitpoints\":1749,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":6000,\"minRangeMillitiles\":0,\"rampStages\":[42,84,168],\"rampThresholds\":[0,2,4],\"targetMode\":\"air_and_ground\",\"variant\":\"ramp\"}",
 });
 
+const RESOURCE_V2_POLICY = Object.freeze({
+  cadenceAnchorPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "cadenceAnchorPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "placement-tick-multiples-after-deployment" },
+  cadenceResetPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "cadenceResetPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "nonlethal-damage-does-not-reset-placement-relative-cadence" },
+  deployTicks: { authoritative: false, confidence: "unverified", disposition: "question",
+    key: "deploy_time", source: "pinned-pre-march-2023-building-constants", value: 60 },
+  destructionAmount: { authoritative: true, confidence: "high", disposition: "source-aligned",
+    key: "mana_on_death", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 1 },
+  expiryOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "expiryOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event" },
+  hitpoints: { authoritative: false, confidence: "unverified", disposition: "question",
+    key: "hitpoints", source: "pinned-pre-march-2023-building-constants", value: 1_070 },
+  generationAmount: { authoritative: false, confidence: "datamine-only", disposition: "question",
+    key: "mana_collect_amount", source: "pinned-pre-march-2023-building-constants", value: 1 },
+  generationCadenceTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+    key: "mana_generate_time_ms", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 540 },
+  lifetimeTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+    key: "life_time", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 3_900 },
+  placementPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "placementPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "ordinary-ground-entity-deployment-mask-at-building-center" },
+  recipientPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "resourceRecipient", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "building-owner" },
+  resourceCapacity: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "mana_generate_limit", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: 10 },
+  sameTickOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "sameTickOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants" },
+  simultaneousGenerationOrder: { authoritative: false, confidence: "absent", disposition: "question",
+    key: "simultaneousGenerationOrder", source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "ascending-positive-building-id" },
+  version: 2,
+});
+const RESOURCE_V2_PROFILE = Object.freeze({
+  class: "resource", deployTicks: 60, destructionAmount: 1, generationAmount: 1,
+  generationCadenceTicks: 540, hitpoints: 1_070, lifetimeTicks: 3_900,
+  policy: RESOURCE_V2_POLICY,
+});
+const RESOURCE_V2_RECEIPT = canonical(RESOURCE_V2_PROFILE);
+
 const NONDEFENSIVE_POLICIES = Object.freeze({
   "aether-well": Object.freeze({
     generationAmount: Object.freeze({ authoritative: false, confidence: "absent",
@@ -136,6 +182,7 @@ export function assertSessionBuildingProfileReceipt(cardId, receipt, label = "bu
     }
     return;
   }
+  if (cardId === "aether-well" && receipt === RESOURCE_V2_RECEIPT) return;
   if (Object.hasOwn(NONDEFENSIVE_POLICIES, cardId)) {
     let profile;
     try { profile = JSON.parse(receipt); } catch {

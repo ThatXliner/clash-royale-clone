@@ -1,7 +1,7 @@
 import * as content from "./index.js";
 import { createDeathEffectsQuestions } from "./cards/death-effects.js";
 import { createDefensiveBuildingRuntimeProfiles } from "./cards/buildings-defensive.js";
-import { createResourceBuildingQuestionRecords } from "./cards/buildings-resource.js";
+import { createSharedHostResourcePolicyRecords } from "./cards/buildings-resource.js";
 import { createUndergroundTravelBuildingQuestionRecords } from "./cards/buildings-travel.js";
 import { assertSessionBuildingProfileReceipt } from "../sim/session-building-profile-receipts.js";
 import { assertSafeCardCatalogGraph } from "./schema.js";
@@ -81,7 +81,7 @@ const KINDS = new Set(["effect", "structure", "unit"]);
 function clone(value) { return structuredClone(value); }
 
 const DEFENSIVE_RUNTIME = createDefensiveBuildingRuntimeProfiles();
-const RESOURCE_QUESTIONS = createResourceBuildingQuestionRecords();
+const SHARED_HOST_RESOURCE_POLICY_V2 = createSharedHostResourcePolicyRecords();
 const TRAVEL_QUESTIONS = createUndergroundTravelBuildingQuestionRecords();
 const DEATH_QUESTIONS = createDeathEffectsQuestions();
 
@@ -96,14 +96,12 @@ function buildingRuntimeProfile(id, source) {
     profile = { class: "defensive", ...clone(DEFENSIVE_RUNTIME[id]) };
   } else if (id === "aether-well") {
     profile = { class: "resource", deployTicks: source.deployTimeTicks,
-      generationAmount: RESOURCE_QUESTIONS.generationAmount.value,
-      generationCadenceTicks: RESOURCE_QUESTIONS.generationCadenceTicks.value,
-      hitpoints: source.hitpoints, lifetimeTicks: RESOURCE_QUESTIONS.lifetimeTicks.value,
-      policy: questionPolicy(RESOURCE_QUESTIONS, [
-        ["generationAmount", "generationAmount"],
-        ["generationCadenceTicks", "generationCadenceTicks"],
-        ["lifetimeTicks", "lifetimeTicks"],
-      ]) };
+      destructionAmount: SHARED_HOST_RESOURCE_POLICY_V2.destructionAmount.value,
+      generationAmount: SHARED_HOST_RESOURCE_POLICY_V2.generationAmount.value,
+      generationCadenceTicks: SHARED_HOST_RESOURCE_POLICY_V2.generationCadenceTicks.value,
+      hitpoints: source.hitpoints,
+      lifetimeTicks: SHARED_HOST_RESOURCE_POLICY_V2.lifetimeTicks.value,
+      policy: clone(SHARED_HOST_RESOURCE_POLICY_V2) };
   } else if (id === "burrow-rig") {
     profile = { class: "travel", deployTicks: source.deployTimeTicks,
       emergenceSpawnDelayTicks: TRAVEL_QUESTIONS.emergenceSpawnDelayTicks.value,

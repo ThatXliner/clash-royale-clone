@@ -43,6 +43,59 @@ const QUESTION_VALUES = Object.freeze({
     "resource buildings resolve by ascending positive building id",
 });
 
+const SHARED_HOST_RESOURCE_POLICY_V2 = Object.freeze({
+  cadenceAnchorPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "cadenceAnchorPolicy",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "placement-tick-multiples-after-deployment" }),
+  cadenceResetPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "cadenceResetPolicy",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "nonlethal-damage-does-not-reset-placement-relative-cadence" }),
+  deployTicks: Object.freeze({ authoritative: false, confidence: "unverified",
+    disposition: "question", key: "deploy_time",
+    source: "pinned-pre-march-2023-building-constants", value: 60 }),
+  destructionAmount: Object.freeze({ authoritative: true, confidence: "high",
+    disposition: "source-aligned", key: "mana_on_death",
+    source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+    value: 1 }),
+  expiryOrderingPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "expiryOrderingPolicy",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event" }),
+  hitpoints: Object.freeze({ authoritative: false, confidence: "unverified",
+    disposition: "question", key: "hitpoints",
+    source: "pinned-pre-march-2023-building-constants", value: 1_070 }),
+  generationAmount: Object.freeze({ authoritative: false, confidence: "datamine-only",
+    disposition: "question", key: "mana_collect_amount",
+    source: "pinned-pre-march-2023-building-constants", value: 1 }),
+  generationCadenceTicks: Object.freeze({ authoritative: true, confidence: "high",
+    disposition: "source-aligned", key: "mana_generate_time_ms",
+    source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 540 }),
+  lifetimeTicks: Object.freeze({ authoritative: true, confidence: "high",
+    disposition: "source-aligned", key: "life_time",
+    source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 3_900 }),
+  placementPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "placementPolicy",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "ordinary-ground-entity-deployment-mask-at-building-center" }),
+  recipientPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "resourceRecipient",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "building-owner" }),
+  resourceCapacity: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "mana_generate_limit",
+    source: "pre-evolutions-resource-consumer-semantics-question", value: 10 }),
+  sameTickOrderingPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "sameTickOrderingPolicy",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants" }),
+  simultaneousGenerationOrder: Object.freeze({ authoritative: false, confidence: "absent",
+    disposition: "question", key: "simultaneousGenerationOrder",
+    source: "pre-evolutions-resource-consumer-semantics-question",
+    value: "ascending-positive-building-id" }),
+});
+
 const CARD = Object.freeze({
   areaDamageRadiusMillitiles: null,
   components: [],
@@ -474,6 +527,17 @@ export function createResourceBuildingQuestionRecords(...args) {
       value: clone(value),
     }]),
   ));
+}
+
+/**
+ * Version 2 is the shared-host lifecycle receipt. The standalone encounter
+ * above remains the original version-1 QUESTION fixture for saved bytes.
+ */
+export function createSharedHostResourcePolicyRecords(...args) {
+  if (args.length !== 0) {
+    throw new TypeError("shared-host resource policy records do not accept overrides");
+  }
+  return deepFreeze(structuredClone({ version: 2, ...SHARED_HOST_RESOURCE_POLICY_V2 }));
 }
 
 export function createResourceBuildingFixture(

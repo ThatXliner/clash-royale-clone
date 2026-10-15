@@ -1,0 +1,15 @@
+{
+  "candidate": "44e69d6b5fe0aad9a55f958bb8ce460fe877aa28",
+  "adoptedPaths": [
+    "src/content/cards/buildings-resource.js",
+    "src/content/session-card-catalog.js",
+    "src/sim/session-building-profile-receipts.js",
+    "src/sim/session-building-runtime.js",
+    "tests/game-building-policy.test.js",
+    "tests/game-building-runtime.test.js",
+    "tests/game-roster-buildings.test.js"
+  ],
+  "freshGateCases": 63,
+  "retainedScopedLifecycleCases": 68,
+  "scope": "Exact seven HBR files adopted after independent combined-source gate PASS. Prior c1 was scoped reviewed, not previously adopted. Canonical audit fresh exit/count/equality result structured only: original raw stdout/stderr missing; builder raw output retained. Other fresh gate raw captures retained. Prior report means seven product source/test files plus36 evidence paths, not seven total tracked paths. No full endurance, UI, RL admission or historical parity qualification."
+}

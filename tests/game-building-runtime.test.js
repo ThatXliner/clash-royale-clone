@@ -246,6 +246,15 @@ test("game building runtime: pure reducer has no independent session authority a
     untrusted: true }], tick: 0, towers: [], units: [] })), /invalid shape/u);
   assert.throws(() => bulwarkRuntime.reduceBoundary(canonical({ structures: Array.from({ length: 129 },
     (_, id) => ({ ...materialized, id: id + 1 })), tick: 0, towers: [], units: [] })), /bound/u);
+
+  const resourceRuntime = runtimeFor("aether-well");
+  const resource = resourceRuntime.materializePlacement(canonical({ cardId: "aether-well",
+    destination: null, id: 1, point: SOUTH, side: "south", tick: 0 }));
+  assert.throws(() => resourceRuntime.reduceBoundary(canonical({
+    structures: [{ ...resource, alive: false, deathCause: null, deathTriggered: false,
+      hitpoints: 0, targetable: false }], tick: 0, towers: [], units: [],
+  })), /resource state is invalid/u,
+  "an uncaused dead receipt cannot manufacture a resource payout");
 });
 
 test("game building runtime: every fresh entry point accepts only exact catalog profile receipts", () => {
@@ -526,24 +535,74 @@ test("game building runtime: resource proposals enter GameSession ElixirMatch an
     for (const count of chunks) session.stepMany(count);
     return session;
   };
-  const direct = run([511]);
-  const chunked = run([1, 59, 451]);
+  const direct = run([541]);
+  const chunked = run([1, 59, 481]);
   assert.equal(chunked.serialize(), direct.serialize());
   assert.equal(chunked.replayBytes(), direct.replayBytes());
   assert.deepEqual(chunked.state, direct.state);
   assert.deepEqual(direct.replay.filter(({ type }) => type === "building-resource-grant"), [
-    { amount: 1, side: "south", sourceId: 1, tick: 510, type: "building-resource-grant" },
+    { amount: 1, side: "south", sourceId: 1, tick: 540, type: "building-resource-grant" },
   ]);
   assert.deepEqual(direct.replay.filter(({ type }) => type === "building-resource-granted"), [
     { amountAfter: direct.state.elixir.sides.south.amount, amountGranted: 1, amountRequested: 1,
-      buildingId: 1, side: "south", tick: 510, type: "building-resource-granted" },
+      buildingId: 1, side: "south", tick: 540, type: "building-resource-granted" },
+  ]);
+  assert.deepEqual(direct.replay.filter(({ type }) => type === "building-resource-cadence-triggered"), [
+    { amount: 1, buildingId: 1, tick: 540, type: "building-resource-cadence-triggered" },
   ]);
   const partial = run([180]);
   const restored = GameSession.restore(partial.serialize());
-  restored.stepMany(331);
+  restored.stepMany(361);
   assert.equal(restored.serialize(), direct.serialize());
   assert.equal(restored.replayBytes(), direct.replayBytes());
   assert.deepEqual(restored.state, direct.state);
+});
+
+test("game building runtime: expiry issues one source-aligned death grant, even when Elixir is capped", () => {
+  const session = sessionFor("aether-well");
+  deploy(session, "aether-well");
+  session.stepMany(3_898);
+  const checkpoint = session.serialize();
+  session.stepMany(3);
+  const fork = GameSession.restore(checkpoint);
+  fork.stepMany(3);
+  assert.equal(fork.serialize(), session.serialize());
+  assert.equal(fork.replayBytes(), session.replayBytes());
+  assert.deepEqual(fork.state, session.state);
+
+  const structure = session.state.battle.structures.find(({ cardId }) => cardId === "aether-well");
+  assert.deepEqual({ alive: structure.alive, deathCause: structure.deathCause,
+    deathTriggered: structure.deathTriggered, hitpoints: structure.hitpoints }, {
+    alive: false, deathCause: "expiry", deathTriggered: true, hitpoints: 0,
+  });
+  assert.deepEqual(session.replay.filter(({ buildingId, tick, type }) =>
+    buildingId === structure.id && tick === 3_900 && type === "structure-destroyed"), [{
+    buildingId: structure.id, cause: "expiry", reason: "lifetime", tick: 3_900,
+    type: "structure-destroyed",
+  }]);
+  assert.deepEqual(session.replay.filter(({ buildingId, tick, type }) =>
+    buildingId === structure.id && tick === 3_900 && type === "building-resource-payout-triggered"), [{
+    amount: 1, buildingId: structure.id, cause: "expiry", recipientSide: "south",
+    tick: 3_900, type: "building-resource-payout-triggered",
+  }]);
+  assert.deepEqual(session.replay.filter(({ sourceId, tick, type }) =>
+    sourceId === structure.id && tick === 3_900 && type === "building-resource-grant"), [{
+    amount: 1, side: "south", sourceId: structure.id, tick: 3_900,
+    type: "building-resource-grant",
+  }]);
+  assert.deepEqual(session.replay.filter(({ buildingId, tick, type }) =>
+    buildingId === structure.id && tick === 3_900 && type === "building-resource-granted"), [{
+    amountAfter: 10, amountGranted: 0, amountRequested: 1, buildingId: structure.id,
+    side: "south", tick: 3_900, type: "building-resource-granted",
+  }], "the request is committed once while the authoritative Elixir capacity clamps it");
+
+  session.step();
+  fork.step();
+  assert.equal(session.serialize(), fork.serialize());
+  assert.equal(session.replayBytes(), fork.replayBytes());
+  assert.equal(session.replay.filter(({ buildingId, type }) =>
+    buildingId === structure.id && type === "building-resource-payout-triggered").length, 1,
+  "expiry death state suppresses any duplicate trigger on the next shared tick");
 });
 
 test("game building runtime: travel state is host-serialized while its unsourced child remains visibly QUESTION", () => {
