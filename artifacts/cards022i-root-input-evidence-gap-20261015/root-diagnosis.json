@@ -1,0 +1,9 @@
+{
+  "acceptedSource": "c69ad23cfe0387636575fef2532c72c5a32c6b5f",
+  "attempt": 25,
+  "actualExit": 1,
+  "observation": "New trace hashing failed on Buffer.from(undefined). New integration test reads nonexistent public controller.input; JSON.stringify(undefined) is undefined.",
+  "evidenceGap": "Earlier inputBytes comparisons undefined===undefined do not prove exact input continuity. These input-specific claims are withdrawn; no UI integration accepted yet.",
+  "nextAction": "Read canonical browser snapshot bridge via JSON.parse(controller.serialize()).bridge and selectedCardId from actual controller state; assert real string/bridge shape before exact comparisons. Preserve raw failures. No placeholder/null fallback.",
+  "scope": "Harness evidence defect, not production simulation/audio failure. Earlier actual session/audio/presentation measurements retain only their own scope; all four modes and restart still require completed fresh execution."
+}
