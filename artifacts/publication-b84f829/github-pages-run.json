@@ -1,0 +1,166 @@
+{
+  "conclusion": "success",
+  "headSha": "b84f82992848152f7f9ada91b9d815818712968a",
+  "jobs": [
+    {
+      "completedAt": "2026-10-15T19:09:23Z",
+      "conclusion": "success",
+      "databaseId": 116615727584,
+      "name": "build",
+      "startedAt": "2026-10-15T19:06:27Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-15T19:06:30Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-15T19:06:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:06:54Z",
+          "conclusion": "success",
+          "name": "Check out source",
+          "number": 2,
+          "startedAt": "2026-10-15T19:06:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:06:56Z",
+          "conclusion": "success",
+          "name": "Set up Node.js",
+          "number": 3,
+          "startedAt": "2026-10-15T19:06:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:06:58Z",
+          "conclusion": "success",
+          "name": "Install dependencies",
+          "number": 4,
+          "startedAt": "2026-10-15T19:06:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:07:20Z",
+          "conclusion": "success",
+          "name": "Install the pinned Playwright Chromium runtime",
+          "number": 5,
+          "startedAt": "2026-10-15T19:06:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:07:48Z",
+          "conclusion": "success",
+          "name": "Verify shipping isolation rules",
+          "number": 6,
+          "startedAt": "2026-10-15T19:07:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:08:34Z",
+          "conclusion": "success",
+          "name": "Verify the release artifact builder",
+          "number": 7,
+          "startedAt": "2026-10-15T19:07:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:05Z",
+          "conclusion": "success",
+          "name": "Verify the Pages artifact",
+          "number": 8,
+          "startedAt": "2026-10-15T19:08:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:05Z",
+          "conclusion": "success",
+          "name": "Configure Pages",
+          "number": 9,
+          "startedAt": "2026-10-15T19:09:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:19Z",
+          "conclusion": "success",
+          "name": "Build the project-subpath artifact",
+          "number": 10,
+          "startedAt": "2026-10-15T19:09:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:20Z",
+          "conclusion": "success",
+          "name": "Upload Pages artifact",
+          "number": 11,
+          "startedAt": "2026-10-15T19:09:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:21Z",
+          "conclusion": "success",
+          "name": "Post Set up Node.js",
+          "number": 21,
+          "startedAt": "2026-10-15T19:09:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:21Z",
+          "conclusion": "success",
+          "name": "Post Check out source",
+          "number": 22,
+          "startedAt": "2026-10-15T19:09:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:21Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 23,
+          "startedAt": "2026-10-15T19:09:21Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38791149781/job/116615727584"
+    },
+    {
+      "completedAt": "2026-10-15T19:09:36Z",
+      "conclusion": "success",
+      "databaseId": 116617133939,
+      "name": "deploy",
+      "startedAt": "2026-10-15T19:09:27Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-15T19:09:29Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-15T19:09:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:35Z",
+          "conclusion": "success",
+          "name": "Publish the manually requested Pages artifact",
+          "number": 2,
+          "startedAt": "2026-10-15T19:09:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-15T19:09:35Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 3,
+          "startedAt": "2026-10-15T19:09:35Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38791149781/job/116617133939"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38791149781"
+}
