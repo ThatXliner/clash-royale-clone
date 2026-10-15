@@ -20,3 +20,7 @@ Owned plumbing paths to start from: `src/content/cards/basic-melee.js`, `src/con
 - **Periodic/death-spawn buildings:** `GAME-001HB` remains QUESTION because shared GameSession spawning is not established; timer origin, cadence anchor, and expiry ordering remain unresolved. The isolated building encounter does not close that consumer gap (PLAN.md line 231). Primary source or matched footage must resolve those policies before whole-card admission.
 
 The separate Rivet Runners blocker is narrow to that signature: `GAME-001CHS` lacks dated consumer evidence for the walking-speed tweak, separate 400 ms character deploy delay, collision radius, and mass, and `GAME-001CHR` therefore remains BLOCKED (PLAN.md lines 379–380). It is not a roster-wide blocker for a one-body melee-splash profile.
+
+## Root citation correction, 2026-10-15
+
+Exact committed cards.json at root1c496c4 locates the `valkyrie` keyed row at lines602–653 (key603), not line2848 cited above. It has one primary component repeating the one-body profile; it has no multi-member timing complication. The cost is4; every listed non-cost combat field including2-tile area radius remains unverified. The builder was instructed to use keyed data and immutable hashes rather than the erroneous line number. This correction changes no data or confidence.
