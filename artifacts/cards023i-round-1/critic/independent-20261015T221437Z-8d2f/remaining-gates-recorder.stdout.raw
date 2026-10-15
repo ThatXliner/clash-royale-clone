@@ -1,0 +1,10 @@
+START test:game-ui-projection PID 56312
+EXIT test:game-ui-projection 0
+START test:nondeterminism-guard PID 57024
+EXIT test:nondeterminism-guard 0
+START test:visual-asset-manifest PID 57065
+EXIT test:visual-asset-manifest 0
+START test:shipping-isolation-guard PID 57077
+EXIT test:shipping-isolation-guard 0
+START test:release-build PID 57156
+EXIT test:release-build 1

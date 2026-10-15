@@ -1,0 +1,28 @@
+{
+  "stage": "after-focused-tests",
+  "head": "93fd564878e35afe1cf1975808462522fbbbb948",
+  "source_commit": "93fd564878e35afe1cf1975808462522fbbbb948",
+  "head_unchanged": true,
+  "source_hashes_sha256": {
+    "src/ui/card-portrait-art.js": "5e8662a844495092741860f5f92b18fa2e437a3a5743047fcd60de36225147ec",
+    "src/ui/card-lore.js": "3190a8d85c3f7b52b14026cc192a15530aaaafb24f46cdd8433fe840ccd9a864",
+    "src/ui/combat-state.js": "8ee42a399c70b06bb62af0b0715048deb0b757936f8cf74ef3605a6aa4be7b6b",
+    "src/ui/game-ui-projection.js": "fca3bb51550df9ba99872d4d3b2020a3653f88d5de3af83f6dcd1af8b636f5cc",
+    "tests/app-shell.test.js": "eb6b2e3219f800c3142e55e1ab0e6b6815334dd0c13c2920713cfe87d5a03d01",
+    "tests/ui-combat-state.test.js": "816e09b2e295e3f7700a1d5b83e01ffb50f82a472dac7e7be0bb0b33f2de9747",
+    "tests/cards023-browser-integration.test.js": "241a27e1b2e6415b19bc00ab0a009999977592e08a9ae5e7069e56b0c9529a56",
+    "artifacts/cards023i-round-1/builder/source-only-notrun.md": "1d8d32925ef0fa39c6f80fddb9e881cd3c6a64aa532bbedde4a47add70087397",
+    "package.json": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+    "package-lock.json": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+  },
+  "source_hashes_match_before": true,
+  "tracked_source_drift_from_commit": [],
+  "tracked_source_clean_from_commit": true,
+  "immutable_inputs_unchanged_vs_4f19": true,
+  "immutable_input_check_exit_code": 0,
+  "raw_process_manifests": [
+    "npm-ci.process.json",
+    "syntax-checks.process.json",
+    "ui-combat-state.process.json"
+  ]
+}

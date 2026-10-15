@@ -1,0 +1,111 @@
+{
+  "node_version": "v22.22.3",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/card-portrait-art.js"
+      ],
+      "pid": 42794,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820717797000,
+      "finished_unix_ns": 1792099820747150000,
+      "stdout_raw": "node-check-01-card-portrait-art.stdout.raw",
+      "stderr_raw": "node-check-01-card-portrait-art.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/card-lore.js"
+      ],
+      "pid": 42795,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820747328000,
+      "finished_unix_ns": 1792099820777758000,
+      "stdout_raw": "node-check-02-card-lore.stdout.raw",
+      "stderr_raw": "node-check-02-card-lore.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/combat-state.js"
+      ],
+      "pid": 42796,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820777926000,
+      "finished_unix_ns": 1792099820807743000,
+      "stdout_raw": "node-check-03-combat-state.stdout.raw",
+      "stderr_raw": "node-check-03-combat-state.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/game-ui-projection.js"
+      ],
+      "pid": 42797,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820807985000,
+      "finished_unix_ns": 1792099820840314000,
+      "stdout_raw": "node-check-04-game-ui-projection.stdout.raw",
+      "stderr_raw": "node-check-04-game-ui-projection.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "tests/app-shell.test.js"
+      ],
+      "pid": 42798,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820840554000,
+      "finished_unix_ns": 1792099820872336000,
+      "stdout_raw": "node-check-05-app-shell.test.stdout.raw",
+      "stderr_raw": "node-check-05-app-shell.test.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "tests/ui-combat-state.test.js"
+      ],
+      "pid": 42799,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820872566000,
+      "finished_unix_ns": 1792099820904344000,
+      "stdout_raw": "node-check-06-ui-combat-state.test.stdout.raw",
+      "stderr_raw": "node-check-06-ui-combat-state.test.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "tests/cards023-browser-integration.test.js"
+      ],
+      "pid": 42800,
+      "direct_exit_code": 0,
+      "started_unix_ns": 1792099820904551000,
+      "finished_unix_ns": 1792099820935127000,
+      "stdout_raw": "node-check-07-cards023-browser-integration.test.stdout.raw",
+      "stderr_raw": "node-check-07-cards023-browser-integration.test.stderr.raw",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "all_passed": true
+}

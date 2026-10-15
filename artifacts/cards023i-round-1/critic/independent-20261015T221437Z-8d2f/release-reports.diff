@@ -1,0 +1,1236 @@
+artifacts/release-001b-round-2/escaped-css-producer-rejection.json --- JSON
+ 5   "responseStatus": 404,               5   "responseStatus": 404,
+ 6   "requestedPathInManifest": false,    6   "requestedPathInManifest": false,
+ 7   "previousArtifactPreserved": true,   7   "previousArtifactPreserved": true,
+ 8   "previousArtifactFileCount": 7,      8   "previousArtifactFileCount": 6,
+ 9   "previousManifestSha256": "c7d34d1   9   "previousManifestSha256": "c02d0d4
+ . e211fed2095f21ca9cb22971db93d639e672   . 522f5238e3c45e4756e29115b096e89942c4
+ . 43e92535e480e3e146448",                . e7b811c0934288acb32c7",
+10   "failureMessage": "browser request  10   "failureMessage": "browser request
+.. ed an unmanifested release path asse  .. ed an unmanifested release path asse
+.. ts/escaped.svg (manifest: false, HTT  .. ts/escaped.svg (manifest: false, HTT
+.. P 404)"                               .. P 404)"
+11 }                                     11 }
+
+artifacts/release-001b-round-2/evidence.json --- 1/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+  7   },                                   7   },
+  8   "production": {                      8   "production": {
+  9     "twoCleanBuildsByteIdentical":     9     "twoCleanBuildsByteIdentical":
+  .  true,                                 .  true,
+ 10     "fileCount": 38,                  10     "fileCount": 57,
+ 11     "totalBytes": 5541603,            11     "totalBytes": 6369740,
+ 12     "manifestSha256": "be5959cfcb8    12     "manifestSha256": "079317da245
+ .. 798cfffcaf27190a842a3c26eff167a2eb    .. 4e9c27e33e8da3a8a206f72bf7ba7e8f7f
+ .. ec7601d0067aabbab51",                 .. c8bfbfae08b2879d61f",
+ 13     "isolation": {                    13     "isolation": {
+ 14       "referenceFilesCompared": 19    14       "referenceFilesCompared": 26
+ .. ,                                     .. ,
+ 15       "mapsOrProtectedPaths": fals    15       "mapsOrProtectedPaths": fals
+ .. e                                     .. e
+ 16     },                                16     },
+ 17     "projectSubpath": "/moss-and-e    17     "projectSubpath": "/moss-and-e
+ .. mber",                                .. mber",
+
+artifacts/release-001b-round-2/evidence.json --- 2/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+ 58           "truncated": false,         58           "truncated": false,
+ 59           "restoredTick": 1,          59           "restoredTick": 1,
+ 60           "restoredMatches": true,    60           "restoredMatches": true,
+ 61           "serializedBytes": 31321    61           "serializedBytes": 47555
+ 62         },                            62         },
+ 63         {                             63         {
+ 64           "path": "src/ui/arena-sh    64           "path": "src/ui/arena-sh
+ .. ell-entry.js",                        .. ell-entry.js",
+
+artifacts/release-001b-round-2/evidence.json --- 3/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+ 74           "hasControllerApi": true    74           "hasControllerApi": true
+ .. ,                                     .. ,
+ 75           "imported": true,           75           "imported": true,
+ 76           "sessionActive": true,      76           "sessionActive": true,
+ 77           "sessionTick": 33           77           "sessionTick": 34
+ 78         }                             78         }
+ 79       ],                              79       ],
+ 80       "requestCount": 46,             80       "requestCount": 60,
+ 81       "requests": [                   81       "requests": [
+ 82         {                             82         {
+ 83           "method": "GET",            83           "method": "GET",
+ 84           "path": "assets/card-por    84           "path": "assets/asset-D-
+ .. traits-painted-u4w5pfNY.webp",        .. AK-JuF.css",
+ 85           "resourceType": "image",    85           "resourceType": "stylesh
+ ..                                       .. eet",
+ 86           "scope": "release",         86           "scope": "release",
+ 87           "status": 200               87           "status": 200
+ 88         },                            88         },
+ 89         {                             89         {
+ 90           "method": "GET",            90           "method": "GET",
+ 91           "path": "assets/game-run    91           "path": "assets/game-run
+ .. time~public/index-CKa65UbY.css",      .. time~public/index-WlsaCKFJ.js",
+ 92           "resourceType": "stylesh    92           "resourceType": "script"
+ .. eet",                                 .. ,
+ 93           "scope": "release",         93           "scope": "release",
+ 94           "status": 200               94           "status": 200
+ 95         },                            95         },
+ 96         {                             96         {
+ 97           "method": "GET",            97           "method": "GET",
+ 98           "path": "assets/game-run    98           "path": "assets/game-run
+ .. time~public/index-kxMYq3uh.js",       .. time~public/index~public/ui-arena-
+ ..                                       .. shell-D-709RTF.js",
+ 99           "resourceType": "script"    99           "resourceType": "script"
+ .. ,                                     .. ,
+100           "scope": "release",        100           "scope": "release",
+101           "status": 200              101           "status": 200
+
+artifacts/release-001b-round-2/evidence.json --- 4/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+109         },                           109         },
+110         {                            110         {
+111           "method": "GET",           111           "method": "GET",
+112           "path": "assets/game-run   112           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell-D-709RTF.js",                  ... shell~src/rl/environment~src/ui/ar
+...                                      ... ena-shell-entry-5wuqhDok.js",
+113           "resourceType": "script"   113           "resourceType": "script"
+... ,                                    ... ,
+114           "scope": "release",        114           "scope": "release",
+115           "status": 200              115           "status": 200
+116         },                           116         },
+117         {                            117         {
+118           "method": "GET",           118           "method": "GET",
+119           "path": "assets/game-run   119           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-B_Edd_dJ.js",        ... ena-shell-entry-5wuqhDok.js",
+120           "resourceType": "script"   120           "resourceType": "script"
+... ,                                    ... ,
+121           "scope": "release",        121           "scope": "release",
+122           "status": 200              122           "status": 200
+123         },                           123         },
+124         {                            124         {
+125           "method": "GET",           125           "method": "GET",
+126           "path": "assets/game-run   126           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-B_Edd_dJ.js",        ... ena-shell-entry-8ukLX37I.js",
+127           "resourceType": "script"   127           "resourceType": "script"
+... ,                                    ... ,
+128           "scope": "release",        128           "scope": "release",
+129           "status": 200              129           "status": 200
+130         },                           130         },
+131         {                            131         {
+132           "method": "GET",           132           "method": "GET",
+133           "path": "assets/game-run   133           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-B2eWcWBD.js",        ... ena-shell-entry-8ukLX37I.js",
+134           "resourceType": "script"   134           "resourceType": "script"
+... ,                                    ... ,
+135           "scope": "release",        135           "scope": "release",
+136           "status": 200              136           "status": 200
+137         },                           137         },
+138         {                            138         {
+139           "method": "GET",           139           "method": "GET",
+140           "path": "assets/game-run   140           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-B2eWcWBD.js",        ... ena-shell-entry-B3oc_9UA.js",
+141           "resourceType": "script"   141           "resourceType": "script"
+... ,                                    ... ,
+142           "scope": "release",        142           "scope": "release",
+143           "status": 200              143           "status": 200
+144         },                           144         },
+145         {                            145         {
+146           "method": "GET",           146           "method": "GET",
+147           "path": "assets/game-run   147           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-BgLlbd-k.js",        ... ena-shell-entry-B3oc_9UA.js",
+148           "resourceType": "script"   148           "resourceType": "script"
+... ,                                    ... ,
+149           "scope": "release",        149           "scope": "release",
+150           "status": 200              150           "status": 200
+151         },                           151         },
+152         {                            152         {
+153           "method": "GET",           153           "method": "GET",
+154           "path": "assets/game-run   154           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-BgLlbd-k.js",        ... ena-shell-entry-Bcp0HPzh.js",
+155           "resourceType": "script"   155           "resourceType": "script"
+... ,                                    ... ,
+156           "scope": "release",        156           "scope": "release",
+157           "status": 200              157           "status": 200
+158         },                           158         },
+159         {                            159         {
+160           "method": "GET",           160           "method": "GET",
+161           "path": "assets/game-run   161           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-BSIWc4qF.js",        ... ena-shell-entry-Bcp0HPzh.js",
+162           "resourceType": "script"   162           "resourceType": "script"
+... ,                                    ... ,
+163           "scope": "release",        163           "scope": "release",
+164           "status": 200              164           "status": 200
+165         },                           165         },
+166         {                            166         {
+167           "method": "GET",           167           "method": "GET",
+168           "path": "assets/game-run   168           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-BSIWc4qF.js",        ... ena-shell-entry-BhwMrUVn.js",
+169           "resourceType": "script"   169           "resourceType": "script"
+... ,                                    ... ,
+170           "scope": "release",        170           "scope": "release",
+171           "status": 200              171           "status": 200
+172         },                           172         },
+173         {                            173         {
+174           "method": "GET",           174           "method": "GET",
+175           "path": "assets/game-run   175           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-C8JE-m-g.js",        ... ena-shell-entry-BhwMrUVn.js",
+176           "resourceType": "script"   176           "resourceType": "script"
+... ,                                    ... ,
+177           "scope": "release",        177           "scope": "release",
+178           "status": 200              178           "status": 200
+179         },                           179         },
+180         {                            180         {
+181           "method": "GET",           181           "method": "GET",
+182           "path": "assets/game-run   182           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-C8JE-m-g.js",        ... ena-shell-entry-Bisr6WE8.js",
+183           "resourceType": "script"   183           "resourceType": "script"
+... ,                                    ... ,
+184           "scope": "release",        184           "scope": "release",
+185           "status": 200              185           "status": 200
+186         },                           186         },
+187         {                            187         {
+188           "method": "GET",           188           "method": "GET",
+189           "path": "assets/game-run   189           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-CNVraBnB.js",        ... ena-shell-entry-Bisr6WE8.js",
+190           "resourceType": "script"   190           "resourceType": "script"
+... ,                                    ... ,
+191           "scope": "release",        191           "scope": "release",
+192           "status": 200              192           "status": 200
+193         },                           193         },
+194         {                            194         {
+195           "method": "GET",           195           "method": "GET",
+196           "path": "assets/game-run   196           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-CNVraBnB.js",        ... ena-shell-entry-CfsBWc87.js",
+197           "resourceType": "script"   197           "resourceType": "script"
+... ,                                    ... ,
+198           "scope": "release",        198           "scope": "release",
+199           "status": 200              199           "status": 200
+200         },                           200         },
+201         {                            201         {
+202           "method": "GET",           202           "method": "GET",
+203           "path": "assets/game-run   203           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-Cs0AdjpN.js",        ... ena-shell-entry-CfsBWc87.js",
+204           "resourceType": "script"   204           "resourceType": "script"
+... ,                                    ... ,
+205           "scope": "release",        205           "scope": "release",
+206           "status": 200              206           "status": 200
+207         },                           207         },
+208         {                            208         {
+209           "method": "GET",           209           "method": "GET",
+210           "path": "assets/game-run   210           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-Cs0AdjpN.js",        ... ena-shell-entry-CGcoW1_t.js",
+211           "resourceType": "script"   211           "resourceType": "script"
+... ,                                    ... ,
+212           "scope": "release",        212           "scope": "release",
+213           "status": 200              213           "status": 200
+214         },                           214         },
+215         {                            215         {
+216           "method": "GET",           216           "method": "GET",
+217           "path": "assets/game-run   217           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-CyL5m2DH.js",        ... ena-shell-entry-CGcoW1_t.js",
+218           "resourceType": "script"   218           "resourceType": "script"
+... ,                                    ... ,
+219           "scope": "release",        219           "scope": "release",
+220           "status": 200              220           "status": 200
+221         },                           221         },
+222         {                            222         {
+223           "method": "GET",           223           "method": "GET",
+224           "path": "assets/game-run   224           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-CyL5m2DH.js",        ... ena-shell-entry-CSeKzmss.js",
+225           "resourceType": "script"   225           "resourceType": "script"
+... ,                                    ... ,
+226           "scope": "release",        226           "scope": "release",
+227           "status": 200              227           "status": 200
+228         },                           228         },
+229         {                            229         {
+230           "method": "GET",           230           "method": "GET",
+231           "path": "assets/game-run   231           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-CytbrKsh.js",        ... ena-shell-entry-CSeKzmss.js",
+232           "resourceType": "script"   232           "resourceType": "script"
+... ,                                    ... ,
+233           "scope": "release",        233           "scope": "release",
+234           "status": 200              234           "status": 200
+235         },                           235         },
+236         {                            236         {
+237           "method": "GET",           237           "method": "GET",
+238           "path": "assets/game-run   238           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-CytbrKsh.js",        ... ena-shell-entry-CuWYq691.js",
+239           "resourceType": "script"   239           "resourceType": "script"
+... ,                                    ... ,
+240           "scope": "release",        240           "scope": "release",
+241           "status": 200              241           "status": 200
+242         },                           242         },
+243         {                            243         {
+244           "method": "GET",           244           "method": "GET",
+245           "path": "assets/game-run   245           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-D87A9cDW.js",        ... ena-shell-entry-CuWYq691.js",
+246           "resourceType": "script"   246           "resourceType": "script"
+... ,                                    ... ,
+247           "scope": "release",        247           "scope": "release",
+248           "status": 200              248           "status": 200
+249         },                           249         },
+250         {                            250         {
+251           "method": "GET",           251           "method": "GET",
+252           "path": "assets/game-run   252           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-D87A9cDW.js",        ... ena-shell-entry-CVKh5POa.js",
+253           "resourceType": "script"   253           "resourceType": "script"
+... ,                                    ... ,
+254           "scope": "release",        254           "scope": "release",
+255           "status": 200              255           "status": 200
+256         },                           256         },
+257         {                            257         {
+258           "method": "GET",           258           "method": "GET",
+259           "path": "assets/game-run   259           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-DVfsERMS.js",        ... ena-shell-entry-CVKh5POa.js",
+260           "resourceType": "script"   260           "resourceType": "script"
+... ,                                    ... ,
+261           "scope": "release",        261           "scope": "release",
+262           "status": 200              262           "status": 200
+263         },                           263         },
+264         {                            264         {
+265           "method": "GET",           265           "method": "GET",
+266           "path": "assets/game-run   266           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-DVfsERMS.js",        ... ena-shell-entry-Dt_8tldU.js",
+267           "resourceType": "script"   267           "resourceType": "script"
+... ,                                    ... ,
+268           "scope": "release",        268           "scope": "release",
+269           "status": 200              269           "status": 200
+270         },                           270         },
+271         {                            271         {
+272           "method": "GET",           272           "method": "GET",
+...                                      273           "path": "assets/game-run
+...                                      ... time~public/index~public/ui-arena-
+...                                      ... shell~src/rl/environment~src/ui/ar
+...                                      ... ena-shell-entry-Dt_8tldU.js",
+...                                      274           "resourceType": "script"
+...                                      ... ,
+...                                      275           "scope": "release",
+...                                      276           "status": 200
+...                                      277         },
+...                                      278         {
+...                                      279           "method": "GET",
+273           "path": "assets/game-run   280           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/index~public/ui-arena-
+... shell~src/rl/environment~src/ui/ar   ... shell~src/rl/environment~src/ui/ar
+... ena-shell-entry-iYK_h2t5.js",        ... ena-shell-entry-iYK_h2t5.js",
+274           "resourceType": "script"   281           "resourceType": "script"
+... ,                                    ... ,
+275           "scope": "release",        282           "scope": "release",
+
+artifacts/release-001b-round-2/evidence.json --- 5/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+284         },                           291         },
+285         {                            292         {
+286           "method": "GET",           293           "method": "GET",
+287           "path": "assets/game-run   294           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/ui-arena-shell~src/rl/
+... shell~src/rl/environment~src/ui/ar   ... environment~src/ui/arena-shell-ent
+... ena-shell-entry-q-91bJl2.js",        ... ry-9GnoH0Q9.js",
+288           "resourceType": "script"   295           "resourceType": "script"
+... ,                                    ... ,
+289           "scope": "release",        296           "scope": "release",
+290           "status": 200              297           "status": 200
+291         },                           298         },
+292         {                            299         {
+293           "method": "GET",           300           "method": "GET",
+294           "path": "assets/game-run   301           "path": "assets/game-run
+... time~public/index~public/ui-arena-   ... time~public/ui-arena-shell~src/rl/
+... shell~src/rl/environment~src/ui/ar   ... environment~src/ui/arena-shell-ent
+... ena-shell-entry-q-91bJl2.js",        ... ry-9GnoH0Q9.js",
+295           "resourceType": "script"   302           "resourceType": "script"
+... ,                                    ... ,
+296           "scope": "release",        303           "scope": "release",
+297           "status": 200              304           "status": 200
+298         },                           305         },
+299         {                            306         {
+300           "method": "GET",           307           "method": "GET",
+301           "path": "assets/game-run   308           "path": "assets/game-run
+... time~public/ui-arena-shell~src/rl/   ... time~public/ui-arena-shell~src/ui/
+... environment~src/ui/arena-shell-ent   ... arena-shell-entry-BiW2snyc.js",
+... ry-Ctd21-xu.js",                     ... 
+302           "resourceType": "script"   309           "resourceType": "script"
+... ,                                    ... ,
+303           "scope": "release",        310           "scope": "release",
+304           "status": 200              311           "status": 200
+305         },                           312         },
+306         {                            313         {
+307           "method": "GET",           314           "method": "GET",
+308           "path": "assets/game-run   315           "path": "assets/game-run
+... time~public/ui-arena-shell~src/rl/   ... time~public/ui-arena-shell~src/ui/
+... environment~src/ui/arena-shell-ent   ... arena-shell-entry-D1z8G8S6.js",
+... ry-Ctd21-xu.js",                     ... 
+309           "resourceType": "script"   316           "resourceType": "script"
+... ,                                    ... ,
+310           "scope": "release",        317           "scope": "release",
+311           "status": 200              318           "status": 200
+312         },                           319         },
+313         {                            320         {
+314           "method": "GET",           321           "method": "GET",
+315           "path": "assets/game-run   322           "path": "assets/rolldown
+... time~public/ui-arena-shell~src/ui/   ... -runtime-Cl99QfTQ.js",
+... arena-shell-entry-Dj8MH2Tq.js",      ... 
+316           "resourceType": "script"   323           "resourceType": "script"
+... ,                                    ... ,
+317           "scope": "release",        324           "scope": "release",
+318           "status": 200              325           "status": 200
+319         },                           326         },
+320         {                            327         {
+321           "method": "GET",           328           "method": "GET",
+322           "path": "assets/game-run   329           "path": "assets/rolldown
+... time~public/ui-arena-shell~src/ui/   ... -runtime-Cl99QfTQ.js",
+... arena-shell-entry-Dn4LrsYn.js",      ... 
+323           "resourceType": "script"   330           "resourceType": "script"
+... ,                                    ... ,
+324           "scope": "release",        331           "scope": "release",
+325           "status": 200              332           "status": 200
+326         },                           333         },
+327         {                            334         {
+328           "method": "GET",           335           "method": "GET",
+329           "path": "assets/moss-emb   336           "path": "assets/ui-arena
+... er-arena-painted-DDcPh-4V.webp",     ... -shell-er5XVwGC.css",
+...                                      337           "resourceType": "stylesh
+...                                      ... eet",
+...                                      338           "scope": "release",
+...                                      339           "status": 200
+...                                      340         },
+...                                      341         {
+...                                      342           "method": "GET",
+...                                      343           "path": "public/assets/a
+...                                      ... ether-well-portrait-painted.webp",
+330           "resourceType": "image",   344           "resourceType": "image",
+331           "scope": "release",        345           "scope": "release",
+332           "status": 200              346           "status": 200
+333         },                           347         },
+334         {                            348         {
+335           "method": "GET",           349           "method": "GET",
+336           "path": "assets/rolldown   350           "path": "public/assets/b
+... -runtime-Cl99QfTQ.js",               ... rackenwheel-portrait-painted.webp"
+...                                      ... ,
+337           "resourceType": "script"   351           "resourceType": "image",
+... ,                                    ... 
+338           "scope": "release",        352           "scope": "release",
+339           "status": 200              353           "status": 200
+340         },                           354         },
+341         {                            355         {
+342           "method": "GET",           356           "method": "GET",
+343           "path": "assets/rolldown   357           "path": "public/assets/b
+... -runtime-Cl99QfTQ.js",               ... uried-coil-portrait.webp",
+344           "resourceType": "script"   358           "resourceType": "image",
+... ,                                    ... 
+345           "scope": "release",        359           "scope": "release",
+346           "status": 200              360           "status": 200
+347         },                           361         },
+348         {                            362         {
+349           "method": "GET",           363           "method": "GET",
+350           "path": "assets/stonehau   364           "path": "public/assets/c
+... ler-painted-CDreniUN.webp",          ... ard-portraits-painted.webp",
+351           "resourceType": "image",   365           "resourceType": "image",
+352           "scope": "release",        366           "scope": "release",
+353           "status": 200              367           "status": 200
+354         },                           368         },
+355         {                            369         {
+356           "method": "GET",           370           "method": "GET",
+357           "path": "assets/ui-arena   371           "path": "public/assets/c
+... -shell-CVdHc3uW.css",                ... inder-host-painted.webp",
+358           "resourceType": "stylesh   372           "resourceType": "image",
+... eet",                                ... 
+359           "scope": "release",        373           "scope": "release",
+360           "status": 200              374           "status": 200
+361         },                           375         },
+362         {                            376         {
+363           "method": "GET",           377           "method": "GET",
+...                                      378           "path": "public/assets/c
+...                                      ... oppershade-flock-painted.webp",
+...                                      379           "resourceType": "image",
+...                                      380           "scope": "release",
+...                                      381           "status": 200
+...                                      382         },
+...                                      383         {
+...                                      384           "method": "GET",
+...                                      385           "path": "public/assets/d
+...                                      ... uskwing-trio-painted.webp",
+...                                      386           "resourceType": "image",
+...                                      387           "scope": "release",
+...                                      388           "status": 200
+...                                      389         },
+...                                      390         {
+...                                      391           "method": "GET",
+...                                      392           "path": "public/assets/e
+...                                      ... mber-basin-portrait-painted-v2.web
+...                                      ... p",
+...                                      393           "resourceType": "image",
+...                                      394           "scope": "release",
+...                                      395           "status": 200
+...                                      396         },
+...                                      397         {
+...                                      398           "method": "GET",
+...                                      399           "path": "public/assets/f
+...                                      ... orgeguard-painted.webp",
+...                                      400           "resourceType": "image",
+...                                      401           "scope": "release",
+...                                      402           "status": 200
+...                                      403         },
+...                                      404         {
+...                                      405           "method": "GET",
+...                                      406           "path": "public/assets/g
+...                                      ... loamwing-cluster-painted.webp",
+...                                      407           "resourceType": "image",
+...                                      408           "scope": "release",
+...                                      409           "status": 200
+...                                      410         },
+...                                      411         {
+...                                      412           "method": "GET",
+...                                      413           "path": "public/assets/i
+...                                      ... ronroot-painted.webp",
+...                                      414           "resourceType": "image",
+...                                      415           "scope": "release",
+...                                      416           "status": 200
+...                                      417         },
+...                                      418         {
+...                                      419           "method": "GET",
+...                                      420           "path": "public/assets/k
+...                                      ... ilnkeeper-portrait-painted.webp",
+...                                      421           "resourceType": "image",
+...                                      422           "scope": "release",
+...                                      423           "status": 200
+...                                      424         },
+...                                      425         {
+...                                      426           "method": "GET",
+...                                      427           "path": "public/assets/m
+...                                      ... oss-ember-arena-painted.webp",
+...                                      428           "resourceType": "image",
+...                                      429           "scope": "release",
+...                                      430           "status": 200
+...                                      431         },
+...                                      432         {
+...                                      433           "method": "GET",
+...                                      434           "path": "public/assets/s
+...                                      ... quall-orb-painted.webp",
+...                                      435           "resourceType": "image",
+...                                      436           "scope": "release",
+...                                      437           "status": 200
+...                                      438         },
+...                                      439         {
+...                                      440           "method": "GET",
+...                                      441           "path": "public/assets/s
+...                                      ... tonehauler-painted.webp",
+...                                      442           "resourceType": "image",
+...                                      443           "scope": "release",
+...                                      444           "status": 200
+...                                      445         },
+...                                      446         {
+...                                      447           "method": "GET",
+...                                      448           "path": "public/assets/s
+...                                      ... unthread-pair-painted.webp",
+...                                      449           "resourceType": "image",
+...                                      450           "scope": "release",
+...                                      451           "status": 200
+...                                      452         },
+...                                      453         {
+...                                      454           "method": "GET",
+...                                      455           "path": "public/assets/t
+...                                      ... hornscouts-painted.webp",
+...                                      456           "resourceType": "image",
+...                                      457           "scope": "release",
+...                                      458           "status": 200
+...                                      459         },
+...                                      460         {
+...                                      461           "method": "GET",
+364           "path": "public/index.ht   462           "path": "public/index.ht
+... ml",                                 ... ml",
+365           "resourceType": "documen   463           "resourceType": "documen
+... t",                                  ... t",
+366           "scope": "release",        464           "scope": "release",
+
+artifacts/release-001b-round-2/evidence.json --- 6/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+406       "serviceWorkers": "blocked",   504       "serviceWorkers": "blocked",
+407       "runtimeErrors": [],           505       "runtimeErrors": [],
+408       "releaseManifestPath": "rele   506       "releaseManifestPath": "rele
+... ase-manifest.json",                  ... ase-manifest.json",
+409       "releaseManifestFileCount":    507       "releaseManifestFileCount": 
+... 38,                                  ... 57,
+410       "pagesFileCount": 0            508       "pagesFileCount": 0
+411     },                               509     },
+412     "chromiumRequestCount": 46,      510     "chromiumRequestCount": 60,
+413     "chromiumRequests": [            511     "chromiumRequests": [
+414       {                              512       {
+415         "method": "GET",             513         "method": "GET",
+
+artifacts/release-001b-round-2/evidence.json --- 7/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+437       },                             535       },
+438       {                              536       {
+439         "method": "GET",             537         "method": "GET",
+440         "path": "assets/game-runti   538         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-CNVraBnB.js",          ... a-shell-entry-CVKh5POa.js",
+441         "resourceType": "script",    539         "resourceType": "script",
+442         "status": 200                540         "status": 200
+443       },                             541       },
+
+artifacts/release-001b-round-2/evidence.json --- 8/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+449       },                             547       },
+450       {                              548       {
+451         "method": "GET",             549         "method": "GET",
+452         "path": "assets/game-runti   550         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-CytbrKsh.js",          ... a-shell-entry-CSeKzmss.js",
+453         "resourceType": "script",    551         "resourceType": "script",
+454         "status": 200                552         "status": 200
+455       },                             553       },
+456       {                              554       {
+457         "method": "GET",             555         "method": "GET",
+458         "path": "assets/game-runti   556         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-C8JE-m-g.js",          ... a-shell-entry-5wuqhDok.js",
+459         "resourceType": "script",    557         "resourceType": "script",
+460         "status": 200                558         "status": 200
+461       },                             559       },
+462       {                              560       {
+463         "method": "GET",             561         "method": "GET",
+464         "path": "assets/game-runti   562         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-Cs0AdjpN.js",          ... a-shell-entry-Bisr6WE8.js",
+465         "resourceType": "script",    563         "resourceType": "script",
+466         "status": 200                564         "status": 200
+467       },                             565       },
+468       {                              566       {
+469         "method": "GET",             567         "method": "GET",
+470         "path": "assets/game-runti   568         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-CyL5m2DH.js",          ... a-shell-entry-BhwMrUVn.js",
+471         "resourceType": "script",    569         "resourceType": "script",
+472         "status": 200                570         "status": 200
+473       },                             571       },
+474       {                              572       {
+475         "method": "GET",             573         "method": "GET",
+476         "path": "assets/game-runti   574         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-q-91bJl2.js",          ... a-shell-entry-CuWYq691.js",
+477         "resourceType": "script",    575         "resourceType": "script",
+478         "status": 200                576         "status": 200
+479       },                             577       },
+480       {                              578       {
+481         "method": "GET",             579         "method": "GET",
+482         "path": "assets/game-runti   580         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-BSIWc4qF.js",          ... a-shell-entry-8ukLX37I.js",
+483         "resourceType": "script",    581         "resourceType": "script",
+484         "status": 200                582         "status": 200
+485       },                             583       },
+486       {                              584       {
+487         "method": "GET",             585         "method": "GET",
+488         "path": "assets/game-runti   586         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-DVfsERMS.js",          ... a-shell-entry-CGcoW1_t.js",
+489         "resourceType": "script",    587         "resourceType": "script",
+490         "status": 200                588         "status": 200
+491       },                             589       },
+492       {                              590       {
+493         "method": "GET",             591         "method": "GET",
+494         "path": "assets/game-runti   592         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-B2eWcWBD.js",          ... a-shell-entry-B3oc_9UA.js",
+495         "resourceType": "script",    593         "resourceType": "script",
+496         "status": 200                594         "status": 200
+497       },                             595       },
+498       {                              596       {
+499         "method": "GET",             597         "method": "GET",
+500         "path": "assets/game-runti   598         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-BgLlbd-k.js",          ... a-shell-entry-Dt_8tldU.js",
+501         "resourceType": "script",    599         "resourceType": "script",
+502         "status": 200                600         "status": 200
+503       },                             601       },
+504       {                              602       {
+505         "method": "GET",             603         "method": "GET",
+506         "path": "assets/game-runti   604         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-B_Edd_dJ.js",          ... a-shell-entry-CfsBWc87.js",
+507         "resourceType": "script",    605         "resourceType": "script",
+508         "status": 200                606         "status": 200
+509       },                             607       },
+510       {                              608       {
+511         "method": "GET",             609         "method": "GET",
+512         "path": "assets/game-runti   610         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-D87A9cDW.js",          ... a-shell-entry-Bcp0HPzh.js",
+513         "resourceType": "script",    611         "resourceType": "script",
+514         "status": 200                612         "status": 200
+515       },                             613       },
+516       {                              614       {
+517         "method": "GET",             615         "method": "GET",
+518         "path": "assets/game-runti   616         "path": "assets/game-runti
+... me~public/index-kxMYq3uh.js",        ... me~public/index-WlsaCKFJ.js",
+519         "resourceType": "script",    617         "resourceType": "script",
+520         "status": 200                618         "status": 200
+521       },                             619       },
+522       {                              620       {
+523         "method": "GET",             621         "method": "GET",
+524         "path": "assets/game-runti   622         "path": "assets/asset-D-AK
+... me~public/index-CKa65UbY.css",       ... -JuF.css",
+525         "resourceType": "styleshee   623         "resourceType": "styleshee
+... t",                                  ... t",
+526         "status": 200                624         "status": 200
+527       },                             625       },
+528       {                              626       {
+529         "method": "GET",             627         "method": "GET",
+530         "path": "assets/card-portr   628         "path": "public/assets/car
+... aits-painted-u4w5pfNY.webp",         ... d-portraits-painted.webp",
+531         "resourceType": "image",     629         "resourceType": "image",
+532         "status": 200                630         "status": 200
+533       },                             631       },
+534       {                              632       {
+535         "method": "GET",             633         "method": "GET",
+536         "path": "assets/stonehaule   634         "path": "public/assets/bra
+... r-painted-CDreniUN.webp",            ... ckenwheel-portrait-painted.webp",
+537         "resourceType": "image",     635         "resourceType": "image",
+538         "status": 200                636         "status": 200
+539       },                             637       },
+540       {                              638       {
+541         "method": "GET",             639         "method": "GET",
+...                                      640         "path": "public/assets/sto
+...                                      ... nehauler-painted.webp",
+...                                      641         "resourceType": "image",
+...                                      642         "status": 200
+...                                      643       },
+...                                      644       {
+...                                      645         "method": "GET",
+...                                      646         "path": "public/assets/tho
+...                                      ... rnscouts-painted.webp",
+...                                      647         "resourceType": "image",
+...                                      648         "status": 200
+...                                      649       },
+...                                      650       {
+...                                      651         "method": "GET",
+...                                      652         "path": "public/assets/for
+...                                      ... geguard-painted.webp",
+...                                      653         "resourceType": "image",
+...                                      654         "status": 200
+...                                      655       },
+...                                      656       {
+...                                      657         "method": "GET",
+...                                      658         "path": "public/assets/cin
+...                                      ... der-host-painted.webp",
+...                                      659         "resourceType": "image",
+...                                      660         "status": 200
+...                                      661       },
+...                                      662       {
+...                                      663         "method": "GET",
+...                                      664         "path": "public/assets/iro
+...                                      ... nroot-painted.webp",
+...                                      665         "resourceType": "image",
+...                                      666         "status": 200
+...                                      667       },
+...                                      668       {
+...                                      669         "method": "GET",
+...                                      670         "path": "public/assets/sun
+...                                      ... thread-pair-painted.webp",
+...                                      671         "resourceType": "image",
+...                                      672         "status": 200
+...                                      673       },
+...                                      674       {
+...                                      675         "method": "GET",
+...                                      676         "path": "public/assets/dus
+...                                      ... kwing-trio-painted.webp",
+...                                      677         "resourceType": "image",
+...                                      678         "status": 200
+...                                      679       },
+...                                      680       {
+...                                      681         "method": "GET",
+...                                      682         "path": "public/assets/glo
+...                                      ... amwing-cluster-painted.webp",
+...                                      683         "resourceType": "image",
+...                                      684         "status": 200
+...                                      685       },
+...                                      686       {
+...                                      687         "method": "GET",
+...                                      688         "path": "public/assets/cop
+...                                      ... pershade-flock-painted.webp",
+...                                      689         "resourceType": "image",
+...                                      690         "status": 200
+...                                      691       },
+...                                      692       {
+...                                      693         "method": "GET",
+...                                      694         "path": "public/assets/kil
+...                                      ... nkeeper-portrait-painted.webp",
+...                                      695         "resourceType": "image",
+...                                      696         "status": 200
+...                                      697       },
+...                                      698       {
+...                                      699         "method": "GET",
+...                                      700         "path": "public/assets/squ
+...                                      ... all-orb-painted.webp",
+...                                      701         "resourceType": "image",
+...                                      702         "status": 200
+...                                      703       },
+...                                      704       {
+...                                      705         "method": "GET",
+...                                      706         "path": "public/assets/emb
+...                                      ... er-basin-portrait-painted-v2.webp"
+...                                      ... ,
+...                                      707         "resourceType": "image",
+...                                      708         "status": 200
+...                                      709       },
+...                                      710       {
+...                                      711         "method": "GET",
+...                                      712         "path": "public/assets/bur
+...                                      ... ied-coil-portrait.webp",
+...                                      713         "resourceType": "image",
+...                                      714         "status": 200
+...                                      715       },
+...                                      716       {
+...                                      717         "method": "GET",
+...                                      718         "path": "public/assets/aet
+...                                      ... her-well-portrait-painted.webp",
+...                                      719         "resourceType": "image",
+...                                      720         "status": 200
+...                                      721       },
+...                                      722       {
+...                                      723         "method": "GET",
+542         "path": "public/ui-arena-s   724         "path": "public/ui-arena-s
+... hell.html",                          ... hell.html",
+543         "resourceType": "document"   725         "resourceType": "document"
+... ,                                    ... ,
+544         "status": 200                726         "status": 200
+
+artifacts/release-001b-round-2/evidence.json --- 9/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+563       },                             745       },
+564       {                              746       {
+565         "method": "GET",             747         "method": "GET",
+566         "path": "assets/game-runti   748         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-CNVraBnB.js",          ... a-shell-entry-CVKh5POa.js",
+567         "resourceType": "script",    749         "resourceType": "script",
+568         "status": 200                750         "status": 200
+569       },                             751       },
+
+artifacts/release-001b-round-2/evidence.json --- 10/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+575       },                             757       },
+576       {                              758       {
+577         "method": "GET",             759         "method": "GET",
+578         "path": "assets/game-runti   760         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-CytbrKsh.js",          ... a-shell-entry-CSeKzmss.js",
+579         "resourceType": "script",    761         "resourceType": "script",
+580         "status": 200                762         "status": 200
+581       },                             763       },
+582       {                              764       {
+583         "method": "GET",             765         "method": "GET",
+584         "path": "assets/game-runti   766         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-C8JE-m-g.js",          ... a-shell-entry-5wuqhDok.js",
+585         "resourceType": "script",    767         "resourceType": "script",
+586         "status": 200                768         "status": 200
+587       },                             769       },
+588       {                              770       {
+589         "method": "GET",             771         "method": "GET",
+590         "path": "assets/game-runti   772         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-Cs0AdjpN.js",          ... a-shell-entry-Bisr6WE8.js",
+591         "resourceType": "script",    773         "resourceType": "script",
+592         "status": 200                774         "status": 200
+593       },                             775       },
+594       {                              776       {
+595         "method": "GET",             777         "method": "GET",
+596         "path": "assets/game-runti   778         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-CyL5m2DH.js",          ... a-shell-entry-BhwMrUVn.js",
+597         "resourceType": "script",    779         "resourceType": "script",
+598         "status": 200                780         "status": 200
+599       },                             781       },
+600       {                              782       {
+601         "method": "GET",             783         "method": "GET",
+602         "path": "assets/game-runti   784         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-q-91bJl2.js",          ... a-shell-entry-CuWYq691.js",
+603         "resourceType": "script",    785         "resourceType": "script",
+604         "status": 200                786         "status": 200
+605       },                             787       },
+606       {                              788       {
+607         "method": "GET",             789         "method": "GET",
+608         "path": "assets/game-runti   790         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-BSIWc4qF.js",          ... a-shell-entry-8ukLX37I.js",
+609         "resourceType": "script",    791         "resourceType": "script",
+610         "status": 200                792         "status": 200
+611       },                             793       },
+612       {                              794       {
+613         "method": "GET",             795         "method": "GET",
+614         "path": "assets/game-runti   796         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-DVfsERMS.js",          ... a-shell-entry-CGcoW1_t.js",
+615         "resourceType": "script",    797         "resourceType": "script",
+616         "status": 200                798         "status": 200
+617       },                             799       },
+618       {                              800       {
+619         "method": "GET",             801         "method": "GET",
+620         "path": "assets/game-runti   802         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-B2eWcWBD.js",          ... a-shell-entry-B3oc_9UA.js",
+621         "resourceType": "script",    803         "resourceType": "script",
+622         "status": 200                804         "status": 200
+623       },                             805       },
+624       {                              806       {
+625         "method": "GET",             807         "method": "GET",
+626         "path": "assets/game-runti   808         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-BgLlbd-k.js",          ... a-shell-entry-Dt_8tldU.js",
+627         "resourceType": "script",    809         "resourceType": "script",
+628         "status": 200                810         "status": 200
+629       },                             811       },
+630       {                              812       {
+631         "method": "GET",             813         "method": "GET",
+632         "path": "assets/game-runti   814         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-B_Edd_dJ.js",          ... a-shell-entry-CfsBWc87.js",
+633         "resourceType": "script",    815         "resourceType": "script",
+634         "status": 200                816         "status": 200
+635       },                             817       },
+636       {                              818       {
+637         "method": "GET",             819         "method": "GET",
+638         "path": "assets/game-runti   820         "path": "assets/game-runti
+... me~public/index~public/ui-arena-sh   ... me~public/index~public/ui-arena-sh
+... ell~src/rl/environment~src/ui/aren   ... ell~src/rl/environment~src/ui/aren
+... a-shell-entry-D87A9cDW.js",          ... a-shell-entry-Bcp0HPzh.js",
+639         "resourceType": "script",    821         "resourceType": "script",
+640         "status": 200                822         "status": 200
+641       },                             823       },
+642       {                              824       {
+643         "method": "GET",             825         "method": "GET",
+644         "path": "assets/game-runti   826         "path": "assets/game-runti
+... me~public/ui-arena-shell~src/rl/en   ... me~public/ui-arena-shell~src/rl/en
+... vironment~src/ui/arena-shell-entry   ... vironment~src/ui/arena-shell-entry
+... -Ctd21-xu.js",                       ... -9GnoH0Q9.js",
+645         "resourceType": "script",    827         "resourceType": "script",
+646         "status": 200                828         "status": 200
+647       },                             829       },
+648       {                              830       {
+649         "method": "GET",             831         "method": "GET",
+650         "path": "assets/game-runti   832         "path": "assets/game-runti
+... me~public/ui-arena-shell~src/ui/ar   ... me~public/ui-arena-shell~src/ui/ar
+... ena-shell-entry-Dn4LrsYn.js",        ... ena-shell-entry-D1z8G8S6.js",
+651         "resourceType": "script",    833         "resourceType": "script",
+652         "status": 200                834         "status": 200
+653       },                             835       },
+654       {                              836       {
+655         "method": "GET",             837         "method": "GET",
+656         "path": "assets/game-runti   838         "path": "assets/game-runti
+... me~public/ui-arena-shell~src/ui/ar   ... me~public/ui-arena-shell~src/ui/ar
+... ena-shell-entry-Dj8MH2Tq.js",        ... ena-shell-entry-BiW2snyc.js",
+657         "resourceType": "script",    839         "resourceType": "script",
+658         "status": 200                840         "status": 200
+659       },                             841       },
+660       {                              842       {
+661         "method": "GET",             843         "method": "GET",
+662         "path": "assets/ui-arena-s   844         "path": "assets/ui-arena-s
+... hell-CVdHc3uW.css",                  ... hell-er5XVwGC.css",
+663         "resourceType": "styleshee   845         "resourceType": "styleshee
+... t",                                  ... t",
+664         "status": 200                846         "status": 200
+665       },                             847       },
+666       {                              848       {
+667         "method": "GET",             849         "method": "GET",
+668         "path": "assets/moss-ember   850         "path": "public/assets/mos
+... -arena-painted-DDcPh-4V.webp",       ... s-ember-arena-painted.webp",
+669         "resourceType": "image",     851         "resourceType": "image",
+670         "status": 200                852         "status": 200
+671       },                             853       },
+
+artifacts/release-001b-round-2/evidence.json --- 11/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+683       },                             865       },
+684       {                              866       {
+685         "method": "GET",             867         "method": "GET",
+686         "path": "assets/game-runti   868         "path": "assets/game-runti
+... me~public/ui-arena-shell~src/rl/en   ... me~public/ui-arena-shell~src/rl/en
+... vironment~src/ui/arena-shell-entry   ... vironment~src/ui/arena-shell-entry
+... -Ctd21-xu.js",                       ... -9GnoH0Q9.js",
+687         "resourceType": "script",    869         "resourceType": "script",
+688         "status": 200                870         "status": 200
+689       }                              871       }
+
+artifacts/release-001b-round-2/evidence.json --- 12/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+716   },                                 898   },
+717   "dependencyMutations": {           899   "dependencyMutations": {
+718     "status": "PASS",                900     "status": "PASS",
+719     "fixtureManifestFileCount": 48   901     "fixtureManifestFileCount": 33
+... ,                                    ... ,
+720     "chromiumRequestCount": 32,      902     "chromiumRequestCount": 30,
+721     "requestedDependencies": [       903     "requestedDependencies": [
+722       "public/assets/audit-worker.   904       "public/assets/audit-worker.
+... js",                                 ... js",
+...                                      905       "public/assets/css-url.svg",
+723       "public/assets/external-styl   906       "public/assets/external-styl
+... e.css",                              ... e.css",
+724       "public/assets/external-styl   907       "public/assets/external-styl
+... e.svg",                              ... e.svg",
+725       "public/assets/foreign-objec   908       "public/assets/foreign-objec
+... t-image.svg",                        ... t-image.svg",
+...                                      909       "public/assets/image-set-one
+...                                      ... .svg",
+...                                      910       "public/assets/image.svg",
+...                                      911       "public/assets/inline-style.
+...                                      ... svg",
+...                                      912       "public/assets/input-image.s
+...                                      ... vg",
+726       "public/assets/nested-leaf.s   913       "public/assets/nested-leaf.s
+... vg",                                 ... vg",
+727       "public/assets/nested-svg.sv   914       "public/assets/nested-svg.sv
+... g",                                  ... g",
+728       "public/assets/popup-data.js   915       "public/assets/popup-data.js
+... on",                                 ... on",
+729       "public/assets/popup.html",    916       "public/assets/popup.html",
+730       "public/assets/popup.js",      917       "public/assets/popup.js",
+...                                      918       "public/assets/prefetch.json
+...                                      ... ",
+...                                      919       "public/assets/preload-small
+...                                      ... .svg",
+...                                      920       "public/assets/preload.json"
+...                                      ... ,
+731       "public/assets/presentation-   921       "public/assets/presentation-
+... gradient.svg",                       ... gradient.svg",
+732       "public/assets/presentation-   922       "public/assets/presentation-
+... url.svg",                            ... url.svg",
+733       "public/assets/srcdoc-image.   923       "public/assets/srcdoc-image.
+... svg",                                ... svg",
+...                                      924       "public/assets/srcset-one.sv
+...                                      ... g",
+...                                      925       "public/assets/style-tag.svg
+...                                      ... ",
+734       "public/assets/worker-data.j   926       "public/assets/worker-data.j
+... son",                                ... son",
+735       "public/assets/xhtml-foreign   927       "public/assets/xhtml-foreign
+... -object.svg"                         ... -object.svg"
+736     ],                               928     ],
+
+artifacts/release-001b-round-2/evidence.json --- 13/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+743       },                             935       },
+744       {                              936       {
+745         "method": "GET",             937         "method": "GET",
+746         "path": "assets/prefetch-B   938         "path": "public/assets/pre
+... noe6Ps0.json",                       ... fetch.json",
+747         "resourceType": "other",     939         "resourceType": "other",
+748         "status": 200                940         "status": 200
+749       },                             941       },
+750       {                              942       {
+751         "method": "GET",             943         "method": "GET",
+752         "path": "assets/preload-3M   944         "path": "public/assets/pre
+... 9Ucpny.json",                        ... load.json",
+753         "resourceType": "other",     945         "resourceType": "other",
+754         "status": 200                946         "status": 200
+755       },                             947       },
+756       {                              948       {
+757         "method": "GET",             949         "method": "GET",
+758         "path": "assets/preload-sm   950         "path": "public/assets/pre
+... all-C-4Sri27.svg",                   ... load-small.svg",
+759         "resourceType": "image",     951         "resourceType": "image",
+760         "status": 200                952         "status": 200
+761       },                             953       },
+762       {                              954       {
+763         "method": "GET",             955         "method": "GET",
+764         "path": "assets/public/ind   956         "path": "assets/public/ind
+... ex-CnjCbodT.js",                     ... ex-1D_mcLRu.js",
+765         "resourceType": "script",    957         "resourceType": "script",
+766         "status": 200                958         "status": 200
+767       },                             959       },
+
+artifacts/release-001b-round-2/evidence.json --- 14/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+773       },                             965       },
+774       {                              966       {
+775         "method": "GET",             967         "method": "GET",
+776         "path": "assets/game-runti   968         "path": "assets/game-runti
+... me~public/index-ChtryMsB.js",        ... me~public/index-Oi-l5JOc.js",
+777         "resourceType": "script",    969         "resourceType": "script",
+778         "status": 200                970         "status": 200
+779       },                             971       },
+780       {                              972       {
+781         "method": "GET",             973         "method": "GET",
+782         "path": "assets/game-runti   974         "path": "assets/asset-e9e-
+... me~public/index-CrxYNP0A.css",       ... E_h5.css",
+783         "resourceType": "styleshee   975         "resourceType": "styleshee
+... t",                                  ... t",
+784         "status": 200                976         "status": 200
+785       },                             977       },
+786       {                              978       {
+787         "method": "GET",             979         "method": "GET",
+788         "path": "assets/image--5lH   980         "path": "public/assets/ima
+... EMjJ.svg",                           ... ge.svg",
+789         "resourceType": "image",     981         "resourceType": "image",
+790         "status": 200                982         "status": 200
+791       },                             983       },
+792       {                              984       {
+793         "method": "GET",             985         "method": "GET",
+794         "path": "assets/input-imag   986         "path": "public/assets/inp
+... e-B2sCkzSu.svg",                     ... ut-image.svg",
+795         "resourceType": "image",     987         "resourceType": "image",
+796         "status": 200                988         "status": 200
+797       },                             989       },
+798       {                              990       {
+799         "method": "GET",             991         "method": "GET",
+800         "path": "assets/srcset-one   992         "path": "public/assets/src
+... -BcKe0_r5.svg",                      ... set-one.svg",
+801         "resourceType": "image",     993         "resourceType": "image",
+802         "status": 200                994         "status": 200
+803       },                             995       },
+804       {                              996       {
+805         "method": "GET",             997         "method": "GET",
+806         "path": "assets/css-url-CB   998         "path": "public/assets/src
+... YitOgi.svg",                         ... doc-image.svg",
+807         "resourceType": "image",     999         "resourceType": "image",
+808         "status": 200               1000         "status": 200
+809       },                            1001       },
+810       {                             1002       {
+811         "method": "GET",            1003         "method": "GET",
+812         "path": "assets/image-set-  1004         "path": "public/assets/sty
+... one-BstlSeOH.svg",                  .... le-tag.svg",
+813         "resourceType": "image",    1005         "resourceType": "image",
+814         "status": 200               1006         "status": 200
+815       },                            1007       },
+816       {                             1008       {
+817         "method": "GET",            1009         "method": "GET",
+818         "path": "assets/style-tag-  1010         "path": "public/assets/inl
+... BurwIt0C.svg",                      .... ine-style.svg",
+819         "resourceType": "image",    1011         "resourceType": "image",
+820         "status": 200               1012         "status": 200
+821       },                            1013       },
+822       {                             1014       {
+823         "method": "GET",            1015         "method": "GET",
+824         "path": "assets/inline-sty  1016         "path": "assets/game-runti
+... le-DisTXiAs.svg",                   .... me~dynamic-module-9heBrFTA.js",
+825         "resourceType": "image",    1017         "resourceType": "script",
+826         "status": 200               1018         "status": 200
+827       },                            1019       },
+828       {                             1020       {
+829         "method": "GET",            1021         "method": "GET",
+830         "path": "assets/input-imag  1022         "path": "public/assets/css
+... e-B2sCkzSu.svg",                    .... -url.svg",
+831         "resourceType": "image",    1023         "resourceType": "image",
+832         "status": 200               1024         "status": 200
+833       },                            1025       },
+834       {                             1026       {
+835         "method": "GET",            1027         "method": "GET",
+836         "path": "assets/game-runti  1028         "path": "public/assets/ima
+... me~dynamic-module-CXO_t4iF.js",     .... ge-set-one.svg",
+837         "resourceType": "script",   1029         "resourceType": "image",
+838         "status": 200               1030         "status": 200
+839       },                            1031       },
+840       {                             1032       {
+
+artifacts/release-001b-round-2/evidence.json --- 15/15 --- Text (exceeded DFT_GRAPH_LIMIT)
+845 1037       },
+846 1038       {
+847 1039         "method": "GET",
+848 ....         "path": "public/assets/srcdoc-image.svg",
+849 ....         "resourceType": "image",
+850 ....         "status": 200
+851 ....       },
+852 ....       {
+853 ....         "method": "GET",
+854 1040         "path": "public/assets/worker-data.json",
+855 1041         "resourceType": "fetch",
+856 ....         "status": 200
+857 ....       },
+858 ....       {
+859 ....         "method": "GET",
+860 ....         "path": "assets/input-image-B2sCkzSu.svg",
+861 ....         "resourceType": "image",
+862 1042         "status": 200
+863 1043       },
+864 1044       {
+
+artifacts/release-001b-round-2/external-base-producer-rejection.json --- JSON
+3   "source": "external HTML base URL",  3   "source": "external HTML base URL",
+4   "previousArtifactPreserved": true,   4   "previousArtifactPreserved": true,
+5   "previousArtifactFileCount": 4,      5   "previousArtifactFileCount": 4,
+6   "previousManifestSha256": "5a879267  6   "previousManifestSha256": "b1f2a63b
+. 0d047ca03f8149ca30c177430a729f04de626  . f7955371e2faf29ab8f15556013990b4a672b
+. ac506da9966124b1f3f",                  . 71c601ac0f127989609",
+7   "failureMessage": "browser runtime   7   "failureMessage": "browser runtime 
+. errors:\nSetting the document's base   . errors:\nSetting the document's base 
+. URI to 'https://release-dependency.in  . URI to 'https://release-dependency.in
+. valid/' violates the following Conten  . valid/' violates the following Conten
+. t Security Policy directive: \"base-u  . t Security Policy directive: \"base-u
+. ri 'self'\". The action has been bloc  . ri 'self'\". The action has been bloc
+. ked."                                  . ked."
+8 }                                      8 }
+
+artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json --- 1/2 --- JSON
+ 6   "manifestMembership": false,         6   "manifestMembership": false,
+ 7   "previousArtifactPreserved": true,   7   "previousArtifactPreserved": true,
+ 8   "previousArtifactFileCount": 4,      8   "previousArtifactFileCount": 4,
+ 9   "previousManifestSha256": "3cc978c   9   "previousManifestSha256": "9600780
+ . 4d1d97464e4d2ca0eaa962ccd3066553b8d3   . fac760fa1e0caf1264133c49f3c8e0aa0069
+ . 16f64625da42accd4d4ea",                . 7cd99e73df8531e549f53",
+10   "previousBrowserQualification": {   10   "previousBrowserQualification": {
+11     "schemaVersion": 1,               11     "schemaVersion": 1,
+12     "serverMode": "release",          12     "serverMode": "release",
+
+artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json --- 2/2 --- JSON
+28     "requests": [                     28     "requests": [
+29       {                               29       {
+30         "method": "GET",              30         "method": "GET",
+31         "path": "assets/public/index  31         "path": "assets/public/index
+.. -Pc_Oa_dq.js",                        .. -BUBy0uRX.js",
+32         "resourceType": "script",     32         "resourceType": "script",
+33         "scope": "release",           33         "scope": "release",
+34         "status": 200                 34         "status": 200
+

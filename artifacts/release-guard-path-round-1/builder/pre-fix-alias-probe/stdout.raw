@@ -1,0 +1,45 @@
+{
+  "tmpdir": "/tmp",
+  "sandbox": "/tmp/cards023i-r2-alias-probe-AF8yP5",
+  "workspaceAlias": "/tmp/cards023i-r2-alias-probe-AF8yP5/parent-alias/empty-workspace",
+  "workspaceReal": "/private/tmp/cards023i-r2-alias-probe-AF8yP5/canonical-parent/empty-workspace",
+  "outputAlias": "/tmp/cards023i-r2-alias-probe-AF8yP5/parent-alias/empty-workspace",
+  "missingConfigPath": "/tmp/cards023i-r2-alias-probe-AF8yP5/missing-release-build.config.json",
+  "outcome": {
+    "type": "rejected",
+    "name": "Error",
+    "code": "ENOENT",
+    "message": "ENOENT: no such file or directory, lstat '/tmp/cards023i-r2-alias-probe-AF8yP5/missing-release-build.config.json'"
+  },
+  "before": [
+    {
+      "path": "canonical-parent",
+      "type": "directory"
+    },
+    {
+      "path": "canonical-parent/empty-workspace",
+      "type": "directory"
+    },
+    {
+      "path": "parent-alias",
+      "type": "symlink",
+      "target": "/tmp/cards023i-r2-alias-probe-AF8yP5/canonical-parent"
+    }
+  ],
+  "after": [
+    {
+      "path": "canonical-parent",
+      "type": "directory"
+    },
+    {
+      "path": "canonical-parent/empty-workspace",
+      "type": "directory"
+    },
+    {
+      "path": "parent-alias",
+      "type": "symlink",
+      "target": "/tmp/cards023i-r2-alias-probe-AF8yP5/canonical-parent"
+    }
+  ],
+  "unchanged": true
+}

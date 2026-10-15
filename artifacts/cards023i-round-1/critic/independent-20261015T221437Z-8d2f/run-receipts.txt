@@ -1,0 +1,20 @@
+Candidate HEAD: 722a50f2042ab22d1a8563c8231bcb824b4c2e14
+Accepted baseline: 7f41167c2429eec637dbb7c5f838fa3b404ab4d2
+Node: v22.22.3 via /Users/me/.hermes/node/bin/node
+Chrome: 155.0.8059.40 via /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+Playwright: 1.58.2 from the private checkout
+Execution mode: serial; clean env -i allowlist; stop on first nonzero
+Critic recorder: PID 56310, exit 1 because its first nonzero child failed
+cards023 browser integration: PID 54776, exit 0, TAP 1 pass / 0 fail / 0 skip
+cards022 Brackenwheel browser regression: PID 55148, exit 0, TAP 1 pass / 0 fail / 0 skip
+ui-combat-state: PID 55290, exit 0, TAP 18 pass / 0 fail / 1 optional skip
+app-shell: PID 55376, exit 0, TAP 1 pass / 0 fail / 0 skip
+game-ui-projection: PID 56312, exit 0, TAP 37 pass / 0 fail / 1 optional skip
+nondeterminism guard: PID 57024, exit 0, TAP 10 pass / 0 fail / 0 skip
+visual-asset manifest: PID 57065, exit 0, TAP 6 pass / 0 fail / 0 skip
+shipping-isolation guard: PID 57077, exit 0, TAP 13 pass / 0 fail / 0 skip
+release-build: npm PID 57156; node test child PID 57166; direct exit 1; TAP reports 20 pass / 2 fail / 0 skip
+Aggregate TAP report: 111 units, 107 pass, 2 fail, 2 optional skips, 0 cancelled. The two release-build fail units are one failing nested assertion plus its failed enclosing test; one unique failing case/root cause.
+Both optional skips say: set ART004_PARENT_ROOT to the accepted 5ed checkout. ART004_PARENT_ROOT was unset.
+Not run after the first nonzero: npm run test:shipping-isolation-release; npm run test:shipping-isolation-host.
+No endurance run; no 18k qualification or full 109/performance/history-completeness claim.

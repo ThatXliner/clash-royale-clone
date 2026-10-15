@@ -1,0 +1,398 @@
+{
+  "browserErrors": [],
+  "browserVersion": "155.0.8059.40",
+  "deck": [
+    "aether-well",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "lore": "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.",
+  "mode": "seed-2 editable GameSession; full legal natural AI; trusted player input",
+  "releaseResult": "pass",
+  "screenshots": [
+    {
+      "file": "aether-well-card-detail-phone-390x844.png",
+      "sha256": "e67788142a6414f3e8cd225810a963b551dcacca84613807f12addb9913356c0"
+    },
+    {
+      "file": "aether-well-opening-phone-390x844.png",
+      "sha256": "454ecc8076221f4076712bd60d8bf64f5c0034dd19e0145d6733d21785385fcf"
+    },
+    {
+      "file": "aether-well-phone-normal-before-restore.png",
+      "sha256": "74162a89fb7fab61894348ac613cc9ef100ee6db99a02e2fc8b5843c1cc91fd8"
+    },
+    {
+      "file": "aether-well-phone-normal-after-restore.png",
+      "sha256": "74162a89fb7fab61894348ac613cc9ef100ee6db99a02e2fc8b5843c1cc91fd8"
+    },
+    {
+      "file": "aether-well-phone-reduced-before-restore.png",
+      "sha256": "33f81ee75a15bc93c468a93d1ca8d464722aaabaf56bce9d8fd280fb53f1b7c6"
+    },
+    {
+      "file": "aether-well-phone-reduced-after-restore.png",
+      "sha256": "33f81ee75a15bc93c468a93d1ca8d464722aaabaf56bce9d8fd280fb53f1b7c6"
+    },
+    {
+      "file": "aether-well-desktop-normal-before-restore.png",
+      "sha256": "d9321bb4b5a606fc3cd2c52918ddeac4521faf069e2961a60e4bb4bc0460ece0"
+    },
+    {
+      "file": "aether-well-desktop-normal-after-restore.png",
+      "sha256": "d9321bb4b5a606fc3cd2c52918ddeac4521faf069e2961a60e4bb4bc0460ece0"
+    },
+    {
+      "file": "aether-well-desktop-reduced-before-restore.png",
+      "sha256": "5625bbe2c175ac58df55eb06228bd43a41e5639a7225946d200c08a30111e216"
+    },
+    {
+      "file": "aether-well-desktop-reduced-after-restore.png",
+      "sha256": "5625bbe2c175ac58df55eb06228bd43a41e5639a7225946d200c08a30111e216"
+    },
+    {
+      "file": "aether-well-natural-terminal.png",
+      "sha256": "ea81950dc924af76cd4cc865e43743e5dc0de4334ca28f8979eb88a120d151ae"
+    }
+  ],
+  "opening": {
+    "deployments": [
+      {
+        "materialization": {
+          "cardId": "aether-well",
+          "destination": null,
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "structureId": 1,
+          "tick": 0,
+          "type": "structure-materialized"
+        },
+        "route": {
+          "cardId": "aether-well",
+          "commandId": 1,
+          "kind": "structure",
+          "placementClass": "ground_entity",
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "session-card-routed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 4,
+          "cost": 6,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-structure-deployed"
+      },
+      {
+        "materialization": {
+          "cardId": "aether-well",
+          "destination": null,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "structureId": 2,
+          "tick": 0,
+          "type": "structure-materialized"
+        },
+        "route": {
+          "cardId": "aether-well",
+          "commandId": 0,
+          "kind": "structure",
+          "placementClass": "ground_entity",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "session-card-routed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 4,
+          "cost": 6,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-structure-deployed"
+      }
+    ],
+    "hand": [
+      "copperskiff",
+      "cinderlings",
+      "skymaul",
+      "brassbolt"
+    ],
+    "pointer": {
+      "isTrusted": true,
+      "clientX": 195.00547790527344,
+      "clientY": 632.99609375
+    },
+    "sequences": {
+      "north": 1,
+      "south": 1
+    },
+    "stateTick": 1
+  },
+  "resourceFeedback": {
+    "north": {
+      "amountAfter": 1,
+      "amountGranted": 1,
+      "requested": 1,
+      "tick": 540
+    },
+    "south": {
+      "amountAfter": 7,
+      "amountGranted": 1,
+      "hudAmount": 7,
+      "hudTick": 475,
+      "requested": 1,
+      "tick": 474
+    }
+  },
+  "pausedCheckpoint": {
+    "audioSha256": "26508503946662e6edfae0416b954e70200900d309519d713f9417dedaaacf86",
+    "inputBridgeSha256": "2df26ba0f25546fdbf5dcf284e64f56f03267079a52ac903b2b0b3046cfc1d3d",
+    "selectedCardId": null,
+    "sessionSha256": "eec94c2776293f87ea97ce91eb49453276fe9a2f9fafb00c6e6e6ae4be083df1",
+    "snapshotSha256": "1f2536382521a450c35564cfd65a5f80edf9aac7f22f3f17dfe64ab167be72df",
+    "stateSha256": "842bb9d5118d51dc8b838e13aa76bc06a05dc7a57c7bdbf1359f413e548c6890"
+  },
+  "presentationChecks": [
+    {
+      "bodyCssPixels": 13,
+      "frameScale": 0.51484375,
+      "motion": "static",
+      "physicalBodyCssPixels": 12.9940251187725,
+      "reducedMotion": false,
+      "side": "north",
+      "teamColor": "#C6452E",
+      "tick": "541",
+      "mode": "phone-normal",
+      "before": {
+        "file": "aether-well-phone-normal-before-restore.png",
+        "bytes": 324973,
+        "sha256": "74162a89fb7fab61894348ac613cc9ef100ee6db99a02e2fc8b5843c1cc91fd8"
+      },
+      "after": {
+        "file": "aether-well-phone-normal-after-restore.png",
+        "bytes": 324973,
+        "sha256": "74162a89fb7fab61894348ac613cc9ef100ee6db99a02e2fc8b5843c1cc91fd8"
+      }
+    },
+    {
+      "bodyCssPixels": 13,
+      "frameScale": 0.51484375,
+      "motion": "static",
+      "physicalBodyCssPixels": 12.9940251187725,
+      "reducedMotion": true,
+      "side": "north",
+      "teamColor": "#C6452E",
+      "tick": "541",
+      "mode": "phone-reduced",
+      "before": {
+        "file": "aether-well-phone-reduced-before-restore.png",
+        "bytes": 324984,
+        "sha256": "33f81ee75a15bc93c468a93d1ca8d464722aaabaf56bce9d8fd280fb53f1b7c6"
+      },
+      "after": {
+        "file": "aether-well-phone-reduced-after-restore.png",
+        "bytes": 324984,
+        "sha256": "33f81ee75a15bc93c468a93d1ca8d464722aaabaf56bce9d8fd280fb53f1b7c6"
+      }
+    },
+    {
+      "bodyCssPixels": 26,
+      "frameScale": 0.59306640625,
+      "motion": "static",
+      "physicalBodyCssPixels": 25.99752177513422,
+      "reducedMotion": false,
+      "side": "north",
+      "teamColor": "#C6452E",
+      "tick": "541",
+      "mode": "desktop-normal",
+      "before": {
+        "file": "aether-well-desktop-normal-before-restore.png",
+        "bytes": 442298,
+        "sha256": "d9321bb4b5a606fc3cd2c52918ddeac4521faf069e2961a60e4bb4bc0460ece0"
+      },
+      "after": {
+        "file": "aether-well-desktop-normal-after-restore.png",
+        "bytes": 442298,
+        "sha256": "d9321bb4b5a606fc3cd2c52918ddeac4521faf069e2961a60e4bb4bc0460ece0"
+      }
+    },
+    {
+      "bodyCssPixels": 26,
+      "frameScale": 0.59306640625,
+      "motion": "static",
+      "physicalBodyCssPixels": 25.99752177513422,
+      "reducedMotion": true,
+      "side": "north",
+      "teamColor": "#C6452E",
+      "tick": "541",
+      "mode": "desktop-reduced",
+      "before": {
+        "file": "aether-well-desktop-reduced-before-restore.png",
+        "bytes": 442339,
+        "sha256": "5625bbe2c175ac58df55eb06228bd43a41e5639a7225946d200c08a30111e216"
+      },
+      "after": {
+        "file": "aether-well-desktop-reduced-after-restore.png",
+        "bytes": 442339,
+        "sha256": "5625bbe2c175ac58df55eb06228bd43a41e5639a7225946d200c08a30111e216"
+      }
+    }
+  ],
+  "naturalMatch": {
+    "chunks": 4,
+    "start": 541,
+    "state": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 4468,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 4468,
+      "terminal": true,
+      "restartCount": 0
+    },
+    "setup": {
+      "battleSetup": "{\"initialWindupTicks\":{\"central\":0,\"lane\":0},\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":72},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":102},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":133},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":120},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":66},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":202},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":250},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"skymaul.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"skymaul.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"skymaul.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2}],\"roster\":[{\"areaDamageRadiusMillitiles\":null,\"buildingRuntime\":{\"class\":\"resource\",\"deployTicks\":60,\"destructionAmount\":1,\"generationAmount\":1,\"generationCadenceTicks\":540,\"hitpoints\":1070,\"lifetimeTicks\":3900,\"policy\":{\"cadenceAnchorPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"cadenceAnchorPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"placement-tick-multiples-after-deployment\"},\"cadenceResetPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"cadenceResetPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"nonlethal-damage-does-not-reset-placement-relative-cadence\"},\"deployTicks\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"deploy_time\",\"source\":\"pinned-pre-march-2023-building-constants\",\"value\":60},\"destructionAmount\":{\"authoritative\":true,\"confidence\":\"high\",\"disposition\":\"source-aligned\",\"key\":\"mana_on_death\",\"source\":\"https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/\",\"value\":1},\"expiryOrderingPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"expiryOrderingPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event\"},\"generationAmount\":{\"authoritative\":false,\"confidence\":\"datamine-only\",\"disposition\":\"question\",\"key\":\"mana_collect_amount\",\"source\":\"pinned-pre-march-2023-building-constants\",\"value\":1},\"generationCadenceTicks\":{\"authoritative\":true,\"confidence\":\"high\",\"disposition\":\"source-aligned\",\"key\":\"mana_generate_time_ms\",\"source\":\"https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/\",\"value\":540},\"hitpoints\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"hitpoints\",\"source\":\"pinned-pre-march-2023-building-constants\",\"value\":1070},\"lifetimeTicks\":{\"authoritative\":true,\"confidence\":\"high\",\"disposition\":\"source-aligned\",\"key\":\"life_time\",\"source\":\"https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/\",\"value\":3900},\"placementPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"placementPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"ordinary-ground-entity-deployment-mask-at-building-center\"},\"recipientPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"resourceRecipient\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"building-owner\"},\"resourceCapacity\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"mana_generate_limit\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":10},\"sameTickOrderingPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"sameTickOrderingPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants\"},\"simultaneousGenerationOrder\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"simultaneousGenerationOrder\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"ascending-positive-building-id\"},\"version\":2}},\"cost\":6,\"count\":1,\"damage\":null,\"deployTimeTicks\":60,\"displayName\":\"Aether Well\",\"entities\":[],\"firstHitTicks\":null,\"formation\":{\"componentOrder\":[],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":0},\"hitSpeedTicks\":null,\"hitpoints\":1070,\"id\":\"aether-well\",\"kind\":\"structure\",\"movementMillitilesPerSecond\":0,\"rangeMillitiles\":null,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":null,\"targetMode\":\"none\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":202,\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"entities\":[{\"archetypeId\":\"mossguard\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.body-radius-millitiles\"},\"count\":1,\"damage\":202,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1766,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"mossguard\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":72,\"hitpoints\":1766,\"id\":\"mossguard\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":171,\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"entities\":[{\"archetypeId\":\"copperskiff\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.body-radius-millitiles\"},\"count\":1,\"damage\":171,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"firstHitTicks\":36,\"hitSpeedTicks\":66,\"hitpoints\":614,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":36,\"formation\":{\"componentOrder\":[\"copperskiff\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":66,\"hitpoints\":614,\"id\":\"copperskiff\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":311,\"deployTimeTicks\":60,\"displayName\":\"Skymaul\",\"entities\":[{\"archetypeId\":\"skymaul\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"skymaul.body-radius-millitiles\"},\"count\":1,\"damage\":311,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"skymaul.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Skymaul\",\"firstHitTicks\":72,\"hitSpeedTicks\":96,\"hitpoints\":837,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"skymaul.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1600,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":72,\"formation\":{\"componentOrder\":[\"skymaul\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":837,\"id\":\"skymaul\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1600,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-runner.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-runner.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-runner.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-runner.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-runner.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-runner.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-runner.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-runner.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-runner.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-runner.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-darter.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-darter.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-darter.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-darter.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-darter.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-darter.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-darter.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-darter.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-darter.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-darter.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":1,\"count\":3,\"damage\":81,\"deployTimeTicks\":60,\"displayName\":\"Cinderlings\",\"entities\":[{\"archetypeId\":\"cinderling\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Cinderling\",\"firstHitTicks\":30,\"hitSpeedTicks\":60,\"hitpoints\":81,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":30,\"formation\":{\"componentOrder\":[\"cinderling\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":3},\"hitSpeedTicks\":60,\"hitpoints\":81,\"id\":\"cinderlings\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}]}",
+      "deck": [
+        "aether-well",
+        "mossguard",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "legalNorthDeployments": [
+        {
+          "cardId": "aether-well",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "brassbolt",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "copperskiff",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "mossguard",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "reedsting",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "skymaul",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        }
+      ],
+      "rosterWitness": "{\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":72},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":102},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":133},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":120},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":66},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":202},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":250},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"skymaul.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"skymaul.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"skymaul.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2}],\"roster\":[{\"areaDamageRadiusMillitiles\":null,\"buildingRuntime\":{\"class\":\"resource\",\"deployTicks\":60,\"destructionAmount\":1,\"generationAmount\":1,\"generationCadenceTicks\":540,\"hitpoints\":1070,\"lifetimeTicks\":3900,\"policy\":{\"cadenceAnchorPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"cadenceAnchorPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"placement-tick-multiples-after-deployment\"},\"cadenceResetPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"cadenceResetPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"nonlethal-damage-does-not-reset-placement-relative-cadence\"},\"deployTicks\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"deploy_time\",\"source\":\"pinned-pre-march-2023-building-constants\",\"value\":60},\"destructionAmount\":{\"authoritative\":true,\"confidence\":\"high\",\"disposition\":\"source-aligned\",\"key\":\"mana_on_death\",\"source\":\"https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/\",\"value\":1},\"expiryOrderingPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"expiryOrderingPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event\"},\"generationAmount\":{\"authoritative\":false,\"confidence\":\"datamine-only\",\"disposition\":\"question\",\"key\":\"mana_collect_amount\",\"source\":\"pinned-pre-march-2023-building-constants\",\"value\":1},\"generationCadenceTicks\":{\"authoritative\":true,\"confidence\":\"high\",\"disposition\":\"source-aligned\",\"key\":\"mana_generate_time_ms\",\"source\":\"https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/\",\"value\":540},\"hitpoints\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"hitpoints\",\"source\":\"pinned-pre-march-2023-building-constants\",\"value\":1070},\"lifetimeTicks\":{\"authoritative\":true,\"confidence\":\"high\",\"disposition\":\"source-aligned\",\"key\":\"life_time\",\"source\":\"https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/\",\"value\":3900},\"placementPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"placementPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"ordinary-ground-entity-deployment-mask-at-building-center\"},\"recipientPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"resourceRecipient\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"building-owner\"},\"resourceCapacity\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"mana_generate_limit\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":10},\"sameTickOrderingPolicy\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"sameTickOrderingPolicy\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants\"},\"simultaneousGenerationOrder\":{\"authoritative\":false,\"confidence\":\"absent\",\"disposition\":\"question\",\"key\":\"simultaneousGenerationOrder\",\"source\":\"pre-evolutions-resource-consumer-semantics-question\",\"value\":\"ascending-positive-building-id\"},\"version\":2}},\"cost\":6,\"count\":1,\"damage\":null,\"deployTimeTicks\":60,\"displayName\":\"Aether Well\",\"entities\":[],\"firstHitTicks\":null,\"formation\":{\"componentOrder\":[],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":0},\"hitSpeedTicks\":null,\"hitpoints\":1070,\"id\":\"aether-well\",\"kind\":\"structure\",\"movementMillitilesPerSecond\":0,\"rangeMillitiles\":null,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":null,\"targetMode\":\"none\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":202,\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"entities\":[{\"archetypeId\":\"mossguard\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.body-radius-millitiles\"},\"count\":1,\"damage\":202,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1766,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"mossguard\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":72,\"hitpoints\":1766,\"id\":\"mossguard\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":171,\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"entities\":[{\"archetypeId\":\"copperskiff\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.body-radius-millitiles\"},\"count\":1,\"damage\":171,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"firstHitTicks\":36,\"hitSpeedTicks\":66,\"hitpoints\":614,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":36,\"formation\":{\"componentOrder\":[\"copperskiff\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":66,\"hitpoints\":614,\"id\":\"copperskiff\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":311,\"deployTimeTicks\":60,\"displayName\":\"Skymaul\",\"entities\":[{\"archetypeId\":\"skymaul\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"skymaul.body-radius-millitiles\"},\"count\":1,\"damage\":311,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"skymaul.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Skymaul\",\"firstHitTicks\":72,\"hitSpeedTicks\":96,\"hitpoints\":837,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"skymaul.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1600,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":72,\"formation\":{\"componentOrder\":[\"skymaul\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":837,\"id\":\"skymaul\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1600,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-runner.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-runner.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-runner.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-runner.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-runner.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-runner.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-runner.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-runner.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-runner.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-runner.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-darter.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-darter.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-darter.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-darter.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-darter.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-darter.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-darter.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-darter.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-darter.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-darter.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":1,\"count\":3,\"damage\":81,\"deployTimeTicks\":60,\"displayName\":\"Cinderlings\",\"entities\":[{\"archetypeId\":\"cinderling\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Cinderling\",\"firstHitTicks\":30,\"hitSpeedTicks\":60,\"hitpoints\":81,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":30,\"formation\":{\"componentOrder\":[\"cinderling\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":3},\"hitSpeedTicks\":60,\"hitpoints\":81,\"id\":\"cinderlings\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}]}",
+      "seed": 2,
+      "startingElixir": {
+        "north": 10,
+        "south": 10
+      },
+      "thinkIntervalTicks": 60,
+      "thinkOffsetTicks": 0
+    },
+    "session": {
+      "tick": 4468,
+      "terminal": true
+    }
+  },
+  "sameDeckRestart": {
+    "deck": [
+      "aether-well",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "restartCount": 1,
+    "seed": 2,
+    "tick": 0
+  },
+  "server": {
+    "stderr": "",
+    "stdout": "{\"host\":\"127.0.0.1\",\"port\":49503}\n"
+  }
+}
