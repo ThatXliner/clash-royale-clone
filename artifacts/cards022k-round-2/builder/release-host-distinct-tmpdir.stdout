@@ -1,0 +1,190 @@
+TAP version 13
+# Subtest: escaped workspace entry paths fail before publication and preserve the prior output
+ok 1 - escaped workspace entry paths fail before publication and preserve the prior output
+  ---
+  duration_ms: 10.139042
+  type: 'test'
+  ...
+# Subtest: internal and external symlink inputs are refused atomically
+    # Subtest: internal target
+    ok 1 - internal target
+      ---
+      duration_ms: 47.473375
+      type: 'test'
+      ...
+    # Subtest: external target
+    ok 2 - external target
+      ---
+      duration_ms: 20.600709
+      type: 'test'
+      ...
+    1..2
+ok 2 - internal and external symlink inputs are refused atomically
+  ---
+  duration_ms: 68.429334
+  type: 'test'
+  ...
+# Subtest: source maps are refused even when found in a configured static input tree
+ok 3 - source maps are refused even when found in a configured static input tree
+  ---
+  duration_ms: 18.025583
+  type: 'test'
+  ...
+# Subtest: file count, per-file size, and aggregate size limits fail atomically
+    # Subtest: file count
+    ok 1 - file count
+      ---
+      duration_ms: 23.3975
+      type: 'test'
+      ...
+    # Subtest: per-file byte cap
+    ok 2 - per-file byte cap
+      ---
+      duration_ms: 15.188375
+      type: 'test'
+      ...
+    # Subtest: aggregate byte cap
+    ok 3 - aggregate byte cap
+      ---
+      duration_ms: 13.62575
+      type: 'test'
+      ...
+    1..3
+ok 4 - file count, per-file size, and aggregate size limits fail atomically
+  ---
+  duration_ms: 53.117792
+  type: 'test'
+  ...
+# Subtest: dangerous and protected output targets are refused before any build work
+    # Subtest: /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022k-round2-builder-bviz30ub
+    ok 1 - /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022k-round2-builder-bviz30ub
+      ---
+      duration_ms: 0.678083
+      type: 'test'
+      ...
+    # Subtest: /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022k-round2-builder-bviz30ub/reference/guard-output
+    ok 2 - /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022k-round2-builder-bviz30ub/reference/guard-output
+      ---
+      duration_ms: 0.647792
+      type: 'test'
+      ...
+    # Subtest: /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022k-round2-builder-bviz30ub/dist/guard-output
+    ok 3 - /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022k-round2-builder-bviz30ub/dist/guard-output
+      ---
+      duration_ms: 0.485
+      type: 'test'
+      ...
+    # Subtest: /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T
+    ok 4 - /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T
+      ---
+      duration_ms: 0.416209
+      type: 'test'
+      ...
+    # Subtest: /tmp
+    ok 5 - /tmp
+      ---
+      duration_ms: 0.369833
+      type: 'test'
+      ...
+    1..5
+ok 5 - dangerous and protected output targets are refused before any build work
+  ---
+  duration_ms: 3.124458
+  type: 'test'
+  ...
+# shipping guard Node package targets: 4/4 covered
+# shipping guard reference adversaries: 12/12 detected
+# shipping guard identity adversaries: 11/11 detected
+# Subtest: shipping isolation guard: clean graph is canonical and excludes test fixtures
+ok 6 - shipping isolation guard: clean graph is canonical and excludes test fixtures
+  ---
+  duration_ms: 162.183125
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects every encoded reference specifier form
+ok 7 - shipping isolation guard: rejects every encoded reference specifier form
+  ---
+  duration_ms: 7.955917
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects protected identities after static evaluation
+ok 8 - shipping isolation guard: rejects protected identities after static evaluation
+  ---
+  duration_ms: 6.187875
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: scans unreachable distributable outputs bytewise
+ok 9 - shipping isolation guard: scans unreachable distributable outputs bytewise
+  ---
+  duration_ms: 1.827417
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: detects embedded reference-file bytes
+ok 10 - shipping isolation guard: detects embedded reference-file bytes
+  ---
+  duration_ms: 1.26025
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+ok 11 - shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+  ---
+  duration_ms: 3.573083
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: benign words, similar paths, URLs, and comments pass
+ok 12 - shipping isolation guard: benign words, similar paths, URLs, and comments pass
+  ---
+  duration_ms: 2.512833
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: path traversal and symlink escapes are rejected
+ok 13 - shipping isolation guard: path traversal and symlink escapes are rejected
+  ---
+  duration_ms: 1.8235
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: in-root symlink aliases cannot conceal reference files
+ok 14 - shipping isolation guard: in-root symlink aliases cannot conceal reference files
+  ---
+  duration_ms: 1.395916
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: depth, count, byte, and token bounds fail closed
+ok 15 - shipping isolation guard: depth, count, byte, and token bounds fail closed
+  ---
+  duration_ms: 3.952708
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: failures are collected atomically without mutation
+ok 16 - shipping isolation guard: failures are collected atomically without mutation
+  ---
+  duration_ms: 0.914833
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: executable CLI reports canonical success and failure
+ok 17 - shipping isolation guard: executable CLI reports canonical success and failure
+  ---
+  duration_ms: 100.31325
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: this repository's shipped entry graph passes
+ok 18 - shipping isolation guard: this repository's shipped entry graph passes
+  ---
+  duration_ms: 31699.986791
+  type: 'test'
+  ...
+# Subtest: local release host serves manifest bytes and rejects same-origin paths outside it
+ok 19 - local release host serves manifest bytes and rejects same-origin paths outside it
+  ---
+  duration_ms: 13752.866042
+  type: 'test'
+  ...
+1..19
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32055.015333

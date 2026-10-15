@@ -1,0 +1,135 @@
+
+> moss-and-ember@0.0.0 test:elixir
+> node tests/elixir-runner.js elixir
+
+TAP version 13
+# {"highConfidence":{"capacity":[10,10],"singleSeconds":[2.8,2.8],"doubleSeconds":[1.4,1.4]},"estimate":{"startingElixir":5},"normalized":{"tripleTicks":56,"referenceRoundedSeconds":0.933}}
+# Subtest: elixir: reference values expose confidence and exact normalization
+ok 1 - elixir: reference values expose confidence and exact normalization
+  ---
+  duration_ms: 1.279291
+  type: 'test'
+  ...
+# Subtest: elixir: starts both neutral sides at the isolated estimate and caps at ten
+ok 2 - elixir: starts both neutral sides at the isolated estimate and caps at ten
+  ---
+  duration_ms: 1.586375
+  type: 'test'
+  ...
+# Subtest: elixir: exact single, double, and triple schedules use integer ticks
+ok 3 - elixir: exact single, double, and triple schedules use integer ticks
+  ---
+  duration_ms: 14.77375
+  type: 'test'
+  ...
+# Subtest: elixir: phase boundary ticks are half-open and preserve progress
+ok 4 - elixir: phase boundary ticks are half-open and preserve progress
+  ---
+  duration_ms: 10.630708
+  type: 'test'
+  ...
+# Subtest: elixir: accepted, insufficient, and invalid spends are atomic
+ok 5 - elixir: accepted, insufficient, and invalid spends are atomic
+  ---
+  duration_ms: 0.303458
+  type: 'test'
+  ...
+# Subtest: elixir: simultaneous side-specific spends preserve input order
+ok 6 - elixir: simultaneous side-specific spends preserve input order
+  ---
+  duration_ms: 0.126708
+  type: 'test'
+  ...
+# Subtest: elixir: cap resets and freezes progress; spend-after-cap starts at zero
+ok 7 - elixir: cap resets and freezes progress; spend-after-cap starts at zero
+  ---
+  duration_ms: 0.690959
+  type: 'test'
+  ...
+# Subtest: elixir: chunked and single-step execution are byte-identical
+ok 8 - elixir: chunked and single-step execution are byte-identical
+  ---
+  duration_ms: 12.672083
+  type: 'test'
+  ...
+# Subtest: elixir: public restore copies present authority without changing public logs
+ok 9 - elixir: public restore copies present authority without changing public logs
+  ---
+  duration_ms: 0.967875
+  type: 'test'
+  ...
+# Subtest: elixir: serialize/restore derives accumulator, pending, history, and bytes
+ok 10 - elixir: serialize/restore derives accumulator, pending, history, and bytes
+  ---
+  duration_ms: 1.189417
+  type: 'test'
+  ...
+# Subtest: elixir: version 3 preserves one spend/grant sequence after later scheduling
+ok 11 - elixir: version 3 preserves one spend/grant sequence after later scheduling
+  ---
+  duration_ms: 1.080708
+  type: 'test'
+  ...
+# Subtest: elixir: legacy version 3 restores and hostile unified sequences reject
+ok 12 - elixir: legacy version 3 restores and hostile unified sequences reject
+  ---
+  duration_ms: 0.5755
+  type: 'test'
+  ...
+# Subtest: elixir: snapshot contains only canonical causal inputs
+ok 13 - elixir: snapshot contains only canonical causal inputs
+  ---
+  duration_ms: 0.262458
+  type: 'test'
+  ...
+# Subtest: elixir: asserted spend outcomes and generated events cannot be restored
+ok 14 - elixir: asserted spend outcomes and generated events cannot be restored
+  ---
+  duration_ms: 0.227708
+  type: 'test'
+  ...
+# Subtest: elixir: command mutations derive legitimate distinct histories
+ok 15 - elixir: command mutations derive legitimate distinct histories
+  ---
+  duration_ms: 0.785958
+  type: 'test'
+  ...
+# Subtest: elixir: restore replays cap, phase continuation, and the full match
+ok 16 - elixir: restore replays cap, phase continuation, and the full match
+  ---
+  duration_ms: 27.140084
+  type: 'test'
+  ...
+# Subtest: elixir: canonical command history is strictly shaped and bounded
+ok 17 - elixir: canonical command history is strictly shaped and bounded
+  ---
+  duration_ms: 110.548583
+  type: 'test'
+  ...
+# Subtest: elixir: advertised resolved-command boundary replays without a hidden event cap
+ok 18 - elixir: advertised resolved-command boundary replays without a hidden event cap
+  ---
+  duration_ms: 552.490625
+  type: 'test'
+  ...
+# Subtest: elixir: command and derived-event resource limits are explicit and coherent
+ok 19 - elixir: command and derived-event resource limits are explicit and coherent
+  ---
+  duration_ms: 361.549958
+  type: 'test'
+  ...
+# Subtest: elixir: malformed snapshots, unsafe timing, and invalid inputs reject
+ok 20 - elixir: malformed snapshots, unsafe timing, and invalid inputs reject
+  ---
+  duration_ms: 0.450375
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1200.573667

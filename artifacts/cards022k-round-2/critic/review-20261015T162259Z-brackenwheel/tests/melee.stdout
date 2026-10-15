@@ -1,0 +1,50 @@
+
+> moss-and-ember@0.0.0 test:melee
+> node tests/melee-runner.js melee
+
+TAP version 13
+# Subtest: melee: same-boundary lethal hits resolve as a mutual trade
+ok 1 - melee: same-boundary lethal hits resolve as a mutual trade
+  ---
+  duration_ms: 3.566459
+  type: 'test'
+  ...
+# Subtest: melee: tick order moves into edge reach before starting windup
+ok 2 - melee: tick order moves into edge reach before starting windup
+  ---
+  duration_ms: 7.157917
+  type: 'test'
+  ...
+# Subtest: melee: level-11 Knight vs Mini P.E.K.K.A baseline follows table values
+ok 3 - melee: level-11 Knight vs Mini P.E.K.K.A baseline follows table values
+  ---
+  duration_ms: 22.735083
+  type: 'test'
+  ...
+# Subtest: melee: level-11 Knight vs Valkyrie baseline follows table values
+ok 4 - melee: level-11 Knight vs Valkyrie baseline follows table values
+  ---
+  duration_ms: 41.488959
+  type: 'test'
+  ...
+# Subtest: melee: chunking and serialize/restore are byte and result identical
+ok 5 - melee: chunking and serialize/restore are byte and result identical
+  ---
+  duration_ms: 12.53825
+  type: 'test'
+  ...
+# Subtest: melee: invalid setup and commands reject atomically
+ok 6 - melee: invalid setup and commands reject atomically
+  ---
+  duration_ms: 0.900167
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 142.610334

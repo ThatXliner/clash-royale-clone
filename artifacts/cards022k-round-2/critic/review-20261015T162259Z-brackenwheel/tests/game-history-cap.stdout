@@ -1,0 +1,44 @@
+
+> moss-and-ember@0.0.0 test:game-history-cap
+> node tests/game-history-cap-runner.js game-history-cap
+
+TAP version 13
+# Subtest: game history cap: BattleCombat and empty LiveBattle cross tick 874 and full match
+ok 1 - game history cap: BattleCombat and empty LiveBattle cross tick 874 and full match
+  ---
+  duration_ms: 34422.534834
+  type: 'test'
+  ...
+# Subtest: game history cap: cuts around structural run boundaries restore and continue exactly
+ok 2 - game history cap: cuts around structural run boundaries restore and continue exactly
+  ---
+  duration_ms: 8860.764292
+  type: 'test'
+  ...
+# Subtest: game history cap: eight active units complete, chunk, and restore a bounded full match
+ok 3 - game history cap: eight active units complete, chunk, and restore a bounded full match
+  ---
+  duration_ms: 69939.779584
+  type: 'test'
+  ...
+# Subtest: game history cap: malformed compact runs and oversized tails reject
+ok 4 - game history cap: malformed compact runs and oversized tails reject
+  ---
+  duration_ms: 306.736709
+  type: 'test'
+  ...
+# Subtest: game history cap: genuine nested Live, tower, and combat v1 witnesses upgrade
+ok 5 - game history cap: genuine nested Live, tower, and combat v1 witnesses upgrade
+  ---
+  duration_ms: 45.10525
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 113678.882334

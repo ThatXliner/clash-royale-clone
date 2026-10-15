@@ -1,0 +1,106 @@
+
+> moss-and-ember@0.0.0 test:editable-deck
+> node tests/editable-deck-runner.js editable-deck
+
+TAP version 13
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 1 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 9869.841959
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 58.752417
+  type: 'test'
+  ...
+# Subtest: editable mixed witnesses retain troop questions and exact non-unit profile receipts
+not ok 3 - editable mixed witnesses retain troop questions and exact non-unit profile receipts
+  ---
+  duration_ms: 48.699625
+  type: 'test'
+  location: '/private/tmp/cards022k-round2-critic-20261015T162259Z/tests/editable-deck.test.js:134:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    22 !== 21
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 21
+  actual: 22
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards022k-round2-critic-20261015T162259Z/tests/editable-deck.test.js:206:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+ok 4 - editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+  ---
+  duration_ms: 10.228458
+  type: 'test'
+  ...
+# Subtest: editable mixed spell and Ember Basin replay spends and cycles each card once
+ok 5 - editable mixed spell and Ember Basin replay spends and cycles each card once
+  ---
+  duration_ms: 563.22575
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 6 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 30.912917
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 7 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 12.171125
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 8 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4672.871458
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 9 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 592.940834
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 10 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2620.292708
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 11 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 1567.633375
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 12 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 5.180583
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 20275.929875

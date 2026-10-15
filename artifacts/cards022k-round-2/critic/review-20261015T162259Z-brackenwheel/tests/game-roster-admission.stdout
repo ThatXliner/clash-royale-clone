@@ -1,0 +1,56 @@
+
+> moss-and-ember@0.0.0 test:game-roster-admission
+> node tests/game-roster-admission-runner.js game-roster-admission
+
+TAP version 13
+# Subtest: game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+ok 1 - game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+  ---
+  duration_ms: 3650.5655
+  type: 'test'
+  ...
+# Subtest: game roster admission: every admitted ID has one exact legal eight-card witness
+ok 2 - game roster admission: every admitted ID has one exact legal eight-card witness
+  ---
+  duration_ms: 6.348334
+  type: 'test'
+  ...
+# Subtest: game roster admission: runtime routes each admitted kind once and restores canonical history
+ok 3 - game roster admission: runtime routes each admitted kind once and restores canonical history
+  ---
+  duration_ms: 2.564875
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit battle cards admit but can never materialize placeholders
+ok 4 - game roster admission: non-unit battle cards admit but can never materialize placeholders
+  ---
+  duration_ms: 41.290042
+  type: 'test'
+  ...
+# Subtest: game roster admission: GameSession spends, cycles, and records one typed route per play
+ok 5 - game roster admission: GameSession spends, cycles, and records one typed route per play
+  ---
+  duration_ms: 112.120875
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit session history is chunk- and restore-exact
+ok 6 - game roster admission: non-unit session history is chunk- and restore-exact
+  ---
+  duration_ms: 1099.556375
+  type: 'test'
+  ...
+# Subtest: game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+ok 7 - game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+  ---
+  duration_ms: 14.508083
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5052.830417

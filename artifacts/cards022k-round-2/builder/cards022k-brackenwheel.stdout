@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: Brackenwheel mixed-deck profile carries closed per-field QUESTION receipts
+ok 1 - Brackenwheel mixed-deck profile carries closed per-field QUESTION receipts
+  ---
+  duration_ms: 18.16475
+  type: 'test'
+  ...
+# Subtest: Brackenwheel live area contact is stable and survives exact restore and fork
+ok 2 - Brackenwheel live area contact is stable and survives exact restore and fork
+  ---
+  duration_ms: 915.85125
+  type: 'test'
+  ...
+# Subtest: Brackenwheel GameSession AI contact applies primary and secondary damage once across restore forks
+ok 3 - Brackenwheel GameSession AI contact applies primary and secondary damage once across restore forks
+  ---
+  duration_ms: 1215.697958
+  type: 'test'
+  ...
+# Subtest: Brackenwheel player, AI, and RL deployments charge and cycle once
+ok 4 - Brackenwheel player, AI, and RL deployments charge and cycle once
+  ---
+  duration_ms: 52.579875
+  type: 'test'
+  ...
+# Subtest: Brackenwheel RL observations expose real area contact across exact restore
+ok 5 - Brackenwheel RL observations expose real area contact across exact restore
+  ---
+  duration_ms: 1941.491583
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4312.871458

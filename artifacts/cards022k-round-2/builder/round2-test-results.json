@@ -1,0 +1,65 @@
+{
+  "baseCommit": "7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+  "qualifications": [
+    {
+      "name": "npm ci",
+      "exit": 0,
+      "summary": "pinned dependencies installed"
+    },
+    {
+      "name": "nondeterminism guard",
+      "exit": 0,
+      "tests": 10,
+      "passed": 10
+    },
+    {
+      "name": "game roster admission",
+      "exit": 0,
+      "tests": 7,
+      "passed": 7
+    },
+    {
+      "name": "Brackenwheel focused and RL contact",
+      "exit": 0,
+      "tests": 5,
+      "passed": 5
+    },
+    {
+      "name": "round 1 adjacent core exact command",
+      "exit": 0,
+      "tests": 25,
+      "passed": 25
+    },
+    {
+      "name": "release, host, and guards with distinct temp root",
+      "exit": 0,
+      "tests": 29,
+      "passed": 29,
+      "environment": {
+        "TMPDIR": "/tmp"
+      }
+    }
+  ],
+  "preservedInitialDiagnostics": [
+    {
+      "name": "round 1 adjacent core",
+      "exit": 1
+    },
+    {
+      "name": "round 1 source and nondeterminism",
+      "exit": 1
+    },
+    {
+      "name": "first round 2 guard attempt",
+      "exit": 1
+    },
+    {
+      "name": "first round 2 adapter fixture attempt",
+      "exit": 1
+    },
+    {
+      "name": "release retry before TMPDIR separation",
+      "exit": 1
+    }
+  ]
+}

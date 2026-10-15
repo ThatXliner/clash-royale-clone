@@ -9489,3 +9489,12 @@ EVIDENCE: Frozen11ad58 four product paths. IndependentChrome155/Node22/Playwrigh
 BIGGEST GAP: At required13CSSpxbody, the head, apron, sickle andfeet do not resolve into a coherent character silhouette.
 
 No asset/source adoption. Four failedcandidatepaths andallavailablebuilder/critic evidence archived. Root sealedcriticfiles withnewexplicitchecksumledger (critic suppliednoaggregateledger). Four builtin generationattempts belongto thissingle gauntletround. Prompt requested10%margin butbar didnot: actual2%clearance is disclosed, notthefailure. Testsideeffects onfiveevidenceJSONs restoredexact; releaseoutputs absentbefore/after, ownedbrowser/testprocesses closed andwindowreleasedtoKcritic. Nextbuilder mustdesign fornative13pxreadability, preserveoriginalidentity andrealalpha, keep26pxcheck andunchangedsizebudgets. No gameplay/fullhistoricalparityclaim.
+
+## Round 492 - CARDS-022K Brackenwheel core audit repair
+
+PIECE: CARDS-022K
+VERDICT: FAIL
+EVIDENCE: Exactc72 fresh17suites232/235 actualexits: focused95/95; canonicalaudit4/6 (two67expected/68actual assertions), editabledeck11/12 (21expected/22actual). Other13light suites pass including guard10/admission7/RL15/history5. Host1/1 andbrowserrelease4/4 pass defaultTMPDIR. All11 productionfiles/kernel/package/lock byteequal7ef; no coreadoption.
+BIGGEST GAP: Carry the added roster occurrence through canonical audit count/digest pins and editable-deck mixed-witness count.
+
+Archive seven R2 failedcandidate scripts/tests plusbuilder andfreshcritic evidence. Root independently parsed17raw TAP/exit ledgers to232/235 andverified69builderchecksums; rootsealedcritic files with explicitnewchecksumledger. Audit internally completed two equal canonical byte runs butfailedtest beforeprinting concretehashes/manifest, so nextbuilder mustregenerate andpreserve thoseartifacts, notinventdigest. Exactruntimeidentity permitsretaining existingmatchingfocused/source/default20checkpoint evidence with scopeexplicit; nextchangedfixture testsneed freshexecution. NewRLcontactwitness passedfresh. DefaultTMPDIR host/release passes resolve priorcheckout-specific temp-root observation; no requiredtmp override. Allcriticprocesses/profiles closed andprivateworktree removed. Unimplementedrawmechanics/radiusconflict remainQUESTION; no fullparity/art/UI/endurance claim.

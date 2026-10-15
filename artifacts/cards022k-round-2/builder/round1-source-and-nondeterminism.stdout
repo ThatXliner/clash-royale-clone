@@ -1,0 +1,162 @@
+TAP version 13
+# Subtest: nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+ok 1 - nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+  ---
+  duration_ms: 20.928208
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: permits deterministic locals and ignores comments and strings
+ok 2 - nondeterminism-guard: permits deterministic locals and ignores comments and strings
+  ---
+  duration_ms: 2.141125
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+ok 3 - nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+  ---
+  duration_ms: 3.124667
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: scans every simulation module and probes its runtime boundary
+not ok 4 - nondeterminism-guard: scans every simulation module and probes its runtime boundary
+  ---
+  duration_ms: 107.344
+  type: 'test'
+  location: '/private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel/tests/nondeterminism-guard.test.js:207:1'
+  failureType: 'testCodeFailure'
+  error: '/private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel/src/shared/session-troop-melee-area-authority.js resolves outside module graph root /private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel/src/sim'
+  code: 'GRAPH_ROOT_ESCAPE'
+  name: 'NondeterminismGuardError'
+  stack: |-
+    collectLocalModuleGraph (file:///private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel/scripts/nondeterminism-guard.js:875:13)
+    guardSimulationDirectory (file:///private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel/scripts/nondeterminism-guard.js:931:17)
+    async TestContext.<anonymous> (file:///private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel/tests/nondeterminism-guard.test.js:246:18)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: nondeterminism-guard: simulation closure admits only the exact neutral authority
+ok 5 - nondeterminism-guard: simulation closure admits only the exact neutral authority
+  ---
+  duration_ms: 206.57675
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+ok 6 - nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+  ---
+  duration_ms: 44.2085
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+ok 7 - nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+  ---
+  duration_ms: 89.79475
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+ok 8 - nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+  ---
+  duration_ms: 45.107875
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: reports canonical output and fails a source set atomically
+ok 9 - nondeterminism-guard: reports canonical output and fails a source set atomically
+  ---
+  duration_ms: 0.426958
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+ok 10 - nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+  ---
+  duration_ms: 0.494583
+  type: 'test'
+  ...
+# shipping guard Node package targets: 4/4 covered
+# shipping guard reference adversaries: 12/12 detected
+# shipping guard identity adversaries: 11/11 detected
+# Subtest: shipping isolation guard: clean graph is canonical and excludes test fixtures
+ok 11 - shipping isolation guard: clean graph is canonical and excludes test fixtures
+  ---
+  duration_ms: 155.423459
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects every encoded reference specifier form
+ok 12 - shipping isolation guard: rejects every encoded reference specifier form
+  ---
+  duration_ms: 10.40875
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects protected identities after static evaluation
+ok 13 - shipping isolation guard: rejects protected identities after static evaluation
+  ---
+  duration_ms: 7.05925
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: scans unreachable distributable outputs bytewise
+ok 14 - shipping isolation guard: scans unreachable distributable outputs bytewise
+  ---
+  duration_ms: 2.022791
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: detects embedded reference-file bytes
+ok 15 - shipping isolation guard: detects embedded reference-file bytes
+  ---
+  duration_ms: 1.687958
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+ok 16 - shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+  ---
+  duration_ms: 2.74875
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: benign words, similar paths, URLs, and comments pass
+ok 17 - shipping isolation guard: benign words, similar paths, URLs, and comments pass
+  ---
+  duration_ms: 2.520875
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: path traversal and symlink escapes are rejected
+ok 18 - shipping isolation guard: path traversal and symlink escapes are rejected
+  ---
+  duration_ms: 2.389459
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: in-root symlink aliases cannot conceal reference files
+ok 19 - shipping isolation guard: in-root symlink aliases cannot conceal reference files
+  ---
+  duration_ms: 1.668208
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: depth, count, byte, and token bounds fail closed
+ok 20 - shipping isolation guard: depth, count, byte, and token bounds fail closed
+  ---
+  duration_ms: 3.39
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: failures are collected atomically without mutation
+ok 21 - shipping isolation guard: failures are collected atomically without mutation
+  ---
+  duration_ms: 0.797917
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: executable CLI reports canonical success and failure
+ok 22 - shipping isolation guard: executable CLI reports canonical success and failure
+  ---
+  duration_ms: 98.304208
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: this repository's shipped entry graph passes
+ok 23 - shipping isolation guard: this repository's shipped entry graph passes
+  ---
+  duration_ms: 31683.997625
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 22
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32603.789791

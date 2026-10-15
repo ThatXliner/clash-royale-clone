@@ -1,0 +1,56 @@
+{
+  "candidateCommit": "c72cd1695258be2af6d3ab4145218bcd673aa1cf",
+  "parentCommit": "7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+  "checkout": "/private/tmp/cards022k-round2-critic-20261015T162259Z",
+  "checkoutStatusAfterChecks": "clean",
+  "runtimeFence": {
+    "srcPackageAndLockDiffFromParent": "empty",
+    "productionPathsFromRound1": 11,
+    "productionPathsByteIdenticalToParent": true
+  },
+  "toolchain": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "npmCi": "passed; 19 packages; 0 vulnerabilities",
+    "browser": "Pinned system Google Chrome 155; release suite passed"
+  },
+  "tmpdir": {
+    "environmentOverride": "unset",
+    "nodeDefaultUsed": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T",
+    "hostGate": "passed 1/1 with default",
+    "releaseGate": "passed 4/4 with default"
+  },
+  "gates": {
+    "total": "232/235 test cases passed across 17 suites; three failures are the documented stale count pins",
+    "focusedSuite": "95/95",
+    "nondeterminismGuard": "10/10",
+    "gameRosterAdmission": "7/7",
+    "integrationAudit": "4/6; count pins fail 67 expected, 68 actual in tests 4 and 6",
+    "shippingIsolationGuard": "13/13",
+    "areaDamage": "11/11",
+    "melee": "6/6",
+    "meleeArea": "5/5",
+    "gameSession": "9/9",
+    "gameHistoryCap": "5/5",
+    "editableDeck": "11/12; mixed witness count pin expects 21, actual 22",
+    "deck": "7/7",
+    "elixir": "20/20",
+    "playableRoster": "9/9",
+    "rlEnvironment": "15/15",
+    "shippingIsolationHost": "1/1",
+    "shippingIsolationRelease": "4/4"
+  },
+  "auditHashes": {
+    "twoRunsCompletedAndInternalEqualityPassed": true,
+    "returnedManifestAndRunHashesPrintedByTest": false,
+    "rerunSolelyToExposeHashes": false
+  },
+  "closedResources": {
+    "lightGateRunner": "exited",
+    "hostReleaseRunner": "exited 0",
+    "chrome": "closed by test cleanup",
+    "runSpecificChromeProfile": "removed",
+    "runSpecificProcesses": "none",
+    "evidenceContainsExecutionWorkspaceOrDependencies": false
+  }
+}

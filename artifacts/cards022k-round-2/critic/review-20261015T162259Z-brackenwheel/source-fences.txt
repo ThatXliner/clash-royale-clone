@@ -1,0 +1,34 @@
+CARDS-022K Brackenwheel R2 source fence
+Candidate: c72cd1695258be2af6d3ab4145218bcd673aa1cf
+Parent:    7ef53c7ca1a914d62a60b2ea3b148ca452d575f7
+
+Exact production/package fence checked in the detached candidate checkout:
+  git diff --quiet 7ef53c7ca1a914d62a60b2ea3b148ca452d575f7 c72cd1695258be2af6d3ab4145218bcd673aa1cf -- src package.json package-lock.json
+  exit 0 (no changed paths)
+
+The 11 production paths introduced by the prior Brackenwheel round (09eae7f..7ef53c7) are unchanged at c72. SHA-256 at c72:
+503ce411967087e8e9d77a0c6207e3971791127ae3bfdc75a8002f20fde9adf2  src/content/cards/basic-melee.js
+9f863bd823ec6f90a09b423c9023a00624be38939e512171e6f830d6e2321390  src/content/session-card-catalog.js
+5948940ba0f3a2cbc80dd17eb8bf16983d49de71f0dd47d89e3624faf93f3e45  src/content/session-troop-profile-catalog.js
+a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850  src/content/session-troop-projectile-profiles.js
+ba4ab5698c435b536284e13546b26aa2934a7035362078b55e47b9e7ac90938e  src/content/session-troop-projectile-source-admission.js
+385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca  src/content/session-troop-roster.js
+6fd6fec634f0274ebac6b995e091db1ecea796170d60c57a23ed071e4dd66703  src/shared/session-troop-melee-area-authority.js
+e5c1b496551bb7b5d63f3f05a304f207a8c1de7b7c1dfcd072d7b27c1b5bbd82  src/shared/session-troop-projectile-authority.js
+e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd  src/shared/session-troop-source-confidence-authority.js
+e13419e1b86f552f2d9c7ff6af837368731068f93357539ae200ede787963399  src/sim/area-target-selection.js
+0f011e7d6163fa81d05d01526efeacdd68c5f673b22adcd8523f0cef0f40f1b5  src/sim/ordinary-projectile-splash.js
+
+Package hashes at c72 (also unchanged from 7ef):
+e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf  package.json
+d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4  package-lock.json
+
+The R2 implementation diff relative to 7ef contains only:
+  scripts/integration-audit.js
+  scripts/nondeterminism-guard.js
+  tests/cards022k-brackenwheel.test.js
+  tests/fixtures/integration-occurrence-adapters.js
+  tests/fixtures/integration-occurrence-bindings.json
+  tests/game-roster-admission.test.js
+  tests/nondeterminism-guard.test.js
+plus committed round evidence. The detached candidate was clean after all checks.
