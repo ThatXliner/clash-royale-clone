@@ -1,0 +1,13 @@
+Command:
+GAME_BROWSER_PLAYWRIGHT=/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs GAME_BROWSER_CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' node artifacts/art-022b-round-1/builder/capture-native-preview.mjs
+Exit code: 1
+Raw output:
+file:///private/tmp/art-022b-brackenwheel-builder-89f2f5c/artifacts/art-022b-round-1/builder/capture-native-preview.mjs:134
+        throw new Error(`native scale verification failed: ${JSON.stringify(measured)}`);
+              ^
+
+Error: native scale verification failed: {"devicePixelRatio":1,"viewport":{"width":540,"height":960},"arena":{"width":540,"height":960},"spriteFrameCss":{"width":13.515625,"height":13.515625,"x":228.2421875,"y":461.2421875}}
+    at file:///private/tmp/art-022b-brackenwheel-builder-89f2f5c/artifacts/art-022b-round-1/builder/capture-native-preview.mjs:134:15
+
+Node.js v22.22.3
+Correction note: the CSS layout engine reported the requested 13.528455px frame as 13.515625px (1/64px layout quantization). The capture method now applies a subpixel CSS scale to the unchanged image so the alpha-derived body bounds measure exactly 13px or 26px in CSS space. No source image bytes are altered.

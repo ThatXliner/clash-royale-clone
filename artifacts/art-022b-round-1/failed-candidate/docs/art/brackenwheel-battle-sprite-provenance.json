@@ -1,0 +1,168 @@
+{
+  "asset_id": "brackenwheel-battle-sprite",
+  "version": 1,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "generation_tool": "OpenAI built-in image_gen.imagegen",
+  "generation_mode": "built-in default image generation",
+  "selected_attempt": 4,
+  "attempt_ledger": "artifacts/art-022b-round-1/builder/generation-attempts.json",
+  "input_images": [
+    {
+      "path": "demo/assets/brackenwheel-portrait.png",
+      "role": "accepted original character identity reference only",
+      "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+      "bytes": 2650041,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    }
+  ],
+  "generated_source": {
+    "path": "demo/assets/brackenwheel-battle-sprite.png",
+    "tool_output_path": "/Users/me/.codex/generated_images/01a14043-4eba-7bf0-8b22-c3e8c2d0e12e/exec-7b312711-14f8-4713-9fa4-704469f25d83.png",
+    "sha256": "88347f0ce5549d724975c7e07a7b092efbb7aaf9fcaaa7688d562b4e26f27fb4",
+    "bytes": 1009789,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "format": "PNG",
+    "copy_verification": "The generated output and demo source were compared byte-for-byte with cmp -s.",
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bounds": {
+      "threshold_5_percent_xyxy_exclusive": [
+        229,
+        23,
+        1022,
+        1232
+      ],
+      "threshold_50_percent_xyxy_exclusive": [
+        230,
+        25,
+        1022,
+        1230
+      ]
+    },
+    "meaningful_body_measurement": {
+      "definition": "hair-to-boot visible character height, measured from the unchanged PNG alpha mask at >= 128/255; the held sickle remains within this vertical interval",
+      "threshold_8bit_alpha": 128,
+      "bounds_xyxy_exclusive": [
+        230,
+        25,
+        1022,
+        1230
+      ],
+      "body_height_pixels": 1205,
+      "canvas_height_pixels": 1254,
+      "body_height_fraction_of_canvas": 0.9609250399,
+      "canvas_css_height_for_13_css_px_body": 13.5286307,
+      "canvas_css_height_for_26_css_px_body": 27.0572614
+    },
+    "prompt": "Use case: stylized-concept\nAsset type: original game character battle cutout\nInput images: Image 1: accepted original portrait identity reference; use only for this character's face, curly brown-auburn hair, rust sleeves, teal work apron, copper details, and painterly finish.\nPrimary request: paint an original full-body transparent battle cutout of the same young adult female river-workshop reed clearer; keep her recognizable as the portrait character.\nScene/backdrop: genuinely transparent with no environment.\nSubject: one woman with a warm freckled face, lively brown eyes, thick curly brown-auburn hair, rust-colored long sleeves, a deep teal practical work apron with woven straps and a small copper clasp, sturdy brown trousers and simple practical boots. She securely grips one compact copper-root sickle / reed-clearing hook in both hands.\nStyle/medium: polished dimensional hand-painted fantasy game art, warm textured realism consistent with Image 1.\nComposition/framing: pull the camera back so the entire character is deliberately smaller in the square canvas: visible hair-to-boot figure height is about 78% of canvas height. Center the complete silhouette, with an unmistakable empty transparent band about 10% of the image above the curls and 10% below the boot soles, plus at least 5% transparent clearance on the left and right. Show all hair, hands, sickle, legs and boot soles fully inside this safe inset; do not zoom in or let any hair or foot touch the canvas edge. Three-quarter front view, strong balanced work stance; keep the sickle close beside her at a believable arm's length, below shoulder height and away from her face, curved hook facing outward.\nLighting/mood: soft even warm daylight with natural material highlights.\nColor palette: auburn-brown hair, muted teal apron, rust sleeves, warm copper, dark brown boots.\nMaterials/textures: curly hair, worn woven apron, supple rust fabric, brushed copper tool.\nConstraints: exactly one character and one held tool; clean coherent silhouette; distinct head, torso, apron, hands, sickle, two legs and two feet; preserve true transparent alpha with no visible pixels in the requested outer margins.\nAvoid: halo, sparks, glow, rim-light outline, orange fringe, cast shadow, scenery, platform, detached tool, second tool, giant sickle, weapon overhead, tool crossing the face, cropping, duplicate limbs, extra hands or fingers, extra objects, text, watermark, opaque or checkerboard background, copied commercial-game or enemy art.",
+    "call_arguments": {
+      "referenced_image_paths": [
+        "/private/tmp/art-022b-brackenwheel-builder-89f2f5c/demo/assets/brackenwheel-portrait.png"
+      ],
+      "transparent_background": true
+    }
+  },
+  "shipped_output": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53",
+    "bytes": 47854,
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    },
+    "format": "WebP",
+    "alpha_channel": true,
+    "alpha_extrema_8bit": [
+      0,
+      254
+    ],
+    "alpha_bounds": {
+      "threshold_5_percent_xyxy_exclusive": [
+        93,
+        9,
+        418,
+        503
+      ],
+      "threshold_50_percent_xyxy_exclusive": [
+        94,
+        10,
+        417,
+        502
+      ]
+    },
+    "meaningful_body_measurement": {
+      "threshold_8bit_alpha": 128,
+      "bounds_xyxy_exclusive": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "body_height_pixels": 492,
+      "canvas_height_pixels": 512,
+      "body_height_fraction_of_canvas": 0.9609375,
+      "canvas_css_height_for_13_css_px_body": 13.5284553,
+      "canvas_css_height_for_26_css_px_body": 27.0569106
+    },
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "libsharpyuv_version": "0.4.2",
+      "arguments": [
+        "-q",
+        "92",
+        "-alpha_q",
+        "100",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o public/assets/brackenwheel-battle-sprite.webp",
+      "reproducibility": {
+        "repeat_command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-1/builder/reproducibility-repeat.webp",
+        "repeat_output_sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53",
+        "byte_identical": true,
+        "comparison": "cmp -s returned exit code 0"
+      }
+    },
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored"
+  },
+  "visual_validation": {
+    "evidence": "artifacts/art-022b-round-1/builder/native-preview-evidence.json",
+    "portrait_comparison": "artifacts/art-022b-round-1/builder/portrait-cutout-comparison.png",
+    "arena_css_pixels": {
+      "width": 540,
+      "height": 960
+    },
+    "device_scale_factor": 1,
+    "tested_body_css_heights": [
+      13,
+      26
+    ],
+    "basis": "the 492/512 >=128-alpha WebP body height; frame CSS height was derived from the measured body fraction, then a browser subpixel transform corrected 1/64px layout quantization",
+    "native_screenshots": [
+      "artifacts/art-022b-round-1/builder/native-13-dark.png",
+      "artifacts/art-022b-round-1/builder/native-13-light.png",
+      "artifacts/art-022b-round-1/builder/native-26-dark.png",
+      "artifacts/art-022b-round-1/builder/native-26-light.png"
+    ],
+    "margin_limit": "the >=50%-alpha source body bounds leave 25px above and 24px below on the 1254px PNG canvas, about 2% each rather than the requested 10%; the complete head and both boots are present",
+    "native_13_limit": "at full arena scale this reads as a very small silhouette; head, apron, held sickle, and feet do not reliably resolve as separate features",
+    "native_26_limit": "the head, torso/apron, legs, and boots read as a small figure; fine sickle detail is limited",
+    "note": "this is an asset-stage preview; battle UI/lore/mechanics integration is a separate task"
+  }
+}

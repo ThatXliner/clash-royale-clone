@@ -1,0 +1,216 @@
+{
+  "method": "Independent Playwright 1.58.2 render with installed Chrome; standalone image over two arena-tone gradients; no application UI or gameplay state.",
+  "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "chromeVersion": "155.0.8059.40",
+  "launchedChromePids": [
+    23963
+  ],
+  "launchedChromeProcessesClosed": true,
+  "chromeProcessTableAfterClose": [],
+  "device": {
+    "width": 540,
+    "height": 960,
+    "deviceScaleFactor": 1
+  },
+  "asset": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "bytes": 47854,
+    "sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53",
+    "dimensions": [
+      512,
+      512
+    ],
+    "measuredBodyAlphaGE128": {
+      "boundsXYXYExclusive": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "heightPixels": 492,
+      "canvasHeightPixels": 512
+    }
+  },
+  "cases": [
+    {
+      "id": "native-13-light",
+      "tone": "light",
+      "bodyCssPx": 13,
+      "diagnostic": false,
+      "derivedImageCssPx": 13.528455284552846,
+      "sourceAlphaBoundsGE128": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "expected": {
+        "width": 540,
+        "height": 960,
+        "deviceScaleFactor": 1
+      },
+      "browserMeasurement": {
+        "innerWidth": 540,
+        "innerHeight": 960,
+        "devicePixelRatio": 1,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssFrame": {
+          "x": 263.2421875,
+          "y": 473.2421875,
+          "width": 13.515625,
+          "height": 13.515625
+        }
+      },
+      "screenshot": {
+        "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-13-light.png",
+        "bytes": 68513,
+        "sha256": "9d13cb4cdfd2de979a3bc3adc77e1b407047d1064f68c7f244b1ca00e6d7729a"
+      }
+    },
+    {
+      "id": "native-13-dark",
+      "tone": "dark",
+      "bodyCssPx": 13,
+      "diagnostic": false,
+      "derivedImageCssPx": 13.528455284552846,
+      "sourceAlphaBoundsGE128": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "expected": {
+        "width": 540,
+        "height": 960,
+        "deviceScaleFactor": 1
+      },
+      "browserMeasurement": {
+        "innerWidth": 540,
+        "innerHeight": 960,
+        "devicePixelRatio": 1,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssFrame": {
+          "x": 263.2421875,
+          "y": 473.2421875,
+          "width": 13.515625,
+          "height": 13.515625
+        }
+      },
+      "screenshot": {
+        "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-13-dark.png",
+        "bytes": 55378,
+        "sha256": "fbd07b95c0950d2e079800c5f7bbbd7a3d4957912ae7ef07a6ee65c3f45171eb"
+      }
+    },
+    {
+      "id": "native-26-light",
+      "tone": "light",
+      "bodyCssPx": 26,
+      "diagnostic": false,
+      "derivedImageCssPx": 27.056910569105693,
+      "sourceAlphaBoundsGE128": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "expected": {
+        "width": 540,
+        "height": 960,
+        "deviceScaleFactor": 1
+      },
+      "browserMeasurement": {
+        "innerWidth": 540,
+        "innerHeight": 960,
+        "devicePixelRatio": 1,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssFrame": {
+          "x": 256.4765625,
+          "y": 466.4765625,
+          "width": 27.046875,
+          "height": 27.046875
+        }
+      },
+      "screenshot": {
+        "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-26-light.png",
+        "bytes": 69424,
+        "sha256": "82ec66e3e8f18d2baef530043058ee5b7e7bce7e38e0dfa0edfa53a4a92ffadc"
+      }
+    },
+    {
+      "id": "native-26-dark",
+      "tone": "dark",
+      "bodyCssPx": 26,
+      "diagnostic": false,
+      "derivedImageCssPx": 27.056910569105693,
+      "sourceAlphaBoundsGE128": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "expected": {
+        "width": 540,
+        "height": 960,
+        "deviceScaleFactor": 1
+      },
+      "browserMeasurement": {
+        "innerWidth": 540,
+        "innerHeight": 960,
+        "devicePixelRatio": 1,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssFrame": {
+          "x": 256.4765625,
+          "y": 466.4765625,
+          "width": 27.046875,
+          "height": 27.046875
+        }
+      },
+      "screenshot": {
+        "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/native-26-dark.png",
+        "bytes": 56071,
+        "sha256": "5d562cdb56292b47eb7138d5a2e19d0ef89963d85e0696a45e5a3dfa80c999be"
+      }
+    },
+    {
+      "id": "diagnostic-13-light-8x",
+      "tone": "light",
+      "bodyCssPx": 104,
+      "diagnostic": true,
+      "derivedImageCssPx": 108.22764227642277,
+      "sourceAlphaBoundsGE128": [
+        94,
+        10,
+        417,
+        502
+      ],
+      "expected": {
+        "width": 540,
+        "height": 960,
+        "deviceScaleFactor": 1
+      },
+      "browserMeasurement": {
+        "innerWidth": 540,
+        "innerHeight": 960,
+        "devicePixelRatio": 1,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssFrame": {
+          "x": 215.890625,
+          "y": 425.890625,
+          "width": 108.21875,
+          "height": 108.21875
+        }
+      },
+      "screenshot": {
+        "path": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/images/diagnostic-13-light-8x.png",
+        "bytes": 79011,
+        "sha256": "4484e5bf19b8473f9d34bd269aab92d13f117e5bd2c266206812a9c48012fde5"
+      }
+    }
+  ]
+}

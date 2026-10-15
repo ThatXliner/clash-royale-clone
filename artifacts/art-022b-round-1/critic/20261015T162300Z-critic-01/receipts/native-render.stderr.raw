@@ -1,0 +1,18 @@
+node:fs:560
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open '/private/tmp/public/assets/brackenwheel-battle-sprite.webp'
+    at Object.openSync (node:fs:560:18)
+    at Object.readFileSync (node:fs:444:35)
+    at file:///private/tmp/art-022b-critic-20261015-review-01/artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/runner/capture_native.mjs:11:23
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/private/tmp/public/assets/brackenwheel-battle-sprite.webp'
+}
+
+Node.js v22.22.3

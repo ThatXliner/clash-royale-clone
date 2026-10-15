@@ -1,0 +1,117 @@
+{
+  "commit": "11ad58fa8e5a05d8db7336f7fe060bdf455a56c1",
+  "source": {
+    "path": "demo/assets/brackenwheel-battle-sprite.png",
+    "bytes": 1009789,
+    "sha256": "88347f0ce5549d724975c7e07a7b092efbb7aaf9fcaaa7688d562b4e26f27fb4",
+    "format": "PNG",
+    "mode": "RGBA",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bounds_nonzero_xyxy_exclusive": [
+      0,
+      19,
+      1234,
+      1254
+    ],
+    "alpha_bounds_ge128_xyxy_exclusive": [
+      230,
+      25,
+      1022,
+      1230
+    ]
+  },
+  "shipped_output": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "bytes": 47854,
+    "sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53",
+    "format": "WEBP",
+    "mode": "RGBA",
+    "dimensions": [
+      512,
+      512
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "alpha_bounds_nonzero_xyxy_exclusive": [
+      20,
+      8,
+      489,
+      506
+    ],
+    "alpha_bounds_ge128_xyxy_exclusive": [
+      94,
+      10,
+      417,
+      502
+    ]
+  },
+  "accepted_portrait_input": {
+    "path": "demo/assets/brackenwheel-portrait.png",
+    "bytes": 2650041,
+    "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+    "format": "PNG",
+    "mode": "RGB",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "alpha_extrema": null,
+    "alpha_bounds_nonzero_xyxy_exclusive": null,
+    "alpha_bounds_ge128_xyxy_exclusive": null
+  },
+  "provenance": {
+    "tool": "OpenAI built-in image_gen.imagegen",
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored",
+    "prompt_present": true,
+    "input_hash_matches": true,
+    "source_hash_matches": true,
+    "output_hash_matches": true,
+    "source_bytes_dimensions_match": true,
+    "output_bytes_dimensions_match": true,
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "libsharpyuv_version": "0.4.2",
+      "arguments": [
+        "-q",
+        "92",
+        "-alpha_q",
+        "100",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o public/assets/brackenwheel-battle-sprite.webp",
+      "reproducibility": {
+        "repeat_command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-1/builder/reproducibility-repeat.webp",
+        "repeat_output_sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53",
+        "byte_identical": true,
+        "comparison": "cmp -s returned exit code 0"
+      }
+    }
+  },
+  "manifest": {
+    "entry_present": true,
+    "all_preexisting_entries_unchanged": true
+  },
+  "scope": {
+    "changed_source_paths": [
+      "src/content/visual-asset-manifest.js"
+    ],
+    "reference_paths_changed": [],
+    "isolated_asset_only_source_scope": true
+  }
+}

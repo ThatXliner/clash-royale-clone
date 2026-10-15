@@ -1,0 +1,64 @@
+{
+  "reason": "The completed release isolation suite changed generated tracked evidence files in the otherwise clean detached candidate checkout.",
+  "diff_receipt": "receipts/test-side-effects.patch",
+  "paths_before_restore": [
+    {
+      "path": "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+      "pre_restore_sha256": "73d1397310486ccc64bfba120a8ee028cd75fa0387748036ce65d42803450db5",
+      "frozen_commit_sha256": "d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3",
+      "modified_by_test": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "pre_restore_sha256": "5a67852ea23e4dee97c02c44f63a8db611f829d0c641346ec205676b349f61c1",
+      "frozen_commit_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "modified_by_test": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "pre_restore_sha256": "8e7a99e673daeef720332091f905a385603d228764d4195f486bd2c77e7649c6",
+      "frozen_commit_sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "modified_by_test": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "pre_restore_sha256": "dc7e303f09e8b81a0eda14721c03fbfe7b89d9d9bb6d6d533fe5b009c41c41d0",
+      "frozen_commit_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "modified_by_test": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "pre_restore_sha256": "2edf828f1b86c79f8daa9593ed62a9bc0881a169ce9217802b152878cf333472",
+      "frozen_commit_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "modified_by_test": true
+    }
+  ],
+  "paths_after_restore": [
+    {
+      "path": "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+      "restored_sha256": "d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3",
+      "matches_frozen_commit": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "restored_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "matches_frozen_commit": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "restored_sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "matches_frozen_commit": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "restored_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "matches_frozen_commit": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "restored_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "matches_frozen_commit": true
+    }
+  ],
+  "all_restored": true
+}

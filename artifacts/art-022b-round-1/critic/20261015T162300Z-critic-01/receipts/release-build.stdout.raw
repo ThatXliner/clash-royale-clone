@@ -1,0 +1,256 @@
+
+> moss-and-ember@0.0.0 test:release-build
+> node tests/release-build-runner.js release-build
+
+TAP version 13
+# {"method":"GET","path":"public/index.html","status":200}
+# {"method":"GET","path":"src/ui/app-shell.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CVKh5POa.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-jbN8jSqD.js","status":200}
+# {"method":"GET","path":"assets/asset-D-AK-JuF.css","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yR8a61kO.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DHGDlboh.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B8nL-zLe.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CZT14Dhg.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CyMIgZ_f.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BZudrCfI.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5WzjRCK.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DEU-_oia.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-IiXAdE-2.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7HYgJsNr.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index-DxvgYUo8.js","status":200}
+# {"method":"GET","path":"public/assets/thornscouts-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/stonehauler-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/card-portraits-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/cinder-host-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/forgeguard-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/ironroot-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/duskwing-trio-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/gloamwing-cluster-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/sunthread-pair-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/coppershade-flock-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/kilnkeeper-portrait-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/squall-orb-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/ember-basin-portrait-painted-v2.webp","status":200}
+# {"method":"GET","path":"public/assets/buried-coil-portrait.webp","status":200}
+# {"method":"GET","path":"public/ui-arena-shell.html","status":200}
+# {"method":"GET","path":"src/ui/arena-shell-bootstrap.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CVKh5POa.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-jbN8jSqD.js","status":200}
+# {"method":"GET","path":"assets/ui-arena-shell-er5XVwGC.css","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yR8a61kO.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CyMIgZ_f.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DHGDlboh.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CZT14Dhg.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B8nL-zLe.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BZudrCfI.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5WzjRCK.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DEU-_oia.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-IiXAdE-2.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7HYgJsNr.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry--RvRLFdN.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DMcE9RV7.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CUn63G-n.js","status":200}
+# {"method":"GET","path":"public/assets/moss-ember-arena-painted.webp","status":200}
+# {"method":"GET","path":"src/ui/arena-shell-entry.js","status":200}
+# {"method":"GET","path":"src/rl/environment.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry--RvRLFdN.js","status":200}
+# Subtest: RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+ok 1 - RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+  ---
+  duration_ms: 41511.90875
+  type: 'test'
+  ...
+# {"method":"GET","path":"public/index.html","status":200}
+# {"method":"GET","path":"public/assets/preload.json","status":200}
+# {"method":"GET","path":"assets/public/index-CmfNYVe0.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index-BS-YptMx.js","status":200}
+# {"method":"GET","path":"public/assets/prefetch.json","status":200}
+# {"method":"GET","path":"assets/asset-e9e-E_h5.css","status":200}
+# {"method":"GET","path":"public/assets/preload-small.svg","status":200}
+# {"method":"GET","path":"public/assets/image.svg","status":200}
+# {"method":"GET","path":"public/assets/srcset-one.svg","status":200}
+# {"method":"GET","path":"public/assets/input-image.svg","status":200}
+# {"method":"GET","path":"public/assets/css-url.svg","status":200}
+# {"method":"GET","path":"public/assets/image-set-one.svg","status":200}
+# {"method":"GET","path":"public/assets/style-tag.svg","status":200}
+# {"method":"GET","path":"public/assets/inline-style.svg","status":200}
+# {"method":"GET","path":"assets/game-runtime~dynamic-module-BDZYGk-j.js","status":200}
+# {"method":"GET","path":"public/assets/srcdoc-image.svg","status":200}
+# {"method":"GET","path":"public/assets/audit-worker.js","status":200}
+# {"method":"GET","path":"public/assets/worker-data.json","status":200}
+# {"method":"GET","path":"public/assets/input-image.svg","status":200}
+# {"method":"GET","path":"public/assets/popup.html","status":200}
+# {"method":"GET","path":"public/assets/popup.js","status":200}
+# {"method":"GET","path":"public/assets/popup-data.json","status":200}
+# {"method":"GET","path":"public/assets/external-style.svg","status":200}
+# {"method":"GET","path":"public/assets/external-style.css","status":200}
+# {"method":"GET","path":"public/assets/xhtml-foreign-object.svg","status":200}
+# {"method":"GET","path":"public/assets/foreign-object-image.svg","status":200}
+# {"method":"GET","path":"public/assets/nested-svg.svg","status":200}
+# {"method":"GET","path":"public/assets/nested-leaf.svg","status":200}
+# {"method":"GET","path":"public/assets/presentation-url.svg","status":200}
+# {"method":"GET","path":"public/assets/presentation-gradient.svg","status":200}
+# Subtest: Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+ok 2 - Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+  ---
+  duration_ms: 3184.693
+  type: 'test'
+  ...
+# ✗ Build failed in 7ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 6ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 3ms
+# ✗ Build failed in 3ms
+# ✗ Build failed in 7ms
+# Subtest: authored modules cannot impersonate Vite's virtual preload helper
+ok 3 - authored modules cannot impersonate Vite's virtual preload helper
+  ---
+  duration_ms: 98.910333
+  type: 'test'
+  ...
+# {"method":"GET","path":"public/index.html","status":200}
+# {"method":"GET","path":"assets/public/index-CGHR8wAT.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-D66RWv4z.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index-qMq5-bxL.js","status":200}
+# {"method":"GET","path":"assets/literal-module-FMqzwFRV.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~literal-module-CpUoZT1l.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~template-module-LT0FPYmR.js","status":200}
+# {"method":"GET","path":"assets/template-module-B03F7tdb.js","status":200}
+# Subtest: Vite preload helpers remain available for authored inline dynamic imports
+ok 4 - Vite preload helpers remain available for authored inline dynamic imports
+  ---
+  duration_ms: 2424.470416
+  type: 'test'
+  ...
+# Subtest: CSS-escaped URL dependencies are rejected before publishing
+ok 5 - CSS-escaped URL dependencies are rejected before publishing
+  ---
+  duration_ms: 2227.345
+  type: 'test'
+  ...
+# Subtest: opaque runtime srcdoc requests outside the built manifest are rejected
+ok 6 - opaque runtime srcdoc requests outside the built manifest are rejected
+  ---
+  duration_ms: 2282.055041
+  type: 'test'
+  ...
+# Subtest: external base dependencies are rejected before publishing
+ok 7 - external base dependencies are rejected before publishing
+  ---
+  duration_ms: 2295.422875
+  type: 'test'
+  ...
+# Subtest: escaped workspace entry paths fail before publication and preserve the prior output
+ok 8 - escaped workspace entry paths fail before publication and preserve the prior output
+  ---
+  duration_ms: 6.055417
+  type: 'test'
+  ...
+# Subtest: internal and external symlink inputs are refused atomically
+    # Subtest: internal target
+    ok 1 - internal target
+      ---
+      duration_ms: 15.144
+      type: 'test'
+      ...
+    # Subtest: external target
+    ok 2 - external target
+      ---
+      duration_ms: 15.167708
+      type: 'test'
+      ...
+    1..2
+ok 9 - internal and external symlink inputs are refused atomically
+  ---
+  duration_ms: 31.0255
+  type: 'test'
+  ...
+# Subtest: source maps are refused even when found in a configured static input tree
+ok 10 - source maps are refused even when found in a configured static input tree
+  ---
+  duration_ms: 14.797834
+  type: 'test'
+  ...
+# Subtest: file count, per-file size, and aggregate size limits fail atomically
+    # Subtest: file count
+    ok 1 - file count
+      ---
+      duration_ms: 15.299333
+      type: 'test'
+      ...
+    # Subtest: per-file byte cap
+    ok 2 - per-file byte cap
+      ---
+      duration_ms: 14.383458
+      type: 'test'
+      ...
+    # Subtest: aggregate byte cap
+    ok 3 - aggregate byte cap
+      ---
+      duration_ms: 20.108042
+      type: 'test'
+      ...
+    1..3
+ok 11 - file count, per-file size, and aggregate size limits fail atomically
+  ---
+  duration_ms: 50.193375
+  type: 'test'
+  ...
+# Subtest: dangerous and protected output targets are refused before any build work
+    # Subtest: /private/tmp/art-022b-critic-20261015-review-01
+    ok 1 - /private/tmp/art-022b-critic-20261015-review-01
+      ---
+      duration_ms: 0.485041
+      type: 'test'
+      ...
+    # Subtest: /private/tmp/art-022b-critic-20261015-review-01/reference/guard-output
+    ok 2 - /private/tmp/art-022b-critic-20261015-review-01/reference/guard-output
+      ---
+      duration_ms: 0.572917
+      type: 'test'
+      ...
+    # Subtest: /private/tmp/art-022b-critic-20261015-review-01/dist/guard-output
+    ok 3 - /private/tmp/art-022b-critic-20261015-review-01/dist/guard-output
+      ---
+      duration_ms: 0.518583
+      type: 'test'
+      ...
+    # Subtest: /private/tmp
+    ok 4 - /private/tmp
+      ---
+      duration_ms: 0.35525
+      type: 'test'
+      ...
+    # Subtest: /var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T
+    ok 5 - /var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T
+      ---
+      duration_ms: 0.374541
+      type: 'test'
+      ...
+    1..5
+ok 12 - dangerous and protected output targets are refused before any build work
+  ---
+  duration_ms: 2.795375
+  type: 'test'
+  ...
+1..12
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 54913.116041

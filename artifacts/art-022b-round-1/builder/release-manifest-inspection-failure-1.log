@@ -1,0 +1,26 @@
+Command:
+/Users/me/.hermes/node/bin/node -e 'const fs=require("fs"),crypto=require("crypto"); const m=JSON.parse(fs.readFileSync("dist/release-manifest.json","utf8")); const e=m.files.find(x=>x.path==="assets/brackenwheel-battle-sprite.webp"); const b=fs.readFileSync("dist/assets/brackenwheel-battle-sprite.webp"); const bytes=m.files.reduce((n,x)=>n+x.bytes,0); console.log(JSON.stringify({manifest:m.fileCount,listedFiles:m.files.length,totalBytes:bytes,maxFileBytes:Math.max(...m.files.map(x=>x.bytes)),releaseSha256:crypto.createHash("sha256").update(fs.readFileSync("dist/release-manifest.json")).digest("hex"),sprite:e,spriteActual:{bytes:b.length,sha256:crypto.createHash("sha256").update(b).digest("hex")}},null,2))'
+Exit code: 1
+Raw output:
+node:fs:560
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open 'dist/assets/brackenwheel-battle-sprite.webp'
+    at Object.openSync (node:fs:560:18)
+    at [eval]:1:222
+    at [eval]:1:694
+    at runScriptInThisContext (node:internal/vm:209:10)
+    at node:internal/process/execution:446:12
+    at [eval]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:444:60)
+    at evalFunction (node:internal/process/execution:279:30)
+    at evalTypeScript (node:internal/process/execution:291:3) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'dist/assets/brackenwheel-battle-sprite.webp'
+}
+
+Node.js v22.22.3
+Correction note: the post-build verifier guessed `dist/assets/` rather than taking the sprite's actual path from `release-manifest.json`; this was an inspection-script path error, not a build failure.

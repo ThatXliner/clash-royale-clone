@@ -1,0 +1,278 @@
+{
+  "node": "v22.22.3",
+  "playwright": "1.58.2",
+  "playwrightPath": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs",
+  "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "chromeVersion": "155.0.8059.40",
+  "browserPid": 18548,
+  "browserLaunch": {
+    "headless": true,
+    "customLaunchArgs": [],
+    "customGpuFlags": [],
+    "deviceScaleFactor": 1,
+    "note": "Playwright default browser launch; no SwiftShader or other GPU-specific override was supplied"
+  },
+  "fieldSource": "public/assets/moss-ember-arena-painted.webp rendered at the existing 540x960 CSS arena dimensions",
+  "alphaMeasurement": {
+    "threshold8bit": 128,
+    "webpBoundsXYXYExclusive": [
+      94,
+      10,
+      417,
+      502
+    ],
+    "bodyHeightPixels": 492,
+    "frameHeightPixels": 512,
+    "bodyHeightFraction": 0.9609375,
+    "frameCssHeightFor13pxBody": 13.528455284552846,
+    "frameCssHeightFor26pxBody": 27.056910569105693
+  },
+  "screenshots": [
+    {
+      "file": "native-13-dark.png",
+      "sha256": "969e149a79da0eedb0ff4848dee3daaefe9e721247c4c852fc4b4b47fcfe7313",
+      "bytes": 1013599,
+      "viewportCss": {
+        "width": 540,
+        "height": 960
+      },
+      "deviceScaleFactor": 1,
+      "arenaCss": {
+        "width": 540,
+        "height": 960
+      },
+      "groundSampleCenterCss": {
+        "x": 235,
+        "y": 468,
+        "tone": "dark"
+      },
+      "webpFrameCss": {
+        "width": 13.528457641601562,
+        "height": 13.5284423828125,
+        "x": 228.23577880859375,
+        "y": 461.23577880859375
+      },
+      "alphaBodyHeightFraction": 0.9609375,
+      "computedBodyHeightCss": 12.999987602233887,
+      "cssScaleAdjustment": 1.00095
+    },
+    {
+      "file": "native-26-dark.png",
+      "sha256": "1ad09cd1b3a0c06228fa96d80757cf987efb44c0d853a1b979f661145a64effb",
+      "bytes": 1013648,
+      "viewportCss": {
+        "width": 540,
+        "height": 960
+      },
+      "deviceScaleFactor": 1,
+      "arenaCss": {
+        "width": 540,
+        "height": 960
+      },
+      "groundSampleCenterCss": {
+        "x": 235,
+        "y": 468,
+        "tone": "dark"
+      },
+      "webpFrameCss": {
+        "width": 27.056915283203125,
+        "height": 27.056915283203125,
+        "x": 221.47154235839844,
+        "y": 454.4715576171875
+      },
+      "alphaBodyHeightFraction": 0.9609375,
+      "computedBodyHeightCss": 26.000004529953003,
+      "cssScaleAdjustment": 1.00037
+    },
+    {
+      "file": "native-13-light.png",
+      "sha256": "267447e41ff809ef94bc8a8b8c73333130b8c628302ae1814abe8e6968dc29d4",
+      "bytes": 1013665,
+      "viewportCss": {
+        "width": 540,
+        "height": 960
+      },
+      "deviceScaleFactor": 1,
+      "arenaCss": {
+        "width": 540,
+        "height": 960
+      },
+      "groundSampleCenterCss": {
+        "x": 470,
+        "y": 468,
+        "tone": "light"
+      },
+      "webpFrameCss": {
+        "width": 13.5284423828125,
+        "height": 13.5284423828125,
+        "x": 463.23577880859375,
+        "y": 461.23577880859375
+      },
+      "alphaBodyHeightFraction": 0.9609375,
+      "computedBodyHeightCss": 12.999987602233887,
+      "cssScaleAdjustment": 1.00095
+    },
+    {
+      "file": "native-26-light.png",
+      "sha256": "c1844eecca8ba0d458bc907b62e3b686d02400b0a212ef1f0e2847076d499c4a",
+      "bytes": 1013843,
+      "viewportCss": {
+        "width": 540,
+        "height": 960
+      },
+      "deviceScaleFactor": 1,
+      "arenaCss": {
+        "width": 540,
+        "height": 960
+      },
+      "groundSampleCenterCss": {
+        "x": 470,
+        "y": 468,
+        "tone": "light"
+      },
+      "webpFrameCss": {
+        "width": 27.056915283203125,
+        "height": 27.056915283203125,
+        "x": 456.4715576171875,
+        "y": 454.4715576171875
+      },
+      "alphaBodyHeightFraction": 0.9609375,
+      "computedBodyHeightCss": 26.000004529953003,
+      "cssScaleAdjustment": 1.00037
+    },
+    {
+      "file": "portrait-cutout-comparison.png",
+      "sha256": "952b0da73c43f8b372b47fb1fd576c28dfdc826e75ac615a250f8f07ca66ce5d",
+      "bytes": 1018567,
+      "viewportCss": {
+        "width": 1120,
+        "height": 640
+      },
+      "deviceScaleFactor": 1,
+      "display": "accepted portrait beside selected transparent WebP on the real arena texture"
+    }
+  ],
+  "browserPidAfterClose": null,
+  "croppedDiagnostics": [
+    {
+      "file": "native-13-dark-diagnostic-8x-nearest.png",
+      "sourceScreenshot": "native-13-dark.png",
+      "bodyCssHeight": 13,
+      "tone": "dark",
+      "cropCssRect": [
+        195,
+        428,
+        80,
+        80
+      ],
+      "centerCss": [
+        235,
+        468
+      ],
+      "bytes": 25284,
+      "sha256": "a92bf3d893aa0ebe548ca5cb26ba5ae7507b7dd7264ac9a841f22d8d71c2a715",
+      "outputPixels": {
+        "width": 640,
+        "height": 640
+      },
+      "magnification": "8x nearest-neighbor",
+      "purpose": "diagnostic crop of the corresponding unscaled arena screenshot; not an asset edit or a CSS-scale claim"
+    },
+    {
+      "file": "native-26-dark-diagnostic-8x-nearest.png",
+      "sourceScreenshot": "native-26-dark.png",
+      "bodyCssHeight": 26,
+      "tone": "dark",
+      "cropCssRect": [
+        195,
+        428,
+        80,
+        80
+      ],
+      "centerCss": [
+        235,
+        468
+      ],
+      "bytes": 25344,
+      "sha256": "4ad9024f25c178c429ba56ea5718690186af4434626bd59f936ddd7cfa8cfdac",
+      "outputPixels": {
+        "width": 640,
+        "height": 640
+      },
+      "magnification": "8x nearest-neighbor",
+      "purpose": "diagnostic crop of the corresponding unscaled arena screenshot; not an asset edit or a CSS-scale claim"
+    },
+    {
+      "file": "native-13-light-diagnostic-8x-nearest.png",
+      "sourceScreenshot": "native-13-light.png",
+      "bodyCssHeight": 13,
+      "tone": "light",
+      "cropCssRect": [
+        430,
+        428,
+        80,
+        80
+      ],
+      "centerCss": [
+        470,
+        468
+      ],
+      "bytes": 26182,
+      "sha256": "a7a421e451d7b5461467bf0f45ec06dc900ad151235f306198f494605b07f6c5",
+      "outputPixels": {
+        "width": 640,
+        "height": 640
+      },
+      "magnification": "8x nearest-neighbor",
+      "purpose": "diagnostic crop of the corresponding unscaled arena screenshot; not an asset edit or a CSS-scale claim"
+    },
+    {
+      "file": "native-26-light-diagnostic-8x-nearest.png",
+      "sourceScreenshot": "native-26-light.png",
+      "bodyCssHeight": 26,
+      "tone": "light",
+      "cropCssRect": [
+        430,
+        428,
+        80,
+        80
+      ],
+      "centerCss": [
+        470,
+        468
+      ],
+      "bytes": 26319,
+      "sha256": "01e59bc58e41414e24e529fcc8d56b983ea0af6479815da9e4ec4f129f6524b4",
+      "outputPixels": {
+        "width": 640,
+        "height": 640
+      },
+      "magnification": "8x nearest-neighbor",
+      "purpose": "diagnostic crop of the corresponding unscaled arena screenshot; not an asset edit or a CSS-scale claim"
+    }
+  ],
+  "visualAssessment": {
+    "transparentFrameMarginsSourcePx": {
+      "topAt50PercentAlpha": 25,
+      "bottomAt50PercentAlpha": 24,
+      "targetEach": 125,
+      "targetMet": false
+    },
+    "native13": "At 13 CSS px the full-arena capture reads as a very small silhouette; hair/apron/tool/feet do not reliably resolve as separate details. The 8x crop is diagnostic only.",
+    "native26": "At 26 CSS px the head, torso/apron, legs, and boots read as a small full figure; the held sickle remains present but fine tool detail is limited.",
+    "status": "preserve for independent critique; do not claim the native 13px recognizability bar is fully met"
+  },
+  "browserProfileCleanup": {
+    "launchMode": "Playwright chromium.launch with default temporary user-data directory; no persistent user profile selected",
+    "cleanup": "browser.close completed before return; native capture verified PID absent after close",
+    "observedAutomatedBrowserPids": [
+      18548,
+      19342,
+      19360,
+      19363,
+      19364
+    ],
+    "allObservedPidsExited": true,
+    "customGpuFlags": []
+  }
+}

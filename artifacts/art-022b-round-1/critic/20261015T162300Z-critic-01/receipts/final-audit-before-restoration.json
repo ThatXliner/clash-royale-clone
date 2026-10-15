@@ -1,0 +1,44 @@
+{
+  "candidate_commit": "11ad58fa8e5a05d8db7336f7fe060bdf455a56c1",
+  "node_version": "v22.22.3",
+  "npm_version": "10.9.8",
+  "playwright_version": "Version 1.58.2",
+  "chrome_version": "Google Chrome 155.0.8059.40",
+  "cwebp_version": "1.6.0\nlibsharpyuv: 0.4.2",
+  "required_check_direct_exit_codes": {
+    "npm_ci": 0,
+    "visual_asset_manifest": 0,
+    "shipping_isolation_guard": 0,
+    "release_build": 0,
+    "shipping_isolation_release": 0
+  },
+  "release_suite_tap_totals": {
+    "visual_asset_manifest": [
+      "6",
+      "0",
+      "6"
+    ],
+    "shipping_isolation_guard": [
+      "13",
+      "0",
+      "13"
+    ],
+    "release_build": [
+      "22",
+      "0",
+      "22"
+    ],
+    "shipping_isolation_release": [
+      "4",
+      "0",
+      "4"
+    ]
+  },
+  "tracked_candidate_changes_after_checks": 1,
+  "package_and_lock_changes_after_npm_ci": 0,
+  "release_artifacts_restored_exactly": true,
+  "release_artifacts_present_after_restore": false,
+  "headless_chrome_processes_after_checks": [],
+  "browser_capture_chrome_processes_closed": true,
+  "git_status": "## HEAD (no branch)\n M artifacts/guard-002r-round-1/release-isolation-evidence.json\n M artifacts/release-001b-round-2/escaped-css-producer-rejection.json\n M artifacts/release-001b-round-2/evidence.json\n M artifacts/release-001b-round-2/external-base-producer-rejection.json\n M artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json\n?? artifacts/art-022b-round-1/critic/\n"
+}

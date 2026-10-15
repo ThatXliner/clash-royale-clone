@@ -1,0 +1,92 @@
+{
+  "piece": "ART-022B",
+  "runtime": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "playwright": "1.58.2",
+    "chrome": "155.0.8059.40",
+    "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "customGpuFlags": [],
+    "browserPidsObserved": [18548, 19342, 19360, 19363, 19364],
+    "browserPidsExited": true,
+    "profileHandling": "Playwright default ephemeral user-data directories; no persistent user profile selected; browser.close completed"
+  },
+  "dependencyInstall": {
+    "pinnedRun": {
+      "command": "env PATH=/Users/me/.hermes/node/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin /Users/me/.hermes/node/bin/npm ci --no-audit --no-fund",
+      "exitCode": 0,
+      "node": "v22.22.3",
+      "npm": "10.9.8",
+      "installedFromLockfile": ["playwright@1.58.2", "vite@8.3.2"],
+      "packageJsonSha256BeforeAndAfter": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+      "packageLockSha256BeforeAndAfter": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+      "rawLog": "artifacts/art-022b-round-1/builder/npm-ci-node22.log"
+    },
+    "initialMismatchedRun": "artifacts/art-022b-round-1/builder/npm-ci-attempt-1.log"
+  },
+  "checks": [
+    {
+      "name": "visual asset manifest",
+      "command": "npm run test:visual-asset-manifest",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0
+    },
+    {
+      "name": "shipping isolation guard",
+      "command": "npm run test:shipping-isolation-guard",
+      "toolSessionId": 84297,
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "durationMs": 32227.651625
+    },
+    {
+      "name": "release build suite",
+      "command": "npm run test:release-build",
+      "toolSessionId": 49490,
+      "exitCode": 0,
+      "tapTail": "1..12\n# tests 22\n# suites 0\n# pass 22\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 51689.622875"
+    },
+    {
+      "name": "actual release build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "rawOutput": "release artifact: /private/tmp/art-022b-brackenwheel-builder-89f2f5c/dist (56 files, 6247651 bytes)"
+    },
+    {
+      "name": "shipping isolation release",
+      "command": "npm run test:shipping-isolation-release",
+      "toolSessionId": 67438,
+      "exitCode": 0,
+      "tapTail": "1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 68462.47775",
+      "evidence": "artifacts/art-022b-round-1/builder/shipping-isolation-release-evidence.json"
+    }
+  ],
+  "releaseArtifact": {
+    "manifestSha256": "c07000a8dc96ec77188dfc35495a93867eee31e2f34a48ac102abd7d3c3cea2a",
+    "files": 56,
+    "totalBytes": 6247651,
+    "maximumFileBytes": 987565,
+    "totalByteLimit": 8388608,
+    "perFileByteLimit": 1048576,
+    "sprite": {
+      "path": "public/assets/brackenwheel-battle-sprite.webp",
+      "bytes": 47854,
+      "sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53"
+    }
+  },
+  "visualAssetManifestChange": {
+    "preChangeSha256": "0e2a67256be42195027a569478b3d7400ba2c37982f57835b9bb23aaa499f91c",
+    "postChangeSha256": "2905ad7e83d7f0d856e8d5d75747164cd9db30ffa4a42beedd755df08134c9b3",
+    "change": "one new brackenwheel-battle-sprite entry; every prior entry remains unchanged",
+    "entrySha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53"
+  },
+  "preexistingTrackedOutputsRestored": ["dist", "artifacts/release-001b-round-2"],
+  "methodRecords": [
+    "artifacts/art-022b-round-1/builder/capture-method-failure-1.log",
+    "artifacts/art-022b-round-1/builder/release-build-method-failure-1.log",
+    "artifacts/art-022b-round-1/builder/release-manifest-inspection-failure-1.log",
+    "artifacts/art-022b-round-1/builder/release-manifest-inspection-attempt-2.log"
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "piece": "ART-022B",
+  "tool": "OpenAI built-in image_gen.imagegen",
+  "input_image": {
+    "path": "demo/assets/brackenwheel-portrait.png",
+    "role": "accepted original character identity reference only",
+    "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+    "bytes": 2650041,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "call_arguments": {
+        "referenced_image_paths": [
+          "/private/tmp/art-022b-brackenwheel-builder-89f2f5c/demo/assets/brackenwheel-portrait.png"
+        ],
+        "transparent_background": "omitted; tool default false"
+      },
+      "tool_output_path": "/Users/me/.codex/generated_images/01a14043-4eba-7bf0-8b22-c3e8c2d0e12e/exec-5be19b0c-912e-4524-965e-eebbb4479ca6.png",
+      "tool_output_hint_captured": false,
+      "output_path_recovered_by": "listing the generated_images directory after the imagegen call",
+      "sha256": "56dcf53b79dca5fe56a0bc3c7c71864758c3c1791a63dd29486bf110831212aa",
+      "bytes": 2602313,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": false,
+      "alpha_extrema": null,
+      "disposition": "rejected: opaque checkerboard background; preserved as artifacts/art-022b-round-1/builder/attempt-1-opaque-checkerboard.png",
+      "prompt": "Use case: stylized-concept\nAsset type: original game character battle cutout\nInput images: Image 1: accepted original portrait identity reference; use only for this same character's face, curly brown-auburn hair, rust sleeves, teal work apron, copper material details, and painterly finish.\nPrimary request: create an original full-body battle cutout of the same young adult female river-workshop reed clearer, preserving the recognizable character identity from Image 1.\nScene/backdrop: genuinely transparent background; no environment.\nSubject: one woman with warm freckled face, lively brown eyes, thick curly brown-auburn hair, rust-colored long sleeves, a deep teal practical work apron with woven straps and a small copper clasp, sturdy brown trousers and simple practical boots; she holds one compact copper-root sickle / reed-clearing hook in a natural two-handed work grip.\nStyle/medium: polished painterly fantasy game illustration with the same warm textured realism as Image 1; original Moss & Ember woodland and river-workshop setting.\nComposition/framing: complete figure from hair to boot soles, three-quarter front view, confident balanced work stance; the head, torso, apron, both hands, entire held sickle, separated legs and both feet are distinct and readable; character fills most of a square frame with safe clear margin. Keep the sickle beside the body at a believable arm's length, curved hook facing outward and below shoulder level, never oversized or raised above the head.\nLighting/mood: soft even warm daylight, clear readable edges and moderate contrast.\nColor palette: auburn-brown hair, muted teal apron, rust sleeves, warm copper, natural dark brown boots.\nMaterials/textures: curly hair, worn woven apron, supple rust fabric, brushed copper tool.\nConstraints: one character only; no cropping; visible two feet; hand securely grips the single tool; simple coherent silhouette; preserve true transparent alpha.\nAvoid: halo, sparks, glow, cast shadow, scenery, platform, detached tool, second tool, giant sickle, weapon overhead, tool crossing the face, duplicate limbs, extra hands, extra fingers, extra objects, text, watermark, opaque or checkerboard background, any copied game character or enemy art."
+    },
+    {
+      "attempt": 2,
+      "call_arguments": {
+        "referenced_image_paths": [
+          "/private/tmp/art-022b-brackenwheel-builder-89f2f5c/demo/assets/brackenwheel-portrait.png"
+        ],
+        "transparent_background": true
+      },
+      "tool_output_path": "/Users/me/.codex/generated_images/01a14043-4eba-7bf0-8b22-c3e8c2d0e12e/exec-c3bd747f-26f6-4fc4-8f75-338d4c38fb60.png",
+      "tool_output_hint_captured": true,
+      "sha256": "b2ef9fd44c9d4911d26ddcd2a40977f1d1f66024bd734c7239ea8dfc516cc69f",
+      "bytes": 1111832,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "meaningful_subject_bounds_alpha_at_least_50pct_xyxy": [
+        197,
+        5,
+        1055,
+        1245
+      ],
+      "disposition": "valid transparent cutout; superseded for tighter top/bottom headroom",
+      "prompt": "Use case: stylized-concept\nAsset type: original game character battle cutout\nInput images: Image 1: accepted original portrait identity reference; use only for this same character's face, curly brown-auburn hair, rust sleeves, teal work apron, copper material details, and painterly finish.\nPrimary request: create an original full-body battle cutout of the same young adult female river-workshop reed clearer, preserving the recognizable character identity from Image 1.\nScene/backdrop: genuinely transparent background; no environment.\nSubject: one woman with warm freckled face, lively brown eyes, thick curly brown-auburn hair, rust-colored long sleeves, a deep teal practical work apron with woven straps and a small copper clasp, sturdy brown trousers and simple practical boots; she holds one compact copper-root sickle / reed-clearing hook in a natural two-handed work grip.\nStyle/medium: polished painterly fantasy game illustration with the same warm textured realism as Image 1; original Moss & Ember woodland and river-workshop setting.\nComposition/framing: complete figure from hair to boot soles, three-quarter front view, confident balanced work stance; the head, torso, apron, both hands, entire held sickle, separated legs and both feet are distinct and readable; character fills most of a square frame with safe clear margin. Keep the sickle beside the body at a believable arm's length, curved hook facing outward and below shoulder level, never oversized or raised above the head.\nLighting/mood: soft even warm daylight, clear readable edges and moderate contrast.\nColor palette: auburn-brown hair, muted teal apron, rust sleeves, warm copper, natural dark brown boots.\nMaterials/textures: curly hair, worn woven apron, supple rust fabric, brushed copper tool.\nConstraints: one character only; no cropping; visible two feet; hand securely grips the single tool; simple coherent silhouette; preserve true transparent alpha.\nAvoid: halo, sparks, glow, cast shadow, scenery, platform, detached tool, second tool, giant sickle, weapon overhead, tool crossing the face, duplicate limbs, extra hands, extra fingers, extra objects, text, watermark, opaque or checkerboard background, any copied game character or enemy art."
+    },
+    {
+      "attempt": 3,
+      "call_arguments": {
+        "referenced_image_paths": [
+          "/private/tmp/art-022b-brackenwheel-builder-89f2f5c/demo/assets/brackenwheel-portrait.png"
+        ],
+        "transparent_background": true
+      },
+      "tool_output_path": "/Users/me/.codex/generated_images/01a14043-4eba-7bf0-8b22-c3e8c2d0e12e/exec-0717181c-0c68-4b36-bcdc-1b5ab06671f7.png",
+      "tool_output_hint_captured": true,
+      "sha256": "4264d6377904e0b8384e7320a581933a472065cfb2a1753dc72de20af914758e",
+      "bytes": 1090140,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "meaningful_subject_bounds_alpha_at_least_50pct_xyxy": [
+        206,
+        9,
+        1033,
+        1235
+      ],
+      "disposition": "valid transparent cutout; superseded for slightly larger measured inset",
+      "prompt": "Use case: stylized-concept\nAsset type: original game character battle cutout\nInput images: Image 1: accepted original portrait identity reference; use only for this same character's face, curly brown-auburn hair, rust sleeves, teal work apron, copper material details, and painterly finish.\nPrimary request: create an original full-body battle cutout of the same young adult female river-workshop reed clearer, preserving the recognizable character identity from Image 1.\nScene/backdrop: genuinely transparent background; no environment.\nSubject: one woman with warm freckled face, lively brown eyes, thick curly brown-auburn hair, rust-colored long sleeves, a deep teal practical work apron with woven straps and a small copper clasp, sturdy brown trousers and simple practical boots; she holds one compact copper-root sickle / reed-clearing hook in a natural two-handed work grip.\nStyle/medium: polished painterly fantasy game illustration with the same warm textured realism as Image 1; original Moss & Ember woodland and river-workshop setting.\nComposition/framing: complete figure from hair to boot soles, three-quarter front view, confident balanced work stance; the head, torso, apron, both hands, entire held sickle, separated legs and both feet are distinct and readable. Keep the entire figure and tool inside a centered square composition, occupying about 84% of the canvas height, with clearly visible transparent margin above the hair and below both boot soles; leave at least 5% transparent margin at every canvas edge. Keep the sickle beside the body at a believable arm's length, curved hook facing outward and below shoulder level, never oversized or raised above the head.\nLighting/mood: soft even warm daylight, clear readable edges and moderate contrast.\nColor palette: auburn-brown hair, muted teal apron, rust sleeves, warm copper, natural dark brown boots.\nMaterials/textures: curly hair, worn woven apron, supple rust fabric, brushed copper tool.\nConstraints: one character only; no cropping; visible two feet; hand securely grips the single tool; simple coherent silhouette; preserve true transparent alpha.\nAvoid: halo, sparks, glow, cast shadow, scenery, platform, detached tool, second tool, giant sickle, weapon overhead, tool crossing the face, duplicate limbs, extra hands, extra fingers, extra objects, text, watermark, opaque or checkerboard background, any copied game character or enemy art."
+    },
+    {
+      "attempt": 4,
+      "call_arguments": {
+        "referenced_image_paths": [
+          "/private/tmp/art-022b-brackenwheel-builder-89f2f5c/demo/assets/brackenwheel-portrait.png"
+        ],
+        "transparent_background": true
+      },
+      "tool_output_path": "/Users/me/.codex/generated_images/01a14043-4eba-7bf0-8b22-c3e8c2d0e12e/exec-7b312711-14f8-4713-9fa4-704469f25d83.png",
+      "tool_output_hint_captured": true,
+      "sha256": "88347f0ce5549d724975c7e07a7b092efbb7aaf9fcaaa7688d562b4e26f27fb4",
+      "bytes": 1009789,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "meaningful_subject_bounds_alpha_at_least_50pct_xyxy": [
+        230,
+        25,
+        1022,
+        1230
+      ],
+      "disposition": "selected; best measured top/bottom clearance of the transparent candidates while retaining the complete figure and held tool; the requested 10% bands were not achieved, but the head, tool, and both boot soles are not clipped",
+      "prompt": "Use case: stylized-concept\nAsset type: original game character battle cutout\nInput images: Image 1: accepted original portrait identity reference; use only for this character's face, curly brown-auburn hair, rust sleeves, teal work apron, copper details, and painterly finish.\nPrimary request: paint an original full-body transparent battle cutout of the same young adult female river-workshop reed clearer; keep her recognizable as the portrait character.\nScene/backdrop: genuinely transparent with no environment.\nSubject: one woman with a warm freckled face, lively brown eyes, thick curly brown-auburn hair, rust-colored long sleeves, a deep teal practical work apron with woven straps and a small copper clasp, sturdy brown trousers and simple practical boots. She securely grips one compact copper-root sickle / reed-clearing hook in both hands.\nStyle/medium: polished dimensional hand-painted fantasy game art, warm textured realism consistent with Image 1.\nComposition/framing: pull the camera back so the entire character is deliberately smaller in the square canvas: visible hair-to-boot figure height is about 78% of canvas height. Center the complete silhouette, with an unmistakable empty transparent band about 10% of the image above the curls and 10% below the boot soles, plus at least 5% transparent clearance on the left and right. Show all hair, hands, sickle, legs and boot soles fully inside this safe inset; do not zoom in or let any hair or foot touch the canvas edge. Three-quarter front view, strong balanced work stance; keep the sickle close beside her at a believable arm's length, below shoulder height and away from her face, curved hook facing outward.\nLighting/mood: soft even warm daylight with natural material highlights.\nColor palette: auburn-brown hair, muted teal apron, rust sleeves, warm copper, dark brown boots.\nMaterials/textures: curly hair, worn woven apron, supple rust fabric, brushed copper tool.\nConstraints: exactly one character and one held tool; clean coherent silhouette; distinct head, torso, apron, hands, sickle, two legs and two feet; preserve true transparent alpha with no visible pixels in the requested outer margins.\nAvoid: halo, sparks, glow, rim-light outline, orange fringe, cast shadow, scenery, platform, detached tool, second tool, giant sickle, weapon overhead, tool crossing the face, cropping, duplicate limbs, extra hands or fingers, extra objects, text, watermark, opaque or checkerboard background, copied commercial-game or enemy art."
+    }
+  ],
+  "selection": {
+    "attempt": 4,
+    "method": "compare the generated images and measure the >=50% alpha subject bounds from the unchanged PNGs",
+    "reason": "Among the three transparent outputs, attempt 4 has the largest measured head/boot inset (25 px top and 24 px bottom on a 1254 px canvas) and still shows the face, apron, hand-held sickle, both legs and both boots. It is 1205 px tall from meaningful alpha bounds, so the 10% top/bottom goal was missed. Attempt 1 has no alpha channel and a painted checkerboard, so it is not eligible.",
+    "native_scale_review": "The browser captures show a very small silhouette at 13 CSS px body height; separate hair/apron/tool/feet features do not reliably resolve at that scale. At 26 CSS px, the hair-to-boot figure and teal/rust body color blocks read, while sickle detail remains limited. Attempt 4 was retained for its largest complete-figure inset; no generated candidate fully meets the requested 10% top/bottom margin. No further generation or source bitmap edits were made.",
+    "comparison": {
+      "attempt2_alpha50_bounds_xyxy": [
+        197,
+        5,
+        1055,
+        1245
+      ],
+      "attempt2_margins_top_bottom_px": [
+        5,
+        9
+      ],
+      "attempt3_alpha50_bounds_xyxy": [
+        206,
+        9,
+        1033,
+        1235
+      ],
+      "attempt3_margins_top_bottom_px": [
+        9,
+        19
+      ],
+      "attempt4_alpha50_bounds_xyxy": [
+        230,
+        25,
+        1022,
+        1230
+      ],
+      "attempt4_margins_top_bottom_px": [
+        25,
+        24
+      ],
+      "selection_basis": "all three transparent figures include head, held tool, legs, and boots; attempt 4 leaves the largest measured head/boot inset without cropping the complete silhouette"
+    }
+  }
+}

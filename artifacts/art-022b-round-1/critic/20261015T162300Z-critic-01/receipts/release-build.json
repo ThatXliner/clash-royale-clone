@@ -1,0 +1,28 @@
+{
+  "name": "release-build",
+  "cwd": "/private/tmp/art-022b-critic-20261015-review-01",
+  "command": [
+    "/Users/me/.local/bin/npm",
+    "run",
+    "test:release-build"
+  ],
+  "path_prefix": [
+    "/Users/me/.hermes/node/bin",
+    "/Users/me/.local/bin"
+  ],
+  "node_executable": "/Users/me/.hermes/node/bin/node",
+  "npm_executable": "/Users/me/.local/bin/npm",
+  "started_utc": "2026-10-15T16:28:31+00:00",
+  "ended_utc": "2026-10-15T16:29:26+00:00",
+  "elapsed_seconds": 55.106,
+  "pid": 25756,
+  "direct_exit_code": 0,
+  "direct_process_closed": true,
+  "stdout_bytes": 14232,
+  "stderr_bytes": 0,
+  "child_resource_delta": {
+    "user_seconds": 47.999839,
+    "system_seconds": 6.949706,
+    "max_rss_platform_units_after": 532463616
+  }
+}

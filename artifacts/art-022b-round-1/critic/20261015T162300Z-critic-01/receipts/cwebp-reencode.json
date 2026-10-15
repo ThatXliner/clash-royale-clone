@@ -1,0 +1,39 @@
+{
+  "name": "cwebp-reencode",
+  "cwd": "/private/tmp/art-022b-critic-20261015-review-01",
+  "command": [
+    "cwebp",
+    "-q",
+    "92",
+    "-alpha_q",
+    "100",
+    "-m",
+    "6",
+    "-mt",
+    "-resize",
+    "512",
+    "512",
+    "demo/assets/brackenwheel-battle-sprite.png",
+    "-o",
+    "/private/tmp/art-022b-critic-20261015-repeat.webp"
+  ],
+  "path_prefix": [
+    "/Users/me/.hermes/node/bin",
+    "/Users/me/.local/bin"
+  ],
+  "node_executable": "/Users/me/.hermes/node/bin/node",
+  "npm_executable": "/Users/me/.local/bin/npm",
+  "started_utc": "2026-10-15T16:26:44+00:00",
+  "ended_utc": "2026-10-15T16:26:48+00:00",
+  "elapsed_seconds": 4.648,
+  "pid": 24169,
+  "direct_exit_code": 0,
+  "direct_process_closed": true,
+  "stdout_bytes": 0,
+  "stderr_bytes": 970,
+  "child_resource_delta": {
+    "user_seconds": 4.531629,
+    "system_seconds": 0.03612,
+    "max_rss_platform_units_after": 49446912
+  }
+}

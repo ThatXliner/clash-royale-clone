@@ -1,0 +1,22 @@
+Command:
+/Users/me/.hermes/node/bin/node -e 'const fs=require("fs"),path=require("path"),crypto=require("crypto"); const m=JSON.parse(fs.readFileSync("dist/release-manifest.json","utf8")); const e=m.files.find(x=>x.path.endsWith("/brackenwheel-battle-sprite.webp")||x.path==="assets/brackenwheel-battle-sprite.webp")||null; const b=e?fs.readFileSync(path.join("dist",e.path)):null; const bytes=m.files.reduce((n,x)=>n+x.bytes,0); console.log(JSON.stringify({manifestFileCount:m.fileCount,listedFiles:m.files.length,totalBytes:bytes,maxFileBytes:Math.max(...m.files.map(x=>x.bytes)),releaseManifestSha256:crypto.createHash("sha256").update(fs.readFileSync("dist/release-manifest.json")).digest("hex"),spritePath:e?.path??null,spriteListed:e,spriteActual:b?{bytes:b.length,sha256:crypto.createHash("sha256").update(b).digest("hex")}:{present:false}},null,2))'
+Exit code: 0
+Raw output:
+{
+  "manifestFileCount": 56,
+  "listedFiles": 56,
+  "totalBytes": null,
+  "maxFileBytes": null,
+  "releaseManifestSha256": "c07000a8dc96ec77188dfc35495a93867eee31e2f34a48ac102abd7d3c3cea2a",
+  "spritePath": "public/assets/brackenwheel-battle-sprite.webp",
+  "spriteListed": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "size": 47854,
+    "sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53"
+  },
+  "spriteActual": {
+    "bytes": 47854,
+    "sha256": "1ade074a405cb3a00bb6bd06de52b0e335469e1a3369cf714da224634c343b53"
+  }
+}
+Correction note: release-manifest entries use `size`, not `bytes`; the successful corrected inspection sums that field instead. Sprite path and hash were still read correctly here.

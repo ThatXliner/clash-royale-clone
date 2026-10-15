@@ -1,0 +1,44 @@
+{
+  "candidate_commit": "11ad58fa8e5a05d8db7336f7fe060bdf455a56c1",
+  "node_version": "v22.22.3",
+  "npm_version": "10.9.8",
+  "playwright_version": "Version 1.58.2",
+  "chrome_version": "Google Chrome 155.0.8059.40",
+  "cwebp_version": "1.6.0\nlibsharpyuv: 0.4.2",
+  "required_check_direct_exit_codes": {
+    "npm-ci": 0,
+    "visual-asset-manifest": 0,
+    "shipping-isolation-guard": 0,
+    "release-build": 0,
+    "shipping-isolation-release": 0
+  },
+  "tap_counts": {
+    "visual-asset-manifest": [
+      "6",
+      "0",
+      "6"
+    ],
+    "shipping-isolation-guard": [
+      "13",
+      "0",
+      "13"
+    ],
+    "release-build": [
+      "22",
+      "0",
+      "22"
+    ],
+    "shipping-isolation-release": [
+      "4",
+      "0",
+      "4"
+    ]
+  },
+  "tracked_candidate_changes_after_restoration": 0,
+  "package_and_lock_changes_after_npm_ci": 0,
+  "tracked_test_side_effects_restored": true,
+  "release_artifacts_restored_exactly": true,
+  "release_artifacts_present_after_restore": false,
+  "browser_capture_chrome_processes_closed": true,
+  "git_status": "## HEAD (no branch)\n?? artifacts/art-022b-round-1/critic/\n"
+}
