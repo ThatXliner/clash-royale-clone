@@ -1,0 +1,22 @@
+Pinned source: RoyaleAPI/cr-api-data 54fdef52c5086393b085f57faeeab8ef86b28160 (2023-02-18; pre-2023-03-01 cutoff).
+Selection basis: explicit existing parity call in tests/special-movement-recoil.test.js to key=firecracker.
+No name-equality/inequality or numeric-ID-only inference was used.
+
+QUERY	SELECTOR	MATCHES	RESULT / DISPOSITION
+test-only comparator	existing parity(createRecoilSpecialCatalog()[0], "firecracker")	1	Positive intended test-only identity join; no gameplay or admission claim.
+roster card	cards.json key=firecracker	1	Firecracker row selected.
+rarity	rarities.json name=Common	1	tournament_level_index=10; displayed tournament level 11 per local SOURCES.md.
+troop	key=firecracker AND name_en=Firecracker AND rarity=Common AND not_visible=false	1	Visible troop row selected.
+character	key=firecracker AND id=26000064 AND name=troop.summon_character (Firecracker) AND rarity=Common	1	Character row selected; ID is a cross-check in the multi-field selector.
+troop combined duplicate	cards_stats.json troop with same key/name/rarity/visibility selector	1	Exactly equal to standalone troop row (81 ordered fields).
+character combined duplicate	cards_stats.json characters with same key/id/name/rarity selector	1	Exactly equal to standalone character row (289 ordered fields).
+projectile	character.projectile="FirecrackerProjectile"; exact match on projectile row identity fields	1	FirecrackerProjectile selected; explicit positive row link.
+projectile combined duplicate	cards_stats.json projectile with exact selected row identity	1	Exactly equal to standalone FirecrackerProjectile row (27 ordered fields).
+recursive projectile	FirecrackerProjectile.spawn_projectile="FirecrackerExplosion"; exact match on projectile row identity fields	1	FirecrackerExplosion selected; explicit positive row link.
+recursive projectile combined duplicate	cards_stats.json projectile with exact selected row identity	1	Exactly equal to standalone FirecrackerExplosion row (38 ordered fields).
+character name relation	character.summon_character="Firecracker"; exact character name match	1	Self-name relation retained; not interpreted as a spawn rule or count.
+buff table	selected troop/character/projectile rows screened for named non-null buff references	0 named selector values	Standalone buff table not fetched. Null/false/zero buff fields remain raw; this is not evidence of absent buff behavior.
+spawn character table	selected rows screened for named non-null spawn/summon character references	0 distinct character target	No spawned character row selected. Numeric spawn fields remain literal; spawn_projectile is handled as a projectile link above.
+asset / image tables	out of scope	0	No art, animation, or other asset fetched.
+
+Only selected full ordered rows and required combined duplicates are saved in pinned-linked-rows.json. All other downloaded table payloads remained in memory and are represented by receipts only.

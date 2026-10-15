@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/private/tmp/cinderback-firecracker-full-raw-scope/artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py", line 756, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/cinderback-firecracker-full-raw-scope/artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py", line 744, in main
+    write_comparison(report)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/private/tmp/cinderback-firecracker-full-raw-scope/artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py", line 634, in write_comparison
+    "damage": [(f"character.damage_per_level[{level}]", character.get("damage_per_level", [None] * (level + 1))[level])],
+                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+TypeError: 'NoneType' object is not subscriptable

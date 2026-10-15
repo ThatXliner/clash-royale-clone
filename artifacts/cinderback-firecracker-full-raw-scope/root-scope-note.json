@@ -1,0 +1,13 @@
+{
+  "candidate": "843f72ded455b68696a73a3866aaf9d041158e39",
+  "initialAudit": "da67b536e6a89b5fbd283a4ae68bf03aa19ad96a",
+  "verifiedChecksumEntries": 62,
+  "rows": 10,
+  "orderedFieldPositions": 925,
+  "comparatorFields": 14,
+  "matches": 5,
+  "questionBackedMatches": 9,
+  "scope": "Source audit only; no tests/gameplay/build/browser execution or confidence/stat/admission change. Three non-null identity matches and two normalized null matches are not historical mechanic proof. Full source rows close named character/projectile/explosion links, not consumer semantics.",
+  "correction": "Prior table contained separate Cinderback catalog-value rows, but lacked the direct 14-field comparator join. Old table preserved under failed-attempt; corrected join uses actual one-row catalog receipt and existing mapping. Raw rows and source receipts stay byte-identical.",
+  "questions": "Raw load_time2400 and hit_speed3000 remain separate; official -0.4s/40% delta does not establish consumer mapping or absolute delay. Pellet/contact/damage/recoil/phase/order semantics remain QUESTION. Existing internal cinderback ID is not among23 mixed playable choices and does not preclude a future unique playable admission."
+}

@@ -1,0 +1,14 @@
+run 0001	/opt/homebrew/opt/python@3.14/bin/python3.14 extract_firecracker_signature.py	exit=2	stdout=0001.stdout.raw	stderr=0001.stderr.raw
+run 0002	/opt/homebrew/opt/python@3.14/bin/python3.14 artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py	exit=1	stdout=0002.stdout.raw	stderr=0002.stderr.raw
+run 0003	/opt/homebrew/opt/python@3.14/bin/python3.14 artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py	exit=0	stdout=0003.stdout.raw	stderr=0003.stderr.raw
+run 0004	node artifacts/cinderback-firecracker-full-raw-scope/builder/extract_current_receipts.mjs	exit=0	stdout=0004.stdout.raw	stderr=0004.stderr.raw
+run 0005	node artifacts/cinderback-firecracker-full-raw-scope/builder/extract_current_receipts.mjs	exit=0	stdout=0005.stdout.raw	stderr=0005.stderr.raw
+run 0006	node artifacts/cinderback-firecracker-full-raw-scope/builder/extract_current_receipts.mjs	exit=0	stdout=0006.stdout.raw	stderr=0006.stderr.raw
+run 0007	/opt/homebrew/opt/python@3.14/bin/python3.14 artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py	exit=0	stdout=0007.stdout.raw	stderr=0007.stderr.raw
+run 0008	/opt/homebrew/opt/python@3.14/bin/python3.14 artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py	exit=0	stdout=0008.stdout.raw	stderr=0008.stderr.raw
+run 0009	/opt/homebrew/opt/python@3.14/bin/python3.14 artifacts/cinderback-firecracker-full-raw-scope/builder/extract_firecracker_signature.py	exit=0	stdout=0009.stdout.raw	stderr=0009.stderr.raw
+run 0010	python3 artifacts/cinderback-firecracker-full-raw-scope/builder/write_checksums.py	exit=0	stdout=0010.stdout.raw	stderr=0010.stderr.raw
+run 0011	node artifacts/cinderback-firecracker-full-raw-scope/builder/extract_current_receipts.mjs	exit=0	stdout=0011.stdout.raw	stderr=0011.stderr.raw
+run 0012	python3 artifacts/cinderback-firecracker-full-raw-scope/builder/regenerate_comparison_from_pinned_rows.py	exit=0	stdout=0012.stdout.raw	stderr=0012.stderr.raw
+run 0013	python3 artifacts/cinderback-firecracker-full-raw-scope/builder/regenerate_comparison_from_pinned_rows.py	exit=0	stdout=0013.stdout.raw	stderr=0013.stderr.raw
+run 0014	python3 artifacts/cinderback-firecracker-full-raw-scope/builder/write_checksums.py	exit=0	stdout=0014.stdout.raw	stderr=0014.stderr.raw

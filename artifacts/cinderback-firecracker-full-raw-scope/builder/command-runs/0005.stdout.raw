@@ -1,0 +1,305 @@
+{
+  "baseline": "226c55248d5c3a6f77e87ef40bb9eb0f32cd5ebf",
+  "extraction": "read-only pure catalog/profile receipt extraction; no test, gameplay, or simulation run",
+  "sessionCardCatalog": {
+    "counts": {
+      "admittedIds": 57,
+      "admittedOccurrences": 62,
+      "claimedIds": 63,
+      "claimedOccurrences": 68,
+      "excludedClaimedIds": 6,
+      "excludedClaimedOccurrences": 6,
+      "questionOnlyExports": 5
+    },
+    "admission": {
+      "cost": 3,
+      "deployTimeTicks": 60,
+      "displayName": "Cinderback",
+      "id": "cinderback",
+      "kind": "unit",
+      "placementClass": "ground_entity",
+      "occurrenceExports": [
+        "createRecoilSpecialCatalog"
+      ]
+    },
+    "occurrences": [
+      {
+        "exportName": "createRecoilSpecialCatalog",
+        "id": "cinderback",
+        "status": "admitted"
+      }
+    ]
+  },
+  "movementProfile": {
+    "profileCount": 8,
+    "occurrenceCount": 9,
+    "profile": {
+      "claims": [
+        {
+          "claimFamily": "recoil",
+          "exportName": "createRecoilSpecialCatalog",
+          "questionPolicy": {
+            "factory": "createRecoilQuestionFixture",
+            "kind": "fixture",
+            "raw": {
+              "authoritative": false,
+              "boundsRule": "clamp-center-to-radius-inset-closed-arena",
+              "commandsResolveBeforeLaunch": true,
+              "confidence": "unverified",
+              "directionRule": "opposite-snapshotted-target-vector",
+              "displacementProjectionRule": "euclidean-components-divide-by-exact-integer-vector-length",
+              "disposition": "question",
+              "interruptionRule": "interrupt-at-or-before-launch-boundary-suppresses-projectile-and-recoil",
+              "launchBoundaryTick": 144,
+              "projectileDamage": 1,
+              "projectileRadiusMillitiles": 0,
+              "projectileSpeedMillitilesPerTick": 100,
+              "provenance": {
+                "boundsRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "commandsResolveBeforeLaunch": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "directionRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "displacementProjectionRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "interruptionRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "launchBoundaryTick": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "projectileDamage": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "projectileRadiusMillitiles": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "projectileSpeedMillitilesPerTick": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "recoilDistanceMillitiles": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "targetDeathRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "timingRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                },
+                "zeroVectorRule": {
+                  "confidence": "unverified",
+                  "disposition": "question",
+                  "source": "unsourced-attack-recoil-fixture"
+                }
+              },
+              "recoilDistanceMillitiles": 2000,
+              "source": "unsourced-attack-recoil-fixture",
+              "targetDeathRule": "death-after-launch-does-not-undo-recoil-or-remove-in-flight-projectile",
+              "timingRule": "same-boundary-immediately-after-projectile-launch",
+              "zeroVectorRule": "reject-undefined-direction"
+            },
+            "rawCanonical": "{\"authoritative\":false,\"boundsRule\":\"clamp-center-to-radius-inset-closed-arena\",\"commandsResolveBeforeLaunch\":true,\"confidence\":\"unverified\",\"directionRule\":\"opposite-snapshotted-target-vector\",\"displacementProjectionRule\":\"euclidean-components-divide-by-exact-integer-vector-length\",\"disposition\":\"question\",\"interruptionRule\":\"interrupt-at-or-before-launch-boundary-suppresses-projectile-and-recoil\",\"launchBoundaryTick\":144,\"projectileDamage\":1,\"projectileRadiusMillitiles\":0,\"projectileSpeedMillitilesPerTick\":100,\"provenance\":{\"boundsRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"commandsResolveBeforeLaunch\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"directionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"displacementProjectionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"interruptionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"launchBoundaryTick\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"projectileDamage\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"projectileRadiusMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"projectileSpeedMillitilesPerTick\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"recoilDistanceMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"targetDeathRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"timingRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"zeroVectorRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"}},\"recoilDistanceMillitiles\":2000,\"source\":\"unsourced-attack-recoil-fixture\",\"targetDeathRule\":\"death-after-launch-does-not-undo-recoil-or-remove-in-flight-projectile\",\"timingRule\":\"same-boundary-immediately-after-projectile-launch\",\"zeroVectorRule\":\"reject-undefined-direction\"}",
+            "records": [
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "boundsRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "clamp-center-to-radius-inset-closed-arena"
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "commandsResolveBeforeLaunch",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": true
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "directionRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "opposite-snapshotted-target-vector"
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "displacementProjectionRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "euclidean-components-divide-by-exact-integer-vector-length"
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "interruptionRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "interrupt-at-or-before-launch-boundary-suppresses-projectile-and-recoil"
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "launchBoundaryTick",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": 144
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "projectileDamage",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": 1
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "projectileRadiusMillitiles",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": 0
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "projectileSpeedMillitilesPerTick",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": 100
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "recoilDistanceMillitiles",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": 2000
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "targetDeathRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "death-after-launch-does-not-undo-recoil-or-remove-in-flight-projectile"
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "timingRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "same-boundary-immediately-after-projectile-launch"
+              },
+              {
+                "authoritative": false,
+                "confidence": "unverified",
+                "disposition": "question",
+                "key": "zeroVectorRule",
+                "source": "unsourced-attack-recoil-fixture",
+                "value": "reject-undefined-direction"
+              }
+            ]
+          },
+          "runtimeIntegrationStatus": "pending-shared-host",
+          "sourceRecordCanonical": "{\"areaDamageRadiusMillitiles\":null,\"components\":[],\"cost\":3,\"count\":1,\"damage\":null,\"deployTimeTicks\":60,\"displayName\":\"Cinderback\",\"firstHitTicks\":144,\"hitSpeedTicks\":180,\"hitpoints\":304,\"id\":\"cinderback\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"standard\",\"sightRangeMillitiles\":8500,\"targetMode\":\"ground-and-air\"}"
+        }
+      ],
+      "cost": 3,
+      "deployTimeTicks": 60,
+      "displayName": "Cinderback",
+      "id": "cinderback",
+      "kind": "unit",
+      "occurrenceExports": [
+        "createRecoilSpecialCatalog"
+      ],
+      "placementClass": "ground_entity",
+      "sourceRecords": [
+        {
+          "exportName": "createRecoilSpecialCatalog",
+          "recordCanonical": "{\"areaDamageRadiusMillitiles\":null,\"components\":[],\"cost\":3,\"count\":1,\"damage\":null,\"deployTimeTicks\":60,\"displayName\":\"Cinderback\",\"firstHitTicks\":144,\"hitSpeedTicks\":180,\"hitpoints\":304,\"id\":\"cinderback\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"standard\",\"sightRangeMillitiles\":8500,\"targetMode\":\"ground-and-air\"}"
+        }
+      ]
+    },
+    "runtimeReceipt": {
+      "claims": [
+        {
+          "claimFamily": "recoil",
+          "exportName": "createRecoilSpecialCatalog"
+        }
+      ],
+      "id": "cinderback"
+    },
+    "serializedRuntimeReceiptSha256": "d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082"
+  },
+  "projectileProfile": {
+    "profileCount": 5,
+    "occurrenceCount": 5,
+    "profile": null,
+    "occurrences": [],
+    "unresolvedDeliveryDependencies": []
+  },
+  "mixedPlayableSelection": {
+    "choiceCount": 23,
+    "includesCinderback": false,
+    "ids": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "brackenwheel",
+      "stonehauler",
+      "thornscouts",
+      "forgeguard",
+      "cinder-host",
+      "ironroot",
+      "sunthread-pair",
+      "duskwing-trio",
+      "gloamwing-cluster",
+      "coppershade-flock",
+      "kilnkeeper",
+      "squall-orb",
+      "ember-basin",
+      "buried-coil",
+      "aether-well"
+    ]
+  }
+}

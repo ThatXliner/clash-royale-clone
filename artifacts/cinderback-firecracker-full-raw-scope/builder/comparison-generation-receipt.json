@@ -1,0 +1,34 @@
+{
+  "mode": "offline comparison regeneration; no upstream fetch and no test evaluator",
+  "baseline_commit": "226c55248d5c3a6f77e87ef40bb9eb0f32cd5ebf",
+  "upstream_source_commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+  "prior_artifact_commit": "da67b536e6a89b5fbd283a4ae68bf03aa19ad96a",
+  "prior_comparison_preserved_at": "failed-attempt/normalized-comparison-before-correction.tsv",
+  "source_receipts_sha256": "27c77bb08d63c94a45a7cacfa640052508d31e22864ecad7bd4c6c82ce59e7f1",
+  "selected_rows_sha256": "ccf14bd3843692555b63cb11952146f03365ce61f783e530caa874904a2af39b",
+  "source_fetch_extractor_sha256_at_fetch": "56259ffa3c6346e7807e1b5fc40cee317232c53be6729b60579e3ca616d9381a",
+  "current_comparison_extractor_sha256": "3c01b29c3a8836e4c33ba704558b6fd45a72f75833263da0cfc25cccfd26ee02",
+  "actual_catalog_receipt": {
+    "path": "current-catalog-profile-receipts.json",
+    "sha256": "9c02829389d1c7292fa65e7c241d98c77bee32795db70b0e5ff400abb067f16d",
+    "bytes": 15281
+  },
+  "comparison_output": {
+    "path": "normalized-comparison.tsv",
+    "sha256": "2efbee6ce00a863b2d321a3be84099f92a6b8e77edb26adfb8df8e7816e87ba6",
+    "bytes": 7737
+  },
+  "reference_context_output": {
+    "path": "firecracker-normalized-context.tsv",
+    "sha256": "505029a4c3ad3c1bf5f2642f6810c13a787fd24592201a917de7634dccd99370",
+    "bytes": 10080
+  },
+  "comparator_field_count": 14,
+  "comparison_row_count": 14,
+  "parity_disposition_counts": {
+    "match": 5,
+    "question-backed-match": 9
+  },
+  "actual_catalog_snapshot_matches_prior_snapshot": true,
+  "provenance_note": "The fetched source receipt retains the hash of the extractor version used at fetch time; the current extractor has an offline comparator writer correction. Pinned payload and selected-row bytes are unchanged."
+}
