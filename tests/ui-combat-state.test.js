@@ -7,6 +7,10 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { createCombatArt, COMBAT_ART_ARCHETYPES } from "../src/ui/combat-art.js";
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+import { GameSession } from "../src/sim/game-session.js";
+import { createGameUiFrame } from "../src/ui/game-ui-projection.js";
+import { AETHER_WELL_TEAM_COLORS } from "../src/ui/aether-well-art.js";
 import { getCardLore } from "../src/ui/card-lore.js";
 import { getCardPortrait, getCardPortraitIds } from "../src/ui/card-portrait-art.js";
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
@@ -77,6 +81,13 @@ function state(overrides = {}) {
     ],
     ...overrides,
   };
+}
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value !== null && typeof value === "object") return `{${Object.keys(value).sort()
+    .map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
+  return JSON.stringify(value);
 }
 
 class Style {
@@ -192,7 +203,18 @@ test("Brackenwheel resolves its accepted portrait and exactly two approved lore 
     cell: null,
     src: new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url).href,
   });
-  assert.deepEqual(getCardPortraitIds().slice(-1), ["brackenwheel"]);
+  assert.deepEqual(getCardPortraitIds().slice(-2), ["brackenwheel", "aether-well"]);
+});
+
+test("Aether Well resolves the accepted standalone portrait and two exact lore sentences", () => {
+  assert.equal(getCardLore("aether-well"),
+    "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.");
+  assert.deepEqual(getCardPortrait("aether-well"), {
+    asset: "aether-well-portrait-painted",
+    cell: null,
+    src: new URL("../public/assets/aether-well-portrait-painted.webp", import.meta.url).href,
+  });
+  assert.deepEqual(getCardPortraitIds().slice(-1), ["aether-well"]);
 });
 
 test("Brackenwheel selects renderer and physical body size from deterministic presentation context", () => {
@@ -220,6 +242,77 @@ test("Brackenwheel selects renderer and physical body size from deterministic pr
       bodyCssPixels) < 1e-9, "iframe compensation keeps the requested physical body size");
     assert.equal(marker.style.width, art.style.width);
     assert.equal(marker.style.height, art.style.height);
+  }
+});
+
+test("Aether Well art renders from an authentic GameSession projection at phone and desktop scale", () => {
+  const deck = ["aether-well", ...PLAYABLE_CARD_IDS.slice(1)];
+  const session = new GameSession(createEditableGameSessionSetup(deck, 2));
+  const opening = session.state;
+  const slot = opening.decks.south.hand.indexOf("aether-well");
+  assert.notEqual(slot, -1, "seed 2 places Aether Well in the player's authentic opening hand");
+  assert.ok(opening.decks.north.hand.includes("aether-well"),
+    "the unforced AI has Aether Well in its natural opening hand");
+  session.submitPlayerCommand(canonicalJson({
+    cardId: "aether-well",
+    commandId: 0,
+    point: { x: 3_500, y: 14_500 },
+    slot,
+    tick: 0,
+    type: "deploy",
+  }));
+  session.stepMany(1);
+  const projected = createGameUiFrame(session);
+  const expectedSides = projected.combat.entities
+    .filter(({ kind }) => kind === "aether-well")
+    .map(({ side }) => side).sort();
+  assert.deepEqual(expectedSides, ["north", "south"],
+    "canonical session state projects the player's and unforced AI's actual Aether Well structures");
+
+  const snapshot = (node) => JSON.stringify({
+    attributes: [...node.attributes].sort(),
+    children: node.children.map(snapshot),
+    className: node.className,
+    dataset: Object.fromEntries(Object.entries(node.dataset).sort()),
+    style: { display: node.style.display ?? null, height: node.style.height ?? null,
+      width: node.style.width ?? null },
+  });
+  for (const { bodyCssPixels, frameScale } of [
+    { bodyCssPixels: 13, frameScale: 0.5 },
+    { bodyCssPixels: 26, frameScale: 0.75 },
+  ]) {
+    const render = (reducedMotion) => {
+      const { document, layer } = dom();
+      document.documentElement = { dataset: {
+        combatBodyCssPixels: String(bodyCssPixels),
+        combatFrameScale: String(frameScale),
+      } };
+      document.defaultView = { matchMedia: () => ({ matches: reducedMotion }) };
+      bindCombatViewModel(layer, projected.combat);
+      const markers = layer.children[0].children
+        .filter((node) => node.dataset.kind === "aether-well")
+        .sort((left, right) => left.dataset.side.localeCompare(right.dataset.side));
+      assert.equal(markers.length, 2);
+      return markers.map((marker) => {
+        const art = marker.children.find((node) => node.dataset.artId === "aether-well");
+        assert.ok(art, "the authentic game UI projection reaches the battle renderer");
+        assert.equal(marker.dataset.structure, "true");
+        assert.equal(marker.className.includes("combat-marker--structure"), true);
+        assert.equal(art.dataset.renderer, "native-svg");
+        assert.equal(art.dataset.motion, "static");
+        assert.equal(art.dataset.bodyBoundsUnits, "2.575:28");
+        assert.equal(art.dataset.bodyCssPixels, String(bodyCssPixels));
+        assert.equal(art.dataset.side, marker.dataset.side);
+        assert.equal(art.dataset.teamColor, AETHER_WELL_TEAM_COLORS[marker.dataset.side]);
+        assert.ok(Math.abs(Number.parseFloat(art.style.height) * frameScale * 25.425 / 32 -
+          bodyCssPixels) < 1e-9, "iframe compensation preserves the physical structure body size");
+        assert.equal(marker.style.width, art.style.width);
+        assert.equal(marker.style.height, art.style.height);
+        return snapshot(art);
+      });
+    };
+    assert.deepEqual(render(true), render(false),
+      `${bodyCssPixels}px Aether Well art restores identically in normal and reduced-motion modes`);
   }
 });
 
@@ -259,10 +352,10 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
   "the only added combat CSS is Brackenwheel's team-readable ring");
 
   const portraitIds = getCardPortraitIds();
-  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 1,
-    "Brackenwheel adds one portrait output to the accepted collection");
-  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel"],
-    "the full accepted collection order, including Buried Coil, is preserved with Brackenwheel appended");
+  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 2,
+    "Brackenwheel and Aether Well append two new portrait outputs to the accepted collection");
+  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel", "aether-well"],
+    "the accepted collection order, including Buried Coil, is preserved with Brackenwheel and Aether Well appended");
   assert.ok(portraitIds.includes("buried-coil"));
   for (const cardId of parentPortraits.getCardPortraitIds()) {
     assert.deepEqual({
@@ -287,6 +380,20 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
       src: "/public/assets/brackenwheel-portrait-painted.webp",
     },
   }, "Brackenwheel adds the accepted standalone portrait without changing parent outputs");
+  assert.deepEqual({
+    lore: getCardLore("aether-well"),
+    portrait: cardPortraitOutput({ getCardPortrait }, "aether-well"),
+  }, {
+    lore: "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.",
+    portrait: {
+      asset: "aether-well-portrait-painted",
+      cell: null,
+      imageSha256: createHash("sha256").update(readFileSync(fileURLToPath(
+        new URL("../public/assets/aether-well-portrait-painted.webp", import.meta.url),
+      ))).digest("hex"),
+      src: "/public/assets/aether-well-portrait-painted.webp",
+    },
+  }, "Aether Well appends its accepted portrait and lore without changing parent outputs");
 
   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
     .filter((kind) => kind !== "briar-runner").sort();

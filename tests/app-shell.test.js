@@ -67,6 +67,7 @@ const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
   ...EXPECTED_ATLAS_CARD_CELLS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.map((id) => Object.freeze([id, null])),
   Object.freeze(["buried-coil", null]),
+  Object.freeze(["aether-well", null]),
 ]);
 const EXPECTED_COLLECTION_IDS = Object.freeze([
   ...EXPECTED_DEFAULT_ROSTER_IDS,
@@ -307,6 +308,9 @@ async function assertAetherWellDetails(page) {
     "Aether Well exposes no fabricated attack stats or missing values");
   assert.equal(await page.locator("[data-card-detail] .detail-description").innerText(),
     `Stationary resource structure · produces elixir over time and grants ${format(profile.destructionAmount)} elixir when destroyed. It does not attack.`);
+  assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
+    "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.",
+    "the live collection detail shows the accepted two-sentence field note");
 }
 
 async function captureAetherWellDetails(page, width, height) {
@@ -756,6 +760,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["kilnkeeper", "public/assets/kilnkeeper-portrait-painted.webp"],
       ["squall-orb", "public/assets/squall-orb-painted.webp"],
       ["ember-basin", "public/assets/ember-basin-portrait-painted-v2.webp"],
+      ["aether-well", "public/assets/aether-well-portrait-painted.webp"],
     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
     assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
       "the atlas and every individual original portrait are registered in the release manifest");

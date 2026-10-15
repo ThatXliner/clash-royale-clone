@@ -1,0 +1,5 @@
+Initial environment attempt and retry record
+
+- First Aether invocation: `node --test tests/cards023-browser-integration.test.js`, PID 76684, cwd `/tmp/cards023i-critic-8d2a/execution`, exit file absent because the outer zsh recorder failed on assignment to reserved readonly variable `status`. Its nested Node TAP output records `ERR_MODULE_NOT_FOUND` for `vite` and one failed subtest. Raw stdout/stderr/command/cwd/environment and PID are retained in `gates/cards023-browser-integration/`; no direct exit value is asserted.
+- Dependency setup: `npm ci`, PID 76762, direct exit 0, private execution checkout only. The candidate `package-lock.json` SHA-256 matched the lock file in the preinstalled Playwright dependency source; see `gates/dependency-setup-npm-ci/`.
+- Fresh Aether rerun: PID 76784, direct exit 0, 1/1 pass, no skips; artifacts are in `cards023-02/`. This is the Aether result counted in `gate-summary.md`.

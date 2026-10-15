@@ -1,0 +1,10 @@
+Raw pre/post inventory comparison (original manifests preserved):
+  before entries: 758
+  after entries: 791
+  original entries with changed hashes: 0
+  original entries missing after: 0
+  added entries: 33
+  added entries outside node_modules/: 0
+  additions are exclusively npm ci dependency files: True
+
+Scope note: this raw glob inventory also captures pre-existing artifact files whose names match the broad source/test/package/assets selectors. It is retained unmodified for audit. The exact candidate tracked source/test/package/assets scope is separately listed in candidate-source-test-package-assets.sha256 and compared against the executed archive copy in candidate-source-identity.txt.

@@ -1,0 +1,128 @@
+
+> moss-and-ember@0.0.0 test:ui-combat-state
+> node tests/ui-combat-state-runner.js ui-combat-state
+
+TAP version 13
+# Subtest: Brackenwheel resolves its accepted portrait and exactly two approved lore sentences
+ok 1 - Brackenwheel resolves its accepted portrait and exactly two approved lore sentences
+  ---
+  duration_ms: 0.997708
+  type: 'test'
+  ...
+# Subtest: Aether Well resolves the accepted standalone portrait and two exact lore sentences
+ok 2 - Aether Well resolves the accepted standalone portrait and two exact lore sentences
+  ---
+  duration_ms: 0.156875
+  type: 'test'
+  ...
+# Subtest: Brackenwheel selects renderer and physical body size from deterministic presentation context
+ok 3 - Brackenwheel selects renderer and physical body size from deterministic presentation context
+  ---
+  duration_ms: 1.581333
+  type: 'test'
+  ...
+# Subtest: Aether Well art renders from an authentic GameSession projection at phone and desktop scale
+ok 4 - Aether Well art renders from an authentic GameSession projection at phone and desktop scale
+  ---
+  duration_ms: 47.260833
+  type: 'test'
+  ...
+# Subtest: non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer
+ok 5 - non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer # SKIP set ART004_PARENT_ROOT to the accepted 5ed checkout
+  ---
+  duration_ms: 0.067542
+  type: 'test'
+  ...
+# Subtest: ui combat state: stable ID order projects exact millitile geometry and layers
+ok 6 - ui combat state: stable ID order projects exact millitile geometry and layers
+  ---
+  duration_ms: 0.325875
+  type: 'test'
+  ...
+# Subtest: ui combat state: high-confidence tower HP bounds health exactly
+ok 7 - ui combat state: high-confidence tower HP bounds health exactly
+  ---
+  duration_ms: 0.393625
+  type: 'test'
+  ...
+# Subtest: ui combat state: damage changes only numerator; death removes entities and terminals towers
+ok 8 - ui combat state: damage changes only numerator; death removes entities and terminals towers
+  ---
+  duration_ms: 0.216333
+  type: 'test'
+  ...
+# Subtest: ui combat state: canonical serialization restores byte-identically
+ok 9 - ui combat state: canonical serialization restores byte-identically
+  ---
+  duration_ms: 0.897667
+  type: 'test'
+  ...
+# Subtest: Buried Coil keeps its original hidden and revealed render geometry through restore
+ok 10 - Buried Coil keeps its original hidden and revealed render geometry through restore
+  ---
+  duration_ms: 1.736292
+  type: 'test'
+  ...
+# Subtest: ui combat state: one-shot and chunked state projection end in identical bytes
+ok 11 - ui combat state: one-shot and chunked state projection end in identical bytes
+  ---
+  duration_ms: 0.323209
+  type: 'test'
+  ...
+# Subtest: ui combat state: bounded causal events survive canonical restore without driving current state
+ok 12 - ui combat state: bounded causal events survive canonical restore without driving current state
+  ---
+  duration_ms: 0.739166
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+ok 13 - ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+  ---
+  duration_ms: 1.152167
+  type: 'test'
+  ...
+# Subtest: ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose
+ok 14 - ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose
+  ---
+  duration_ms: 1.077375
+  type: 'test'
+  ...
+# Subtest: ui combat state: terminal restore produces byte-identical DOM and zero health
+ok 15 - ui combat state: terminal restore produces byte-identical DOM and zero health
+  ---
+  duration_ms: 0.172083
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM binding validates/builds before its single commit
+ok 16 - ui combat state: DOM binding validates/builds before its single commit
+  ---
+  duration_ms: 0.167958
+  type: 'test'
+  ...
+# Subtest: ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+ok 17 - ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+  ---
+  duration_ms: 0.493375
+  type: 'test'
+  ...
+# Subtest: ui combat state: combat layer mounts inside the shipped arena primitive
+ok 18 - ui combat state: combat layer mounts inside the shipped arena primitive
+  ---
+  duration_ms: 0.235834
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+ok 19 - Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+  ---
+  duration_ms: 0.062292
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 227.20475

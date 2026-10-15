@@ -1,0 +1,7 @@
+PIECE: CARDS-023I — Aether Well collection portrait, authored lore, and real-match UI integration.
+
+VERDICT: PASS. Candidate `8d2a2fc48ee0686030abe4ac1c4c76c2261dd642` clears the stated round bar against accepted baseline `4c23968c825ce6216c3b0faa5b5766d328a53ae`.
+
+EVIDENCE: Candidate diff is exactly seven UI/test paths; source, tests, package files, and tracked assets in the execution archive match the candidate blobs. The isolated browser gate passed on Chrome 155.0.8059.40 with an editable seed-2 eight-card game, trusted player placement and natural AI placement, both paying 6, cycle and resource feedback, 13px phone and 26px desktop body text, normal and reduced motion screenshots on phone and desktop, exact restoration of rendered PNG and audio/input/session/state hashes, natural North 3–0 terminal at tick 4468, and same-deck seed-2 restart at tick 0. Brackenwheel regression passed. All requested focused/release gates completed with 116 passes, two optional skips, and zero failures. The raw source inventory was preserved: its 758 original entries are byte-identical after execution; the 33 added entries are npm-ci files under `node_modules/`. Nineteen fixed release report files were restored to their original exact bytes; before/after/restored hashes are recorded in `release-001b-before-after-restored-hashes.tsv`.
+
+BIGGEST GAP: The natural-match evidence covers one 4,468-tick match only; endurance was not run, so this verdict makes no endurance claim. Two optional TAP cases were skipped and are reported as skips.

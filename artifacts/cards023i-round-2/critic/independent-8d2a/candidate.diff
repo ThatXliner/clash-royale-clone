@@ -1,0 +1,971 @@
+diff --git a/src/ui/card-lore.js b/src/ui/card-lore.js
+index 7d8c635a..305c7697 100644
+--- a/src/ui/card-lore.js
++++ b/src/ui/card-lore.js
+@@ -21,10 +21,11 @@ const CARD_LORE = Object.freeze({
+   "coppershade-flock": "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests.",
+   "ember-basin": "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.",
+   "buried-coil": "At the alderwood river workshop, Ilyra winds a young emberseed into a copper coil and seals it beneath a hatch beside the sluice. When raider boots shake the roots, the seed glows and the hatch lifts a riveted lookout to guard the waterwheel.",
+   kilnkeeper: "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts. When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.",
+   brackenwheel: "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
++  "aether-well": "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.",
+ });
+ 
+ export function getCardLore(cardId) {
+   return CARD_LORE[cardId] ?? null;
+ }
+diff --git a/src/ui/card-portrait-art.js b/src/ui/card-portrait-art.js
+index daf55d48..de8f8510 100644
+--- a/src/ui/card-portrait-art.js
++++ b/src/ui/card-portrait-art.js
+@@ -19,10 +19,11 @@ const CARD_PORTRAITS = Object.freeze({
+   "coppershade-flock": Object.freeze({ asset: "coppershade-flock-painted", cell: null }),
+   "ember-basin": Object.freeze({ asset: "ember-basin-portrait-painted-v2", cell: null }),
+   "buried-coil": Object.freeze({ asset: "buried-coil-portrait", cell: null }),
+   kilnkeeper: Object.freeze({ asset: "kilnkeeper-portrait-painted", cell: null }),
+   brackenwheel: Object.freeze({ asset: "brackenwheel-portrait-painted", cell: null }),
++  "aether-well": Object.freeze({ asset: "aether-well-portrait-painted", cell: null }),
+ });
+ 
+ const PORTRAIT_ASSET_PATHS = Object.freeze({
+   "card-portraits-painted": new URL(
+     "../../public/assets/card-portraits-painted.webp",
+@@ -82,10 +83,14 @@ const PORTRAIT_ASSET_PATHS = Object.freeze({
+   ).href,
+   "brackenwheel-portrait-painted": new URL(
+     "../../public/assets/brackenwheel-portrait-painted.webp",
+     import.meta.url,
+   ).href,
++  "aether-well-portrait-painted": new URL(
++    "../../public/assets/aether-well-portrait-painted.webp",
++    import.meta.url,
++  ).href,
+ });
+ 
+ export function getCardPortrait(cardId) {
+   if (typeof cardId !== "string" || !Object.hasOwn(CARD_PORTRAITS, cardId)) {
+     return null;
+diff --git a/src/ui/combat-state.js b/src/ui/combat-state.js
+index d4fa0a08..e37ffa15 100644
+--- a/src/ui/combat-state.js
++++ b/src/ui/combat-state.js
+@@ -4,10 +4,11 @@ import {
+   createCombatArt,
+   COMBAT_ART_STYLE,
+   COMBAT_STRUCTURE_ART_IDS,
+ } from "./combat-art.js";
+ import { createBrackenwheelScaleArt } from "./brackenwheel-art.js";
++import { createAetherWellBattleArt } from "./aether-well-art.js";
+ import {
+   ARENA_LENGTH_MILLITILES,
+   ARENA_WIDTH_MILLITILES,
+ } from "../sim/arena-geometry.js";
+ 
+@@ -518,10 +519,22 @@ function sizeBrackenwheelArt(node, art, frameScale) {
+   art.style.height = `${frameHeight / frameScale}px`;
+   node.style.width = art.style.width;
+   node.style.height = art.style.height;
+ }
+ 
++function sizeAetherWellArt(node, art, frameScale) {
++  const frameWidth = Number.parseFloat(art.style.width);
++  const frameHeight = Number.parseFloat(art.style.height);
++  if (!Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) {
++    throw new TypeError("Aether Well art frame dimensions are invalid");
++  }
++  art.style.width = `${frameWidth / frameScale}px`;
++  art.style.height = `${frameHeight / frameScale}px`;
++  node.style.width = art.style.width;
++  node.style.height = art.style.height;
++}
++
+ export function bindCombatViewModel(layer, view) {
+   if (
+     layer === null || typeof layer !== "object" ||
+     typeof layer.replaceChildren !== "function" ||
+     layer.ownerDocument === null || typeof layer.ownerDocument?.createElement !== "function"
+@@ -535,11 +548,11 @@ export function bindCombatViewModel(layer, view) {
+   const frame = layer.ownerDocument.createElement("div");
+   frame.className = "combat-frame";
+   frame.dataset.tick = String(canonical.tick);
+   const nodes = [];
+   const structureKeys = new Set(canonical.entities
+-    .filter(({ kind }) => COMBAT_STRUCTURE_ART_IDS.includes(kind))
++    .filter(({ kind }) => kind === "aether-well" || COMBAT_STRUCTURE_ART_IDS.includes(kind))
+     .map(({ key }) => key));
+   const targetingStructureKeys = new Set(canonical.links
+     .filter(({ fromKey }) => structureKeys.has(fromKey))
+     .map(({ fromKey }) => fromKey));
+   const linksBySource = new Map(canonical.links.map((link) => [link.fromKey, link]));
+@@ -604,13 +617,20 @@ export function bindCombatViewModel(layer, view) {
+       })
+       : entity.kind === "brackenwheel"
+         ? createBrackenwheelScaleArt(layer.ownerDocument, {
+           bodyCssPixels: brackenwheelContext.bodyCssPixels,
+         })
+-        : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
++        : entity.kind === "aether-well"
++          ? createAetherWellBattleArt(layer.ownerDocument, {
++            bodyCssPixels: brackenwheelContext.bodyCssPixels,
++            side: entity.side,
++          })
++          : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
+     if (entity.kind === "brackenwheel") {
+       sizeBrackenwheelArt(node, art, brackenwheelContext.frameScale);
++    } else if (entity.kind === "aether-well") {
++      sizeAetherWellArt(node, art, brackenwheelContext.frameScale);
+     }
+     node.appendChild(art);
+     nodes.push(node);
+   }
+   for (const node of nodes) frame.appendChild(node);
+diff --git a/src/ui/game-ui-projection.js b/src/ui/game-ui-projection.js
+index 1d1b589b..84493064 100644
+--- a/src/ui/game-ui-projection.js
++++ b/src/ui/game-ui-projection.js
+@@ -87,11 +87,11 @@ function targetId(value) {
+   return STRUCTURE_IDS.get(value) ?? value;
+ }
+ 
+ function combatState(state, effectEvents) {
+   const structures = state.battle.structures.filter(({ cardId }) =>
+-    COMBAT_STRUCTURE_ART_IDS.includes(cardId));
++    cardId === "aether-well" || COMBAT_STRUCTURE_ART_IDS.includes(cardId));
+   const aliveIds = new Set([
+     ...state.battle.units.filter((unit) => unit.hitpoints > 0).map((unit) => unit.id),
+     ...state.battle.towers.filter((tower) => tower.hitpoints > 0).map((tower) => tower.id),
+     ...structures.filter((structure) => structure.alive && structure.hitpoints > 0)
+       .map((structure) => structure.id),
+diff --git a/tests/app-shell.test.js b/tests/app-shell.test.js
+index 0e6fe928..a220627c 100644
+--- a/tests/app-shell.test.js
++++ b/tests/app-shell.test.js
+@@ -65,10 +65,11 @@ const EXPECTED_AIR_SWARM_LORE = Object.freeze({
+ });
+ const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
+   ...EXPECTED_ATLAS_CARD_CELLS,
+   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.map((id) => Object.freeze([id, null])),
+   Object.freeze(["buried-coil", null]),
++  Object.freeze(["aether-well", null]),
+ ]);
+ const EXPECTED_COLLECTION_IDS = Object.freeze([
+   ...EXPECTED_DEFAULT_ROSTER_IDS,
+   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
+   "buried-coil",
+@@ -305,10 +306,13 @@ async function assertAetherWellDetails(page) {
+   assert.match(profileText, /Resource structure · QUESTION/u);
+   assert.doesNotMatch(profileText, /(?:Damage|First hit|Hit speed|Range|Splash radius|NaN|undefined)/iu,
+     "Aether Well exposes no fabricated attack stats or missing values");
+   assert.equal(await page.locator("[data-card-detail] .detail-description").innerText(),
+     `Stationary resource structure · produces elixir over time and grants ${format(profile.destructionAmount)} elixir when destroyed. It does not attack.`);
++  assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
++    "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.",
++    "the live collection detail shows the accepted two-sentence field note");
+ }
+ 
+ async function captureAetherWellDetails(page, width, height) {
+   await page.locator('[data-card-grid] [data-card-id="aether-well"]').click();
+   await assertAetherWellDetails(page);
+@@ -754,10 +758,11 @@ test("player shell renders roster-derived cards and launches a paused shared bat
+       ["brackenwheel", "public/assets/brackenwheel-portrait-painted.webp"],
+       ["buried-coil", "public/assets/buried-coil-portrait.webp"],
+       ["kilnkeeper", "public/assets/kilnkeeper-portrait-painted.webp"],
+       ["squall-orb", "public/assets/squall-orb-painted.webp"],
+       ["ember-basin", "public/assets/ember-basin-portrait-painted-v2.webp"],
++      ["aether-well", "public/assets/aether-well-portrait-painted.webp"],
+     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
+     assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
+       "the atlas and every individual original portrait are registered in the release manifest");
+     const atlasOutputs = desktopPortraits.slice(0, 8).map(({ src }) => manifestFileForUrl(src));
+     assert.ok(atlasOutputs.every((file) => file !== undefined),
+diff --git a/tests/cards023-browser-integration.test.js b/tests/cards023-browser-integration.test.js
+new file mode 100644
+index 00000000..3664f212
+--- /dev/null
++++ b/tests/cards023-browser-integration.test.js
+@@ -0,0 +1,598 @@
++import assert from "node:assert/strict";
++import { createHash } from "node:crypto";
++import { existsSync, mkdirSync, writeFileSync } from "node:fs";
++import { mkdtemp, rm } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { spawn } from "node:child_process";
++import test from "node:test";
++
++import { buildRelease } from "../scripts/build-release.js";
++import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
++import { GameSession } from "../src/sim/game-session.js";
++
++const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? "playwright";
++const CHROME = process.env.GAME_BROWSER_CHROME ??
++  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
++const ARTIFACTS = process.env.CARDS023I_ARTIFACTS ??
++  new URL("../artifacts/cards023i-round-1/builder/", import.meta.url).pathname;
++const DECK = Object.freeze([
++  "aether-well", "mossguard", "copperskiff", "skymaul",
++  "brassbolt", "reedsting", "briar-band", "cinderlings",
++]);
++const LORE = "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.";
++
++function sha256(bytes) {
++  return createHash("sha256").update(bytes).digest("hex");
++}
++
++function serverReady(server, stdout, stderr) {
++  return new Promise((resolve, reject) => {
++    let pending = "";
++    let resolved = false;
++    const onData = (chunk) => {
++      const text = chunk.toString("utf8");
++      stdout.push(text);
++      if (resolved) return;
++      pending += text;
++      const newline = pending.indexOf("\n");
++      if (newline < 0) return;
++      resolved = true;
++      try { resolve(JSON.parse(pending.slice(0, newline))); }
++      catch (error) { reject(error); }
++    };
++    server.stdout.on("data", onData);
++    server.stderr.on("data", (chunk) => stderr.push(chunk.toString("utf8")));
++    server.once("exit", (code) => reject(new Error(
++      `release server exited before readiness (${code})`)));
++  });
++}
++
++async function clickWorldPoint(page, arena, x, y) {
++  const box = await arena.boundingBox();
++  assert.ok(box && box.width > 0 && box.height > 0,
++    "the released arena has a visible trusted-input surface");
++  const metrics = await arena.evaluate((node) => ({
++    borderLeft: node.clientLeft,
++    borderTop: node.clientTop,
++    clientHeight: node.clientHeight,
++    clientWidth: node.clientWidth,
++    rectHeight: node.getBoundingClientRect().height,
++    rectWidth: node.getBoundingClientRect().width,
++  }));
++  const scaleX = box.width / metrics.rectWidth;
++  const scaleY = box.height / metrics.rectHeight;
++  await page.mouse.click(
++    box.x + (metrics.borderLeft + metrics.clientWidth * x / 18_000) * scaleX,
++    box.y + (metrics.borderTop + metrics.clientHeight * (32_000 - y) / 32_000) * scaleY,
++  );
++}
++
++async function readContinuation(frame, entryUrl) {
++  return frame.evaluate(async (url) => {
++    const { arenaHudController: controller } = await import(url);
++    const snapshot = controller.serialize();
++    const inputBridgeBytes = JSON.parse(snapshot).bridge;
++    const selectedCardId = controller.state.selectedCardId;
++    if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
++        (selectedCardId !== null && typeof selectedCardId !== "string")) {
++      throw new TypeError("Aether Well checkpoint requires canonical input bridge and selection state");
++    }
++    return {
++      audioBytes: controller.audioContinuationBytes,
++      inputBridgeBytes,
++      selectedCardId,
++      sessionBytes: controller.session.serialize(),
++      snapshot,
++      stateBytes: JSON.stringify(controller.state),
++    };
++  }, entryUrl);
++}
++
++test("CARDS-023I Aether Well is a real collection choice and battle resource", {
++  timeout: 300_000,
++}, async (t) => {
++  assert.ok(existsSync(CHROME), "the installed Chrome runtime is required");
++  mkdirSync(ARTIFACTS, { recursive: true });
++  const temporary = await mkdtemp(join(tmpdir(), "cards023i-release-"));
++  t.after(() => rm(temporary, { recursive: true, force: true }));
++  const releaseRoot = join(temporary, "artifact");
++  await buildRelease({ output: releaseRoot });
++  const serverStdout = [];
++  const serverStderr = [];
++  const server = spawn(process.execPath, [
++    new URL("./game-browser-journey-server.js", import.meta.url).pathname,
++    `--root=${releaseRoot}`,
++  ], { stdio: ["ignore", "pipe", "pipe"] });
++  let browser;
++  const browserErrors = [];
++  const evidence = {
++    browserErrors: [],
++    browserVersion: null,
++    deck: DECK,
++    lore: LORE,
++    mode: "seed-2 editable GameSession; full legal natural AI; trusted player input",
++    releaseResult: "pending",
++    screenshots: [],
++  };
++
++  try {
++    const address = await serverReady(server, serverStdout, serverStderr);
++    const origin = `http://${address.host}:${address.port}`;
++    const { chromium } = await import(PLAYWRIGHT);
++    browser = await chromium.launch({ executablePath: CHROME, headless: true });
++    evidence.browserVersion = browser.version();
++    const context = await browser.newContext({
++      deviceScaleFactor: 1,
++      reducedMotion: "no-preference",
++      viewport: { width: 390, height: 844 },
++    });
++    const page = await context.newPage();
++    page.on("console", (message) => {
++      if (message.type() === "error") {
++        browserErrors.push(message.text());
++        evidence.browserErrors.push({ type: "console", text: message.text() });
++      }
++    });
++    page.on("pageerror", (error) => {
++      browserErrors.push(String(error));
++      evidence.browserErrors.push({ type: "pageerror", message: String(error) });
++    });
++    page.on("requestfailed", (request) => browserErrors.push(
++      `${request.url()}: ${request.failure()?.errorText}`));
++
++    const response = await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
++    assert.equal(response.status(), 200);
++    await page.locator('.app-nav [data-nav-to="cards"]').click();
++    await page.locator('[data-card-grid] [data-card-id="aether-well"]').click();
++    const detail = await page.locator("[data-card-detail]").evaluate(async (node) => {
++      const image = node.querySelector(".detail-portrait .card-art-image");
++      if (image === null) return { image: null, lore: null, text: node.innerText };
++      await image.decode();
++      return {
++        image: {
++          complete: image.complete,
++          naturalHeight: image.naturalHeight,
++          naturalWidth: image.naturalWidth,
++          src: new URL(image.currentSrc || image.src, document.baseURI).pathname,
++        },
++        lore: node.querySelector(".card-lore p")?.innerText ?? null,
++        profile: node.querySelector(".unit-profile")?.innerText ?? null,
++        text: node.innerText,
++      };
++    });
++    assert.equal(detail.image?.src, "/public/assets/aether-well-portrait-painted.webp");
++    assert.ok(detail.image?.complete && detail.image.naturalWidth > 0 && detail.image.naturalHeight > 0,
++      `the accepted Aether Well portrait decodes in the released collection: ${JSON.stringify(detail.image)}`);
++    assert.equal(detail.lore, LORE, "the collection detail uses the accepted two-sentence lore");
++    assert.match(detail.profile ?? "", /Resource structure · QUESTION/u,
++      "the resource profile retains its visible QUESTION boundary");
++    assert.doesNotMatch(detail.profile ?? "", /(?:Damage|First hit|Hit speed|Range|Splash radius|NaN|undefined)/iu,
++      "the resource profile does not invent attack statistics");
++    const detailShot = await page.screenshot({
++      path: join(ARTIFACTS, "aether-well-card-detail-phone-390x844.png"),
++    });
++    evidence.screenshots.push({ file: "aether-well-card-detail-phone-390x844.png",
++      sha256: sha256(detailShot) });
++
++    await page.locator('.app-nav [data-nav-to="deck"]').click();
++    const replaceSlot = async (slot, cardId) => {
++      await page.locator(`[data-replace-slot="${slot}"]`).click();
++      await page.locator(`[data-replacement-card-id="${cardId}"]`).click();
++    };
++    await replaceSlot(0, "aether-well");
++    const selectedDeck = await page.locator("[data-deck-cards] [data-card-id]")
++      .evaluateAll((nodes) => nodes.map((node) => node.dataset.cardId));
++    assert.deepEqual(selectedDeck, DECK,
++      "trusted collection editor order exactly matches the custom eight-card witness");
++    assert.equal(new Set(selectedDeck).size, 8);
++    await page.locator('.app-nav [data-nav-to="battle"]').click();
++
++    const arena = page.frameLocator("[data-battle-frame-slot] iframe")
++      .locator('[data-ui="arena"]');
++    await arena.waitFor({ state: "visible", timeout: 10_000 });
++    const frame = page.frames().find((candidate) => candidate.url().includes("app-frame=1"));
++    assert.ok(frame, "the released battle mounts its real frame and controller");
++    const moduleUrl = new URL("/src/ui/arena-shell-entry.js", origin).href;
++    const seededSession = new GameSession(createEditableGameSessionSetup(selectedDeck, 2));
++    const opening = await frame.evaluate(async ({ entryUrl, sessionBytes, sessionSetup }) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      controller.pause();
++      controller.replaceDeck(sessionSetup.deck);
++      controller.resume();
++      controller.enterManualStepMode();
++      const envelope = JSON.parse(controller.serialize());
++      envelope.session = sessionBytes;
++      envelope.running = false;
++      controller.restore(canonical(envelope));
++      controller.enterManualStepMode();
++      return {
++        hand: controller.session.state.decks.south.hand,
++        northHand: controller.session.state.decks.north.hand,
++        setup: JSON.parse(controller.session.serialize()).setup,
++        state: controller.state,
++      };
++      function canonical(value) {
++        if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
++        if (value !== null && typeof value === "object") return `{${Object.keys(value).sort()
++          .map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
++        return JSON.stringify(value);
++      }
++    }, { entryUrl: moduleUrl, sessionBytes: seededSession.serialize(),
++      sessionSetup: JSON.parse(seededSession.serialize()).setup });
++    assert.equal(opening.setup.seed, 2);
++    assert.deepEqual(opening.setup.deck, selectedDeck,
++      "the canonical GameSession uses the exact order selected in the trusted editor");
++    assert.deepEqual(opening.setup.deck, DECK);
++    assert.equal(opening.setup.legalNorthDeployments.length, 8,
++      "the ordinary setup keeps every selected card legal for natural AI choice");
++    assert.ok(opening.hand.includes("aether-well"), "seed 2 gives the player the well in its opening hand");
++    assert.ok(opening.northHand.includes("aether-well"),
++      "seed 2 gives the unforced north AI a natural well candidate");
++
++    await frame.evaluate(() => {
++      globalThis.__cards023Pointers = [];
++      document.querySelector('[data-ui="arena"]').addEventListener("pointerup", (event) => {
++        globalThis.__cards023Pointers.push({ isTrusted: event.isTrusted,
++          clientX: event.clientX, clientY: event.clientY });
++      }, true);
++    });
++    const battleFrame = page.frameLocator("[data-battle-frame-slot] iframe");
++    const aetherSlot = battleFrame.locator('[data-ui="card-slot"][data-card-id="aether-well"]');
++    await aetherSlot.click();
++    const visibleCost = Number(await battleFrame
++      .locator('[data-ui="hud-hand"] [data-card-id="aether-well"] .hud-card__cost').innerText());
++    assert.equal(visibleCost, 6, "the real player hand presents Aether Well's six-elixir cost");
++    await clickWorldPoint(page, arena, 3_500, 14_500);
++    const openingBoundary = await frame.evaluate(async (entryUrl) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      const events = controller.fastForwardSegment(1);
++      const state = controller.session.state;
++      const hud = document.querySelector('[data-ui="hud-elixir"]');
++      return {
++        events,
++        hand: state.decks.south.hand,
++        hud: hud === null ? null : { amount: hud.dataset.amount, side: hud.dataset.side },
++        inputSlots: [...document.querySelectorAll('[data-ui="card-slot"]')]
++          .map((node) => node.dataset.cardId),
++        northHand: state.decks.north.hand,
++        pointers: globalThis.__cards023Pointers,
++        sequence: { north: state.decks.north.sequence, south: state.decks.south.sequence },
++        state,
++        setup: JSON.parse(controller.session.serialize()).setup,
++      };
++    }, moduleUrl);
++    const openingDeployments = openingBoundary.events.filter(({ materialization, type }) =>
++      type === "session-structure-deployed" && materialization?.cardId === "aether-well");
++    assert.deepEqual(openingDeployments.map(({ side, spend }) => ({
++      amountAfter: spend.amountAfter,
++      cost: spend.cost,
++      side,
++    })).sort((left, right) => left.side.localeCompare(right.side)), [
++      { amountAfter: 4, cost: 6, side: "north" },
++      { amountAfter: 4, cost: 6, side: "south" },
++    ], "the player's trusted drop and the unforced seeded AI each spend six once");
++    assert.deepEqual(openingBoundary.sequence, { north: 1, south: 1 },
++      "both canonical deck cycles advance once for Aether Well");
++    assert.equal(openingBoundary.state.elixir.sides.south.amount, 4);
++    assert.equal(openingBoundary.state.elixir.sides.north.amount, 4);
++    assert.ok(!openingBoundary.hand.includes("aether-well"));
++    assert.ok(!openingBoundary.northHand.includes("aether-well"));
++    assert.deepEqual(openingBoundary.inputSlots, openingBoundary.hand,
++      "the live input slots follow the canonical player cycle");
++    assert.equal(openingBoundary.hud?.side, "south");
++    assert.equal(Number(openingBoundary.hud?.amount), openingBoundary.state.elixir.sides.south.amount);
++    assert.equal(openingBoundary.pointers.length, 1);
++    assert.equal(openingBoundary.pointers[0].isTrusted, true,
++      "Chrome's trusted pointer event deploys the player well");
++    assert.deepEqual(openingBoundary.setup.legalNorthDeployments.length, 8);
++    evidence.opening = {
++      deployments: openingDeployments,
++      hand: openingBoundary.hand,
++      pointer: openingBoundary.pointers[0],
++      sequences: openingBoundary.sequence,
++      stateTick: openingBoundary.state.tick,
++    };
++
++    const initialArt = await frame.evaluate(() => {
++      const frame = window.frameElement;
++      const matrix = frame === null ? null : new DOMMatrixReadOnly(getComputedStyle(frame).transform);
++      return ["north", "south"].map((side) => {
++        const marker = document.querySelector(
++          `.combat-marker[data-kind="aether-well"][data-side="${side}"]`,
++        );
++        const art = marker?.querySelector('.combat-art[data-art-id="aether-well"]');
++        const style = art == null ? null : getComputedStyle(art);
++        return {
++          bodyBoundsUnits: art?.dataset.bodyBoundsUnits ?? null,
++          bodyCssPixels: art?.dataset.bodyCssPixels ?? null,
++          motion: art?.dataset.motion ?? null,
++          physicalBodyCssPixels: style === null || matrix === null ? null :
++            Number.parseFloat(style.height) * (25.425 / 32) * matrix.a,
++          side: art?.dataset.side ?? null,
++          structure: marker?.dataset.structure ?? null,
++          teamColor: art?.dataset.teamColor ?? null,
++        };
++      });
++    });
++    assert.deepEqual(initialArt.map(({ bodyBoundsUnits, bodyCssPixels, motion, side, structure, teamColor }) =>
++      ({ bodyBoundsUnits, bodyCssPixels, motion, side, structure, teamColor })), [
++      { bodyBoundsUnits: "2.575:28", bodyCssPixels: "13", motion: "static",
++        side: "north", structure: "true", teamColor: "#C6452E" },
++      { bodyBoundsUnits: "2.575:28", bodyCssPixels: "13", motion: "static",
++        side: "south", structure: "true", teamColor: "#2E7F86" },
++    ], "the live player and AI structure use the original team-readable battle art");
++    assert.ok(initialArt.every(({ physicalBodyCssPixels }) =>
++      Number.isFinite(physicalBodyCssPixels) && Math.abs(physicalBodyCssPixels - 13) < 0.02),
++    `the live structures render a 13px physical body: ${JSON.stringify(initialArt)}`);
++    const openingShot = await page.screenshot({
++      path: join(ARTIFACTS, "aether-well-opening-phone-390x844.png"),
++    });
++    evidence.screenshots.push({ file: "aether-well-opening-phone-390x844.png",
++      sha256: sha256(openingShot) });
++
++    await frame.evaluate(async ({ entryUrl, ticks }) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      controller.fastForwardSegment(ticks);
++    }, { entryUrl: moduleUrl, ticks: 473 });
++    const southBoundary = await frame.evaluate(async (entryUrl) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      const events = controller.fastForwardSegment(1);
++      const state = controller.session.state;
++      const hud = document.querySelector('[data-ui="hud-elixir"]');
++      const hudProjection = document.querySelector('[data-ui="hud-projection"]');
++      return {
++        events,
++        hud: hud === null ? null : { amount: hud.dataset.amount, side: hud.dataset.side },
++        hudTick: hudProjection?.dataset.tick ?? null,
++        state,
++      };
++    }, moduleUrl);
++    const southId = openingDeployments.find(({ side }) => side === "south")
++      ?.materialization.structureId;
++    const southPayout = southBoundary.events.filter(({ buildingId, cause, type }) =>
++      buildingId === southId && cause === "combat-damage" &&
++      type === "building-resource-payout-triggered");
++    const southGrant = southBoundary.events.filter(({ buildingId, side, tick, type }) =>
++      buildingId === southId && side === "south" && tick === 474 &&
++      type === "building-resource-granted");
++    assert.equal(southBoundary.state.tick, 475, "the tick-474 payout advances one canonical boundary");
++    assert.equal(southPayout.length, 1,
++      "natural combat destroys the player's well and returns its authenticated payout trigger");
++    assert.deepEqual(southPayout.map(({ amount, recipientSide, tick }) =>
++      ({ amount, recipientSide, tick })), [{ amount: 1, recipientSide: "south", tick: 474 }]);
++    assert.equal(southGrant.length, 1, "the shared resource authority returns one owner-routed grant");
++    assert.equal(southGrant[0].amountRequested, 1);
++    assert.equal(southGrant[0].amountGranted, 1);
++    assert.equal(southGrant[0].amountAfter, southBoundary.state.elixir.sides.south.amount);
++    assert.equal(southBoundary.hud?.side, "south");
++    assert.equal(Number(southBoundary.hud?.amount), southGrant[0].amountAfter,
++      "the accepted grant receipt agrees with the canonical HUD amount at the same boundary and side; regen and boundary ordering also remain in that state");
++    assert.equal(Number(southBoundary.hudTick), southBoundary.state.tick,
++      "the resource meter reflects the same canonical session tick as the returned receipt");
++
++    await frame.evaluate(async ({ entryUrl, ticks }) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      controller.fastForwardSegment(ticks);
++    }, { entryUrl: moduleUrl, ticks: 65 });
++    const northBoundary = await frame.evaluate(async (entryUrl) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      const events = controller.fastForwardSegment(1);
++      return { events, state: controller.session.state };
++    }, moduleUrl);
++    const northId = openingDeployments.find(({ side }) => side === "north")
++      ?.materialization.structureId;
++    const northGrant = northBoundary.events.filter(({ buildingId, side, tick, type }) =>
++      buildingId === northId && side === "north" && tick === 540 &&
++      type === "building-resource-granted");
++    assert.equal(northBoundary.state.tick, 541);
++    assert.equal(northGrant.length, 1,
++      "the unforced north well returns its natural first periodic grant at tick 540");
++    assert.equal(northGrant[0].amountRequested, 1);
++    assert.ok(northGrant[0].amountGranted >= 0 && northGrant[0].amountGranted <= 1);
++    assert.equal(northGrant[0].amountAfter, northBoundary.state.elixir.sides.north.amount,
++      "the authenticated AI receipt matches canonical north Elixir at the same state tick");
++    evidence.resourceFeedback = {
++      north: { amountAfter: northGrant[0].amountAfter, amountGranted: northGrant[0].amountGranted,
++        requested: northGrant[0].amountRequested, tick: northGrant[0].tick },
++      south: { amountAfter: southGrant[0].amountAfter, amountGranted: southGrant[0].amountGranted,
++        hudAmount: Number(southBoundary.hud.amount), hudTick: Number(southBoundary.hudTick),
++        requested: southGrant[0].amountRequested, tick: southGrant[0].tick },
++    };
++
++    await frame.evaluate(async (entryUrl) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      controller.pause();
++    }, moduleUrl);
++    const checkpoint = await readContinuation(frame, moduleUrl);
++    evidence.pausedCheckpoint = {
++      audioSha256: sha256(Buffer.from(checkpoint.audioBytes)),
++      inputBridgeSha256: sha256(Buffer.from(checkpoint.inputBridgeBytes)),
++      selectedCardId: checkpoint.selectedCardId,
++      sessionSha256: sha256(Buffer.from(checkpoint.sessionBytes)),
++      snapshotSha256: sha256(Buffer.from(checkpoint.snapshot)),
++      stateSha256: sha256(Buffer.from(checkpoint.stateBytes)),
++    };
++
++    const presentationChecks = [];
++    for (const mode of [
++      { label: "phone-normal", motion: "no-preference", viewport: { width: 390, height: 844 },
++        bodyCssPixels: 13 },
++      { label: "phone-reduced", motion: "reduce", viewport: { width: 390, height: 844 },
++        bodyCssPixels: 13 },
++      { label: "desktop-normal", motion: "no-preference", viewport: { width: 1440, height: 933 },
++        bodyCssPixels: 26 },
++      { label: "desktop-reduced", motion: "reduce", viewport: { width: 1440, height: 933 },
++        bodyCssPixels: 26 },
++    ]) {
++      await page.setViewportSize(mode.viewport);
++      await page.emulateMedia({ reducedMotion: mode.motion });
++      await frame.waitForFunction(({ bodyCssPixels, reduce }) => {
++        const frame = window.frameElement;
++        if (frame === null) return false;
++        const art = document.querySelector(
++          '.combat-marker[data-kind="aether-well"][data-side="north"] .combat-art[data-art-id="aether-well"]',
++        );
++        if (art === null) return false;
++        const matrix = new DOMMatrixReadOnly(getComputedStyle(frame).transform);
++        const style = getComputedStyle(art);
++        const physical = Number.parseFloat(style.height) * (25.425 / 32) * matrix.a;
++        return Number(document.documentElement.dataset.combatBodyCssPixels) === bodyCssPixels &&
++          Math.abs(Number(document.documentElement.dataset.combatFrameScale) - matrix.a) < 1e-6 &&
++          Math.abs(physical - bodyCssPixels) < 0.02 &&
++          art.dataset.bodyCssPixels === String(bodyCssPixels) &&
++          art.dataset.motion === "static" &&
++          matchMedia("(prefers-reduced-motion: reduce)").matches === reduce;
++      }, { bodyCssPixels: mode.bodyCssPixels, reduce: mode.motion === "reduce" });
++
++      const afterResize = await readContinuation(frame, moduleUrl);
++      for (const key of ["audioBytes", "inputBridgeBytes", "selectedCardId", "sessionBytes",
++        "snapshot", "stateBytes"]) {
++        assert.equal(afterResize[key], checkpoint[key],
++          `${mode.label} automatic resize/redraw leaves ${key} untouched`);
++      }
++      const artProjection = await frame.evaluate(() => {
++        const art = document.querySelector(
++          '.combat-marker[data-kind="aether-well"][data-side="north"] .combat-art[data-art-id="aether-well"]',
++        );
++        const frame = window.frameElement;
++        const style = art === null ? null : getComputedStyle(art);
++        const matrix = frame === null ? null : new DOMMatrixReadOnly(getComputedStyle(frame).transform);
++        return {
++          bodyCssPixels: Number(art?.dataset.bodyCssPixels),
++          frameScale: Number(document.documentElement.dataset.combatFrameScale),
++          motion: art?.dataset.motion ?? null,
++          physicalBodyCssPixels: style === null || matrix === null ? null :
++            Number.parseFloat(style.height) * (25.425 / 32) * matrix.a,
++          reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
++          side: art?.dataset.side ?? null,
++          teamColor: art?.dataset.teamColor ?? null,
++          tick: document.querySelector('[data-ui="hud-projection"]')?.dataset.tick ?? null,
++        };
++      });
++      assert.equal(artProjection.bodyCssPixels, mode.bodyCssPixels);
++      assert.equal(artProjection.reducedMotion, mode.motion === "reduce");
++      assert.equal(artProjection.motion, "static");
++      assert.equal(artProjection.side, "north");
++      assert.equal(artProjection.teamColor, "#C6452E");
++      assert.equal(artProjection.tick, "541");
++
++      const beforeFile = `aether-well-${mode.label}-before-restore.png`;
++      const afterFile = `aether-well-${mode.label}-after-restore.png`;
++      const before = await page.screenshot({ path: join(ARTIFACTS, beforeFile) });
++      const restored = await frame.evaluate(async ({ entryUrl, snapshot }) => {
++        const { arenaHudController: controller } = await import(entryUrl);
++        controller.restore(snapshot);
++        const bytes = controller.serialize();
++        const inputBridgeBytes = JSON.parse(bytes).bridge;
++        const selectedCardId = controller.state.selectedCardId;
++        if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
++            (selectedCardId !== null && typeof selectedCardId !== "string")) {
++          throw new TypeError("restored Aether Well input bridge is invalid");
++        }
++        return {
++          audioBytes: controller.audioContinuationBytes,
++          inputBridgeBytes,
++          selectedCardId,
++          sessionBytes: controller.session.serialize(),
++          snapshot: bytes,
++          stateBytes: JSON.stringify(controller.state),
++        };
++      }, { entryUrl: moduleUrl, snapshot: checkpoint.snapshot });
++      for (const key of ["audioBytes", "inputBridgeBytes", "selectedCardId", "sessionBytes",
++        "snapshot", "stateBytes"]) {
++        assert.equal(restored[key], checkpoint[key], `${mode.label} restore preserves exact ${key}`);
++      }
++      const after = await page.screenshot({ path: join(ARTIFACTS, afterFile) });
++      assert.deepEqual(after, before, `${mode.label} whole-viewport PNG matches byte for byte after restore`);
++      evidence.screenshots.push(
++        { file: beforeFile, sha256: sha256(before) },
++        { file: afterFile, sha256: sha256(after) },
++      );
++      presentationChecks.push({
++        ...artProjection,
++        mode: mode.label,
++        before: { file: beforeFile, bytes: before.length, sha256: sha256(before) },
++        after: { file: afterFile, bytes: after.length, sha256: sha256(after) },
++        frameScale: artProjection.frameScale,
++        physicalBodyCssPixels: artProjection.physicalBodyCssPixels,
++      });
++    }
++    evidence.presentationChecks = presentationChecks;
++
++    const terminal = await frame.evaluate(async (entryUrl) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      const start = controller.state.sessionTick;
++      controller.resume();
++      controller.enterManualStepMode();
++      let chunks = 0;
++      while (!controller.state.terminal && controller.state.sessionTick < 18_000 && chunks < 16) {
++        controller.fastForwardSegment(Math.min(1_200, 18_000 - controller.state.sessionTick));
++        chunks += 1;
++      }
++      const sessionBytes = controller.session.serialize();
++      return {
++        chunks,
++        start,
++        state: controller.state,
++        setup: JSON.parse(sessionBytes).setup,
++        session: { tick: controller.session.state.tick, terminal: controller.session.state.terminal },
++      };
++    }, moduleUrl);
++    evidence.naturalMatch = terminal;
++    assert.equal(terminal.state.terminal, true,
++      "the unforced custom eight-card match reaches its natural terminal before 18,000 ticks");
++    assert.deepEqual(terminal.setup.deck, DECK);
++    assert.equal(terminal.setup.seed, 2);
++    assert.equal(terminal.setup.legalNorthDeployments.length, 8,
++      "the AI's complete natural legal-deployment set remains intact through terminal");
++    const terminalShot = await page.screenshot({
++      path: join(ARTIFACTS, "aether-well-natural-terminal.png"),
++    });
++    evidence.screenshots.push({ file: "aether-well-natural-terminal.png",
++      sha256: sha256(terminalShot) });
++
++    await frame.locator('[data-ui="restart"]').click();
++    const restarted = await frame.evaluate(async (entryUrl) => {
++      const { arenaHudController: controller } = await import(entryUrl);
++      const sessionBytes = controller.session.serialize();
++      return {
++        restartCount: controller.state.restartCount,
++        state: controller.state,
++        setup: JSON.parse(sessionBytes).setup,
++        sessionBytes,
++      };
++    }, moduleUrl);
++    assert.equal(restarted.restartCount, 1,
++      "a trusted UI click performs one real same-deck restart");
++    assert.equal(restarted.state.sessionTick, 0);
++    assert.deepEqual(restarted.setup.deck, DECK);
++    assert.equal(restarted.setup.seed, 2);
++    assert.equal(restarted.setup.legalNorthDeployments.length, 8);
++    evidence.sameDeckRestart = {
++      deck: restarted.setup.deck,
++      restartCount: restarted.restartCount,
++      seed: restarted.setup.seed,
++      tick: restarted.state.sessionTick,
++    };
++    evidence.releaseResult = "pass";
++    evidence.server = { stderr: serverStderr.join(""), stdout: serverStdout.join("") };
++    writeFileSync(join(ARTIFACTS, "cards023-browser-integration-evidence.json"),
++      `${JSON.stringify(evidence, null, 2)}\n`);
++    assert.deepEqual(browserErrors, []);
++    await context.close();
++  } catch (error) {
++    evidence.releaseResult = "fail";
++    evidence.failure = String(error?.stack ?? error);
++    evidence.server = { stderr: serverStderr.join(""), stdout: serverStdout.join("") };
++    writeFileSync(join(ARTIFACTS, "cards023-browser-integration-evidence.json"),
++      `${JSON.stringify(evidence, null, 2)}\n`);
++    throw error;
++  } finally {
++    if (browser !== undefined) await browser.close();
++    if (server.exitCode === null && server.signalCode === null) {
++      server.kill("SIGTERM");
++      await new Promise((resolve) => server.once("exit", resolve));
++    }
++  }
++});
+diff --git a/tests/ui-combat-state.test.js b/tests/ui-combat-state.test.js
+index b693553e..183c8ca5 100644
+--- a/tests/ui-combat-state.test.js
++++ b/tests/ui-combat-state.test.js
+@@ -5,10 +5,14 @@ import { readFileSync } from "node:fs";
+ import { basename, resolve } from "node:path";
+ import { fileURLToPath, pathToFileURL } from "node:url";
+ import test from "node:test";
+ 
+ import { createCombatArt, COMBAT_ART_ARCHETYPES } from "../src/ui/combat-art.js";
++import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
++import { GameSession } from "../src/sim/game-session.js";
++import { createGameUiFrame } from "../src/ui/game-ui-projection.js";
++import { AETHER_WELL_TEAM_COLORS } from "../src/ui/aether-well-art.js";
+ import { getCardLore } from "../src/ui/card-lore.js";
+ import { getCardPortrait, getCardPortraitIds } from "../src/ui/card-portrait-art.js";
+ import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+ 
+ import {
+@@ -77,10 +81,17 @@ function state(overrides = {}) {
+     ],
+     ...overrides,
+   };
+ }
+ 
++function canonicalJson(value) {
++  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
++  if (value !== null && typeof value === "object") return `{${Object.keys(value).sort()
++    .map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
++  return JSON.stringify(value);
++}
++
+ class Style {
+   values = new Map();
+   setProperty(name, value) { this.values.set(name, value); }
+ }
+ 
+@@ -190,11 +201,22 @@ test("Brackenwheel resolves its accepted portrait and exactly two approved lore
+   assert.deepEqual(getCardPortrait("brackenwheel"), {
+     asset: "brackenwheel-portrait-painted",
+     cell: null,
+     src: new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url).href,
+   });
+-  assert.deepEqual(getCardPortraitIds().slice(-1), ["brackenwheel"]);
++  assert.deepEqual(getCardPortraitIds().slice(-2), ["brackenwheel", "aether-well"]);
++});
++
++test("Aether Well resolves the accepted standalone portrait and two exact lore sentences", () => {
++  assert.equal(getCardLore("aether-well"),
++    "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.");
++  assert.deepEqual(getCardPortrait("aether-well"), {
++    asset: "aether-well-portrait-painted",
++    cell: null,
++    src: new URL("../public/assets/aether-well-portrait-painted.webp", import.meta.url).href,
++  });
++  assert.deepEqual(getCardPortraitIds().slice(-1), ["aether-well"]);
+ });
+ 
+ test("Brackenwheel selects renderer and physical body size from deterministic presentation context", () => {
+   for (const { bodyCssPixels, frameScale, renderer, bodyFraction } of [
+     { bodyCssPixels: 13, frameScale: 0.5, renderer: "native-svg", bodyFraction: 28.4 / 32 },
+@@ -221,10 +243,81 @@ test("Brackenwheel selects renderer and physical body size from deterministic pr
+     assert.equal(marker.style.width, art.style.width);
+     assert.equal(marker.style.height, art.style.height);
+   }
+ });
+ 
++test("Aether Well art renders from an authentic GameSession projection at phone and desktop scale", () => {
++  const deck = ["aether-well", ...PLAYABLE_CARD_IDS.slice(1)];
++  const session = new GameSession(createEditableGameSessionSetup(deck, 2));
++  const opening = session.state;
++  const slot = opening.decks.south.hand.indexOf("aether-well");
++  assert.notEqual(slot, -1, "seed 2 places Aether Well in the player's authentic opening hand");
++  assert.ok(opening.decks.north.hand.includes("aether-well"),
++    "the unforced AI has Aether Well in its natural opening hand");
++  session.submitPlayerCommand(canonicalJson({
++    cardId: "aether-well",
++    commandId: 0,
++    point: { x: 3_500, y: 14_500 },
++    slot,
++    tick: 0,
++    type: "deploy",
++  }));
++  session.stepMany(1);
++  const projected = createGameUiFrame(session);
++  const expectedSides = projected.combat.entities
++    .filter(({ kind }) => kind === "aether-well")
++    .map(({ side }) => side).sort();
++  assert.deepEqual(expectedSides, ["north", "south"],
++    "canonical session state projects the player's and unforced AI's actual Aether Well structures");
++
++  const snapshot = (node) => JSON.stringify({
++    attributes: [...node.attributes].sort(),
++    children: node.children.map(snapshot),
++    className: node.className,
++    dataset: Object.fromEntries(Object.entries(node.dataset).sort()),
++    style: { display: node.style.display ?? null, height: node.style.height ?? null,
++      width: node.style.width ?? null },
++  });
++  for (const { bodyCssPixels, frameScale } of [
++    { bodyCssPixels: 13, frameScale: 0.5 },
++    { bodyCssPixels: 26, frameScale: 0.75 },
++  ]) {
++    const render = (reducedMotion) => {
++      const { document, layer } = dom();
++      document.documentElement = { dataset: {
++        combatBodyCssPixels: String(bodyCssPixels),
++        combatFrameScale: String(frameScale),
++      } };
++      document.defaultView = { matchMedia: () => ({ matches: reducedMotion }) };
++      bindCombatViewModel(layer, projected.combat);
++      const markers = layer.children[0].children
++        .filter((node) => node.dataset.kind === "aether-well")
++        .sort((left, right) => left.dataset.side.localeCompare(right.dataset.side));
++      assert.equal(markers.length, 2);
++      return markers.map((marker) => {
++        const art = marker.children.find((node) => node.dataset.artId === "aether-well");
++        assert.ok(art, "the authentic game UI projection reaches the battle renderer");
++        assert.equal(marker.dataset.structure, "true");
++        assert.equal(marker.className.includes("combat-marker--structure"), true);
++        assert.equal(art.dataset.renderer, "native-svg");
++        assert.equal(art.dataset.motion, "static");
++        assert.equal(art.dataset.bodyBoundsUnits, "2.575:28");
++        assert.equal(art.dataset.bodyCssPixels, String(bodyCssPixels));
++        assert.equal(art.dataset.side, marker.dataset.side);
++        assert.equal(art.dataset.teamColor, AETHER_WELL_TEAM_COLORS[marker.dataset.side]);
++        assert.ok(Math.abs(Number.parseFloat(art.style.height) * frameScale * 25.425 / 32 -
++          bodyCssPixels) < 1e-9, "iframe compensation preserves the physical structure body size");
++        assert.equal(marker.style.width, art.style.width);
++        assert.equal(marker.style.height, art.style.height);
++        return snapshot(art);
++      });
++    };
++    assert.deepEqual(render(true), render(false),
++      `${bodyCssPixels}px Aether Well art restores identically in normal and reduced-motion modes`);
++  }
++});
++
+ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer", {
+   skip: process.env.ART004_PARENT_ROOT ? false : "set ART004_PARENT_ROOT to the accepted 5ed checkout",
+ }, async () => {
+   const parentRoot = resolve(process.env.ART004_PARENT_ROOT);
+   const parentSha = execFileSync("git", ["-C", parentRoot, "rev-parse", "HEAD"], {
+@@ -257,14 +350,14 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
+   assert.equal(getCombatStyleText(), parentState.getCombatStyleText() +
+     `.combat-marker[data-kind="brackenwheel"]::before{content:"";position:absolute;z-index:-1;inset:-3px;border:2px solid;border-radius:50%;pointer-events:none}.combat-marker[data-kind="brackenwheel"][data-side="north"]::before{border-color:#b95c4c}.combat-marker[data-kind="brackenwheel"][data-side="south"]::before{border-color:#398ba4}`,
+   "the only added combat CSS is Brackenwheel's team-readable ring");
+ 
+   const portraitIds = getCardPortraitIds();
+-  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 1,
+-    "Brackenwheel adds one portrait output to the accepted collection");
+-  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel"],
+-    "the full accepted collection order, including Buried Coil, is preserved with Brackenwheel appended");
++  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 2,
++    "Brackenwheel and Aether Well append two new portrait outputs to the accepted collection");
++  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel", "aether-well"],
++    "the accepted collection order, including Buried Coil, is preserved with Brackenwheel and Aether Well appended");
+   assert.ok(portraitIds.includes("buried-coil"));
+   for (const cardId of parentPortraits.getCardPortraitIds()) {
+     assert.deepEqual({
+       lore: getCardLore(cardId),
+       portrait: cardPortraitOutput({ getCardPortrait }, cardId),
+@@ -285,10 +378,24 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
+         new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url),
+       ))).digest("hex"),
+       src: "/public/assets/brackenwheel-portrait-painted.webp",
+     },
+   }, "Brackenwheel adds the accepted standalone portrait without changing parent outputs");
++  assert.deepEqual({
++    lore: getCardLore("aether-well"),
++    portrait: cardPortraitOutput({ getCardPortrait }, "aether-well"),
++  }, {
++    lore: "At dusk, the Aether Well’s copper scoop gathers glowing emberseed from the quiet river water. Workshop keepers wind its rootwood crank to lift the seeds into stoppered flasks for the nearby repair shed.",
++    portrait: {
++      asset: "aether-well-portrait-painted",
++      cell: null,
++      imageSha256: createHash("sha256").update(readFileSync(fileURLToPath(
++        new URL("../public/assets/aether-well-portrait-painted.webp", import.meta.url),
++      ))).digest("hex"),
++      src: "/public/assets/aether-well-portrait-painted.webp",
++    },
++  }, "Aether Well appends its accepted portrait and lore without changing parent outputs");
+ 
+   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
+     .filter((kind) => kind !== "briar-runner").sort();
+   assert.deepEqual(COMBAT_ART_ARCHETYPES.filter((kind) => kind !== "briar-runner").sort(),
+     expectedKinds, "all other combat-art archetypes remain present");

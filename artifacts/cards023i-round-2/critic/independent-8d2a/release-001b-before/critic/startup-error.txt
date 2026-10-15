@@ -1,0 +1,31 @@
+RELEASE-001B round 1 — Chromium startup observation
+Date: 2026-10-02
+Evaluated source HEAD: f6203fd4b36b5b77b212029ce5777d24d275bf50
+Frozen artifact: /var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/r001b-build-Jakzxu/artifact
+Artifact identity: see artifact-identity.json and release-manifest.json.
+Manifest SHA-256: d06d40e7cab58b0255af451406040d37814a31109ad13820e72cb0a3a09dc39f
+Manifest inventory SHA-256: 5ef5228156783b0965d1bf8a6d80ca4d8f1c0a919ee773cb7cfcb586fcd4d980
+Manifest: 26 files, 1,435,406 bytes; all 26 on-disk file hashes and sizes
+matched the manifest. Vite 8.3.2; no runtime dependencies; entrypoint
+public/index.html; declared standalone module src/rl/environment.js.
+
+Chrome 154.0.8037.97, headless, viewport 1440x1000. Loaded
+http://127.0.0.1:51181/moss-and-ember/public/index.html through an ephemeral
+prefix-stripping proxy to the unchanged scripts/serve-release.js
+createReleaseServer manifest host. The server root was the frozen artifact;
+the root dist and port 4173 were not used. The actual browser URL and every
+request/response are in browser-evidence.json.
+
+Observed: all 17 requests returned HTTP 200; there were no failed responses or
+console errors. One uncaught page error occurred during initial app startup:
+
+TypeError: Cannot read properties of undefined (reading 'length')
+    at cr (http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-C5PN67-o.js:1:63507)
+    at kr (http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-C5PN67-o.js:1:77837)
+    at H (http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-Z_IItUnP.js:1:115794)
+    at http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-Z_IItUnP.js:1:189795
+
+The document title and static Home markup appeared, but the deck card summary
+did not initialize. Per the decisive startup-failure stop rule, no interaction,
+game-flow, or standalone RL reset/step result is claimed. Screenshot:
+home.png.

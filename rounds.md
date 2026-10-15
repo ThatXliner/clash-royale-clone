@@ -9651,3 +9651,12 @@ EVIDENCE: Fresh candidate a5ac431: focused guards17/17 under TMPDIR=/tmp and17/1
 BIGGEST GAP: No remaining gap within canonical output guard scope; Aether live UI, factory extraction and full current endurance retain their separate pending verdicts.
 
 Adopt only scripts/build-release.js and tests/release-001b-guards.test.js plus bounded evidence and tracking. Production fix changes two lexical comparisons to existing canonical outputReal. Guard ordering, errors, caps, reference isolation, game simulation and public APIs unchanged. Preserve builder failed matcher attempt and old-source controls. No full roster, historical parity or full endurance completion claim.
+
+## Round 510 - CARDS-023I Aether Well live UI, round 2
+
+PIECE: CARDS-023I
+VERDICT: PASS
+EVIDENCE: Fresh exact8d2a candidate on accepted4c23968 canonicalguard. NativeChrome155 Aetherbrowser1/Brackbrowser1/app1/UI18/projection37/nondet10/manifest6/isolationguard13/release24/isolationrelease4/host1 all direct0:116passed,0failed,2optionalparent-root skips. Actualfourphone/desktopnormal/reduced13/26body renders andexactPNG/session/state/input/audio restore. NaturalAetherterminal4468, orderedcustom8 seed2 restarttick0/count1; Brackregressionpasses. RootverifiedactualrawTAP, directexits, executed7sourceblobs andsealedledger; 758 original source inventory entries unchanged;33 npmci dependency additions explicitly excluded from source comparison, raw inventories preserved; fourrestoredreportbytes verified.
+BIGGEST GAP: Full current-source endurance remains open under CARDS-022Q; no full109 or historical parity claim.
+
+Adopt seven UI/test paths only plus evidence/tracking. No sim/content/RL/package/assets changes. InitialmissingVite attempt and originalstatus-capturelimitation preserved; locked npmci repaired environment beforefresh passing sequence, no productfix or weakened test. Round508FAIL retained as history; Round509 separately repaired requiredreleaseguard.

@@ -1,0 +1,32 @@
+{
+  "evaluatedSourceHead": "f6203fd4b36b5b77b212029ce5777d24d275bf50",
+  "artifactPath": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/r001b-build-Jakzxu/artifact",
+  "manifestSha256": "d06d40e7cab58b0255af451406040d37814a31109ad13820e72cb0a3a09dc39f",
+  "manifestBytes": 13276,
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [
+    "src/rl/environment.js"
+  ],
+  "fileCount": 26,
+  "totalBytes": 1435406,
+  "actualFilesChecked": 26,
+  "actualBytesChecked": 1435406,
+  "allManifestHashesMatch": true,
+  "inventorySha256": "5ef5228156783b0965d1bf8a6d80ca4d8f1c0a919ee773cb7cfcb586fcd4d980",
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html",
+      "public/ui-arena-shell.html",
+      "src/rl/environment.js"
+    ],
+    "staticAssetRoots": [
+      "public/assets"
+    ]
+  }
+}

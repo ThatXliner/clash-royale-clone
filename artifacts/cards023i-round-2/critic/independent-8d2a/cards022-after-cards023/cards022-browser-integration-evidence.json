@@ -1,0 +1,2167 @@
+{
+  "baseCommand": "node --test tests/cards022-browser-integration.test.js",
+  "browserErrors": [],
+  "browserVersion": "155.0.8059.40",
+  "contact": {
+    "aiDeploymentCount": 1,
+    "damage": [
+      {
+        "amount": 267,
+        "meleeAreaPolicyVersion": null,
+        "targetId": 2,
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "targetId": 4,
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "targetId": 5,
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "targetId": 6,
+        "tick": 234
+      }
+    ],
+    "inputBridgeSnapshot": "{\"deliveries\":[{\"admission\":{\"accepted\":true,\"commandId\":1,\"tick\":0,\"type\":\"player-command-admitted\"},\"command\":{\"cardId\":\"brackenwheel\",\"commandId\":1,\"point\":{\"x\":3500,\"y\":14500},\"slot\":1,\"tick\":0,\"type\":\"deploy\"}}],\"version\":1}",
+    "selectedCardId": null,
+    "naturalAISetup": {
+      "battleSetup": "{\"initialWindupTicks\":{\"central\":0,\"lane\":0},\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.area-damage-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":267},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":84},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":90},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1908},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.melee-area-contact-order\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1200},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":72},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":102},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":133},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":120},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":66},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":202},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500}],\"roster\":[{\"areaDamageRadiusMillitiles\":2000,\"cost\":4,\"count\":1,\"damage\":267,\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"entities\":[{\"archetypeId\":\"brackenwheel\",\"areaDamageRadiusMillitiles\":2000,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.body-radius-millitiles\"},\"count\":1,\"damage\":267,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"firstHitTicks\":84,\"hitSpeedTicks\":90,\"hitpoints\":1908,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.layer\"},\"meleeAreaPolicy\":{\"authoritative\":false,\"center\":\"attacker\",\"confidence\":\"question\",\"contactOrder\":\"ascending-entity-id\",\"geometry\":\"circle-overlap-inclusive\",\"radiusMillitiles\":2000,\"secondaryDamage\":\"base-attack\",\"structureTargets\":\"exclude\",\"targetLayers\":[\"ground\"],\"version\":\"melee-area-question-v1\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"fields\":[{\"field\":\"count\",\"questionKey\":\"brackenwheel.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"brackenwheel.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"brackenwheel.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"brackenwheel.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"brackenwheel.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"brackenwheel.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"brackenwheel.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"brackenwheel.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"brackenwheel.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"brackenwheel.target-mode\",\"valueEncoding\":\"target-mode-code\"},{\"field\":\"areaDamageRadiusMillitiles\",\"questionKey\":\"brackenwheel.area-damage-radius-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"meleeAreaPolicy.contactOrder\",\"questionKey\":\"brackenwheel.melee-area-contact-order\",\"valueEncoding\":\"melee-area-contact-order-code\"}]},\"targetMode\":\"ground\"}],\"firstHitTicks\":84,\"formation\":{\"componentOrder\":[\"brackenwheel\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":90,\"hitpoints\":1908,\"id\":\"brackenwheel\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-runner.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-runner.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-runner.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-runner.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-runner.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-runner.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-runner.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-runner.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-runner.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-runner.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-darter.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-darter.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-darter.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-darter.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-darter.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-darter.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-darter.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-darter.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-darter.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-darter.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":720,\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"entities\":[{\"archetypeId\":\"coilblade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.body-radius-millitiles\"},\"count\":1,\"damage\":720,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1361,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":800,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":66,\"formation\":{\"componentOrder\":[\"coilblade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":1361,\"id\":\"coilblade\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":800,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":202,\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"entities\":[{\"archetypeId\":\"mossguard\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.body-radius-millitiles\"},\"count\":1,\"damage\":202,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1766,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"mossguard\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":72,\"hitpoints\":1766,\"id\":\"mossguard\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":7,\"count\":1,\"damage\":816,\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"entities\":[{\"archetypeId\":\"ironroot\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.body-radius-millitiles\"},\"count\":1,\"damage\":816,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"firstHitTicks\":78,\"hitSpeedTicks\":108,\"hitpoints\":3760,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.layer\"},\"movementMillitilesPerSecond\":750,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"}],\"firstHitTicks\":78,\"formation\":{\"componentOrder\":[\"ironroot\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":108,\"hitpoints\":3760,\"id\":\"ironroot\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":750,\"rangeMillitiles\":1200,\"rarity\":\"special\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":171,\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"entities\":[{\"archetypeId\":\"copperskiff\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.body-radius-millitiles\"},\"count\":1,\"damage\":171,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"firstHitTicks\":36,\"hitSpeedTicks\":66,\"hitpoints\":614,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":36,\"formation\":{\"componentOrder\":[\"copperskiff\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":66,\"hitpoints\":614,\"id\":\"copperskiff\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}]}",
+      "deck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "legalNorthDeployments": [
+        {
+          "cardId": "brackenwheel",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "brassbolt",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "coilblade",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "copperskiff",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "ironroot",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "mossguard",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "reedsting",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        }
+      ],
+      "rosterWitness": "{\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.area-damage-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":267},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":84},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":90},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1908},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.melee-area-contact-order\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1200},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":72},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":102},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":133},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":120},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":66},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":202},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500}],\"roster\":[{\"areaDamageRadiusMillitiles\":2000,\"cost\":4,\"count\":1,\"damage\":267,\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"entities\":[{\"archetypeId\":\"brackenwheel\",\"areaDamageRadiusMillitiles\":2000,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.body-radius-millitiles\"},\"count\":1,\"damage\":267,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"firstHitTicks\":84,\"hitSpeedTicks\":90,\"hitpoints\":1908,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.layer\"},\"meleeAreaPolicy\":{\"authoritative\":false,\"center\":\"attacker\",\"confidence\":\"question\",\"contactOrder\":\"ascending-entity-id\",\"geometry\":\"circle-overlap-inclusive\",\"radiusMillitiles\":2000,\"secondaryDamage\":\"base-attack\",\"structureTargets\":\"exclude\",\"targetLayers\":[\"ground\"],\"version\":\"melee-area-question-v1\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"fields\":[{\"field\":\"count\",\"questionKey\":\"brackenwheel.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"brackenwheel.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"brackenwheel.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"brackenwheel.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"brackenwheel.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"brackenwheel.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"brackenwheel.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"brackenwheel.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"brackenwheel.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"brackenwheel.target-mode\",\"valueEncoding\":\"target-mode-code\"},{\"field\":\"areaDamageRadiusMillitiles\",\"questionKey\":\"brackenwheel.area-damage-radius-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"meleeAreaPolicy.contactOrder\",\"questionKey\":\"brackenwheel.melee-area-contact-order\",\"valueEncoding\":\"melee-area-contact-order-code\"}]},\"targetMode\":\"ground\"}],\"firstHitTicks\":84,\"formation\":{\"componentOrder\":[\"brackenwheel\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":90,\"hitpoints\":1908,\"id\":\"brackenwheel\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-runner.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-runner.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-runner.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-runner.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-runner.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-runner.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-runner.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-runner.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-runner.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-runner.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-darter.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-darter.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-darter.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-darter.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-darter.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-darter.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-darter.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-darter.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-darter.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-darter.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":720,\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"entities\":[{\"archetypeId\":\"coilblade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.body-radius-millitiles\"},\"count\":1,\"damage\":720,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1361,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":800,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":66,\"formation\":{\"componentOrder\":[\"coilblade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":1361,\"id\":\"coilblade\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":800,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":202,\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"entities\":[{\"archetypeId\":\"mossguard\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.body-radius-millitiles\"},\"count\":1,\"damage\":202,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1766,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"mossguard\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":72,\"hitpoints\":1766,\"id\":\"mossguard\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":7,\"count\":1,\"damage\":816,\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"entities\":[{\"archetypeId\":\"ironroot\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.body-radius-millitiles\"},\"count\":1,\"damage\":816,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"firstHitTicks\":78,\"hitSpeedTicks\":108,\"hitpoints\":3760,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.layer\"},\"movementMillitilesPerSecond\":750,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"}],\"firstHitTicks\":78,\"formation\":{\"componentOrder\":[\"ironroot\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":108,\"hitpoints\":3760,\"id\":\"ironroot\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":750,\"rangeMillitiles\":1200,\"rarity\":\"special\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":171,\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"entities\":[{\"archetypeId\":\"copperskiff\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.body-radius-millitiles\"},\"count\":1,\"damage\":171,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"firstHitTicks\":36,\"hitSpeedTicks\":66,\"hitpoints\":614,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":36,\"formation\":{\"componentOrder\":[\"copperskiff\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":66,\"hitpoints\":614,\"id\":\"copperskiff\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}]}",
+      "seed": 2,
+      "startingElixir": {
+        "north": 10,
+        "south": 10
+      },
+      "thinkIntervalTicks": 60,
+      "thinkOffsetTicks": 0
+    },
+    "presentation": {
+      "bodyCssPixels": 13,
+      "renderer": "native-svg",
+      "styleHeight": "28.4512px",
+      "styleWidth": "28.4512px",
+      "frameScale": 0.51484375
+    },
+    "presentationChecks": [
+      {
+        "artFound": true,
+        "bodyCssPixels": 13,
+        "artBodyCssPixels": 13,
+        "artOffsetHeight": null,
+        "artStyleHeight": "28.4512px",
+        "artComputedHeight": "28.4375px",
+        "artTransform": "none",
+        "artNaturalSize": null,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "physicalBodyCssPixels": 12.993777671875,
+        "height": 28.4375,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "28.4512px",
+          "markerComputedHeight": "28.4375px",
+          "markerBoundsHeight": 28.4375,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 370.6875,
+          "boundsHeight": 659,
+          "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "native-svg",
+        "reducedMotion": false,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241,
+        "beforeResize": {
+          "bodyCssPixels": 13,
+          "frameScale": 0.51484375,
+          "outerFrameScale": 0.514844,
+          "physicalBodyCssPixels": 12.993777671875,
+          "artStyleHeight": "28.4512px",
+          "renderer": "native-svg"
+        },
+        "messageObserverSample": null,
+        "mode": "phone-normal",
+        "before": {
+          "file": "brackenwheel-phone-normal-before-restore.png",
+          "bytes": 325560,
+          "sha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f"
+        },
+        "after": {
+          "file": "brackenwheel-phone-normal-after-restore.png",
+          "bytes": 325560,
+          "sha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f"
+        }
+      },
+      {
+        "artFound": true,
+        "bodyCssPixels": 13,
+        "artBodyCssPixels": 13,
+        "artOffsetHeight": null,
+        "artStyleHeight": "28.4512px",
+        "artComputedHeight": "28.4375px",
+        "artTransform": "none",
+        "artNaturalSize": null,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "physicalBodyCssPixels": 12.993777671875,
+        "height": 28.4375,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "28.4512px",
+          "markerComputedHeight": "28.4375px",
+          "markerBoundsHeight": 28.4375,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 370.6875,
+          "boundsHeight": 659,
+          "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "native-svg",
+        "reducedMotion": true,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241,
+        "beforeResize": {
+          "bodyCssPixels": 13,
+          "frameScale": 0.51484375,
+          "outerFrameScale": 0.514844,
+          "physicalBodyCssPixels": 12.993777671875,
+          "artStyleHeight": "28.4512px",
+          "renderer": "native-svg"
+        },
+        "messageObserverSample": null,
+        "mode": "phone-reduced",
+        "before": {
+          "file": "brackenwheel-phone-reduced-before-restore.png",
+          "bytes": 325718,
+          "sha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07"
+        },
+        "after": {
+          "file": "brackenwheel-phone-reduced-after-restore.png",
+          "bytes": 325718,
+          "sha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07"
+        }
+      },
+      {
+        "artFound": true,
+        "bodyCssPixels": 26,
+        "artBodyCssPixels": 26,
+        "artOffsetHeight": 45,
+        "artStyleHeight": "44.8026px",
+        "artComputedHeight": "44.7969px",
+        "artTransform": "none",
+        "artNaturalSize": {
+          "width": 512,
+          "height": 512
+        },
+        "frameScale": 0.59306640625,
+        "outerFrameScale": 0.593066,
+        "outerFrameTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "physicalBodyCssPixels": 25.996731769522267,
+        "height": 44.796875,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "44.8026px",
+          "markerComputedHeight": "44.7969px",
+          "markerBoundsHeight": 44.796875,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 427.0078125,
+          "boundsHeight": 759.125,
+          "cssTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "painted-webp",
+        "reducedMotion": false,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241,
+        "beforeResize": {
+          "bodyCssPixels": 13,
+          "frameScale": 0.51484375,
+          "outerFrameScale": 0.514844,
+          "physicalBodyCssPixels": 12.993777671875,
+          "artStyleHeight": "28.4512px",
+          "renderer": "native-svg"
+        },
+        "messageObserverSample": {
+          "contextBodyCssPixels": 26,
+          "contextFrameScale": 0.59306640625,
+          "artStyleHeight": "44.8026px",
+          "artComputedHeight": "44.7969px",
+          "outerFrameScale": 0.593066,
+          "physicalBodyCssPixels": 25.996731769522267
+        },
+        "mode": "desktop-normal",
+        "before": {
+          "file": "brackenwheel-desktop-normal-before-restore.png",
+          "bytes": 443344,
+          "sha256": "8a9d180d7f7535fd743ae7b119f333637920e0de778e5dc78c2c82ae2e1331ce"
+        },
+        "after": {
+          "file": "brackenwheel-desktop-normal-after-restore.png",
+          "bytes": 443344,
+          "sha256": "8a9d180d7f7535fd743ae7b119f333637920e0de778e5dc78c2c82ae2e1331ce"
+        }
+      },
+      {
+        "artFound": true,
+        "bodyCssPixels": 26,
+        "artBodyCssPixels": 26,
+        "artOffsetHeight": 45,
+        "artStyleHeight": "44.8026px",
+        "artComputedHeight": "44.7969px",
+        "artTransform": "none",
+        "artNaturalSize": {
+          "width": 512,
+          "height": 512
+        },
+        "frameScale": 0.59306640625,
+        "outerFrameScale": 0.593066,
+        "outerFrameTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "physicalBodyCssPixels": 25.996731769522267,
+        "height": 44.796875,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "44.8026px",
+          "markerComputedHeight": "44.7969px",
+          "markerBoundsHeight": 44.796875,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 427.0078125,
+          "boundsHeight": 759.125,
+          "cssTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "painted-webp",
+        "reducedMotion": true,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241,
+        "beforeResize": {
+          "bodyCssPixels": 26,
+          "frameScale": 0.59306640625,
+          "outerFrameScale": 0.593066,
+          "physicalBodyCssPixels": 25.996731769522267,
+          "artStyleHeight": "44.8026px",
+          "renderer": "painted-webp"
+        },
+        "messageObserverSample": null,
+        "mode": "desktop-reduced",
+        "before": {
+          "file": "brackenwheel-desktop-reduced-before-restore.png",
+          "bytes": 443442,
+          "sha256": "bf9ccab950c72a23c14cee31b6a589e3a76e938e8bcef4732c37804ab72c565b"
+        },
+        "after": {
+          "file": "brackenwheel-desktop-reduced-after-restore.png",
+          "bytes": 443442,
+          "sha256": "bf9ccab950c72a23c14cee31b6a589e3a76e938e8bcef4732c37804ab72c565b"
+        }
+      }
+    ],
+    "playerDeckSequence": 1,
+    "tick": 234
+  },
+  "deck": [
+    "brackenwheel",
+    "briar-band",
+    "coilblade",
+    "mossguard",
+    "ironroot",
+    "copperskiff",
+    "brassbolt",
+    "reedsting"
+  ],
+  "failures": [],
+  "lore": "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+  "loreProvenance": "user-session/root-supplied original Brackenwheel brief; not found in repository history",
+  "mode": "seed-2 canonical GameSession; unforced natural AI; trusted player pointer",
+  "playerDeployment": {
+    "events": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            1
+          ],
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "pointer": {
+      "isTrusted": true,
+      "clientX": 195.00547790527344,
+      "clientY": 632.99609375
+    },
+    "southDeckSequence": 1,
+    "submit": {
+      "command": {
+        "cardId": "brackenwheel",
+        "commandId": 1,
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "slot": 1,
+        "tick": 0,
+        "type": "deploy"
+      },
+      "type": "submit"
+    }
+  },
+  "contactObservedBeforeAssertions": {
+    "aiDeployments": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            2
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "damage": [
+      {
+        "amount": 267,
+        "currentHealthAfter": 1374,
+        "currentHealthBefore": 1641,
+        "targetId": 2,
+        "type": "damage",
+        "attackerId": 1,
+        "delivery": "melee",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 4,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 5,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 6,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      }
+    ],
+    "tick": 234
+  },
+  "pausedCheckpoint": {
+    "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+    "inputBridgeBytes": "{\"deliveries\":[{\"admission\":{\"accepted\":true,\"commandId\":1,\"tick\":0,\"type\":\"player-command-admitted\"},\"command\":{\"cardId\":\"brackenwheel\",\"commandId\":1,\"point\":{\"x\":3500,\"y\":14500},\"slot\":1,\"tick\":0,\"type\":\"deploy\"}}],\"version\":1}",
+    "selectedCardId": null,
+    "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+    "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+    "stateSha256": "aedda506d2844877c5fcf9b4c444caac4cd6e7d6442463e420ec89ff820b3fcd"
+  },
+  "presentationRefreshChecks": [
+    {
+      "mode": "phone-normal",
+      "messageCount": 0,
+      "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+      "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+      "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+      "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+      "selectedCardId": null
+    },
+    {
+      "mode": "phone-reduced",
+      "messageCount": 0,
+      "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+      "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+      "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+      "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+      "selectedCardId": null
+    },
+    {
+      "mode": "desktop-normal",
+      "messageCount": 3,
+      "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+      "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+      "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+      "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+      "selectedCardId": null
+    },
+    {
+      "mode": "desktop-reduced",
+      "messageCount": 0,
+      "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+      "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+      "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+      "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+      "selectedCardId": null
+    }
+  ],
+  "presentationDiagnostics": [
+    {
+      "mode": "phone-normal",
+      "beforeResize": {
+        "bodyCssPixels": 13,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "physicalBodyCssPixels": 12.993777671875,
+        "artStyleHeight": "28.4512px",
+        "renderer": "native-svg",
+        "paused": true,
+        "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+        "selectedCardId": null,
+        "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+        "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+        "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c"
+      },
+      "afterResize": {
+        "artFound": true,
+        "bodyCssPixels": 13,
+        "artBodyCssPixels": 13,
+        "artOffsetHeight": null,
+        "artStyleHeight": "28.4512px",
+        "artComputedHeight": "28.4375px",
+        "artTransform": "none",
+        "artNaturalSize": null,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "physicalBodyCssPixels": 12.993777671875,
+        "height": 28.4375,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "28.4512px",
+          "markerComputedHeight": "28.4375px",
+          "markerBoundsHeight": 28.4375,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 370.6875,
+          "boundsHeight": 659,
+          "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "native-svg",
+        "reducedMotion": false,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241
+      },
+      "messageObserverSample": null
+    },
+    {
+      "mode": "phone-reduced",
+      "beforeResize": {
+        "bodyCssPixels": 13,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "physicalBodyCssPixels": 12.993777671875,
+        "artStyleHeight": "28.4512px",
+        "renderer": "native-svg",
+        "paused": true,
+        "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+        "selectedCardId": null,
+        "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+        "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+        "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c"
+      },
+      "afterResize": {
+        "artFound": true,
+        "bodyCssPixels": 13,
+        "artBodyCssPixels": 13,
+        "artOffsetHeight": null,
+        "artStyleHeight": "28.4512px",
+        "artComputedHeight": "28.4375px",
+        "artTransform": "none",
+        "artNaturalSize": null,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "physicalBodyCssPixels": 12.993777671875,
+        "height": 28.4375,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "28.4512px",
+          "markerComputedHeight": "28.4375px",
+          "markerBoundsHeight": 28.4375,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 370.6875,
+          "boundsHeight": 659,
+          "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "native-svg",
+        "reducedMotion": true,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241
+      },
+      "messageObserverSample": null
+    },
+    {
+      "mode": "desktop-normal",
+      "beforeResize": {
+        "bodyCssPixels": 13,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "physicalBodyCssPixels": 12.993777671875,
+        "artStyleHeight": "28.4512px",
+        "renderer": "native-svg",
+        "paused": true,
+        "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+        "selectedCardId": null,
+        "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+        "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+        "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c"
+      },
+      "afterResize": {
+        "artFound": true,
+        "bodyCssPixels": 26,
+        "artBodyCssPixels": 26,
+        "artOffsetHeight": 45,
+        "artStyleHeight": "44.8026px",
+        "artComputedHeight": "44.7969px",
+        "artTransform": "none",
+        "artNaturalSize": {
+          "width": 512,
+          "height": 512
+        },
+        "frameScale": 0.59306640625,
+        "outerFrameScale": 0.593066,
+        "outerFrameTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "physicalBodyCssPixels": 25.996731769522267,
+        "height": 44.796875,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "44.8026px",
+          "markerComputedHeight": "44.7969px",
+          "markerBoundsHeight": 44.796875,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 427.0078125,
+          "boundsHeight": 759.125,
+          "cssTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "painted-webp",
+        "reducedMotion": false,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241
+      },
+      "messageObserverSample": {
+        "contextBodyCssPixels": 26,
+        "contextFrameScale": 0.59306640625,
+        "artStyleHeight": "44.8026px",
+        "artComputedHeight": "44.7969px",
+        "outerFrameScale": 0.593066,
+        "physicalBodyCssPixels": 25.996731769522267
+      }
+    },
+    {
+      "mode": "desktop-reduced",
+      "beforeResize": {
+        "bodyCssPixels": 26,
+        "frameScale": 0.59306640625,
+        "outerFrameScale": 0.593066,
+        "physicalBodyCssPixels": 25.996731769522267,
+        "artStyleHeight": "44.8026px",
+        "renderer": "painted-webp",
+        "paused": true,
+        "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+        "selectedCardId": null,
+        "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+        "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+        "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c"
+      },
+      "afterResize": {
+        "artFound": true,
+        "bodyCssPixels": 26,
+        "artBodyCssPixels": 26,
+        "artOffsetHeight": 45,
+        "artStyleHeight": "44.8026px",
+        "artComputedHeight": "44.7969px",
+        "artTransform": "none",
+        "artNaturalSize": {
+          "width": 512,
+          "height": 512
+        },
+        "frameScale": 0.59306640625,
+        "outerFrameScale": 0.593066,
+        "outerFrameTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "physicalBodyCssPixels": 25.996731769522267,
+        "height": 44.796875,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "44.8026px",
+          "markerComputedHeight": "44.7969px",
+          "markerBoundsHeight": 44.796875,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 427.0078125,
+          "boundsHeight": 759.125,
+          "cssTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "painted-webp",
+        "reducedMotion": true,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241
+      },
+      "messageObserverSample": null
+    }
+  ],
+  "presentationMessageTrace": [
+    {
+      "mode": "phone-normal",
+      "messages": []
+    },
+    {
+      "mode": "phone-reduced",
+      "messages": []
+    },
+    {
+      "mode": "desktop-normal",
+      "messages": [
+        {
+          "active": true,
+          "deckIds": [
+            "brackenwheel",
+            "briar-band",
+            "coilblade",
+            "mossguard",
+            "ironroot",
+            "copperskiff",
+            "brassbolt",
+            "reedsting"
+          ],
+          "incoming": {
+            "bodyCssPixels": 26,
+            "frameScale": 0.5203125
+          },
+          "observedAfterHandler": {
+            "contextBodyCssPixels": 26,
+            "contextFrameScale": 0.5203125,
+            "artStyleHeight": "51.0672px",
+            "artComputedHeight": "51.0625px",
+            "outerFrameScale": 0.520312,
+            "physicalBodyCssPixels": 25.997625354492186
+          },
+          "stateSha256": {
+            "audioBytes": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+            "inputBridgeBytes": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+            "selectedCardId": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "sessionBytes": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+            "snapshot": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+            "stateBytes": "aedda506d2844877c5fcf9b4c444caac4cd6e7d6442463e420ec89ff820b3fcd"
+          }
+        },
+        {
+          "active": true,
+          "deckIds": [
+            "brackenwheel",
+            "briar-band",
+            "coilblade",
+            "mossguard",
+            "ironroot",
+            "copperskiff",
+            "brassbolt",
+            "reedsting"
+          ],
+          "incoming": {
+            "bodyCssPixels": 26,
+            "frameScale": 0.5203125
+          },
+          "observedAfterHandler": {
+            "contextBodyCssPixels": 26,
+            "contextFrameScale": 0.5203125,
+            "artStyleHeight": "51.0672px",
+            "artComputedHeight": "51.0625px",
+            "outerFrameScale": 0.520312,
+            "physicalBodyCssPixels": 25.997625354492186
+          },
+          "stateSha256": {
+            "audioBytes": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+            "inputBridgeBytes": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+            "selectedCardId": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "sessionBytes": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+            "snapshot": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+            "stateBytes": "aedda506d2844877c5fcf9b4c444caac4cd6e7d6442463e420ec89ff820b3fcd"
+          }
+        },
+        {
+          "active": true,
+          "deckIds": [
+            "brackenwheel",
+            "briar-band",
+            "coilblade",
+            "mossguard",
+            "ironroot",
+            "copperskiff",
+            "brassbolt",
+            "reedsting"
+          ],
+          "incoming": {
+            "bodyCssPixels": 26,
+            "frameScale": 0.59306640625
+          },
+          "observedAfterHandler": {
+            "contextBodyCssPixels": 26,
+            "contextFrameScale": 0.59306640625,
+            "artStyleHeight": "44.8026px",
+            "artComputedHeight": "44.7969px",
+            "outerFrameScale": 0.593066,
+            "physicalBodyCssPixels": 25.996731769522267
+          },
+          "stateSha256": {
+            "audioBytes": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c",
+            "inputBridgeBytes": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+            "selectedCardId": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "sessionBytes": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+            "snapshot": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+            "stateBytes": "aedda506d2844877c5fcf9b4c444caac4cd6e7d6442463e420ec89ff820b3fcd"
+          }
+        }
+      ]
+    },
+    {
+      "mode": "desktop-reduced",
+      "messages": []
+    }
+  ],
+  "presentationChecks": [
+    {
+      "artFound": true,
+      "bodyCssPixels": 13,
+      "artBodyCssPixels": 13,
+      "artOffsetHeight": null,
+      "artStyleHeight": "28.4512px",
+      "artComputedHeight": "28.4375px",
+      "artTransform": "none",
+      "artNaturalSize": null,
+      "frameScale": 0.51484375,
+      "outerFrameScale": 0.514844,
+      "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+      "physicalBodyCssPixels": 12.993777671875,
+      "height": 28.4375,
+      "markerCount": 12,
+      "markerKinds": [
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "north"
+        },
+        {
+          "kind": "brassbolt",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        }
+      ],
+      "playerMarker": {
+        "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+        "pose": null,
+        "reaction": "idle",
+        "markerStyleHeight": "28.4512px",
+        "markerComputedHeight": "28.4375px",
+        "markerBoundsHeight": 28.4375,
+        "markerTransform": "none",
+        "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+        "kind": "brackenwheel",
+        "side": "south"
+      },
+      "frameViewport": {
+        "innerWidth": 720,
+        "innerHeight": 1280,
+        "clientWidth": 720,
+        "clientHeight": 1280
+      },
+      "outerFrame": {
+        "boundsWidth": 370.6875,
+        "boundsHeight": 659,
+        "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "cssWidth": "720px",
+        "cssHeight": "1280px"
+      },
+      "renderer": "native-svg",
+      "reducedMotion": false,
+      "sessionTick": 241,
+      "setupDeck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "paused": true,
+      "controllerTick": 241,
+      "beforeResize": {
+        "bodyCssPixels": 13,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "physicalBodyCssPixels": 12.993777671875,
+        "artStyleHeight": "28.4512px",
+        "renderer": "native-svg"
+      },
+      "messageObserverSample": null,
+      "mode": "phone-normal",
+      "before": {
+        "file": "brackenwheel-phone-normal-before-restore.png",
+        "bytes": 325560,
+        "sha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f"
+      },
+      "after": {
+        "file": "brackenwheel-phone-normal-after-restore.png",
+        "bytes": 325560,
+        "sha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f"
+      }
+    },
+    {
+      "artFound": true,
+      "bodyCssPixels": 13,
+      "artBodyCssPixels": 13,
+      "artOffsetHeight": null,
+      "artStyleHeight": "28.4512px",
+      "artComputedHeight": "28.4375px",
+      "artTransform": "none",
+      "artNaturalSize": null,
+      "frameScale": 0.51484375,
+      "outerFrameScale": 0.514844,
+      "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+      "physicalBodyCssPixels": 12.993777671875,
+      "height": 28.4375,
+      "markerCount": 12,
+      "markerKinds": [
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "north"
+        },
+        {
+          "kind": "brassbolt",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        }
+      ],
+      "playerMarker": {
+        "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+        "pose": null,
+        "reaction": "idle",
+        "markerStyleHeight": "28.4512px",
+        "markerComputedHeight": "28.4375px",
+        "markerBoundsHeight": 28.4375,
+        "markerTransform": "none",
+        "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+        "kind": "brackenwheel",
+        "side": "south"
+      },
+      "frameViewport": {
+        "innerWidth": 720,
+        "innerHeight": 1280,
+        "clientWidth": 720,
+        "clientHeight": 1280
+      },
+      "outerFrame": {
+        "boundsWidth": 370.6875,
+        "boundsHeight": 659,
+        "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "cssWidth": "720px",
+        "cssHeight": "1280px"
+      },
+      "renderer": "native-svg",
+      "reducedMotion": true,
+      "sessionTick": 241,
+      "setupDeck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "paused": true,
+      "controllerTick": 241,
+      "beforeResize": {
+        "bodyCssPixels": 13,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "physicalBodyCssPixels": 12.993777671875,
+        "artStyleHeight": "28.4512px",
+        "renderer": "native-svg"
+      },
+      "messageObserverSample": null,
+      "mode": "phone-reduced",
+      "before": {
+        "file": "brackenwheel-phone-reduced-before-restore.png",
+        "bytes": 325718,
+        "sha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07"
+      },
+      "after": {
+        "file": "brackenwheel-phone-reduced-after-restore.png",
+        "bytes": 325718,
+        "sha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07"
+      }
+    },
+    {
+      "artFound": true,
+      "bodyCssPixels": 26,
+      "artBodyCssPixels": 26,
+      "artOffsetHeight": 45,
+      "artStyleHeight": "44.8026px",
+      "artComputedHeight": "44.7969px",
+      "artTransform": "none",
+      "artNaturalSize": {
+        "width": 512,
+        "height": 512
+      },
+      "frameScale": 0.59306640625,
+      "outerFrameScale": 0.593066,
+      "outerFrameTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+      "physicalBodyCssPixels": 25.996731769522267,
+      "height": 44.796875,
+      "markerCount": 12,
+      "markerKinds": [
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "north"
+        },
+        {
+          "kind": "brassbolt",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        }
+      ],
+      "playerMarker": {
+        "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+        "pose": null,
+        "reaction": "idle",
+        "markerStyleHeight": "44.8026px",
+        "markerComputedHeight": "44.7969px",
+        "markerBoundsHeight": 44.796875,
+        "markerTransform": "none",
+        "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+        "kind": "brackenwheel",
+        "side": "south"
+      },
+      "frameViewport": {
+        "innerWidth": 720,
+        "innerHeight": 1280,
+        "clientWidth": 720,
+        "clientHeight": 1280
+      },
+      "outerFrame": {
+        "boundsWidth": 427.0078125,
+        "boundsHeight": 759.125,
+        "cssTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "cssWidth": "720px",
+        "cssHeight": "1280px"
+      },
+      "renderer": "painted-webp",
+      "reducedMotion": false,
+      "sessionTick": 241,
+      "setupDeck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "paused": true,
+      "controllerTick": 241,
+      "beforeResize": {
+        "bodyCssPixels": 13,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "physicalBodyCssPixels": 12.993777671875,
+        "artStyleHeight": "28.4512px",
+        "renderer": "native-svg"
+      },
+      "messageObserverSample": {
+        "contextBodyCssPixels": 26,
+        "contextFrameScale": 0.59306640625,
+        "artStyleHeight": "44.8026px",
+        "artComputedHeight": "44.7969px",
+        "outerFrameScale": 0.593066,
+        "physicalBodyCssPixels": 25.996731769522267
+      },
+      "mode": "desktop-normal",
+      "before": {
+        "file": "brackenwheel-desktop-normal-before-restore.png",
+        "bytes": 443344,
+        "sha256": "8a9d180d7f7535fd743ae7b119f333637920e0de778e5dc78c2c82ae2e1331ce"
+      },
+      "after": {
+        "file": "brackenwheel-desktop-normal-after-restore.png",
+        "bytes": 443344,
+        "sha256": "8a9d180d7f7535fd743ae7b119f333637920e0de778e5dc78c2c82ae2e1331ce"
+      }
+    },
+    {
+      "artFound": true,
+      "bodyCssPixels": 26,
+      "artBodyCssPixels": 26,
+      "artOffsetHeight": 45,
+      "artStyleHeight": "44.8026px",
+      "artComputedHeight": "44.7969px",
+      "artTransform": "none",
+      "artNaturalSize": {
+        "width": 512,
+        "height": 512
+      },
+      "frameScale": 0.59306640625,
+      "outerFrameScale": 0.593066,
+      "outerFrameTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+      "physicalBodyCssPixels": 25.996731769522267,
+      "height": 44.796875,
+      "markerCount": 12,
+      "markerKinds": [
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "north"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": null,
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        {
+          "kind": "brackenwheel",
+          "side": "north"
+        },
+        {
+          "kind": "brassbolt",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        },
+        {
+          "kind": "briar-darter",
+          "side": "north"
+        }
+      ],
+      "playerMarker": {
+        "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+        "pose": null,
+        "reaction": "idle",
+        "markerStyleHeight": "44.8026px",
+        "markerComputedHeight": "44.7969px",
+        "markerBoundsHeight": 44.796875,
+        "markerTransform": "none",
+        "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+        "kind": "brackenwheel",
+        "side": "south"
+      },
+      "frameViewport": {
+        "innerWidth": 720,
+        "innerHeight": 1280,
+        "clientWidth": 720,
+        "clientHeight": 1280
+      },
+      "outerFrame": {
+        "boundsWidth": 427.0078125,
+        "boundsHeight": 759.125,
+        "cssTransform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "cssWidth": "720px",
+        "cssHeight": "1280px"
+      },
+      "renderer": "painted-webp",
+      "reducedMotion": true,
+      "sessionTick": 241,
+      "setupDeck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "paused": true,
+      "controllerTick": 241,
+      "beforeResize": {
+        "bodyCssPixels": 26,
+        "frameScale": 0.59306640625,
+        "outerFrameScale": 0.593066,
+        "physicalBodyCssPixels": 25.996731769522267,
+        "artStyleHeight": "44.8026px",
+        "renderer": "painted-webp"
+      },
+      "messageObserverSample": null,
+      "mode": "desktop-reduced",
+      "before": {
+        "file": "brackenwheel-desktop-reduced-before-restore.png",
+        "bytes": 443442,
+        "sha256": "bf9ccab950c72a23c14cee31b6a589e3a76e938e8bcef4732c37804ab72c565b"
+      },
+      "after": {
+        "file": "brackenwheel-desktop-reduced-after-restore.png",
+        "bytes": 443442,
+        "sha256": "bf9ccab950c72a23c14cee31b6a589e3a76e938e8bcef4732c37804ab72c565b"
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "phone-brackenwheel-natural-ai-contact-390x844.png",
+      "sha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f"
+    }
+  ],
+  "sameDeckTerminalAttempt": {
+    "chunks": 4,
+    "initialState": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 241,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": true,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 241,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "resumeResult": true,
+    "manualStepResult": true,
+    "afterResume": {
+      "paused": false,
+      "running": false,
+      "sessionTick": 241
+    },
+    "state": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 3987,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 3987,
+      "terminal": true,
+      "restartCount": 0
+    },
+    "session": {
+      "tick": 3987,
+      "paused": false,
+      "terminal": true,
+      "towers": [
+        {
+          "hitpoints": 0,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:east"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:west"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:east"
+        }
+      ]
+    },
+    "setup": {
+      "battleSetup": "{\"initialWindupTicks\":{\"central\":0,\"lane\":0},\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.area-damage-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":267},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":84},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":90},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1908},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.melee-area-contact-order\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1200},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":72},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":102},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":133},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":120},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":66},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":202},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500}],\"roster\":[{\"areaDamageRadiusMillitiles\":2000,\"cost\":4,\"count\":1,\"damage\":267,\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"entities\":[{\"archetypeId\":\"brackenwheel\",\"areaDamageRadiusMillitiles\":2000,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.body-radius-millitiles\"},\"count\":1,\"damage\":267,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"firstHitTicks\":84,\"hitSpeedTicks\":90,\"hitpoints\":1908,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.layer\"},\"meleeAreaPolicy\":{\"authoritative\":false,\"center\":\"attacker\",\"confidence\":\"question\",\"contactOrder\":\"ascending-entity-id\",\"geometry\":\"circle-overlap-inclusive\",\"radiusMillitiles\":2000,\"secondaryDamage\":\"base-attack\",\"structureTargets\":\"exclude\",\"targetLayers\":[\"ground\"],\"version\":\"melee-area-question-v1\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"fields\":[{\"field\":\"count\",\"questionKey\":\"brackenwheel.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"brackenwheel.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"brackenwheel.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"brackenwheel.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"brackenwheel.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"brackenwheel.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"brackenwheel.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"brackenwheel.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"brackenwheel.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"brackenwheel.target-mode\",\"valueEncoding\":\"target-mode-code\"},{\"field\":\"areaDamageRadiusMillitiles\",\"questionKey\":\"brackenwheel.area-damage-radius-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"meleeAreaPolicy.contactOrder\",\"questionKey\":\"brackenwheel.melee-area-contact-order\",\"valueEncoding\":\"melee-area-contact-order-code\"}]},\"targetMode\":\"ground\"}],\"firstHitTicks\":84,\"formation\":{\"componentOrder\":[\"brackenwheel\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":90,\"hitpoints\":1908,\"id\":\"brackenwheel\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-runner.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-runner.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-runner.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-runner.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-runner.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-runner.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-runner.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-runner.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-runner.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-runner.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-darter.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-darter.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-darter.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-darter.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-darter.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-darter.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-darter.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-darter.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-darter.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-darter.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":720,\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"entities\":[{\"archetypeId\":\"coilblade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.body-radius-millitiles\"},\"count\":1,\"damage\":720,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1361,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":800,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":66,\"formation\":{\"componentOrder\":[\"coilblade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":1361,\"id\":\"coilblade\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":800,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":202,\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"entities\":[{\"archetypeId\":\"mossguard\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.body-radius-millitiles\"},\"count\":1,\"damage\":202,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1766,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"mossguard\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":72,\"hitpoints\":1766,\"id\":\"mossguard\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":7,\"count\":1,\"damage\":816,\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"entities\":[{\"archetypeId\":\"ironroot\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.body-radius-millitiles\"},\"count\":1,\"damage\":816,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"firstHitTicks\":78,\"hitSpeedTicks\":108,\"hitpoints\":3760,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.layer\"},\"movementMillitilesPerSecond\":750,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"}],\"firstHitTicks\":78,\"formation\":{\"componentOrder\":[\"ironroot\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":108,\"hitpoints\":3760,\"id\":\"ironroot\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":750,\"rangeMillitiles\":1200,\"rarity\":\"special\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":171,\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"entities\":[{\"archetypeId\":\"copperskiff\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.body-radius-millitiles\"},\"count\":1,\"damage\":171,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"firstHitTicks\":36,\"hitSpeedTicks\":66,\"hitpoints\":614,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":36,\"formation\":{\"componentOrder\":[\"copperskiff\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":66,\"hitpoints\":614,\"id\":\"copperskiff\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}]}",
+      "deck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "legalNorthDeployments": [
+        {
+          "cardId": "brackenwheel",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "brassbolt",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "coilblade",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "copperskiff",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "ironroot",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "mossguard",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "reedsting",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        }
+      ],
+      "rosterWitness": "{\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.area-damage-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":267},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":84},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":90},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1908},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.melee-area-contact-order\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1200},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brackenwheel.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":72},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":102},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":133},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":120},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":66},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":202},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"copperskiff.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"ironroot.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"mossguard.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500}],\"roster\":[{\"areaDamageRadiusMillitiles\":2000,\"cost\":4,\"count\":1,\"damage\":267,\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"entities\":[{\"archetypeId\":\"brackenwheel\",\"areaDamageRadiusMillitiles\":2000,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.body-radius-millitiles\"},\"count\":1,\"damage\":267,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brackenwheel\",\"firstHitTicks\":84,\"hitSpeedTicks\":90,\"hitpoints\":1908,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brackenwheel.layer\"},\"meleeAreaPolicy\":{\"authoritative\":false,\"center\":\"attacker\",\"confidence\":\"question\",\"contactOrder\":\"ascending-entity-id\",\"geometry\":\"circle-overlap-inclusive\",\"radiusMillitiles\":2000,\"secondaryDamage\":\"base-attack\",\"structureTargets\":\"exclude\",\"targetLayers\":[\"ground\"],\"version\":\"melee-area-question-v1\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"fields\":[{\"field\":\"count\",\"questionKey\":\"brackenwheel.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"brackenwheel.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"brackenwheel.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"brackenwheel.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"brackenwheel.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"brackenwheel.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"brackenwheel.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"brackenwheel.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"brackenwheel.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"brackenwheel.target-mode\",\"valueEncoding\":\"target-mode-code\"},{\"field\":\"areaDamageRadiusMillitiles\",\"questionKey\":\"brackenwheel.area-damage-radius-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"meleeAreaPolicy.contactOrder\",\"questionKey\":\"brackenwheel.melee-area-contact-order\",\"valueEncoding\":\"melee-area-contact-order-code\"}]},\"targetMode\":\"ground\"}],\"firstHitTicks\":84,\"formation\":{\"componentOrder\":[\"brackenwheel\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":90,\"hitpoints\":1908,\"id\":\"brackenwheel\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-runner.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-runner.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-runner.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-runner.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-runner.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-runner.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-runner.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-runner.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-runner.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-runner.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"briar-darter.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"briar-darter.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"briar-darter.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"briar-darter.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"briar-darter.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"briar-darter.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"briar-darter.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"briar-darter.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"briar-darter.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"briar-darter.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":720,\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"entities\":[{\"archetypeId\":\"coilblade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.body-radius-millitiles\"},\"count\":1,\"damage\":720,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1361,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":800,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":66,\"formation\":{\"componentOrder\":[\"coilblade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":1361,\"id\":\"coilblade\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":800,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":202,\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"entities\":[{\"archetypeId\":\"mossguard\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.body-radius-millitiles\"},\"count\":1,\"damage\":202,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Mossguard\",\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1766,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"mossguard.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"mossguard\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":72,\"hitpoints\":1766,\"id\":\"mossguard\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":7,\"count\":1,\"damage\":816,\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"entities\":[{\"archetypeId\":\"ironroot\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.body-radius-millitiles\"},\"count\":1,\"damage\":816,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Ironroot\",\"firstHitTicks\":78,\"hitSpeedTicks\":108,\"hitpoints\":3760,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"ironroot.layer\"},\"movementMillitilesPerSecond\":750,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"}],\"firstHitTicks\":78,\"formation\":{\"componentOrder\":[\"ironroot\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":108,\"hitpoints\":3760,\"id\":\"ironroot\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":750,\"rangeMillitiles\":1200,\"rarity\":\"special\",\"sightRangeMillitiles\":5000,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":171,\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"entities\":[{\"archetypeId\":\"copperskiff\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.body-radius-millitiles\"},\"count\":1,\"damage\":171,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Copperskiff\",\"firstHitTicks\":36,\"hitSpeedTicks\":66,\"hitpoints\":614,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"copperskiff.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":36,\"formation\":{\"componentOrder\":[\"copperskiff\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":66,\"hitpoints\":614,\"id\":\"copperskiff\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}]}",
+      "seed": 2,
+      "startingElixir": {
+        "north": 10,
+        "south": 10
+      },
+      "thinkIntervalTicks": 60,
+      "thinkOffsetTicks": 0
+    }
+  },
+  "sameDeckRestart": {
+    "chunks": 4,
+    "terminalTick": 3987,
+    "deck": [
+      "brackenwheel",
+      "briar-band",
+      "coilblade",
+      "mossguard",
+      "ironroot",
+      "copperskiff",
+      "brassbolt",
+      "reedsting"
+    ],
+    "restartCount": 1,
+    "restartedTick": 0
+  },
+  "snapshotSha256": "2fd49cd2f64bb0f9eeefe7eb2c05d535eb9406b1204babe03eade730e8fb9872",
+  "sessionSha256": "3c54a5080b9f3eaefa069aa4b834c9fa8a41c2caf3830081d13d38f15023c800",
+  "audioContinuationSha256": "7dea7feef96127b0b926caac1508aaee282aa6f4d1365d8b0b5c7311d98a549f",
+  "releaseResult": "pass",
+  "server": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"host\":\"127.0.0.1\",\"port\":53908}\n"
+  }
+}

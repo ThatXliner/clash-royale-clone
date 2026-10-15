@@ -6,6 +6,7 @@ import {
   COMBAT_STRUCTURE_ART_IDS,
 } from "./combat-art.js";
 import { createBrackenwheelScaleArt } from "./brackenwheel-art.js";
+import { createAetherWellBattleArt } from "./aether-well-art.js";
 import {
   ARENA_LENGTH_MILLITILES,
   ARENA_WIDTH_MILLITILES,
@@ -520,6 +521,18 @@ function sizeBrackenwheelArt(node, art, frameScale) {
   node.style.height = art.style.height;
 }
 
+function sizeAetherWellArt(node, art, frameScale) {
+  const frameWidth = Number.parseFloat(art.style.width);
+  const frameHeight = Number.parseFloat(art.style.height);
+  if (!Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) {
+    throw new TypeError("Aether Well art frame dimensions are invalid");
+  }
+  art.style.width = `${frameWidth / frameScale}px`;
+  art.style.height = `${frameHeight / frameScale}px`;
+  node.style.width = art.style.width;
+  node.style.height = art.style.height;
+}
+
 export function bindCombatViewModel(layer, view) {
   if (
     layer === null || typeof layer !== "object" ||
@@ -537,7 +550,7 @@ export function bindCombatViewModel(layer, view) {
   frame.dataset.tick = String(canonical.tick);
   const nodes = [];
   const structureKeys = new Set(canonical.entities
-    .filter(({ kind }) => COMBAT_STRUCTURE_ART_IDS.includes(kind))
+    .filter(({ kind }) => kind === "aether-well" || COMBAT_STRUCTURE_ART_IDS.includes(kind))
     .map(({ key }) => key));
   const targetingStructureKeys = new Set(canonical.links
     .filter(({ fromKey }) => structureKeys.has(fromKey))
@@ -606,9 +619,16 @@ export function bindCombatViewModel(layer, view) {
         ? createBrackenwheelScaleArt(layer.ownerDocument, {
           bodyCssPixels: brackenwheelContext.bodyCssPixels,
         })
-        : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
+        : entity.kind === "aether-well"
+          ? createAetherWellBattleArt(layer.ownerDocument, {
+            bodyCssPixels: brackenwheelContext.bodyCssPixels,
+            side: entity.side,
+          })
+          : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
     if (entity.kind === "brackenwheel") {
       sizeBrackenwheelArt(node, art, brackenwheelContext.frameScale);
+    } else if (entity.kind === "aether-well") {
+      sizeAetherWellArt(node, art, brackenwheelContext.frameScale);
     }
     node.appendChild(art);
     nodes.push(node);

@@ -89,7 +89,7 @@ function targetId(value) {
 
 function combatState(state, effectEvents) {
   const structures = state.battle.structures.filter(({ cardId }) =>
-    COMBAT_STRUCTURE_ART_IDS.includes(cardId));
+    cardId === "aether-well" || COMBAT_STRUCTURE_ART_IDS.includes(cardId));
   const aliveIds = new Set([
     ...state.battle.units.filter((unit) => unit.hitpoints > 0).map((unit) => unit.id),
     ...state.battle.towers.filter((tower) => tower.hitpoints > 0).map((tower) => tower.id),
