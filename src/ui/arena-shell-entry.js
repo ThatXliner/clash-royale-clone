@@ -49,9 +49,9 @@ function checkedAppBattleMessage(value) {
       Object.getPrototypeOf(value) !== Object.prototype) return null;
   const descriptors = Object.getOwnPropertyDescriptors(value);
   const keys = Reflect.ownKeys(descriptors);
-  if (keys.length !== 3 ||
+  if (keys.length !== 4 ||
       keys.some((key) => typeof key !== "string" ||
-        !["active", "channel", "deckIds"].includes(key)) ||
+        !["active", "channel", "deckIds", "presentation"].includes(key)) ||
       Object.values(descriptors).some((descriptor) =>
         !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))) return null;
   if (descriptors.channel.value !== "moss-and-ember-battle" ||
@@ -75,7 +75,22 @@ function checkedAppBattleMessage(value) {
     checked.push(descriptor.value);
   }
   if (new Set(checked).size !== 8) return null;
-  return { active: descriptors.active.value, deckIds: checked };
+  const presentation = descriptors.presentation.value;
+  if (presentation === null || typeof presentation !== "object" || Array.isArray(presentation) ||
+      Object.getPrototypeOf(presentation) !== Object.prototype) return null;
+  const presentationDescriptors = Object.getOwnPropertyDescriptors(presentation);
+  const presentationKeys = Reflect.ownKeys(presentationDescriptors);
+  if (presentationKeys.length !== 2 ||
+      presentationKeys.some((key) => typeof key !== "string" ||
+        !["bodyCssPixels", "frameScale"].includes(key)) ||
+      Object.values(presentationDescriptors).some((descriptor) =>
+        !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))) return null;
+  const bodyCssPixels = presentationDescriptors.bodyCssPixels.value;
+  const frameScale = presentationDescriptors.frameScale.value;
+  if ((bodyCssPixels !== 13 && bodyCssPixels !== 26) ||
+      !Number.isFinite(frameScale) || frameScale <= 0 || frameScale > 8) return null;
+  return { active: descriptors.active.value, deckIds: checked,
+    presentation: { bodyCssPixels, frameScale } };
 }
 
 function sameDeckIds(left, right) {
@@ -488,14 +503,26 @@ export const arenaHudController =
       );
       if (appFrame) {
         controller.pause();
+        let lastAppFrameActive;
+        let lastPresentationContext;
         window.addEventListener("message", (event) => {
           if (event.source !== window.parent || event.origin !== window.location.origin) return;
           const message = checkedAppBattleMessage(event.data);
           if (message === null) return;
+          const presentationChanged = lastPresentationContext === undefined ||
+            lastPresentationContext.bodyCssPixels !== message.presentation.bodyCssPixels ||
+            lastPresentationContext.frameScale !== message.presentation.frameScale;
+          lastPresentationContext = message.presentation;
+          document.documentElement.dataset.combatBodyCssPixels = String(message.presentation.bodyCssPixels);
+          document.documentElement.dataset.combatFrameScale = String(message.presentation.frameScale);
           const currentDeck = JSON.parse(controller.session.serialize()).setup.deck;
-          if (!sameDeckIds(currentDeck, message.deckIds)) controller.replaceDeck(message.deckIds);
-          if (message.active) controller.resume();
-          else controller.pause();
+          const deckChanged = !sameDeckIds(currentDeck, message.deckIds);
+          if (deckChanged) controller.replaceDeck(message.deckIds);
+          else if (presentationChanged && controller.state.paused) controller.stepMany(0);
+          const activeChanged = lastAppFrameActive === undefined || lastAppFrameActive !== message.active;
+          lastAppFrameActive = message.active;
+          if (!message.active) controller.pause();
+          else if (activeChanged) controller.resume();
         });
       }
       return controller;

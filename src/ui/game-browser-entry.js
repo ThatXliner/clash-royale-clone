@@ -182,27 +182,42 @@ function inputCardsForSession(session, cache) {
   return cards;
 }
 
-function buildingPolicyQuestion(session) {
+function combatPolicyQuestion(session) {
   const setup = JSON.parse(session.serialize()).setup;
   const battleSetup = JSON.parse(setup.battleSetup);
   const card = battleSetup.roster.find(({ buildingRuntime }) =>
     buildingRuntime?.class === "defensive" &&
     buildingRuntime.policy?.disposition === "question");
-  if (card === undefined) return null;
-  const fields = card.buildingRuntime.policy.corpusFields;
-  const unverifiedFields = Object.entries(fields)
-    .filter(([, record]) => record.authoritative !== true)
-    .map(([field]) => field);
+  if (card !== undefined) {
+    const fields = card.buildingRuntime.policy.corpusFields;
+    const unverifiedFields = Object.entries(fields)
+      .filter(([, record]) => record.authoritative !== true)
+      .map(([field]) => field);
+    return {
+      cardId: card.id,
+      text: `${card.displayName} combat: QUESTION. First-hit timing is ${fields.firstHitTicks.value === null
+        ? "absent" : "unverified"}; damage, HP, deploy, range and target fields are unverified.`,
+      unverifiedFields,
+    };
+  }
+  if (!setup.deck.includes("brackenwheel")) return null;
+  const brackenwheel = battleSetup.roster.find(({ id }) => id === "brackenwheel");
+  const meleeAreaEntity = brackenwheel?.entities.find(({ meleeAreaPolicy }) =>
+    meleeAreaPolicy?.authoritative === false &&
+    meleeAreaPolicy?.confidence === "question" &&
+    meleeAreaPolicy?.version === "melee-area-question-v1");
+  if (meleeAreaEntity === undefined) {
+    throw new TypeError("Brackenwheel deck lacks its melee-area QUESTION policy");
+  }
   return {
-    cardId: card.id,
-    text: `${card.displayName} combat: QUESTION. First-hit timing is ${fields.firstHitTicks.value === null
-      ? "absent" : "unverified"}; damage, HP, deploy, range and target fields are unverified.`,
-    unverifiedFields,
+    cardId: brackenwheel.id,
+    text: "Brackenwheel melee area/contact rule remains QUESTION and provisional for historical comparison.",
+    unverifiedFields: ["melee-area-contact"],
   };
 }
 
-function projectBuildingPolicyQuestion(questionNotice, session) {
-  const policyQuestion = buildingPolicyQuestion(session);
+function projectCombatPolicyQuestion(questionNotice, session) {
+  const policyQuestion = combatPolicyQuestion(session);
   if (questionNotice === null) {
     if (policyQuestion !== null) {
       throw new TypeError("shipped browser lacks the defensive QUESTION notice");
@@ -504,7 +519,7 @@ export function mountShippedGameBrowser(
       }
       const shell = mountArenaShell(root);
       const questionNotice = shell.querySelector('[data-ui="policy-question"]');
-      projectBuildingPolicyQuestion(questionNotice, authenticSession);
+      projectCombatPolicyQuestion(questionNotice, authenticSession);
       const deckChoiceInertState = deckChoiceEnabled
         ? Array.from(shell.children, (node) => [node, node.inert]) : [];
       const deckChoiceOpenButton = deckChoiceEnabled
@@ -941,7 +956,7 @@ export function mountShippedGameBrowser(
         graph.audioRuntime.rebase(graph.loop.session);
       } else graph.audioRuntime.rebaseSilently(graph.loop.session);
       lastSession = graph.loop.session;
-      projectBuildingPolicyQuestion(graph.questionNotice, graph.loop.session);
+      projectCombatPolicyQuestion(graph.questionNotice, graph.loop.session);
       renderRestart(graph);
       return state;
     },
@@ -998,7 +1013,7 @@ export function mountShippedGameBrowser(
           candidate.audioRuntime.rebase(candidate.loop.session);
         } else candidate.audioRuntime.rebaseSilently(candidate.loop.session);
         lastSession = candidate.loop.session;
-        projectBuildingPolicyQuestion(candidate.questionNotice, candidate.loop.session);
+      projectCombatPolicyQuestion(candidate.questionNotice, candidate.loop.session);
         renderRestart(candidate);
         return state;
       } finally {

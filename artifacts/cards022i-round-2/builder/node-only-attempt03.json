@@ -1,0 +1,59 @@
+{
+  "nodeVersion": "v22.22.3",
+  "nodeVersionExitCode": 0,
+  "commands": {
+    "canonical-question-probe-attempt03": {
+      "argv": [
+        "node",
+        "artifacts/cards022i-round-2/builder/canonical-question-probe.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "canonical-question-probe-attempt03.stdout",
+        "sha256": "7cfe4299fe43663fc7a16e12b81f350db0784bcd06752e9dd1e128b80d50d748",
+        "bytes": 2702
+      },
+      "stderr": {
+        "path": "canonical-question-probe-attempt03.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "app-shell-syntax-attempt03": {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/app-shell.js"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "app-shell-syntax-attempt03.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "app-shell-syntax-attempt03.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "app-shell-test-syntax-attempt03": {
+      "argv": [
+        "node",
+        "--check",
+        "tests/app-shell.test.js"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "app-shell-test-syntax-attempt03.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "app-shell-test-syntax-attempt03.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  }
+}

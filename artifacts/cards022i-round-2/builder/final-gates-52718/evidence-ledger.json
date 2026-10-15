@@ -1,0 +1,695 @@
+{
+  "createdAt": "2026-10-15T20:40:39.519811+00:00",
+  "acceptedBase": "52718dd61252ee2b41cdaf73d9b9be3b18f5f80d",
+  "sourceCommit": "31421c94a01b28eea01324103ad9dbf694a780e7",
+  "sourceFence": "artifacts/cards022i-round-2/builder/final-gates-52718/source-fence.json",
+  "runtime": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "playwright": "1.58.2",
+    "playwrightModule": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+    "chrome": "Google Chrome 155.0.8059.40",
+    "chromePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "gpuOverrides": [],
+    "packageAndLockHashesBeforeNpmCi": "artifacts/cards022i-round-2/builder/final-gates-52718/dependency-locks-before-npm-ci.sha256",
+    "packageAndLockHashesAfterNpmCi": "artifacts/cards022i-round-2/builder/final-gates-52718/dependency-locks-after-npm-ci.sha256"
+  },
+  "initialPreparationAndFailedAttempts": [
+    {
+      "outcome": "locked dependency install",
+      "command": {
+        "name": "npm-ci-attempt01",
+        "cwd": "/private/tmp/cards022i-r2-52718",
+        "command": [
+          "/Users/me/.local/bin/npm",
+          "ci"
+        ],
+        "environment": {
+          "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        "startedAt": "2026-10-15T20:30:48.475463+00:00"
+      },
+      "pid": "29019",
+      "directExitCode": 0,
+      "stdout": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/npm-ci-attempt01-run/stdout.raw",
+        "sha256": "f204b06426fcbbe13e218331b6fdd4f414310655e926e15b90b5bdb658e3095c",
+        "bytes": 143
+      },
+      "stderr": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/npm-ci-attempt01-run/stderr.raw",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "outcome": "setup failure before browser: vite absent in clean checkout",
+      "command": {
+        "name": "app-shell-attempt01",
+        "cwd": "/private/tmp/cards022i-r2-52718",
+        "command": [
+          "/Users/me/.local/bin/node",
+          "tests/app-shell-runner.js",
+          "app-shell"
+        ],
+        "environment": {
+          "APP_SHELL_ARTIFACTS": "/private/tmp/cards022i-r2-52718/artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt01/ui-artifacts",
+          "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+          "PATH": "/Users/me/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/usr/local/MacGPG2/bin:/opt/homebrew/bin:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/me/.codex/tmp/arg0/codex-arg0WccBGj:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/me/.darkbloom/bin:/Users/me/bin:/Users/me/.local/bin:/Users/me/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/me/.cargo/bin:/Users/me/Applications/darktable.app/Contents/MacOS:/Users/me/.bun/bin:/Users/me/Library/Android/sdk/platform-tools:/Users/me/Library/Android/sdk/emulator:/Users/me/Library/Android/sdk/cmdline-tools/latest/bin:/opt/homebrew/sbin:/Users/me/.orbstack/bin:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/me/Applications/ChatGPT.app/Contents/Resources:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/Users/me/.orbstack/bin"
+        },
+        "startedAt": "2026-10-15T20:30:28.698033+00:00"
+      },
+      "pid": "28951",
+      "directExitCode": 1,
+      "stdout": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt01-run/stdout.raw",
+        "sha256": "bdb00fb306d5f0ee530e2c9d393e4297512cca66d5e5e043de074f55f5c81d15",
+        "bytes": 1400
+      },
+      "stderr": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt01-run/stderr.raw",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "outcome": "test failure: attempted hidden desktop Back control after successful disclosure screenshots",
+      "command": {
+        "name": "app-shell-attempt02",
+        "cwd": "/private/tmp/cards022i-r2-52718",
+        "command": [
+          "/Users/me/.local/bin/node",
+          "tests/app-shell-runner.js",
+          "app-shell"
+        ],
+        "environment": {
+          "APP_SHELL_ARTIFACTS": "/private/tmp/cards022i-r2-52718/artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt02-ui",
+          "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+          "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        "startedAt": "2026-10-15T20:30:56.995518+00:00"
+      },
+      "pid": "29070",
+      "directExitCode": 1,
+      "stdout": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt02-run/stdout.raw",
+        "sha256": "8cb73775b9f5b01392f23a54809affb991a2669bfe239a992c6d67c7aeb1682d",
+        "bytes": 1530
+      },
+      "stderr": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt02-run/stderr.raw",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "focusedPassingBrowserRuns": [
+    {
+      "outcome": "pass",
+      "command": {
+        "name": "app-shell-attempt03",
+        "cwd": "/private/tmp/cards022i-r2-52718",
+        "command": [
+          "/Users/me/.local/bin/node",
+          "tests/app-shell-runner.js",
+          "app-shell"
+        ],
+        "environment": {
+          "APP_SHELL_ARTIFACTS": "/private/tmp/cards022i-r2-52718/artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt03-ui",
+          "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+          "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        "startedAt": "2026-10-15T20:32:21.649154+00:00"
+      },
+      "pid": "29811",
+      "directExitCode": 0,
+      "stdout": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt03-run/stdout.raw",
+        "sha256": "f710795e5d726b8bcb025ee02a9b1d71dbe22c7a319679d099befac3fa67e2d9",
+        "bytes": 362
+      },
+      "stderr": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt03-run/stderr.raw",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "tapCounts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "outcome": "pass",
+      "command": {
+        "name": "cards022-browser-attempt01",
+        "cwd": "/private/tmp/cards022i-r2-52718",
+        "command": [
+          "/Users/me/.local/bin/node",
+          "--test",
+          "tests/cards022-browser-integration.test.js"
+        ],
+        "environment": {
+          "CARDS022I_ARTIFACTS": "/private/tmp/cards022i-r2-52718/artifacts/cards022i-round-2/builder/final-gates-52718/cards022-browser-attempt01-ui",
+          "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+          "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        "startedAt": "2026-10-15T20:33:46.126297+00:00"
+      },
+      "pid": "30199",
+      "directExitCode": 0,
+      "stdout": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/cards022-browser-attempt01-run/stdout.raw",
+        "sha256": "c40e8d25205f3ad1ee2d09f6dd9583936836370766c21d2db379bebf0ef4d7e4",
+        "bytes": 366
+      },
+      "stderr": {
+        "path": "artifacts/cards022i-round-2/builder/final-gates-52718/cards022-browser-attempt01-run/stderr.raw",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "tapCounts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "appShellDisclosureEvidence": {
+    "browserEvidence": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt03-ui/browser-evidence.json",
+    "brackenwheelQuestionDisclosure": [
+      {
+        "viewport": {
+          "width": 720,
+          "height": 1280
+        },
+        "questionLabels": [
+          "Count",
+          "Health",
+          "Damage",
+          "Hit speed",
+          "Range",
+          "Targets",
+          "Moves"
+        ],
+        "cost": "4",
+        "visibleCells": true,
+        "profile": [
+          {
+            "Count": "1 (QUESTION)",
+            "Health": "1,908 (QUESTION)",
+            "Damage": "267 per attack (QUESTION)",
+            "Hit speed": "1.5 s (QUESTION)",
+            "Range": "1.2 tiles (QUESTION)",
+            "Targets": "ground (QUESTION)",
+            "Moves": "1 tiles/s (QUESTION)"
+          }
+        ]
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "questionLabels": [
+          "Count",
+          "Health",
+          "Damage",
+          "Hit speed",
+          "Range",
+          "Targets",
+          "Moves"
+        ],
+        "cost": "4",
+        "visibleCells": true,
+        "profile": [
+          {
+            "Count": "1 (QUESTION)",
+            "Health": "1,908 (QUESTION)",
+            "Damage": "267 per attack (QUESTION)",
+            "Hit speed": "1.5 s (QUESTION)",
+            "Range": "1.2 tiles (QUESTION)",
+            "Targets": "ground (QUESTION)",
+            "Moves": "1 tiles/s (QUESTION)"
+          }
+        ]
+      },
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "questionLabels": [
+          "Count",
+          "Health",
+          "Damage",
+          "Hit speed",
+          "Range",
+          "Targets",
+          "Moves"
+        ],
+        "cost": "4",
+        "visibleCells": true,
+        "profile": [
+          {
+            "Count": "1 (QUESTION)",
+            "Health": "1,908 (QUESTION)",
+            "Damage": "267 per attack (QUESTION)",
+            "Hit speed": "1.5 s (QUESTION)",
+            "Range": "1.2 tiles (QUESTION)",
+            "Targets": "ground (QUESTION)",
+            "Moves": "1 tiles/s (QUESTION)"
+          }
+        ]
+      }
+    ],
+    "aetherWellPhoneScreenshot": {
+      "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt03-ui/aether-well-phone-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "e87a8e7948a1e99ee0819b59662ec6b9c43fff294f65c7b1928b684dfc7ba8f1"
+    },
+    "aetherWellDesktopScreenshot": {
+      "path": "artifacts/cards022i-round-2/builder/final-gates-52718/app-shell-attempt03-ui/aether-well-desktop-1440x933.png",
+      "width": 1440,
+      "height": 933,
+      "sha256": "8049ce6c3a679c2de8f23e83145c4d61774be9ce4da19468f44879f1abc9d067"
+    }
+  },
+  "brackenwheelIntegrationEvidence": {
+    "browserEvidence": "artifacts/cards022i-round-2/builder/final-gates-52718/cards022-browser-attempt01-ui/cards022-browser-integration-evidence.json",
+    "naturalContact": {
+      "tick": 234,
+      "seed": 2,
+      "deck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "aiDeploymentCount": 1,
+      "damage": [
+        {
+          "amount": 267,
+          "meleeAreaPolicyVersion": null,
+          "targetId": 2,
+          "tick": 234
+        },
+        {
+          "amount": 267,
+          "meleeAreaPolicyVersion": "melee-area-question-v1",
+          "targetId": 4,
+          "tick": 234
+        },
+        {
+          "amount": 267,
+          "meleeAreaPolicyVersion": "melee-area-question-v1",
+          "targetId": 5,
+          "tick": 234
+        },
+        {
+          "amount": 267,
+          "meleeAreaPolicyVersion": "melee-area-question-v1",
+          "targetId": 6,
+          "tick": 234
+        }
+      ]
+    },
+    "presentationModes": [
+      {
+        "mode": "phone-normal",
+        "bodyCssPixels": 13,
+        "physicalBodyCssPixels": 12.993777671875,
+        "paused": true,
+        "beforePngSha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f",
+        "afterPngSha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f",
+        "pngIdentical": true
+      },
+      {
+        "mode": "phone-reduced",
+        "bodyCssPixels": 13,
+        "physicalBodyCssPixels": 12.993777671875,
+        "paused": true,
+        "beforePngSha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07",
+        "afterPngSha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07",
+        "pngIdentical": true
+      },
+      {
+        "mode": "desktop-normal",
+        "bodyCssPixels": 26,
+        "physicalBodyCssPixels": 25.996731769522267,
+        "paused": true,
+        "beforePngSha256": "8a9d180d7f7535fd743ae7b119f333637920e0de778e5dc78c2c82ae2e1331ce",
+        "afterPngSha256": "8a9d180d7f7535fd743ae7b119f333637920e0de778e5dc78c2c82ae2e1331ce",
+        "pngIdentical": true
+      },
+      {
+        "mode": "desktop-reduced",
+        "bodyCssPixels": 26,
+        "physicalBodyCssPixels": 25.996731769522267,
+        "paused": true,
+        "beforePngSha256": "bf9ccab950c72a23c14cee31b6a589e3a76e938e8bcef4732c37804ab72c565b",
+        "afterPngSha256": "bf9ccab950c72a23c14cee31b6a589e3a76e938e8bcef4732c37804ab72c565b",
+        "pngIdentical": true
+      }
+    ],
+    "terminal": {
+      "tick": 3987,
+      "naturalTerminal": true,
+      "chunks": 4
+    },
+    "sameDeckRestart": {
+      "chunks": 4,
+      "terminalTick": 3987,
+      "deck": [
+        "brackenwheel",
+        "briar-band",
+        "coilblade",
+        "mossguard",
+        "ironroot",
+        "copperskiff",
+        "brassbolt",
+        "reedsting"
+      ],
+      "restartCount": 1,
+      "restartedTick": 0
+    },
+    "browserErrors": [],
+    "inputBridgeSha256": "9c100e55c001cff046027bb79fc1d44dea61b20d7f8394b5f3d1b729b198b323",
+    "sessionSha256": "3c54a5080b9f3eaefa069aa4b834c9fa8a41c2caf3830081d13d38f15023c800",
+    "audioContinuationSha256": "7dea7feef96127b0b926caac1508aaee282aa6f4d1365d8b0b5c7311d98a549f"
+  },
+  "remainingGates": {
+    "orchestrationSession": 42589,
+    "allComplete": true,
+    "gates": [
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "ui-combat-state",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/ui-combat-state-runner.js",
+            "ui-combat-state"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:35:18.935814+00:00"
+        },
+        "pid": "30511",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/ui-combat-state/stdout.raw",
+          "sha256": "7e5193f6cc46ac1ed7c0c1b46082c25eda6a0e23e1bd6f9fc24b526e3f5965c8",
+          "bytes": 4135
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/ui-combat-state/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 17,
+          "pass": 16,
+          "fail": 0,
+          "skipped": 1
+        }
+      },
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "nondeterminism-guard",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/nondeterminism-guard-runner.js",
+            "nondeterminism-guard"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:35:19.107078+00:00"
+        },
+        "pid": "30515",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/nondeterminism-guard/stdout.raw",
+          "sha256": "535690f01098f0f0bdbde9097821550e404c18be65553c50c20a855323d3aa16",
+          "bytes": 2515
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/nondeterminism-guard/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "shipping-isolation-guard",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/shipping-isolation-guard-runner.js",
+            "shipping-isolation-guard"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:35:20.315998+00:00"
+        },
+        "pid": "30535",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/shipping-isolation-guard/stdout.raw",
+          "sha256": "e1beea106caa049f2cc0d0c4cdebe7331dc7fdb50b74fb70f20bb9f75f723e0e",
+          "bytes": 3148
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/shipping-isolation-guard/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 13,
+          "pass": 13,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "release-build",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/release-build-runner.js",
+            "release-build"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:35:53.557491+00:00"
+        },
+        "pid": "30929",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/release-build/stdout.raw",
+          "sha256": "fb32894b6b4ba794c46f5bbb14d04cf30ee235de7002247481f89d340ee7ff94",
+          "bytes": 14067
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/release-build/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 22,
+          "pass": 22,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "shipping-isolation-release",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/shipping-isolation-release-runner.js",
+            "shipping-isolation-release"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:36:45.567929+00:00"
+        },
+        "pid": "31244",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/shipping-isolation-release/stdout.raw",
+          "sha256": "6c5e6d87a73c692a3a2ef79d85ba359408d60d2e93cb4f5253edd397dd70f0df",
+          "bytes": 1520
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/shipping-isolation-release/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 4,
+          "pass": 4,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "shipping-isolation-host",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/shipping-isolation-host-runner.js",
+            "shipping-isolation-host"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:37:54.904984+00:00"
+        },
+        "pid": "31487",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/shipping-isolation-host/stdout.raw",
+          "sha256": "ed06351b4588f5e16268c238ffd328dcfd72850c07d095efef4d20785558a43f",
+          "bytes": 357
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/shipping-isolation-host/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 1,
+          "pass": 1,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "outcome": "pass",
+        "command": {
+          "name": "visual-asset-manifest",
+          "cwd": "/private/tmp/cards022i-r2-52718",
+          "command": [
+            "/Users/me/.local/bin/node",
+            "tests/visual-asset-manifest-runner.js",
+            "visual-asset-manifest"
+          ],
+          "environment": {
+            "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+            "PATH": "/Users/me/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+          },
+          "startedAt": "2026-10-15T20:38:08.834139+00:00"
+        },
+        "pid": "31519",
+        "directExitCode": 0,
+        "stdout": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/visual-asset-manifest/stdout.raw",
+          "sha256": "a418d7e13aa5072a6f454b2e0c71a46c4c4da760060d37d44151eadc830c1e35",
+          "bytes": 1400
+        },
+        "stderr": {
+          "path": "artifacts/cards022i-round-2/builder/final-gates-52718/remaining-gates-attempt01/visual-asset-manifest/stderr.raw",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tapCounts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "skipped": 0
+        }
+      }
+    ]
+  },
+  "generatedTestSideEffects": {
+    "preservedCopiesDirectory": "artifacts/cards022i-round-2/builder/final-gates-52718/generated-reports-post-gate",
+    "manifest": {
+      "records": [
+        {
+          "path": "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+          "preservedCopy": "artifacts/cards022i-round-2/builder/final-gates-52718/generated-reports-post-gate/artifacts/guard-002r-round-1/release-isolation-evidence.json",
+          "headSha256": "d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3",
+          "postGateSha256": "5fb9a5dca15886126373b1d02f6a9ccaf2c44ac5e19a7eefafe85d3afa3d1483",
+          "bytes": 25492
+        },
+        {
+          "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+          "preservedCopy": "artifacts/cards022i-round-2/builder/final-gates-52718/generated-reports-post-gate/artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+          "headSha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+          "postGateSha256": "ba1ab736aff7603d88f48ec64ab53044cb044514f2ad6c149a0dcda2e4366602",
+          "bytes": 500
+        },
+        {
+          "path": "artifacts/release-001b-round-2/evidence.json",
+          "preservedCopy": "artifacts/cards022i-round-2/builder/final-gates-52718/generated-reports-post-gate/artifacts/release-001b-round-2/evidence.json",
+          "headSha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+          "postGateSha256": "df03c7c4a85a452d5bf070291d7993b08f87c6901394371e8577850468807a8c",
+          "bytes": 33738
+        },
+        {
+          "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+          "preservedCopy": "artifacts/cards022i-round-2/builder/final-gates-52718/generated-reports-post-gate/artifacts/release-001b-round-2/external-base-producer-rejection.json",
+          "headSha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+          "postGateSha256": "17df4cf8df53c9fd213b7cb273d62c5d2c67ba9c0b3f26d2379e62e38c930776",
+          "bytes": 485
+        },
+        {
+          "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+          "preservedCopy": "artifacts/cards022i-round-2/builder/final-gates-52718/generated-reports-post-gate/artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+          "headSha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+          "postGateSha256": "c60d0e4d49c3eba1afc4d95c38ffe6d02f9094b507c49476045fe951ae747240",
+          "bytes": 1333
+        }
+      ],
+      "diffSha256": "7fb4f8a1b1480fedc647bb31a5b1a581a29507928e60e43693b57d89535ae89b"
+    },
+    "restoredOnlyTheseTrackedReports": true
+  },
+  "independentCritique": "pending; this is builder evidence only"
+}

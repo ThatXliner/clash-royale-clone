@@ -10,7 +10,10 @@ import { spawn } from "node:child_process";
 import test from "node:test";
 
 import { buildRelease } from "../scripts/build-release.js";
-import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+import {
+  createEditableGameSessionSetup,
+  EDITABLE_MIXED_DECK_CARD_IDS,
+} from "../src/content/editable-deck.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 
 const execFileAsync = promisify(execFile);
@@ -864,8 +867,10 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     await page.locator('.app-nav [data-nav-to="cards"]').click();
     const cardIds = await page.locator("[data-card-grid] [data-card-id]").evaluateAll((nodes) =>
       nodes.map((node) => node.dataset.cardId));
-    assert.equal(cardIds.length, 21,
-      "the real collection appends Buried Coil while keeping all previous twenty cards");
+    assert.deepEqual(cardIds, EDITABLE_MIXED_DECK_CARD_IDS,
+      "the real collection renders the exact currently admitted card identities in order");
+    assert.equal(PLAYABLE_CARD_IDS.length, 8,
+      "the default roster remains the original eight cards");
     const buriedCard = page.locator('[data-card-grid] [data-card-id="buried-coil"]');
     await buriedCard.click();
     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Buried Coil");

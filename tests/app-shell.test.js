@@ -10,6 +10,7 @@ import test from "node:test";
 
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 import {
+  createSessionTroopWitnessQuestions,
   EDITABLE_DECK_CARD_IDS,
   projectSessionTroopBattleCard,
 } from "../src/content/session-troop-roster.js";
@@ -18,11 +19,11 @@ import {
   createEditableGameSessionSetup,
 } from "../src/content/editable-deck.js";
 import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
+import { getCardPortrait } from "../src/ui/card-portrait-art.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { buildRelease } from "../scripts/build-release.js";
 
-const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
-  "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
+const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? "playwright";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const ARTIFACTS = process.env.APP_SHELL_ARTIFACTS ??
@@ -43,6 +44,7 @@ const EXPECTED_DEFAULT_ROSTER_IDS = Object.freeze(
   EXPECTED_ATLAS_CARD_CELLS.map(([id]) => id),
 );
 const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
+  "brackenwheel",
   "stonehauler",
   "thornscouts",
   "forgeguard",
@@ -57,22 +59,26 @@ const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
   "ember-basin",
 ]);
 const EXPECTED_AIR_SWARM_LORE = Object.freeze({
+  brackenwheel: "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
   "gloamwing-cluster": "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home.",
   "coppershade-flock": "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests.",
 });
 const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
   ...EXPECTED_ATLAS_CARD_CELLS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.map((id) => Object.freeze([id, null])),
+  Object.freeze(["buried-coil", null]),
 ]);
 const EXPECTED_COLLECTION_IDS = Object.freeze([
   ...EXPECTED_DEFAULT_ROSTER_IDS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
   "buried-coil",
+  "aether-well",
 ]);
-const EXPECTED_COLLECTION_COUNT = 21;
+const EXPECTED_COLLECTION_COUNT = 23;
 const EXPECTED_REPLACEMENT_CARD_IDS = Object.freeze([
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
   "buried-coil",
+  "aether-well",
 ]);
 const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
   "desktop-card-portraits-1440x933.png",
@@ -106,18 +112,59 @@ function format(number) {
   return new Intl.NumberFormat("en", { maximumFractionDigits: 2 }).format(number);
 }
 
-function expectedStats(entity) {
+const UNIT_DETAIL_STAT_FIELDS = Object.freeze([
+  Object.freeze(["Count", "count"]),
+  Object.freeze(["Health", "hitpoints"]),
+  Object.freeze(["Damage", "damage"]),
+  Object.freeze(["Hit speed", "hitSpeedTicks"]),
+  Object.freeze(["Range", "rangeMillitiles"]),
+  Object.freeze(["Targets", "targetMode"]),
+  Object.freeze(["Moves", "movementMillitilesPerSecond"]),
+]);
+
+function questionReceiptsForCard(card) {
+  if (!card.entities.some((entity) => entity.sourceConfidencePolicy?.fields?.length > 0 ||
+      entity.damagePolicy?.kind === "question")) return new Map();
+  return new Map(createSessionTroopWitnessQuestions(card.id)
+    .map((record) => [record.key, record]));
+}
+
+function unitStatQuestion(entity, field, questions) {
+  const sourceField = entity.sourceConfidencePolicy?.fields?.find((candidate) =>
+    candidate.field === field);
+  const damagePolicy = field === "damage" ? entity.damagePolicy : null;
+  const questionKey = sourceField?.questionKey ??
+    (damagePolicy?.kind === "question" ? damagePolicy.questionKey : null);
+  if (questionKey === null || questionKey === undefined) return null;
+  const record = questions.get(questionKey);
+  assert.ok(record !== undefined && record.key === questionKey,
+    `${entity.archetypeId}.${field} has a canonical session question receipt`);
+  return record.disposition === "question" && record.authoritative === false &&
+    record.confidence === "unverified" ? record : null;
+}
+
+function expectedStats(entity, questions = new Map()) {
+  const suffix = (field) => unitStatQuestion(entity, field, questions) === null
+    ? "" : " (QUESTION)";
+  const questioned = (field, value) => `${value}${suffix(field)}`;
   return {
-    Count: String(entity.count),
-    Health: entity.hitpoints === null ? "Not available" : format(entity.hitpoints),
-    Damage: entity.damage === null ? "Not available" : `${format(entity.damage)} per attack`,
+    Count: questioned("count", String(entity.count)),
+    Health: questioned("hitpoints",
+      entity.hitpoints === null ? "Not available" : format(entity.hitpoints)),
+    Damage: questioned("damage", entity.damage === null
+      ? "Not available" : `${format(entity.damage)} per attack`),
     "Hit speed": entity.hitSpeedTicks === null
-      ? "Not available" : `${format(entity.hitSpeedTicks / 60)} s`,
+      ? questioned("hitSpeedTicks", "Not available")
+      : questioned("hitSpeedTicks", `${format(entity.hitSpeedTicks / 60)} s`),
     Range: entity.rangeMillitiles === null
-      ? "Not available" : `${format(entity.rangeMillitiles / 1_000)} tiles`,
-    Targets: entity.targetMode === "ground-and-air" ? "ground and air" : entity.targetMode,
+      ? questioned("rangeMillitiles", "Not available")
+      : questioned("rangeMillitiles", `${format(entity.rangeMillitiles / 1_000)} tiles`),
+    Targets: questioned("targetMode",
+      entity.targetMode === "ground-and-air" ? "ground and air" : entity.targetMode),
     Moves: entity.movementMillitilesPerSecond === null
-      ? "Not available" : `${format(entity.movementMillitilesPerSecond / 1_000)} tiles/s`,
+      ? questioned("movementMillitilesPerSecond", "Not available")
+      : questioned("movementMillitilesPerSecond",
+        `${format(entity.movementMillitilesPerSecond / 1_000)} tiles/s`),
   };
 }
 
@@ -126,16 +173,26 @@ function expectedQuestionClassification(entity) {
   const delivery = entity.delivery === "projectile" ? "ranged" : "melee";
   const target = entity.targetMode === "ground-and-air"
     ? "ground and air" : entity.targetMode;
+  const meleeAreaQuestion = entity.meleeAreaPolicy?.authoritative === false &&
+    entity.meleeAreaPolicy?.confidence === "question";
   const provisionalFields = [];
+  if (meleeAreaQuestion) {
+    provisionalFields.push("melee area/contact rule");
+  }
   if (entity.layerPolicy?.kind === "question") {
     provisionalFields.push(`${layer.toLocaleLowerCase("en")} layer`);
   }
   if (entity.deliveryPolicy?.kind === "question") {
     provisionalFields.push(`${delivery} delivery`);
   }
-  const confidenceNote = provisionalFields.length === 1
-    ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
-    : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
+  const otherProvisionalFields = provisionalFields.filter((field) =>
+    field !== "melee area/contact rule");
+  const confidenceNote = meleeAreaQuestion
+    ? `The melee area/contact rule remains QUESTION and provisional for historical comparison.${otherProvisionalFields.length === 0
+      ? "" : ` The ${otherProvisionalFields.join(" and ")} remain provisional for historical comparison.`}`
+    : provisionalFields.length === 1
+      ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
+      : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
   const combatConfidenceNote = entity.archetypeId === "kilnkeeper" &&
     entity.sourceConfidencePolicy?.fields?.length > 0
     ? " The 5-elixir cost is source backed; combat values are unverified estimates and remain QUESTION for historical comparison."
@@ -152,6 +209,123 @@ async function renderedProfiles(page) {
       ]),
     )),
   );
+}
+
+async function assertUnitQuestionDisclosure(page, card, questions, width, height) {
+  const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+  assert.deepEqual(viewport, { width, height }, "the disclosure assertion uses the requested viewport");
+  await page.locator("[data-card-detail] .unit-profile .stat-grid").scrollIntoViewIfNeeded();
+  const profiles = await renderedProfiles(page);
+  assert.deepEqual(profiles,
+    card.entities.map((entity) => expectedStats(entity, questions)),
+    `${card.displayName} detail values follow canonical field-question receipts at ${width}x${height}`);
+  const expectedQuestionLabels = UNIT_DETAIL_STAT_FIELDS
+    .filter(([, field]) => unitStatQuestion(card.entities[0], field, questions) !== null)
+    .map(([label]) => label);
+  const cellEvidence = await page.locator(
+    "[data-card-detail] .unit-profile .stat-cell",
+  ).evaluateAll((cells) => cells.map((cell) => {
+    const label = cell.querySelector("span");
+    const value = cell.querySelector("strong");
+    const labelBounds = label.getBoundingClientRect();
+    const bounds = value.getBoundingClientRect();
+    return {
+      label: label.textContent,
+      text: value.textContent,
+      labelVisible: labelBounds.width > 0 && labelBounds.height > 0 &&
+        getComputedStyle(label).visibility !== "hidden" && getComputedStyle(label).display !== "none",
+      valueVisible: bounds.width > 0 && bounds.height > 0 &&
+        getComputedStyle(value).visibility !== "hidden" && getComputedStyle(value).display !== "none",
+      labelLeft: labelBounds.left,
+      labelRight: labelBounds.right,
+      left: bounds.left,
+      right: bounds.right,
+    };
+  }));
+  const actualQuestionLabels = cellEvidence
+    .filter(({ text }) => text.endsWith(" (QUESTION)"))
+    .map(({ label }) => label);
+  assert.deepEqual(actualQuestionLabels, expectedQuestionLabels,
+    `${card.displayName} badges only fields whose receipts are QUESTION at ${width}x${height}`);
+  assert.ok(cellEvidence.every(({ labelVisible, valueVisible, labelLeft, labelRight, left, right }) =>
+    labelVisible && valueVisible && labelLeft >= 0 && labelRight <= width + 1 &&
+    left >= 0 && right <= width + 1),
+    `${card.displayName} question labels and values remain visible within the ${width}px viewport: ${JSON.stringify(cellEvidence)}`);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), width,
+    `${card.displayName} details do not overflow the ${width}px viewport`);
+  const cost = await page.locator("[data-card-detail] .detail-cost").innerText();
+  assert.equal(cost, String(card.cost), `${card.displayName} cost remains unchanged`);
+  assert.doesNotMatch(cost, /QUESTION/u,
+    `${card.displayName} cost remains unmarked because it has no stat-field question receipt`);
+  return {
+    viewport,
+    profiles,
+    questionLabels: actualQuestionLabels,
+    cost,
+    statValues: cellEvidence,
+  };
+}
+
+function expectedResourceStats(card) {
+  const profile = card.buildingRuntime;
+  const suffix = (field) => profile.policy[field]?.disposition === "question"
+    ? " (QUESTION)" : "";
+  return {
+    Cost: `${format(card.cost)} elixir`,
+    Health: `${format(profile.hitpoints)}${suffix("hitpoints")}`,
+    Deploy: `${format(profile.deployTicks / 60)} s${suffix("deployTicks")}`,
+    Generation: `${format(profile.generationAmount)} elixir${suffix("generationAmount")}`,
+    Interval: `${format(profile.generationCadenceTicks / 60)} s${suffix("generationCadenceTicks")}`,
+    Lifetime: `${format(profile.lifetimeTicks / 60)} s${suffix("lifetimeTicks")}`,
+    Destroyed: `${format(profile.destructionAmount)} elixir${suffix("destructionAmount")}`,
+    Role: "Resource · does not attack",
+  };
+}
+
+async function assertAetherWellDetails(page) {
+  const card = projectSessionNonUnitBattleCard("aether-well");
+  const profile = card.buildingRuntime;
+  assert.equal(profile.class, "resource");
+  for (const [field, disposition] of [
+    ["hitpoints", "question"],
+    ["deployTicks", "question"],
+    ["generationAmount", "question"],
+    ["generationCadenceTicks", "source-aligned"],
+    ["lifetimeTicks", "source-aligned"],
+    ["destructionAmount", "source-aligned"],
+  ]) {
+    assert.equal(profile.policy[field]?.disposition, disposition,
+      `Aether Well ${field} retains its canonical ${disposition} status`);
+    assert.equal(profile.policy[field]?.value, profile[field],
+      `Aether Well ${field} displays the value carried by its canonical receipt`);
+  }
+  assert.deepEqual(await renderedProfiles(page), [expectedResourceStats(card)],
+    "Aether Well details use only its resource receipt and field-specific confidence");
+  const profileText = await page.locator("[data-card-detail] .unit-profile").innerText();
+  assert.match(profileText, /Resource structure · QUESTION/u);
+  assert.doesNotMatch(profileText, /(?:Damage|First hit|Hit speed|Range|Splash radius|NaN|undefined)/iu,
+    "Aether Well exposes no fabricated attack stats or missing values");
+  assert.equal(await page.locator("[data-card-detail] .detail-description").innerText(),
+    `Stationary resource structure · produces elixir over time and grants ${format(profile.destructionAmount)} elixir when destroyed. It does not attack.`);
+}
+
+async function captureAetherWellDetails(page, width, height) {
+  await page.locator('[data-card-grid] [data-card-id="aether-well"]').click();
+  await assertAetherWellDetails(page);
+  const layout = await page.locator("[data-card-detail]").evaluate((detail) => {
+    const box = detail.getBoundingClientRect();
+    return { viewportWidth: innerWidth, viewportHeight: innerHeight,
+      documentWidth: document.documentElement.scrollWidth,
+      left: box.left, right: box.right, width: box.width };
+  });
+  assert.deepEqual([layout.viewportWidth, layout.viewportHeight, layout.documentWidth],
+    [width, height, width]);
+  assert.ok(layout.left >= 0 && layout.right <= width && layout.width > 0,
+    `Aether Well details fit the ${width}px viewport: ${JSON.stringify(layout)}`);
+  const screenshot = `aether-well-${width === 390 ? "phone-390x844" : "desktop-1440x933"}.png`;
+  await page.screenshot({ path: join(ARTIFACTS, screenshot) });
+  if (width === 390) await page.locator("[data-card-detail] .detail-back").click();
+  return { layout, screenshot: await screenshotEvidence(screenshot) };
 }
 
 async function renderedDetailPortrait(page) {
@@ -317,6 +491,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
   const browser = await chromium.launch({ executablePath: CHROME, headless: true });
   const page = await browser.newPage({ viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1 });
   let cardPortraitEvidence = null;
+  const questionDisclosureEvidence = [];
   const failures = [];
   const requests = new Set();
   page.on("pageerror", (error) => failures.push(String(error)));
@@ -341,9 +516,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         .filter((id) => id !== "squall-orb" && id !== "ember-basin")],
     "the independently expected troop collection contains the completed source roster");
     assert.deepEqual(EDITABLE_MIXED_DECK_CARD_IDS, EXPECTED_COLLECTION_IDS,
-      "the editable mixed collection adds Squall Orb, Ember Basin, and Buried Coil to the collection");
+      "the editable mixed collection preserves the 8-card default and admits each supported choice");
     assert.equal(EXPECTED_COLLECTION_IDS.length, EXPECTED_COLLECTION_COUNT,
-      "the mixed editable collection has exactly twenty-one supported cards");
+      "the expected mixed editable collection count matches its admitted card identities");
     await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
     assert.equal(await page.title(), "Moss & Ember — Card battler");
     assert.equal(await page.locator(".app-nav [data-nav-to]").count(), 4);
@@ -400,23 +575,30 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     for (const card of [...createPlayableRoster(),
       ...EDITABLE_MIXED_DECK_CARD_IDS
         .filter((id) => !EXPECTED_DEFAULT_ROSTER_IDS.includes(id) &&
-          id !== "squall-orb" && id !== "ember-basin" && id !== "buried-coil")
+          id !== "squall-orb" && id !== "ember-basin" && id !== "buried-coil" &&
+          id !== "aether-well")
         .map((id) => projectSessionTroopBattleCard(id)),
       projectSessionNonUnitBattleCard("squall-orb"),
-      projectSessionNonUnitBattleCard("ember-basin")]) {
+      projectSessionNonUnitBattleCard("ember-basin"),
+      projectSessionNonUnitBattleCard("aether-well")]) {
+      const questionReceipts = questionReceiptsForCard(card);
       const cardButton = page.locator(`[data-card-grid] [data-card-id="${card.id}"]`);
       await cardButton.click();
       assert.equal(await page.locator("[data-card-detail] h2").innerText(), card.displayName);
       assert.equal(await page.locator("[data-card-detail] .detail-cost").innerText(), String(card.cost));
       const detailPortrait = await renderedDetailPortrait(page);
-      assert.equal(detailPortrait?.cardId, card.id,
-        `${card.displayName} details reuse the registered collection portrait`);
-      assert.ok(detailPortrait.image.decoded && detailPortrait.image.visible &&
-        detailPortrait.image.bounds.width > 0 && detailPortrait.image.bounds.height > 0,
-      `${card.displayName} detail portrait decodes and renders: ${JSON.stringify(detailPortrait.image)}`);
-      assert.equal(detailPortrait.image.src,
-        await cardButton.locator(".card-art-image").getAttribute("src"),
-      `${card.displayName} details keep the collection's registered portrait mapping`);
+      const expectedPortrait = getCardPortrait(card.id);
+      assert.equal(detailPortrait?.cardId ?? null,
+        expectedPortrait === null ? null : card.id,
+      `${card.displayName} detail portrait matches its registered portrait availability`);
+      if (expectedPortrait !== null) {
+        assert.ok(detailPortrait.image.decoded && detailPortrait.image.visible &&
+          detailPortrait.image.bounds.width > 0 && detailPortrait.image.bounds.height > 0,
+        `${card.displayName} detail portrait decodes and renders: ${JSON.stringify(detailPortrait.image)}`);
+        assert.equal(detailPortrait.image.src,
+          await cardButton.locator(".card-art-image").getAttribute("src"),
+        `${card.displayName} details keep the collection's registered portrait mapping`);
+      }
       if (card.kind === "effect") {
         assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
           /center-cast area spell/iu);
@@ -432,7 +614,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
           /QUESTION|confidence/u);
         await page.screenshot({ path: join(ARTIFACTS, "phone-squall-orb-details-720x1280.png"),
           fullPage: true });
-      } else if (card.kind === "structure") {
+      } else if (card.kind === "structure" && card.id === "ember-basin") {
         const profile = card.buildingRuntime;
         const suffix = " (QUESTION)";
         const expectedProfile = {
@@ -457,14 +639,25 @@ test("player shell renders roster-derived cards and launches a paused shared bat
           /Cost is source backed; combat values are provisional profile estimates/u);
         assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
           "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.");
+      } else if (card.id === "aether-well") {
+        await assertAetherWellDetails(page);
+      } else if (card.kind === "structure") {
+        assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 1,
+          `${card.displayName} keeps its typed structure profile`);
+        assert.match(await page.locator("[data-card-detail] .unit-profile").innerText(),
+          /QUESTION/u, `${card.displayName} keeps provisional combat values visible`);
       } else {
         const profiles = await renderedProfiles(page);
-        assert.deepEqual(profiles, card.entities.map(expectedStats), `${card.displayName} runtime facts`);
+        assert.deepEqual(profiles,
+          card.entities.map((entity) => expectedStats(entity, questionReceipts)),
+          `${card.displayName} runtime facts and canonical field-question disclosures`);
         assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), card.entities.length);
         const detailDescription = await page.locator("[data-card-detail] .detail-description").innerText();
         const classificationProfiles = await page.locator("[data-card-detail] .unit-profile > p").allInnerTexts();
         for (const [index, entity] of card.entities.entries()) {
-          if (entity.layerPolicy?.kind !== "question" && entity.deliveryPolicy?.kind !== "question") continue;
+          if (entity.layerPolicy?.kind !== "question" && entity.deliveryPolicy?.kind !== "question" &&
+              !(entity.meleeAreaPolicy?.authoritative === false &&
+                entity.meleeAreaPolicy?.confidence === "question")) continue;
           const expectedClassification = expectedQuestionClassification(entity);
           assert.equal(classificationProfiles[index], expectedClassification,
             `${entity.displayName} profile states its current-game classification and provisional comparison status`);
@@ -474,6 +667,22 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         if (Object.hasOwn(EXPECTED_AIR_SWARM_LORE, card.id)) {
           assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
             EXPECTED_AIR_SWARM_LORE[card.id], `${card.displayName} shows its original lore`);
+        }
+        if (card.id === "brackenwheel") {
+          questionDisclosureEvidence.push(await assertUnitQuestionDisclosure(
+            page, card, questionReceipts, 720, 1_280,
+          ));
+          const actualSetup = JSON.parse(createEditableGameSessionSetup(
+            [...PLAYABLE_CARD_IDS.slice(0, 7), card.id],
+          ));
+          const actualSetupQuestions = new Map(JSON.parse(actualSetup.battleSetup).questions
+            .map((record) => [record.key, record]));
+          for (const [, field] of UNIT_DETAIL_STAT_FIELDS) {
+            const receipt = unitStatQuestion(card.entities[0], field, questionReceipts);
+            if (receipt === null) continue;
+            assert.deepEqual(actualSetupQuestions.get(receipt.key), receipt,
+              `${field} disclosure uses the receipt included in the selected editable GameSession setup`);
+          }
         }
       }
       if (card.id === "briar-band") {
@@ -542,6 +751,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["duskwing-trio", "public/assets/duskwing-trio-painted.webp"],
       ["gloamwing-cluster", "public/assets/gloamwing-cluster-painted.webp"],
       ["coppershade-flock", "public/assets/coppershade-flock-painted.webp"],
+      ["brackenwheel", "public/assets/brackenwheel-portrait-painted.webp"],
+      ["buried-coil", "public/assets/buried-coil-portrait.webp"],
       ["kilnkeeper", "public/assets/kilnkeeper-portrait-painted.webp"],
       ["squall-orb", "public/assets/squall-orb-painted.webp"],
       ["ember-basin", "public/assets/ember-basin-portrait-painted-v2.webp"],
@@ -567,6 +778,19 @@ test("player shell renders roster-derived cards and launches a paused shared bat
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    const brackenwheelCard = projectSessionTroopBattleCard("brackenwheel");
+    const brackenwheelQuestions = questionReceiptsForCard(brackenwheelCard);
+    await page.locator('[data-card-grid] [data-card-id="brackenwheel"]').click();
+    const phoneBrackenwheelDisclosure = await assertUnitQuestionDisclosure(
+      page, brackenwheelCard, brackenwheelQuestions, 390, 844,
+    );
+    const phoneQuestionScreenshot = "brackenwheel-phone-question-details-390x844.png";
+    await page.screenshot({ path: join(ARTIFACTS, phoneQuestionScreenshot) });
+    questionDisclosureEvidence.push({
+      ...phoneBrackenwheelDisclosure,
+      screenshot: await screenshotEvidence(phoneQuestionScreenshot),
+    });
+    await page.locator("[data-card-detail] .detail-back").click();
     const phonePortraits = await page.locator("[data-card-grid] .card-art-image").evaluateAll(
       async (images) => {
         await Promise.all(images.map((image) => image.decode()));
@@ -582,7 +806,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "every collection portrait remains present on a 390px phone");
     assert.ok(phonePortraits.every(({ decoded, window }) => decoded &&
       window.width > 0 && window.height > 0 && window.right <= 390),
-    `all ${EXPECTED_COLLECTION_COUNT} portraits remain decoded and inside the phone viewport: ${JSON.stringify(phonePortraits)}`);
+    `all ${EXPECTED_CARD_PORTRAIT_CELLS.length} mapped portraits remain decoded and inside the phone viewport: ${JSON.stringify(phonePortraits)}`);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 390,
       "the phone collection does not overflow horizontally");
     await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[2]) });
@@ -644,8 +868,20 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       await page.locator("[data-card-detail] .detail-back").click();
     }
 
+    const phoneAetherDetails = await captureAetherWellDetails(page, 390, 844);
+
     await page.setViewportSize({ width: 1440, height: 933 });
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await page.locator('[data-card-grid] [data-card-id="brackenwheel"]').click();
+    const desktopBrackenwheelDisclosure = await assertUnitQuestionDisclosure(
+      page, brackenwheelCard, brackenwheelQuestions, 1_440, 933,
+    );
+    const desktopQuestionScreenshot = "brackenwheel-desktop-question-details-1440x933.png";
+    await page.screenshot({ path: join(ARTIFACTS, desktopQuestionScreenshot) });
+    questionDisclosureEvidence.push({
+      ...desktopBrackenwheelDisclosure,
+      screenshot: await screenshotEvidence(desktopQuestionScreenshot),
+    });
     const desktopDetailReviews = [];
     for (const cardId of ["sunthread-pair", "duskwing-trio",
       "gloamwing-cluster", "coppershade-flock"]) {
@@ -680,6 +916,13 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       desktop: desktopDetailReviews,
     };
 
+    const desktopAetherDetails = await captureAetherWellDetails(page, 1440, 933);
+    cardPortraitEvidence.resourceDetails = {
+      phone: phoneAetherDetails,
+      desktop: desktopAetherDetails,
+    };
+    cardPortraitEvidence.questionDisclosure = questionDisclosureEvidence;
+
     await page.setViewportSize({ width: 1440, height: 933 });
     await page.locator('[data-card-grid] [data-card-id="briar-band"]').click();
     assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 2);
@@ -697,6 +940,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "duskwing-trio-desktop-1440x933.png",
       "gloamwing-cluster-desktop-1440x933.png",
       "coppershade-flock-desktop-1440x933.png",
+      "aether-well-phone-390x844.png",
+      "aether-well-desktop-1440x933.png",
+      "brackenwheel-phone-question-details-390x844.png",
+      "brackenwheel-desktop-question-details-1440x933.png",
     ];
     cardPortraitEvidence.screenshots = await Promise.all(
       [...CARD_PORTRAIT_SCREENSHOTS, ...detailScreenshotNames].map(screenshotEvidence));
@@ -831,6 +1078,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     EXPECTED_REPLACEMENT_CARD_IDS,
     "every missing collection card can replace the selected slot");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
+      "brackenwheel", "the first replacement remains keyboard reachable");
+    await page.keyboard.press("Tab");
+    assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
       "stonehauler", "the replacement choice is reachable by keyboard");
     await page.keyboard.press("Enter");
     let deckIds = await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
@@ -852,7 +1102,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "the collection includes every supported editable choice");
     await page.locator('[data-card-grid] [data-card-id="stonehauler"]').click();
     assert.deepEqual(await renderedProfiles(page),
-      [expectedStats(projectSessionTroopBattleCard("stonehauler").entities[0])],
+      [expectedStats(projectSessionTroopBattleCard("stonehauler").entities[0],
+        questionReceiptsForCard(projectSessionTroopBattleCard("stonehauler")))],
     "Stonehauler details show the live setup projection");
     assert.equal(await page.locator("[data-card-detail] .detail-cost").innerText(), "5");
     await page.screenshot({ path: join(ARTIFACTS, "custom-card-stonehauler-390x844.png"), fullPage: true });

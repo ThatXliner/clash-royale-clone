@@ -1,0 +1,58 @@
+{
+  "nodeVersionExitCode": 0,
+  "commands": {
+    "canonical-question-probe": {
+      "argv": [
+        "node",
+        "artifacts/cards022i-round-2/builder/canonical-question-probe.mjs"
+      ],
+      "exitCode": 1,
+      "stdout": {
+        "path": "canonical-question-probe.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "canonical-question-probe.stderr",
+        "sha256": "e4727a8b15b37d604cbd99beee882572d8489ed3c671ad643f89e842ccec51cf",
+        "bytes": 708
+      }
+    },
+    "app-shell-syntax": {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/app-shell.js"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "app-shell-syntax.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "app-shell-syntax.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "app-shell-test-syntax": {
+      "argv": [
+        "node",
+        "--check",
+        "tests/app-shell.test.js"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "app-shell-test-syntax.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "app-shell-test-syntax.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  }
+}

@@ -105,6 +105,7 @@ class Node {
   }
 
   setAttribute(name, value) { this.attributes.set(name, value); }
+  getAttribute(name) { return this.attributes.get(name) ?? null; }
 }
 
 function dom() {
@@ -183,7 +184,46 @@ function cardPortraitOutput(module, cardId) {
   };
 }
 
-test("non-Briar artwork and all 21 collection portraits match the accepted 5ed renderer", {
+test("Brackenwheel resolves its accepted portrait and exactly two approved lore sentences", () => {
+  assert.equal(getCardLore("brackenwheel"),
+    "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.");
+  assert.deepEqual(getCardPortrait("brackenwheel"), {
+    asset: "brackenwheel-portrait-painted",
+    cell: null,
+    src: new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url).href,
+  });
+  assert.deepEqual(getCardPortraitIds().slice(-1), ["brackenwheel"]);
+});
+
+test("Brackenwheel selects renderer and physical body size from deterministic presentation context", () => {
+  for (const { bodyCssPixels, frameScale, renderer, bodyFraction } of [
+    { bodyCssPixels: 13, frameScale: 0.5, renderer: "native-svg", bodyFraction: 28.4 / 32 },
+    { bodyCssPixels: 26, frameScale: 0.75, renderer: "painted-webp", bodyFraction: 501 / 512 },
+  ]) {
+    const { document, layer } = dom();
+    document.documentElement = { dataset: {
+      combatBodyCssPixels: String(bodyCssPixels),
+      combatFrameScale: String(frameScale),
+    } };
+    const brackenwheel = entity({ kind: "brackenwheel", side: "south", targetId: null });
+    bindCombatViewModel(layer, createCombatViewModel(state({
+      entities: [brackenwheel],
+      towers: [],
+    })));
+    const marker = layer.children[0].children.find((node) => node.dataset.kind === "brackenwheel");
+    const art = marker.children.find((node) => node.dataset.artId === "brackenwheel");
+    assert.equal(art.dataset.renderer, renderer);
+    assert.equal(art.dataset.bodyCssPixels, String(bodyCssPixels));
+    assert.equal(art.getAttribute("class"), "combat-art",
+      "the SVG and painted renderer expose the same stylesheet class through a DOM attribute");
+    assert.ok(Math.abs(Number.parseFloat(art.style.width) * frameScale * bodyFraction -
+      bodyCssPixels) < 1e-9, "iframe compensation keeps the requested physical body size");
+    assert.equal(marker.style.width, art.style.width);
+    assert.equal(marker.style.height, art.style.height);
+  }
+});
+
+test("non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer", {
   skip: process.env.ART004_PARENT_ROOT ? false : "set ART004_PARENT_ROOT to the accepted 5ed checkout",
 }, async () => {
   const parentRoot = resolve(process.env.ART004_PARENT_ROOT);
@@ -214,15 +254,17 @@ test("non-Briar artwork and all 21 collection portraits match the accepted 5ed r
     "the accepted default deck order remains exact");
   assert.deepEqual(createPlayableRoster(), parentRoster.createPlayableRoster(),
     "default card rendering metadata remains exact");
-  assert.deepEqual(getCombatStyleText(), parentState.getCombatStyleText(),
-    "the combat presentation rules remain byte-identical outside Briar's authored frames");
+  assert.equal(getCombatStyleText(), parentState.getCombatStyleText() +
+    `.combat-marker[data-kind="brackenwheel"]::before{content:"";position:absolute;z-index:-1;inset:-3px;border:2px solid;border-radius:50%;pointer-events:none}.combat-marker[data-kind="brackenwheel"][data-side="north"]::before{border-color:#b95c4c}.combat-marker[data-kind="brackenwheel"][data-side="south"]::before{border-color:#398ba4}`,
+  "the only added combat CSS is Brackenwheel's team-readable ring");
 
   const portraitIds = getCardPortraitIds();
-  assert.equal(portraitIds.length, 21, "the accepted collection has 21 card portrait outputs");
-  assert.deepEqual(portraitIds, parentPortraits.getCardPortraitIds(),
-    "the full accepted collection order, including Buried Coil, is preserved");
+  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 1,
+    "Brackenwheel adds one portrait output to the accepted collection");
+  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel"],
+    "the full accepted collection order, including Buried Coil, is preserved with Brackenwheel appended");
   assert.ok(portraitIds.includes("buried-coil"));
-  for (const cardId of portraitIds) {
+  for (const cardId of parentPortraits.getCardPortraitIds()) {
     assert.deepEqual({
       lore: getCardLore(cardId),
       portrait: cardPortraitOutput({ getCardPortrait }, cardId),
@@ -231,6 +273,20 @@ test("non-Briar artwork and all 21 collection portraits match the accepted 5ed r
       portrait: cardPortraitOutput(parentPortraits, cardId),
     }, `${cardId} keeps the accepted lore and pixel-source asset`);
   }
+  assert.deepEqual({
+    lore: getCardLore("brackenwheel"),
+    portrait: cardPortraitOutput({ getCardPortrait }, "brackenwheel"),
+  }, {
+    lore: "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+    portrait: {
+      asset: "brackenwheel-portrait-painted",
+      cell: null,
+      imageSha256: createHash("sha256").update(readFileSync(fileURLToPath(
+        new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url),
+      ))).digest("hex"),
+      src: "/public/assets/brackenwheel-portrait-painted.webp",
+    },
+  }, "Brackenwheel adds the accepted standalone portrait without changing parent outputs");
 
   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
     .filter((kind) => kind !== "briar-runner").sort();

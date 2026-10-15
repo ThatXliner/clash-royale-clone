@@ -1,0 +1,41 @@
+{
+  "nodeVersion": "v22.22.3",
+  "commands": {
+    "app-shell-syntax-attempt07": {
+      "argv": [
+        "node",
+        "--check",
+        "src/ui/app-shell.js"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "app-shell-syntax-attempt07.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "app-shell-syntax-attempt07.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "app-shell-test-syntax-attempt07": {
+      "argv": [
+        "node",
+        "--check",
+        "tests/app-shell.test.js"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "path": "app-shell-test-syntax-attempt07.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "app-shell-test-syntax-attempt07.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  }
+}

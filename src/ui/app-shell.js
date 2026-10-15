@@ -1,5 +1,8 @@
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
-import { projectSessionTroopBattleCard } from "../content/session-troop-roster.js";
+import {
+  createSessionTroopWitnessQuestions,
+  projectSessionTroopBattleCard,
+} from "../content/session-troop-roster.js";
 import {
   EDITABLE_DECK_CARD_IDS,
   EDITABLE_MIXED_DECK_CARD_IDS,
@@ -9,14 +12,54 @@ import { createSessionRadiusSpellProfileReceipts } from "../content/session-spel
 import { getCardPortrait } from "./card-portrait-art.js";
 import { getCardLore } from "./card-lore.js";
 
+function unitStatQuestion(entity, field, questions) {
+  const sourceField = entity.sourceConfidencePolicy?.fields?.find((candidate) =>
+    candidate.field === field);
+  const damagePolicy = field === "damage" ? entity.damagePolicy : null;
+  const questionKey = sourceField?.questionKey ??
+    (damagePolicy?.kind === "question" ? damagePolicy.questionKey : null);
+  if (questionKey === null || questionKey === undefined) return null;
+  const record = questions.get(questionKey);
+  if (record === undefined || record.key !== questionKey) {
+    throw new TypeError(`session troop stat ${entity.archetypeId}.${field} lacks its canonical question receipt`);
+  }
+  return record.disposition === "question" && record.authoritative === false &&
+    record.confidence === "unverified" ? record : null;
+}
+
 const cards = [
   ...createPlayableRoster(),
   ...EDITABLE_MIXED_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
     .map((id) => EDITABLE_DECK_CARD_IDS.includes(id)
       ? projectSessionTroopBattleCard(id) : projectSessionNonUnitBattleCard(id)),
 ];
+const UNIT_DETAIL_STAT_FIELDS = Object.freeze([
+  "count",
+  "hitpoints",
+  "damage",
+  "hitSpeedTicks",
+  "rangeMillitiles",
+  "targetMode",
+  "movementMillitilesPerSecond",
+]);
 const cardById = new Map(cards.map((card) => [card.id, card]));
 const radiusSpellProfile = createSessionRadiusSpellProfileReceipts().profiles[0];
+const unitQuestionFlagsByCardId = new Map(cards
+  .filter((card) => card.entities.some((entity) =>
+    entity.sourceConfidencePolicy?.fields?.length > 0 ||
+    entity.damagePolicy?.kind === "question"))
+  .map((card) => {
+    const receipts = new Map(createSessionTroopWitnessQuestions(card.id)
+      .map((record) => [record.key, record]));
+    return [card.id, new Map(card.entities.map((entity) => [
+      entity,
+      new Map(UNIT_DETAIL_STAT_FIELDS.map((field) => [
+        field,
+        unitStatQuestion(entity, field, receipts) !== null,
+      ])),
+    ]))];
+  }));
+const emptyQuestionFlags = new Map();
 const root = document.querySelector(".app-shell");
 const views = new Map([...document.querySelectorAll("[data-app-view]")]
   .map((view) => [view.dataset.appView, view]));
@@ -39,6 +82,7 @@ let lastReplacedSlotIndex = null;
 let currentView = "home";
 let battleFrame = null;
 let battleFrameReady = false;
+let battleFrameScale = 1;
 
 const formatter = new Intl.NumberFormat("en", { maximumFractionDigits: 2 });
 
@@ -89,22 +133,35 @@ function targetLabel(mode) {
 }
 
 function classificationHasQuestion(entity) {
-  return entity.deliveryPolicy?.kind === "question" || entity.layerPolicy?.kind === "question";
+  return entity.deliveryPolicy?.kind === "question" || entity.layerPolicy?.kind === "question" ||
+    (entity.meleeAreaPolicy?.authoritative === false &&
+      entity.meleeAreaPolicy?.confidence === "question");
 }
 
 function questionClassificationCopy(entity) {
   const delivery = entity.delivery === "projectile" ? "ranged" : "melee";
   const layer = entity.layer === "air" ? "Flying" : "Ground";
   const provisionalFields = [];
+  if (entity.meleeAreaPolicy?.authoritative === false &&
+      entity.meleeAreaPolicy?.confidence === "question") {
+    provisionalFields.push("melee area/contact rule");
+  }
   if (entity.layerPolicy?.kind === "question") {
     provisionalFields.push(`${layer.toLocaleLowerCase("en")} layer`);
   }
   if (entity.deliveryPolicy?.kind === "question") {
     provisionalFields.push(`${delivery} delivery`);
   }
-  const confidenceNote = provisionalFields.length === 1
-    ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
-    : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
+  const meleeAreaQuestion = entity.meleeAreaPolicy?.authoritative === false &&
+    entity.meleeAreaPolicy?.confidence === "question";
+  const otherProvisionalFields = provisionalFields.filter((field) =>
+    field !== "melee area/contact rule");
+  const confidenceNote = meleeAreaQuestion
+    ? `The melee area/contact rule remains QUESTION and provisional for historical comparison.${otherProvisionalFields.length === 0
+      ? "" : ` The ${otherProvisionalFields.join(" and ")} remain provisional for historical comparison.`}`
+    : provisionalFields.length === 1
+      ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
+      : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
   const combatConfidenceNote = entity.archetypeId === "kilnkeeper" &&
     entity.sourceConfidencePolicy?.fields?.length > 0
     ? " The 5-elixir cost is source backed; combat values are unverified estimates and remain QUESTION for historical comparison."
@@ -129,6 +186,10 @@ function descriptionFor(card) {
         ? "Its combat profile is QUESTION; shown combat values remain provisional."
         : "Its combat values use the current shared defensive profile.";
       return `Stationary defensive structure · ${attack}. ${confidence}`;
+    }
+    if (profile?.class === "resource") {
+      return `Stationary resource structure · produces elixir over time and grants ${formatter.format(
+        profile.destructionAmount)} elixir when destroyed. It does not attack.`;
     }
     return "Stationary structure · combat targeting is not available in the current profile.";
   }
@@ -216,19 +277,25 @@ function radiusSpellProfileMarkup() {
   </section>`;
 }
 
-function unitProfileMarkup(entity) {
+function unitProfileMarkup(entity, questionFlags) {
   const heading = entity.count === 1
     ? html(entity.displayName) : `${formatter.format(entity.count)} × ${html(entity.displayName)}`;
   const delivery = entity.delivery === "projectile" ? "Ranged" : "Melee";
   const layer = entity.layer === "air" ? "Flying" : "Ground";
+  const questionSuffix = (field) => questionFlags.get(field) !== true
+    ? "" : " (QUESTION)";
+  const questioned = (field, value) => `${value}${questionSuffix(field)}`;
   const values = [
-    ["Count", formatter.format(entity.count)],
-    ["Health", entity.hitpoints === null ? "Not available" : formatter.format(entity.hitpoints)],
-    ["Damage", entity.damage === null ? "Not available" : `${formatter.format(entity.damage)} per attack`],
-    ["Hit speed", secondsValue(entity.hitSpeedTicks)],
-    ["Range", tileValue(entity.rangeMillitiles)],
-    ["Targets", targetLabel(entity.targetMode)],
-    ["Moves", speedValue(entity.movementMillitilesPerSecond)],
+    ["Count", questioned("count", formatter.format(entity.count))],
+    ["Health", questioned("hitpoints", entity.hitpoints === null
+      ? "Not available" : formatter.format(entity.hitpoints))],
+    ["Damage", questioned("damage", entity.damage === null
+      ? "Not available" : `${formatter.format(entity.damage)} per attack`)],
+    ["Hit speed", questioned("hitSpeedTicks", secondsValue(entity.hitSpeedTicks))],
+    ["Range", questioned("rangeMillitiles", tileValue(entity.rangeMillitiles))],
+    ["Targets", questioned("targetMode", targetLabel(entity.targetMode))],
+    ["Moves", questioned("movementMillitilesPerSecond",
+      speedValue(entity.movementMillitilesPerSecond))],
   ];
   const classification = classificationHasQuestion(entity)
     ? html(questionClassificationCopy(entity))
@@ -242,28 +309,58 @@ function unitProfileMarkup(entity) {
 function structureProfileMarkup(card) {
   const profile = card.buildingRuntime;
   if (profile === undefined) return "";
-  const question = profile.policy?.disposition === "question";
-  const suffix = question ? " (QUESTION)" : "";
+  const policy = profile.policy ?? {};
+  if (profile.class === "resource") {
+    const question = Object.values(policy).some((record) =>
+      record?.disposition === "question");
+    const suffix = (field) => policy[field]?.disposition === "question"
+      ? " (QUESTION)" : "";
+    const values = [
+      ["Cost", `${formatter.format(card.cost)} elixir`],
+      ["Health", `${formatter.format(profile.hitpoints)}${suffix("hitpoints")}`],
+      ["Deploy", `${secondsValue(profile.deployTicks)}${suffix("deployTicks")}`],
+      ["Generation", `${formatter.format(profile.generationAmount)} elixir${suffix("generationAmount")}`],
+      ["Interval", `${secondsValue(profile.generationCadenceTicks)}${suffix("generationCadenceTicks")}`],
+      ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix("lifetimeTicks")}`],
+      ["Destroyed", `${formatter.format(profile.destructionAmount)} elixir${suffix("destructionAmount")}`],
+      ["Role", "Resource · does not attack"],
+    ];
+    return `<section class="unit-profile structure-profile" aria-label="${html(card.displayName)} statistics">
+      <h3>Resource structure · ${question ? "QUESTION" : "current profile"}</h3>
+      <p>${question
+        ? "Some resource fields remain QUESTION; source-aligned values keep their existing status."
+        : "Values are from the current shared structure profile."}</p>
+      <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
+    </section>`;
+  }
+  const broadQuestion = policy.disposition === "question";
+  const question = broadQuestion || Object.values(policy).some((record) =>
+    record?.disposition === "question");
+  const suffix = (field) => broadQuestion || policy[field]?.disposition === "question"
+    ? " (QUESTION)" : "";
   const splashRadius = profile.class === "defensive" &&
     profile.areaDamageRadiusMillitiles === null
     ? "None" : tileValue(profile.areaDamageRadiusMillitiles);
   const values = [
     ["Cost", `${formatter.format(card.cost)} elixir`],
-    ["Health", `${formatter.format(profile.hitpoints)}${suffix}`],
-    ["Damage", `${formatter.format(profile.damage)} per attack${suffix}`],
-    ["Deploy", `${secondsValue(profile.deployTicks)}${suffix}`],
-    ["First hit", `${secondsValue(profile.firstHitTicks)}${suffix}`],
-    ["Hit speed", `${secondsValue(profile.hitSpeedTicks)}${suffix}`],
-    ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix}`],
-    ["Range", `${tileValue(profile.maxRangeMillitiles)}${suffix}`],
-    ["Splash radius", `${splashRadius}${suffix}`],
-    ["Targets", `${targetLabel(profile.targetMode ?? card.targetMode)}${suffix}`],
+    ["Health", `${formatter.format(profile.hitpoints)}${suffix("hitpoints")}`],
+    ["Damage", `${formatter.format(profile.damage)} per attack${suffix("damage")}`],
+    ["Deploy", `${secondsValue(profile.deployTicks)}${suffix("deployTicks")}`],
+    ["First hit", `${secondsValue(profile.firstHitTicks)}${suffix("firstHitTicks")}`],
+    ["Hit speed", `${secondsValue(profile.hitSpeedTicks)}${suffix("hitSpeedTicks")}`],
+    ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix("lifetimeTicks")}`],
+    ["Range", `${tileValue(profile.maxRangeMillitiles)}${suffix("maxRangeMillitiles")}`],
+    ["Splash radius", `${splashRadius}${suffix("areaDamageRadiusMillitiles")}`],
+    ["Targets", `${targetLabel(profile.targetMode ?? card.targetMode)}${suffix("targetMode")}`],
   ];
+  const heading = profile.class === "resource" ? "Resource structure" : "Defensive structure";
   const confidence = question
-    ? "Cost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison."
+    ? broadQuestion
+      ? "Cost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison."
+      : "Some resource fields remain QUESTION; source-aligned values keep their existing status."
     : "Values are from the current shared structure profile.";
   return `<section class="unit-profile structure-profile" aria-label="${html(card.displayName)} statistics">
-    <h3>Defensive structure · ${question ? "QUESTION" : "current profile"}</h3>
+    <h3>${heading} · ${question ? "QUESTION" : "current profile"}</h3>
     <p>${confidence}</p>
     <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
   </section>`;
@@ -271,6 +368,7 @@ function structureProfileMarkup(card) {
 
 function renderCardDetails(card) {
   const lore = getCardLore(card.id);
+  const unitQuestionFlags = unitQuestionFlagsByCardId.get(card.id) ?? emptyQuestionFlags;
   cardDetails.innerHTML = `<div class="detail-heading">
       <div class="detail-portrait">${artMarkup(card.id)}</div>
       <div class="detail-heading-copy">
@@ -286,7 +384,8 @@ function renderCardDetails(card) {
     </section>`}
     ${card.kind === "effect" ? radiusSpellProfileMarkup()
       : card.kind === "structure" ? structureProfileMarkup(card)
-        : card.entities.map(unitProfileMarkup).join("")}
+        : card.entities.map((entity) => unitProfileMarkup(entity,
+          unitQuestionFlags.get(entity) ?? emptyQuestionFlags)).join("")}
     ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}`;
   for (const button of cardGrid.querySelectorAll("[data-card-id]")) {
     button.setAttribute("aria-pressed", String(button.dataset.cardId === card.id));
@@ -341,6 +440,10 @@ function postBattleState(active) {
     active,
     channel: "moss-and-ember-battle",
     deckIds: [...currentDeckIds],
+    presentation: {
+      bodyCssPixels: window.innerWidth <= 600 ? 13 : 26,
+      frameScale: battleFrameScale,
+    },
   }, window.location.origin);
 }
 
@@ -418,6 +521,8 @@ function layoutBattleFrame() {
   battleFrame.style.left = `${(width - 720 * scale) / 2}px`;
   battleFrame.style.top = `${(height - 1_280 * scale) / 2}px`;
   battleFrame.style.transform = `scale(${scale})`;
+  battleFrameScale = scale;
+  postBattleState(currentView === "battle");
 }
 
 const battleFrameSlotResizeObserver = new ResizeObserver(layoutBattleFrame);

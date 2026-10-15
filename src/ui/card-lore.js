@@ -22,6 +22,7 @@ const CARD_LORE = Object.freeze({
   "ember-basin": "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.",
   "buried-coil": "At the alderwood river workshop, Ilyra winds a young emberseed into a copper coil and seals it beneath a hatch beside the sluice. When raider boots shake the roots, the seed glows and the hatch lifts a riveted lookout to guard the waterwheel.",
   kilnkeeper: "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts. When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.",
+  brackenwheel: "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
 });
 
 export function getCardLore(cardId) {

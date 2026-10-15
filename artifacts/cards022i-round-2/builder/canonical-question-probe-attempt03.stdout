@@ -1,0 +1,95 @@
+{
+  "probe": "canonical per-field question receipts vs selected editable setup",
+  "cardId": "brackenwheel",
+  "actualSetupDeckIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "brackenwheel"
+  ],
+  "sourceBackedCost": 4,
+  "costHasFieldQuestion": false,
+  "visibleQuestionFacts": [
+    {
+      "label": "Count",
+      "field": "count",
+      "key": "brackenwheel.count",
+      "value": 1,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    },
+    {
+      "label": "Health",
+      "field": "hitpoints",
+      "key": "brackenwheel.hitpoints",
+      "value": 1908,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    },
+    {
+      "label": "Damage",
+      "field": "damage",
+      "key": "brackenwheel.damage",
+      "value": 267,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    },
+    {
+      "label": "Hit speed",
+      "field": "hitSpeedTicks",
+      "key": "brackenwheel.hit-speed-ticks",
+      "value": 90,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    },
+    {
+      "label": "Range",
+      "field": "rangeMillitiles",
+      "key": "brackenwheel.range-millitiles",
+      "value": 1200,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    },
+    {
+      "label": "Targets",
+      "field": "targetMode",
+      "key": "brackenwheel.target-mode",
+      "value": 2,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    },
+    {
+      "label": "Moves",
+      "field": "movementMillitilesPerSecond",
+      "key": "brackenwheel.movement-millitiles-per-second",
+      "value": 1000,
+      "disposition": "question",
+      "authoritative": false,
+      "confidence": "unverified",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "setupReceiptMatches": true
+    }
+  ]
+}

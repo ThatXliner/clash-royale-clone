@@ -1,0 +1,93 @@
+{
+  "acceptedBase": "52718dd61252ee2b41cdaf73d9b9be3b18f5f80d",
+  "sourceHead": "31421c94a01b28eea01324103ad9dbf694a780e7",
+  "frozenAssemblyCommit": "66a969468745d09af7ebce64e162b6019c42b858",
+  "correctedAppShellTestCommit": "31421c94a01b28eea01324103ad9dbf694a780e7",
+  "ownedSourcePaths": [
+    "src/ui/app-shell.js",
+    "src/ui/arena-shell-entry.js",
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-browser-entry.js",
+    "tests/app-shell.test.js",
+    "tests/cards021-browser-integration.test.js",
+    "tests/cards022-browser-integration.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "productPathsChangedFromBase": [
+    "src/ui/app-shell.js",
+    "src/ui/arena-shell-entry.js",
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-browser-entry.js",
+    "tests/app-shell.test.js",
+    "tests/cards021-browser-integration.test.js",
+    "tests/cards022-browser-integration.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "unexpectedProductPaths": [],
+  "changedProductPathsAreExactlyOwned": true,
+  "protectedArtFive": [
+    {
+      "path": "demo/aether-well-battle-art.html",
+      "baseBlob": "66f15cd03cf2c46475ff92defe45cb694880ec9f",
+      "sourceBlob": "66f15cd03cf2c46475ff92defe45cb694880ec9f",
+      "unchanged": true
+    },
+    {
+      "path": "demo/aether-well-battle-art.js",
+      "baseBlob": "23a7a54404cfdedb7bb20078813cb6b226915262",
+      "sourceBlob": "23a7a54404cfdedb7bb20078813cb6b226915262",
+      "unchanged": true
+    },
+    {
+      "path": "docs/art/aether-well-battle-art-provenance.json",
+      "baseBlob": "1704da41091bc24cbd910d04b031c611d89b7b00",
+      "sourceBlob": "1704da41091bc24cbd910d04b031c611d89b7b00",
+      "unchanged": true
+    },
+    {
+      "path": "src/ui/aether-well-art.js",
+      "baseBlob": "010d0d245020dcea26a8957baee2a3e541f2406b",
+      "sourceBlob": "010d0d245020dcea26a8957baee2a3e541f2406b",
+      "unchanged": true
+    },
+    {
+      "path": "tests/aether-well-battle-art.test.js",
+      "baseBlob": "e69c37eecd2e2a0ab1d98f7504e489f7941da4f6",
+      "sourceBlob": "e69c37eecd2e2a0ab1d98f7504e489f7941da4f6",
+      "unchanged": true
+    }
+  ],
+  "packageLocks": [
+    {
+      "path": "package.json",
+      "baseSha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+      "sourceSha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+      "unchanged": true
+    },
+    {
+      "path": "package-lock.json",
+      "baseSha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+      "sourceSha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+      "unchanged": true
+    }
+  ],
+  "forbiddenPathPrefixesUnchanged": {
+    "src/sim/": true,
+    "src/content/": true,
+    "src/rl/": true,
+    "src/kernel/": true,
+    "public/assets/": true
+  },
+  "d503ResourceBranch": {
+    "referenceCommit": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+    "function": "structureProfileMarkup(card)",
+    "referenceSha256": "7eb0e7517bd61df06d89448eaff6689caa7a5cf903be8852baf2f3f08905ae64",
+    "currentSha256": "7eb0e7517bd61df06d89448eaff6689caa7a5cf903be8852baf2f3f08905ae64",
+    "byteIdentical": true
+  },
+  "status": "?? artifacts/cards022i-round-2/builder/final-gates-52718/\n?? artifacts/cards022i-round-2/builder/gate-recorder.py\n?? artifacts/cards022i-round-2/builder/remaining-gates-sequence.py\n"
+}

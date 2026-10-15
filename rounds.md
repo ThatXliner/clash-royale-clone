@@ -9606,3 +9606,12 @@ EVIDENCE: Independent exact1d026c4 source helper5/manifest6/shippingguard13/rele
 BIGGEST GAP: At13px fine copper/rootwood ornament and hanging mechanism compress into a small silhouette; structure reads moreclearlyat26px.
 
 Adopt five isolatedhelper/fixture/provenance/test paths only. Originalbuildernative01-05 attempts including clipped/geometryfailures remain immutable; cachedChrome145release22 pass is excluded, qualifiednative155rerun22 retained. Fourgeneratedrelease001breports copied externally then onlythosefour restored. No sim/API/stats/package/asset changes, actualgameintegration, historicalvisualparity or newfullendurance claim. Browserwindow released for CARDS022I R2.
+
+## Round 505 - CARDS-022I Brackenwheel UI integration, round 2
+
+PIECE: CARDS-022I
+VERDICT: PASS
+EVIDENCE: Independent exact31421 source app-shell1/Brackjourney1/UIcombat16/nondet10/manifest6/guard13/release22/shippingrelease4/host1,74freshpasses+1knownoptionalparentskip, allactualdirectexit0. NativeChrome155/privatePL1.58.2 actualphone390x844/desktop1440x933 details show7canonicalreceipt-derivedQUESTIONstats, cost4unmarked and nooverflow. Four normal/reducedbattlecontexts provephysical13/26body, trusteddeploy, naturalAI, primary2+secondary4/5/6once267attick234, exactPNGs/realserializedbridge/session/audio continuation, naturalterminal3987 andsameseed2samecustomdeckrestarttick0/count1. Rootverified222builder/106criticledgerentries, rawreceipts/TAP, tenownedsourceblobs, cleanfence.
+BIGGEST GAP: Brackenwheel combatvalues andbroader matchup parity remain provisional; boundedbrowserintegration is not authoritativepre-Evolutionparity.
+
+Adopt10UI/testpaths only. R1FAIL502 remains. MissingVite setupfailure andinvaliddesktopBacktestfailure preserved, latterfixedonlytestone-line. No simulation/content/RL/kernel/package/assets changes. D503resourcebranchbyte-identicaltobcba andfreshmatchingnativeapp-shellresourceassertionspass; itsdeferredsourceadoptionisresolvedbythiscombinedapp-shelladoption. Fullcurrent-source endurance remainsCARDS022Q, notprovenbyshort3987journey. Fivegeneratedtestreports copiedexternallythenonlythosefive restored; allownedprocessesclosed.
