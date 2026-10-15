@@ -1,0 +1,15 @@
+Candidate worktree: /private/tmp/aether-well-role-admission-recon-20261015
+Candidate commit: c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d
+Node: v22.22.3
+
+Completed commands:
+  node artifacts/aether-well-role-admission-recon-20261015/source-bound-probe.mjs
+    Completed and wrote probe-report.json, accepted-player-command-snapshot.json,
+    pre-expiry-checkpoint.json, final-session-snapshot.json,
+    final-session-replay.json, final-public-projection.json.
+  node artifacts/aether-well-role-admission-recon-20261015/capture-natural-ai-decision.mjs
+    Exit 0; matchesObservedSession=true; wrote natural-ai-decision.json.
+
+The source-bound probe's shell session handle was not retained after process completion;
+its persisted report and snapshots are the evidence of the completed 0..3901 capture.
+No package install, test suite, browser, or source edit was run.

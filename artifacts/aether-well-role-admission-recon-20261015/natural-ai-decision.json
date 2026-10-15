@@ -1,0 +1,226 @@
+{
+  "path": "public OpponentController replayed against the exact initial north observation from the accepted GameSession setup",
+  "gameSessionSetupSHA256": "42b16fe7761142016f96205e757a0aaa02ad151f2fe106749c5fb84286b91d39",
+  "observation": {
+    "legalNorthDeployments": [
+      {
+        "cardId": "aether-well",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        }
+      },
+      {
+        "cardId": "brassbolt",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        }
+      },
+      {
+        "cardId": "briar-band",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        }
+      },
+      {
+        "cardId": "mossguard",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        }
+      }
+    ],
+    "northCardCosts": [
+      {
+        "cardId": "aether-well",
+        "cost": 6
+      },
+      {
+        "cardId": "brassbolt",
+        "cost": 4
+      },
+      {
+        "cardId": "briar-band",
+        "cost": 3
+      },
+      {
+        "cardId": "mossguard",
+        "cost": 3
+      }
+    ],
+    "northElixir": 10,
+    "northHand": [
+      "briar-band",
+      "mossguard",
+      "brassbolt",
+      "aether-well"
+    ],
+    "tick": 0
+  },
+  "proposal": {
+    "cardId": "aether-well",
+    "point": {
+      "x": 3500,
+      "y": 17500
+    },
+    "sequence": 0,
+    "side": "north",
+    "tick": 0,
+    "type": "deploy"
+  },
+  "controllerReplayLog": [
+    {
+      "choiceIndex": 0,
+      "eligibleCandidates": [
+        {
+          "cardId": "aether-well",
+          "cost": 6,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        }
+      ],
+      "eligibleCount": 4,
+      "observation": {
+        "legalNorthDeployments": [
+          {
+            "cardId": "aether-well",
+            "point": {
+              "x": 3500,
+              "y": 17500
+            }
+          },
+          {
+            "cardId": "brassbolt",
+            "point": {
+              "x": 3500,
+              "y": 17500
+            }
+          },
+          {
+            "cardId": "briar-band",
+            "point": {
+              "x": 3500,
+              "y": 17500
+            }
+          },
+          {
+            "cardId": "mossguard",
+            "point": {
+              "x": 3500,
+              "y": 17500
+            }
+          }
+        ],
+        "northCardCosts": [
+          {
+            "cardId": "aether-well",
+            "cost": 6
+          },
+          {
+            "cardId": "brassbolt",
+            "cost": 4
+          },
+          {
+            "cardId": "briar-band",
+            "cost": 3
+          },
+          {
+            "cardId": "mossguard",
+            "cost": 3
+          }
+        ],
+        "northElixir": 10,
+        "northHand": [
+          "briar-band",
+          "mossguard",
+          "brassbolt",
+          "aether-well"
+        ]
+      },
+      "proposal": {
+        "cardId": "aether-well",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 0,
+        "side": "north",
+        "tick": 0,
+        "type": "deploy"
+      },
+      "tick": 0
+    }
+  ],
+  "matchingGameSessionDeployment": {
+    "materialization": {
+      "cardId": "aether-well",
+      "destination": null,
+      "point": {
+        "x": 3500,
+        "y": 17500
+      },
+      "sequence": 1,
+      "side": "north",
+      "structureId": 2,
+      "tick": 0,
+      "type": "structure-materialized"
+    },
+    "route": {
+      "cardId": "aether-well",
+      "commandId": 0,
+      "kind": "structure",
+      "placementClass": "ground_entity",
+      "point": {
+        "x": 3500,
+        "y": 17500
+      },
+      "sequence": 1,
+      "side": "north",
+      "tick": 0,
+      "type": "session-card-routed"
+    },
+    "side": "north",
+    "spend": {
+      "accepted": true,
+      "amountAfter": 4,
+      "cost": 6,
+      "reason": "accepted",
+      "sequence": 1,
+      "side": "north",
+      "tick": 0,
+      "type": "spend"
+    },
+    "tick": 0,
+    "type": "session-structure-deployed"
+  },
+  "matchesObservedSession": true,
+  "note": "GameSession does not expose raw controller proposal in its replay; this public deterministic controller call reproduces it exactly and is cross-checked against the actual GameSession route/spend/materialization event."
+}

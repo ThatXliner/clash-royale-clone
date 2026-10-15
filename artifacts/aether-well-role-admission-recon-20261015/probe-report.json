@@ -1,0 +1,1548 @@
+{
+  "candidate": "c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d",
+  "runtime": "v22.22.3",
+  "deck": [
+    "aether-well",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "membershipProbe": {
+    "members": [
+      {
+        "cardId": "aether-well",
+        "currentlyAdmitted": false
+      },
+      {
+        "cardId": "mossguard",
+        "currentlyAdmitted": true
+      },
+      {
+        "cardId": "copperskiff",
+        "currentlyAdmitted": true
+      },
+      {
+        "cardId": "skymaul",
+        "currentlyAdmitted": true
+      },
+      {
+        "cardId": "brassbolt",
+        "currentlyAdmitted": true
+      },
+      {
+        "cardId": "reedsting",
+        "currentlyAdmitted": true
+      },
+      {
+        "cardId": "briar-band",
+        "currentlyAdmitted": true
+      },
+      {
+        "cardId": "cinderlings",
+        "currentlyAdmitted": true
+      }
+    ],
+    "unsupportedMembers": [
+      "aether-well"
+    ]
+  },
+  "apiProbes": {
+    "editableAether": {
+      "accepted": false,
+      "name": "RangeError",
+      "message": "mixed editable deck requires an admitted spell or structure and supported cards"
+    },
+    "rlAether": {
+      "accepted": false,
+      "name": "RangeError",
+      "message": "mixed editable deck requires an admitted spell or structure and supported cards"
+    },
+    "editablePositiveControl": {
+      "accepted": true,
+      "value": {
+        "deck": [
+          "ember-basin",
+          "mossguard",
+          "copperskiff",
+          "skymaul",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "seed": 2
+      }
+    },
+    "rlPositiveControl": {
+      "accepted": true,
+      "value": {
+        "actionCount": 2305,
+        "legalActionCount": 929,
+        "hand": [
+          "copperskiff",
+          "ember-basin",
+          "skymaul",
+          "brassbolt"
+        ],
+        "status": "running",
+        "tick": 0
+      }
+    }
+  },
+  "sessionAdmission": {
+    "path": "new GameSession(canonical setup composed from existing source projectors)",
+    "setupSHA256": "42b16fe7761142016f96205e757a0aaa02ad151f2fe106749c5fb84286b91d39",
+    "accepted": true,
+    "initial": {
+      "tick": 0,
+      "terminal": false,
+      "phase": "regulation",
+      "towers": [
+        {
+          "hitpoints": 4824,
+          "id": "south:central",
+          "side": "south"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "south:lane:west",
+          "side": "south"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "south:lane:east",
+          "side": "south"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "north:central",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:west",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:east",
+          "side": "north"
+        }
+      ],
+      "structures": [],
+      "north": {
+        "deckHand": [
+          "briar-band",
+          "mossguard",
+          "brassbolt",
+          "aether-well"
+        ],
+        "deckNext": "copperskiff",
+        "deckQueue": [
+          "copperskiff",
+          "reedsting",
+          "cinderlings",
+          "skymaul"
+        ],
+        "deckSequence": 0,
+        "elixir": 10
+      },
+      "south": {
+        "deckHand": [
+          "copperskiff",
+          "aether-well",
+          "skymaul",
+          "brassbolt"
+        ],
+        "deckNext": "cinderlings",
+        "deckQueue": [
+          "cinderlings",
+          "mossguard",
+          "briar-band",
+          "reedsting"
+        ],
+        "deckSequence": 0,
+        "elixir": 10
+      },
+      "opponent": {
+        "nextSequence": 0,
+        "nextTick": 0,
+        "thinkIntervalTicks": 60,
+        "thinkOffsetTicks": 0
+      }
+    },
+    "playerCommand": {
+      "cardId": "aether-well",
+      "commandId": 0,
+      "point": {
+        "x": 3500,
+        "y": 14500
+      },
+      "slot": 1,
+      "tick": 0,
+      "type": "deploy"
+    },
+    "playerAdmission": {
+      "accepted": true,
+      "commandId": 0,
+      "tick": 0,
+      "type": "player-command-admitted"
+    },
+    "acceptedCommandSnapshotSHA256": "a904f20882b66ee5216515d5de242a456efa92498714740dd37df067b3981e25",
+    "tickZeroDirectExit": [
+      {
+        "materialization": {
+          "cardId": "aether-well",
+          "destination": null,
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "structureId": 1,
+          "tick": 0,
+          "type": "structure-materialized"
+        },
+        "route": {
+          "cardId": "aether-well",
+          "commandId": 0,
+          "kind": "structure",
+          "placementClass": "ground_entity",
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "session-card-routed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 4,
+          "cost": 6,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-structure-deployed"
+      },
+      {
+        "materialization": {
+          "cardId": "aether-well",
+          "destination": null,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "structureId": 2,
+          "tick": 0,
+          "type": "structure-materialized"
+        },
+        "route": {
+          "cardId": "aether-well",
+          "commandId": 0,
+          "kind": "structure",
+          "placementClass": "ground_entity",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "session-card-routed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 4,
+          "cost": 6,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-structure-deployed"
+      },
+      {
+        "cardId": "aether-well",
+        "destination": null,
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "sequence": 0,
+        "side": "south",
+        "structureId": 1,
+        "tick": 0,
+        "type": "structure-materialized"
+      },
+      {
+        "cardId": "aether-well",
+        "destination": null,
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 1,
+        "side": "north",
+        "structureId": 2,
+        "tick": 0,
+        "type": "structure-materialized"
+      }
+    ],
+    "afterTickZero": {
+      "tick": 1,
+      "terminal": false,
+      "phase": "regulation",
+      "towers": [
+        {
+          "hitpoints": 4824,
+          "id": "south:central",
+          "side": "south"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "south:lane:west",
+          "side": "south"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "south:lane:east",
+          "side": "south"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "north:central",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:west",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:east",
+          "side": "north"
+        }
+      ],
+      "structures": [
+        {
+          "alive": true,
+          "cardId": "aether-well",
+          "deathCause": null,
+          "deathTriggered": false,
+          "hitpoints": 1070,
+          "id": 1,
+          "placedTick": 0,
+          "side": "south"
+        },
+        {
+          "alive": true,
+          "cardId": "aether-well",
+          "deathCause": null,
+          "deathTriggered": false,
+          "hitpoints": 1070,
+          "id": 2,
+          "placedTick": 0,
+          "side": "north"
+        }
+      ],
+      "north": {
+        "deckHand": [
+          "briar-band",
+          "mossguard",
+          "brassbolt",
+          "copperskiff"
+        ],
+        "deckNext": "reedsting",
+        "deckQueue": [
+          "reedsting",
+          "cinderlings",
+          "skymaul",
+          "aether-well"
+        ],
+        "deckSequence": 1,
+        "elixir": 4
+      },
+      "south": {
+        "deckHand": [
+          "copperskiff",
+          "cinderlings",
+          "skymaul",
+          "brassbolt"
+        ],
+        "deckNext": "mossguard",
+        "deckQueue": [
+          "mossguard",
+          "briar-band",
+          "reedsting",
+          "aether-well"
+        ],
+        "deckSequence": 1,
+        "elixir": 4
+      },
+      "opponent": {
+        "nextSequence": 1,
+        "nextTick": 1,
+        "thinkIntervalTicks": 60,
+        "thinkOffsetTicks": 0
+      }
+    },
+    "northAiAetherDeployment": {
+      "materialization": {
+        "cardId": "aether-well",
+        "destination": null,
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 1,
+        "side": "north",
+        "structureId": 2,
+        "tick": 0,
+        "type": "structure-materialized"
+      },
+      "route": {
+        "cardId": "aether-well",
+        "commandId": 0,
+        "kind": "structure",
+        "placementClass": "ground_entity",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 1,
+        "side": "north",
+        "tick": 0,
+        "type": "session-card-routed"
+      },
+      "side": "north",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 4,
+        "cost": 6,
+        "reason": "accepted",
+        "sequence": 1,
+        "side": "north",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-structure-deployed"
+    },
+    "southAetherDeployment": {
+      "materialization": {
+        "cardId": "aether-well",
+        "destination": null,
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "sequence": 0,
+        "side": "south",
+        "structureId": 1,
+        "tick": 0,
+        "type": "structure-materialized"
+      },
+      "route": {
+        "cardId": "aether-well",
+        "commandId": 0,
+        "kind": "structure",
+        "placementClass": "ground_entity",
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "session-card-routed"
+      },
+      "side": "south",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 4,
+        "cost": 6,
+        "reason": "accepted",
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-structure-deployed"
+    },
+    "cadenceCheckpoint": {
+      "tick": 541,
+      "terminal": false,
+      "phase": "regulation",
+      "towers": [
+        {
+          "hitpoints": 4824,
+          "id": "south:central",
+          "side": "south"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "south:lane:west",
+          "side": "south"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "south:lane:east",
+          "side": "south"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "north:central",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:west",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:east",
+          "side": "north"
+        }
+      ],
+      "structures": [
+        {
+          "alive": false,
+          "cardId": "aether-well",
+          "deathCause": "combat-damage",
+          "deathTriggered": true,
+          "hitpoints": 0,
+          "id": 1,
+          "placedTick": 0,
+          "side": "south"
+        },
+        {
+          "alive": true,
+          "cardId": "aether-well",
+          "deathCause": null,
+          "deathTriggered": false,
+          "hitpoints": 1070,
+          "id": 2,
+          "placedTick": 0,
+          "side": "north"
+        }
+      ],
+      "north": {
+        "deckHand": [
+          "skymaul",
+          "reedsting",
+          "brassbolt",
+          "copperskiff"
+        ],
+        "deckNext": "aether-well",
+        "deckQueue": [
+          "aether-well",
+          "mossguard",
+          "briar-band",
+          "cinderlings"
+        ],
+        "deckSequence": 4,
+        "elixir": 1
+      },
+      "south": {
+        "deckHand": [
+          "copperskiff",
+          "cinderlings",
+          "skymaul",
+          "brassbolt"
+        ],
+        "deckNext": "mossguard",
+        "deckQueue": [
+          "mossguard",
+          "briar-band",
+          "reedsting",
+          "aether-well"
+        ],
+        "deckSequence": 1,
+        "elixir": 8
+      },
+      "opponent": {
+        "nextSequence": 4,
+        "nextTick": 541,
+        "thinkIntervalTicks": 60,
+        "thinkOffsetTicks": 0
+      }
+    },
+    "expiryCheckpoint": {
+      "tick": 3898,
+      "sha256": "0bb768641e135158fa56bbfe4817ae271d1fe337032c3e2ccc6130dbd5f5c7bc"
+    },
+    "expiryDirectExit": [
+      {
+        "deployment": {
+          "cardId": "cinderlings",
+          "entityIds": [
+            34,
+            35,
+            36
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 14,
+          "side": "north",
+          "tick": 3900,
+          "type": "deployed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 0,
+          "cost": 1,
+          "reason": "accepted",
+          "sequence": 22,
+          "side": "north",
+          "tick": 3900,
+          "type": "spend"
+        },
+        "tick": 3900,
+        "type": "session-deployed"
+      },
+      {
+        "buildingId": 2,
+        "cause": "expiry",
+        "reason": "lifetime",
+        "tick": 3900,
+        "type": "structure-destroyed"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "cause": "expiry",
+        "recipientSide": "north",
+        "tick": 3900,
+        "type": "building-resource-payout-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3900,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3900,
+        "type": "building-resource-granted"
+      }
+    ],
+    "restoreComparison": {
+      "branchDirectExit": [
+        {
+          "deployment": {
+            "cardId": "cinderlings",
+            "entityIds": [
+              34,
+              35,
+              36
+            ],
+            "point": {
+              "x": 3500,
+              "y": 17500
+            },
+            "sequence": 14,
+            "side": "north",
+            "tick": 3900,
+            "type": "deployed"
+          },
+          "side": "north",
+          "spend": {
+            "accepted": true,
+            "amountAfter": 0,
+            "cost": 1,
+            "reason": "accepted",
+            "sequence": 22,
+            "side": "north",
+            "tick": 3900,
+            "type": "spend"
+          },
+          "tick": 3900,
+          "type": "session-deployed"
+        },
+        {
+          "buildingId": 2,
+          "cause": "expiry",
+          "reason": "lifetime",
+          "tick": 3900,
+          "type": "structure-destroyed"
+        },
+        {
+          "amount": 1,
+          "buildingId": 2,
+          "cause": "expiry",
+          "recipientSide": "north",
+          "tick": 3900,
+          "type": "building-resource-payout-triggered"
+        },
+        {
+          "amount": 1,
+          "sourceId": 2,
+          "side": "north",
+          "tick": 3900,
+          "type": "building-resource-grant"
+        },
+        {
+          "amountAfter": 1,
+          "amountGranted": 1,
+          "amountRequested": 1,
+          "buildingId": 2,
+          "side": "north",
+          "tick": 3900,
+          "type": "building-resource-granted"
+        }
+      ],
+      "sessionBytesEqual": true,
+      "replayBytesEqual": true,
+      "stateEqual": true
+    },
+    "finalState": {
+      "tick": 3901,
+      "terminal": false,
+      "phase": "regulation",
+      "towers": [
+        {
+          "hitpoints": 3846,
+          "id": "south:central",
+          "side": "south"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:west",
+          "side": "south"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:east",
+          "side": "south"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "north:central",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:west",
+          "side": "north"
+        },
+        {
+          "hitpoints": 3052,
+          "id": "north:lane:east",
+          "side": "north"
+        }
+      ],
+      "structures": [
+        {
+          "alive": false,
+          "cardId": "aether-well",
+          "deathCause": "combat-damage",
+          "deathTriggered": true,
+          "hitpoints": 0,
+          "id": 1,
+          "placedTick": 0,
+          "side": "south"
+        },
+        {
+          "alive": false,
+          "cardId": "aether-well",
+          "deathCause": "expiry",
+          "deathTriggered": true,
+          "hitpoints": 0,
+          "id": 2,
+          "placedTick": 0,
+          "side": "north"
+        }
+      ],
+      "north": {
+        "deckHand": [
+          "aether-well",
+          "brassbolt",
+          "mossguard",
+          "copperskiff"
+        ],
+        "deckNext": "reedsting",
+        "deckQueue": [
+          "reedsting",
+          "skymaul",
+          "briar-band",
+          "cinderlings"
+        ],
+        "deckSequence": 14,
+        "elixir": 1
+      },
+      "south": {
+        "deckHand": [
+          "copperskiff",
+          "cinderlings",
+          "skymaul",
+          "brassbolt"
+        ],
+        "deckNext": "mossguard",
+        "deckQueue": [
+          "mossguard",
+          "briar-band",
+          "reedsting",
+          "aether-well"
+        ],
+        "deckSequence": 1,
+        "elixir": 10
+      },
+      "opponent": {
+        "nextSequence": 14,
+        "nextTick": 3901,
+        "thinkIntervalTicks": 60,
+        "thinkOffsetTicks": 0
+      }
+    },
+    "aetherIds": [
+      1,
+      2
+    ],
+    "lifecycleEvents": [
+      {
+        "materialization": {
+          "cardId": "aether-well",
+          "destination": null,
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "structureId": 1,
+          "tick": 0,
+          "type": "structure-materialized"
+        },
+        "route": {
+          "cardId": "aether-well",
+          "commandId": 0,
+          "kind": "structure",
+          "placementClass": "ground_entity",
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "session-card-routed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 4,
+          "cost": 6,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-structure-deployed"
+      },
+      {
+        "materialization": {
+          "cardId": "aether-well",
+          "destination": null,
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "structureId": 2,
+          "tick": 0,
+          "type": "structure-materialized"
+        },
+        "route": {
+          "cardId": "aether-well",
+          "commandId": 0,
+          "kind": "structure",
+          "placementClass": "ground_entity",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "session-card-routed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 4,
+          "cost": 6,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-structure-deployed"
+      },
+      {
+        "cardId": "aether-well",
+        "destination": null,
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "sequence": 0,
+        "side": "south",
+        "structureId": 1,
+        "tick": 0,
+        "type": "structure-materialized"
+      },
+      {
+        "cardId": "aether-well",
+        "destination": null,
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 1,
+        "side": "north",
+        "structureId": 2,
+        "tick": 0,
+        "type": "structure-materialized"
+      },
+      {
+        "buildingId": 1,
+        "side": "south",
+        "tick": 60,
+        "type": "building-deployed"
+      },
+      {
+        "buildingId": 2,
+        "side": "north",
+        "tick": 60,
+        "type": "building-deployed"
+      },
+      {
+        "amountApplied": 202,
+        "amountRequested": 202,
+        "buildingId": 1,
+        "origin": "combat-damage",
+        "sourceId": 3,
+        "tick": 179,
+        "type": "structure-damaged"
+      },
+      {
+        "amountApplied": 202,
+        "amountRequested": 202,
+        "buildingId": 1,
+        "origin": "combat-damage",
+        "sourceId": 3,
+        "tick": 251,
+        "type": "structure-damaged"
+      },
+      {
+        "amountApplied": 202,
+        "amountRequested": 202,
+        "buildingId": 1,
+        "origin": "combat-damage",
+        "sourceId": 3,
+        "tick": 323,
+        "type": "structure-damaged"
+      },
+      {
+        "amountApplied": 202,
+        "amountRequested": 202,
+        "buildingId": 1,
+        "origin": "combat-damage",
+        "sourceId": 3,
+        "tick": 395,
+        "type": "structure-damaged"
+      },
+      {
+        "amountApplied": 202,
+        "amountRequested": 202,
+        "buildingId": 1,
+        "origin": "combat-damage",
+        "sourceId": 3,
+        "tick": 467,
+        "type": "structure-damaged"
+      },
+      {
+        "amountApplied": 60,
+        "amountRequested": 120,
+        "buildingId": 1,
+        "origin": "combat-damage",
+        "sourceId": 5,
+        "tick": 474,
+        "type": "structure-damaged"
+      },
+      {
+        "buildingId": 1,
+        "cause": "combat-damage",
+        "reason": "damage",
+        "sourceId": 5,
+        "tick": 474,
+        "type": "structure-destroyed"
+      },
+      {
+        "amount": 1,
+        "buildingId": 1,
+        "cause": "combat-damage",
+        "recipientSide": "south",
+        "tick": 474,
+        "type": "building-resource-payout-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 1,
+        "side": "south",
+        "tick": 474,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 7,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 1,
+        "side": "south",
+        "tick": 474,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 540,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 540,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 540,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 1080,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 1080,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 2,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 1080,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 1620,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 1620,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 3,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 1620,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 2160,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 2160,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 3,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 2160,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 2700,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 2700,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 2700,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 3240,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3240,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 2,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3240,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 3780,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3780,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 3,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3780,
+        "type": "building-resource-granted"
+      },
+      {
+        "buildingId": 2,
+        "cause": "expiry",
+        "reason": "lifetime",
+        "tick": 3900,
+        "type": "structure-destroyed"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "cause": "expiry",
+        "recipientSide": "north",
+        "tick": 3900,
+        "type": "building-resource-payout-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3900,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3900,
+        "type": "building-resource-granted"
+      }
+    ],
+    "payoutAndGrantEvents": [
+      {
+        "buildingId": 1,
+        "cause": "combat-damage",
+        "reason": "damage",
+        "sourceId": 5,
+        "tick": 474,
+        "type": "structure-destroyed"
+      },
+      {
+        "amount": 1,
+        "buildingId": 1,
+        "cause": "combat-damage",
+        "recipientSide": "south",
+        "tick": 474,
+        "type": "building-resource-payout-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 1,
+        "side": "south",
+        "tick": 474,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 7,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 1,
+        "side": "south",
+        "tick": 474,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 540,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 540,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 540,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 1080,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 1080,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 2,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 1080,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 1620,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 1620,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 3,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 1620,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 2160,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 2160,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 3,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 2160,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 2700,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 2700,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 2700,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 3240,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3240,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 2,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3240,
+        "type": "building-resource-granted"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "tick": 3780,
+        "type": "building-resource-cadence-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3780,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 3,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3780,
+        "type": "building-resource-granted"
+      },
+      {
+        "buildingId": 2,
+        "cause": "expiry",
+        "reason": "lifetime",
+        "tick": 3900,
+        "type": "structure-destroyed"
+      },
+      {
+        "amount": 1,
+        "buildingId": 2,
+        "cause": "expiry",
+        "recipientSide": "north",
+        "tick": 3900,
+        "type": "building-resource-payout-triggered"
+      },
+      {
+        "amount": 1,
+        "sourceId": 2,
+        "side": "north",
+        "tick": 3900,
+        "type": "building-resource-grant"
+      },
+      {
+        "amountAfter": 1,
+        "amountGranted": 1,
+        "amountRequested": 1,
+        "buildingId": 2,
+        "side": "north",
+        "tick": 3900,
+        "type": "building-resource-granted"
+      }
+    ],
+    "policySummary": {
+      "version": {},
+      "cadenceAnchorPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "placement-tick-multiples-after-deployment"
+      },
+      "cadenceResetPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "nonlethal-damage-does-not-reset-placement-relative-cadence"
+      },
+      "deployTicks": {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "source": "pinned-pre-march-2023-building-constants",
+        "value": 60
+      },
+      "destructionAmount": {
+        "authoritative": true,
+        "confidence": "high",
+        "disposition": "source-aligned",
+        "source": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+        "value": 1
+      },
+      "expiryOrderingPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event"
+      },
+      "hitpoints": {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "source": "pinned-pre-march-2023-building-constants",
+        "value": 1070
+      },
+      "generationAmount": {
+        "authoritative": false,
+        "confidence": "datamine-only",
+        "disposition": "question",
+        "source": "pinned-pre-march-2023-building-constants",
+        "value": 1
+      },
+      "generationCadenceTicks": {
+        "authoritative": true,
+        "confidence": "high",
+        "disposition": "source-aligned",
+        "source": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+        "value": 540
+      },
+      "lifetimeTicks": {
+        "authoritative": true,
+        "confidence": "high",
+        "disposition": "source-aligned",
+        "source": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+        "value": 3900
+      },
+      "placementPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "ordinary-ground-entity-deployment-mask-at-building-center"
+      },
+      "recipientPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "building-owner"
+      },
+      "resourceCapacity": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": 10
+      },
+      "sameTickOrderingPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants"
+      },
+      "simultaneousGenerationOrder": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "ascending-positive-building-id"
+      }
+    },
+    "snapshotSHA256": "8756fe2fb7e6842c5e67cfaee7d4c90c9ffb896db083831faf07c7438bff3cc4",
+    "replaySHA256": "f041e6bacd278c4ffb23a69b4ef2b7b2664a999a186d6b07ae9efd227e2912e3"
+  }
+}
