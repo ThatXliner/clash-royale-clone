@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "piece": "ART-005MR",
+  "round": 3,
+  "artifact": "Original, development-only native-vector Mossguard pose-rig study; not connected to battle rendering.",
+  "roundStatus": "Candidate awaiting independent critique; builder makes no art-quality pass claim.",
+  "revision": [
+    "Alternated the walk foot silhouettes: one sole stays on y=58 while the opposite foot lifts 11–12 viewBox units (2.75–3 CSS px) across all four facings.",
+    "Separated windup from contact with a tucked wooden fist, a forward-reaching fist, and an 8-viewBox-unit relative torso/arm translation; the shield and cap stay legible.",
+    "Kept the body at 13 CSS px inside (4,6)–(60,58), retained explicit direction/pose/team/tick input, and verified the planted/lifted geometry with the focused test.",
+    "Each renderer call requires a validated SVG-safe instance prefix; the demo supplies deterministic per-cell prefixes so its 96 gradient IDs are unique and locally referenced."
+  ],
+  "claimBoundary": [
+    "The previous painted-sheet ART-005M remains FAIL; this is not a painted sheet or historical-parity claim.",
+    "This isolated prototype proves no authentic battle-engine integration, contact timing, restoration, or gameplay behavior."
+  ],
+  "authorship": {
+    "method": "Hand-authored original SVG paths and linear gradients in JavaScript.",
+    "imageGenerationTool": null,
+    "bitmapSource": null,
+    "additionalDependencies": [],
+    "license": "AGPL-3.0-only repository license; original comparison vector baseline declares CC0-1.0."
+  },
+  "sourceFences": {
+    "originalBaseline": {
+      "path": "src/ui/combat-art.js",
+      "sha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849",
+      "use": "Read-only before comparison in the demo."
+    },
+    "referenceSourcesRead": [
+      "reference/stats/SOURCES.md, per AGENTS.md."
+    ],
+    "referenceArtworkOrGameAssetsUsed": [],
+    "importedOrBundledReferenceFiles": []
+  },
+  "authoredFiles": {
+    "demo/mossguard-vector-rig.js": {
+      "sha256": "3d7c89ace11e042346526aa0a15e9fca97cb560e24b237c7843789976b7353f3"
+    },
+    "demo/mossguard-vector-rig.html": {
+      "sha256": "5538dbcb56d32f35ccfc741d6c0baa14dded143d1dc6a0cf3bcd41a9358fccb3"
+    },
+    "tests/mossguard-vector-rig.test.js": {
+      "sha256": "336ac7c6f20bb4416302618f2e4d1d5877ac42778c82a1521cf70f8d76f22dc2"
+    }
+  },
+  "geometry": {
+    "directions": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "poses": [
+      "walkA",
+      "walkB",
+      "meleeWindup",
+      "contact"
+    ],
+    "viewBox": [
+      0,
+      0,
+      64,
+      64
+    ],
+    "bodyHeightCssPx": 13,
+    "safeBoundsViewBox": [
+      4,
+      6,
+      60,
+      58
+    ],
+    "sharedSoleAnchor": [
+      32,
+      58
+    ],
+    "actualMeasurement": "Chrome body-group getBBox in SVG local user units with its explicit group transform applied; all body paths included and no body paths have strokes. The ground shadow is outside the measured group.",
+    "fullPerPoseMeasurements": "artifacts/art-005mr-round-3/builder/native-render-evidence.json"
+  },
+  "test": {
+    "command": "node --test tests/mossguard-vector-rig.test.js",
+    "directExitCode": 0,
+    "focusedTests": 2,
+    "rawOutput": "artifacts/art-005mr-round-3/builder/focused-test.tap",
+    "rawReceipt": "artifacts/art-005mr-round-3/builder/focused-test-command-and-exit.txt",
+    "initialWestCoordinateFailure": {
+      "status": "historical-raw-unavailable",
+      "note": "The exact initial west-coordinate failure stdout/stderr and direct exit receipt were not present in this isolated checkout and are not reconstructed. See artifacts/art-005mr-round-3/builder/initial-west-coordinate-failure-availability.txt."
+    }
+  },
+  "nativeRender": {
+    "browser": "155.0.8059.40",
+    "playwright": "1.58.2 from the project checkout's pinned node_modules",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "viewportCssPx": [
+      1440,
+      1200
+    ],
+    "deviceScaleFactor": 1,
+    "measurementFile": "artifacts/art-005mr-round-3/builder/native-render-evidence.json",
+    "screenshots": [
+      {
+        "path": "artifacts/art-005mr-round-3/builder/before-original-native13-1340x97.png",
+        "width": 1340,
+        "height": 97,
+        "bytes": 31640,
+        "sha256": "1cbc9221f9b51fad973feb8ce353d2b216a32b1805141cba55b2ab7c2e15b6bc"
+      },
+      {
+        "path": "artifacts/art-005mr-round-3/builder/after-rig-native13-1340x311.png",
+        "width": 1340,
+        "height": 311,
+        "bytes": 134022,
+        "sha256": "463e3596e6e0ca2acbe7dbbab2da6423186026b081e8b087439d0ef0bb91376d"
+      },
+      {
+        "path": "artifacts/art-005mr-round-3/builder/after-rig-diagnostic96-1340x615.png",
+        "width": 1340,
+        "height": 615,
+        "bytes": 252815,
+        "sha256": "d0c08086bd46c5af0fc78ab3818f83e14e17498e610487d28d293948b0ad6a94"
+      },
+      {
+        "path": "artifacts/art-005mr-round-3/builder/comparison-page-full-1440x1286.png",
+        "width": 1440,
+        "height": 1286,
+        "bytes": 665635,
+        "sha256": "7f1124393d54bb5c20ce4b92aa918ad24823cf3b9222c63a3dd8e9c8552998c0"
+      }
+    ],
+    "renderCommandReceipt": "artifacts/art-005mr-round-3/builder/native-render-command-and-exit.txt",
+    "noGpuOverrideRequired": "The render runner filters Playwright's automatic --enable-unsafe-swiftshader argument and records chrome://version's raw command line.",
+    "baselineBodyHeightCssPx": [
+      12.9990234375,
+      12.9990234375
+    ],
+    "nativePoseCount": 16,
+    "nativeBodyHeightCssPx": [
+      13
+    ],
+    "diagnosticPoseCount": 16,
+    "gradientIdCount": 96,
+    "uniqueGradientIdCount": 96,
+    "allGradientRefsLocal": true,
+    "gpuFlagsPresent": false,
+    "pageErrors": [],
+    "consoleErrors": []
+  },
+  "preservedAuditFailure": {
+    "path": "artifacts/art-005mr-round-2/builder/native-render-evidence.json",
+    "commandReceipt": "artifacts/art-005mr-round-2/builder/native-render-command-and-exit.txt",
+    "directExitCode": 1,
+    "cause": "First audit mixed getCTM viewport-space CSS coordinates with root viewBox units and falsely reported 3.25 CSS px. The art was not adjusted to fit those numbers; the raw screenshots and report are preserved. Corrected audit measures local getBBox plus only the explicit group transform."
+  },
+  "priorCritique": {
+    "verdict": "FAIL",
+    "source": "artifacts/art-005mr-round-1/critic/review-20261015-26tHkyop/final-verdict.md",
+    "finding": "Walk phases and windup/contact were too similar at native scale; round two revises their macro leg and fist geometry."
+  },
+  "evidenceDirectory": "artifacts/art-005mr-round-3/builder/",
+  "integrityLedger": "artifacts/art-005mr-round-3/builder/checksums.sha256",
+  "provenanceHash": {
+    "file": "docs/art/mossguard-vector-rig-provenance.json",
+    "sha256RecordedExternally": "artifacts/art-005mr-round-3/builder/checksums.sha256"
+  }
+}

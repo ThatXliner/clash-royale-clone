@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mossguard Vector Pose Rig · Moss &amp; Ember</title>
+    <link rel="icon" href="data:,">
+    <style>
+      :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#111b20;color:#e9e2cd;font-synthesis:none;text-rendering:optimizeLegibility;--paper:#e9e2cd;--muted:#a7b5ad;--jade:#a3c276;--ember:#e8a36b;--line:#435750;--panel:#1b2b2d}
+      *{box-sizing:border-box}body{margin:0;min-width:320px;background:radial-gradient(ellipse at 82% 0%,#2d4b3f66,transparent 42rem),linear-gradient(150deg,#111b20,#1a2b2c 70%,#10191e)}
+      .page{width:min(1400px,100%);margin:0 auto;padding:26px 30px 22px}.page-heading{margin:0 0 18px}.eyebrow{margin:0 0 5px;color:var(--jade);font-size:9px;font-weight:850;letter-spacing:.16em}h1,h2,h3,p{margin-top:0}h1{margin-bottom:8px;color:#fff7e7;font:600 clamp(29px,3.4vw,44px)/1.02 Georgia,"Times New Roman",serif;letter-spacing:-.035em}.intro{max-width:930px;margin:0;color:#c0cbc3;font-size:13px;line-height:1.5}
+      .baseline-panel,.pose-panel,.diagnostic-panel{margin:0 0 18px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#20312f,#172529 78%);box-shadow:0 16px 38px #08101355,inset 0 1px 0 #ffffff0a}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 8px}.section-heading h2{margin:0;color:var(--paper);font-size:16px;letter-spacing:-.02em}.measurement{margin:0;color:#d8c998;font-size:10px;font-variant-numeric:tabular-nums;text-align:right}.geometry-note{margin:0 0 10px;color:#aebbb4;font-size:10px;line-height:1.5}
+      .baseline-samples{display:flex;gap:14px}.baseline-sample{display:flex;align-items:center;gap:8px;min-width:112px;color:#c5d0c7;font-size:10px}.baseline-sample>div{display:grid;width:24px;height:24px;place-items:center;border-radius:6px;background:#31443a}.baseline-sample svg{display:block;width:15.4074px;height:15.4074px;overflow:visible}.mossguard-vector-art{display:block;width:16px;height:16px;overflow:visible;shape-rendering:geometricPrecision}.pose-grid{display:grid;grid-template-columns:66px repeat(4,minmax(68px,1fr));gap:5px;max-width:760px}.pose-heading,.direction-heading,.pose-cell{display:flex;align-items:center;justify-content:center;min-height:34px;border:1px solid #3e5550;border-radius:6px;background:#182725}.pose-heading{padding:4px;color:#b9c7bc;font-size:9px;text-align:center}.direction-heading{color:#dce8d7;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.pose-cell{position:relative;min-height:36px;background:radial-gradient(ellipse at 50% 66%,#5a705244,transparent 70%),#192723}.pose-cell svg{flex:none}.pose-cell small{position:absolute;right:4px;bottom:3px;color:#81968b;font-size:7px;line-height:1}.pose-cell[data-measured-body]{outline:1px solid #557361}
+      .diagnostic-grid{display:grid;grid-template-columns:66px repeat(4,minmax(112px,1fr));gap:7px;max-width:760px}.diagnostic-cell{position:relative;display:grid;min-height:120px;place-items:center;overflow:hidden;border:1px solid #3e5550;border-radius:7px;background:radial-gradient(ellipse at 50% 72%,#5a705244,transparent 70%),#192723}.diagnostic-cell svg{width:96px;height:96px}.diagnostic-cell::after{position:absolute;left:50%;bottom:31px;width:28px;height:1px;background:#f0d1a0bb;content:"";transform:translateX(-50%)}.diagnostic-cell::before{position:absolute;left:50%;bottom:28px;width:1px;height:7px;background:#f0d1a0bb;content:""}.diagnostic-label{align-self:start;color:#aab9ae;font-size:8px;text-align:center}.page-footer{padding:4px 2px;color:#83968c;font-size:9px;letter-spacing:.04em}
+      body[data-view="before"] [data-section="poses"],body[data-view="before"] [data-section="diagnostic"]{display:none}body[data-view="after"] [data-section="baseline"]{display:none}
+      @media(max-width:700px){.page{padding:18px 14px}.section-heading{align-items:start;flex-direction:column;gap:5px}.measurement{text-align:left}.pose-grid,.diagnostic-grid{grid-template-columns:48px repeat(4,minmax(47px,1fr));gap:3px}.pose-heading,.direction-heading{font-size:7px}.diagnostic-grid{grid-template-columns:48px repeat(4,minmax(50px,1fr))}.diagnostic-cell{min-height:80px}.diagnostic-cell svg{width:64px;height:64px}.diagnostic-cell::after{bottom:18px;width:22px}.diagnostic-cell::before{bottom:15px}.baseline-samples{flex-wrap:wrap}}
+    </style>
+    <script type="module" src="./mossguard-vector-rig.js"></script>
+  </head>
+  <body>
+    <main class="page" data-rig-demo>
+      <header class="page-heading">
+        <p class="eyebrow">ART-005MR · ORIGINAL VECTOR STUDY</p>
+        <h1>Mossguard, carried by a clear pose</h1>
+        <p class="intro">A bounded, editable SVG study extends the existing Mossguard silhouette with wood and leaf planes, a leaf shield, and an unarmed wooden fist. The walk phases trade a grounded foot for a lifted step; the windup tucks the fist beside the torso while contact drives it outward. This preview does not connect to the battle renderer.</p>
+      </header>
+
+      <section class="baseline-panel" data-section="baseline" aria-labelledby="baseline-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">BEFORE · EXISTING VECTOR</p><h2 id="baseline-title">Current editable Mossguard</h2></div>
+          <p class="measurement" data-baseline-measure>Measuring original paths…</p>
+        </div>
+        <div class="baseline-samples">
+          <article class="baseline-sample"><div data-original-side="north"></div><span>North · Ember</span></article>
+          <article class="baseline-sample"><div data-original-side="south"></div><span>South · Jade</span></article>
+        </div>
+      </section>
+
+      <section class="pose-panel" data-section="poses" aria-labelledby="poses-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">AFTER · VECTOR POSE RIG</p><h2 id="poses-title">Four facings × four isolated poses</h2></div>
+          <p class="measurement" data-rig-measure>Measuring rendered body bounds…</p>
+        </div>
+        <p class="geometry-note">Each cell is 16 × 16 CSS px. The body is 52 viewBox units tall: 13 CSS px at this scale. One walking sole stays at y=58 while its alternate lifts 11–12 viewBox units (2.75–3 CSS px); windup and contact move the torso/arm layer 8 units apart. Every measured body stays inside (4, 6)–(60, 58), with the shared sole anchor at (32, 58); the shadow is outside the body.</p>
+        <div class="pose-grid" data-pose-grid aria-label="All sixteen original Mossguard poses"></div>
+      </section>
+
+      <section class="diagnostic-panel" data-section="diagnostic" aria-labelledby="diagnostic-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">DIAGNOSTIC VIEW</p><h2 id="diagnostic-title">Enlarged geometry for inspection</h2></div>
+          <p class="measurement">96 px SVG cells · not used for native-scale claims</p>
+        </div>
+        <div class="diagnostic-grid" data-diagnostic-grid aria-label="Enlarged view of all sixteen Mossguard poses"></div>
+      </section>
+
+      <footer class="page-footer">Original vector paths authored for Moss &amp; Ember · deterministic direction/pose/team/tick inputs · no gameplay integration or historical-parity claim</footer>
+    </main>
+  </body>
+</html>

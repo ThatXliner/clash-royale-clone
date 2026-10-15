@@ -1,0 +1,1078 @@
+{
+  "schemaVersion": 1,
+  "round": 3,
+  "nodeVersion": "v22.22.3",
+  "playwrightVersion": "1.58.2",
+  "browserVersion": "155.0.8059.40",
+  "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "method": "Pinned Playwright 1.58.2 launched installed Chrome headless at a 1440x1200 CSS viewport and deviceScaleFactor 1. Playwright's automatic --enable-unsafe-swiftshader default argument was explicitly filtered; no GPU override was supplied. SVG body groups were measured in browser at native 16x16 cells (13 CSS px body).",
+  "viewport": {
+    "width": 1440,
+    "height": 1200
+  },
+  "deviceScaleFactor": 1,
+  "chromeCommandLine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-aSNsPz --remote-debugging-pipe --no-startup-window --noerrdialogs --flag-switches-begin --flag-switches-end",
+  "gpuFlagsPresent": false,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "captures": [
+    {
+      "path": "artifacts/art-005mr-round-3/builder/before-original-native13-1340x97.png",
+      "width": 1340,
+      "height": 97,
+      "bytes": 31640
+    },
+    {
+      "path": "artifacts/art-005mr-round-3/builder/after-rig-native13-1340x311.png",
+      "width": 1340,
+      "height": 311,
+      "bytes": 134022
+    },
+    {
+      "path": "artifacts/art-005mr-round-3/builder/after-rig-diagnostic96-1340x615.png",
+      "width": 1340,
+      "height": 615,
+      "bytes": 252815
+    },
+    {
+      "path": "artifacts/art-005mr-round-3/builder/comparison-page-full-1440x1286.png",
+      "width": 1440,
+      "height": 1286,
+      "bytes": 665635
+    }
+  ],
+  "measurementMethod": "Actual Chrome SVGElement.getBBox for the visible body group, including its child action-layer transforms, followed only by the explicit outer facing transform; all path children are included and none has a stroke. The shadow is outside the measured body group. The first two path boxes record the actual alternate feet; no pixels were masked or compared by tolerance.",
+  "measurements": {
+    "native": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          46
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 24,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          47,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 24,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 24,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 24,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          46
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          47,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          46
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          47,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          46
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          47,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "legBottomsViewBox": [
+          58,
+          58
+        ],
+        "strokedPaths": 0,
+        "bodyPathCount": 25,
+        "svgCssSize": 16,
+        "insideSafeBounds": true
+      }
+    ],
+    "baseline": [
+      {
+        "side": "north",
+        "bounds": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54
+        },
+        "height": 12.9990234375
+      },
+      {
+        "side": "south",
+        "bounds": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54
+        },
+        "height": 12.9990234375
+      }
+    ],
+    "declaredRigMetrics": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 0,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 17,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 34,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 51,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 31,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 48,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 65,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 82,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 62,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 79,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 96,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 113,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 93,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 110,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 127,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 144,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      }
+    ],
+    "diagnosticPoseCount": 16,
+    "gradientIdCount": 96,
+    "uniqueGradientIdCount": 96,
+    "localRefs": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "measureLabel": "Rendered body geometry: 13.00–13.00 CSS px · 16 poses"
+  },
+  "safeBounds": {
+    "x": 4,
+    "y": 6,
+    "right": 60,
+    "bottom": 58
+  },
+  "assertions": [
+    {
+      "id": "north/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "north/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "north/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "north/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "east/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "east/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "east/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "east/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "south/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "south/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "south/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "south/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "west/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "west/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "west/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    },
+    {
+      "id": "west/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSoleAnchor": true,
+      "noStrokes": true,
+      "walkingPlantAt58": true,
+      "alternateFootLiftAtLeast11Units": true,
+      "nativeCell16": true,
+      "boundsInsideDeclaredBox": true
+    }
+  ],
+  "checks": {
+    "nativePoseCount": true,
+    "diagnosticPoseCount": true,
+    "bodyHeights13": true,
+    "allInsideSafeBounds": true,
+    "sharedSoleAnchors": true,
+    "allWalkPlantsAt58": true,
+    "alternateFeetLiftAtLeast11ViewBoxUnits": true,
+    "nativeCells16": true,
+    "allMeasuredPathsStrokeFree": true,
+    "gradientIdsUnique": true,
+    "gradientRefsLocal": true,
+    "noGpuFlags": true,
+    "noPageOrConsoleErrors": true
+  }
+}

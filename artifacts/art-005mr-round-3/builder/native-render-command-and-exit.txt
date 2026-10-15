@@ -1,0 +1,12 @@
+command: node artifacts/art-005mr-round-3/builder/render-native-rig.mjs > artifacts/art-005mr-round-3/builder/native-render.stdout 2>&1
+nodeVersion: v22.22.3
+directExitCode: 0
+signal: none
+pinnedPlaywright: 1.58.2
+browser: installed Chrome 155.0.8059.40
+viewportCssPx: 1440x1200
+deviceScaleFactor: 1
+gpuOverride: none; the runner filters Playwright's automatic --enable-unsafe-swiftshader default argument
+rawStdout: artifacts/art-005mr-round-3/builder/native-render.stdout
+structuredEvidence: artifacts/art-005mr-round-3/builder/native-render-evidence.json
+screenshots: individual original baseline, native rig, enlarged diagnostic, and full-page captures are listed in structuredEvidence

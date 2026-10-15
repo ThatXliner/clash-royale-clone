@@ -9453,3 +9453,12 @@ EVIDENCE: Independent exact e8cb87f review focused Node1/1 actualexit0. Chrome15
 BIGGEST GAP: Walk A/B and melee windup/contact need reliably distinct native13px silhouettes across all four facings.
 
 No prototype or production adoption. Builder auto-added unsafeSwiftShader capture is not strictGPU proof; fresh critic pinned capture supplies nooverride proof. Initial archive extraction safety failure preserved; private-checkout/node_modules/Chromeprofile execution trees excluded from this record. Initial raw geometry audit misread width/height as right/bottom; unchanged saved coordinates support corrected derived report, no rerender/masking/tolerance. Browser/server closed. Failed candidate fourfiles and builder/rawcritic evidence archived only. FullRound481 production source unchanged. New CARDS022K scope follows remaining-roster audit; core admission is separate from original art/browser integration and historical parity.
+
+## Round 488 — ART-005MR third native pose review
+
+PIECE: ART-005MR
+VERDICT: FAIL
+EVIDENCE: Independent exact7cd0e67 focused Node22.22.3 tests2/2 actualexit0. Fresh installedChrome155.0.8059.40/Playwright1.58.2 native1440x1200 DPR1 comparison: baseline12.999CSSpx, all16rigbodies13px, safebody/shadowbounds andsole58,96unique localgradientIDs, bothteamcolors, noerrors/failedrequests. Nativebefore/after/comparison andseparate96pxdiagnostic inspected; sourcepre/post7hashes exactcandidate. ChromePID6720exit0 andprofile removed15:37:06.705Z.
+BIGGEST GAP: At native13px body scale, windup remains close towalkA while contact reads as a detached wooden fleck, especiallynorth, so theattackcycle lacks a coherent distinctsilhouette.
+
+Three rounds share nativeposeclarity failure: stop ART005MR loop pergauntlet. The isolated tiny filled-vector articulation approach is wrong-shaped; the readability bar remains. Archive failedcandidate fourfiles only; no demo/production adoption, no gameplay orhistoricalparity claim. Rootverified16builderchecksums andsevencritic sourcefences; root-created checksum seal explicitly labeled, originalcritic supplied noaggregate checksumfile. Rawcapturewrapper zshreadonly-status failure preserved; Nodecapturechildexit unavailable, no rerender. ActualChromeexit0 is distinct; focusedtestexit0 captured. Builderinitialwest-coordinate failure rawunavailable andnotfabricated. Evidencefolder210000Z is only anidentifier; actualcaptureUTC inrawJSON. Production/fullRound481 unchanged. Move toBrackenwheel ratherthan another sameapproach revision.
