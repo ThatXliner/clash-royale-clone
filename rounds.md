@@ -9435,3 +9435,12 @@ EVIDENCE: Fresh exact9fd1f0f clean review independently verifies760894B lossless
 BIGGEST GAP: The declared displaywindow clips visible frame artwork and cannot safely isolate all16poses.
 
 No source/public/demo/docs adoption. Initial--disable-gpu render preserved as methoddiagnostic; separate unchangedasset/HTML defaultGPUcapture exits0, no screenshotmatchingretry. Rootverifiedcriticchecksums and preservedallbuilderattempts/encoders/bodypreview/metadata plus failedcandidatefourownedblobs. Three rounds share alignment/safe-isolation failure: stop whole-sheetgeneration loop pergauntlet; the approach iswrong-shaped, the bar remains. Separate originaleditablevector-rig prototype ART005MR and eventualrealbattle ART005MRI do not erase failedpaintedgoal or establishparity. Official2022footage metadata leads archived; bounded3sec publicmedia probe returned403, yt-dlp1/ffmpeg8 in2.039sec with0bytes/frames, no retry/workaround. VIScalibration remainsblocked.
+
+## Round 486 — ART-005MR original vector pose rig
+
+PIECE: ART-005MR
+VERDICT: FAIL
+EVIDENCE: Independent clean6190e56 clone focusedtest1/1 actualexit0. NativeChrome155 comparison1440x1200/deviceScale1/defaultGPU/noerrors measures originalstroke-inclusiveunion12.999CSSpx and all16newbodies13CSSpx. Allbodyboundsfit4..60/6..58; separate groundshadow ends61.1 within64viewBox. Actualbefore/after/comparisonPNG plus96pxdiagnostic inspected. Originalwoodmask/leafmantle/shield/fist identity, two teamcolors, materialdepth andsilhouette improve. WalkA/B and windup/contact remaininsufficientlydistinctat13body acrossfourfacings.
+BIGGEST GAP: Make the native-size walk and melee pose pairs clearly distinguishable with larger silhouette changes while preserving safe geometry and anchor.
+
+No prototype/source adoption. Rootverifiedcriticchecksums and previously14builderhashes. Builderinitialhiddenbaseline0.48metric andcorrectedvisibleunion evidence retained; finaltestdirectexit0. Criticfirstreadonly-zsh-statuswrapperfailure, occupiedinitialport and unavailablebrowserprovider recorded; freshfocusedexit0/nativecomparison suppliesactualproof. RepeatedgradientIDs32each renderidenticaldefinitions butremainpreintegrationissue. Allownedfiles archived asfailedcandidateevidence; production/assets/simulation/input/audio/package unchanged, fullRound481 unchanged. No gameplay/painterly/historicalparity claim.

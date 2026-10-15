@@ -1,0 +1,13 @@
+python3 - <<'PY'
+import subprocess
+from pathlib import Path
+out = Path('/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-1/critic/review-20261015-26tHkyop')
+run = subprocess.run(['node', str(out / 'native-audit.mjs')], cwd='/Users/me/.codex/worktrees/9456/clash-royale-clone', capture_output=True, text=True)
+(out / 'native-render.stdout.raw').write_text(run.stdout)
+(out / 'native-render.stderr.raw').write_text(run.stderr)
+(out / 'native-render.exit.txt').write_text(f'{run.returncode}\n')
+print(run.stdout, end='')
+print(run.stderr, end='')
+print(f'exit_code={run.returncode}')
+raise SystemExit(run.returncode)
+PY

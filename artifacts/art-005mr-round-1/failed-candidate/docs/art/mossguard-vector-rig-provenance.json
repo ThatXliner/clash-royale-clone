@@ -1,0 +1,428 @@
+{
+  "schemaVersion": 1,
+  "piece": "ART-005MR",
+  "artifact": "Original Mossguard vector pose rig prototype; development-only and not connected to battle rendering.",
+  "claimBoundary": [
+    "This is an original native-vector art exploration only.",
+    "The earlier painted-sheet ART-005M remains FAIL; this file makes no painted-art or historical-parity claim.",
+    "It does not establish authentic engine integration, contact timing, restoration, or gameplay behavior; those belong to ART-005MRI after independent art review."
+  ],
+  "authorship": {
+    "method": "Hand-authored original SVG path and gradient data in JavaScript.",
+    "imageGenerationTool": null,
+    "bitmapSource": null,
+    "sourceFormat": "UTF-8 JavaScript that emits editable inline SVG markup.",
+    "outputEncoding": "Native SVG paths and linear gradients; no raster optimization or external asset encoding.",
+    "additionalDependencies": []
+  },
+  "license": {
+    "newPrototypeCode": "AGPL-3.0-only (repository package license).",
+    "originalVectorBaseline": "CC0-1.0, as declared at the top of src/ui/combat-art.js."
+  },
+  "inputs": {
+    "originalBaseline": {
+      "path": "src/ui/combat-art.js",
+      "sha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849",
+      "use": "Read-only before comparison in the demo; no changes made."
+    },
+    "referenceFence": {
+      "referenceSourcesRead": [
+        "reference/stats/SOURCES.md, per AGENTS.md."
+      ],
+      "referenceArtworkOrGameAssetsUsed": [],
+      "importedOrBundledReferenceFiles": []
+    }
+  },
+  "authoredFiles": {
+    "demo/mossguard-vector-rig.js": {
+      "sha256": "d3f2f51022af2fb17773a68dda6aab911ebf33d36e25385b123edcf77e85df27"
+    },
+    "demo/mossguard-vector-rig.html": {
+      "sha256": "0b3eef9be48a426af7523d7dce1cba49e8a073e69c933ae332a850e6572730a9"
+    },
+    "tests/mossguard-vector-rig.test.js": {
+      "sha256": "5d0704fad657a4d8274da0346733ee9e87b9157e287467532fb0a2b268242089"
+    }
+  },
+  "geometry": {
+    "directions": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "poses": [
+      "walkA",
+      "walkB",
+      "meleeWindup",
+      "contact"
+    ],
+    "inputContract": "Direction, named pose, team color, and non-negative safe-integer tick are explicit; invalid inputs throw RangeError.",
+    "viewBox": {
+      "x": 0,
+      "y": 0,
+      "width": 64,
+      "height": 64
+    },
+    "measuredSoleAnchor": {
+      "x": 32,
+      "y": 58
+    },
+    "safeBodyEnvelopeViewBoxUnits": {
+      "x": 4,
+      "y": 6,
+      "width": 56,
+      "height": 52
+    },
+    "measuredBodyBoundsByDirectionAndPose": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 0,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 17,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 34,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 51,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 31,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 48,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 65,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 82,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 62,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 79,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 96,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 113,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 93,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 110,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 127,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 144,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        }
+      }
+    ],
+    "bodyHeightCssPxRange": [
+      13,
+      13
+    ],
+    "measurementMethod": {
+      "rig": "SVGGraphicsElement.getBBox() on the rendered body group. The rig body uses filled paths with no strokes; the group includes all visible body paths. Its ground-shadow ellipse is deliberately outside the measured body group.",
+      "baseline": "Stroke-inclusive union of every original path: Chrome getBBox() for path fill geometry expanded by half its computed stroke width before union."
+    }
+  },
+  "nativeRender": {
+    "browserVersion": "155.0.8059.40",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "method": "Playwright launched installed Google Chrome with headless:true and no launch args override; page viewport 1440x1200, deviceScaleFactor 1; screenshots fullPage.",
+    "viewport": {
+      "width": 1440,
+      "height": 1200
+    },
+    "deviceScaleFactor": 1,
+    "gpuFlagsPresent": false,
+    "commandLine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-qrsmUv --remote-debugging-pipe --no-startup-window --noerrdialogs --flag-switches-begin --flag-switches-end",
+    "pageErrors": [],
+    "exits": {
+      "browserClosed": true,
+      "serverStopped": true,
+      "serverSessionId": 76489,
+      "serverStop": "Ctrl-C delivered to the owned Python static-server session after screenshots; server printed Keyboard interrupt received, exiting."
+    },
+    "screenshots": [
+      {
+        "path": "artifacts/art-005mr-round-1/builder/corrected-capture-01/before-original-vector-1440x1200.png",
+        "sha256": "2826ef2d509d5c77026e91fbe1831edd51dae17c08f65cf8192f88a27930b7de"
+      },
+      {
+        "path": "artifacts/art-005mr-round-1/builder/corrected-capture-01/after-vector-rig-1440x1200.png",
+        "sha256": "85980225835a9b810c3f95b44a1a8b32882a8020ed165b02d882511d4a9511c3"
+      },
+      {
+        "path": "artifacts/art-005mr-round-1/builder/corrected-capture-01/comparison-default-1440x1252.png",
+        "sha256": "151e1e8e04ffcb1eeff73d157282443df849190de580aaec2d3f92f7c867132f"
+      }
+    ]
+  },
+  "verification": {
+    "testCommand": "node --test tests/mossguard-vector-rig.test.js",
+    "directExitCode": 0,
+    "rawTapPath": "artifacts/art-005mr-round-1/builder/final-owned-test.tap.txt",
+    "rawTapSha256": "b509c3929dcf9c1bea0dfb887b909104bbaafd5bc6c08cd26cc9492ab2c6a11a",
+    "browserRenderChecks": [
+      "16 native SVG poses",
+      "16 enlarged diagnostic poses",
+      "all measured body heights are exactly 13 CSS px",
+      "all measured body bounds fit the declared safe envelope",
+      "baseline stroke-inclusive path union is approximately 13 CSS px",
+      "no GPU-disable or GPU-selection flags",
+      "no page errors"
+    ]
+  },
+  "preservedMeasurementCorrection": {
+    "initialCapture": "artifacts/art-005mr-round-1/builder/native-render-evidence.json",
+    "initialCaptureSha256": "12a38068389c12d1eb74d328674dc64ce8da02f9aa9723bac9d1264b1f6dec83",
+    "issue": "The initial after-only capture had the baseline panel display:none while measuring, so getBBox returned zero geometry and reported 0.48 CSS px from stroke expansion alone.",
+    "correction": "The corrected run measured the baseline while the panel was visible, unioned all original path bounds, and included each path stroke."
+  },
+  "evidenceHashes": {
+    "artifacts/art-005mr-round-1/builder/corrected-capture-01/before-original-vector-1440x1200.png": "2826ef2d509d5c77026e91fbe1831edd51dae17c08f65cf8192f88a27930b7de",
+    "artifacts/art-005mr-round-1/builder/corrected-capture-01/after-vector-rig-1440x1200.png": "85980225835a9b810c3f95b44a1a8b32882a8020ed165b02d882511d4a9511c3",
+    "artifacts/art-005mr-round-1/builder/corrected-capture-01/comparison-default-1440x1252.png": "151e1e8e04ffcb1eeff73d157282443df849190de580aaec2d3f92f7c867132f",
+    "artifacts/art-005mr-round-1/builder/corrected-capture-01/native-render-evidence.json": "414e6bc918933c1074e38ebde687db89bfbbaaf8429edf2b48ef8a7735a76fe9",
+    "artifacts/art-005mr-round-1/builder/final-owned-test.tap.txt": "b509c3929dcf9c1bea0dfb887b909104bbaafd5bc6c08cd26cc9492ab2c6a11a",
+    "artifacts/art-005mr-round-1/builder/native-render-evidence.json": "12a38068389c12d1eb74d328674dc64ce8da02f9aa9723bac9d1264b1f6dec83",
+    "artifacts/art-005mr-round-1/builder/before-original-vector-1440x1200.png": "a3f3130ea7e8bc66864afaa9784ed52fda9c4af1efe93c116988e4bdc00fb534",
+    "artifacts/art-005mr-round-1/builder/after-vector-rig-1440x1200.png": "c6e2f6147f741d30f220d5ebdc04b76c413a7e4256d1b46000dde0be2fda7ec7",
+    "artifacts/art-005mr-round-1/builder/comparison-default-1440x1200.png": "37ff6b6ca5204b93ea996b5b8fb98356f6df8b14805bdb6c40e2581890ac82c8"
+  },
+  "integrationLimitations": [
+    "Inline SVG instances currently repeat gradient IDs. The isolated demo renders correctly, but a future renderer integration should scope gradient IDs per SVG to avoid collisions."
+  ]
+}

@@ -1,0 +1,855 @@
+{
+  "browser": {
+    "version": "155.0.8059.40",
+    "channel": "chrome",
+    "launchMode": "headless installed Google Chrome",
+    "executablePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "processCmdlines": [
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-Hlik5H --remote-debugging-pipe --no-startup-window"
+    ],
+    "gpuDisableFlags": []
+  },
+  "screenshotFiles": {
+    "before-original-vector-1440px.png": "2826ef2d509d5c77026e91fbe1831edd51dae17c08f65cf8192f88a27930b7de",
+    "after-vector-rig-1440px.png": "85980225835a9b810c3f95b44a1a8b32882a8020ed165b02d882511d4a9511c3",
+    "enlarged-diagnostic-grid.png": "c86711706e648c5d6b38d22af39f241141588249d671f12ba7325e5f83a9a6b1",
+    "comparison-native-1440px.png": "3594f7ee7d11ee5e5b241fe04c4ef7c8bd45077ed02320861f60191ab5703b6b"
+  },
+  "pageErrors": [],
+  "geometry": {
+    "url": "http://127.0.0.1:57123/demo/mossguard-vector-rig.html?view=compare",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "viewport": {
+      "width": 1440,
+      "height": 1200,
+      "devicePixelRatio": 1
+    },
+    "baseline": [
+      {
+        "facing": "North · Ember",
+        "svgCssSize": {
+          "width": 15.40625,
+          "height": 15.40625
+        },
+        "viewBoxBodyBoundsIncludingStroke": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54
+        },
+        "bodyHeightCssPx": 12.9990234375,
+        "strokedElements": [
+          {
+            "x": 12,
+            "y": 40,
+            "width": 39,
+            "height": 17,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 13,
+            "y": 18,
+            "width": 37,
+            "height": 31,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 19,
+            "y": 9,
+            "width": 25,
+            "height": 21,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 14,
+            "y": 3,
+            "width": 32,
+            "height": 18,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 6,
+            "y": 25,
+            "width": 22,
+            "height": 30,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 10,
+            "y": 33,
+            "width": 12,
+            "height": 13,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 41,
+            "y": 22,
+            "width": 19,
+            "height": 18,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 27,
+            "y": 29,
+            "width": 10,
+            "height": 7,
+            "stroke": "rgb(233, 168, 58)",
+            "strokeWidth": 2
+          }
+        ]
+      },
+      {
+        "facing": "South · Jade",
+        "svgCssSize": {
+          "width": 15.40625,
+          "height": 15.40625
+        },
+        "viewBoxBodyBoundsIncludingStroke": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54
+        },
+        "bodyHeightCssPx": 12.9990234375,
+        "strokedElements": [
+          {
+            "x": 12,
+            "y": 40,
+            "width": 39,
+            "height": 17,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 13,
+            "y": 18,
+            "width": 37,
+            "height": 31,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 19,
+            "y": 9,
+            "width": 25,
+            "height": 21,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 14,
+            "y": 3,
+            "width": 32,
+            "height": 18,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 6,
+            "y": 25,
+            "width": 22,
+            "height": 30,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 10,
+            "y": 33,
+            "width": 12,
+            "height": 13,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 41,
+            "y": 22,
+            "width": 19,
+            "height": 18,
+            "stroke": "rgb(25, 29, 34)",
+            "strokeWidth": 2
+          },
+          {
+            "x": 26,
+            "y": 32,
+            "width": 12,
+            "height": 5,
+            "stroke": "rgb(220, 237, 233)",
+            "strokeWidth": 2
+          }
+        ]
+      }
+    ],
+    "nativeRig": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 0,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 17,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 34,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 51,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 31,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 48,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 65,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 82,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 62,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 79,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 96,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 113,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": null
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 93,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": "translate(64 0) scale(-1 1)"
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 110,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": "translate(64 0) scale(-1 1)"
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 127,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": "translate(64 0) scale(-1 1)"
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 144,
+        "declaredBodyHeightUnits": 52,
+        "declaredSoleAnchor": "32 58",
+        "declaredSafeBounds": "4 6 56 52",
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "rawBodyGroupBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsIncludingAnyStroke": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "safeBoundsContainBodyAndStrokes": true,
+        "allVisibleArtBoundsIncludingShadow": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094
+        },
+        "shadowBoundsInViewBox": {
+          "x": 18,
+          "y": 57.099998474121094,
+          "width": 28,
+          "height": 4
+        },
+        "groupTransform": "translate(64 0) scale(-1 1)"
+      }
+    ],
+    "nativeBodyCssHeightRange": [
+      13,
+      13
+    ],
+    "nativeBodySafeBoundsPassCount": 16,
+    "allVisibleArtCanvasPassCount": 16,
+    "bodyCanvasViolations": [],
+    "duplicateSvgIds": [
+      {
+        "id": "mossguard-wood",
+        "count": 32
+      },
+      {
+        "id": "mossguard-wood-light",
+        "count": 32
+      },
+      {
+        "id": "mossguard-leaf",
+        "count": 32
+      }
+    ],
+    "renderedPoseCount": 16
+  }
+}

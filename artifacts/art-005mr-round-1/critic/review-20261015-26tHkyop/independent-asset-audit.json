@@ -1,0 +1,60 @@
+{
+  "piece": "ART-005MR",
+  "candidateCommit": "6190e56c057720e96c0ef48e9ffe7e190562af19",
+  "scope": "Standalone original vector art study. No battle renderer, game integration, animation timing, or historical parity claim.",
+  "comparisonBasis": {
+    "existingVector": "src/ui/combat-art.js Mossguard at the same measured approximately 13 CSS px body height.",
+    "originalIdentity": "public/assets/card-portraits-painted.webp top-row second portrait, visually inspected as the original wooden mask, leaf mantle/shield, and wooden fist identity cues.",
+    "referenceFence": "No ./reference content or real-game artwork was opened or used."
+  },
+  "criteria": {
+    "visibleImprovementOverExistingVector": {
+      "result": "PASS",
+      "evidence": "The native-scale prototype adds a readable full body silhouette, mask, leaf mantle/shield forms, wood planes and a ground shadow; the existing tiny vector comparison is a much simpler flat shape. Materials have consistent top-left highlights and darker lower/right planes."
+    },
+    "originalIdentityCues": {
+      "result": "PASS",
+      "evidence": "At native size the mask, leaf forms, shield and wooden fist remain recognizable, consistent with the specified original Mossguard portrait cues."
+    },
+    "fourFacingsAndTeamPalettes": {
+      "result": "PASS",
+      "evidence": "North/south front/back and east/west profiles render. Ember red and jade teal chest accents are both visible in the native grid."
+    },
+    "nativePoseReadabilityAt13CssPx": {
+      "result": "FAIL",
+      "evidence": "In the 16-cell native grid, walkA and walkB read almost identically in every facing; windup and contact differ mainly by small arm/hand shifts that are not consistently distinguishable at this body size. The 96px diagnostic reveals the authored differences, but the required native-scale read is not met."
+    },
+    "sharedAnchorAndSafeBounds": {
+      "result": "PASS",
+      "evidence": "Independent Chrome SVG measurements found body boxes from x=4 to x=60 and y=6 to y=58 for all 16 poses; all are 13.00 CSS px high and inside the declared (4,6)\u2013(60,58) safe box. The separate shadow spans y=57.1\u201361.1 and remains inside the 64\u00d764 viewBox."
+    },
+    "deterministicExplicitInputs": {
+      "result": "PASS",
+      "evidence": "The focused test passed; source returns byte-stable SVG for repeated direction/pose/team/tick inputs, validates inputs, and contains no wall-clock or unseeded random call."
+    },
+    "truthfulProvenanceAndRenderedMeasurements": {
+      "result": "PASS",
+      "evidence": "The candidate provenance measurements match independent real Chrome DOM geometry and rendered body heights; the original baseline hash also matches its source file."
+    }
+  },
+  "materialSourceNote": "Each SVG instance repeats the gradient IDs mossguard-wood, mossguard-wood-light, and mossguard-leaf 32 times on the compare page. Chrome resolves the current identical definitions consistently and the captured page has no errors, but IDs should be scoped before any renderer integration to avoid cross-instance collisions.",
+  "test": {
+    "command": "node --test tests/mossguard-vector-rig.test.js",
+    "exitCode": 0,
+    "tests": 1,
+    "passed": 1,
+    "failed": 0
+  },
+  "browserEvidence": {
+    "browser": "Google Chrome 155.0.8059.40 installed stable channel",
+    "viewportCssPx": [
+      1440,
+      1200
+    ],
+    "deviceScaleFactor": 1,
+    "gpuDisableFlags": [],
+    "pageErrors": []
+  },
+  "verdict": "FAIL",
+  "biggestGap": "The required four pose categories do not read distinctly at the measured 13 CSS px native body size."
+}

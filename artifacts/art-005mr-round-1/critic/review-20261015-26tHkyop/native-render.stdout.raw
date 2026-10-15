@@ -1,0 +1,52 @@
+{
+  "browser": {
+    "version": "155.0.8059.40",
+    "channel": "chrome",
+    "launchMode": "headless installed Google Chrome",
+    "executablePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "processCmdlines": [
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-Hlik5H --remote-debugging-pipe --no-startup-window"
+    ],
+    "gpuDisableFlags": []
+  },
+  "screenshotFiles": {
+    "before-original-vector-1440px.png": "2826ef2d509d5c77026e91fbe1831edd51dae17c08f65cf8192f88a27930b7de",
+    "after-vector-rig-1440px.png": "85980225835a9b810c3f95b44a1a8b32882a8020ed165b02d882511d4a9511c3",
+    "enlarged-diagnostic-grid.png": "c86711706e648c5d6b38d22af39f241141588249d671f12ba7325e5f83a9a6b1",
+    "comparison-native-1440px.png": "3594f7ee7d11ee5e5b241fe04c4ef7c8bd45077ed02320861f60191ab5703b6b"
+  },
+  "pageErrors": [],
+  "geometrySummary": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200,
+      "devicePixelRatio": 1
+    },
+    "baselineHeightsCssPx": [
+      12.9990234375,
+      12.9990234375
+    ],
+    "nativeBodyCssHeightRange": [
+      13,
+      13
+    ],
+    "nativeBodySafeBoundsPassCount": 16,
+    "allVisibleArtCanvasPassCount": 16,
+    "duplicateSvgIds": [
+      {
+        "id": "mossguard-wood",
+        "count": 32
+      },
+      {
+        "id": "mossguard-wood-light",
+        "count": 32
+      },
+      {
+        "id": "mossguard-leaf",
+        "count": 32
+      }
+    ],
+    "renderedPoseCount": 16
+  }
+}
