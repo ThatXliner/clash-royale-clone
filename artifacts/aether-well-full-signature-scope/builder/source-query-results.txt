@@ -1,0 +1,65 @@
+Pinned source-query run log
+==========================
+
+Source commit: 54fdef52c5086393b085f57faeeab8ef86b28160
+The final byte lengths, SHA-256 hashes, Git blob IDs, canonical URLs, access
+time, selectors, output hash, and extractor hash are recorded in
+source-receipts.json. Source data was held in memory; only the selected card
+and building rows were written to pinned-linked-rows.json.
+
+0. Existing local receipt search
+--------------------------------
+
+Command, from the repository root:
+
+    rg -l -i 'elixir-collector|aether.?well|building-resource|resource building' artifacts reference src tests --glob '!**/node_modules/**' --glob '!**/private-checkout/**' --glob '!**/archive/**'
+
+Exit: 0. The local profile, policy, roster witness, and normalized row were
+present, but no prior Aether full raw linked-row receipt was found. The query
+found the separate melee-area signature artifact; it did not contain the
+Elixir Collector rows.
+
+1. Initial selector attempt
+--------------------------
+
+Command, from the repository root:
+
+    python3 artifacts/aether-well-full-signature-scope/builder/extractor.py
+
+Exit: 1. It selected the roster row by `key=elixir-collector` and then found
+zero building rows with the same `key`. Inspection showed the selected
+building row stores `key: null`; this was a query-join error, not a source
+fetch or parse failure. No output artifact was written by that attempt.
+
+2. Bounded building-row name diagnostic
+---------------------------------------
+
+Command, from the repository root:
+
+    python3 - <<'PY'
+    import json, urllib.request
+    u='https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_building.json'
+    with urllib.request.urlopen(u, timeout=30) as response:
+        data=json.load(response)
+    for row in data:
+        if 'elixir' in str(row.get('name','')).lower() or 'collector' in str(row.get('name','')).lower():
+            print(json.dumps({'field_indexes':{str(i):k for i,k in enumerate(row)},'row':row}, ensure_ascii=False))
+    PY
+
+Exit: 0. The diagnostic exposed the raw schema and confirmed the stats table
+uses a separate internal `name` and nullable `key`. Its large exploratory dump
+was not saved. The final extractor performs a bounded unique join using the
+roster's English display name plus rarity and records the candidate counts.
+
+3. Final selected-row extraction
+--------------------------------
+
+Command, from the repository root:
+
+    python3 artifacts/aether-well-full-signature-scope/builder/extractor.py
+
+Exit: 0. It selected one card row by key and one building row by unique
+`name_en` plus case-insensitive rarity, screened the building row's
+relationship-shaped fields, computed full field counts/indexes, and wrote the
+selected rows and receipts. Re-running this command against the same pinned
+commit regenerates the rows; `accessed_utc` is expected to differ.
