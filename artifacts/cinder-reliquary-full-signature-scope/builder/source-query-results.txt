@@ -1,0 +1,12 @@
+Cinder Reliquary pinned-source query result
+
+Repository baseline: 72ab799248c287644a60aceaf80ec61e2cde5a7c
+Pinned source commit: 54fdef52c5086393b085f57faeeab8ef86b28160 (2023-02-18)
+Query status: NOT RUN — identity/join precondition not satisfied.
+HTTP requests: none.
+Source row selectors attempted: none.
+Rows matched: not evaluated (not zero).
+Raw source files/bytes/SHA-256: none fetched; no receipt is claimed.
+Extractor exit code: not applicable; no extractor was run.
+
+Why stopped: tests/death-effects.test.js:105-120 selects Giant Skeleton as a protected test-only benchmark and asserts that the local Cinder ID is not its historical key. The repository contains no test-backed Cinder-to-historical-key binding. Selecting Bomb Tower, Giant Skeleton, or another row by apparent mechanic/name would be an unsupported guess and could fetch the wrong signature.

@@ -1,0 +1,20 @@
+Identity search receipt (repository baseline 72ab799248c287644a60aceaf80ec61e2cde5a7c)
+
+Command: git grep -n -i -E 'cinder-reliquary|Cinder Reliquary|Giant Skeleton' -- src tests reference/stats
+Exit code: 0
+Relevant output:
+reference/stats/cards.json:1082:      "name": "Giant Skeleton",
+reference/stats/cards.json:1101:          "name": "Giant Skeleton",
+src/content/cards/death-effects.js:10:  displayName: "Cinder Reliquary",
+src/content/cards/death-effects.js:14:  id: "cinder-reliquary",
+tests/death-effects.test.js:107:    ({ id }) => id === "cinder-reliquary",
+tests/death-effects.test.js:109:  assert.equal(card.displayName, "Cinder Reliquary");
+tests/death-effects.test.js:115:    ({ name }) => name === "Giant Skeleton",
+
+The same repository-wide search finds Cinder's session/catalog and interaction fixtures, but no source-key binding. The cited identity test's full assertion is at tests/death-effects.test.js:119: `card.id === protectedBenchmark.key` is false.
+
+Command: git grep -n -i -E 'cinder-reliquary|Cinder Reliquary' -- reference/stats/cards.json
+Exit code: 1
+Output: (no match)
+
+The second search is only evidence that the normalized local card file does not list the synthetic label or ID. Exit 1 is git-grep's no-match result; it is not a failed network selector or a zero-row result from the pinned raw archive.

@@ -1,0 +1,34 @@
+{
+  "audit_status": "blocked-before-source-query",
+  "repository_baseline": "72ab799248c287644a60aceaf80ec61e2cde5a7c",
+  "pinned_source": {
+    "repository": "RoyaleAPI/cr-api-data",
+    "commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+    "commit_date_utc": "2023-02-18T11:25:16Z",
+    "commit_url": "https://github.com/RoyaleAPI/cr-api-data/commit/54fdef52c5086393b085f57faeeab8ef86b28160",
+    "basis": "reference/stats/SOURCES.md lines 20-24 and the user-provided pinned-source instruction"
+  },
+  "identity_gate": {
+    "local_synthetic_id": "cinder-reliquary",
+    "local_display_name": "Cinder Reliquary",
+    "mapping": null,
+    "evidence": "tests/death-effects.test.js selects Giant Skeleton as protectedBenchmark and asserts card.id !== protectedBenchmark.key; no test-backed positive historical key binding was found in the pinned baseline",
+    "disposition": "no source row may be selected"
+  },
+  "query": {
+    "status": "not-run",
+    "reason": "identity/join precondition failed",
+    "http_requests": [],
+    "selectors_attempted": [],
+    "matched_row_counts": null,
+    "extractor_exit_code": null
+  },
+  "source_files": [],
+  "extracted_rows": null,
+  "limitations": [
+    "No raw field is claimed absent.",
+    "No source null, false, zero, or omitted normalized field is used as proof of absence.",
+    "No historical numeric Cinder value is confirmed.",
+    "Local QUESTION values remain local policy only."
+  ]
+}
