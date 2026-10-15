@@ -1,0 +1,134 @@
+{
+  "artifactType": "source-hash-inventory",
+  "capturedAtUtc": "2026-10-15T20:51:28.163522+00:00",
+  "sourceHead": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "sourceTree": "58e140df45aa65a84165d8124735a5a5abf3dbb0",
+  "acceptedBase": "52718dd6",
+  "prospectiveCandidate": "31421c94a01b28eea01324103ad9dbf694a780e7",
+  "productPathsChangedFromBase": [
+    "src/ui/app-shell.js",
+    "src/ui/arena-shell-entry.js",
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-browser-entry.js",
+    "tests/app-shell.test.js",
+    "tests/cards021-browser-integration.test.js",
+    "tests/cards022-browser-integration.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "productPathCount": 10,
+  "allTenProductPathsMatch314": true,
+  "acceptedQH501HarnessPathsUnchangedFrom527": true,
+  "packageLockAndContinuationKernelMatchHistorical763": true,
+  "entries": [
+    {
+      "path": "package-lock.json",
+      "gitBlob": "57d4f206ec6d041922c394cd67db615333eb8af5",
+      "sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+      "bytes": 26592
+    },
+    {
+      "path": "package.json",
+      "gitBlob": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+      "bytes": 13905
+    },
+    {
+      "path": "src/sim/battle-combat.js",
+      "gitBlob": "5b20900fc278376018808a54fc1e311ef462529b",
+      "sha256": "a9adf0d16359077bd0453cf2b8716e817d0a47c78073cde25a8b44a0c4ce3922",
+      "bytes": 207
+    },
+    {
+      "path": "src/sim/battle-continuation-kernel.js",
+      "gitBlob": "3426d73673cd532418eadcbe4cd704cd0f4c3614",
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea",
+      "bytes": 523788
+    },
+    {
+      "path": "src/sim/game-session.js",
+      "gitBlob": "c3e86cb21fa926fc985120044d0adfd45e9f69c2",
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+      "bytes": 1357
+    },
+    {
+      "path": "src/ui/app-shell.js",
+      "gitBlob": "3d024e6bb4b824f22ff39bb446c4943cc12f1ad1",
+      "sha256": "e36aaccecdf44023d8c94e8ef9773eb75a2b2dc4400e64201624cdf4aa90ff95",
+      "bytes": 32131
+    },
+    {
+      "path": "src/ui/arena-shell-entry.js",
+      "gitBlob": "5f5f6bc3a60affd08537ba24381a3b6ae85772a6",
+      "sha256": "88e3873cf7298223f8c8a96aceceff3b20185c05dad2f274c045c888ca5443d5",
+      "bytes": 19293
+    },
+    {
+      "path": "src/ui/card-lore.js",
+      "gitBlob": "7d8c635a8343d3aee45d02fda985ac27e5a7a152",
+      "sha256": "d138750639796dbb7fb1b8cdbf5471692490b5a1665ae054109a4af1ca7b4397",
+      "bytes": 5062
+    },
+    {
+      "path": "src/ui/card-portrait-art.js",
+      "gitBlob": "daf55d48212a3d6ddf92995e73ad885e52e81377",
+      "sha256": "5d6c2632c03fa8bbfe69b58b5e32cf5e15a33e2e0fbdcb24047be8fcb7fe23cd",
+      "bytes": 4034
+    },
+    {
+      "path": "src/ui/combat-state.js",
+      "gitBlob": "d4fa0a08030b174c5b795f52eb832faab88b164d",
+      "sha256": "03a6ac1b4043334d1d1f4cea9697682e8dbee533f73fcad51b357aa638866a86",
+      "bytes": 25480
+    },
+    {
+      "path": "src/ui/game-browser-entry.js",
+      "gitBlob": "62ab029a51445cd06767656454f28338d2f88698",
+      "sha256": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d",
+      "bytes": 46660
+    },
+    {
+      "path": "tests/app-shell.test.js",
+      "gitBlob": "0e6fe9283b8eae91e8774c9586aab32347c6aff4",
+      "sha256": "3d1a50a67181e0a798ad5b0ed07aae609c2c26a201e78becc03f8dbdf789c033",
+      "bytes": 93298
+    },
+    {
+      "path": "tests/cards021-browser-integration.test.js",
+      "gitBlob": "3ebace8c383e8585d474459acff65a92aad79678",
+      "sha256": "0f9d82c10bc8eb6976d9585e1241c2765604f16498ab387c00f878314e42a159",
+      "bytes": 91096
+    },
+    {
+      "path": "tests/cards022-browser-integration.test.js",
+      "gitBlob": "86d365924c0e01a851a9df420e76e3113cfb24da",
+      "sha256": "cbcd212d7899f3b7cc92aad905f58795dd4c8cb750e749c261f76ff188223f37",
+      "bytes": 44118
+    },
+    {
+      "path": "tests/endurance-workload.test.js",
+      "gitBlob": "1bd902ce4e2ae66189bab057b1a7516b59a9ec4e",
+      "sha256": "8f9350f5b1b93d5ff678d173b9a5602f46f02c41a629d20e44a55886c21f1c73",
+      "bytes": 18297
+    },
+    {
+      "path": "tests/game-browser-endurance.test.js",
+      "gitBlob": "91d4da5aa8329d100a8c53842ca818d3e45ead54",
+      "sha256": "f91186845455952b242a951d29e0ad9d7fcb791d2da60541a3ed44e68c149a5c",
+      "bytes": 100732
+    },
+    {
+      "path": "tests/helpers/endurance-workload.js",
+      "gitBlob": "81bd2792089151eaf746351c426c3624894661ca",
+      "sha256": "ab29cf58cee05516fd8fae57b451a685ec27344459561f43dd313b4872935c84",
+      "bytes": 27930
+    },
+    {
+      "path": "tests/ui-combat-state.test.js",
+      "gitBlob": "b693553ef8e48ec7585dec127d4d2db1ca2d116d",
+      "sha256": "91e7c735138bb6b3f2f25bb4632fa247ffabbcc7327fb42ae0726bdd985db7a7",
+      "bytes": 27978
+    }
+  ]
+}

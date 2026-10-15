@@ -9615,3 +9615,12 @@ EVIDENCE: Independent exact31421 source app-shell1/Brackjourney1/UIcombat16/nond
 BIGGEST GAP: Brackenwheel combatvalues andbroader matchup parity remain provisional; boundedbrowserintegration is not authoritativepre-Evolutionparity.
 
 Adopt10UI/testpaths only. R1FAIL502 remains. MissingVite setupfailure andinvaliddesktopBacktestfailure preserved, latterfixedonlytestone-line. No simulation/content/RL/kernel/package/assets changes. D503resourcebranchbyte-identicaltobcba andfreshmatchingnativeapp-shellresourceassertionspass; itsdeferredsourceadoptionisresolvedbythiscombinedapp-shelladoption. Fullcurrent-source endurance remainsCARDS022Q, notprovenbyshort3987journey. Fivegeneratedtestreports copiedexternallythenonlythosefive restored; allownedprocessesclosed.
+
+## Round 506 - CARDS-022Q exact-source full qualification
+
+PIECE: CARDS-022Q
+VERDICT: FAIL
+EVIDENCE: Exactac224nativeChrome155/privatePL1.58.2. Defaultactualfull18000PASS3/3/direct0,979342ms/67segments/max10363ms,init186/noninitial0ms,maxsession31.9/maxoperation35.2ms underunchanged50/300/40/30000/1200000caps. NaturalSouth2-1lowestHPterminal18000/sameseed0default8restarttick0/count1. Exact600->300->600session/E2/input/typedfutureaudio29/29/UIseq+2,sink55->55->86. SeparateBrackactual2/3/direct1: initialtrustedspend/naturalAI/234primary2+secondary4/5/6once267/restorepass, thenlastpaidSouthMossguard6000,noplans6300/6600/6900;900tickpaiddeploymentguardfailsafteradvance7200,lastpersistedsegment6900. Bracknoninitiallongtasks0;terminal/runOutcome null, norestartproof. Stoponnonzero; audioadapter11/productionaudio5notrun. Rootverifiedall30criticchecksumfiles,rawTAP/directexits and3builderprepledgerentries.
+BIGGEST GAP: Customworkloaddriver reaches7200withoutpaidSouthdeploymentafter6000, violatingrequired900tickguard before naturalterminal/restart qualification.
+
+5/6executedendurancecasespassed,NOT22-casePASS. Preservedefaultac224actualfullPASSasscopedproof; newmatchingharness/sourcequalificationstillrequiredafterfix. No source/harness/limit edits bycritic. Defaultartifactprefixlackedslash, originalbrowseractive/terminal/restart/result filenames preserved; no liveenvchange/restart. Source/package/harness/kernel pre/postfencesmatch, checkoutclean, bothownedbrowsersclosed/userChrome93861untouched. QH2builderassignedroot-causeNodeprobe, no weakerguardsorforcedterminal. Sourceauditof2018officialElectroDragonbalancepost resolvesnochainfields; publisherfirst-attackdeltaisnothopdelay.

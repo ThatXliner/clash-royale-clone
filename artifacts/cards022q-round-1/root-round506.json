@@ -1,0 +1,43 @@
+{
+  "source": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "verdict": "FAIL",
+  "defaultFull": {
+    "pass": 3,
+    "ticks": 18000,
+    "noninitialLongTaskMaxMs": 0,
+    "initLongTaskMaxMs": 186,
+    "maxSessionSliceMs": 31.9,
+    "maxMeasuredOperationMs": 35.2,
+    "durationMs": 979342,
+    "restore": "600->300->600",
+    "typedFutureAudio": 29,
+    "sinkStarts": [
+      55,
+      55,
+      86
+    ],
+    "terminal": "natural South2-1 lowestHP",
+    "restart": "same default8seed0tick0count1"
+  },
+  "brackenwheel": {
+    "pass": 2,
+    "fail": 1,
+    "exit": 1,
+    "lastCompletedSegmentTick": 6900,
+    "assertionAfterAdvanceTick": 7200,
+    "lastPaidSouthTick": 6000,
+    "noPlanTicks": [
+      6300,
+      6600,
+      6900
+    ],
+    "gap": "one paid south deployment every900 ticks violated",
+    "noninitialLongTaskMaxMs": 0,
+    "terminalAndRestart": "not proven"
+  },
+  "audioAdapter11": "not run",
+  "productionAudio5": "not run",
+  "criticLedgerEntries": 30,
+  "builderLedgerEntries": 3,
+  "scope": "5 of6 executed endurance cases passed; full22-case qualification fails. Defaultac224 PASS retained as scoped actualproof. No retry, caps/harness/source edits or sourcepromotion. QH2builder investigates cause before changingdriver; no relaxationof900guard."
+}
