@@ -1,0 +1,6459 @@
+{
+  "candidate": "4420cd8fbde8d5771e161ef267ab6319898e2338",
+  "immutableOldHelperSource": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "candidateHelperSource": "4420cd8fbde8d5771e161ef267ab6319898e2338",
+  "comparisonMode": "both authentic helper policies query one deterministic live GameSession; after every equal plan they receive the same accepted input and forecast the same session bytes; stop at first plan/forecast difference",
+  "sourceRuntimeEquivalenceFence": "external git diff ac224..4420 -- src must be empty for byte-parity induction",
+  "scenarios": [
+    {
+      "scenario": "default-eight",
+      "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+      "setupBytes": 39641,
+      "endTick": 18000,
+      "terminal": true,
+      "result": {
+        "crowns": {
+          "north": 1,
+          "south": 2
+        },
+        "endedAtTick": 18000,
+        "kind": "win",
+        "reason": "tiebreak_lowest_hp",
+        "winner": "south"
+      },
+      "iterations": 66,
+      "planComparisonCount": 66,
+      "planComparisons": [
+        {
+          "tick": 0,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 300,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 600,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 900,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 1200,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 1500,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 1500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 1500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 1800,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 2100,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 2400,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 2400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 2400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 2700,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 2700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 2700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 3000,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 3000
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 3000
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 3300,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 3600,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 3600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 3600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 3900,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 4200,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 4500,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 4500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 4500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 4800,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 4800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 4800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 5100,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 5400,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 5700,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 5700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 5700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 6000,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 6300,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 6600,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 6600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 6600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 6900,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 7200,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 7500,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 7500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 7500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 7800,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 8100,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 8400,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "reedsting",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 8400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "reedsting",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 8400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 8700,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 8700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 8700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9000,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 9300,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 9300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 9300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9600,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9900,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 10200,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 10500,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 10500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 10500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 10800,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 10800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 10800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 11100,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 11400,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 11700,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 11700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 11700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 12000,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 12300,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 12600,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 12600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 12600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 12900,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 12900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 12900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 13170,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "copperskiff",
+              "point": {
+                "x": 14500,
+                "y": 14500
+              },
+              "slot": 2,
+              "tick": 13170
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 146,
+              "acquiredTargetId": 146,
+              "predictedKillTick": 13829,
+              "projectedIncomingDamage": 0,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "copperskiff",
+              "point": {
+                "x": 14500,
+                "y": 14500
+              },
+              "slot": 2,
+              "tick": 13170
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 146,
+              "acquiredTargetId": 146,
+              "predictedKillTick": 13829,
+              "projectedIncomingDamage": 0,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 13200,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 13200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 13200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 13500,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 13500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 13500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 13800,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 13800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 13800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 14100,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 14100
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 14100
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 14205,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 14000
+              },
+              "slot": 2,
+              "tick": 14205
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 176,
+              "acquiredTargetId": 176,
+              "predictedKillTick": 14337,
+              "projectedIncomingDamage": 374,
+              "candidateCount": 2,
+              "uncheckedPairs": 6
+            },
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 14000
+              },
+              "slot": 2,
+              "tick": 14205
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 176,
+              "acquiredTargetId": 176,
+              "predictedKillTick": 14337,
+              "projectedIncomingDamage": 374,
+              "candidateCount": 2,
+              "uncheckedPairs": 6
+            },
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 14400,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 14400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 14400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 14595,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "copperskiff",
+              "point": {
+                "x": 15500,
+                "y": 12250
+              },
+              "slot": 0,
+              "tick": 14595
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 191,
+              "acquiredTargetId": 191,
+              "predictedKillTick": 18832,
+              "projectedIncomingDamage": 0,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "copperskiff",
+              "point": {
+                "x": 15500,
+                "y": 12250
+              },
+              "slot": 0,
+              "tick": 14595
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 191,
+              "acquiredTargetId": 191,
+              "predictedKillTick": 18832,
+              "projectedIncomingDamage": 0,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 14700,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 14700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 14700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 15000,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 15300,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 15600,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 15600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 2,
+              "tick": 15600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 15900,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 16200,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 16200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 16200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 16350,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 16000,
+                "y": 14750
+              },
+              "slot": 2,
+              "tick": 16350
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 220,
+              "acquiredTargetId": 220,
+              "predictedKillTick": 16482,
+              "projectedIncomingDamage": 0,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 16000,
+                "y": 14750
+              },
+              "slot": 2,
+              "tick": 16350
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 220,
+              "acquiredTargetId": 220,
+              "predictedKillTick": 16482,
+              "projectedIncomingDamage": 0,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 16500,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "reedsting",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 16500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "reedsting",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 16500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 16650,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "copperskiff",
+              "point": {
+                "x": 8750,
+                "y": 14500
+              },
+              "slot": 2,
+              "tick": 16650
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 219,
+              "acquiredTargetId": 219,
+              "predictedKillTick": 16764,
+              "projectedIncomingDamage": 979,
+              "candidateCount": 2,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "copperskiff",
+              "point": {
+                "x": 8750,
+                "y": 14500
+              },
+              "slot": 2,
+              "tick": 16650
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 219,
+              "acquiredTargetId": 219,
+              "predictedKillTick": 16764,
+              "projectedIncomingDamage": 979,
+              "candidateCount": 2,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 16800,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 16800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 16800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 17100,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 17100
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 17100
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 17115,
+          "phase": "overtime",
+          "old": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 11750,
+                "y": 12000
+              },
+              "slot": 0,
+              "tick": 17115
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 244,
+              "acquiredTargetId": 244,
+              "predictedKillTick": 17247,
+              "projectedIncomingDamage": 704,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "skymaul",
+              "point": {
+                "x": 11750,
+                "y": 12000
+              },
+              "slot": 0,
+              "tick": 17115
+            },
+            "decision": "overtime-last-lane-aggregate-air-intercept",
+            "policyEvidence": {
+              "laneId": "south:lane:east",
+              "selectedThreatId": 244,
+              "acquiredTargetId": 244,
+              "predictedKillTick": 17247,
+              "projectedIncomingDamage": 704,
+              "candidateCount": 1,
+              "uncheckedPairs": 0
+            },
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 17400,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 17700,
+          "phase": "overtime",
+          "old": null,
+          "final": null,
+          "equal": true
+        }
+      ],
+      "forecastComparisonCount": 66,
+      "forecastComparisons": [
+        {
+          "fromTick": 0,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 1200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 1500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 1800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 2100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 2400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 2700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 4200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 4500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 4800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 5100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 5400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 5700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 7200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 7500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 7800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 8100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 8400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 8700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 10200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 10500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 10800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 11100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 11400,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "coilblade",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 11700
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "coilblade",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 11700
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 11700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 12000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 12300,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 12600
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 12600
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 12600,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 12900
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 12900
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 12900,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "copperskiff",
+                "point": {
+                  "x": 14500,
+                  "y": 14500
+                },
+                "slot": 2,
+                "tick": 13170
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 146,
+                "acquiredTargetId": 146,
+                "predictedKillTick": 13829,
+                "projectedIncomingDamage": 0,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 270
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "copperskiff",
+                "point": {
+                  "x": 14500,
+                  "y": 14500
+                },
+                "slot": 2,
+                "tick": 13170
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 146,
+                "acquiredTargetId": 146,
+                "predictedKillTick": 13829,
+                "projectedIncomingDamage": 0,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 270
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 13170,
+          "maxDriveTicks": 30,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "briar-band",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 13200
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 30
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "briar-band",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 13200
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 30
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 13200,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "coilblade",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 13500
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "coilblade",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 13500
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 13500,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "cinderlings",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 13800
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "cinderlings",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 13800
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 13800,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 14100
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 14100
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 14100,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 14500,
+                  "y": 14000
+                },
+                "slot": 2,
+                "tick": 14205
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 176,
+                "acquiredTargetId": 176,
+                "predictedKillTick": 14337,
+                "projectedIncomingDamage": 374,
+                "candidateCount": 2,
+                "uncheckedPairs": 6
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 105
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 14500,
+                  "y": 14000
+                },
+                "slot": 2,
+                "tick": 14205
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 176,
+                "acquiredTargetId": 176,
+                "predictedKillTick": 14337,
+                "projectedIncomingDamage": 374,
+                "candidateCount": 2,
+                "uncheckedPairs": 6
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 105
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 14205,
+          "maxDriveTicks": 195,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "briar-band",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 14400
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 195
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "briar-band",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 14400
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 195
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 14400,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "copperskiff",
+                "point": {
+                  "x": 15500,
+                  "y": 12250
+                },
+                "slot": 0,
+                "tick": 14595
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 191,
+                "acquiredTargetId": 191,
+                "predictedKillTick": 18832,
+                "projectedIncomingDamage": 0,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 195
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "copperskiff",
+                "point": {
+                  "x": 15500,
+                  "y": 12250
+                },
+                "slot": 0,
+                "tick": 14595
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 191,
+                "acquiredTargetId": 191,
+                "predictedKillTick": 18832,
+                "projectedIncomingDamage": 0,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 195
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 14595,
+          "maxDriveTicks": 105,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "cinderlings",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 14700
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 105
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "cinderlings",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 14700
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 105
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 14700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 15000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 15300,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "coilblade",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 15600
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "coilblade",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 2,
+                "tick": 15600
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 15600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 15900,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 16200
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 16200
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 16200,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 16000,
+                  "y": 14750
+                },
+                "slot": 2,
+                "tick": 16350
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 220,
+                "acquiredTargetId": 220,
+                "predictedKillTick": 16482,
+                "projectedIncomingDamage": 0,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 16000,
+                  "y": 14750
+                },
+                "slot": 2,
+                "tick": 16350
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 220,
+                "acquiredTargetId": 220,
+                "predictedKillTick": 16482,
+                "projectedIncomingDamage": 0,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 16350,
+          "maxDriveTicks": 150,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "reedsting",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 1,
+                "tick": 16500
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "reedsting",
+                "point": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "slot": 1,
+                "tick": 16500
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 16500,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "copperskiff",
+                "point": {
+                  "x": 8750,
+                  "y": 14500
+                },
+                "slot": 2,
+                "tick": 16650
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 219,
+                "acquiredTargetId": 219,
+                "predictedKillTick": 16764,
+                "projectedIncomingDamage": 979,
+                "candidateCount": 2,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "copperskiff",
+                "point": {
+                  "x": 8750,
+                  "y": 14500
+                },
+                "slot": 2,
+                "tick": 16650
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 219,
+                "acquiredTargetId": 219,
+                "predictedKillTick": 16764,
+                "projectedIncomingDamage": 979,
+                "candidateCount": 2,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 16650,
+          "maxDriveTicks": 150,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "briar-band",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 16800
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "briar-band",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 16800
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 150
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 16800,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 17100
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "brassbolt",
+                "point": {
+                  "x": 14500,
+                  "y": 5500
+                },
+                "slot": 0,
+                "tick": 17100
+              },
+              "decision": "frozen-GH-baseline",
+              "policyEvidence": null,
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 300
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 17100,
+          "maxDriveTicks": 300,
+          "old": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 11750,
+                  "y": 12000
+                },
+                "slot": 0,
+                "tick": 17115
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 244,
+                "acquiredTargetId": 244,
+                "predictedKillTick": 17247,
+                "projectedIncomingDamage": 704,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 15
+          },
+          "final": {
+            "plan": {
+              "command": {
+                "cardId": "skymaul",
+                "point": {
+                  "x": 11750,
+                  "y": 12000
+                },
+                "slot": 0,
+                "tick": 17115
+              },
+              "decision": "overtime-last-lane-aggregate-air-intercept",
+              "policyEvidence": {
+                "laneId": "south:lane:east",
+                "selectedThreatId": 244,
+                "acquiredTargetId": 244,
+                "predictedKillTick": 17247,
+                "projectedIncomingDamage": 704,
+                "candidateCount": 1,
+                "uncheckedPairs": 0
+              },
+              "suppressedBaseline": null
+            },
+            "ticksAhead": 15
+          },
+          "equal": true
+        },
+        {
+          "fromTick": 17115,
+          "maxDriveTicks": 285,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 17400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 17700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        }
+      ],
+      "acceptedInputs": [
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 1,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 300
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 2,
+          "slot": 3,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 3,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 900
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 4,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 1500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "mossguard",
+          "commandId": 5,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 2400
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 6,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 2700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 7,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 3000
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 8,
+          "slot": 0,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 3600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 9,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 4500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 10,
+          "slot": 3,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 4800
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 11,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 5700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "mossguard",
+          "commandId": 12,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 6600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 13,
+          "slot": 3,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 7500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "reedsting",
+          "commandId": 14,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 8400
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 15,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 8700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 16,
+          "slot": 3,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9300
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 17,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 18,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9900
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 19,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 10500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 20,
+          "slot": 0,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 10800
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 21,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 11700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 22,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 12600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 23,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 12900
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "copperskiff",
+          "commandId": 24,
+          "slot": 2,
+          "point": {
+            "x": 14500,
+            "y": 14500
+          },
+          "tick": 13170
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 25,
+          "slot": 2,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 13200
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 26,
+          "slot": 2,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 13500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 27,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 13800
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 28,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 14100
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 29,
+          "slot": 2,
+          "point": {
+            "x": 14500,
+            "y": 14000
+          },
+          "tick": 14205
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 30,
+          "slot": 2,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 14400
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "copperskiff",
+          "commandId": 31,
+          "slot": 0,
+          "point": {
+            "x": 15500,
+            "y": 12250
+          },
+          "tick": 14595
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 32,
+          "slot": 0,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 14700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 33,
+          "slot": 2,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 15600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 34,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 16200
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 35,
+          "slot": 2,
+          "point": {
+            "x": 16000,
+            "y": 14750
+          },
+          "tick": 16350
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "reedsting",
+          "commandId": 36,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 16500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "copperskiff",
+          "commandId": 37,
+          "slot": 2,
+          "point": {
+            "x": 8750,
+            "y": 14500
+          },
+          "tick": 16650
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 38,
+          "slot": 0,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 16800
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 39,
+          "slot": 0,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 17100
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "skymaul",
+          "commandId": 40,
+          "slot": 0,
+          "point": {
+            "x": 11750,
+            "y": 12000
+          },
+          "tick": 17115
+        }
+      ],
+      "paidDeployments": [
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 9,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 300
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 600
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 900
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 1500
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 2400
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 2700
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 2,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 3000
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 3600
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 4500
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 4800
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 5700
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 6600
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 7500
+        },
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 8400
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 8700
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9300
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9600
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9900
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 9,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 10500
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 10800
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 11700
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 12600
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 12900
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 14500,
+            "y": 14500
+          },
+          "tick": 13170
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 2,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 13200
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 2,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 13500
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 13800
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 14100
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 2,
+          "point": {
+            "x": 14500,
+            "y": 14000
+          },
+          "tick": 14205
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 14400
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 1,
+          "point": {
+            "x": 15500,
+            "y": 12250
+          },
+          "tick": 14595
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 2,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 14700
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 15600
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 16200
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 16000,
+            "y": 14750
+          },
+          "tick": 16350
+        },
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 16500
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 8750,
+            "y": 14500
+          },
+          "tick": 16650
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 3,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 16800
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 17100
+        },
+        {
+          "cardId": "skymaul",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 2,
+          "point": {
+            "x": 11750,
+            "y": 12000
+          },
+          "tick": 17115
+        }
+      ],
+      "deliveryMatches": [
+        {
+          "source": "workload-policy",
+          "commandId": 1,
+          "tick": 300,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 300,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 9
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 2,
+          "tick": 600,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 600,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 3,
+          "tick": 900,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 900,
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 4,
+          "tick": 1500,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 1500,
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 5,
+          "tick": 2400,
+          "cardId": "mossguard",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 2400,
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 6,
+          "tick": 2700,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 2700,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 7,
+          "tick": 3000,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 3000,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 2
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 8,
+          "tick": 3600,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 3600,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 9,
+          "tick": 4500,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 4500,
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 10,
+          "tick": 4800,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 4800,
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 11,
+          "tick": 5700,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 5700,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 12,
+          "tick": 6600,
+          "cardId": "mossguard",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 6600,
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 13,
+          "tick": 7500,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 7500,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 14,
+          "tick": 8400,
+          "cardId": "reedsting",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 8400,
+              "cardId": "reedsting",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 15,
+          "tick": 8700,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 8700,
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 16,
+          "tick": 9300,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9300,
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 17,
+          "tick": 9600,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9600,
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 18,
+          "tick": 9900,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9900,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 19,
+          "tick": 10500,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 10500,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 9
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 20,
+          "tick": 10800,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 10800,
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 21,
+          "tick": 11700,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 11700,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 22,
+          "tick": 12600,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 12600,
+              "cardId": "skymaul",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 23,
+          "tick": 12900,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 12900,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 24,
+          "tick": 13170,
+          "cardId": "copperskiff",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 13170,
+              "cardId": "copperskiff",
+              "point": {
+                "x": 14500,
+                "y": 14500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 25,
+          "tick": 13200,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 13200,
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 2
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 26,
+          "tick": 13500,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 13500,
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 2
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 27,
+          "tick": 13800,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 13800,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 28,
+          "tick": 14100,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 14100,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 29,
+          "tick": 14205,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 14205,
+              "cardId": "skymaul",
+              "point": {
+                "x": 14500,
+                "y": 14000
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 2
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 30,
+          "tick": 14400,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 14400,
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 1
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 31,
+          "tick": 14595,
+          "cardId": "copperskiff",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 14595,
+              "cardId": "copperskiff",
+              "point": {
+                "x": 15500,
+                "y": 12250
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 1
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 32,
+          "tick": 14700,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 14700,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 2
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 33,
+          "tick": 15600,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 15600,
+              "cardId": "coilblade",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 34,
+          "tick": 16200,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 16200,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 35,
+          "tick": 16350,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 16350,
+              "cardId": "skymaul",
+              "point": {
+                "x": 16000,
+                "y": 14750
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 36,
+          "tick": 16500,
+          "cardId": "reedsting",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 16500,
+              "cardId": "reedsting",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 37,
+          "tick": 16650,
+          "cardId": "copperskiff",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 16650,
+              "cardId": "copperskiff",
+              "point": {
+                "x": 8750,
+                "y": 14500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 38,
+          "tick": 16800,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 16800,
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 3
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 39,
+          "tick": 17100,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 17100,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 40,
+          "tick": 17115,
+          "cardId": "skymaul",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 17115,
+              "cardId": "skymaul",
+              "point": {
+                "x": 11750,
+                "y": 12000
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 2
+            }
+          ]
+        }
+      ],
+      "exactlyOncePaid": true,
+      "naturalTerminal": true,
+      "reachedRequiredTick": true,
+      "finalSessionBytes": 332964,
+      "finalSessionSha256": "f425adb482132c05256fc3f2edda6035958b729e89908f676bbc5fe70d454b17",
+      "finalSessionByteParity": "inductive: same source runtime, same actual accepted commands, and no plan or forecast divergence at any observed boundary",
+      "firstDifference": null,
+      "pass": true
+    },
+    {
+      "scenario": "kilnkeeper",
+      "setupSha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+      "setupBytes": 77885,
+      "endTick": 10800,
+      "terminal": true,
+      "result": {
+        "crowns": {
+          "north": 2,
+          "south": 1
+        },
+        "endedAtTick": 10800,
+        "kind": "win",
+        "reason": "regulation_crowns",
+        "winner": "north"
+      },
+      "iterations": 36,
+      "planComparisonCount": 36,
+      "planComparisons": [
+        {
+          "tick": 0,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 300,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 600,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 900,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 1200,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 1200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 0,
+              "tick": 1200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 1500,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 1800,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 1800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 1800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 2100,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 2400,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 2700,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 2700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 2700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 3000,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 3300,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 3600,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 3600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 3600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 3900,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 4200,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 4500,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 4500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 4500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 4800,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 5100,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 5400,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 5400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 5400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 5700,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 6000,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 6000
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 6000
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 6300,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 6600,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 6900,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 6900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 6900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 7200,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 7500,
+          "phase": "regulation",
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "tick": 7800,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 7800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 7800
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 8100,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 8100
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 3,
+              "tick": 8100
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 8400,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 8400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 8400
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 8700,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 8700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 8700
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9000,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9000
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9000
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9300,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9300
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9600,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9600
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 9900,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 9900
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 10200,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 10200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 10200
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        },
+        {
+          "tick": 10500,
+          "phase": "regulation",
+          "old": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 10500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "final": {
+            "command": {
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "slot": 1,
+              "tick": 10500
+            },
+            "decision": "frozen-GH-baseline",
+            "policyEvidence": null,
+            "suppressedBaseline": null
+          },
+          "equal": true
+        }
+      ],
+      "forecastComparisonCount": 36,
+      "forecastComparisons": [
+        {
+          "fromTick": 0,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 1200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 1500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 1800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 2100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 2400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 2700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 3900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 4200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 4500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 4800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 5100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 5400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 5700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 6900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 7200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 7500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 7800,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 8100,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 8400,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 8700,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9000,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9300,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9600,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 9900,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 10200,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        },
+        {
+          "fromTick": 10500,
+          "maxDriveTicks": 300,
+          "old": null,
+          "final": null,
+          "equal": true
+        }
+      ],
+      "acceptedInputs": [
+        {
+          "source": "initial-player",
+          "cardId": "kilnkeeper",
+          "commandId": 1,
+          "slot": 1,
+          "point": {
+            "x": 9000,
+            "y": 10000
+          },
+          "tick": 0
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 2,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 300
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "mossguard",
+          "commandId": 3,
+          "slot": 0,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 1200
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 4,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 1800
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 5,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 2700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 6,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 3600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "kilnkeeper",
+          "commandId": 7,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 4500
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "mossguard",
+          "commandId": 8,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 5400
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 9,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 6000
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 10,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 6900
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 11,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 7800
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 12,
+          "slot": 3,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 8100
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "kilnkeeper",
+          "commandId": 13,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 8400
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 14,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 8700
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 15,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 9000
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "cinderlings",
+          "commandId": 16,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 9300
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "brassbolt",
+          "commandId": 17,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 9600
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "kilnkeeper",
+          "commandId": 18,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9900
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "briar-band",
+          "commandId": 19,
+          "slot": 1,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 10200
+        },
+        {
+          "source": "workload-policy",
+          "cardId": "coilblade",
+          "commandId": 20,
+          "slot": 1,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 10500
+        }
+      ],
+      "paidDeployments": [
+        {
+          "cardId": "kilnkeeper",
+          "cost": 5,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 9000,
+            "y": 10000
+          },
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 300
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 1200
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 1800
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 2700
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 3600
+        },
+        {
+          "cardId": "kilnkeeper",
+          "cost": 5,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 4500
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 5400
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 6000
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 6900
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 9,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 7800
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 8100
+        },
+        {
+          "cardId": "kilnkeeper",
+          "cost": 5,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 8400
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 8700
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 9000
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "acceptedSpend": true,
+          "amountAfter": 7,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 9300
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 6,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 9600
+        },
+        {
+          "cardId": "kilnkeeper",
+          "cost": 5,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 9900
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "acceptedSpend": true,
+          "amountAfter": 5,
+          "point": {
+            "x": 14500,
+            "y": 5500
+          },
+          "tick": 10200
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "acceptedSpend": true,
+          "amountAfter": 4,
+          "point": {
+            "x": 3500,
+            "y": 5500
+          },
+          "tick": 10500
+        }
+      ],
+      "deliveryMatches": [
+        {
+          "source": "initial-player",
+          "commandId": 1,
+          "tick": 0,
+          "cardId": "kilnkeeper",
+          "expectedCost": 5,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 0,
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 9000,
+                "y": 10000
+              },
+              "cost": 5,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 2,
+          "tick": 300,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 300,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 3,
+          "tick": 1200,
+          "cardId": "mossguard",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 1200,
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 4,
+          "tick": 1800,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 1800,
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 5,
+          "tick": 2700,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 2700,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 6,
+          "tick": 3600,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 3600,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 7,
+          "tick": 4500,
+          "cardId": "kilnkeeper",
+          "expectedCost": 5,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 4500,
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 5,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 8,
+          "tick": 5400,
+          "cardId": "mossguard",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 5400,
+              "cardId": "mossguard",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 9,
+          "tick": 6000,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 6000,
+              "cardId": "briar-band",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 10,
+          "tick": 6900,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 6900,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 11,
+          "tick": 7800,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 7800,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 9
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 12,
+          "tick": 8100,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 8100,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 13,
+          "tick": 8400,
+          "cardId": "kilnkeeper",
+          "expectedCost": 5,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 8400,
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 5,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 14,
+          "tick": 8700,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 8700,
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 15,
+          "tick": 9000,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9000,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 16,
+          "tick": 9300,
+          "cardId": "cinderlings",
+          "expectedCost": 1,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9300,
+              "cardId": "cinderlings",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 1,
+              "acceptedSpend": true,
+              "amountAfter": 7
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 17,
+          "tick": 9600,
+          "cardId": "brassbolt",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9600,
+              "cardId": "brassbolt",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 6
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 18,
+          "tick": 9900,
+          "cardId": "kilnkeeper",
+          "expectedCost": 5,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 9900,
+              "cardId": "kilnkeeper",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 5,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 19,
+          "tick": 10200,
+          "cardId": "briar-band",
+          "expectedCost": 3,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 10200,
+              "cardId": "briar-band",
+              "point": {
+                "x": 14500,
+                "y": 5500
+              },
+              "cost": 3,
+              "acceptedSpend": true,
+              "amountAfter": 5
+            }
+          ]
+        },
+        {
+          "source": "workload-policy",
+          "commandId": 20,
+          "tick": 10500,
+          "cardId": "coilblade",
+          "expectedCost": 4,
+          "eventCount": 1,
+          "events": [
+            {
+              "tick": 10500,
+              "cardId": "coilblade",
+              "point": {
+                "x": 3500,
+                "y": 5500
+              },
+              "cost": 4,
+              "acceptedSpend": true,
+              "amountAfter": 4
+            }
+          ]
+        }
+      ],
+      "exactlyOncePaid": true,
+      "naturalTerminal": true,
+      "reachedRequiredTick": true,
+      "finalSessionBytes": 253349,
+      "finalSessionSha256": "56eda30702ae9d08b74393c2926392bb2c28cc8228606b8a5ad0fb5688b5886e",
+      "finalSessionByteParity": "inductive: same source runtime, same actual accepted commands, and no plan or forecast divergence at any observed boundary",
+      "firstDifference": null,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "nodeContract": {
+    "command": "/Users/me/.hermes/node/bin/node --test tests/endurance-workload.test.js",
+    "directPid": 44465,
+    "directExit": 0,
+    "result": "9 tests, 9 pass, 0 fail",
+    "target": "an idle 900-tick lane refresh uses the first durable card the player can afford",
+    "sourceAssertions": [
+      "At tick 6900, session is live and no planner-visible north threat is incoming.",
+      "Last prior south payment is exactly 900 ticks earlier.",
+      "The highest-ranked candidate Ironroot costs 7 while south elixir is 6; the test computes the first affordable choice in durability/speed/cost/card-id order.",
+      "After submit and one real GameSession tick, replay must contain a south session-deployed event at tick 6900; its cardId must equal the chosen plan and its paid spend cost must equal the selected roster cost."
+    ],
+    "oldHelperNegativeControl": {
+      "directPid": 45188,
+      "directExit": 1,
+      "expectedFailure": "plan is null at the actual no-threat 6900 refresh in the old helper; filtered TAP reports the targeted regression test failed and 8 unrelated tests skipped."
+    },
+    "cardIdNote": "The candidate unit-test TAP does not serialize the computed cardId. The native bounded browser run independently records coilblade at tick 6900 (roster cost 4); its workload decision is frozen-GH-baseline in a natural-AI run, so this card label is not used as a substitute for the no-threat contract assertions.",
+    "causalRefresh": {
+      "fixtureSetupSha256": "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b",
+      "tick": 6900,
+      "lastSouthPaidDeploymentTick": 6000,
+      "gapSinceLastPaidDeploymentTicks": 900,
+      "incomingThreatCount": 0,
+      "southElixir": 6,
+      "heldCardPriority": [
+        {
+          "cardId": "ironroot",
+          "cost": 7,
+          "durability": 3760,
+          "speed": 750,
+          "affordable": false
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "durability": 1361,
+          "speed": 1500,
+          "affordable": true
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "durability": 1005,
+          "speed": 12000,
+          "affordable": true
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "durability": 614,
+          "speed": 1500,
+          "affordable": true
+        }
+      ],
+      "firstAffordablePlan": {
+        "cardId": "coilblade",
+        "cost": 4
+      },
+      "paidReceipt": "Passing candidate contract submits the plan, steps the real GameSession once, finds the south session-deployed event at tick 6900, and asserts event.cardId equals plan.cardId and event.spend.cost equals the selected roster cost.",
+      "derivation": "Priority values are computed from the exact 2207... setup roster and the fixture held hand named in the task; the passing test computes the expected choice from live state and checks the real paid replay event. No new test was run for this extraction."
+    }
+  },
+  "nativeBrowserTimeline": {
+    "seed": 2,
+    "actualInputAt6900": {
+      "browserCommandId": 13,
+      "cardId": "coilblade",
+      "rosterCost": 4,
+      "tick": 6900,
+      "decision": "frozen-GH-baseline"
+    },
+    "previousInput": {
+      "cardId": "mossguard",
+      "rosterCost": 3,
+      "tick": 6000
+    },
+    "nextInput": {
+      "cardId": "briar-band",
+      "rosterCost": 3,
+      "tick": 7800
+    },
+    "refreshGaps": [
+      900,
+      900
+    ],
+    "outcomeTick": 8100,
+    "qualificationNote": "Native browser output names accepted E2 inputs in its natural-AI frozen-baseline run; the separate no-threat node contract is the paid-event proof."
+  }
+}

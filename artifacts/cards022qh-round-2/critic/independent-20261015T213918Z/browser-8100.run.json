@@ -1,0 +1,81 @@
+{
+  "candidate": "4420cd8fbde8d5771e161ef267ab6319898e2338",
+  "base": "4f19aef1ce31666564b70d5b4987cda6df5ae9ba",
+  "immutableOldHelper": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "cwd": "/tmp/cards022qh-critic-0cf6e9d33b1247bc",
+  "argv": [
+    "/Users/me/.hermes/node/bin/node",
+    "--test",
+    "tests/game-browser-endurance.test.js"
+  ],
+  "directPid": 47662,
+  "directExit": 0,
+  "environmentOverrides": {
+    "HOME": "/Users/me",
+    "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/tmp",
+    "LANG": "en_US.UTF-8",
+    "TZ": "UTC",
+    "CI": "1",
+    "GAME_BROWSER_ENDURANCE_SCENARIO": "brackenwheel",
+    "GAME_BROWSER_ENDURANCE_TICKS": "8100",
+    "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs",
+    "GAME_BROWSER_ENDURANCE_ARTIFACTS": "/tmp/cards022qh-critic-0cf6e9d33b1247bc/artifacts/cards022qh-round-2/critic/independent-20261015T213918Z/browser-8100"
+  },
+  "environmentNote": "Command set the listed overrides through env; ambient variables inherited from the exec shell were not separately snapshotted.",
+  "runtime": {
+    "node": "v22.22.3",
+    "chrome": "Google Chrome 155.0.8059.40",
+    "playwright": "1.58.2",
+    "headless": true
+  },
+  "unchangedHarnessCaps": {
+    "paidDeploymentWindowTicks": 900,
+    "browserLongTaskMilliseconds": 50,
+    "segmentTicks": 300,
+    "explicitSliceMilliseconds": 40,
+    "segmentWallMilliseconds": 30000,
+    "overallWallMilliseconds": 1200000,
+    "initializationLongTaskMilliseconds": 300
+  },
+  "rawCapture": {
+    "stdout": "browser-8100.stdout.raw",
+    "stderr": "browser-8100.stderr.raw",
+    "pid": "browser-8100.pid.txt",
+    "exit": "browser-8100.exit.txt",
+    "result": "browser-8100/endurance-result.json"
+  },
+  "identityHashes": {
+    "tests/game-browser-endurance.test.js": "f91186845455952b242a951d29e0ad9d7fcb791d2da60541a3ed44e68c149a5c",
+    "tests/helpers/endurance-workload.js": "226d4f723de6312da5d4b26f76ee8e92b8e6ba3cd316893790519c2df7c0944f",
+    "src/ui/game-browser-entry.js": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d",
+    "src/sim/game-session.js": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+    "package-lock.json": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+  },
+  "result": {
+    "qualificationMode": "brackenwheel-bounded-smoke-8100",
+    "setupSha256": "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b",
+    "runOutcome": {
+      "kind": "tick-bound",
+      "tick": 8100
+    },
+    "segments": 28,
+    "tap": {
+      "tests": 3,
+      "pass": 3,
+      "fail": 0
+    },
+    "durationMilliseconds": 336618.632292,
+    "drivenLongTasks": 0,
+    "allLongTasks": 0,
+    "initializationLongTasks": 2,
+    "maxInitializationLongTaskMilliseconds": 198,
+    "consoleErrors": 0,
+    "resourceErrors": 0,
+    "unhandled": 0,
+    "pendingResources": 0,
+    "serverExited": true,
+    "serverStderr": ""
+  }
+}

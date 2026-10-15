@@ -1,11 +1,16 @@
 {
-  "parent": "c69ad23cfe0387636575fef2532c72c5a32c6b5f",
-  "frozenHarness": "23924a2e1f19e06f37497b33741ae2d0cc96b692",
-  "productChange": false,
-  "ownedHarness": [
-    "tests/helpers/endurance-workload.js",
-    "tests/endurance-workload.test.js",
-    "tests/game-browser-endurance.test.js"
+  "base": "4f19aef1ce31666564b70d5b4987cda6df5ae9ba",
+  "builderSource": "0cf6e9d33b1247bc9fd0679b31082f30cc7239a4",
+  "builderEvidence": "d8b9dd7c3f678a32653852fe8baadcbba3e6ef76",
+  "ownedSourcePaths": [
+    {
+      "path": "tests/endurance-workload.test.js",
+      "sha256": "1a1891ed86223db13e5e77b5468dc4a38694390a24d8ce14cc21889e847c0f8f"
+    },
+    {
+      "path": "tests/helpers/endurance-workload.js",
+      "sha256": "226d4f723de6312da5d4b26f76ee8e92b8e6ba3cd316893790519c2df7c0944f"
+    }
   ],
-  "scope": "Exact three frozen QH harness files assembled on accepted current source for independent tests. Not accepted or full endurance qualified."
+  "scope": "Exacttwoharnessblobs assembled over acceptedmain; allproduction/core/UI/assets/package/browserenduranceharness unchanged. Buildernewregression1+full9passes=9unique/10executions, initialwrongcatalogprobe+stagedreceiptassertionfailure preserved. Prototypelegacycomparison structuredobservationonly/rawnotarchived; freshcriticactualold/newcomparison+8100boundedbrowserrequired beforeadoption. No fullQclaim."
 }

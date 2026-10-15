@@ -1,0 +1,8 @@
+{
+  "argv": ["/Users/me/.hermes/node/bin/node", "--test", "--test-name-pattern=an idle 900-tick lane refresh", "tests/critic-old-helper-negative.test.js"],
+  "cwd": "/tmp/cards022qh-old-ac224",
+  "env": {"HOME": "/Users/me", "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin", "TMPDIR": "/tmp", "LANG": "en_US.UTF-8", "TZ": "UTC", "CI": "1"},
+  "expected": "The single selected 6900-tick regression fails at plan existence because the old helper returns no refresh plan.",
+  "oldSource": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "candidateSource": "4420cd8fbde8d5771e161ef267ab6319898e2338"
+}

@@ -1,0 +1,16 @@
+file:///private/tmp/cards022q-prep.ewo1lt/tests/helpers/endurance-workload.js:152
+      throw new TypeError(`endurance selected roster has no profile for ${cardId}`);
+            ^
+
+TypeError: endurance selected roster has no profile for ironroot
+    at file:///private/tmp/cards022q-prep.ewo1lt/tests/helpers/endurance-workload.js:152:13
+    at Array.map (<anonymous>)
+    at plannedSouthAttempt (file:///private/tmp/cards022q-prep.ewo1lt/tests/helpers/endurance-workload.js:148:45)
+    at stateAtGate (file:///private/tmp/cards022q-prep.ewo1lt/artifacts/cards022qh-round-2/builder/reproduce-policy-gap.mjs:88:26)
+    at driveUntil (file:///private/tmp/cards022q-prep.ewo1lt/artifacts/cards022qh-round-2/builder/reproduce-policy-gap.mjs:102:28)
+    at file:///private/tmp/cards022q-prep.ewo1lt/artifacts/cards022qh-round-2/builder/reproduce-policy-gap.mjs:153:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.22.3

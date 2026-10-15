@@ -1,0 +1,8 @@
+{
+  "argv": ["/Users/me/.hermes/node/bin/node", "artifacts/cards022qh-round-2/critic/independent-20261015T213918Z/actual-old-vs-final.mjs"],
+  "cwd": "/tmp/cards022qh-critic-0cf6e9d33b1247bc",
+  "env": {"HOME": "/Users/me", "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin", "TMPDIR": "/tmp", "LANG": "en_US.UTF-8", "TZ": "UTC", "CI": "1"},
+  "candidate": "4420cd8fbde8d5771e161ef267ab6319898e2338",
+  "immutableOldSource": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "sourceFence": "git diff --quiet ac224..4420 -- src package.json package-lock.json tests/game-browser-endurance.test.js exited 0; old/new GameSession module SHA-256 equal"
+}

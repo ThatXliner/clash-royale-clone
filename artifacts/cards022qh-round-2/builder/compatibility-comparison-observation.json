@@ -1,0 +1,67 @@
+{
+  "sourceHead": "ac224e9d8fa3e2797ea04c3e27b941abf18239c3",
+  "runner": "artifacts/cards022qh-round-2/builder/compare-refresh-traces.mjs",
+  "completed": true,
+  "exitCode": 0,
+  "rawStreamArchived": false,
+  "limitation": "The completed comparison tool call returned its JSON stdout, but raw stdout/stderr were not persisted to files. This structured observation records values from that completed output; it is not a raw capture.",
+  "comparison": "At each 300-tick policy decision, compare the frozen plan with the first affordable candidate in the existing durability order, then follow the real frozen session and policy decisions until the run endpoint or natural terminal.",
+  "scenarios": [
+    {
+      "name": "default-eight",
+      "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "briar-band",
+        "ironroot",
+        "brassbolt",
+        "reedsting",
+        "cinderlings"
+      ],
+      "seed": 0,
+      "endTick": 18000,
+      "terminal": true,
+      "result": {
+        "kind": "win",
+        "reason": "tiebreak_lowest_hp",
+        "winner": "south"
+      },
+      "traceCount": 40,
+      "traceSha256": "41e0f56eaa6180ed87b44a12dd761e854370ddb7276545ebcaa80c2ce7a03cee",
+      "finalSessionSha256": "f425adb482132c05256fc3f2edda6035958b729e89908f676bbc5fe70d454b17",
+      "firstDifference": null
+    },
+    {
+      "name": "kilnkeeper",
+      "setupSha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "seed": 0,
+      "endTick": 10800,
+      "terminal": true,
+      "result": {
+        "kind": "win",
+        "reason": "regulation_crowns",
+        "winner": "north",
+        "crowns": {
+          "north": 2,
+          "south": 1
+        }
+      },
+      "traceCount": 19,
+      "traceSha256": "4516779977dedaea1fd0343f0a69daf39ec270dc262a858fdf7db1d594c7fcf1",
+      "finalSessionSha256": "56eda30702ae9d08b74393c2926392bb2c28cc8228606b8a5ad0fb5688b5886e",
+      "firstDifference": null
+    }
+  ]
+}

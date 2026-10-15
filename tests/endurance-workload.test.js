@@ -240,6 +240,114 @@ test("Brackenwheel selected setup preserves seed-two native-deck evidence and na
     "the selected-source policy remains usable at the unchanged 300-tick boundary");
 });
 
+test("an idle 900-tick lane refresh uses the first durable card the player can afford", () => {
+  const setupBytes = exactBrackenwheelEnduranceSetupBytes();
+  const setup = JSON.parse(setupBytes);
+  let session = new GameSession(setupBytes);
+  let policy = createSelectedEnduranceWorkloadPolicy({ setupBytes });
+  let commandId = 1;
+  const cuts = new Map();
+
+  assert.equal(policy.plan(session), null);
+  const opening = session.state;
+  const openingSlot = opening.decks.south.hand.indexOf("brackenwheel");
+  assert.ok(openingSlot >= 0);
+  const openingCommand = { cardId: "brackenwheel", commandId: commandId++,
+    point: { x: 3_500, y: 14_500 }, slot: openingSlot, tick: 0, type: "deploy" };
+  assert.equal(session.submitPlayerCommand(canonical(openingCommand)).accepted, true);
+
+  function submit(plan) {
+    const command = { cardId: plan.cardId, commandId: commandId++, point: plan.point,
+      slot: plan.slot, tick: plan.tick, type: "deploy" };
+    assert.equal(session.submitPlayerCommand(canonical(command)).accepted, true,
+      `canonical selected-workload input at tick ${plan.tick} is accepted`);
+    policy.recordAcceptedPhysicalDelivery(command);
+  }
+
+  function driveUntil(endTick) {
+    while (session.state.tick < endTick && !session.state.terminal) {
+      const fromTick = session.state.tick;
+      const plan = policy.plan(session);
+      if (plan !== null) submit(plan);
+      const toNextBaseline = 300 - (fromTick % 300);
+      const maxDriveTicks = Math.min(300, endTick - fromTick, toNextBaseline);
+      const next = policy.nextPlannedAttempt(session, maxDriveTicks);
+      session.stepMany(next?.ticksAhead ?? maxDriveTicks);
+      if ([300, 600].includes(session.state.tick) && !cuts.has(session.state.tick)) {
+        cuts.set(session.state.tick, {
+          sessionBytes: session.serialize(),
+          policy: policy.snapshot(),
+          commandId,
+        });
+      }
+    }
+  }
+
+  driveUntil(300);
+  const cut300 = cuts.get(300);
+  assert.ok(cut300, "the canonical selected setup reaches its 300-tick cut");
+  driveUntil(600);
+  const branch600 = cuts.get(600);
+  assert.ok(branch600, "the canonical selected setup reaches its 600-tick branch");
+
+  session = GameSession.restore(cut300.sessionBytes);
+  policy = createSelectedEnduranceWorkloadPolicy({ setupBytes });
+  policy.restore(cut300.policy);
+  commandId = cut300.commandId;
+  cuts.delete(600);
+  driveUntil(600);
+  const replay600 = cuts.get(600);
+  assert.equal(replay600.sessionBytes, branch600.sessionBytes,
+    "600→300→600 restores and replays the exact canonical session bytes");
+  assert.deepEqual(replay600.policy, branch600.policy,
+    "600→300→600 restores and replays the exact workload policy state");
+
+  driveUntil(6_900);
+  assert.equal(session.state.tick, 6_900);
+  assert.equal(session.state.terminal, false,
+    "the selected seed-two session is still live at the refresh boundary");
+  const incoming = session.state.battle.units.filter(({ alive, position, side }) =>
+    alive && side === "north" && position.y < 15_000);
+  assert.equal(incoming.length, 0,
+    "the refresh decision is exercised with no planner-visible incoming threat");
+  const priorSouthDeploymentTick = session.state.cardRuntime.history
+    .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
+  assert.equal(session.state.tick - priorSouthDeploymentTick, 900,
+    "the ordinary paid-deployment cadence has reached its 900-tick refresh");
+
+  const roster = JSON.parse(setup.battleSetup).roster;
+  const candidates = session.state.decks.south.hand.map((cardId, slot) => ({
+    cardId,
+    slot,
+    cost: roster.find((card) => card.id === cardId).cost,
+    durability: roster.find((card) => card.id === cardId).entities.reduce((sum, entity) =>
+      sum + entity.count * entity.hitpoints, 0),
+    speed: roster.find((card) => card.id === cardId).entities.reduce((sum, entity) =>
+      sum + entity.count * entity.movementMillitilesPerSecond, 0),
+  })).sort((left, right) => right.durability - left.durability || left.speed - right.speed ||
+    left.cost - right.cost || left.cardId.localeCompare(right.cardId));
+  const expected = candidates.find(({ cost }) => cost <= session.state.elixir.sides.south.amount);
+  assert.ok(expected, "the current hand contains an affordable refresh candidate");
+  assert.ok(candidates[0].cost > session.state.elixir.sides.south.amount,
+    "the most durable candidate is unaffordable at this real refresh state");
+
+  const plan = policy.plan(session);
+  assert.ok(plan, "the no-threat refresh still selects an affordable card");
+  assert.equal(plan.cardId, expected.cardId,
+    "the driver keeps its durability order while skipping only unaffordable choices");
+  assert.equal(plan.slot, expected.slot);
+  const selectedCard = roster.find(({ id }) => id === plan.cardId);
+  assert.ok(selectedCard.cost <= session.state.elixir.sides.south.amount);
+  submit(plan);
+  session.stepMany(1);
+  const paidDeployment = session.replay.find((entry) => entry.type === "session-deployed" &&
+    entry.side === "south" && entry.tick === 6_900);
+  assert.ok(paidDeployment,
+    "the affordable policy choice passes through the real canonical paid-input path");
+  assert.equal(paidDeployment.deployment.cardId, plan.cardId);
+  assert.equal(paidDeployment.spend.cost, selectedCard.cost);
+});
+
 test("selected workload rejects unsupported, incomplete, and noncanonical setups", () => {
   const mixedDeck = [...KILNKEEPER_ENDURANCE_DECK];
   mixedDeck[0] = "squall-orb";

@@ -1,0 +1,15 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: paid south deployment cadence holds through tick 7200; last paid at 6000
+    at file:///private/tmp/cards022q-prep.ewo1lt/artifacts/cards022qh-round-2/builder/reproduce-policy-gap.mjs:177:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

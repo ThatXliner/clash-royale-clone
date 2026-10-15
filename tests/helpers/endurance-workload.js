@@ -135,7 +135,7 @@ function workloadCatalogFromSetupBytes(setupBytes) {
     "selected endurance setup");
 }
 
-/** The unchanged GAME-001GH 300-tick defensive planner. */
+/** Keep the defensive priority order and use its most durable affordable card for idle refreshes. */
 export function plannedSouthAttempt(session, catalog = DEFAULT_WORKLOAD_CATALOG) {
   const state = session.state;
   if (state.terminal) return null;
@@ -157,7 +157,7 @@ export function plannedSouthAttempt(session, catalog = DEFAULT_WORKLOAD_CATALOG)
       left.cost - right.cost || left.cardId.localeCompare(right.cardId));
   const airThreat = incoming.some(({ layer }) => layer === "air");
   const card = incoming.length === 0
-    ? candidates[0]
+    ? candidates.find(({ cost }) => cost <= state.elixir.sides.south.amount)
     : candidates.filter(({ cost }) => cost <= state.elixir.sides.south.amount)
       .sort((left, right) => {
         const pressure = airThreat ? "airPressure" : "groundPressure";

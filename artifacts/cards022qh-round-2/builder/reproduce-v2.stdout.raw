@@ -1,0 +1,665 @@
+{
+  "sourceScenario": {
+    "seed": 2,
+    "deck": [
+      "brackenwheel",
+      "briar-band",
+      "coilblade",
+      "mossguard",
+      "ironroot",
+      "copperskiff",
+      "brassbolt",
+      "reedsting"
+    ]
+  },
+  "setupSha256": "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b",
+  "replay": {
+    "restore600Rewind300Replay600Exact": true,
+    "cut300SessionBytes": 62777,
+    "branch600SessionBytes": 67577,
+    "replay600SessionBytes": 67577
+  },
+  "decisions": [
+    {
+      "tick": 600,
+      "cardId": "ironroot",
+      "slot": 3,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 900,
+      "cardId": "briar-band",
+      "slot": 3,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 1200,
+      "cardId": "reedsting",
+      "slot": 1,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 2100,
+      "cardId": "mossguard",
+      "slot": 2,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 3000,
+      "cardId": "brackenwheel",
+      "slot": 2,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 3300,
+      "cardId": "coilblade",
+      "slot": 0,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 3600,
+      "cardId": "briar-band",
+      "slot": 0,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 4500,
+      "cardId": "brassbolt",
+      "slot": 3,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 4800,
+      "cardId": "reedsting",
+      "slot": 0,
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 5700,
+      "cardId": "brackenwheel",
+      "slot": 0,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    },
+    {
+      "tick": 6000,
+      "cardId": "mossguard",
+      "slot": 3,
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "decision": "frozen-GH-baseline"
+    }
+  ],
+  "southDeployments": [
+    {
+      "tick": 0,
+      "cardId": "brackenwheel",
+      "cost": 4
+    },
+    {
+      "tick": 600,
+      "cardId": "ironroot",
+      "cost": 7
+    },
+    {
+      "tick": 900,
+      "cardId": "briar-band",
+      "cost": 3
+    },
+    {
+      "tick": 1200,
+      "cardId": "reedsting",
+      "cost": 3
+    },
+    {
+      "tick": 2100,
+      "cardId": "mossguard",
+      "cost": 3
+    },
+    {
+      "tick": 3000,
+      "cardId": "brackenwheel",
+      "cost": 4
+    },
+    {
+      "tick": 3300,
+      "cardId": "coilblade",
+      "cost": 4
+    },
+    {
+      "tick": 3600,
+      "cardId": "briar-band",
+      "cost": 3
+    },
+    {
+      "tick": 4500,
+      "cardId": "brassbolt",
+      "cost": 4
+    },
+    {
+      "tick": 4800,
+      "cardId": "reedsting",
+      "cost": 3
+    },
+    {
+      "tick": 5700,
+      "cardId": "brackenwheel",
+      "cost": 4
+    },
+    {
+      "tick": 6000,
+      "cardId": "mossguard",
+      "cost": 3
+    }
+  ],
+  "gateStates": [
+    {
+      "tick": 6300,
+      "terminal": false,
+      "clock": {
+        "crowns": {
+          "north": 1,
+          "south": 0
+        },
+        "destroyedTowerIds": [
+          "south:lane:left"
+        ],
+        "phase": "regulation",
+        "result": null,
+        "tick": 6300,
+        "towers": [
+          {
+            "hitpoints": 4824,
+            "id": "north:central"
+          },
+          {
+            "hitpoints": 2104,
+            "id": "north:lane:left"
+          },
+          {
+            "hitpoints": 2659,
+            "id": "north:lane:right"
+          },
+          {
+            "hitpoints": 4824,
+            "id": "south:central"
+          },
+          {
+            "hitpoints": 0,
+            "id": "south:lane:left"
+          },
+          {
+            "hitpoints": 2092,
+            "id": "south:lane:right"
+          }
+        ]
+      },
+      "lastSuccessfulTick": 6000,
+      "lastSouthDeploymentTick": 6000,
+      "guardRefreshDue": false,
+      "incomingNorthCount": 3,
+      "northAliveCount": 3,
+      "northAliveTargetingSouthLane": [],
+      "southElixir": {
+        "accumulator": 84,
+        "amount": 2
+      },
+      "southHand": [
+        "coilblade",
+        "copperskiff",
+        "ironroot",
+        "briar-band"
+      ],
+      "southLanes": [
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0,
+          "position": {
+            "x": 3500,
+            "y": 7500
+          }
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 2092,
+          "position": {
+            "x": 14500,
+            "y": 7500
+          }
+        }
+      ],
+      "refreshPoint": {
+        "x": 3500,
+        "y": 5500
+      },
+      "legalAffordableAtRefreshPoint": [],
+      "candidates": [
+        {
+          "cardId": "ironroot",
+          "slot": 2,
+          "cost": 7,
+          "durability": 3760,
+          "speed": 750,
+          "affordable": false
+        },
+        {
+          "cardId": "coilblade",
+          "slot": 0,
+          "cost": 4,
+          "durability": 1361,
+          "speed": 1500,
+          "affordable": false
+        },
+        {
+          "cardId": "briar-band",
+          "slot": 3,
+          "cost": 3,
+          "durability": 1005,
+          "speed": 12000,
+          "affordable": false
+        },
+        {
+          "cardId": "copperskiff",
+          "slot": 1,
+          "cost": 4,
+          "durability": 614,
+          "speed": 1500,
+          "affordable": false
+        }
+      ],
+      "policyPlan": null
+    },
+    {
+      "tick": 6600,
+      "terminal": false,
+      "clock": {
+        "crowns": {
+          "north": 1,
+          "south": 0
+        },
+        "destroyedTowerIds": [
+          "south:lane:left"
+        ],
+        "phase": "regulation",
+        "result": null,
+        "tick": 6600,
+        "towers": [
+          {
+            "hitpoints": 4824,
+            "id": "north:central"
+          },
+          {
+            "hitpoints": 2104,
+            "id": "north:lane:left"
+          },
+          {
+            "hitpoints": 2659,
+            "id": "north:lane:right"
+          },
+          {
+            "hitpoints": 4824,
+            "id": "south:central"
+          },
+          {
+            "hitpoints": 0,
+            "id": "south:lane:left"
+          },
+          {
+            "hitpoints": 2092,
+            "id": "south:lane:right"
+          }
+        ]
+      },
+      "lastSuccessfulTick": 6000,
+      "lastSouthDeploymentTick": 6000,
+      "guardRefreshDue": false,
+      "incomingNorthCount": 0,
+      "northAliveCount": 1,
+      "northAliveTargetingSouthLane": [],
+      "southElixir": {
+        "accumulator": 48,
+        "amount": 4
+      },
+      "southHand": [
+        "coilblade",
+        "copperskiff",
+        "ironroot",
+        "briar-band"
+      ],
+      "southLanes": [
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0,
+          "position": {
+            "x": 3500,
+            "y": 7500
+          }
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 2092,
+          "position": {
+            "x": 14500,
+            "y": 7500
+          }
+        }
+      ],
+      "refreshPoint": {
+        "x": 3500,
+        "y": 5500
+      },
+      "legalAffordableAtRefreshPoint": [
+        {
+          "cardId": "coilblade",
+          "slot": 0,
+          "cost": 4,
+          "placement": {
+            "legal": true,
+            "reason": "own_side_ground",
+            "confidence": "estimate"
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "slot": 3,
+          "cost": 3,
+          "placement": {
+            "legal": true,
+            "reason": "own_side_ground",
+            "confidence": "estimate"
+          }
+        },
+        {
+          "cardId": "copperskiff",
+          "slot": 1,
+          "cost": 4,
+          "placement": {
+            "legal": true,
+            "reason": "own_side_ground",
+            "confidence": "estimate"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "cardId": "ironroot",
+          "slot": 2,
+          "cost": 7,
+          "durability": 3760,
+          "speed": 750,
+          "affordable": false
+        },
+        {
+          "cardId": "coilblade",
+          "slot": 0,
+          "cost": 4,
+          "durability": 1361,
+          "speed": 1500,
+          "affordable": true
+        },
+        {
+          "cardId": "briar-band",
+          "slot": 3,
+          "cost": 3,
+          "durability": 1005,
+          "speed": 12000,
+          "affordable": true
+        },
+        {
+          "cardId": "copperskiff",
+          "slot": 1,
+          "cost": 4,
+          "durability": 614,
+          "speed": 1500,
+          "affordable": true
+        }
+      ],
+      "policyPlan": null
+    },
+    {
+      "tick": 6900,
+      "terminal": false,
+      "clock": {
+        "crowns": {
+          "north": 1,
+          "south": 0
+        },
+        "destroyedTowerIds": [
+          "south:lane:left"
+        ],
+        "phase": "regulation",
+        "result": null,
+        "tick": 6900,
+        "towers": [
+          {
+            "hitpoints": 4824,
+            "id": "north:central"
+          },
+          {
+            "hitpoints": 2104,
+            "id": "north:lane:left"
+          },
+          {
+            "hitpoints": 2659,
+            "id": "north:lane:right"
+          },
+          {
+            "hitpoints": 4824,
+            "id": "south:central"
+          },
+          {
+            "hitpoints": 0,
+            "id": "south:lane:left"
+          },
+          {
+            "hitpoints": 2092,
+            "id": "south:lane:right"
+          }
+        ]
+      },
+      "lastSuccessfulTick": 6000,
+      "lastSouthDeploymentTick": 6000,
+      "guardRefreshDue": true,
+      "incomingNorthCount": 0,
+      "northAliveCount": 1,
+      "northAliveTargetingSouthLane": [],
+      "southElixir": {
+        "accumulator": 12,
+        "amount": 6
+      },
+      "southHand": [
+        "coilblade",
+        "copperskiff",
+        "ironroot",
+        "briar-band"
+      ],
+      "southLanes": [
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0,
+          "position": {
+            "x": 3500,
+            "y": 7500
+          }
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 2092,
+          "position": {
+            "x": 14500,
+            "y": 7500
+          }
+        }
+      ],
+      "refreshPoint": {
+        "x": 3500,
+        "y": 5500
+      },
+      "legalAffordableAtRefreshPoint": [
+        {
+          "cardId": "coilblade",
+          "slot": 0,
+          "cost": 4,
+          "placement": {
+            "legal": true,
+            "reason": "own_side_ground",
+            "confidence": "estimate"
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "slot": 3,
+          "cost": 3,
+          "placement": {
+            "legal": true,
+            "reason": "own_side_ground",
+            "confidence": "estimate"
+          }
+        },
+        {
+          "cardId": "copperskiff",
+          "slot": 1,
+          "cost": 4,
+          "placement": {
+            "legal": true,
+            "reason": "own_side_ground",
+            "confidence": "estimate"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "cardId": "ironroot",
+          "slot": 2,
+          "cost": 7,
+          "durability": 3760,
+          "speed": 750,
+          "affordable": false
+        },
+        {
+          "cardId": "coilblade",
+          "slot": 0,
+          "cost": 4,
+          "durability": 1361,
+          "speed": 1500,
+          "affordable": true
+        },
+        {
+          "cardId": "briar-band",
+          "slot": 3,
+          "cost": 3,
+          "durability": 1005,
+          "speed": 12000,
+          "affordable": true
+        },
+        {
+          "cardId": "copperskiff",
+          "slot": 1,
+          "cost": 4,
+          "durability": 614,
+          "speed": 1500,
+          "affordable": true
+        }
+      ],
+      "policyPlan": null
+    }
+  ],
+  "failureWindow": {
+    "tick": 7200,
+    "lastSuccessfulTick": 6000,
+    "ticksSinceLastPaidSouthDeployment": 1200
+  },
+  "endState": {
+    "terminal": false,
+    "clock": {
+      "crowns": {
+        "north": 1,
+        "south": 0
+      },
+      "destroyedTowerIds": [
+        "south:lane:left"
+      ],
+      "phase": "regulation",
+      "result": null,
+      "tick": 7200,
+      "towers": [
+        {
+          "hitpoints": 4824,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 2104,
+          "id": "north:lane:left"
+        },
+        {
+          "hitpoints": 2659,
+          "id": "north:lane:right"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:left"
+        },
+        {
+          "hitpoints": 2092,
+          "id": "south:lane:right"
+        }
+      ]
+    },
+    "southElixir": {
+      "accumulator": 144,
+      "amount": 7
+    },
+    "southHand": [
+      "coilblade",
+      "copperskiff",
+      "ironroot",
+      "briar-band"
+    ],
+    "aliveNorthCount": 1
+  }
+}
