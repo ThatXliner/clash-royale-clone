@@ -1,0 +1,225 @@
+{
+  "allCapturedSourceFingerprintsMatchAssembly": true,
+  "allEightOriginalScreenshotHashesMatchManifest": true,
+  "assembledSourceCommit": "1d026c4987b0d99e3043d3b1004e6c00e7502081",
+  "browser": {
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "pid": 19127,
+    "playwrightVersion": "1.58.2",
+    "version": "Google Chrome 155.0.8059.40"
+  },
+  "capture": "native-capture-05",
+  "captureBaseCommit": "20089e41225d17043d20c61b37a4aa60cff2212e",
+  "captureRequiredCases": 8,
+  "captureSourceFingerprints": {
+    "demo/aether-well-battle-art.html": {
+      "assembly": "9cc53bb3aa5e430b157f86a1537498a97ec54d27844dadf90072613abd350eb9",
+      "captured": "9cc53bb3aa5e430b157f86a1537498a97ec54d27844dadf90072613abd350eb9",
+      "match": true
+    },
+    "demo/aether-well-battle-art.js": {
+      "assembly": "642b394ac54c98c7c498c4c533eb961f18a9706db14882ff8649b84c780b39a3",
+      "captured": "642b394ac54c98c7c498c4c533eb961f18a9706db14882ff8649b84c780b39a3",
+      "match": true
+    },
+    "src/ui/aether-well-art.js": {
+      "assembly": "164ffe448d59e6ec2b2d6d2f60f88759d09808447c0b9cefc910774c07d13af8",
+      "captured": "164ffe448d59e6ec2b2d6d2f60f88759d09808447c0b9cefc910774c07d13af8",
+      "match": true
+    },
+    "tests/aether-well-battle-art.test.js": {
+      "assembly": "add9caf3e2502cb46972bc59751708e90f681da27d34b5993035c7455f54e72e",
+      "captured": "add9caf3e2502cb46972bc59751708e90f681da27d34b5993035c7455f54e72e",
+      "match": true
+    }
+  },
+  "cases": [
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 12.998543468474963,
+        "south": 12.998543468474963
+      },
+      "arenaCssRect": {
+        "height": 524.3333740234375,
+        "width": 296.8333435058594,
+        "x": 46.583335876464844,
+        "y": 131.66146850585938
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-phone-390x844-light-13px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 13,
+      "sameParametersStable": true,
+      "screenshotSha256": "1fceddd56b406a4405d4685723c95315f8fd73208f36ae73eedb97d924cfe5bd",
+      "tone": "light",
+      "viewport": {
+        "height": 844,
+        "name": "phone-390x844",
+        "width": 390
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 25.997111184118694,
+        "south": 25.997111184118694
+      },
+      "arenaCssRect": {
+        "height": 524.3333740234375,
+        "width": 296.8333435058594,
+        "x": 46.583335876464844,
+        "y": 131.66146850585938
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-phone-390x844-light-26px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 26,
+      "sameParametersStable": true,
+      "screenshotSha256": "db36f904a44f3707fe39a0641366eb0eac3203c379ff1194e8bc6607664fdfba",
+      "tone": "light",
+      "viewport": {
+        "height": 844,
+        "name": "phone-390x844",
+        "width": 390
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 12.998543468474963,
+        "south": 12.998543468474963
+      },
+      "arenaCssRect": {
+        "height": 524.3333740234375,
+        "width": 296.8333435058594,
+        "x": 46.583335876464844,
+        "y": 131.66146850585938
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-phone-390x844-dark-13px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 13,
+      "sameParametersStable": true,
+      "screenshotSha256": "566669273fa61f802b9957a71a74989a646b1f894f2ca599c5c30348e52f8184",
+      "tone": "dark",
+      "viewport": {
+        "height": 844,
+        "name": "phone-390x844",
+        "width": 390
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 25.997111184118694,
+        "south": 25.997111184118694
+      },
+      "arenaCssRect": {
+        "height": 524.3333740234375,
+        "width": 296.8333435058594,
+        "x": 46.583335876464844,
+        "y": 131.66146850585938
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-phone-390x844-dark-26px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 26,
+      "sameParametersStable": true,
+      "screenshotSha256": "86aa14fc4608895c2411d23cf3ebc8f97d60c21f3b5d0ba05ddd7ef791e3604e",
+      "tone": "dark",
+      "viewport": {
+        "height": 844,
+        "name": "phone-390x844",
+        "width": 390
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 12.994421449784568,
+        "south": 12.9943972026158
+      },
+      "arenaCssRect": {
+        "height": 705.5812377929688,
+        "width": 399.440673828125,
+        "x": 520.2796630859375,
+        "y": 75.8062515258789
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-desktop-1440x933-light-13px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 13,
+      "sameParametersStable": true,
+      "screenshotSha256": "bb0028afe8fc5c406eb0bd0abc4297cdb677968c449fad469e4d09cddce972b1",
+      "tone": "light",
+      "viewport": {
+        "height": 933,
+        "name": "desktop-1440x933",
+        "width": 1440
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 25.997911340688006,
+        "south": 25.997862846350472
+      },
+      "arenaCssRect": {
+        "height": 705.5812377929688,
+        "width": 399.440673828125,
+        "x": 520.2796630859375,
+        "y": 75.8062515258789
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-desktop-1440x933-light-26px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 26,
+      "sameParametersStable": true,
+      "screenshotSha256": "628383ebfa909a4d37f2299e5d9dd767bd81e0effd4716e3fa4e4ece6adfd47d",
+      "tone": "light",
+      "viewport": {
+        "height": 933,
+        "name": "desktop-1440x933",
+        "width": 1440
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 12.994421449784568,
+        "south": 12.9943972026158
+      },
+      "arenaCssRect": {
+        "height": 705.5812377929688,
+        "width": 399.440673828125,
+        "x": 520.2796630859375,
+        "y": 75.8062515258789
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-desktop-1440x933-dark-13px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 13,
+      "sameParametersStable": true,
+      "screenshotSha256": "edc23920d6f9d88ad0d5f4ddafc565274dde79d0416d1b33c74ba182f7bafb2b",
+      "tone": "dark",
+      "viewport": {
+        "height": 933,
+        "name": "desktop-1440x933",
+        "width": 1440
+      }
+    },
+    {
+      "actualVisibleBodyCssPixels": {
+        "north": 25.997911340688006,
+        "south": 25.997862846350472
+      },
+      "arenaCssRect": {
+        "height": 705.5812377929688,
+        "width": 399.440673828125,
+        "x": 520.2796630859375,
+        "y": 75.8062515258789
+      },
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-05/captures/aether-well-desktop-1440x933-dark-26px.png",
+      "reducedMotionStable": true,
+      "requestedBodyCssPixels": 26,
+      "sameParametersStable": true,
+      "screenshotSha256": "322642a7dc0bc16aff13f16a84fd6950045e1b34d6f212c16bb74279ebbc1d27",
+      "tone": "dark",
+      "viewport": {
+        "height": 933,
+        "name": "desktop-1440x933",
+        "width": 1440
+      }
+    }
+  ],
+  "deviceScaleFactor": 1,
+  "provenanceDocumentSha256AtAssembly": "826028a6fdccc4004a50f0323b64f30b41fecf943ad8acbb3ddfd302e5af3956",
+  "statement": "Original native-capture-05 screenshots and capture manifest were copied byte-for-byte. The capture was made at its recorded base commit; every source file fingerprint recorded by the capture is byte-identical to the corresponding final 1d026c4 assembly source file."
+}

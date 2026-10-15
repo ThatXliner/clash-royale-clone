@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: the native well silhouette measures exactly 13 and 26 CSS pixels
+ok 1 - the native well silhouette measures exactly 13 and 26 CSS pixels
+  ---
+  duration_ms: 1.493666
+  type: 'test'
+  ...
+# Subtest: fixed inputs rebuild the same static SVG tree without raster assets
+ok 2 - fixed inputs rebuild the same static SVG tree without raster assets
+  ---
+  duration_ms: 1.606917
+  type: 'test'
+  ...
+# Subtest: north and south use distinct visible team colors
+ok 3 - north and south use distinct visible team colors
+  ---
+  duration_ms: 0.279417
+  type: 'test'
+  ...
+# Subtest: the helper rejects invalid body sizes, teams, and document objects
+ok 4 - the helper rejects invalid body sizes, teams, and document objects
+  ---
+  duration_ms: 0.301083
+  type: 'test'
+  ...
+# Subtest: the fixture uses the shipped 720 by 1280 shell and 540 by 960 arena
+ok 5 - the fixture uses the shipped 720 by 1280 shell and 540 by 960 arena
+  ---
+  duration_ms: 3.46325
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55.231875

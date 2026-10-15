@@ -1,0 +1,33 @@
+{
+  "status": {
+    "argv": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changedPaths": {
+    "argv": [
+      "git",
+      "diff",
+      "--name-only",
+      "330f2804ebd5b421b5f952ca0187fcb76d4c6af6..HEAD"
+    ],
+    "exitCode": 0,
+    "stdout": "demo/aether-well-battle-art.html\ndemo/aether-well-battle-art.js\ndocs/art/aether-well-battle-art-provenance.json\nsrc/ui/aether-well-art.js\ntests/aether-well-battle-art.test.js\n",
+    "stderr": ""
+  },
+  "head": {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exitCode": 0,
+    "stdout": "1d026c4987b0d99e3043d3b1004e6c00e7502081\n",
+    "stderr": ""
+  }
+}

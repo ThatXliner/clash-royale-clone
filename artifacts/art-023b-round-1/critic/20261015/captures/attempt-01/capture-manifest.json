@@ -1,0 +1,4628 @@
+{
+  "schemaVersion": 1,
+  "commit": "1d026c4987b0d99e3043d3b1004e6c00e7502081",
+  "baseCommit": "330f2804ebd5b421b5f952ca0187fcb76d4c6af6",
+  "runtime": {
+    "node": "v22.22.3",
+    "nodeExecutable": "/Users/me/.hermes/node/bin/node",
+    "playwright": "1.58.2",
+    "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "chromeVersion": "155.0.8059.40",
+    "headless": true,
+    "launchArgsAddedByHarness": []
+  },
+  "fixture": "demo/aether-well-battle-art.html",
+  "queryContract": "?body=13|26&tone=light|dark",
+  "capturePolicy": {
+    "viewportScreenshot": true,
+    "fullPage": false,
+    "deviceScaleFactor": 1,
+    "contexts": 8,
+    "tones": [
+      "light",
+      "dark"
+    ],
+    "bodyTargetsCssPixels": [
+      13,
+      26
+    ],
+    "viewports": [
+      {
+        "name": "phone",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933
+      }
+    ]
+  },
+  "bodyMeasurement": "svg.getBBox().height * getBoundingClientRect().height / 32",
+  "bodyToleranceCssPixels": 0.01,
+  "screenshotByteEquality": {
+    "repeatedResizeRender": true,
+    "reducedMotion": true
+  },
+  "requests": [
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/demo/aether-well-battle-art.html",
+      "status": 200,
+      "bytes": 3409
+    },
+    {
+      "path": "/demo/aether-well-battle-art.js",
+      "status": 200,
+      "bytes": 2125
+    },
+    {
+      "path": "/src/ui/aether-well-art.js",
+      "status": 200,
+      "bytes": 8240
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "bytes": 390962
+    }
+  ],
+  "captures": [
+    {
+      "id": "phone-light-13px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=13&tone=light",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "dpr": 1,
+      "tone": "light",
+      "bodyTargetCssPixels": 13,
+      "screenshot": {
+        "path": "phone-light-13px.png",
+        "width": 390,
+        "height": 844,
+        "bytes": 328900,
+        "sha256": "1fceddd56b406a4405d4685723c95315f8fd73208f36ae73eedb97d924cfe5bd"
+      },
+      "repeatedRender": {
+        "bytes": 328900,
+        "sha256": "1fceddd56b406a4405d4685723c95315f8fd73208f36ae73eedb97d924cfe5bd",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 328900,
+        "sha256": "1fceddd56b406a4405d4685723c95315f8fd73208f36ae73eedb97d924cfe5bd",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "shell": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 13,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 24,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 188.66049525765314,
+              "y": 289.4646032424253,
+              "width": 13.78843557808446,
+              "height": 12.9985520276486
+            },
+            "frameScreenCssPixels": {
+              "x": 186.8199920654297,
+              "y": 288.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "measuredBodyCssPixels": 12.998543468474963,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 193.41512780538469,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 193.82412847142842,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 194.23312913747213,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 195.7668816351361,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 196.1758823011798,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 196.58488296722354,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 193.82412847142842,
+                "screenY": 300.57152755529677
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 196.1758823011798,
+                "screenY": 300.57152755529677
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 24,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 188.66049525765314,
+              "y": 484.4646032424253,
+              "width": 13.78843557808446,
+              "height": 12.9985520276486
+            },
+            "frameScreenCssPixels": {
+              "x": 186.8199920654297,
+              "y": 483.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "measuredBodyCssPixels": 12.998543468474963,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 193.41512780538469,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 193.82412847142842,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 194.23312913747213,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 195.7668816351361,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 196.1758823011798,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 196.58488296722354,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 193.82412847142842,
+                "screenY": 495.57152755529677
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 196.1758823011798,
+                "screenY": 495.57152755529677
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              196,
+              300
+            ],
+            "rgb": [
+              173,
+              110,
+              92
+            ],
+            "ownDistance": 66.4981,
+            "opposingDistance": 134.8406,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                193,
+                300
+              ],
+              "rgb": [
+                221,
+                151,
+                130
+              ],
+              "ownDistance": 119.6202,
+              "opposingDistance": 176.6833,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                193,
+                300
+              ],
+              "rgb": [
+                221,
+                151,
+                130
+              ],
+              "ownDistance": 119.6202,
+              "opposingDistance": 176.6833,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                194,
+                300
+              ],
+              "rgb": [
+                214,
+                122,
+                89
+              ],
+              "ownDistance": 70.0999,
+              "opposingDistance": 173.9943,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                195,
+                300
+              ],
+              "rgb": [
+                214,
+                122,
+                89
+              ],
+              "ownDistance": 70.0999,
+              "opposingDistance": 173.9943,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                196,
+                300
+              ],
+              "rgb": [
+                173,
+                110,
+                92
+              ],
+              "ownDistance": 66.4981,
+              "opposingDistance": 134.8406,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                196,
+                300
+              ],
+              "rgb": [
+                173,
+                110,
+                92
+              ],
+              "ownDistance": 66.4981,
+              "opposingDistance": 134.8406,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                193,
+                300
+              ],
+              "rgb": [
+                221,
+                151,
+                130
+              ],
+              "ownDistance": 119.6202,
+              "opposingDistance": 176.6833,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                196,
+                300
+              ],
+              "rgb": [
+                173,
+                110,
+                92
+              ],
+              "ownDistance": 66.4981,
+              "opposingDistance": 134.8406,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              196,
+              495
+            ],
+            "rgb": [
+              97,
+              139,
+              136
+            ],
+            "ownDistance": 52.4309,
+            "opposingDistance": 152.3187,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                193,
+                495
+              ],
+              "rgb": [
+                145,
+                180,
+                174
+              ],
+              "ownDistance": 119.2057,
+              "opposingDistance": 177.5218,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                193,
+                495
+              ],
+              "rgb": [
+                145,
+                180,
+                174
+              ],
+              "ownDistance": 119.2057,
+              "opposingDistance": 177.5218,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                194,
+                495
+              ],
+              "rgb": [
+                118,
+                158,
+                145
+              ],
+              "ownDistance": 79.1581,
+              "opposingDistance": 155.3126,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                195,
+                495
+              ],
+              "rgb": [
+                118,
+                158,
+                145
+              ],
+              "ownDistance": 79.1581,
+              "opposingDistance": 155.3126,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                196,
+                495
+              ],
+              "rgb": [
+                97,
+                139,
+                136
+              ],
+              "ownDistance": 52.4309,
+              "opposingDistance": 152.3187,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                196,
+                495
+              ],
+              "rgb": [
+                97,
+                139,
+                136
+              ],
+              "ownDistance": 52.4309,
+              "opposingDistance": 152.3187,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                193,
+                495
+              ],
+              "rgb": [
+                145,
+                180,
+                174
+              ],
+              "ownDistance": 119.2057,
+              "opposingDistance": 177.5218,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                196,
+                495
+              ],
+              "rgb": [
+                97,
+                139,
+                136
+              ],
+              "ownDistance": 52.4309,
+              "opposingDistance": 152.3187,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "phone-light-26px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=26&tone=light",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "dpr": 1,
+      "tone": "light",
+      "bodyTargetCssPixels": 26,
+      "screenshot": {
+        "path": "phone-light-26px.png",
+        "width": 390,
+        "height": 844,
+        "bytes": 329384,
+        "sha256": "db36f904a44f3707fe39a0641366eb0eac3203c379ff1194e8bc6607664fdfba"
+      },
+      "repeatedRender": {
+        "bytes": 329384,
+        "sha256": "db36f904a44f3707fe39a0641366eb0eac3203c379ff1194e8bc6607664fdfba",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 329384,
+        "sha256": "db36f904a44f3707fe39a0641366eb0eac3203c379ff1194e8bc6607664fdfba",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "shell": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 26,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 48,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 182.3209905153063,
+              "y": 282.6010509672725,
+              "width": 27.576871156168863,
+              "height": 25.9971040552972
+            },
+            "frameScreenCssPixels": {
+              "x": 178.63998413085938,
+              "y": 279.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "measuredBodyCssPixels": 25.997111184118694,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 191.83025561076937,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 192.64825694285682,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 193.46625827494427,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 196.53376327027217,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 197.35176460235962,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 198.16976593444707,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 192.64825694285682,
+                "screenY": 304.8148995930154
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 197.35176460235962,
+                "screenY": 304.8148995930154
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 48,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 182.3209905153063,
+              "y": 477.6010509672725,
+              "width": 27.576871156168863,
+              "height": 25.9971040552972
+            },
+            "frameScreenCssPixels": {
+              "x": 178.63998413085938,
+              "y": 474.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "measuredBodyCssPixels": 25.997111184118694,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 191.83025561076937,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 192.64825694285682,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 193.46625827494427,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 196.53376327027217,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 197.35176460235962,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 198.16976593444707,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 192.64825694285682,
+                "screenY": 499.8148995930154
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 197.35176460235962,
+                "screenY": 499.8148995930154
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              12.9,
+              23.7
+            ],
+            "pixel": [
+              191,
+              304
+            ],
+            "rgb": [
+              198,
+              69,
+              46
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                191,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                192,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                193,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                196,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                197,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                198,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                192,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                197,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              12.9,
+              23.7
+            ],
+            "pixel": [
+              191,
+              499
+            ],
+            "rgb": [
+              46,
+              127,
+              134
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                191,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                192,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                193,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                196,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                197,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                198,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                192,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                197,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "phone-dark-13px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=13&tone=dark",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "dpr": 1,
+      "tone": "dark",
+      "bodyTargetCssPixels": 13,
+      "screenshot": {
+        "path": "phone-dark-13px.png",
+        "width": 390,
+        "height": 844,
+        "bytes": 236473,
+        "sha256": "566669273fa61f802b9957a71a74989a646b1f894f2ca599c5c30348e52f8184"
+      },
+      "repeatedRender": {
+        "bytes": 236473,
+        "sha256": "566669273fa61f802b9957a71a74989a646b1f894f2ca599c5c30348e52f8184",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 236473,
+        "sha256": "566669273fa61f802b9957a71a74989a646b1f894f2ca599c5c30348e52f8184",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "shell": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 13,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 24,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 188.66049525765314,
+              "y": 289.4646032424253,
+              "width": 13.78843557808446,
+              "height": 12.9985520276486
+            },
+            "frameScreenCssPixels": {
+              "x": 186.8199920654297,
+              "y": 288.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "measuredBodyCssPixels": 12.998543468474963,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 193.41512780538469,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 193.82412847142842,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 194.23312913747213,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 195.7668816351361,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 196.1758823011798,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 196.58488296722354,
+                "screenY": 300.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 193.82412847142842,
+                "screenY": 300.57152755529677
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 196.1758823011798,
+                "screenY": 300.57152755529677
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 24,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 188.66049525765314,
+              "y": 484.4646032424253,
+              "width": 13.78843557808446,
+              "height": 12.9985520276486
+            },
+            "frameScreenCssPixels": {
+              "x": 186.8199920654297,
+              "y": 483.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "measuredBodyCssPixels": 12.998543468474963,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 193.41512780538469,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 193.82412847142842,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 194.23312913747213,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 195.7668816351361,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 196.1758823011798,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 196.58488296722354,
+                "screenY": 495.264777055764
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 193.82412847142842,
+                "screenY": 495.57152755529677
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 196.1758823011798,
+                "screenY": 495.57152755529677
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              196,
+              300
+            ],
+            "rgb": [
+              173,
+              110,
+              92
+            ],
+            "ownDistance": 66.4981,
+            "opposingDistance": 134.8406,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                193,
+                300
+              ],
+              "rgb": [
+                221,
+                151,
+                130
+              ],
+              "ownDistance": 119.6202,
+              "opposingDistance": 176.6833,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                193,
+                300
+              ],
+              "rgb": [
+                221,
+                151,
+                130
+              ],
+              "ownDistance": 119.6202,
+              "opposingDistance": 176.6833,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                194,
+                300
+              ],
+              "rgb": [
+                214,
+                122,
+                89
+              ],
+              "ownDistance": 70.0999,
+              "opposingDistance": 173.9943,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                195,
+                300
+              ],
+              "rgb": [
+                214,
+                122,
+                89
+              ],
+              "ownDistance": 70.0999,
+              "opposingDistance": 173.9943,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                196,
+                300
+              ],
+              "rgb": [
+                173,
+                110,
+                92
+              ],
+              "ownDistance": 66.4981,
+              "opposingDistance": 134.8406,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                196,
+                300
+              ],
+              "rgb": [
+                173,
+                110,
+                92
+              ],
+              "ownDistance": 66.4981,
+              "opposingDistance": 134.8406,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                193,
+                300
+              ],
+              "rgb": [
+                221,
+                151,
+                130
+              ],
+              "ownDistance": 119.6202,
+              "opposingDistance": 176.6833,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                196,
+                300
+              ],
+              "rgb": [
+                173,
+                110,
+                92
+              ],
+              "ownDistance": 66.4981,
+              "opposingDistance": 134.8406,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              196,
+              495
+            ],
+            "rgb": [
+              97,
+              139,
+              136
+            ],
+            "ownDistance": 52.4309,
+            "opposingDistance": 152.3187,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                193,
+                495
+              ],
+              "rgb": [
+                145,
+                180,
+                174
+              ],
+              "ownDistance": 119.2057,
+              "opposingDistance": 177.5218,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                193,
+                495
+              ],
+              "rgb": [
+                145,
+                180,
+                174
+              ],
+              "ownDistance": 119.2057,
+              "opposingDistance": 177.5218,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                194,
+                495
+              ],
+              "rgb": [
+                118,
+                158,
+                145
+              ],
+              "ownDistance": 79.1581,
+              "opposingDistance": 155.3126,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                195,
+                495
+              ],
+              "rgb": [
+                118,
+                158,
+                145
+              ],
+              "ownDistance": 79.1581,
+              "opposingDistance": 155.3126,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                196,
+                495
+              ],
+              "rgb": [
+                97,
+                139,
+                136
+              ],
+              "ownDistance": 52.4309,
+              "opposingDistance": 152.3187,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                196,
+                495
+              ],
+              "rgb": [
+                97,
+                139,
+                136
+              ],
+              "ownDistance": 52.4309,
+              "opposingDistance": 152.3187,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                193,
+                495
+              ],
+              "rgb": [
+                145,
+                180,
+                174
+              ],
+              "ownDistance": 119.2057,
+              "opposingDistance": 177.5218,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                196,
+                495
+              ],
+              "rgb": [
+                97,
+                139,
+                136
+              ],
+              "ownDistance": 52.4309,
+              "opposingDistance": 152.3187,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "phone-dark-26px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=26&tone=dark",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "dpr": 1,
+      "tone": "dark",
+      "bodyTargetCssPixels": 26,
+      "screenshot": {
+        "path": "phone-dark-26px.png",
+        "width": 390,
+        "height": 844,
+        "bytes": 237449,
+        "sha256": "86aa14fc4608895c2411d23cf3ebc8f97d60c21f3b5d0ba05ddd7ef791e3604e"
+      },
+      "repeatedRender": {
+        "bytes": 237449,
+        "sha256": "86aa14fc4608895c2411d23cf3ebc8f97d60c21f3b5d0ba05ddd7ef791e3604e",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 237449,
+        "sha256": "86aa14fc4608895c2411d23cf3ebc8f97d60c21f3b5d0ba05ddd7ef791e3604e",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "shell": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 26,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 48,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 182.3209905153063,
+              "y": 282.6010509672725,
+              "width": 27.576871156168863,
+              "height": 25.9971040552972
+            },
+            "frameScreenCssPixels": {
+              "x": 178.63998413085938,
+              "y": 279.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "measuredBodyCssPixels": 25.997111184118694,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 191.83025561076937,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 192.64825694285682,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 193.46625827494427,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 196.53376327027217,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 197.35176460235962,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 198.16976593444707,
+                "screenY": 304.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 192.64825694285682,
+                "screenY": 304.8148995930154
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 197.35176460235962,
+                "screenY": 304.8148995930154
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 48,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 182.3209905153063,
+              "y": 477.6010509672725,
+              "width": 27.576871156168863,
+              "height": 25.9971040552972
+            },
+            "frameScreenCssPixels": {
+              "x": 178.63998413085938,
+              "y": 474.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "measuredBodyCssPixels": 25.997111184118694,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 191.83025561076937,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 192.64825694285682,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 193.46625827494427,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 196.53376327027217,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 197.35176460235962,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 198.16976593444707,
+                "screenY": 499.2013985939499
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 192.64825694285682,
+                "screenY": 499.8148995930154
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 197.35176460235962,
+                "screenY": 499.8148995930154
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              12.9,
+              23.7
+            ],
+            "pixel": [
+              191,
+              304
+            ],
+            "rgb": [
+              198,
+              69,
+              46
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                191,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                192,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                193,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                196,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                197,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                198,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                192,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                197,
+                304
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              12.9,
+              23.7
+            ],
+            "pixel": [
+              191,
+              499
+            ],
+            "rgb": [
+              46,
+              127,
+              134
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                191,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                192,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                193,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                196,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                197,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                198,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                192,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                197,
+                499
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "desktop-light-13px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=13&tone=light",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "dpr": 1,
+      "tone": "light",
+      "bodyTargetCssPixels": 13,
+      "screenshot": {
+        "path": "desktop-light-13px.png",
+        "width": 1440,
+        "height": 933,
+        "bytes": 600279,
+        "sha256": "bb0028afe8fc5c406eb0bd0abc4297cdb677968c449fad469e4d09cddce972b1"
+      },
+      "repeatedRender": {
+        "bytes": 600279,
+        "sha256": "bb0028afe8fc5c406eb0bd0abc4297cdb677968c449fad469e4d09cddce972b1",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 600279,
+        "sha256": "bb0028afe8fc5c406eb0bd0abc4297cdb677968c449fad469e4d09cddce972b1",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "shell": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 13,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 17.834941050375136,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 713.6624898791703,
+              "y": 290.5323922259258,
+              "width": 13.78405959220754,
+              "height": 12.99442672425414
+            },
+            "frameScreenCssPixels": {
+              "x": 711.8225708007812,
+              "y": 289.2163391113281,
+              "width": 16.3548583984375,
+              "height": 16.354827880859375
+            },
+            "measuredBodyCssPixels": 12.994421449784568,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 718.4156134663848,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 718.824484329368,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 719.2333551923512,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 720.766620928538,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 721.1754917915212,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 721.5843626545044,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 718.824484329368,
+                "screenY": 301.63579157444184
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 721.1754917915212,
+                "screenY": 301.63579157444184
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 17.834941050375136,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 713.6624898791703,
+              "y": 552.938672743504,
+              "width": 13.78405959220754,
+              "height": 12.99442672425414
+            },
+            "frameScreenCssPixels": {
+              "x": 711.8225708007812,
+              "y": 551.6226196289062,
+              "width": 16.3548583984375,
+              "height": 16.35479736328125
+            },
+            "measuredBodyCssPixels": 12.9943972026158,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 718.4156134663848,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 718.824484329368,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 719.2333551923512,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 720.766620928538,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 721.1754917915212,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 721.5843626545044,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 718.824484329368,
+                "screenY": 564.0420720920199
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 721.1754917915212,
+                "screenY": 564.0420720920199
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              721,
+              301
+            ],
+            "rgb": [
+              198,
+              69,
+              46
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                718,
+                301
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                718,
+                301
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                719,
+                301
+              ],
+              "rgb": [
+                200,
+                74,
+                48
+              ],
+              "ownDistance": 5.7446,
+              "opposingDistance": 184.1765,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                720,
+                301
+              ],
+              "rgb": [
+                215,
+                115,
+                64
+              ],
+              "ownDistance": 52.2398,
+              "opposingDistance": 183.3167,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                721,
+                301
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                721,
+                301
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                718,
+                301
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                721,
+                301
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              721,
+              563
+            ],
+            "rgb": [
+              47,
+              127,
+              134
+            ],
+            "ownDistance": 1,
+            "opposingDistance": 184.144,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                718,
+                563
+              ],
+              "rgb": [
+                95,
+                154,
+                154
+              ],
+              "ownDistance": 59.4138,
+              "opposingDistance": 171.7498,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                718,
+                563
+              ],
+              "rgb": [
+                95,
+                154,
+                154
+              ],
+              "ownDistance": 59.4138,
+              "opposingDistance": 171.7498,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                719,
+                563
+              ],
+              "rgb": [
+                54,
+                130,
+                132
+              ],
+              "ownDistance": 8.775,
+              "opposingDistance": 178.4741,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                720,
+                563
+              ],
+              "rgb": [
+                126,
+                150,
+                117
+              ],
+              "ownDistance": 84.9588,
+              "opposingDistance": 129.5608,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                721,
+                563
+              ],
+              "rgb": [
+                47,
+                127,
+                134
+              ],
+              "ownDistance": 1,
+              "opposingDistance": 184.144,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                721,
+                563
+              ],
+              "rgb": [
+                47,
+                127,
+                134
+              ],
+              "ownDistance": 1,
+              "opposingDistance": 184.144,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                718,
+                564
+              ],
+              "rgb": [
+                148,
+                151,
+                138
+              ],
+              "ownDistance": 104.8618,
+              "opposingDistance": 132.9962,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                721,
+                564
+              ],
+              "rgb": [
+                146,
+                165,
+                156
+              ],
+              "ownDistance": 109.2154,
+              "opposingDistance": 154.9839,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "desktop-light-26px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=26&tone=light",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "dpr": 1,
+      "tone": "light",
+      "bodyTargetCssPixels": 26,
+      "screenshot": {
+        "path": "desktop-light-26px.png",
+        "width": 1440,
+        "height": 933,
+        "bytes": 600917,
+        "sha256": "628383ebfa909a4d37f2299e5d9dd767bd81e0effd4716e3fa4e4ece6adfd47d"
+      },
+      "repeatedRender": {
+        "bytes": 600917,
+        "sha256": "628383ebfa909a4d37f2299e5d9dd767bd81e0effd4716e3fa4e4ece6adfd47d",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 600917,
+        "sha256": "628383ebfa909a4d37f2299e5d9dd767bd81e0effd4716e3fa4e4ece6adfd47d",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "shell": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 26,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 35.66988210075027,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 707.3205847695046,
+              "y": 283.66625634330177,
+              "width": 27.577718111707554,
+              "height": 25.997902492188075
+            },
+            "frameScreenCssPixels": {
+              "x": 703.6394653320312,
+              "y": 281.0332336425781,
+              "width": 32.7210693359375,
+              "height": 32.7210693359375
+            },
+            "measuredBodyCssPixels": 25.997911340688006,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 716.8301419185766,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 717.6481683735561,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 718.4661948285357,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 721.533794034709,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 722.3518204896885,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 723.169846944668,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 717.6481683735561,
+                "screenY": 305.88078721258205
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 722.3518204896885,
+                "screenY": 305.88078721258205
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 35.66988210075027,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 707.3205847695046,
+              "y": 546.0725368608798,
+              "width": 27.577718111707554,
+              "height": 25.997902492188132
+            },
+            "frameScreenCssPixels": {
+              "x": 703.6394653320312,
+              "y": 543.4395141601562,
+              "width": 32.7210693359375,
+              "height": 32.72100830078125
+            },
+            "measuredBodyCssPixels": 25.997862846350472,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 716.8301419185766,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 717.6481683735561,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 718.4661948285357,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 721.533794034709,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 722.3518204896885,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 723.169846944668,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 717.6481683735561,
+                "screenY": 568.2870677301602
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 722.3518204896885,
+                "screenY": 568.2870677301602
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              13.7,
+              23.7
+            ],
+            "pixel": [
+              717,
+              305
+            ],
+            "rgb": [
+              198,
+              69,
+              46
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                716,
+                305
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                717,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                718,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                721,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                722,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                723,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                717,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                722,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              13.7,
+              23.7
+            ],
+            "pixel": [
+              717,
+              567
+            ],
+            "rgb": [
+              46,
+              127,
+              134
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                716,
+                567
+              ],
+              "rgb": [
+                95,
+                154,
+                154
+              ],
+              "ownDistance": 59.4138,
+              "opposingDistance": 171.7498,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                717,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                718,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                721,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                722,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                723,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                717,
+                568
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                722,
+                568
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "desktop-dark-13px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=13&tone=dark",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "dpr": 1,
+      "tone": "dark",
+      "bodyTargetCssPixels": 13,
+      "screenshot": {
+        "path": "desktop-dark-13px.png",
+        "width": 1440,
+        "height": 933,
+        "bytes": 436911,
+        "sha256": "edc23920d6f9d88ad0d5f4ddafc565274dde79d0416d1b33c74ba182f7bafb2b"
+      },
+      "repeatedRender": {
+        "bytes": 436911,
+        "sha256": "edc23920d6f9d88ad0d5f4ddafc565274dde79d0416d1b33c74ba182f7bafb2b",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 436911,
+        "sha256": "edc23920d6f9d88ad0d5f4ddafc565274dde79d0416d1b33c74ba182f7bafb2b",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "shell": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 13,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 17.834941050375136,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 713.6624898791703,
+              "y": 290.5323922259258,
+              "width": 13.78405959220754,
+              "height": 12.99442672425414
+            },
+            "frameScreenCssPixels": {
+              "x": 711.8225708007812,
+              "y": 289.2163391113281,
+              "width": 16.3548583984375,
+              "height": 16.354827880859375
+            },
+            "measuredBodyCssPixels": 12.994421449784568,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 718.4156134663848,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 718.824484329368,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 719.2333551923512,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 720.766620928538,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 721.1754917915212,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 721.5843626545044,
+                "screenY": 301.32913842720444
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 718.824484329368,
+                "screenY": 301.63579157444184
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 721.1754917915212,
+                "screenY": 301.63579157444184
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 13,
+            "helperBodyInputCssPixels": 17.834941050375136,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 713.6624898791703,
+              "y": 552.938672743504,
+              "width": 13.78405959220754,
+              "height": 12.99442672425414
+            },
+            "frameScreenCssPixels": {
+              "x": 711.8225708007812,
+              "y": 551.6226196289062,
+              "width": 16.3548583984375,
+              "height": 16.35479736328125
+            },
+            "measuredBodyCssPixels": 12.9943972026158,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 718.4156134663848,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 718.824484329368,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 719.2333551923512,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 720.766620928538,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 721.1754917915212,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 721.5843626545044,
+                "screenY": 563.7354189447826
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 718.824484329368,
+                "screenY": 564.0420720920199
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 721.1754917915212,
+                "screenY": 564.0420720920199
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              721,
+              301
+            ],
+            "rgb": [
+              198,
+              69,
+              46
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                718,
+                301
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                718,
+                301
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                719,
+                301
+              ],
+              "rgb": [
+                200,
+                74,
+                48
+              ],
+              "ownDistance": 5.7446,
+              "opposingDistance": 184.1765,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                720,
+                301
+              ],
+              "rgb": [
+                215,
+                115,
+                64
+              ],
+              "ownDistance": 52.2398,
+              "opposingDistance": 183.3167,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                721,
+                301
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                721,
+                301
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                718,
+                301
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                721,
+                301
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              18.3,
+              23.7
+            ],
+            "pixel": [
+              721,
+              563
+            ],
+            "rgb": [
+              47,
+              127,
+              134
+            ],
+            "ownDistance": 1,
+            "opposingDistance": 184.144,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                718,
+                563
+              ],
+              "rgb": [
+                95,
+                154,
+                154
+              ],
+              "ownDistance": 59.4138,
+              "opposingDistance": 171.7498,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                718,
+                563
+              ],
+              "rgb": [
+                95,
+                154,
+                154
+              ],
+              "ownDistance": 59.4138,
+              "opposingDistance": 171.7498,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                719,
+                563
+              ],
+              "rgb": [
+                54,
+                130,
+                132
+              ],
+              "ownDistance": 8.775,
+              "opposingDistance": 178.4741,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                720,
+                563
+              ],
+              "rgb": [
+                126,
+                150,
+                117
+              ],
+              "ownDistance": 84.9588,
+              "opposingDistance": 129.5608,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                721,
+                563
+              ],
+              "rgb": [
+                47,
+                127,
+                134
+              ],
+              "ownDistance": 1,
+              "opposingDistance": 184.144,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                721,
+                563
+              ],
+              "rgb": [
+                47,
+                127,
+                134
+              ],
+              "ownDistance": 1,
+              "opposingDistance": 184.144,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                718,
+                564
+              ],
+              "rgb": [
+                148,
+                151,
+                138
+              ],
+              "ownDistance": 104.8618,
+              "opposingDistance": 132.9962,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                721,
+                564
+              ],
+              "rgb": [
+                146,
+                165,
+                156
+              ],
+              "ownDistance": 109.2154,
+              "opposingDistance": 154.9839,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    },
+    {
+      "id": "desktop-dark-26px",
+      "url": "http://127.0.0.1:60767/demo/aether-well-battle-art.html?body=26&tone=dark",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "dpr": 1,
+      "tone": "dark",
+      "bodyTargetCssPixels": 26,
+      "screenshot": {
+        "path": "desktop-dark-26px.png",
+        "width": 1440,
+        "height": 933,
+        "bytes": 437970,
+        "sha256": "322642a7dc0bc16aff13f16a84fd6950045e1b34d6f212c16bb74279ebbc1d27"
+      },
+      "repeatedRender": {
+        "bytes": 437970,
+        "sha256": "322642a7dc0bc16aff13f16a84fd6950045e1b34d6f212c16bb74279ebbc1d27",
+        "exactMatch": true
+      },
+      "reducedMotion": {
+        "active": true,
+        "bytes": 437970,
+        "sha256": "322642a7dc0bc16aff13f16a84fd6950045e1b34d6f212c16bb74279ebbc1d27",
+        "exactMatch": true
+      },
+      "inspection": {
+        "title": "Aether Well Battle Art Fixture",
+        "ready": true,
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "arena": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "shell": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 26,
+        "art": [
+          {
+            "side": "north",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 35.66988210075027,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 707.3205847695046,
+              "y": 283.66625634330177,
+              "width": 27.577718111707554,
+              "height": 25.997902492188075
+            },
+            "frameScreenCssPixels": {
+              "x": 703.6394653320312,
+              "y": 281.0332336425781,
+              "width": 32.7210693359375,
+              "height": 32.7210693359375
+            },
+            "measuredBodyCssPixels": 25.997911340688006,
+            "teamColor": "#C6452E",
+            "badgeFill": "#C6452E",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 716.8301419185766,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 717.6481683735561,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 718.4661948285357,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 721.533794034709,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 722.3518204896885,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 723.169846944668,
+                "screenY": 305.26726737134743
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 717.6481683735561,
+                "screenY": 305.88078721258205
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 722.3518204896885,
+                "screenY": 305.88078721258205
+              }
+            ]
+          },
+          {
+            "side": "south",
+            "bodyTargetCssPixels": 26,
+            "helperBodyInputCssPixels": 35.66988210075027,
+            "bodyBoundsUnits": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "bodyBoundsScreenCssPixels": {
+              "x": 707.3205847695046,
+              "y": 546.0725368608798,
+              "width": 27.577718111707554,
+              "height": 25.997902492188132
+            },
+            "frameScreenCssPixels": {
+              "x": 703.6394653320312,
+              "y": 543.4395141601562,
+              "width": 32.7210693359375,
+              "height": 32.72100830078125
+            },
+            "measuredBodyCssPixels": 25.997862846350472,
+            "teamColor": "#2E7F86",
+            "badgeFill": "#2E7F86",
+            "teamSamples": [
+              {
+                "userX": 12.9,
+                "userY": 23.7,
+                "screenX": 716.8301419185766,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 13.7,
+                "userY": 23.7,
+                "screenX": 717.6481683735561,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 14.5,
+                "userY": 23.7,
+                "screenX": 718.4661948285357,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 17.5,
+                "userY": 23.7,
+                "screenX": 721.533794034709,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 18.3,
+                "userY": 23.7,
+                "screenX": 722.3518204896885,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 19.1,
+                "userY": 23.7,
+                "screenX": 723.169846944668,
+                "screenY": 567.6735478889256
+              },
+              {
+                "userX": 13.7,
+                "userY": 24.3,
+                "screenX": 717.6481683735561,
+                "screenY": 568.2870677301602
+              },
+              {
+                "userX": 18.3,
+                "userY": 24.3,
+                "screenX": 722.3518204896885,
+                "screenY": 568.2870677301602
+              }
+            ]
+          }
+        ]
+      },
+      "teamPixelAudit": [
+        {
+          "side": "north",
+          "expectedTeamColor": "#C6452E",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              13.7,
+              23.7
+            ],
+            "pixel": [
+              717,
+              305
+            ],
+            "rgb": [
+              198,
+              69,
+              46
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                716,
+                305
+              ],
+              "rgb": [
+                209,
+                110,
+                88
+              ],
+              "ownDistance": 59.716,
+              "opposingDistance": 170.2175,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                717,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                718,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                721,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                722,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                723,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                717,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                722,
+                305
+              ],
+              "rgb": [
+                198,
+                69,
+                46
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        },
+        {
+          "side": "south",
+          "expectedTeamColor": "#2E7F86",
+          "closerToOwnCount": 8,
+          "sampleCount": 8,
+          "closestOwnSample": {
+            "userUnits": [
+              13.7,
+              23.7
+            ],
+            "pixel": [
+              717,
+              567
+            ],
+            "rgb": [
+              46,
+              127,
+              134
+            ],
+            "ownDistance": 0,
+            "opposingDistance": 184.9649,
+            "closerToOwnTeam": true
+          },
+          "samples": [
+            {
+              "userUnits": [
+                12.9,
+                23.7
+              ],
+              "pixel": [
+                716,
+                567
+              ],
+              "rgb": [
+                95,
+                154,
+                154
+              ],
+              "ownDistance": 59.4138,
+              "opposingDistance": 171.7498,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                23.7
+              ],
+              "pixel": [
+                717,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                14.5,
+                23.7
+              ],
+              "pixel": [
+                718,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                17.5,
+                23.7
+              ],
+              "pixel": [
+                721,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                23.7
+              ],
+              "pixel": [
+                722,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                19.1,
+                23.7
+              ],
+              "pixel": [
+                723,
+                567
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                13.7,
+                24.3
+              ],
+              "pixel": [
+                717,
+                568
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            },
+            {
+              "userUnits": [
+                18.3,
+                24.3
+              ],
+              "pixel": [
+                722,
+                568
+              ],
+              "rgb": [
+                46,
+                127,
+                134
+              ],
+              "ownDistance": 0,
+              "opposingDistance": 184.9649,
+              "closerToOwnTeam": true
+            }
+          ]
+        }
+      ],
+      "runtimeErrors": [],
+      "requestFailures": []
+    }
+  ]
+}

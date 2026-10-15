@@ -1,0 +1,40 @@
+{
+  "argv": [
+    "/Users/me/.local/bin/npm",
+    "run",
+    "test:shipping-isolation-guard"
+  ],
+  "chrome": null,
+  "cwd": "/private/tmp/art023b-aether-well-assembly-330",
+  "directChildPid": 23028,
+  "directExitCode": 0,
+  "elapsedSeconds": 32.806,
+  "environmentOverrides": {},
+  "name": "shipping-guard-13",
+  "node": "/Users/me/.local/bin/node v22.22.3",
+  "privatePlaywright": null,
+  "processesObserved": [
+    {
+      "command": "(node)",
+      "pid": 23042,
+      "ppid": 23028
+    },
+    {
+      "command": "(node)",
+      "pid": 23043,
+      "ppid": 23042
+    },
+    {
+      "command": "(node)",
+      "pid": 23044,
+      "ppid": 23043
+    },
+    {
+      "command": "(node)",
+      "pid": 23049,
+      "ppid": 23044
+    }
+  ],
+  "recorderPid": 23018,
+  "shell": false
+}

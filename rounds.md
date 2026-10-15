@@ -9597,3 +9597,12 @@ EVIDENCE: IndependentactualcatalogprobeandnativeChrome155app-shell1/1actualexit0
 BIGGEST GAP: AetherWellportraitlookupremainsblank; actualportrait/battleintegrationisoutsideinformation-onlyscopeandremains023I.
 
 Scopedacceptanceonly; sharedapp-shellsourceadoptionDEFERREDbecauseCARDS022I failedindependently. Preserveexactresourcebranchandrequirematchingcombinedapp-shellproofduringI-R2. AcceptedportraitassetexistsfromRound500, butisnotwiredbythispiece. No historicalconfidence/statpromotionorfullrelease/enduranceclaim.
+
+## Round 504 - ART-023B Aether Well battle art
+
+PIECE: ART-023B
+VERDICT: PASS
+EVIDENCE: Independent exact1d026c4 source helper5/manifest6/shippingguard13/release22/shippingrelease4,50/50directexit0. Eight nativeChrome155/PL1.58.2/DPR1 viewport captures cover phone390x844/desktop1440x933, light/dark and13/26CSSpx. ActualSVGbody12.994397-12.998543/25.997111-25.997911px within0.01px layoutquantization tolerance; viewport containment, north/south teamreadability, repeated/reduced-motion PNGbyteequality pass. Rootverified190builderledgerentries/50criticentries, rawTAP/directexits, exact5productblobs and cleanfences.
+BIGGEST GAP: At13px fine copper/rootwood ornament and hanging mechanism compress into a small silhouette; structure reads moreclearlyat26px.
+
+Adopt five isolatedhelper/fixture/provenance/test paths only. Originalbuildernative01-05 attempts including clipped/geometryfailures remain immutable; cachedChrome145release22 pass is excluded, qualifiednative155rerun22 retained. Fourgeneratedrelease001breports copied externally then onlythosefour restored. No sim/API/stats/package/asset changes, actualgameintegration, historicalvisualparity or newfullendurance claim. Browserwindow released for CARDS022I R2.

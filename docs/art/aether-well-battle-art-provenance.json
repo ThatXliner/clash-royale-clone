@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "artifact": "ART-023B Aether Well live building art",
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "method": "Hand-authored deterministic native SVG paths; no generated bitmap.",
+  "identity_source": {
+    "concept": "docs/art/aether-well-character-concept.md",
+    "accepted_portrait": "public/assets/aether-well-portrait-painted.webp",
+    "accepted_portrait_sha256": "f46cb6b879def255c14058428fa6689e996b8e6699f675c02f19e0812638169c",
+    "use": "Visual identity reference only; no portrait pixels or geometry are imported."
+  },
+  "renderer": {
+    "source": "src/ui/aether-well-art.js",
+    "format": "inline SVG created from fixed DOM path and ellipse values",
+    "viewBox": "0 0 32 32",
+    "visibleBodyBoundsUnits": {
+      "top": 2.575,
+      "bottom": 28,
+      "height": 25.425
+    },
+    "supportedFixtureBodyCssPixels": [
+      13,
+      26
+    ],
+    "motion": "static; no clock, random source, animation element, or external image",
+    "teamColors": {
+      "north": "#C6452E",
+      "south": "#2E7F86"
+    }
+  },
+  "fixture": {
+    "html": "demo/aether-well-battle-art.html",
+    "script": "demo/aether-well-battle-art.js",
+    "shell": {
+      "width": 720,
+      "height": 1280
+    },
+    "arenaSurface": {
+      "width": 540,
+      "height": 960
+    },
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 1440,
+        "height": 933
+      }
+    ],
+    "tones": [
+      "light",
+      "dark"
+    ],
+    "bodyTargetsCssPixels": [
+      13,
+      26
+    ],
+    "existingBackdrop": "public/assets/moss-ember-arena-painted.webp",
+    "scalePolicy": "The shell scales to the viewport; helper input is counter-scaled so the actual SVG getBBox body geometry remains within 0.01 CSS pixels of the requested target after browser layout quantization."
+  },
+  "newAssetBudget": {
+    "generatedRasterFiles": 0,
+    "newShippedRasterFiles": 0,
+    "newManifestEntries": 0,
+    "newDependencies": 0,
+    "externalReferenceAssets": 0
+  },
+  "verification": {
+    "focusedCommand": "node --test tests/aether-well-battle-art.test.js",
+    "focusedActualExit": 0,
+    "focusedTests": {
+      "passed": 5,
+      "failed": 0
+    },
+    "focusedRawOutput": "artifacts/art-023b-round-1/builder/focused-helper-05.stdout.raw",
+    "browserCaptures": "artifacts/art-023b-round-1/builder/native-capture-05/captures/capture-manifest.json; native Chrome 155, DPR 1, 8 viewport/tone/body cases, repeated and reduced-motion hashes identical.",
+    "teamPixelAudit": "artifacts/art-023b-round-1/builder/team-pixel-audit-03.stdout.raw; each side's badge color is closer to its expected team palette than the opposing palette in all 8 captures.",
+    "browserCaptureActualExit": 0,
+    "releaseGates": "Run npm run test:visual-asset-manifest, npm run test:shipping-isolation-guard, npm run test:release-build, and npm run test:shipping-isolation-release on the final assembled revision; raw outputs and actual exits are retained in the builder evidence."
+  },
+  "sourceFiles": [
+    {
+      "path": "src/ui/aether-well-art.js",
+      "bytes": 8240,
+      "sha256": "164ffe448d59e6ec2b2d6d2f60f88759d09808447c0b9cefc910774c07d13af8"
+    },
+    {
+      "path": "demo/aether-well-battle-art.html",
+      "bytes": 3409,
+      "sha256": "9cc53bb3aa5e430b157f86a1537498a97ec54d27844dadf90072613abd350eb9"
+    },
+    {
+      "path": "demo/aether-well-battle-art.js",
+      "bytes": 2125,
+      "sha256": "642b394ac54c98c7c498c4c533eb961f18a9706db14882ff8649b84c780b39a3"
+    },
+    {
+      "path": "tests/aether-well-battle-art.test.js",
+      "bytes": 5570,
+      "sha256": "add9caf3e2502cb46972bc59751708e90f681da27d34b5993035c7455f54e72e"
+    }
+  ],
+  "sourceFileLedgerNote": "Hashes cover authored helper, fixture, and focused test; this provenance file does not hash itself."
+}

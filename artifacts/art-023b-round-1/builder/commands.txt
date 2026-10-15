@@ -1,0 +1,13 @@
+Base inspection and source reads were performed in the detached checkout at 6f2b7f202acb28f60e5682f499535f948fb2de40.
+
+The following commands were run by the Python recorder, which wrote each command, raw stdout, raw stderr, and actual child exit code beside this file:
+
+- node --test tests/aether-well-battle-art.test.js (focused-helper-01; passed 5/5)
+- node --test tests/aether-well-battle-art.test.js (focused-helper-02; passed 5/5 after the fixture matched the production arena border box)
+- node --check src/ui/aether-well-art.js
+- node --check demo/aether-well-battle-art.js
+- node --check tests/aether-well-battle-art.test.js
+- git diff --cached --check
+- python3 verify docs/art/aether-well-battle-art-provenance.json source file hashes
+
+No browser, app-shell journey, build, or release gate was run. The browser and build window was reserved by the parent task.

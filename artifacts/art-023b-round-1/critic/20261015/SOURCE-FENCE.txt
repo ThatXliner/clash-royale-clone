@@ -1,0 +1,14 @@
+Candidate: /private/tmp/art023b-aether-well-critic-20261015T201653Z
+HEAD: 1d026c4987b0d99e3043d3b1004e6c00e7502081
+Base: 330f2804ebd5b421b5f952ca0187fcb76d4c6af6
+
+`git status --short` after the review: empty (clean).
+
+`git diff --name-only BASE..HEAD` (exactly five paths):
+demo/aether-well-battle-art.html
+demo/aether-well-battle-art.js
+docs/art/aether-well-battle-art-provenance.json
+src/ui/aether-well-art.js
+tests/aether-well-battle-art.test.js
+
+During release verification, only four tracked release-001b reports were modified by generated test output. Their generated versions are preserved in `attempts/release-22/generated-release001b-reports/`; exactly those four tracked paths were restored. The reviewer-created `.npm-cache/` was removed.

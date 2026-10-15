@@ -1,0 +1,819 @@
+{
+  "capture": "ART-023B native Chrome battle-art fixture",
+  "sourceCommit": "20089e41225d17043d20c61b37a4aa60cff2212e",
+  "browser": {
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "version": "Google Chrome 155.0.8059.40",
+    "pid": 17394,
+    "playwrightVersion": "1.58.2"
+  },
+  "deviceScaleFactor": 1,
+  "cssLayoutQuantizationToleranceCssPixels": 0.01,
+  "fixture": {
+    "arena": "540x960 source pixels",
+    "shell": "720x1280 source pixels",
+    "allowlistedRequests": [
+      "/demo/aether-well-battle-art.html",
+      "/demo/aether-well-battle-art.js",
+      "/src/ui/aether-well-art.js",
+      "/public/assets/moss-ember-arena-painted.webp"
+    ]
+  },
+  "requiredCases": 8,
+  "cases": [
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-phone-390x844-light-13px.png",
+      "viewport": {
+        "name": "phone-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "tone": "light",
+      "bodyCssPixels": 13,
+      "measurement": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "shellScale": 0.541667,
+        "arenaCssRect": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 13,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 186.8199920654297,
+              "y": 288.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 188.66049576234855,
+              "y": 289.464602375567,
+              "width": 13.7884393590939,
+              "height": 12.998543468474963
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.998543468474963,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 186.8199920654297,
+              "y": 483.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 188.66049576234855,
+              "y": 484.464602375567,
+              "width": 13.7884393590939,
+              "height": 12.998543468474963
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.998543468474963,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "4df5d8b617c7145a4ef2bd82b4b3e37aabe74087181b47d3f351b68dfdbd497d",
+      "repeatedSameParametersSha256": "4df5d8b617c7145a4ef2bd82b4b3e37aabe74087181b47d3f351b68dfdbd497d",
+      "reducedMotionSha256": "4df5d8b617c7145a4ef2bd82b4b3e37aabe74087181b47d3f351b68dfdbd497d",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-phone-390x844-light-26px.png",
+      "viewport": {
+        "name": "phone-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "tone": "light",
+      "bodyCssPixels": 26,
+      "measurement": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "shellScale": 0.541667,
+        "arenaCssRect": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 26,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 178.63998413085938,
+              "y": 279.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 182.32098980808314,
+              "y": 282.60105168926725,
+              "width": 27.57686585788906,
+              "height": 25.997111184118694
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997111184118694,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 178.63998413085938,
+              "y": 474.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 182.32098980808314,
+              "y": 477.60105168926725,
+              "width": 27.57686585788906,
+              "height": 25.997111184118694
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997111184118694,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "511ba769f96df6564b2a334420dc57ba98898661be0399e1c3889c2a65845c33",
+      "repeatedSameParametersSha256": "511ba769f96df6564b2a334420dc57ba98898661be0399e1c3889c2a65845c33",
+      "reducedMotionSha256": "511ba769f96df6564b2a334420dc57ba98898661be0399e1c3889c2a65845c33",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-phone-390x844-dark-13px.png",
+      "viewport": {
+        "name": "phone-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "tone": "dark",
+      "bodyCssPixels": 13,
+      "measurement": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "shellScale": 0.541667,
+        "arenaCssRect": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 13,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 186.8199920654297,
+              "y": 288.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 188.66049576234855,
+              "y": 289.464602375567,
+              "width": 13.7884393590939,
+              "height": 12.998543468474963
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.998543468474963,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 186.8199920654297,
+              "y": 483.14813232421875,
+              "width": 16.360031127929688,
+              "height": 16.360015869140625
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 188.66049576234855,
+              "y": 484.464602375567,
+              "width": 13.7884393590939,
+              "height": 12.998543468474963
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.998543468474963,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "baf5665b8fc8870dee5c3fd2520f8fadf12867b73ec5c5235a4794fc99044081",
+      "repeatedSameParametersSha256": "baf5665b8fc8870dee5c3fd2520f8fadf12867b73ec5c5235a4794fc99044081",
+      "reducedMotionSha256": "baf5665b8fc8870dee5c3fd2520f8fadf12867b73ec5c5235a4794fc99044081",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-phone-390x844-dark-26px.png",
+      "viewport": {
+        "name": "phone-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "tone": "dark",
+      "bodyCssPixels": 26,
+      "measurement": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 0,
+          "y": 75.328125,
+          "width": 390,
+          "height": 693.3333740234375
+        },
+        "shellScale": 0.541667,
+        "arenaCssRect": {
+          "x": 46.583335876464844,
+          "y": 131.66146850585938,
+          "width": 296.8333435058594,
+          "height": 524.3333740234375
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 26,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 178.63998413085938,
+              "y": 279.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 182.32098980808314,
+              "y": 282.60105168926725,
+              "width": 27.57686585788906,
+              "height": 25.997111184118694
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997111184118694,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.5416666666666666,
+            "svgCssRect": {
+              "x": 178.63998413085938,
+              "y": 474.9681091308594,
+              "width": 32.72004699707031,
+              "height": 32.720062255859375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 182.32098980808314,
+              "y": 477.60105168926725,
+              "width": 27.57686585788906,
+              "height": 25.997111184118694
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997111184118694,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "43c78971d628a0637a0da9c1b95284606540826d96f467b041791c6b12ce83ad",
+      "repeatedSameParametersSha256": "43c78971d628a0637a0da9c1b95284606540826d96f467b041791c6b12ce83ad",
+      "reducedMotionSha256": "43c78971d628a0637a0da9c1b95284606540826d96f467b041791c6b12ce83ad",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-desktop-1440x933-light-13px.png",
+      "viewport": {
+        "name": "desktop-1440x933",
+        "width": 1440,
+        "height": 933
+      },
+      "tone": "light",
+      "bodyCssPixels": 13,
+      "measurement": {
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "shellScale": 0.728906,
+        "arenaCssRect": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 13,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 711.8225708007812,
+              "y": 289.2163391113281,
+              "width": 16.3548583984375,
+              "height": 16.354827880859375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 713.6624925655706,
+              "y": 290.5323916917366,
+              "width": 13.784079717821442,
+              "height": 12.994421449784568
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.994421449784568,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 711.8225708007812,
+              "y": 551.6226196289062,
+              "width": 16.3548583984375,
+              "height": 16.35479736328125
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 713.6624925655706,
+              "y": 552.9386697536033,
+              "width": 13.784079717821442,
+              "height": 12.9943972026158
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.9943972026158,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "28dc84592b58528b5a50456361b1923d8e4aaac798abc3dd0d894efaa951f688",
+      "repeatedSameParametersSha256": "28dc84592b58528b5a50456361b1923d8e4aaac798abc3dd0d894efaa951f688",
+      "reducedMotionSha256": "28dc84592b58528b5a50456361b1923d8e4aaac798abc3dd0d894efaa951f688",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-desktop-1440x933-light-26px.png",
+      "viewport": {
+        "name": "desktop-1440x933",
+        "width": 1440,
+        "height": 933
+      },
+      "tone": "light",
+      "bodyCssPixels": 26,
+      "measurement": {
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "shellScale": 0.728906,
+        "arenaCssRect": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "light",
+        "targetBodyCssPixels": 26,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 703.6394653320312,
+              "y": 281.0332336425781,
+              "width": 32.7210693359375,
+              "height": 32.7210693359375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 707.3205860223898,
+              "y": 283.66625723946254,
+              "width": 27.57772749790456,
+              "height": 25.997911340688006
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997911340688006,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 703.6394653320312,
+              "y": 543.4395141601562,
+              "width": 32.7210693359375,
+              "height": 32.72100830078125
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 707.3205860223898,
+              "y": 546.0725328456178,
+              "width": 27.57772749790456,
+              "height": 25.997862846350472
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997862846350472,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "76ca7931509fead9eef2e8ed4a6e70b515c6dc2bc223705537d89ab8bb35b3a7",
+      "repeatedSameParametersSha256": "76ca7931509fead9eef2e8ed4a6e70b515c6dc2bc223705537d89ab8bb35b3a7",
+      "reducedMotionSha256": "76ca7931509fead9eef2e8ed4a6e70b515c6dc2bc223705537d89ab8bb35b3a7",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-desktop-1440x933-dark-13px.png",
+      "viewport": {
+        "name": "desktop-1440x933",
+        "width": 1440,
+        "height": 933
+      },
+      "tone": "dark",
+      "bodyCssPixels": 13,
+      "measurement": {
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "shellScale": 0.728906,
+        "arenaCssRect": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 13,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 711.8225708007812,
+              "y": 289.2163391113281,
+              "width": 16.3548583984375,
+              "height": 16.354827880859375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 713.6624925655706,
+              "y": 290.5323916917366,
+              "width": 13.784079717821442,
+              "height": 12.994421449784568
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.994421449784568,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 711.8225708007812,
+              "y": 551.6226196289062,
+              "width": 16.3548583984375,
+              "height": 16.35479736328125
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 713.6624925655706,
+              "y": 552.9386697536033,
+              "width": 13.784079717821442,
+              "height": 12.9943972026158
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 12.9943972026158,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "3d8eee393473dca818f8dc9ac70401633cdadead4baac27ce5711d2a55d45475",
+      "repeatedSameParametersSha256": "3d8eee393473dca818f8dc9ac70401633cdadead4baac27ce5711d2a55d45475",
+      "reducedMotionSha256": "3d8eee393473dca818f8dc9ac70401633cdadead4baac27ce5711d2a55d45475",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    },
+    {
+      "filename": "artifacts/art-023b-round-1/builder/native-capture-04/captures/aether-well-desktop-1440x933-dark-26px.png",
+      "viewport": {
+        "name": "desktop-1440x933",
+        "width": 1440,
+        "height": 933
+      },
+      "tone": "dark",
+      "bodyCssPixels": 26,
+      "measurement": {
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "devicePixelRatio": 1,
+        "shellCssRect": {
+          "x": 457.59375,
+          "y": 0,
+          "width": 524.8125,
+          "height": 933
+        },
+        "shellScale": 0.728906,
+        "arenaCssRect": {
+          "x": 520.2796630859375,
+          "y": 75.8062515258789,
+          "width": 399.440673828125,
+          "height": 705.5812377929688
+        },
+        "arenaDimensions": {
+          "width": 540,
+          "height": 960
+        },
+        "tone": "dark",
+        "targetBodyCssPixels": 26,
+        "units": [
+          {
+            "team": "north",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 703.6394653320312,
+              "y": 281.0332336425781,
+              "width": 32.7210693359375,
+              "height": 32.7210693359375
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 707.3205860223898,
+              "y": 283.66625723946254,
+              "width": 27.57772749790456,
+              "height": 25.997911340688006
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997911340688006,
+            "side": "north",
+            "teamColor": "#C6452E",
+            "renderer": "native-svg",
+            "motion": "static"
+          },
+          {
+            "team": "south",
+            "shellScale": 0.72890625,
+            "svgCssRect": {
+              "x": 703.6394653320312,
+              "y": 543.4395141601562,
+              "width": 32.7210693359375,
+              "height": 32.72100830078125
+            },
+            "artBoundsViewBox": {
+              "x": 3.6000003814697266,
+              "y": 2.575000047683716,
+              "width": 26.970001220703125,
+              "height": 25.424999237060547
+            },
+            "artCssRect": {
+              "x": 707.3205860223898,
+              "y": 546.0725328456178,
+              "width": 27.57772749790456,
+              "height": 25.997862846350472
+            },
+            "bodyBoundsUnits": "2.575:28",
+            "bodyCssPixels": 25.997862846350472,
+            "side": "south",
+            "teamColor": "#2E7F86",
+            "renderer": "native-svg",
+            "motion": "static"
+          }
+        ]
+      },
+      "sha256": "c91e64672eeb7b58508be8b6ab997965bee808ce55b017fbed78b2ba57b38dad",
+      "repeatedSameParametersSha256": "c91e64672eeb7b58508be8b6ab997965bee808ce55b017fbed78b2ba57b38dad",
+      "reducedMotionSha256": "c91e64672eeb7b58508be8b6ab997965bee808ce55b017fbed78b2ba57b38dad",
+      "sameParametersStable": true,
+      "reducedMotionStable": true
+    }
+  ],
+  "deterministicAll": true,
+  "reducedMotionAll": true
+}
