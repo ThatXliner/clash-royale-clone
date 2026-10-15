@@ -1,0 +1,53 @@
+{
+  "source": "52718dd61252ee2b41cdaf73d9b9be3b18f5f80d",
+  "findings": [
+    "Positive test binding maps stormkite chain fixture to electro-dragon; name resemblance is not the mapping evidence.",
+    "ChainEncounter is separate from LiveBattle. Shared projectile profile explicitly says pending-shared-host-integration; sidecar records host launches/contacts and emits continuation QUESTION.",
+    "Existing shared-host test checks ordinary contact health and explicit continuation QUESTION, not chain hops. No new playable card or mechanic accepted.",
+    "No ordinary noneditable alternative verified in bounded scan; not an exhaustive impossibility claim.",
+    "Historical numeric/consumer uncertainty remains distinct from absent host implementation."
+  ],
+  "sources": [
+    {
+      "path": "tests/special-projectiles-chain.test.js",
+      "sourceSha256": "b1b5db741b03f86bc85c04d4704bab7640a3ddc157d31a6da6586c08e30cadf0",
+      "lines": [
+        35,
+        73
+      ]
+    },
+    {
+      "path": "src/content/session-troop-projectile-profiles.js",
+      "sourceSha256": "a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850",
+      "lines": [
+        59,
+        91
+      ]
+    },
+    {
+      "path": "src/sim/session-troop-projectile-runtime.js",
+      "sourceSha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f",
+      "lines": [
+        5,
+        14
+      ]
+    },
+    {
+      "path": "src/sim/session-troop-projectile-runtime.js",
+      "sourceSha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f",
+      "lines": [
+        887,
+        970
+      ]
+    },
+    {
+      "path": "tests/game-roster-troops-projectile.test.js",
+      "sourceSha256": "385079a508fd2ce2c3b8ef09a7399435eb7a63aec784aaa7c871f3aa10893eac",
+      "lines": [
+        138,
+        181
+      ]
+    }
+  ],
+  "nextPiece": "GAME-001HTJC"
+}
