@@ -1,0 +1,99 @@
+{
+  "allEqual": true,
+  "comparisons": {
+    "legacyV1": {
+      "initial": {
+        "equal": true,
+        "tick": 0,
+        "snapshotHash": "110998227060dc739d62b493f2d5019e104e118586631279a6fc9e32b95c1855",
+        "replayHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "deployed": {
+        "equal": true,
+        "tick": 0,
+        "snapshotHash": "214b10bbffcd9edbb8252b46eb129216e9f6a33ed2f22fa34bcfb5018749b39f",
+        "replayHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "beforeFirstPulseBoundary": {
+        "equal": true,
+        "tick": 510,
+        "snapshotHash": "7d5b7b1af3f014c234ec5f3f1f5682de5b2e2da16bea3270cea0fd6b8616b2ee",
+        "replayHash": "ac109720ddadb7b94ebabd61d04c3a5d8a354a72dd43f75c300524d77d2f40cb"
+      },
+      "firstPulseBoundary": {
+        "equal": true,
+        "tick": 511,
+        "snapshotHash": "baf9018e394816db57b02182aaff914a2d7acf90ab8f562a97198f522ce8d54b",
+        "replayHash": "45e157fdb6b77ab5659969e2cec92809db2a97bc70deb573d42fc09086c784bb"
+      },
+      "beforeExpiry": {
+        "equal": true,
+        "tick": 4200,
+        "snapshotHash": "dee2a220e69037603b54f677e370c70170b159dcadc5869557c71effa5843913",
+        "replayHash": "f61941d6dc7ae0e31700411c00c59fcad2ec7a1ee7a63bc3abc1b1aa4189e28b"
+      },
+      "expiryBoundary": {
+        "equal": true,
+        "tick": 4201,
+        "snapshotHash": "91375784be9f02e9e8cb10ad6860c5864439ddbf3b8e804c809e7b8e884e4e68",
+        "replayHash": "c3763c0693c0701a2b58d56bd0fa1309d25c390c94fa37a42c105c88639d3055"
+      },
+      "expiryRestore": {
+        "equal": true,
+        "tick": 4201,
+        "snapshotHash": "91375784be9f02e9e8cb10ad6860c5864439ddbf3b8e804c809e7b8e884e4e68",
+        "replayHash": "c3763c0693c0701a2b58d56bd0fa1309d25c390c94fa37a42c105c88639d3055"
+      }
+    },
+    "legacyV1Combat": {
+      "death": {
+        "equal": true,
+        "tick": 0,
+        "snapshotHash": "210c7e14a88fa852b08ea657b0538059e52008e428c039c0cf6b67658a814706",
+        "replayHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "afterLaterTicks": {
+        "equal": true,
+        "tick": 20,
+        "snapshotHash": "7758c5311a100647706b7b7d5cfd32170d2b7c8b1e67be4b7d2ba402c25e1fc7",
+        "replayHash": "16e934cc052429f724e1718ea66e9f2bc115cc1375024acd332ab36dbe2c567f"
+      },
+      "destroyEvents": {
+        "equal": true,
+        "parent": [],
+        "candidate": []
+      },
+      "payoutEvents": {
+        "equal": true,
+        "parent": [],
+        "candidate": []
+      }
+    },
+    "shippedEight": {
+      "initial": {
+        "equal": true,
+        "tick": 0,
+        "snapshotHash": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+        "replayHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "oneTick": {
+        "equal": true,
+        "tick": 1,
+        "snapshotHash": "860935288f0eb0ffe7a1f197b53732718e5414136c333237b1e12bbc661eeb1f",
+        "replayHash": "36a2e30d0df343f7a88cb32cbe7e490932fe88311e603d7d37986478279a139f"
+      },
+      "openingChunk": {
+        "equal": true,
+        "tick": 511,
+        "snapshotHash": "033ec65af75fa6aead6a301ca5cfb9682c5c1d5a9ae87fda09ed3dc016144319",
+        "replayHash": "feb16794ecfe92e1f867b41dcceb1d3d32713d45f49e38768e189e4cb5b6ffff"
+      },
+      "longRun": {
+        "equal": true,
+        "tick": 4200,
+        "snapshotHash": "3b7d612798360709225e29ade7c136700a25d0f4b47d7db61c795a9a218e92ca",
+        "replayHash": "7208b13d9175c7fad124e0895d8f417fde17d96208ff53c4dbd0ba117a11e9ef"
+      }
+    }
+  }
+}

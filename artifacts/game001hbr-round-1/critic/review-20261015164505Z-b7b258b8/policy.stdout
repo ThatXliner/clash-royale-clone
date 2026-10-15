@@ -1,0 +1,50 @@
+
+> moss-and-ember@0.0.0 test:game-building-policy
+> node tests/game-building-policy-runner.js game-building-policy
+
+TAP version 13
+# Subtest: game building policy: shared-host resource v2 pins corroborated values and keeps consumer choices QUESTION
+ok 1 - game building policy: shared-host resource v2 pins corroborated values and keeps consumer choices QUESTION
+  ---
+  duration_ms: 5.179375
+  type: 'test'
+  ...
+# Subtest: game building policy: v2 resource receipts reject missing, forged, stale, and extra fields before admission
+ok 2 - game building policy: v2 resource receipts reject missing, forged, stale, and extra fields before admission
+  ---
+  duration_ms: 167.417416
+  type: 'test'
+  ...
+# Subtest: game building policy: legacy v1 and default-eight session snapshots remain byte-exact
+ok 3 - game building policy: legacy v1 and default-eight session snapshots remain byte-exact
+  ---
+  duration_ms: 2762.743041
+  type: 'test'
+  ...
+# Subtest: game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+ok 4 - game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+  ---
+  duration_ms: 9.278708
+  type: 'test'
+  ...
+# Subtest: game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+ok 5 - game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+  ---
+  duration_ms: 179.893583
+  type: 'test'
+  ...
+# Subtest: game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+ok 6 - game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+  ---
+  duration_ms: 405.283875
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3755.309041

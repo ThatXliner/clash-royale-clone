@@ -1,0 +1,110 @@
+
+> moss-and-ember@0.0.0 test:game-building-runtime
+> node tests/game-building-runtime-runner.js game-building-runtime
+
+TAP version 13
+# Subtest: game building runtime: pure reducer has no independent session authority and QUESTION identities remain excluded
+ok 1 - game building runtime: pure reducer has no independent session authority and QUESTION identities remain excluded
+  ---
+  duration_ms: 20.120667
+  type: 'test'
+  ...
+# Subtest: game building runtime: every fresh entry point accepts only exact catalog profile receipts
+ok 2 - game building runtime: every fresh entry point accepts only exact catalog profile receipts
+  ---
+  duration_ms: 163.686083
+  type: 'test'
+  ...
+# Subtest: game building runtime: Bulwark provenance reaches the live structure and cannot be stripped
+ok 3 - game building runtime: Bulwark provenance reaches the live structure and cannot be stripped
+  ---
+  duration_ms: 54.692375
+  type: 'test'
+  ...
+# Subtest: game building runtime: fresh admission pins every profile leaf, shape, and card identity
+ok 4 - game building runtime: fresh admission pins every profile leaf, shape, and card identity
+  ---
+  duration_ms: 9274.516417
+  type: 'test'
+  ...
+# Subtest: game building runtime: hostile fresh inputs are non-observing at all three boundaries
+ok 5 - game building runtime: hostile fresh inputs are non-observing at all three boundaries
+  ---
+  duration_ms: 0.960959
+  type: 'test'
+  ...
+# Subtest: game building runtime: versioned restore keeps any present profile pinned
+ok 6 - game building runtime: versioned restore keeps any present profile pinned
+  ---
+  duration_ms: 23.780084
+  type: 'test'
+  ...
+# Subtest: game building runtime: real GameSession typed route materializes bulwark once under the shared global ID authority
+ok 7 - game building runtime: real GameSession typed route materializes bulwark once under the shared global ID authority
+  ---
+  duration_ms: 19.848917
+  type: 'test'
+  ...
+# Subtest: game building runtime: v2 route-only structures restore through the legacy capability but fresh setup rejects
+ok 8 - game building runtime: v2 route-only structures restore through the legacy capability but fresh setup rejects
+  ---
+  duration_ms: 47.853625
+  type: 'test'
+  ...
+# Subtest: game building runtime: structures and ordinary units share one non-colliding host entity allocator
+ok 9 - game building runtime: structures and ordinary units share one non-colliding host entity allocator
+  ---
+  duration_ms: 18.07325
+  type: 'test'
+  ...
+# Subtest: game building runtime: a host-owned defensive lifetime expires on its shared boundary
+ok 10 - game building runtime: a host-owned defensive lifetime expires on its shared boundary
+  ---
+  duration_ms: 3461.667834
+  type: 'test'
+  ...
+# Subtest: game building runtime: admitted building-origin tower contact changes authoritative GameSession tower HP in order
+ok 11 - game building runtime: admitted building-origin tower contact changes authoritative GameSession tower HP in order
+  ---
+  duration_ms: 1622.732958
+  type: 'test'
+  ...
+# Subtest: game building runtime: resource proposals enter GameSession ElixirMatch and chunk/restore exactly
+ok 12 - game building runtime: resource proposals enter GameSession ElixirMatch and chunk/restore exactly
+  ---
+  duration_ms: 5203.83075
+  type: 'test'
+  ...
+# Subtest: game building runtime: expiry issues one source-aligned death grant, even when Elixir is capped
+ok 13 - game building runtime: expiry issues one source-aligned death grant, even when Elixir is capped
+  ---
+  duration_ms: 21992.069209
+  type: 'test'
+  ...
+# Subtest: game building runtime: travel state is host-serialized while its unsourced child remains visibly QUESTION
+ok 14 - game building runtime: travel state is host-serialized while its unsourced child remains visibly QUESTION
+  ---
+  duration_ms: 808.163084
+  type: 'test'
+  ...
+# Subtest: game building runtime: live host applies unit contact, cinder death effect, and building state serialization in one authority graph
+ok 15 - game building runtime: live host applies unit contact, cinder death effect, and building state serialization in one authority graph
+  ---
+  duration_ms: 1590.610708
+  type: 'test'
+  ...
+# Subtest: game building runtime: hostile structure routes fail atomically before host authority commit
+ok 16 - game building runtime: hostile structure routes fail atomically before host authority commit
+  ---
+  duration_ms: 21.3595
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 44453.844959

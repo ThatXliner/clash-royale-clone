@@ -1,0 +1,459 @@
+src/content/cards/buildings-resource.js --- 1/2 --- JavaScript
+ 43  43     "resource buildings resolve by ascending positive building id",
+ 44  44 });
+ ..  45 
+ ..  46 const SHARED_HOST_RESOURCE_POLICY_V2 = Object.freeze({
+ ..  47   cadenceAnchorPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  48     disposition: "question", key: "cadenceAnchorPolicy",
+ ..  49     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  50     value: "placement-tick-multiples-after-deployment" }),
+ ..  51   cadenceResetPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  52     disposition: "question", key: "cadenceResetPolicy",
+ ..  53     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  54     value: "nonlethal-damage-does-not-reset-placement-relative-cadence" }),
+ ..  55   deployTicks: Object.freeze({ authoritative: false, confidence: "unverified",
+ ..  56     disposition: "question", key: "deploy_time",
+ ..  57     source: "pinned-pre-march-2023-building-constants", value: 60 }),
+ ..  58   destructionAmount: Object.freeze({ authoritative: true, confidence: "high",
+ ..  59     disposition: "source-aligned", key: "mana_on_death",
+ ..  60     source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+ ..  61     value: 1 }),
+ ..  62   expiryOrderingPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  63     disposition: "question", key: "expiryOrderingPolicy",
+ ..  64     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  65     value: "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event" }),
+ ..  66   hitpoints: Object.freeze({ authoritative: false, confidence: "unverified",
+ ..  67     disposition: "question", key: "hitpoints",
+ ..  68     source: "pinned-pre-march-2023-building-constants", value: 1_070 }),
+ ..  69   generationAmount: Object.freeze({ authoritative: false, confidence: "datamine-only",
+ ..  70     disposition: "question", key: "mana_collect_amount",
+ ..  71     source: "pinned-pre-march-2023-building-constants", value: 1 }),
+ ..  72   generationCadenceTicks: Object.freeze({ authoritative: true, confidence: "high",
+ ..  73     disposition: "source-aligned", key: "mana_generate_time_ms",
+ ..  74     source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 540 }),
+ ..  75   lifetimeTicks: Object.freeze({ authoritative: true, confidence: "high",
+ ..  76     disposition: "source-aligned", key: "life_time",
+ ..  77     source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 3_900 }),
+ ..  78   placementPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  79     disposition: "question", key: "placementPolicy",
+ ..  80     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  81     value: "ordinary-ground-entity-deployment-mask-at-building-center" }),
+ ..  82   recipientPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  83     disposition: "question", key: "resourceRecipient",
+ ..  84     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  85     value: "building-owner" }),
+ ..  86   resourceCapacity: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  87     disposition: "question", key: "mana_generate_limit",
+ ..  88     source: "pre-evolutions-resource-consumer-semantics-question", value: 10 }),
+ ..  89   sameTickOrderingPolicy: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  90     disposition: "question", key: "sameTickOrderingPolicy",
+ ..  91     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  92     value: "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants" }),
+ ..  93   simultaneousGenerationOrder: Object.freeze({ authoritative: false, confidence: "absent",
+ ..  94     disposition: "question", key: "simultaneousGenerationOrder",
+ ..  95     source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  96     value: "ascending-positive-building-id" }),
+ ..  97 });
+ 45  98 
+ 46  99 const CARD = Object.freeze({
+ 47 100   areaDamageRadiusMillitiles: null,
+
+src/content/cards/buildings-resource.js --- 2/2 --- JavaScript
+476 529   ));
+477 530 }
+... 531 
+... 532 /**
+... 533  * Version 2 is the shared-host lifecycle receipt. The standalone encounter
+... 534  * above remains the original version-1 QUESTION fixture for saved bytes.
+... 535  */
+... 536 export function createSharedHostResourcePolicyRecords(...args) {
+... 537   if (args.length !== 0) {
+... 538     throw new TypeError("shared-host resource policy records do not accept overrides");
+... 539   }
+... 540   return deepFreeze(structuredClone({ version: 2, ...SHARED_HOST_RESOURCE_POLICY_V2 }));
+... 541 }
+478 542 
+479 543 export function createResourceBuildingFixture(
+480 544   buildings = [],
+
+src/content/session-card-catalog.js --- 1/3 --- JavaScript
+  1 import * as content from "./index.j    1 import * as content from "./index.j
+  . s";                                    . s";
+  2 import { createDeathEffectsQuestion    2 import { createDeathEffectsQuestion
+  . s } from "./cards/death-effects.js"    . s } from "./cards/death-effects.js"
+  . ;                                      . ;
+  3 import { createDefensiveBuildingRun    3 import { createDefensiveBuildingRun
+  . timeProfiles } from "./cards/buildi    . timeProfiles } from "./cards/buildi
+  . ngs-defensive.js";                     . ngs-defensive.js";
+  4 import { createResourceBuildingQues    4 import { createSharedHostResourcePo
+  . tionRecords } from "./cards/buildin    . licyRecords } from "./cards/buildin
+  . gs-resource.js";                       . gs-resource.js";
+  5 import { createUndergroundTravelBui    5 import { createUndergroundTravelBui
+  . ldingQuestionRecords } from "./card    . ldingQuestionRecords } from "./card
+  . s/buildings-travel.js";                . s/buildings-travel.js";
+  6 import { assertSessionBuildingProfi    6 import { assertSessionBuildingProfi
+  . leReceipt } from "../sim/session-bu    . leReceipt } from "../sim/session-bu
+  . ilding-profile-receipts.js";           . ilding-profile-receipts.js";
+  7 import { assertSafeCardCatalogGraph    7 import { assertSafeCardCatalogGraph
+  .  } from "./schema.js";                 .  } from "./schema.js";
+
+src/content/session-card-catalog.js --- 2/3 --- JavaScript
+ 81 function clone(value) { return stru   81 function clone(value) { return stru
+ .. cturedClone(value); }                 .. cturedClone(value); }
+ 82                                       82 
+ 83 const DEFENSIVE_RUNTIME = createDef   83 const DEFENSIVE_RUNTIME = createDef
+ .. ensiveBuildingRuntimeProfiles();      .. ensiveBuildingRuntimeProfiles();
+ 84 const RESOURCE_QUESTIONS = createRe   84 const SHARED_HOST_RESOURCE_POLICY_V
+ .. sourceBuildingQuestionRecords();      .. 2 = createSharedHostResourcePolicyR
+ ..                                       .. ecords();
+ 85 const TRAVEL_QUESTIONS = createUnde   85 const TRAVEL_QUESTIONS = createUnde
+ .. rgroundTravelBuildingQuestionRecord   .. rgroundTravelBuildingQuestionRecord
+ .. s();                                  .. s();
+ 86 const DEATH_QUESTIONS = createDeath   86 const DEATH_QUESTIONS = createDeath
+ .. EffectsQuestions();                   .. EffectsQuestions();
+ 87                                       87 
+
+src/content/session-card-catalog.js --- 3/3 --- JavaScript
+ 96     profile = { class: "defensive",   96     profile = { class: "defensive",
+ ..  ...clone(DEFENSIVE_RUNTIME[id]) };   ..  ...clone(DEFENSIVE_RUNTIME[id]) };
+ 97   } else if (id === "aether-well")    97   } else if (id === "aether-well") 
+ .. {                                     .. {
+ 98     profile = { class: "resource",    98     profile = { class: "resource", 
+ .. deployTicks: source.deployTimeTicks   .. deployTicks: source.deployTimeTicks
+ .. ,                                     .. ,
+ ..                                       99       destructionAmount: SHARED_HOS
+ ..                                       .. T_RESOURCE_POLICY_V2.destructionAmo
+ ..                                       .. unt.value,
+ 99       generationAmount: RESOURCE_QU  100       generationAmount: SHARED_HOST
+ .. ESTIONS.generationAmount.value,      ... _RESOURCE_POLICY_V2.generationAmoun
+ ..                                      ... t.value,
+100       generationCadenceTicks: RESOU  101       generationCadenceTicks: SHARE
+... RCE_QUESTIONS.generationCadenceTick  ... D_HOST_RESOURCE_POLICY_V2.generatio
+... s.value,                             ... nCadenceTicks.value,
+101       hitpoints: source.hitpoints,   102       hitpoints: source.hitpoints,
+... lifetimeTicks: RESOURCE_QUESTIONS.l  ... 
+... ifetimeTicks.value,                  ... 
+...                                      103       lifetimeTicks: SHARED_HOST_RE
+...                                      ... SOURCE_POLICY_V2.lifetimeTicks.valu
+...                                      ... e,
+102       policy: questionPolicy(RESOUR  104       policy: clone(SHARED_HOST_RES
+... CE_QUESTIONS, [                      ... OURCE_POLICY_V2) };
+103         ["generationAmount", "gener  ... 
+... ationAmount"],                       ... 
+104         ["generationCadenceTicks",   ... 
+... "generationCadenceTicks"],           ... 
+105         ["lifetimeTicks", "lifetime  ... 
+... Ticks"],                             ... 
+106       ]) };                          ... 
+107   } else if (id === "burrow-rig") {  105   } else if (id === "burrow-rig") {
+108     profile = { class: "travel", de  106     profile = { class: "travel", de
+... ployTicks: source.deployTimeTicks,   ... ployTicks: source.deployTimeTicks,
+109       emergenceSpawnDelayTicks: TRA  107       emergenceSpawnDelayTicks: TRA
+... VEL_QUESTIONS.emergenceSpawnDelayTi  ... VEL_QUESTIONS.emergenceSpawnDelayTi
+... cks.value,                           ... cks.value,
+
+src/sim/session-building-profile-receipts.js --- 1/2 --- JavaScript
+ 18  18   "prism-furnace": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":42,\"deployTicks\":60,\"firstHitTicks\":72,\"hitSpeedTicks\":24,\"hitpoints\":1749,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":6000,\"minRangeMillitiles\":0,\"rampStages\":[42,84,168],\"rampThresholds\":[0,2,4],\"targetMode\":\"air_and_ground\",\"variant\":\"ramp\"}",
+ 19  19 });
+ ..  20 
+ ..  21 const RESOURCE_V2_POLICY = Object.freeze({
+ ..  22   cadenceAnchorPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  23     key: "cadenceAnchorPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  24     value: "placement-tick-multiples-after-deployment" },
+ ..  25   cadenceResetPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  26     key: "cadenceResetPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  27     value: "nonlethal-damage-does-not-reset-placement-relative-cadence" },
+ ..  28   deployTicks: { authoritative: false, confidence: "unverified", disposition: "question",
+ ..  29     key: "deploy_time", source: "pinned-pre-march-2023-building-constants", value: 60 },
+ ..  30   destructionAmount: { authoritative: true, confidence: "high", disposition: "source-aligned",
+ ..  31     key: "mana_on_death", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 1 },
+ ..  32   expiryOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  33     key: "expiryOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  34     value: "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event" },
+ ..  35   hitpoints: { authoritative: false, confidence: "unverified", disposition: "question",
+ ..  36     key: "hitpoints", source: "pinned-pre-march-2023-building-constants", value: 1_070 },
+ ..  37   generationAmount: { authoritative: false, confidence: "datamine-only", disposition: "question",
+ ..  38     key: "mana_collect_amount", source: "pinned-pre-march-2023-building-constants", value: 1 },
+ ..  39   generationCadenceTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+ ..  40     key: "mana_generate_time_ms", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 540 },
+ ..  41   lifetimeTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+ ..  42     key: "life_time", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/", value: 3_900 },
+ ..  43   placementPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  44     key: "placementPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  45     value: "ordinary-ground-entity-deployment-mask-at-building-center" },
+ ..  46   recipientPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  47     key: "resourceRecipient", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  48     value: "building-owner" },
+ ..  49   resourceCapacity: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  50     key: "mana_generate_limit", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  51     value: 10 },
+ ..  52   sameTickOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  53     key: "sameTickOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  54     value: "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants" },
+ ..  55   simultaneousGenerationOrder: { authoritative: false, confidence: "absent", disposition: "question",
+ ..  56     key: "simultaneousGenerationOrder", source: "pre-evolutions-resource-consumer-semantics-question",
+ ..  57     value: "ascending-positive-building-id" },
+ ..  58   version: 2,
+ ..  59 });
+ ..  60 const RESOURCE_V2_PROFILE = Object.freeze({
+ ..  61   class: "resource", deployTicks: 60, destructionAmount: 1, generationAmount: 1,
+ ..  62   generationCadenceTicks: 540, hitpoints: 1_070, lifetimeTicks: 3_900,
+ ..  63   policy: RESOURCE_V2_POLICY,
+ ..  64 });
+ ..  65 const RESOURCE_V2_RECEIPT = canonical(RESOURCE_V2_PROFILE);
+ 20  66 
+ 21  67 const NONDEFENSIVE_POLICIES = Object.freeze({
+ 22  68   "aether-well": Object.freeze({
+
+src/sim/session-building-profile-receipts.js --- 2/2 --- JavaScript
+136 182     }
+137 183     return;
+138 184   }
+... 185   if (cardId === "aether-well" && receipt === RESOURCE_V2_RECEIPT) return;
+139 186   if (Object.hasOwn(NONDEFENSIVE_POLICIES, cardId)) {
+140 187     let profile;
+141 188     try { profile = JSON.parse(receipt); } catch {
+
+src/sim/session-building-runtime.js --- 1/7 --- JavaScript
+202   return freeze({                    202   return freeze({
+203     admitted: SESSION_BUILDING_ADMI  203     admitted: SESSION_BUILDING_ADMI
+... TTED_IDS.map((id) => ({              ... TTED_IDS.map((id) => ({
+204       id, kind: "structure", mechan  204       id, kind: "structure", mechan
+... ics: CLASS_BY_ID[id],                ... ics: CLASS_BY_ID[id],
+205       ...(CLASS_BY_ID[id] === "defe  205       ...(["defensive", "resource"]
+... nsive" ? { policyDisposition: "ques  ... .includes(CLASS_BY_ID[id])
+... tion" } : {}),                       ... 
+...                                      206         ? { policyDisposition: "que
+...                                      ... stion" } : {}),
+206     })),                             207     })),
+207     question: SESSION_BUILDING_QUES  208     question: SESSION_BUILDING_QUES
+... TION_IDS.map((id) => ({              ... TION_IDS.map((id) => ({
+
+src/sim/session-building-runtime.js --- 2/7 --- JavaScript
+295 296   };
+296 297 }
+... 298 
+... 299 const RESOURCE_V2_POLICY_METADATA = Object.freeze({
+... 300   cadenceAnchorPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+... 301     key: "cadenceAnchorPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+... 302     value: "placement-tick-multiples-after-deployment" },
+... 303   cadenceResetPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+... 304     key: "cadenceResetPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+... 305     value: "nonlethal-damage-does-not-reset-placement-relative-cadence" },
+... 306   deployTicks: { authoritative: false, confidence: "unverified", disposition: "question",
+... 307     key: "deploy_time", source: "pinned-pre-march-2023-building-constants" },
+... 308   destructionAmount: { authoritative: true, confidence: "high", disposition: "source-aligned",
+... 309     key: "mana_on_death", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/" },
+... 310   expiryOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+... 311     key: "expiryOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+... 312     value: "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event" },
+... 313   hitpoints: { authoritative: false, confidence: "unverified", disposition: "question",
+... 314     key: "hitpoints", source: "pinned-pre-march-2023-building-constants" },
+... 315   generationAmount: { authoritative: false, confidence: "datamine-only", disposition: "question",
+... 316     key: "mana_collect_amount", source: "pinned-pre-march-2023-building-constants" },
+... 317   generationCadenceTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+... 318     key: "mana_generate_time_ms", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/" },
+... 319   lifetimeTicks: { authoritative: true, confidence: "high", disposition: "source-aligned",
+... 320     key: "life_time", source: "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/" },
+... 321   placementPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+... 322     key: "placementPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+... 323     value: "ordinary-ground-entity-deployment-mask-at-building-center" },
+... 324   recipientPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+... 325     key: "resourceRecipient", source: "pre-evolutions-resource-consumer-semantics-question",
+... 326     value: "building-owner" },
+... 327   resourceCapacity: { authoritative: false, confidence: "absent", disposition: "question",
+... 328     key: "mana_generate_limit", source: "pre-evolutions-resource-consumer-semantics-question", value: 10 },
+... 329   sameTickOrderingPolicy: { authoritative: false, confidence: "absent", disposition: "question",
+... 330     key: "sameTickOrderingPolicy", source: "pre-evolutions-resource-consumer-semantics-question",
+... 331     value: "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants" },
+... 332   simultaneousGenerationOrder: { authoritative: false, confidence: "absent", disposition: "question",
+... 333     key: "simultaneousGenerationOrder", source: "pre-evolutions-resource-consumer-semantics-question",
+... 334     value: "ascending-positive-building-id" },
+... 335 });
+... 336 
+... 337 function checkedSharedHostResourcePolicy(value, profile, label) {
+... 338   const fields = Object.keys(RESOURCE_V2_POLICY_METADATA);
+... 339   const policy = exact(value, [...fields, "version"], label);
+... 340   if (policy.version !== 2) throw new TypeError(`${label}.version is unsupported`);
+... 341   const values = {
+... 342     deployTicks: profile.deployTicks,
+... 343     destructionAmount: profile.destructionAmount,
+... 344     generationAmount: profile.generationAmount,
+... 345     generationCadenceTicks: profile.generationCadenceTicks,
+... 346     hitpoints: profile.hitpoints,
+... 347     lifetimeTicks: profile.lifetimeTicks,
+... 348   };
+... 349   const checked = { version: 2 };
+... 350   for (const field of fields) {
+... 351     const record = exact(policy[field], ["authoritative", "confidence", "disposition", "key", "source", "value"],
+... 352       `${label}.${field}`);
+... 353     const expected = { ...RESOURCE_V2_POLICY_METADATA[field],
+... 354       ...(Object.hasOwn(values, field) ? { value: values[field] } : {}) };
+... 355     if (canonical(record) !== canonical(expected)) {
+... 356       throw new TypeError(`${label}.${field} has invalid source or QUESTION provenance`);
+... 357     }
+... 358     checked[field] = clone(record);
+... 359   }
+... 360   return checked;
+... 361 }
+297 362 
+298 363 function checkedProfile(value, cardId) {
+299 364   const expectedClass = CLASS_BY_ID[cardId];
+
+src/sim/session-building-runtime.js --- 3/7 --- JavaScript
+340 405     return result;
+341 406   }
+342 407   if (expectedClass === "resource") {
+... 408     const v2 = Object.hasOwn(value, "destructionAmount") ||
+... 409       (value.policy !== null && typeof value.policy === "object" && Object.hasOwn(value.policy, "version"));
+343 410     const profile = exact(value, ["class", "deployTicks", "generationAmount",
+344 411       "generationCadenceTicks", "hitpoints", "lifetimeTicks", "policy",
+... 412       ...(v2 ? ["destructionAmount"] : [])], label);
+345 413     if (profile.class !== expectedClass) throw new TypeError(`${label} is invalid`);
+346 414     const result = { class: expectedClass,
+347 415       deployTicks: profileInteger(profile, "deployTicks", label, 0, MAX_TICK),
+348 416       generationAmount: profileInteger(profile, "generationAmount", label, 1, 10),
+349 417       generationCadenceTicks: profileInteger(profile, "generationCadenceTicks", label, 1, MAX_TICK),
+350 418       hitpoints: profileInteger(profile, "hitpoints", label, 1),
+351 419       lifetimeTicks: profileInteger(profile, "lifetimeTicks", label, 1, MAX_TICK) };
+... 420     if (v2) {
+... 421       result.destructionAmount = profileInteger(profile, "destructionAmount", label, 1, 10);
+... 422       result.policy = checkedSharedHostResourcePolicy(profile.policy, result,
+... 423         `${label}.policy`);
+... 424     } else {
+352 425       result.policy = checkedQuestionPolicy(profile.policy, [
+353 426         ["generationAmount", "generationAmount", result.generationAmount],
+354 427         ["generationCadenceTicks", "generationCadenceTicks", result.generationCadenceTicks],
+355 428         ["lifetimeTicks", "lifetimeTicks", result.lifetimeTicks],
+356 429       ], `${label}.policy`, "pre-evolutions-building-corpus-and-absent-resource-policy");
+... 430     }
+357 431     return result;
+358 432   }
+359 433   if (expectedClass === "travel") {
+
+src/sim/session-building-runtime.js --- 4/7 --- JavaScript
+565 639   if (raw.maxHitpoints !== profile.hitpoints || raw.hitpoints > raw.maxHitpoints ||
+566 640       (raw.alive && (raw.hitpoints === 0 || raw.deathCause !== null)) ||
+567 641       (!raw.alive && (raw.hitpoints !== 0 || raw.targetable)) ||
+568 642       (profile.class !== "death-effect" &&
+... 643         !(profile.class === "resource" && profile.policy.version === 2) && raw.deathTriggered)) {
+569 644     throw new TypeError("session building structure hitpoints or life state diverges");
+570 645   }
+571 646   if (canonical(raw.policy) !== canonical(profile.policy)) {
+
+src/sim/session-building-runtime.js --- 5/7 --- JavaScript
+584 659       throw new TypeError(`${label} attack cycle must be canonical`);
+585 660     }
+586 661   } else if (profile.class === "resource") {
+... 662     const version2 = profile.policy.version === 2;
+587 663     if (typeof raw.deployed !== "boolean" || raw.targetable !== raw.alive ||
+... 664         (version2 && !raw.alive && !["combat-damage", "expiry"].includes(raw.deathCause)) ||
+... 665         (version2 && raw.deathTriggered && (raw.alive ||
+... 666           !["combat-damage", "expiry"].includes(raw.deathCause)))) {
+588 667       throw new TypeError(`${label} resource state is invalid`);
+589 668     }
+590 669   } else if (profile.class === "travel") {
+
+src/sim/session-building-runtime.js --- 6/7 --- JavaScript
+766 }                                    845 }
+767 function buildResourceIntents(inten  846 function buildResourceIntents(inten
+... ts, boundary, structure, profile) {  ... ts, boundary, structure, profile) {
+768   const next = clone(structure);     847   const next = clone(structure);
+769   const age = boundary.tick - next.  848   const version2 = profile.policy.v
+... placedTick;                          ... ersion === 2;
+...                                      849   let grant = null;
+770   if (age >= profile.lifetimeTicks)  850   if (!next.alive) {
+...  {                                   ... 
+771     destroy(next, "expiry");         851     if (version2 && !next.deathTrig
+...                                      ... gered) {
+772     replace(intents, next);          852       next.deathTriggered = true;
+773     event(intents, { buildingId: ne  853       event(intents, { amount: prof
+... xt.id, cause: "expiry", reason: "li  ... ile.destructionAmount, buildingId: 
+... fetime", tick: boundary.tick,        ... next.id,
+...                                      854         cause: next.deathCause, rec
+...                                      ... ipientSide: next.side, tick: bounda
+...                                      ... ry.tick,
+774       type: "structure-destroyed" }  855         type: "building-resource-pa
+... );                                   ... yout-triggered" });
+...                                      856       grant = { amount: profile.des
+...                                      ... tructionAmount, side: next.side, so
+...                                      ... urceId: next.id,
+...                                      857         tick: boundary.tick, type: 
+...                                      ... "resource-grant" };
+...                                      858       replace(intents, next);
+...                                      859       intents.push(grant);
+...                                      860     }
+775     return;                          861     return;
+776   }                                  862   }
+...                                      863   const age = boundary.tick - next.
+...                                      ... placedTick;
+...                                      864   if (age >= profile.lifetimeTicks)
+...                                      ...  {
+...                                      865     destroy(next, "expiry");
+...                                      866     event(intents, { buildingId: ne
+...                                      ... xt.id, cause: "expiry", reason: "li
+...                                      ... fetime", tick: boundary.tick,
+...                                      867       type: "structure-destroyed" }
+...                                      ... );
+...                                      868   } else {
+777   if (!next.deployed && age === pro  869     if (!next.deployed && age === p
+... file.deployTicks) {                  ... rofile.deployTicks) {
+778     next.deployed = true;            870       next.deployed = true;
+779     event(intents, { buildingId: ne  871       event(intents, { buildingId: 
+... xt.id, side: next.side, tick: bound  ... next.id, side: next.side, tick: bou
+... ary.tick,                            ... ndary.tick,
+780       type: "building-deployed" });  872         type: "building-deployed" }
+...                                      ... );
+781   }                                  873     }
+782   if (next.deployed && age > 0 && a  874     if (next.deployed && age > 0 &&
+... ge % profile.generationCadenceTicks  ...  age % profile.generationCadenceTic
+...  === 0) {                            ... ks === 0) {
+783     intents.push({ amount: profile.  875       grant = { amount: profile.gen
+... generationAmount, side: next.side,   ... erationAmount, side: next.side, sou
+... sourceId: next.id,                   ... rceId: next.id,
+784       tick: boundary.tick, type: "r  876         tick: boundary.tick, type: 
+... esource-grant" });                   ... "resource-grant" };
+...                                      877       if (version2) {
+...                                      878         event(intents, { amount: pr
+...                                      ... ofile.generationAmount, buildingId:
+...                                      ...  next.id,
+...                                      879           tick: boundary.tick, type
+...                                      ... : "building-resource-cadence-trigge
+...                                      ... red" });
+...                                      880       }
+785   }                                  881     }
+...                                      882   }
+...                                      883   if (version2 && !next.alive && !n
+...                                      ... ext.deathTriggered) {
+...                                      884     next.deathTriggered = true;
+...                                      885     event(intents, { amount: profil
+...                                      ... e.destructionAmount, buildingId: ne
+...                                      ... xt.id,
+...                                      886       cause: next.deathCause, recip
+...                                      ... ientSide: next.side, tick: boundary
+...                                      ... .tick,
+...                                      887       type: "building-resource-payo
+...                                      ... ut-triggered" });
+...                                      888     grant = { amount: profile.destr
+...                                      ... uctionAmount, side: next.side, sour
+...                                      ... ceId: next.id,
+...                                      889       tick: boundary.tick, type: "r
+...                                      ... esource-grant" };
+...                                      890   }
+786   replace(intents, next);            891   replace(intents, next);
+...                                      892   if (grant !== null) intents.push(
+...                                      ... grant);
+787 }                                    893 }
+788 function emerge(intents, boundary,   894 function emerge(intents, boundary, 
+... next) {                              ... next) {
+789   next.emergedTick = boundary.tick;  895   next.emergedTick = boundary.tick;
+
+src/sim/session-building-runtime.js --- 7/7 --- JavaScript
+882 988   for (const structure of boundary.structures) {
+883 989     if (structure.class === "defensive" && structure.alive) {
+884 990       buildDefensiveIntents(intents, boundary, structure, profiles.get(structure.cardId));
+885 991     } else if (structure.class === "resource" && structure.alive) {
+886 992       buildResourceIntents(intents, boundary, structure, profiles.get(structure.cardId));
+887 993     } else if (structure.class === "travel" && structure.alive) {
+888 994       buildTravelIntents(intents, boundary, structure, profiles.get(structure.cardId));
+

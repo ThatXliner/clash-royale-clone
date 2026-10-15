@@ -1,0 +1,9 @@
+{
+  "candidate": "c1d17ec2a5591e9871659dfdea9a4e9f4688ea6d",
+  "sourceCommit": "59c4e3c7483ace05f570146f6d57ba83222e5e0b",
+  "scopedVerdict": "PASS",
+  "adoptedToProduction": false,
+  "reason": "Pending Brackenwheel core dependency is present in candidate but not accepted on main. Preserve HBR source artifact; combine only after K3 acceptance and matching combined guards.",
+  "criticLedgerVerified": 196,
+  "sourceGraph": "c72 src equals 7ef; 59 is 7ef plus four HBR src files; c1 src equals 59. Frozen builder wording about HBR base is clarified in critic sourcegraph.md."
+}

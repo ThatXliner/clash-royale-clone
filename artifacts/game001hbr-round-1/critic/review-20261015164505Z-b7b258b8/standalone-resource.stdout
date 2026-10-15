@@ -1,0 +1,92 @@
+
+> moss-and-ember@0.0.0 test:buildings-resource
+> node tests/buildings-resource-runner.js buildings-resource
+
+TAP version 13
+# Subtest: buildings resource: original catalog and confidence stay isolated
+ok 1 - buildings resource: original catalog and confidence stay isolated
+  ---
+  duration_ms: 1.35
+  type: 'test'
+  ...
+# Subtest: buildings resource: every absent policy is an isolated frozen QUESTION
+ok 2 - buildings resource: every absent policy is an isolated frozen QUESTION
+  ---
+  duration_ms: 0.445042
+  type: 'test'
+  ...
+# Subtest: buildings resource: deployment is copied, legal, stationary, and exact
+ok 3 - buildings resource: deployment is copied, legal, stationary, and exact
+  ---
+  duration_ms: 2.004875
+  type: 'test'
+  ...
+# Subtest: buildings resource: cadence, amount, lifetime count, and trace are exact
+ok 4 - buildings resource: cadence, amount, lifetime count, and trace are exact
+  ---
+  duration_ms: 10.70075
+  type: 'test'
+  ...
+# Subtest: buildings resource: generation obeys ownership, cap, and stable id order
+ok 5 - buildings resource: generation obeys ownership, cap, and stable id order
+  ---
+  duration_ms: 2.001458
+  type: 'test'
+  ...
+# Subtest: buildings resource: same-boundary commands precede destruction and pulses
+ok 6 - buildings resource: same-boundary commands precede destruction and pulses
+  ---
+  duration_ms: 2717.65025
+  type: 'test'
+  ...
+# Subtest: buildings resource: insufficient spending is byte-atomic for balances
+ok 7 - buildings resource: insufficient spending is byte-atomic for balances
+  ---
+  duration_ms: 0.433125
+  type: 'test'
+  ...
+# Subtest: buildings resource: chunks and every boundary restore are identical
+ok 8 - buildings resource: chunks and every boundary restore are identical
+  ---
+  duration_ms: 3084.249375
+  type: 'test'
+  ...
+# Subtest: buildings resource: post-grant spends retain canonical elixir sequence
+ok 9 - buildings resource: post-grant spends retain canonical elixir sequence
+  ---
+  duration_ms: 2.827
+  type: 'test'
+  ...
+# Subtest: buildings resource: snapshots contain canonical causal inputs only
+ok 10 - buildings resource: snapshots contain canonical causal inputs only
+  ---
+  duration_ms: 6.732208
+  type: 'test'
+  ...
+# Subtest: buildings resource: hostile shapes and bounds reject atomically
+ok 11 - buildings resource: hostile shapes and bounds reject atomically
+  ---
+  duration_ms: 0.653667
+  type: 'test'
+  ...
+# Subtest: buildings resource: the full encounter remains bounded and deterministic
+ok 12 - buildings resource: the full encounter remains bounded and deterministic
+  ---
+  duration_ms: 25.418875
+  type: 'test'
+  ...
+# Subtest: buildings resource: runtime has no corpus path, travel, RNG, clock, or float
+ok 13 - buildings resource: runtime has no corpus path, travel, RNG, clock, or float
+  ---
+  duration_ms: 0.677209
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5937.942459

@@ -1,0 +1,1 @@
+git diff --exit-code c72cd1695258be2af6d3ab4145218bcd673aa1cf HEAD -- scripts/integration-audit.js scripts/nondeterminism-guard.js tests/cards022k-brackenwheel.test.js tests/fixtures/integration-occurrence-adapters.js tests/fixtures/integration-occurrence-bindings.json tests/game-roster-admission.test.js tests/nondeterminism-guard.test.js
