@@ -1,0 +1,34 @@
+Read-only reconnaissance command families (run from /private/tmp/next-roster-recon-20261015; exact file hashes are in SOURCE-SHA256SUMS.txt)
+
+# Clean private checkout from the requested source commit
+ git worktree add --detach /private/tmp/next-roster-recon-20261015 dc0949edfe8d6a88953636a4ed6969b49ae292f7
+ git status --short --branch
+ git rev-parse HEAD
+ git show -s --format='commit=%H%nparent=%P%nsubject=%s' HEAD
+
+# Project instructions and evidence inventory
+ find . -name AGENTS.md -print
+ sed -n '1,200p' AGENTS.md
+ sed -n '1,220p' PLAN.md
+ sed -n '1,220p' reference/stats/SOURCES.md
+
+# Roster, manifests, definitions, test comparators, prior-scope evidence
+ find src/content -maxdepth 3 -type f -print | sort
+ rg -n 'EDITABLE_MIXED_DECK_CARD_IDS|EDITABLE_DECK_CARD_IDS|admittedIds|EXPECTED_COUNTS' src/content tests/editable-deck.test.js tests/game-roster-admission.test.js tests/game-roster-troop-profiles.test.js
+ sed -n '1,260p' tests/special-movement-retarget.test.js
+ sed -n '1,230p' tests/special-movement-charge.test.js
+ sed -n '1,180p' tests/special-movement-recoil.test.js
+ sed -n '1,220p' tests/special-projectiles-pellets.test.js
+ rg -n --glob '!artifacts/**' 'createReferenceParityEvaluator|benchmarkKey|sourceComparisonKey' tests
+ rg -n --glob 'artifacts/**' 'a93807e|006df4b|Giant Skeleton|synthetic.*ID' | head -n 100
+
+# Read-only confidence-field count from the checked-in normalized corpus
+ python3 - <<'PY'
+import json
+cards={c['key']:c for c in json.load(open('reference/stats/cards.json'))['cards']}
+for key in ['knight','prince','firecracker','hunter','fireball']:
+ c=cards[key]
+ print(key, c['type'], c['elixir_cost'], c['rarity'], c['unverified_fields'])
+PY
+
+# No npm test, browser, build, gameplay, or HTTP command was run.
