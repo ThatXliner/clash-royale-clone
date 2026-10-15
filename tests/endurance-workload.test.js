@@ -11,8 +11,10 @@ import {
   ENDURANCE_BASELINE_INTERVAL_TICKS,
   ENDURANCE_REQUIRED_TICK,
   assertEnduranceWorkloadCanContinue,
+  exactBrackenwheelEnduranceSetupBytes,
   exactEnduranceSetupBytes,
   exactKilnkeeperEnduranceSetupBytes,
+  BRACKENWHEEL_ENDURANCE_DECK,
   KILNKEEPER_ENDURANCE_DECK,
   normalizedWorkloadCommand,
   plannedSouthAttempt,
@@ -155,6 +157,87 @@ test("Kilnkeeper selected setup drives source-derived planning and real seeded c
   assert.equal(aiImpact.projectileIdentity.sourceId, aiEntityId);
   assert.equal(aiImpact.projectileIdentity.projectileId, aiImpact.projectileId);
   assert.ok(aiImpact.tick >= aiDeployment.deployment.tick);
+});
+
+test("Brackenwheel selected setup preserves seed-two native-deck evidence and natural area contact", () => {
+  const setupBytes = exactBrackenwheelEnduranceSetupBytes();
+  const setupSha256 = createHash("sha256").update(setupBytes).digest("hex");
+  assert.equal(setupSha256,
+    "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b");
+  assert.equal(createEditableGameSessionSetup(BRACKENWHEEL_ENDURANCE_DECK, 2), setupBytes,
+    "the scenario uses the canonical accepted editable-deck setup");
+  const acceptedSession = new GameSession(setupBytes);
+  assert.equal(canonical(JSON.parse(acceptedSession.serialize()).setup), setupBytes,
+    "GameSession accepts and retains the exact canonical scenario setup");
+  const setup = JSON.parse(setupBytes);
+  const roster = JSON.parse(setup.battleSetup).roster;
+  const brackenwheel = roster.find(({ id }) => id === "brackenwheel");
+  assert.deepEqual(setup.deck, [
+    "brackenwheel", "briar-band", "coilblade", "mossguard",
+    "ironroot", "copperskiff", "brassbolt", "reedsting",
+  ]);
+  assert.equal(setup.seed, 2);
+  assert.equal(setup.thinkIntervalTicks, 60);
+  assert.equal(setup.legalNorthDeployments.length, 8,
+    "the ordinary setup retains every seeded AI legal card instead of forcing its choice");
+  assert.deepEqual(setup.legalNorthDeployments.map(({ cardId }) => cardId).sort(),
+    [...BRACKENWHEEL_ENDURANCE_DECK].sort());
+  assert.equal(brackenwheel.cost, 4);
+  const wrongSeed = createEditableGameSessionSetup(BRACKENWHEEL_ENDURANCE_DECK, 3);
+  assert.notEqual(createHash("sha256").update(wrongSeed).digest("hex"), setupSha256,
+    "a valid but wrong-seed setup cannot pass the browser scenario's frozen SHA gate");
+
+  const session = new GameSession(setupBytes);
+  const policy = createSelectedEnduranceWorkloadPolicy({ setupBytes });
+  assert.equal(policy.plan(session), null);
+  const opening = session.state;
+  const slot = opening.decks.south.hand.indexOf(brackenwheel.id);
+  assert.ok(slot >= 0, "the actual seed-two player hand offers Brackenwheel");
+  assert.ok(opening.decks.north.hand.includes(brackenwheel.id),
+    "the same seeded AI opening hand can select Brackenwheel without a forced card");
+  const command = { cardId: brackenwheel.id, commandId: 1,
+    point: { x: 3_500, y: 14_500 }, slot, tick: 0, type: "deploy" };
+  assert.equal(session.submitPlayerCommand(canonical(command)).accepted, true);
+  session.stepMany(1);
+
+  const southDeployment = session.replay.find((entry) => entry.type === "session-deployed" &&
+    entry.side === "south" && entry.deployment.cardId === brackenwheel.id);
+  assert.ok(southDeployment, "the player deployment enters the canonical session transcript");
+  assert.equal(southDeployment.spend.cost, brackenwheel.cost);
+  assert.equal(southDeployment.spend.amountAfter, opening.elixir.sides.south.amount - 4);
+  assert.equal(session.state.decks.south.sequence, opening.decks.south.sequence + 1,
+    "the paid four-cost deployment advances the player cycle once");
+  assert.equal(session.state.decks.south.hand.includes(brackenwheel.id), false,
+    "the paid Brackenwheel leaves the player hand through normal cycling");
+
+  const northDeployment = session.replay.find((entry) => entry.type === "session-deployed" &&
+    entry.side === "north" && entry.deployment.cardId === brackenwheel.id);
+  assert.ok(northDeployment, "the seeded AI selects through its unforced legal setup");
+  assert.equal(northDeployment.deployment.tick, 0);
+  assert.equal(northDeployment.spend.cost, brackenwheel.cost);
+  assert.equal(session.state.decks.north.sequence, 1,
+    "the natural AI deployment advances its own card cycle once");
+
+  while (session.state.tick < 235 && !session.state.terminal) session.stepMany(1);
+  assert.equal(session.state.tick, 235,
+    "the natural selected-deck continuation reaches the public RL contact boundary");
+  const southEntityId = southDeployment.deployment.entityIds[0];
+  const northEntityId = northDeployment.deployment.entityIds[0];
+  const primary = session.replay.find((entry) => entry.type === "damage" &&
+    entry.attackerId === southEntityId && entry.targetId === northEntityId &&
+    entry.tick === 234);
+  assert.ok(primary, "the player's Brackenwheel records its primary contact at tick 234");
+  assert.equal(primary.amount, brackenwheel.damage);
+  const secondaries = session.replay.filter((entry) => entry.type === "damage" &&
+    entry.attackerId === southEntityId && entry.tick === 234 &&
+    entry.meleeAreaPolicyVersion === "melee-area-question-v1");
+  assert.deepEqual(secondaries.map(({ targetId }) => targetId), [4, 5, 6],
+    "the same natural contact resolves each eligible secondary once in entity order");
+  assert.ok(secondaries.every(({ amount }) => amount === brackenwheel.damage));
+  session.stepMany(65);
+  assert.equal(session.state.tick, 300);
+  assert.doesNotThrow(() => policy.plan(session),
+    "the selected-source policy remains usable at the unchanged 300-tick boundary");
 });
 
 test("selected workload rejects unsupported, incomplete, and noncanonical setups", () => {

@@ -21,6 +21,10 @@ export const KILNKEEPER_ENDURANCE_DECK = Object.freeze([
   "coilblade", "mossguard", "copperskiff", "kilnkeeper",
   "brassbolt", "reedsting", "briar-band", "cinderlings",
 ]);
+export const BRACKENWHEEL_ENDURANCE_DECK = Object.freeze([
+  "brackenwheel", "briar-band", "coilblade", "mossguard",
+  "ironroot", "copperskiff", "brassbolt", "reedsting",
+]);
 
 function createWorkloadCatalog(roster, questions, label) {
   if (!Array.isArray(roster) || roster.length !== 8 ||
@@ -103,6 +107,11 @@ export function exactEnduranceSetupBytes() {
 /** The source-authenticated seed-zero custom deck used for the Kilnkeeper smoke. */
 export function exactKilnkeeperEnduranceSetupBytes() {
   return createEditableGameSessionSetup(KILNKEEPER_ENDURANCE_DECK, 0);
+}
+
+/** The accepted seed-two custom deck used for the Brackenwheel browser workload. */
+export function exactBrackenwheelEnduranceSetupBytes() {
+  return createEditableGameSessionSetup(BRACKENWHEEL_ENDURANCE_DECK, 2);
 }
 
 function workloadCatalogFromSetupBytes(setupBytes) {

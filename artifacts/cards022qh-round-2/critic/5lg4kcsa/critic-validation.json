@@ -1,0 +1,2395 @@
+{
+  "adoptionDecision": "adopt exactly the three owned harness/test files; no product/runtime/package/public/demo files change",
+  "browser": {
+    "chromeVersion": "155.0.8059.40",
+    "customChromeLaunchArgs": [],
+    "defaultChromeMutedAudioArg": true,
+    "durationMilliseconds": 56955,
+    "mode": "brackenwheel-bounded-smoke-900",
+    "outcome": {
+      "kind": "tick-bound",
+      "tick": 900
+    },
+    "playwrightVersion": "1.58.2",
+    "processClosure": {
+      "endurance_server_processes": 0,
+      "owned_chrome_pid_4416_alive": false,
+      "playwright_profile_directory_exists": false,
+      "playwright_profile_processes": 0,
+      "preexisting_user_chrome_93861_alive": true,
+      "telemetry_serverExited": true,
+      "test_node_pid_4411_alive": false
+    },
+    "result": "bounded-smoke-only",
+    "scenario": "brackenwheel",
+    "screenshot": {
+      "bytes": 959176,
+      "path": "browser/brackenwheel/active.png",
+      "sha256": "52c34c011b17143dff54817e9d4bfe491b0d6b4235cd3d213bdb4a3fbd8e12a6"
+    }
+  },
+  "caveats": [
+    "Bounded smoke stops at tick 900 without natural terminal or terminal restart; full 18,000-tick qualification remains pending.",
+    "Browser TAP label says seed-zero although actual telemetry/setup is seed 2.",
+    "Brackenwheel melee-area fields remain explicitly unverified questions; this verifies harness behavior, not authoritative gameplay stat matching."
+  ],
+  "frozenSource": {
+    "assemblyIdentity": {
+      "frozenHarness": "23924a2e1f19e06f37497b33741ae2d0cc96b692",
+      "ownedHarness": [
+        "tests/helpers/endurance-workload.js",
+        "tests/endurance-workload.test.js",
+        "tests/game-browser-endurance.test.js"
+      ],
+      "parent": "c69ad23cfe0387636575fef2532c72c5a32c6b5f",
+      "productChange": false,
+      "scope": "Exact three frozen QH harness files assembled on accepted current source for independent tests. Not accepted or full endurance qualified."
+    },
+    "broadDiffCheckExit": 2,
+    "cleanTrackedWorktree": true,
+    "commit": "d164d970d0aa9a57e6c9835ab260ba2e699b0392",
+    "ownedFileBlobs": [
+      {
+        "changedFromParent": true,
+        "frozenBlob": "1bd902ce4e2ae66189bab057b1a7516b59a9ec4e",
+        "parentBlob": "94af9b03b87b01acf73503c0029bc00d11116170",
+        "path": "tests/endurance-workload.test.js",
+        "worktreeSha256": "8f9350f5b1b93d5ff678d173b9a5602f46f02c41a629d20e44a55886c21f1c73"
+      },
+      {
+        "changedFromParent": true,
+        "frozenBlob": "91d4da5aa8329d100a8c53842ca818d3e45ead54",
+        "parentBlob": "bbd293c8e8380399622b4ebff3d7a09a90e3a0de",
+        "path": "tests/game-browser-endurance.test.js",
+        "worktreeSha256": "f91186845455952b242a951d29e0ad9d7fcb791d2da60541a3ed44e68c149a5c"
+      },
+      {
+        "changedFromParent": true,
+        "frozenBlob": "81bd2792089151eaf746351c426c3624894661ca",
+        "parentBlob": "03c1493dd3e57d8110369e6d32e333a07418e497",
+        "path": "tests/helpers/endurance-workload.js",
+        "worktreeSha256": "ab29cf58cee05516fd8fae57b451a685ec27344459561f43dd313b4872935c84"
+      }
+    ],
+    "parent": "c69ad23cfe0387636575fef2532c72c5a32c6b5f",
+    "runtimeManifestPublicDemoChanged": false,
+    "sourceOnlyDiffCheckExit": 0,
+    "sourceTestNonArtifactDiff": [
+      "tests/endurance-workload.test.js",
+      "tests/game-browser-endurance.test.js",
+      "tests/helpers/endurance-workload.js"
+    ],
+    "trackedFileCount": 9541,
+    "trackedGitBlobMetadata": "tracked-git-blobs.jsonl",
+    "trackedGitBlobMetadataBytes": 1694435,
+    "trackedGitBlobMetadataSha256": "16afb0b7f409ba672194fcdfe4de4b625e31bfb0990c4e1e108e4b8cb979b48a",
+    "trackedTreeObject": "cf8e60fb048e0ed310e1d52c5fbc67b16f301bda"
+  },
+  "largestRemainingGap": "The seed-two natural-terminal browser journey and same-canonical-setup restart remain unproven.",
+  "performance": {
+    "capsMilliseconds": {
+      "initializationLongTask": 300,
+      "nonInitLongTask": 50,
+      "segment": 30000,
+      "slice": 40,
+      "total": 1200000
+    },
+    "maxExplicitSlice": 18.900000035762787,
+    "maxInitializationLongTask": 182,
+    "maxNonInitializationLongTask": 0,
+    "maxSegment": 10283.0,
+    "nonInitializationLongTaskCount": 0,
+    "segments": [
+      {
+        "audioEpoch": 0,
+        "chunks": [
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 5,
+              "candidateCueCount": 5,
+              "cueSequences": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "cursor": 5,
+              "skippedCueCount": 0,
+              "startSequences": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "transactionCount": 7
+            },
+            "domTick": 100,
+            "eventCount": 3,
+            "fromTick": 0,
+            "sessionTick": 100,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 21,
+              "candidateCueCount": 16,
+              "cueSequences": [
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "cursor": 21,
+              "skippedCueCount": 0,
+              "startSequences": [
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "transactionCount": 19
+            },
+            "domTick": 200,
+            "eventCount": 13,
+            "fromTick": 100,
+            "sessionTick": 200,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 35,
+              "candidateCueCount": 14,
+              "cueSequences": [
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34
+              ],
+              "cursor": 35,
+              "skippedCueCount": 0,
+              "startSequences": [
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34
+              ],
+              "transactionCount": 25
+            },
+            "domTick": 300,
+            "eventCount": 14,
+            "fromTick": 200,
+            "sessionTick": 300,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          }
+        ],
+        "elapsedMilliseconds": 10283,
+        "finishedAt": 10808.800000011921,
+        "longTasks": [],
+        "startedAt": 526.1999999880791,
+        "tick": 300,
+        "timing": {
+          "audioPresentation": {
+            "count": 3,
+            "maxMilliseconds": 13.599999964237213,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 13.599999964237213
+              },
+              {
+                "detail": null,
+                "duration": 11.899999976158142
+              },
+              {
+                "detail": null,
+                "duration": 10.899999976158142
+              }
+            ],
+            "totalMilliseconds": 36.3999999165535
+          },
+          "audioUiCommand": {
+            "count": 2,
+            "maxMilliseconds": 3.600000023841858,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 3.600000023841858
+              },
+              {
+                "detail": null,
+                "duration": 3.300000011920929
+              }
+            ],
+            "totalMilliseconds": 6.900000035762787
+          },
+          "deckRestore": {
+            "count": 602,
+            "maxMilliseconds": 0.699999988079071,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.699999988079071
+              },
+              {
+                "detail": null,
+                "duration": 0.40000003576278687
+              },
+              {
+                "detail": null,
+                "duration": 0.3999999761581421
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              }
+            ],
+            "totalMilliseconds": 41.49999958276749
+          },
+          "domCommit": {
+            "count": 29,
+            "maxMilliseconds": 0.19999998807907104,
+            "slowest": [
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.30000001192092896
+          },
+          "elixirRestore": {
+            "count": 2,
+            "maxMilliseconds": 0.5,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.5
+              },
+              {
+                "detail": null,
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.5
+          },
+          "rafCallback": {
+            "count": 616,
+            "maxMilliseconds": 0.20000004768371582,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              }
+            ],
+            "totalMilliseconds": 13.099999904632568
+          },
+          "sessionSerialize": {
+            "count": 7,
+            "maxMilliseconds": 0,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0
+          },
+          "sessionStepSlice": {
+            "count": 300,
+            "maxMilliseconds": 12.699999988079071,
+            "slowest": [
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 180,
+                  "sessionTick": 181
+                },
+                "duration": 12.699999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 132,
+                  "sessionTick": 133
+                },
+                "duration": 8.900000035762787
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 137,
+                  "sessionTick": 138
+                },
+                "duration": 8.899999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 192,
+                  "sessionTick": 193
+                },
+                "duration": 8.699999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 252,
+                  "sessionTick": 253
+                },
+                "duration": 8.299999952316284
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 17,
+                  "sessionTick": 18
+                },
+                "duration": 7.900000035762787
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 99,
+                  "sessionTick": 100
+                },
+                "duration": 7.800000011920929
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 293,
+                  "sessionTick": 294
+                },
+                "duration": 7.700000047683716
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 193,
+                  "sessionTick": 194
+                },
+                "duration": 7.699999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 280,
+                  "sessionTick": 281
+                },
+                "duration": 7.600000023841858
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 174,
+                  "sessionTick": 175
+                },
+                "duration": 7.599999964237213
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 266,
+                  "sessionTick": 267
+                },
+                "duration": 7.599999964237213
+              }
+            ],
+            "totalMilliseconds": 1470.4999999403954
+          }
+        },
+        "yieldPolicy": "raf-scheduler-yield-raf"
+      },
+      {
+        "audioEpoch": 0,
+        "chunks": [
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 60,
+              "candidateCueCount": 25,
+              "cueSequences": [
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59
+              ],
+              "cursor": 60,
+              "skippedCueCount": 0,
+              "startSequences": [
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59
+              ],
+              "transactionCount": 42
+            },
+            "domTick": 400,
+            "eventCount": 21,
+            "fromTick": 300,
+            "sessionTick": 400,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 69,
+              "candidateCueCount": 7,
+              "cueSequences": [
+                60,
+                61,
+                62,
+                63,
+                66,
+                67,
+                68
+              ],
+              "cursor": 69,
+              "skippedCueCount": 0,
+              "startSequences": [
+                60,
+                61,
+                62,
+                63,
+                66,
+                67,
+                68
+              ],
+              "transactionCount": 49
+            },
+            "domTick": 500,
+            "eventCount": 9,
+            "fromTick": 400,
+            "sessionTick": 500,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 88,
+              "candidateCueCount": 13,
+              "cueSequences": [
+                69,
+                70,
+                71,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                84,
+                87
+              ],
+              "cursor": 88,
+              "skippedCueCount": 0,
+              "startSequences": [
+                69,
+                70,
+                71,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                84,
+                87
+              ],
+              "transactionCount": 64
+            },
+            "domTick": 600,
+            "eventCount": 19,
+            "fromTick": 500,
+            "sessionTick": 600,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          }
+        ],
+        "elapsedMilliseconds": 10242,
+        "finishedAt": 21988.599999964237,
+        "longTasks": [],
+        "startedAt": 11747.099999964237,
+        "tick": 600,
+        "timing": {
+          "audioFrame": {
+            "count": 2,
+            "maxMilliseconds": 1.100000023841858,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 1.100000023841858
+              },
+              {
+                "detail": null,
+                "duration": 1.100000023841858
+              }
+            ],
+            "totalMilliseconds": 2.200000047683716
+          },
+          "audioPresentation": {
+            "count": 3,
+            "maxMilliseconds": 12.199999988079071,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 12.199999988079071
+              },
+              {
+                "detail": null,
+                "duration": 5.600000023841858
+              },
+              {
+                "detail": null,
+                "duration": 5.599999964237213
+              }
+            ],
+            "totalMilliseconds": 23.399999976158142
+          },
+          "deckRestore": {
+            "count": 602,
+            "maxMilliseconds": 0.5999999642372131,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.5999999642372131
+              },
+              {
+                "detail": null,
+                "duration": 0.3999999761581421
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              }
+            ],
+            "totalMilliseconds": 37.499999821186066
+          },
+          "domCommit": {
+            "count": 29,
+            "maxMilliseconds": 0.19999998807907104,
+            "slowest": [
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.09999996423721313
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.09999996423721313
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.3999999165534973
+          },
+          "elixirRestore": {
+            "count": 2,
+            "maxMilliseconds": 0.19999998807907104,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              }
+            ],
+            "totalMilliseconds": 0.3999999761581421
+          },
+          "rafCallback": {
+            "count": 616,
+            "maxMilliseconds": 0.19999998807907104,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              }
+            ],
+            "totalMilliseconds": 10.399999141693115
+          },
+          "sessionSerialize": {
+            "count": 7,
+            "maxMilliseconds": 0.10000002384185791,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.10000002384185791
+          },
+          "sessionStepSlice": {
+            "count": 300,
+            "maxMilliseconds": 18.900000035762787,
+            "slowest": [
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 350,
+                  "sessionTick": 351
+                },
+                "duration": 18.900000035762787
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 445,
+                  "sessionTick": 446
+                },
+                "duration": 10.5
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 337,
+                  "sessionTick": 338
+                },
+                "duration": 9.699999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 450,
+                  "sessionTick": 451
+                },
+                "duration": 9.300000011920929
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 342,
+                  "sessionTick": 343
+                },
+                "duration": 8.5
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 349,
+                  "sessionTick": 350
+                },
+                "duration": 8.199999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 343,
+                  "sessionTick": 344
+                },
+                "duration": 8.099999964237213
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 399,
+                  "sessionTick": 400
+                },
+                "duration": 8.099999964237213
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 542,
+                  "sessionTick": 543
+                },
+                "duration": 8.099999964237213
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 442,
+                  "sessionTick": 443
+                },
+                "duration": 8
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 484,
+                  "sessionTick": 485
+                },
+                "duration": 8
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 493,
+                  "sessionTick": 494
+                },
+                "duration": 8
+              }
+            ],
+            "totalMilliseconds": 1487.1000001430511
+          }
+        },
+        "yieldPolicy": "raf-scheduler-yield-raf"
+      },
+      {
+        "audioEpoch": 1,
+        "chunks": [
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 60,
+              "candidateCueCount": 25,
+              "cueSequences": [
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59
+              ],
+              "cursor": 60,
+              "skippedCueCount": 0,
+              "startSequences": [
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59
+              ],
+              "transactionCount": 18
+            },
+            "domTick": 400,
+            "eventCount": 21,
+            "fromTick": 300,
+            "sessionTick": 400,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 69,
+              "candidateCueCount": 7,
+              "cueSequences": [
+                60,
+                61,
+                62,
+                63,
+                66,
+                67,
+                68
+              ],
+              "cursor": 69,
+              "skippedCueCount": 0,
+              "startSequences": [
+                60,
+                61,
+                62,
+                63,
+                66,
+                67,
+                68
+              ],
+              "transactionCount": 25
+            },
+            "domTick": 500,
+            "eventCount": 9,
+            "fromTick": 400,
+            "sessionTick": 500,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 88,
+              "candidateCueCount": 13,
+              "cueSequences": [
+                69,
+                70,
+                71,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                84,
+                87
+              ],
+              "cursor": 88,
+              "skippedCueCount": 0,
+              "startSequences": [
+                69,
+                70,
+                71,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                84,
+                87
+              ],
+              "transactionCount": 40
+            },
+            "domTick": 600,
+            "eventCount": 19,
+            "fromTick": 500,
+            "sessionTick": 600,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          }
+        ],
+        "elapsedMilliseconds": 10255,
+        "finishedAt": 43905.5,
+        "longTasks": [],
+        "startedAt": 33650.89999997616,
+        "tick": 600,
+        "timing": {
+          "audioPresentation": {
+            "count": 3,
+            "maxMilliseconds": 13.300000011920929,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 13.300000011920929
+              },
+              {
+                "detail": null,
+                "duration": 8.700000047683716
+              },
+              {
+                "detail": null,
+                "duration": 7.300000011920929
+              }
+            ],
+            "totalMilliseconds": 29.300000071525574
+          },
+          "deckRestore": {
+            "count": 601,
+            "maxMilliseconds": 0.30000001192092896,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              }
+            ],
+            "totalMilliseconds": 38.400000154972076
+          },
+          "domCommit": {
+            "count": 21,
+            "maxMilliseconds": 0.10000002384185791,
+            "slowest": [
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.09999996423721313
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.19999998807907104
+          },
+          "elixirRestore": {
+            "count": 1,
+            "maxMilliseconds": 0.30000001192092896,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              }
+            ],
+            "totalMilliseconds": 0.30000001192092896
+          },
+          "rafCallback": {
+            "count": 616,
+            "maxMilliseconds": 0.5,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.5
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              }
+            ],
+            "totalMilliseconds": 11.800000548362732
+          },
+          "sessionSerialize": {
+            "count": 1,
+            "maxMilliseconds": 0,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0
+          },
+          "sessionStepSlice": {
+            "count": 300,
+            "maxMilliseconds": 15.300000011920929,
+            "slowest": [
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 350,
+                  "sessionTick": 351
+                },
+                "duration": 15.300000011920929
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 595,
+                  "sessionTick": 596
+                },
+                "duration": 8.899999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 494,
+                  "sessionTick": 495
+                },
+                "duration": 8.800000011920929
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 581,
+                  "sessionTick": 582
+                },
+                "duration": 8.800000011920929
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 445,
+                  "sessionTick": 446
+                },
+                "duration": 8.400000035762787
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 490,
+                  "sessionTick": 491
+                },
+                "duration": 8.399999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 430,
+                  "sessionTick": 431
+                },
+                "duration": 8.199999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 570,
+                  "sessionTick": 571
+                },
+                "duration": 8.199999988079071
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 463,
+                  "sessionTick": 464
+                },
+                "duration": 8.100000023841858
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 521,
+                  "sessionTick": 522
+                },
+                "duration": 8.099999964237213
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 544,
+                  "sessionTick": 545
+                },
+                "duration": 8.099999964237213
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 453,
+                  "sessionTick": 454
+                },
+                "duration": 8
+              }
+            ],
+            "totalMilliseconds": 1535.9000006318092
+          }
+        },
+        "yieldPolicy": "raf-scheduler-yield-raf"
+      },
+      {
+        "audioEpoch": 1,
+        "chunks": [
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 104,
+              "candidateCueCount": 12,
+              "cueSequences": [
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                96,
+                97,
+                98,
+                101,
+                102,
+                103
+              ],
+              "cursor": 104,
+              "skippedCueCount": 0,
+              "startSequences": [
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                96,
+                97,
+                98,
+                101,
+                102,
+                103
+              ],
+              "transactionCount": 55
+            },
+            "domTick": 700,
+            "eventCount": 15,
+            "fromTick": 600,
+            "sessionTick": 700,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 121,
+              "candidateCueCount": 11,
+              "cueSequences": [
+                104,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                115,
+                116,
+                117,
+                120
+              ],
+              "cursor": 121,
+              "skippedCueCount": 0,
+              "startSequences": [
+                104,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                115,
+                116,
+                117,
+                120
+              ],
+              "transactionCount": 70
+            },
+            "domTick": 800,
+            "eventCount": 16,
+            "fromTick": 700,
+            "sessionTick": 800,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          },
+          {
+            "audio": {
+              "audibleCueCap": 32,
+              "authorityRecordCount": 150,
+              "candidateCueCount": 19,
+              "cueSequences": [
+                121,
+                122,
+                123,
+                124,
+                125,
+                128,
+                131,
+                132,
+                133,
+                134,
+                135,
+                136,
+                139,
+                140,
+                141,
+                144,
+                145,
+                146,
+                147
+              ],
+              "cursor": 150,
+              "skippedCueCount": 0,
+              "startSequences": [
+                121,
+                122,
+                123,
+                124,
+                125,
+                128,
+                131,
+                132,
+                133,
+                134,
+                135,
+                136,
+                139,
+                140,
+                141,
+                144,
+                145,
+                146,
+                147
+              ],
+              "transactionCount": 92
+            },
+            "domTick": 900,
+            "eventCount": 29,
+            "fromTick": 800,
+            "sessionTick": 900,
+            "simulationChunkTicks": 1,
+            "simulationSliceCount": 100,
+            "simulationTickCount": 100
+          }
+        ],
+        "elapsedMilliseconds": 10271,
+        "finishedAt": 54956.19999998808,
+        "longTasks": [],
+        "startedAt": 44685.19999998808,
+        "tick": 900,
+        "timing": {
+          "audioPresentation": {
+            "count": 3,
+            "maxMilliseconds": 11.199999988079071,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 11.199999988079071
+              },
+              {
+                "detail": null,
+                "duration": 8.699999988079071
+              },
+              {
+                "detail": null,
+                "duration": 8
+              }
+            ],
+            "totalMilliseconds": 27.899999976158142
+          },
+          "audioUiCommand": {
+            "count": 2,
+            "maxMilliseconds": 1.5,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 1.5
+              },
+              {
+                "detail": null,
+                "duration": 1.100000023841858
+              }
+            ],
+            "totalMilliseconds": 2.600000023841858
+          },
+          "deckRestore": {
+            "count": 602,
+            "maxMilliseconds": 0.6000000238418579,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.6000000238418579
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              }
+            ],
+            "totalMilliseconds": 44.8999999165535
+          },
+          "domCommit": {
+            "count": 29,
+            "maxMilliseconds": 0.19999998807907104,
+            "slowest": [
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0.09999996423721313
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              },
+              {
+                "detail": {
+                  "childCount": 1
+                },
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.3999999761581421
+          },
+          "elixirRestore": {
+            "count": 2,
+            "maxMilliseconds": 0.40000003576278687,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.40000003576278687
+              },
+              {
+                "detail": null,
+                "duration": 0.30000001192092896
+              }
+            ],
+            "totalMilliseconds": 0.7000000476837158
+          },
+          "rafCallback": {
+            "count": 616,
+            "maxMilliseconds": 0.20000004768371582,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.20000004768371582
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.19999998807907104
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              }
+            ],
+            "totalMilliseconds": 11.399999558925629
+          },
+          "sessionSerialize": {
+            "count": 11,
+            "maxMilliseconds": 0.10000002384185791,
+            "slowest": [
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0.10000002384185791
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              },
+              {
+                "detail": null,
+                "duration": 0
+              }
+            ],
+            "totalMilliseconds": 0.20000004768371582
+          },
+          "sessionStepSlice": {
+            "count": 300,
+            "maxMilliseconds": 10.399999976158142,
+            "slowest": [
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 720,
+                  "sessionTick": 721
+                },
+                "duration": 10.399999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 831,
+                  "sessionTick": 832
+                },
+                "duration": 10.399999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 728,
+                  "sessionTick": 729
+                },
+                "duration": 10
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 730,
+                  "sessionTick": 731
+                },
+                "duration": 9.899999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 659,
+                  "sessionTick": 660
+                },
+                "duration": 9.5
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 814,
+                  "sessionTick": 815
+                },
+                "duration": 9.400000035762787
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 654,
+                  "sessionTick": 655
+                },
+                "duration": 9.399999976158142
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 726,
+                  "sessionTick": 727
+                },
+                "duration": 9.300000011920929
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 859,
+                  "sessionTick": 860
+                },
+                "duration": 9.200000047683716
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 630,
+                  "sessionTick": 631
+                },
+                "duration": 9.100000023841858
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 687,
+                  "sessionTick": 688
+                },
+                "duration": 9.100000023841858
+              },
+              {
+                "detail": {
+                  "count": 1,
+                  "fromTick": 812,
+                  "sessionTick": 813
+                },
+                "duration": 8.900000035762787
+              }
+            ],
+            "totalMilliseconds": 1817.2999998927116
+          }
+        },
+        "yieldPolicy": "raf-scheduler-yield-raf"
+      }
+    ],
+    "totalDuration": 56955
+  },
+  "piece": "CARDS-022QH",
+  "scenarioEvidence": {
+    "aiCost": 4,
+    "areaEventsRestoredExactly": true,
+    "deck": [
+      "brackenwheel",
+      "briar-band",
+      "coilblade",
+      "mossguard",
+      "ironroot",
+      "copperskiff",
+      "brassbolt",
+      "reedsting"
+    ],
+    "entityStateRestoredExactly": true,
+    "openingSouthElixir": 10,
+    "playerAcceptedCost": 4,
+    "playerAmountAfterSpend": 6,
+    "playerPointerCommand": {
+      "cardId": "brackenwheel",
+      "point": {
+        "x": 3500,
+        "y": 14500
+      },
+      "slot": 1,
+      "tick": 0
+    },
+    "primaryContact": {
+      "amount": 267,
+      "attackerId": 1,
+      "currentHealthAfter": 1374,
+      "currentHealthBefore": 1641,
+      "delivery": "melee",
+      "targetId": 2,
+      "tick": 234,
+      "type": "damage"
+    },
+    "restoreCutTick": 300,
+    "restoreRewind": [
+      600,
+      300
+    ],
+    "secondaryContacts": [
+      {
+        "amount": 267,
+        "attackSequence": 2,
+        "attackerId": 1,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "targetId": 4,
+        "tick": 234,
+        "type": "damage"
+      },
+      {
+        "amount": 267,
+        "attackSequence": 2,
+        "attackerId": 1,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "targetId": 5,
+        "tick": 234,
+        "type": "damage"
+      },
+      {
+        "amount": 267,
+        "attackSequence": 2,
+        "attackerId": 1,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "targetId": 6,
+        "tick": 234,
+        "type": "damage"
+      }
+    ],
+    "seed": 2,
+    "setupBytes": 57809,
+    "setupSha256": "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b",
+    "unforcedAiCard": "brackenwheel"
+  },
+  "scope": "bounded 900-tick harness review only; not full CARDS-022Q qualification",
+  "serializedAudioEvidence": {
+    "actualAudioSink": {
+      "activeVoiceCount": 0,
+      "audibleStartCount": 171,
+      "contextCreated": true,
+      "disposed": false,
+      "faulted": false,
+      "gainBasisPoints": 10000,
+      "muted": false,
+      "resumeCount": 1,
+      "scheduledBufferCount": 171,
+      "transactionCount": 157,
+      "unlockCount": 1,
+      "unlocked": true
+    },
+    "caveat": "Chrome was launched with --mute-audio; evidence demonstrates native Web Audio context/start scheduling and deterministic typed event parity, not human-audible sound.",
+    "finalBrowserSessionBytesSha256": "8bc8348e374862282428cda78bdcde36dd1fdf9a60a4d15f96b00bc153487325",
+    "finalBrowserSessionBytesUtf8": 72540,
+    "finalBytesAssertedEqualDirectSerialize": true,
+    "restoredBrowserSessionBytesSha256": "89ae9688d962ff70be09d4f0b0cc6b0621c9fd0e9889a05b4e59b8185b53c32a",
+    "restoredBrowserSessionBytesUtf8": 62812,
+    "restoredBytesAssertedEqualPublicRestoreSerialize": true,
+    "sinkStarts": {
+      "afterReplay": 127,
+      "afterRestore": 82,
+      "branch": 82
+    },
+    "typedAudioContinuationEqual": true,
+    "typedContinuationCount": 45
+  },
+  "tests": {
+    "note": "13 passing invocations include two browser-independent contracts run twice; 11 unique cases.",
+    "passingInvocations": 13,
+    "runs": {
+      "browser-900-smoke": {
+        "fail": 0,
+        "names": [
+          "game browser endurance: typed audio identity keeps UI and simulation sequence domains distinct",
+          "game browser endurance: delayed long-task entries retain their measured interval",
+          "game browser endurance: brackenwheel seed-zero workload uses the yielding driver"
+        ],
+        "pass": 3,
+        "rawStdout": "browser-run.stdout.raw",
+        "tests": 3
+      },
+      "browser-node-contract-filter": {
+        "fail": 0,
+        "names": [
+          "game browser endurance: typed audio identity keeps UI and simulation sequence domains distinct",
+          "game browser endurance: delayed long-task entries retain their measured interval"
+        ],
+        "pass": 2,
+        "rawStdout": "browser-endurance-node-contracts.stdout.raw",
+        "tests": 2
+      },
+      "endurance-workload-node": {
+        "fail": 0,
+        "names": [
+          "the integrated workload keeps the exact setup and frozen 300-tick baseline",
+          "selected-source profiles preserve pre-adaptation default snapshots and commands",
+          "Kilnkeeper selected setup drives source-derived planning and real seeded contact",
+          "Brackenwheel selected setup preserves seed-two native-deck evidence and natural area contact",
+          "selected workload rejects unsupported, incomplete, and noncanonical setups",
+          "incremental preview matches accepted commands and resets cleanly at a rewind",
+          "cooldown history can rewind to a prior prefix and rejects unordered history",
+          "the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red"
+        ],
+        "pass": 8,
+        "rawStdout": "endurance-workload.stdout.raw",
+        "tests": 8
+      }
+    },
+    "uniqueNames": [
+      "Brackenwheel selected setup preserves seed-two native-deck evidence and natural area contact",
+      "Kilnkeeper selected setup drives source-derived planning and real seeded contact",
+      "cooldown history can rewind to a prior prefix and rejects unordered history",
+      "game browser endurance: brackenwheel seed-zero workload uses the yielding driver",
+      "game browser endurance: delayed long-task entries retain their measured interval",
+      "game browser endurance: typed audio identity keeps UI and simulation sequence domains distinct",
+      "incremental preview matches accepted commands and resets cleanly at a rewind",
+      "selected workload rejects unsupported, incomplete, and noncanonical setups",
+      "selected-source profiles preserve pre-adaptation default snapshots and commands",
+      "the integrated workload keeps the exact setup and frozen 300-tick baseline",
+      "the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red"
+    ],
+    "uniqueTestCases": 11
+  },
+  "verdict": "PASS"
+}

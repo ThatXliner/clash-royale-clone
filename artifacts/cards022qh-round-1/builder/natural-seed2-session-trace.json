@@ -1,0 +1,278 @@
+{
+  "setup": {
+    "bytes": 57809,
+    "canonicalAcceptedByGameSession": true,
+    "deck": [
+      "brackenwheel",
+      "briar-band",
+      "coilblade",
+      "mossguard",
+      "ironroot",
+      "copperskiff",
+      "brassbolt",
+      "reedsting"
+    ],
+    "legalNorthDeploymentCount": 8,
+    "seed": 2,
+    "sha256": "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b",
+    "thinkIntervalTicks": 60
+  },
+  "opening": {
+    "southHand": [
+      "coilblade",
+      "brackenwheel",
+      "mossguard",
+      "ironroot"
+    ],
+    "northHand": [
+      "brassbolt",
+      "briar-band",
+      "ironroot",
+      "brackenwheel"
+    ],
+    "southElixir": 10
+  },
+  "player": {
+    "admission": {
+      "accepted": true,
+      "commandId": 1,
+      "tick": 0,
+      "type": "player-command-admitted"
+    },
+    "command": {
+      "cardId": "brackenwheel",
+      "commandId": 1,
+      "point": {
+        "x": 3500,
+        "y": 14500
+      },
+      "slot": 1,
+      "tick": 0,
+      "type": "deploy"
+    },
+    "deployment": {
+      "deployment": {
+        "cardId": "brackenwheel",
+        "entityIds": [
+          1
+        ],
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "deployed"
+      },
+      "side": "south",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 6,
+        "cost": 4,
+        "reason": "accepted",
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-deployed"
+    },
+    "southCycleSequenceAt235": 1,
+    "southElixirAt235": 7
+  },
+  "seededAI": {
+    "deployment": {
+      "deployment": {
+        "cardId": "brackenwheel",
+        "entityIds": [
+          2
+        ],
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 1,
+        "side": "north",
+        "tick": 0,
+        "type": "deployed"
+      },
+      "side": "north",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 6,
+        "cost": 4,
+        "reason": "accepted",
+        "sequence": 1,
+        "side": "north",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-deployed"
+    },
+    "northCycleSequenceAt235": 3,
+    "northDeployments": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            2
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        }
+      },
+      {
+        "deployment": {
+          "cardId": "brassbolt",
+          "entityIds": [
+            3
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 2,
+          "side": "north",
+          "tick": 60,
+          "type": "deployed"
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 2,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "north",
+          "tick": 60,
+          "type": "spend"
+        }
+      },
+      {
+        "deployment": {
+          "cardId": "briar-band",
+          "entityIds": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 3,
+          "side": "north",
+          "tick": 180,
+          "type": "deployed"
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 0,
+          "cost": 3,
+          "reason": "accepted",
+          "sequence": 3,
+          "side": "north",
+          "tick": 180,
+          "type": "spend"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "publicObservationTick": 235,
+    "eventTick": 234,
+    "attackerId": 1,
+    "defenderId": 2,
+    "records": [
+      {
+        "amount": 267,
+        "currentHealthAfter": 1374,
+        "currentHealthBefore": 1641,
+        "targetId": 2,
+        "type": "damage",
+        "attackerId": 1,
+        "delivery": "melee",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 4,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 5,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 6,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      }
+    ],
+    "targetStatesAfterContact": [
+      {
+        "alive": true,
+        "hitpoints": 1374,
+        "id": 2
+      },
+      {
+        "alive": false,
+        "hitpoints": 0,
+        "id": 4
+      },
+      {
+        "alive": false,
+        "hitpoints": 0,
+        "id": 5
+      },
+      {
+        "alive": false,
+        "hitpoints": 0,
+        "id": 6
+      }
+    ]
+  }
+}

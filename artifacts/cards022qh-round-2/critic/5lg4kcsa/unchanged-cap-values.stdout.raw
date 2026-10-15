@@ -1,0 +1,44 @@
+src/ui/game-browser-entry.js:47:export const GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS = 1;
+src/ui/game-browser-entry.js:48:export const GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS = 300;
+src/ui/game-browser-entry.js:762:          count > GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS) {
+src/ui/game-browser-entry.js:786:            Math.min(GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS, remaining,
+src/ui/game-browser-entry.js:834:              simulationChunkTicks: GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+tests/game-browser-endurance.test.js:14:  GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+tests/game-browser-endurance.test.js:15:  GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
+tests/game-browser-endurance.test.js:57:const MAX_BROWSER_LONG_TASK_MS = 50;
+tests/game-browser-endurance.test.js:58:const MAX_EXPLICIT_SLICE_MS = 40;
+tests/game-browser-endurance.test.js:62:const MAX_INITIALIZATION_LONG_TASK_MS = 300;
+tests/game-browser-endurance.test.js:68:const MAX_SEGMENT_WALL_CLOCK_MS = 30_000;
+tests/game-browser-endurance.test.js:69:const MAX_ENDURANCE_WALL_CLOCK_MS = 1_200_000;
+tests/game-browser-endurance.test.js:82:if (GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS !== SEGMENT_TICKS) {
+tests/game-browser-endurance.test.js:248:    duration <= MAX_INITIALIZATION_LONG_TASK_MS), true,
+tests/game-browser-endurance.test.js:249:  `initial browser setup stays inside the ${MAX_INITIALIZATION_LONG_TASK_MS}ms cap`);
+tests/game-browser-endurance.test.js:251:    duration <= MAX_BROWSER_LONG_TASK_MS), true,
+tests/game-browser-endurance.test.js:252:  `no out-of-interval browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`);
+tests/game-browser-endurance.test.js:255:    assert.equal(entries.every(({ duration }) => duration <= MAX_BROWSER_LONG_TASK_MS), true,
+tests/game-browser-endurance.test.js:257:        ? `no browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`
+tests/game-browser-endurance.test.js:258:        : `${interval.kind} stays inside the ${MAX_BROWSER_LONG_TASK_MS}ms long-task cap`);
+tests/game-browser-endurance.test.js:529:      chunk.simulationTickCount / GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+tests/game-browser-endurance.test.js:532:    assert.equal(chunk.simulationChunkTicks, GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+tests/game-browser-endurance.test.js:563:  timeout: MAX_ENDURANCE_WALL_CLOCK_MS + 60_000,
+tests/game-browser-endurance.test.js:577:      chunkTicks: GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+tests/game-browser-endurance.test.js:578:      initializationLongTaskCapMilliseconds: MAX_INITIALIZATION_LONG_TASK_MS,
+tests/game-browser-endurance.test.js:580:      longTaskCapMilliseconds: MAX_BROWSER_LONG_TASK_MS,
+tests/game-browser-endurance.test.js:585:      segmentTicks: GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
+tests/game-browser-endurance.test.js:871:      duration <= MAX_INITIALIZATION_LONG_TASK_MS), true,
+tests/game-browser-endurance.test.js:872:    `initial browser mount stays inside the ${MAX_INITIALIZATION_LONG_TASK_MS}ms cap`);
+tests/game-browser-endurance.test.js:1161:      if (sliceTiming.maxMilliseconds > MAX_EXPLICIT_SLICE_MS) {
+tests/game-browser-endurance.test.js:1171:            !(auditWorstMilliseconds <= MAX_EXPLICIT_SLICE_MS)) {
+tests/game-browser-endurance.test.js:1191:            duration > MAX_EXPLICIT_SLICE_MS),
+tests/game-browser-endurance.test.js:1194:        assert.ok(auditWorstMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+tests/game-browser-endurance.test.js:1197:          `${MAX_EXPLICIT_SLICE_MS}ms target`);
+tests/game-browser-endurance.test.js:1199:      assert.ok(driven.elapsedMilliseconds <= MAX_SEGMENT_WALL_CLOCK_MS,
+tests/game-browser-endurance.test.js:1381:      assert.ok(performance.now() - started <= MAX_ENDURANCE_WALL_CLOCK_MS,
+tests/game-browser-endurance.test.js:1483:        assert.ok(restoreTiming.restorePreflightDispatch.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+tests/game-browser-endurance.test.js:1484:          `restore envelope/setup preflight stays inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+tests/game-browser-endurance.test.js:1489:        assert.ok(restoreSteps.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+tests/game-browser-endurance.test.js:1490:          `restore simulation slices stay inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+tests/game-browser-endurance.test.js:1493:        assert.ok(restoreTiming.restoreSessionSerialize.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+tests/game-browser-endurance.test.js:1494:          `restore canonical byte witness/install serialization stays inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+tests/game-browser-endurance.test.js:1497:        assert.ok(restoreTiming.restoreDomCommit.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+tests/game-browser-endurance.test.js:1498:          `restore atomic remount projection stays inside ${MAX_EXPLICIT_SLICE_MS}ms`);

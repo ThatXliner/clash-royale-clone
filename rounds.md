@@ -9570,3 +9570,12 @@ EVIDENCE: Frozen4d77381, independent manifest6/guard13/release22/shippingrelease
 BIGGEST GAP: Fine riverbank/workshop scenery compresses into backgroundtextureat64CSSpx; wellsilhouette remainsreadable.
 
 Adopt exact5portrait/concept/provenance/manifestpaths. Originalbuilder missingwrapperexits and reconstructedfirstmissingVitefailure remainexplicitlyunqualified; freshcritic45directexits independentlyqualify. Source/package/distfences unchanged; test-writtenreleaseevidence copiedexternally/restored, temporarytestworktree removed, ownedChromeclosed/userChrome93861untouched. No battleart, actualgameUI, fullendurance or historicalparity claim.
+
+## Round 501 - CARDS-022QH Brackenwheel endurance harness
+
+PIECE: CARDS-022QH
+VERDICT: PASS
+EVIDENCE: Independentexactd164 onacceptedc69productsource: Nodeworkload8/8 andbrowser3/3directexit0,11uniquecases; twoNodecontractcasesalsoranseparately,13caseexecutions. NativeChrome155nocustomGPUargs900bounded-smoke-only,56955ms, exactsetup2207fce9..., trustedcost4/cycle andunforcedAI primary2plusthreesecondaries4/5/6damage267at234. Exact600-300-600state/bridge/typedfutureaudio continuation; initialization182ms<=300,drivenlongtasks0 andallothercapsunchanged. Allrawstreams,telemetry,sourcefences,actualclosureandchecksumsretained.
+BIGGEST GAP: This bounded900smoke doesnotprovefull18000default orcustomnaturalterminal/restart onthefuturecombinedUI source.
+
+Adopt exact3frozenharnessfilesonly; no production/package changes. Default/Kiln canonicalsetups preserved; Brackcustomrestart preservescanonicalseed2setup perexistingpublicAPI. FullCARDS022Q stillrequiresacceptedCARDS022I andmatching-sourcefullqualification. Existinggenericseed-zero testtitle doesnotdescribeactualBrackseed2; setupdigest/seedassertionsareauthoritative. Criticbroadwhitespacecheckexit2frompreservedrawartifactwhitespace; source-onlycheckexit0. Initialfencepath-countmethodfailurecorrectedtoexcludecommittedevidence, notweakenproductscope. Builderfirstsetup-versus-sessionassertionfailure remainsraw; freshmatchingassemblycriticproof qualifies independently. No historicalconsumerconfidencepromotion.

@@ -22,8 +22,10 @@ import {
   ENDURANCE_REACTION_INTERVAL_TICKS,
   createEnduranceWorkloadPolicy,
   createSelectedEnduranceWorkloadPolicy,
+  exactBrackenwheelEnduranceSetupBytes,
   exactEnduranceSetupBytes,
   exactKilnkeeperEnduranceSetupBytes,
+  BRACKENWHEEL_ENDURANCE_DECK,
   KILNKEEPER_ENDURANCE_DECK,
   normalizedWorkloadCommand,
 } from "./helpers/endurance-workload.js";
@@ -36,14 +38,20 @@ const SEGMENT_TICKS = ENDURANCE_BASELINE_INTERVAL_TICKS;
 const TERMINAL_TICK = 18_000;
 const DEFAULT_SCENARIO = "default-eight";
 const KILNKEEPER_SCENARIO = "kilnkeeper";
+const BRACKENWHEEL_SCENARIO = "brackenwheel";
 const SCENARIO = process.env.GAME_BROWSER_ENDURANCE_SCENARIO ?? DEFAULT_SCENARIO;
 const EXPLICIT_TICK_BOUND = process.env.GAME_BROWSER_ENDURANCE_TICKS !== undefined;
 const ARTIFACTS = process.env.GAME_BROWSER_ENDURANCE_ARTIFACTS ?? new URL(
-  `../artifacts/game001gpx-round-1/builder/browser/${SCENARIO}/`, import.meta.url,
+  SCENARIO === BRACKENWHEEL_SCENARIO
+    ? "../artifacts/cards022qh-round-1/builder/browser/brackenwheel/"
+    : `../artifacts/game001gpx-round-1/builder/browser/${SCENARIO}/`,
+  import.meta.url,
 ).pathname;
 const EXPECTED_SETUP_SHA256 = SCENARIO === KILNKEEPER_SCENARIO
   ? "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9"
-  : "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
+  : SCENARIO === BRACKENWHEEL_SCENARIO
+    ? "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b"
+    : "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
 const TEST_END_TICK = process.env.GAME_BROWSER_ENDURANCE_TICKS === undefined
   ? TERMINAL_TICK : Number(process.env.GAME_BROWSER_ENDURANCE_TICKS);
 const MAX_BROWSER_LONG_TASK_MS = 50;
@@ -60,10 +68,10 @@ const SLICE_AUDIT_ATTEMPTS = 2;
 const MAX_SEGMENT_WALL_CLOCK_MS = 30_000;
 const MAX_ENDURANCE_WALL_CLOCK_MS = 1_200_000;
 const FULL_DEFAULT_RUN = SCENARIO === DEFAULT_SCENARIO && TEST_END_TICK === TERMINAL_TICK;
-const EXPANDED_TERMINAL_RUN = SCENARIO === KILNKEEPER_SCENARIO && !EXPLICIT_TICK_BOUND;
+const EXPANDED_TERMINAL_RUN = SCENARIO !== DEFAULT_SCENARIO && !EXPLICIT_TICK_BOUND;
 const RUN_IS_SMOKE = !FULL_DEFAULT_RUN && !EXPANDED_TERMINAL_RUN;
 
-if (![DEFAULT_SCENARIO, KILNKEEPER_SCENARIO].includes(SCENARIO)) {
+if (![DEFAULT_SCENARIO, KILNKEEPER_SCENARIO, BRACKENWHEEL_SCENARIO].includes(SCENARIO)) {
   throw new TypeError(`unsupported GAME_BROWSER_ENDURANCE_SCENARIO: ${SCENARIO}`);
 }
 
@@ -195,6 +203,18 @@ function stateDigest(state) {
     terminal: state.terminal,
     tick: state.tick,
     towers: state.battle.towers.map(({ hitpoints, id }) => ({ hitpoints, id })),
+  };
+}
+
+function brackenwheelScenarioState(session, evidence) {
+  return {
+    tick: session.state.tick,
+    units: [evidence.playerDeployment, evidence.northDeployment].map((entry) => {
+      const id = entry.deployment.entityIds[0];
+      const unit = session.state.battle.units.find(({ id: unitId }) => unitId === id);
+      assert.ok(unit, `Brackenwheel scenario entity ${id} remains in the canonical state`);
+      return { alive: unit.alive, hitpoints: unit.hitpoints, id, position: unit.position };
+    }),
   };
 }
 
@@ -549,7 +569,7 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
   const telemetry = {
     scenario: SCENARIO,
     qualificationMode: FULL_DEFAULT_RUN ? "default-eight-full-18k"
-      : EXPANDED_TERMINAL_RUN ? "kilnkeeper-natural-terminal-required"
+      : EXPANDED_TERMINAL_RUN ? `${SCENARIO}-natural-terminal-required`
         : `${SCENARIO}-bounded-smoke-${TEST_END_TICK}`,
     architecture: {
       audioPolicy: "Each 100-tick-or-terminal presentation consumes all authority records; accelerated rendering selects newest critical then newest remaining cues up to a fixed cap.",
@@ -662,16 +682,21 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
     await page.waitForSelector("[data-arena-shell-root]", { state: "attached" });
 
     const setup = SCENARIO === KILNKEEPER_SCENARIO
-      ? exactKilnkeeperEnduranceSetupBytes() : exactEnduranceSetupBytes();
+      ? exactKilnkeeperEnduranceSetupBytes()
+      : SCENARIO === BRACKENWHEEL_SCENARIO
+        ? exactBrackenwheelEnduranceSetupBytes() : exactEnduranceSetupBytes();
     const setupSha256 = createHash("sha256").update(setup).digest("hex");
     assert.equal(setupSha256, EXPECTED_SETUP_SHA256,
       SCENARIO === KILNKEEPER_SCENARIO
         ? "the browser receives the reviewed canonical seed-zero Kilnkeeper setup"
-        : "the browser receives the reviewed exact seed-zero/default-eight setup");
+        : SCENARIO === BRACKENWHEEL_SCENARIO
+          ? "the browser receives the reviewed canonical seed-two Brackenwheel setup"
+          : "the browser receives the reviewed exact seed-zero/default-eight setup");
     telemetry.setupSha256 = setupSha256;
     telemetry.setupBytes = setup.length;
     telemetry.scenarioDeck = SCENARIO === KILNKEEPER_SCENARIO
-      ? KILNKEEPER_ENDURANCE_DECK : null;
+      ? KILNKEEPER_ENDURANCE_DECK
+      : SCENARIO === BRACKENWHEEL_SCENARIO ? BRACKENWHEEL_ENDURANCE_DECK : null;
     const mounted = await page.evaluate(async (setupBytes) => {
       const [
         { GameSession },
@@ -852,9 +877,9 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       "Chrome PerformanceObserver longtask evidence is available");
 
     let direct = new GameSession(setup);
-    const workloadPolicy = SCENARIO === KILNKEEPER_SCENARIO
-      ? createSelectedEnduranceWorkloadPolicy({ setupBytes: setup })
-      : createEnduranceWorkloadPolicy();
+    const workloadPolicy = SCENARIO === DEFAULT_SCENARIO
+      ? createEnduranceWorkloadPolicy()
+      : createSelectedEnduranceWorkloadPolicy({ setupBytes: setup });
     let longTaskCursor = initializationTasks.cursor;
     let firstDriveStartedAt = null;
     const observedLongTaskEntries = [...initializationTasks.tasks];
@@ -879,6 +904,18 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       northPositionAt300: null,
       northProjectileContactsAt600: null,
       restoredProjectileContactsAt600: null,
+    } : null;
+    const brackenwheelEvidence = SCENARIO === BRACKENWHEEL_SCENARIO ? {
+      playerDelivery: null,
+      playerDeployment: null,
+      northDeployment: null,
+      northPositionAt300: null,
+      primaryContactAt235: null,
+      secondaryContactsAt235: null,
+      areaDamageEventsAt600: null,
+      restoredAreaDamageEventsAt600: null,
+      stateAt600: null,
+      restoredStateAt600: null,
     } : null;
     const acceptedEmergencyTicksThrough = (tick) => telemetry.transportIdNormalization
       .filter((entry) => entry.timeline === "primary" && entry.tick < tick &&
@@ -1005,9 +1042,45 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
         timeline: "primary",
       });
     }
+    if (SCENARIO === BRACKENWHEEL_SCENARIO) {
+      const selectedSetup = JSON.parse(setup);
+      const selectedRoster = JSON.parse(selectedSetup.battleSetup).roster;
+      const brackenwheel = selectedRoster.find(({ id }) => id === "brackenwheel");
+      const openingState = direct.state;
+      const slot = openingState.decks.south.hand.indexOf("brackenwheel");
+      assert.ok(brackenwheel && slot >= 0,
+        "the actual seed-two player hand offers the selected Brackenwheel profile");
+      assert.ok(openingState.decks.north.hand.includes("brackenwheel"),
+        "the unforced seed-two AI opening hand can select Brackenwheel naturally");
+      const plan = { cardId: brackenwheel.id, point: { x: 3_500, y: 14_500 }, slot, tick: 0 };
+      const delivery = await deliverPhysicalPlan(page, plan);
+      assert.deepEqual(normalizedCommand(delivery.command), normalizedWorkloadCommand(plan),
+        "the native pointer gesture names the selected Brackenwheel at world 3500,14500");
+      assert.equal(direct.submitPlayerCommand(canonical(delivery.command)).accepted, true,
+        "the native pointer delivery is accepted by the direct E2 session");
+      brackenwheelEvidence.playerDelivery = {
+        command: normalizedCommand(delivery.command),
+        costFromSelectedRoster: brackenwheel.cost,
+        openingSouthElixir: openingState.elixir.sides.south.amount,
+        openingSouthHand: openingState.decks.south.hand,
+        openingNorthHand: openingState.decks.north.hand,
+        setupDeck: selectedSetup.deck,
+        setupSeed: selectedSetup.seed,
+      };
+      telemetry.initialPlayerBrackenwheelDelivery = brackenwheelEvidence.playerDelivery;
+      telemetry.transportIdNormalization.push({
+        acceptedBrowserCommandId: delivery.command.commandId,
+        decision: "initial-player-brackenwheel-native-gesture",
+        reactionBoundaryIndex: 0,
+        normalized: normalizedCommand(delivery.command),
+        planned: plan,
+        tick: 0,
+        timeline: "primary",
+      });
+    }
 
     while (direct.state.tick < TEST_END_TICK &&
-        !(SCENARIO === KILNKEEPER_SCENARIO && direct.state.terminal)) {
+        !(SCENARIO !== DEFAULT_SCENARIO && direct.state.terminal)) {
       if (SCENARIO === DEFAULT_SCENARIO) {
         assertEnduranceWorkloadCanContinue(direct, TEST_END_TICK);
       }
@@ -1195,9 +1268,60 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
         }
         telemetry.kilnkeeperEvidence = kilnkeeperEvidence;
       }
+      if (brackenwheelEvidence !== null && brackenwheelEvidence.playerDeployment === null &&
+          direct.state.tick >= 300) {
+        assert.equal(direct.state.tick, 300,
+          "Brackenwheel evidence is captured at the unchanged first 300-tick boundary");
+        const selectedRoster = JSON.parse(JSON.parse(setup).battleSetup).roster;
+        const brackenwheel = selectedRoster.find(({ id }) => id === "brackenwheel");
+        const playerEvent = direct.replay.find((entry) => entry.type === "session-deployed" &&
+          entry.side === "south" && entry.deployment.cardId === "brackenwheel");
+        assert.ok(playerEvent, "the native-pointer Brackenwheel is paid and deployed in GameSession");
+        assert.equal(playerEvent.spend.cost, brackenwheel.cost);
+        assert.equal(playerEvent.spend.amountAfter,
+          brackenwheelEvidence.playerDelivery.openingSouthElixir - brackenwheel.cost);
+        assert.equal(playerEvent.deployment.point.x, 3_500);
+        assert.equal(playerEvent.deployment.point.y, 14_500);
+        assert.equal(direct.state.decks.south.sequence, 1,
+          "the actual four-cost player deployment advances the deck cycle once");
+        assert.equal(direct.state.decks.south.hand.includes("brackenwheel"), false,
+          "the actual player card leaves its hand through normal cycling");
+        brackenwheelEvidence.playerDeployment = playerEvent;
+
+        const aiEvent = direct.replay.find((entry) => entry.type === "session-deployed" &&
+          entry.side === "north" && entry.deployment.cardId === "brackenwheel");
+        assert.ok(aiEvent, "the unforced seed-two AI naturally selects Brackenwheel");
+        assert.equal(aiEvent.deployment.tick, 0);
+        assert.equal(aiEvent.spend.cost, brackenwheel.cost);
+        const aiEntityId = aiEvent.deployment.entityIds[0];
+        const aiUnit = direct.state.battle.units.find(({ id }) => id === aiEntityId);
+        assert.ok(aiUnit?.alive, "the natural AI Brackenwheel remains available at tick 300");
+        assert.notDeepEqual(aiUnit.position, aiEvent.deployment.point,
+          "the natural AI Brackenwheel has moved from its legal north deployment");
+        brackenwheelEvidence.northDeployment = aiEvent;
+        brackenwheelEvidence.northPositionAt300 = aiUnit.position;
+
+        const playerEntityId = playerEvent.deployment.entityIds[0];
+        const primary = direct.replay.find((entry) => entry.type === "damage" &&
+          entry.attackerId === playerEntityId && entry.targetId === aiEntityId &&
+          entry.tick === 234);
+        assert.ok(primary, "the causal area attack records its primary contact at tick 234");
+        assert.equal(primary.amount, brackenwheel.damage);
+        const secondaries = direct.replay.filter((entry) => entry.type === "damage" &&
+          entry.attackerId === playerEntityId && entry.tick === 234 &&
+          entry.meleeAreaPolicyVersion === "melee-area-question-v1");
+        assert.deepEqual(secondaries.map(({ targetId }) => targetId), [4, 5, 6],
+          "the same natural contact records each eligible secondary exactly once");
+        assert.equal(new Set(secondaries.map(({ targetId }) => targetId)).size,
+          secondaries.length);
+        assert.ok(secondaries.every(({ amount }) => amount === brackenwheel.damage));
+        brackenwheelEvidence.primaryContactAt235 = primary;
+        brackenwheelEvidence.secondaryContactsAt235 = secondaries;
+      }
+      if (brackenwheelEvidence !== null) telemetry.brackenwheelEvidence = brackenwheelEvidence;
 
       if (direct.state.tick === TEST_END_TICK ||
-          (SCENARIO === KILNKEEPER_SCENARIO && direct.state.terminal)) {
+          (SCENARIO !== DEFAULT_SCENARIO && direct.state.terminal)) {
         terminalObservationInterval = { finishedAt: Infinity,
           id: "terminal-observation", kind: "terminal-observation",
           startedAt: driven.finishedAt };
@@ -1332,7 +1456,19 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
           kilnkeeperContacts: kilnkeeperEvidence === null ? null : direct.replay.filter((entry) =>
             entry.type === "projectile-impact" && entry.status === "contact" &&
             kilnkeeperEvidence.northLaunch?.entityId === entry.sourceId),
+          brackenwheelAreaDamageEvents: brackenwheelEvidence === null ? null : direct.replay.filter((entry) =>
+            entry.type === "damage" &&
+            entry.attackerId === brackenwheelEvidence.playerDeployment?.deployment.entityIds[0] &&
+            entry.tick === 234),
+          brackenwheelState: brackenwheelEvidence === null ? null
+            : brackenwheelScenarioState(direct, brackenwheelEvidence),
         };
+        if (brackenwheelEvidence !== null) {
+          brackenwheelEvidence.areaDamageEventsAt600 = restoreBranch.brackenwheelAreaDamageEvents;
+          assert.equal(brackenwheelEvidence.areaDamageEventsAt600.length, 4,
+            "the 600-tick branch retains one primary and three secondary damage records");
+          brackenwheelEvidence.stateAt600 = restoreBranch.brackenwheelState;
+        }
         const restoredView = await restoreBrowserSnapshot(page, restoreCut.browserSnapshot);
         const restoreWindow = { finishedAt: restoredView.finishedAt,
           id: `restore-${longTaskIntervals.length}`, kind: "restore",
@@ -1493,6 +1629,21 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
           kilnkeeperEvidence.restoredProjectileContactsAt600 = restoredContacts;
           telemetry.kilnkeeperEvidence = kilnkeeperEvidence;
         }
+        if (brackenwheelEvidence !== null) {
+          const restoredAreaDamageEvents = direct.replay.filter((entry) =>
+            entry.type === "damage" &&
+            entry.attackerId === brackenwheelEvidence.playerDeployment?.deployment.entityIds[0] &&
+            entry.tick === 234);
+          assert.deepEqual(restoredAreaDamageEvents,
+            restoreBranch.brackenwheelAreaDamageEvents,
+            "600→300→600 replay restores the same primary and per-target secondary records");
+          const restoredScenarioState = brackenwheelScenarioState(direct, brackenwheelEvidence);
+          assert.deepEqual(restoredScenarioState, restoreBranch.brackenwheelState,
+            "600→300→600 replay restores both Brackenwheel entities and their exact state");
+          brackenwheelEvidence.restoredAreaDamageEventsAt600 = restoredAreaDamageEvents;
+          brackenwheelEvidence.restoredStateAt600 = restoredScenarioState;
+          telemetry.brackenwheelEvidence = brackenwheelEvidence;
+        }
         replayParityProven = true;
         recordHostPhase(telemetry, "replayed-branch-parity-roundtrip-and-assertions", fromTick,
           replayParityStartedAt);
@@ -1571,13 +1722,13 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       recordHostPhase(telemetry, "restart-browser-view-roundtrip", direct.state.tick,
         restartedViewStartedAt);
       const restartAssertionsStartedAt = performance.now();
-      const expectedRestart = SCENARIO === KILNKEEPER_SCENARIO
-        ? new GameSession(setup).serialize()
-        : new GameSession(createShippedGameSessionSetup(0)).serialize();
+      const expectedRestart = SCENARIO === DEFAULT_SCENARIO
+        ? new GameSession(createShippedGameSessionSetup(0)).serialize()
+        : new GameSession(setup).serialize();
       assert.equal(restarted.sessionBytes, expectedRestart,
-        SCENARIO === KILNKEEPER_SCENARIO
-          ? "terminal restart creates the exact same selected seed-zero deck"
-          : "terminal restart creates the exact shipped seed-zero session");
+        SCENARIO === DEFAULT_SCENARIO
+          ? "terminal restart creates the exact shipped seed-zero session"
+          : "terminal restart creates the exact same selected deck and seed");
       assert.equal(restarted.state.sessionTick, 0);
       assert.equal(restarted.restartHidden, true);
       assert.equal(restarted.terminalOverlay, null);
@@ -1596,11 +1747,16 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       if (SCENARIO === KILNKEEPER_SCENARIO) {
         telemetry.qualificationMode = "kilnkeeper-natural-terminal-and-same-deck-restart";
         telemetry.qualificationResult = "qualified-natural-terminal-and-same-deck-restart";
+      } else if (SCENARIO === BRACKENWHEEL_SCENARIO) {
+        telemetry.qualificationMode = "brackenwheel-natural-terminal-and-same-deck-restart";
+        telemetry.qualificationResult = "qualified-natural-terminal-and-same-deck-restart";
       }
     } else {
       telemetry.terminal = { smoke: RUN_IS_SMOKE, finalView,
         outcome: telemetry.runOutcome };
       if (SCENARIO === KILNKEEPER_SCENARIO) {
+        telemetry.qualificationResult = "bounded-smoke-only";
+      } else if (SCENARIO === BRACKENWHEEL_SCENARIO) {
         telemetry.qualificationResult = "bounded-smoke-only";
       }
       const terminalFinishMarkStartedAt = performance.now();

@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: the integrated workload keeps the exact setup and frozen 300-tick baseline
+ok 1 - the integrated workload keeps the exact setup and frozen 300-tick baseline
+  ---
+  duration_ms: 845.461917
+  type: 'test'
+  ...
+# Subtest: selected-source profiles preserve pre-adaptation default snapshots and commands
+ok 2 - selected-source profiles preserve pre-adaptation default snapshots and commands
+  ---
+  duration_ms: 3538.595666
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper selected setup drives source-derived planning and real seeded contact
+ok 3 - Kilnkeeper selected setup drives source-derived planning and real seeded contact
+  ---
+  duration_ms: 2197.784625
+  type: 'test'
+  ...
+# Subtest: Brackenwheel selected setup preserves seed-two native-deck evidence and natural area contact
+ok 4 - Brackenwheel selected setup preserves seed-two native-deck evidence and natural area contact
+  ---
+  duration_ms: 984.961292
+  type: 'test'
+  ...
+# Subtest: selected workload rejects unsupported, incomplete, and noncanonical setups
+ok 5 - selected workload rejects unsupported, incomplete, and noncanonical setups
+  ---
+  duration_ms: 18.015833
+  type: 'test'
+  ...
+# Subtest: incremental preview matches accepted commands and resets cleanly at a rewind
+ok 6 - incremental preview matches accepted commands and resets cleanly at a rewind
+  ---
+  duration_ms: 2232.716666
+  type: 'test'
+  ...
+# Subtest: cooldown history can rewind to a prior prefix and rejects unordered history
+ok 7 - cooldown history can rewind to a prior prefix and rejects unordered history
+  ---
+  duration_ms: 0.21825
+  type: 'test'
+  ...
+# Subtest: the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red
+ok 8 - the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red
+  ---
+  duration_ms: 0.3405
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9988.213708

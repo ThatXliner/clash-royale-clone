@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "node",
+    "--test",
+    "--test-name-pattern",
+    "^(game browser endurance: typed audio identity keeps UI and simulation sequence domains distinct|game browser endurance: delayed long-task entries retain their measured interval)$",
+    "tests/game-browser-endurance.test.js"
+  ],
+  "cwd": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022qh-critic-current-5lg4kcsa/checkout",
+  "env": {
+    "PATH_prefix": "/Users/me/.hermes/node/bin",
+    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
+  }
+}

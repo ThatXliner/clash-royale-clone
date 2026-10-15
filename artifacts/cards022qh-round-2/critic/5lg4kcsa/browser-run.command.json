@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "node",
+    "--test",
+    "tests/game-browser-endurance.test.js"
+  ],
+  "cwd": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022qh-critic-current-5lg4kcsa/checkout",
+  "environment_overrides": {
+    "PATH": "/Users/me/.hermes/node/bin:/Users/me/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/usr/local/MacGPG2/bin:/opt/homebrew/bin:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/me/.codex/tmp/arg0/codex-arg0WccBGj:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/me/.darkbloom/bin:/Users/me/bin:/Users/me/.local/bin:/Users/me/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/me/.cargo/bin:/Users/me/Applications/darktable.app/Contents/MacOS:/Users/me/.bun/bin:/Users/me/Library/Android/sdk/platform-tools:/Users/me/Library/Android/sdk/emulator:/Users/me/Library/Android/sdk/cmdline-tools/latest/bin:/opt/homebrew/sbin:/Users/me/.orbstack/bin:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/me/Applications/ChatGPT.app/Contents/Resources:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/Users/me/.orbstack/bin",
+    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1",
+    "GAME_BROWSER_PLAYWRIGHT": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022qh-critic-current-5lg4kcsa/checkout/node_modules/playwright/index.mjs",
+    "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "GAME_BROWSER_ENDURANCE_SCENARIO": "brackenwheel",
+    "GAME_BROWSER_ENDURANCE_TICKS": "900",
+    "GAME_BROWSER_ENDURANCE_ARTIFACTS": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/cards022qh-critic-current-5lg4kcsa/packet/browser/brackenwheel/"
+  },
+  "custom_chrome_launch_args": [],
+  "browser_launch_source": "tests/game-browser-endurance.test.js:638; chromium.launch({ executablePath: CHROME, headless: true })"
+}
