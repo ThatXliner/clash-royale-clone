@@ -1,0 +1,24 @@
+{
+  "node": "/Users/me/.hermes/node/bin/node v22.22.3",
+  "runs": [
+    {
+      "name": "visual-asset-manifest",
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "tests/visual-asset-manifest-runner.js",
+        "visual-asset-manifest"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "shipping-isolation-guard",
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "tests/shipping-isolation-guard-runner.js",
+        "shipping-isolation-guard"
+      ],
+      "exit": 0
+    }
+  ],
+  "output_dir": "/private/tmp/art023p-critic-node-light-f0eca6d8f0c8430387720290b083cd15"
+}

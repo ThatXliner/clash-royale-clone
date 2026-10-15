@@ -9561,3 +9561,12 @@ EVIDENCE: Fresh independent392dc987 assembly editable12/RL16/lifecycle1/nondeter
 BIGGEST GAP: Resource amount, deploy/HP, recipient, cap, placement andordering historical semantics remain QUESTION; local admission is proven, not historical parity.
 
 Adopt exact5editable/RL source-test paths, preserving acceptedART022L manifest/helper/assets andallothermainchanges. Naturaltrace maxpostgrant7 did not hitcap; retained exactunchangedHBR test proves expiry3900 atElixir10 requests1/grants0 andrestore/replayexact. FreshK23case verifiespublicRLpolicy/targetnone/lifetime, missing/forgedreceipttransactionalreject andlegacyv1hostvalid/currentRLconfigreject. Initialbuilder27/29rawTAPmissing stays explicit; finalfreshcritic65rawcaptures available. Assemblywhitespacecheck flaggedonlypreservedrawbuilderTAP trailing spaces, source/testdiffcheckclean. ActualgameUI andmatching-sourcefull18000/browserrestore/input/audio/restart qualification remainpending.
+
+## Round 500 - ART-023P Aether Well portrait and concept
+
+PIECE: ART-023P
+VERDICT: PASS
+EVIDENCE: Frozen4d77381, independent manifest6/guard13/release22/shippingrelease4,45/45directexit0 withrawstreams. Four nativeChrome155DPR1 phone390x844/desktop1440x933 light/dark captures confirm64/128CSSpx,512naturalpixels, readablecopper/rootwoodwellandamberresource. Original1254squarePNG2801458B byteidenticalbuiltinoutput; WebP71106B. Rootverifiedallbuilder37ledgerentries andcriticchecksums, directgateexits/rawTAP, fiveownedpaths unchangedonmain sincecandidatebase.
+BIGGEST GAP: Fine riverbank/workshop scenery compresses into backgroundtextureat64CSSpx; wellsilhouette remainsreadable.
+
+Adopt exact5portrait/concept/provenance/manifestpaths. Originalbuilder missingwrapperexits and reconstructedfirstmissingVitefailure remainexplicitlyunqualified; freshcritic45directexits independentlyqualify. Source/package/distfences unchanged; test-writtenreleaseevidence copiedexternally/restored, temporarytestworktree removed, ownedChromeclosed/userChrome93861untouched. No battleart, actualgameUI, fullendurance or historicalparity claim.

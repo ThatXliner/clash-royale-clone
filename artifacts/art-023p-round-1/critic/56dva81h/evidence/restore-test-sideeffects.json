@@ -1,0 +1,39 @@
+{
+  "argv": [
+    "git",
+    "restore",
+    "--",
+    "artifacts/release-001b-round-2/evidence.json",
+    "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+    "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+    "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+  ],
+  "restoreExit": 0,
+  "copiedEvidence": [
+    {
+      "source": "artifacts/release-001b-round-2/evidence.json",
+      "external": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/aether-well-art023p-critic-pd7grwof/evidence/evidence.json",
+      "bytes": 33366,
+      "sha256": "7d9326bc7e986fa59f627fd08ddc21aa25af756257448b0b8a8c9c180c478546"
+    },
+    {
+      "source": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "external": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/aether-well-art023p-critic-pd7grwof/evidence/escaped-css-producer-rejection.json",
+      "bytes": 500,
+      "sha256": "64b93aaecc79cc38a96f7eadf63d9f537c6447ab2f0d4d757b6f3c86935e6423"
+    },
+    {
+      "source": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "external": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/aether-well-art023p-critic-pd7grwof/evidence/external-base-producer-rejection.json",
+      "bytes": 485,
+      "sha256": "a0e44eba9d0baf41ed91fdab948b2ffb64d6b21c49595cd1e463f9d5744c84a4"
+    },
+    {
+      "source": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "external": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/aether-well-art023p-critic-pd7grwof/evidence/opaque-srcdoc-producer-rejection.json",
+      "bytes": 1333,
+      "sha256": "4a4b3e34d2365a673240b8c18e881608642761df335bde1659c86860bd521539"
+    }
+  ],
+  "postRestoreStatus": "?? node_modules\n"
+}

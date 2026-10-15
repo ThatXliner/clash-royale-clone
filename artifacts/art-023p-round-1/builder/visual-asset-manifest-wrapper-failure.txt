@@ -1,0 +1,4 @@
+Command: node tests/visual-asset-manifest-runner.js visual-asset-manifest
+TAP result: 6 tests, 6 passed, 0 failed.
+Wrapper result: zsh exit 1 after the test runner returned, because `status` is a read-only zsh variable.
+The child process exit code was not captured. Preserve this wrapper failure; do not report it as a product failure or claim the child exit code.

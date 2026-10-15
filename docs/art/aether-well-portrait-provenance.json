@@ -1,0 +1,50 @@
+{
+  "license": "AGPL-3.0-only",
+  "authorship": "in-repo-authored",
+  "generation_tool": "Codex built-in image_gen.imagegen",
+  "generation_mode": "built-in default image generation",
+  "generation_output": "/Users/me/.codex/generated_images/01a140c8-3285-7413-ba82-a47120d1d8bc/exec-5864eee2-c733-4d3c-9cd0-5dce67e8f794.png",
+  "generation_settings": {
+    "transparent_background": false,
+    "input_images": []
+  },
+  "encoding_tool": "cwebp 1.6.0 (libsharpyuv 0.4.2)",
+  "assets": [
+    {
+      "asset": "public/assets/aether-well-portrait-painted.webp",
+      "source_png": "demo/assets/aether-well-portrait.png",
+      "generation_output": "Built-in tool returned a 1254 × 1254 PNG; the exact output was copied intact.",
+      "source_sha256": "d5201186a7f7b5048f0599370d903d2840af4df2588c68cf738224d4753e622a",
+      "source_bytes": 2801458,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "f46cb6b879def255c14058428fa6689e996b8e6699f675c02f19e0812638169c",
+      "bytes": 71106,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: original square card portrait for a woodland river-workshop strategy game\nPrimary request: Paint Aether Well, an original stationary resource well built to gather emberseed from the riverbank. It is a structure portrait, never an anthropomorphic character.\nScene/backdrop: Quiet, shallow-focus woodland river workshop at dusk; softly painted river light, broad forest shapes, weathered timber and slate, with the workshop details kept subdued behind the well.\nSubject: One centered, unmistakable well structure: a broad dark stone well collar with a deep copper-lined basin, two sturdy carved rootwood uprights, a simple crossbeam, and a compact aged-copper hand crank with a short chain lowering a small scoop into still water. A few luminous amber emberseed pods glow gently in the water and inside the scoop; keep the resource clear and contained, not bursting outward. Use a distinctive asymmetrical copper spout that pours a thin stream back into the basin. The entire object is grounded on the riverbank and visibly built from practical workshop materials.\nStyle/medium: Original dimensional hand-painted fantasy game-card illustration, softly sculpted forms, controlled painterly brushwork, matte materials, tactile wood, stone and hammered copper, warm highlights and atmospheric depth; consistent with the project's painted woodland portraits while using a new object, silhouette and composition.\nComposition/framing: Square close three-quarter view from slightly above; show the complete well and its stone footing, large in the frame with a safe inset on every edge. Use a strong, simple silhouette and broad light-dark color groups so the well and amber resource read clearly at 64 and 128 CSS pixels.\nLighting/mood: Soft cool river dusk with restrained amber emberseed glow and a few warm copper reflections; calm, useful, quietly magical.\nColor palette: Dark riverwood, warm aged copper, slate stone, soft moss green, deep water teal, and a few bright amber emberseed highlights.\nMaterials/textures: Broad carved rootwood grain, hammered copper edges and rivets, damp stone, softly painted water, a little moss at the footing.\nText (verbatim): None.\nConstraints: One unoccupied resource-building structure only; no face, eyes, limbs, hands, characters, animals, weapons, symbols, labels, numbers, UI, border, logo, or watermark. Keep the basin, uprights, crank, scoop and amber resources visibly connected as one grounded well.\nAvoid: Any copied commercial game art, Supercell imagery or recognizable game silhouettes; anthropomorphic or face-like forms; a roofed tower; a generic cooking pot; a battle weapon; exploding seeds; flame plume; excessive sparks; photorealism; glossy plastic; flat vector art; cropped parts; clutter.",
+      "thumbnail_fixture": "artifacts/art-023p-round-1/builder/portrait-thumbnails.html",
+      "thumbnail_screenshots": [
+        "artifacts/art-023p-round-1/builder/portrait-phone-light-390x844.png",
+        "artifacts/art-023p-round-1/builder/portrait-phone-dark-390x844.png",
+        "artifacts/art-023p-round-1/builder/portrait-desktop-light-1440x933.png",
+        "artifacts/art-023p-round-1/builder/portrait-desktop-dark-1440x933.png"
+      ],
+      "thumbnail_browser_evidence": "artifacts/art-023p-round-1/builder/thumbnail-browser-evidence.json"
+    }
+  ]
+}

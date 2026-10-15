@@ -1,0 +1,23 @@
+ART023P source fences
+Private checkout: /private/tmp/aether-well-art023p-builder
+Baseline commit: d25ff320c91dc0b35cc1b2bc2fcf3c6970ab09b5
+Dependency installation: npm ci, actual exit 0; package and lockfile SHA-256 values match before/after:
+e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf  package.json
+d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4  package-lock.json
+
+Image source: Codex built-in image_gen.imagegen output copied unmodified to demo/assets/aether-well-portrait.png; original 1254x1254 PNG, 2,801,458 bytes, SHA-256 d5201186a7f7b5048f0599370d903d2840af4df2588c68cf738224d4753e622a. Byte comparison against archived source copy passed.
+Published image: cwebp 1.6.0 (libsharpyuv 0.4.2), -q 85 -m 6 -mt -resize 512 512; 512x512 WebP, 71,106 bytes, SHA-256 f46cb6b879def255c14058428fa6689e996b8e6699f675c02f19e0812638169c.
+Prompt and tool receipt: raw-generation/attempt-01-prompt.txt and raw-generation/attempt-01-tool-receipt.txt. Full prompt and generation/output settings are also in docs/art/aether-well-portrait-provenance.json.
+
+Browser proof: Chrome 155.0.8059.40, no custom launch args, native DPR 1, four phone/desktop and light/dark captures. Each page confirmed 64px and 128px CSS image sizes with 512x512 natural asset, no capture error. Browser close resolved; post-capture process query found no Chrome --headless or --remote-debugging process. User Chrome PID 93861 untouched. Details and screenshot hashes are in thumbnail-browser-evidence.json; visual captures are the four portrait-*.png files.
+
+Validation:
+- node --test tests/release-build.test.js: 22/22 passed, actual exit 0.
+- node --test tests/shipping-isolation-release.test.js: 4/4 passed, actual exit 0.
+- Corrected node --test tests/game-presentation-journey.test.js run after npm ci: 1/1 passed, actual exit 0. This is a separate presentation check, not the release-build suite.
+- tests/visual-asset-manifest-runner.js visual-asset-manifest TAP output showed 6/6 passed, but the zsh wrapper exited 1 after attempting to assign the read-only variable status; child exit was not captured.
+- tests/shipping-isolation-guard-runner.js shipping-isolation-guard TAP output showed 13/13 passed, but the same zsh wrapper failure left the child exit uncaptured.
+- The first game-presentation test attempt failed with ERR_MODULE_NOT_FOUND for vite before the private npm ci. Its original tool output was overwritten by the corrected run; release-runtime-missing-vite.stdout.captured.txt preserves a reconstructed transcript and release-runtime-missing-vite.exit.txt records exit 1. It is not the corrected run's result.
+- git diff --check passed. Release suite generated out-of-scope baseline artifact modifications were restored. Only the assigned portrait/concept/provenance/manifest and this round's builder evidence are included.
+
+Scope fence: no UI/card/lore-map/combat/simulation/roster/package/PLAN changes. No reference files modified or bundled. No main-tree adoption performed; independent critic and adoption remain with parent.

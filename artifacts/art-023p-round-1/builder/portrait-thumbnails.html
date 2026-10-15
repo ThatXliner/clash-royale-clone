@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Aether Well portrait thumbnail scale check</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    :root[data-theme="light"] { color-scheme: light; --page: #efede6; --tile: #fbfaf6; --ink: #292a25; --line: #bbb9af; }
+    :root[data-theme="dark"] { color-scheme: dark; --page: #20231f; --tile: #2c302b; --ink: #f1eee5; --line: #565b53; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; background: var(--page); color: var(--ink); }
+    main { min-height: 100vh; display: grid; place-content: center; gap: 20px; padding: 24px; }
+    h1 { margin: 0; font-size: 18px; font-weight: 650; text-align: center; }
+    .samples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    figure { display: grid; justify-items: center; gap: 10px; margin: 0; padding: 16px; background: var(--tile); border: 1px solid var(--line); border-radius: 12px; }
+    figcaption { font-size: 13px; font-weight: 600; white-space: nowrap; }
+    img { display: block; object-fit: contain; image-rendering: auto; }
+    img[data-size="64"] { width: 64px; height: 64px; }
+    img[data-size="128"] { width: 128px; height: 128px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Aether Well portrait</h1>
+    <div class="samples">
+      <figure>
+        <img data-size="64" src="../../../public/assets/aether-well-portrait-painted.webp" alt="Aether Well portrait at 64 CSS pixels">
+        <figcaption>64 CSS px</figcaption>
+      </figure>
+      <figure>
+        <img data-size="128" src="../../../public/assets/aether-well-portrait-painted.webp" alt="Aether Well portrait at 128 CSS pixels">
+        <figcaption>128 CSS px</figcaption>
+      </figure>
+    </div>
+  </main>
+  <script>
+    document.documentElement.dataset.theme = new URLSearchParams(location.search).get("theme") === "dark" ? "dark" : "light";
+  </script>
+</body>
+</html>

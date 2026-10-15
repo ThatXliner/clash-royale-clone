@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "task": "ART023P Aether Well portrait builder round",
+  "baselineCommit": "d25ff320c91dc0b35cc1b2bc2fcf3c6970ab09b5",
+  "checkout": "/private/tmp/aether-well-art023p-builder",
+  "ledgerExclusion": "This ledger does not hash itself.",
+  "files": [
+    {
+      "path": "artifacts/art-023p-round-1/builder/browser-process-closure.json",
+      "bytes": 152,
+      "sha256": "c0e13c23d34a266b8912600649706240ea471696f55458f9748b30b91c2f66fb"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/capture-thumbnails.mjs",
+      "bytes": 4747,
+      "sha256": "c25474920babf11e7edbe5a0b30c0ea391d429695415288c15bc4d5b4c001b8b"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/dependency-locks.after.sha256",
+      "bytes": 163,
+      "sha256": "92c030643602b2cf3daf3c47b8818bbd373be2eb91c16e85b03199751dda48d6"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/dependency-locks.before.sha256",
+      "bytes": 163,
+      "sha256": "92c030643602b2cf3daf3c47b8818bbd373be2eb91c16e85b03199751dda48d6"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/dependency-runtime.txt",
+      "bytes": 16,
+      "sha256": "70d4e59c912dfedf6399814f79e41b7aa1f51bfa62cd580fa7213be5602ffa64"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/npm-ci.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/npm-ci.stdout.raw",
+      "bytes": 143,
+      "sha256": "333c423da79b7e4f3f4463c164229585c875a0bc7f98e2eee4112ce0a5df0c71"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/portrait-desktop-dark-1440x933.png",
+      "bytes": 68139,
+      "sha256": "64ad5f54a3d73c4d05566eb66537ea173671ec18331100c2b226f6bcd3cbec7a"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/portrait-desktop-light-1440x933.png",
+      "bytes": 67566,
+      "sha256": "0d8bcd103ba0202cd6f83f745017674a2685b22b281359c96443d6e1a0c2687e"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/portrait-phone-dark-390x844.png",
+      "bytes": 61675,
+      "sha256": "e0b1cd810f81f91d74ea6d8960c6b8ef1c9b5d39e6ce055b1ff93bb0c027bb50"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/portrait-phone-light-390x844.png",
+      "bytes": 61078,
+      "sha256": "a4010838a8e947d513ea783e2a1aafd2577fc3386c420115ab2a2768965a387f"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/portrait-thumbnails.html",
+      "bytes": 2096,
+      "sha256": "4a200b6d69a4e5e3cbd7babbd13502a46647bf16f0ad00dff0f3ed7ad2e0e29e"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/raw-generation/attempt-01-prompt.txt",
+      "bytes": 2783,
+      "sha256": "b826fac614e04fc8dc4711b7578aeb1fe4a4e3b52a7ebdbafc6382023d0c9154"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/raw-generation/attempt-01-source.png",
+      "bytes": 2801458,
+      "sha256": "d5201186a7f7b5048f0599370d903d2840af4df2588c68cf738224d4753e622a"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/raw-generation/attempt-01-tool-receipt.txt",
+      "bytes": 473,
+      "sha256": "85c7693e23f7478c4bd0ca8a89e204480792aa03237b0ab1f90fc1ff7e38d8dc"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/release-build.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/release-build.stdout.raw",
+      "bytes": 14102,
+      "sha256": "f7b5068128cf3a04c78b5e42f1a96d6bbfde91e21b76efcb6b375eb61ce4ef76"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/release-runtime-missing-vite.exit.txt",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/release-runtime-missing-vite.stdout.captured.txt",
+      "bytes": 1772,
+      "sha256": "197595ddbef7542e04c108cbb83150d880e2ddcb6964bb2dbd85dc24f05d124d"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/release-runtime.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/release-runtime.stdout.raw",
+      "bytes": 366,
+      "sha256": "f8af38bb1544770850ac32179547b3d6a6423edeeea9938584d1b74bfd451f22"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/shipping-isolation-guard-wrapper-failure.txt",
+      "bytes": 373,
+      "sha256": "dbac1cb801b3312074b9200646310a98de07bf6098359f32d1c239a0fb026350"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/shipping-isolation-guard.stdout.raw",
+      "bytes": 3154,
+      "sha256": "dd2ae0955ff2d819d69c3be3ab49d844a7376adf96ecae9a0b9277085182b557"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/shipping-isolation-release-evidence.json",
+      "bytes": 25160,
+      "sha256": "6b58a0104ee0c75c2d019de047d363b9ca355240433ec3c9bf33bbb8a237ed28"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/shipping-isolation-release.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/shipping-isolation-release.stdout.raw",
+      "bytes": 1521,
+      "sha256": "4768c7447000d068bf44006e875e3dbf62e9cc84da73cb065203af2f8051f0cd"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/source-fences.txt",
+      "bytes": 3059,
+      "sha256": "6593317f0e5650095cd06fdcead48dadc1d7256bc611ac6cd455d9763ddeda29"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/thumbnail-browser-evidence.json",
+      "bytes": 2753,
+      "sha256": "2312eeb9429175d0291262d50a25ff9ef3a6c8697d605537ec764f2db5b8c003"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/thumbnail-capture.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/thumbnail-capture.stdout.raw",
+      "bytes": 2559,
+      "sha256": "d39b2a57afd36b38f44ad606db28c2a0fbf26672391136ec29cebfc1f528067e"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/visual-asset-manifest-wrapper-failure.txt",
+      "bytes": 365,
+      "sha256": "2a16614b81b66bf5c82f241640b7b8e39a13f85dcfcb83e18e0e2cadfd1480de"
+    },
+    {
+      "path": "artifacts/art-023p-round-1/builder/visual-asset-manifest.stdout.raw",
+      "bytes": 1397,
+      "sha256": "fac5953832c4d62cc1dea2d04fe8bb32cb129c5a059ce392a673fd8a0015c4de"
+    },
+    {
+      "path": "demo/assets/aether-well-portrait.png",
+      "bytes": 2801458,
+      "sha256": "d5201186a7f7b5048f0599370d903d2840af4df2588c68cf738224d4753e622a"
+    },
+    {
+      "path": "docs/art/aether-well-character-concept.md",
+      "bytes": 420,
+      "sha256": "f15b4e6780f18810d9addc3ec8377d173c0c2c2321ae9b95efcfc83a59cb870c"
+    },
+    {
+      "path": "docs/art/aether-well-portrait-provenance.json",
+      "bytes": 4644,
+      "sha256": "ee79a7d0f3cbd9c14809a3e6984c7feb74a519a1fed93f17ac64f7f7709b15cb"
+    },
+    {
+      "path": "public/assets/aether-well-portrait-painted.webp",
+      "bytes": 71106,
+      "sha256": "f46cb6b879def255c14058428fa6689e996b8e6699f675c02f19e0812638169c"
+    },
+    {
+      "path": "src/content/visual-asset-manifest.js",
+      "bytes": 20357,
+      "sha256": "82dfad8341c0302b2da40395e6ad89ffa801755f20c3c548b9e91c28569c9b64"
+    }
+  ]
+}

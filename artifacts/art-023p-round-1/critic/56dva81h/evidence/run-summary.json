@@ -1,0 +1,186 @@
+{
+  "node": "/Users/me/.hermes/node/bin/node v22.22.3",
+  "playwright": "1.58.2",
+  "chrome": "155.0.8059.40",
+  "customChromeArgs": [],
+  "gates": [
+    {
+      "suite": "visual-asset-manifest",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "actual_exit": 0,
+      "stderr_bytes": 0,
+      "stdout_file": "raw/visual-asset-manifest.stdout.raw",
+      "exit_file": "raw/visual-asset-manifest.exit.txt"
+    },
+    {
+      "suite": "shipping-isolation-guard",
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "actual_exit": 0,
+      "stderr_bytes": 0,
+      "stdout_file": "raw/shipping-isolation-guard.stdout.raw",
+      "exit_file": "raw/shipping-isolation-guard.exit.txt"
+    },
+    {
+      "suite": "release-build",
+      "tests": 22,
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0,
+      "actual_exit": 0,
+      "stderr_bytes": 0,
+      "stdout_file": "raw/release-build.stdout.raw",
+      "exit_file": "raw/release-build.exit.txt"
+    },
+    {
+      "suite": "shipping-isolation-release",
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "actual_exit": 0,
+      "stderr_bytes": 0,
+      "stdout_file": "raw/shipping-isolation-release.stdout.raw",
+      "exit_file": "raw/shipping-isolation-release.exit.txt"
+    }
+  ],
+  "gateCaseTotal": 45,
+  "allGateCasesPassed": true,
+  "thumbnailCapture": {
+    "actual_exit": 0,
+    "count": 4,
+    "browserClosed": true,
+    "browserProcessClosedByPid": null,
+    "captures": [
+      {
+        "device": "phone",
+        "theme": "light",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "dpr": 1,
+        "cssImageSizes": [
+          [
+            64,
+            64
+          ],
+          [
+            128,
+            128
+          ]
+        ],
+        "naturalSizes": [
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "screenshot": "captures/portrait-phone-light-390x844.png",
+        "sha256": "f92da0490b9d6c042fffb7689b6ca76eee853147d8a973d217319f566ec110b0"
+      },
+      {
+        "device": "phone",
+        "theme": "dark",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "dpr": 1,
+        "cssImageSizes": [
+          [
+            64,
+            64
+          ],
+          [
+            128,
+            128
+          ]
+        ],
+        "naturalSizes": [
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "screenshot": "captures/portrait-phone-dark-390x844.png",
+        "sha256": "e0b1cd810f81f91d74ea6d8960c6b8ef1c9b5d39e6ce055b1ff93bb0c027bb50"
+      },
+      {
+        "device": "desktop",
+        "theme": "light",
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "dpr": 1,
+        "cssImageSizes": [
+          [
+            64,
+            64
+          ],
+          [
+            128,
+            128
+          ]
+        ],
+        "naturalSizes": [
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "screenshot": "captures/portrait-desktop-light-1440x933.png",
+        "sha256": "0d8bcd103ba0202cd6f83f745017674a2685b22b281359c96443d6e1a0c2687e"
+      },
+      {
+        "device": "desktop",
+        "theme": "dark",
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "dpr": 1,
+        "cssImageSizes": [
+          [
+            64,
+            64
+          ],
+          [
+            128,
+            128
+          ]
+        ],
+        "naturalSizes": [
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "screenshot": "captures/portrait-desktop-dark-1440x933.png",
+        "sha256": "64ad5f54a3d73c4d05566eb66537ea173671ec18331100c2b226f6bcd3cbec7a"
+      }
+    ]
+  }
+}

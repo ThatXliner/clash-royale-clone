@@ -543,6 +543,17 @@ const REGISTERED_ASSETS = [
     path: "assets/brackenwheel-portrait-painted.webp",
     sha256: "8c46fd063956905674aab420a0a2513ed83013c31c12c4e45456880f43246096",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 71106,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "aether-well-portrait-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/aether-well-portrait-painted.webp",
+    sha256: "f46cb6b879def255c14058428fa6689e996b8e6699f675c02f19e0812638169c",
+  },
 ];
 
 const MANIFEST = freeze({
