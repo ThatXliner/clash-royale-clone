@@ -1,0 +1,318 @@
+
+> moss-and-ember@0.0.0 test:game-roster-troops-status
+> node tests/game-roster-troops-status-runner.js game-roster-troops-status
+
+TAP version 13
+# Subtest: game roster troop status: the exact eight identities and sourced executable facts are admitted
+ok 1 - game roster troop status: the exact eight identities and sourced executable facts are admitted
+  ---
+  duration_ms: 22.891625
+  type: 'test'
+  ...
+# Subtest: game roster troop status: setup receipt mutations reject atomically before a session is exposed
+ok 2 - game roster troop status: setup receipt mutations reject atomically before a session is exposed
+  ---
+  duration_ms: 56.642292
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pinned live source fields reject before setup exposure
+ok 3 - game roster troop status: pinned live source fields reject before setup exposure
+  ---
+  duration_ms: 4013.984125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: coupled QUESTION projection mutations fail closed
+ok 4 - game roster troop status: coupled QUESTION projection mutations fail closed
+  ---
+  duration_ms: 421.848209
+  type: 'test'
+  ...
+# Subtest: game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight
+ok 5 - game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight
+  ---
+  duration_ms: 95.698208
+  type: 'test'
+  ...
+# Subtest: game roster troop status: source binding reads hostile wrappers once and never invokes accessors
+ok 6 - game roster troop status: source binding reads hostile wrappers once and never invokes accessors
+  ---
+  duration_ms: 26.159667
+  type: 'test'
+  ...
+# Subtest: game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+ok 7 - game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+  ---
+  duration_ms: 2020.956208
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender applies its shared heal boundary
+ok 8 - game roster troop status: dawnmender applies its shared heal boundary
+  ---
+  duration_ms: 194.576625
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry applies its shared stun boundary
+ok 9 - game roster troop status: pulse-sentry applies its shared stun boundary
+  ---
+  duration_ms: 190.280417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept applies its shared slow boundary
+ok 10 - game roster troop status: rime-adept applies its shared slow boundary
+  ---
+  duration_ms: 192.721333
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider applies its shared snare boundary
+ok 11 - game roster troop status: tether-rider applies its shared snare boundary
+  ---
+  duration_ms: 196.787125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: veil-prowler applies its shared hide boundary
+ok 12 - game roster troop status: veil-prowler applies its shared hide boundary
+  ---
+  duration_ms: 204.913375
+  type: 'test'
+  ...
+# Subtest: game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+ok 13 - game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+  ---
+  duration_ms: 83.683792
+  type: 'test'
+  ...
+# Subtest: game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+ok 14 - game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 56.486208
+  type: 'test'
+  ...
+# Subtest: game roster troop status: railward rejects its visible QUESTION with zero mutation
+ok 15 - game roster troop status: railward rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 56.179958
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects missing and wrong-side targets atomically
+ok 16 - game roster troop status: bloom-wisp rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 232.487584
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects missing and wrong-side targets atomically
+ok 17 - game roster troop status: dawnmender rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 236.955833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects missing and wrong-side targets atomically
+ok 18 - game roster troop status: pulse-sentry rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 225.451333
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects missing and wrong-side targets atomically
+ok 19 - game roster troop status: rime-adept rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 226.085
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects missing and wrong-side targets atomically
+ok 20 - game roster troop status: tether-rider rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 230.661125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects a structure target atomically
+ok 21 - game roster troop status: bloom-wisp rejects a structure target atomically
+  ---
+  duration_ms: 56.236958
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects a structure target atomically
+ok 22 - game roster troop status: dawnmender rejects a structure target atomically
+  ---
+  duration_ms: 53.582083
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects a structure target atomically
+ok 23 - game roster troop status: pulse-sentry rejects a structure target atomically
+  ---
+  duration_ms: 51.879916
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects a structure target atomically
+ok 24 - game roster troop status: rime-adept rejects a structure target atomically
+  ---
+  duration_ms: 51.068542
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects a structure target atomically
+ok 25 - game roster troop status: tether-rider rejects a structure target atomically
+  ---
+  duration_ms: 51.189209
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects a dead target at the scheduling boundary
+ok 26 - game roster troop status: bloom-wisp rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2861.941375
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects a dead target at the scheduling boundary
+ok 27 - game roster troop status: dawnmender rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2832.185375
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects a dead target at the scheduling boundary
+ok 28 - game roster troop status: pulse-sentry rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2788.362708
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects a dead target at the scheduling boundary
+ok 29 - game roster troop status: rime-adept rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2872.681791
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects a dead target at the scheduling boundary
+ok 30 - game roster troop status: tether-rider rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 3334.195834
+  type: 'test'
+  ...
+# Subtest: game roster troop status: status admission receipts are frozen and carry resolved host facts
+ok 31 - game roster troop status: status admission receipts are frozen and carry resolved host facts
+  ---
+  duration_ms: 21.201958
+  type: 'test'
+  ...
+# Subtest: game roster troop status: deterministic session continuation hashes stay stable
+not ok 32 - game roster troop status: deterministic session continuation hashes stay stable
+  ---
+  duration_ms: 555.445584
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/tests/game-roster-troops-status.test.js:874:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          id: 'bloom-wisp',
+          replay: 'c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86',
+    +     snapshot: 'e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763'
+    -     snapshot: '552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9'
+        },
+        {
+          id: 'dawnmender',
+          replay: '32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7',
+    +     snapshot: '560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3'
+    -     snapshot: 'c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e'
+        },
+        {
+          id: 'pulse-sentry',
+          replay: 'b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138',
+    +     snapshot: '12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f'
+    -     snapshot: '711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0'
+        },
+        {
+          id: 'rime-adept',
+          replay: 'b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a',
+    +     snapshot: '5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40'
+    -     snapshot: '96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92'
+        },
+        {
+          id: 'tether-rider',
+          replay: '42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b',
+    +     snapshot: 'd091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab'
+    -     snapshot: '67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5'
+        },
+        {
+          id: 'veil-prowler',
+          replay: '53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b',
+    +     snapshot: '95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579'
+    -     snapshot: 'e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3'
+        }
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      id: 'bloom-wisp'
+      replay: 'c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86'
+      snapshot: '552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9'
+    1:
+      id: 'dawnmender'
+      replay: '32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7'
+      snapshot: 'c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e'
+    2:
+      id: 'pulse-sentry'
+      replay: 'b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138'
+      snapshot: '711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0'
+    3:
+      id: 'rime-adept'
+      replay: 'b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a'
+      snapshot: '96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92'
+    4:
+      id: 'tether-rider'
+      replay: '42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b'
+      snapshot: '67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5'
+    5:
+      id: 'veil-prowler'
+      replay: '53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b'
+      snapshot: 'e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3'
+  actual:
+    0:
+      id: 'bloom-wisp'
+      replay: 'c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86'
+      snapshot: 'e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763'
+    1:
+      id: 'dawnmender'
+      replay: '32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7'
+      snapshot: '560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3'
+    2:
+      id: 'pulse-sentry'
+      replay: 'b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138'
+      snapshot: '12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f'
+    3:
+      id: 'rime-adept'
+      replay: 'b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a'
+      snapshot: '5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40'
+    4:
+      id: 'tether-rider'
+      replay: '42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b'
+      snapshot: 'd091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab'
+    5:
+      id: 'veil-prowler'
+      replay: '53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b'
+      snapshot: '95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/tests/game-roster-troops-status.test.js:916:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12
+ok 33 - game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12
+  ---
+  duration_ms: 7251.533291
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 32
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 31955.22275

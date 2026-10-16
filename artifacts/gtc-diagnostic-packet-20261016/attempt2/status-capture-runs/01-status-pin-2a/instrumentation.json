@@ -1,0 +1,705 @@
+{
+  "label": "external diagnostic-only test copy; repository test is unchanged",
+  "source_root": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a",
+  "source_test": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/tests/game-roster-troops-status.test.js",
+  "source_test_sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55",
+  "diagnostic_test": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/diagnostic-copy/tests/game-roster-troops-status.test.js",
+  "diagnostic_test_sha256": "4ef919d2e4f20bf53b7d572e16ddb86585b4ccad87d859852b401c9c280a38d2",
+  "exact_source_files": [
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/package.json",
+      "relative_path": "package.json",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/package.json",
+      "bytes": 11195,
+      "sha256": "f65b03d4bf1a1e7653ad8d9ec9134393dc1e89f874176adc4d2f66bfb88f0e31",
+      "copy_sha256": "f65b03d4bf1a1e7653ad8d9ec9134393dc1e89f874176adc4d2f66bfb88f0e31"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/tests/game-roster-troops-status-runner.js",
+      "relative_path": "tests/game-roster-troops-status-runner.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/tests/game-roster-troops-status-runner.js",
+      "bytes": 537,
+      "sha256": "835e24d55530729a58b00ed719da7c69408f1f71874f3f156591577bf597f34c",
+      "copy_sha256": "835e24d55530729a58b00ed719da7c69408f1f71874f3f156591577bf597f34c"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/tests/game-roster-troops-status.test.js",
+      "relative_path": "tests/game-roster-troops-status.test.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/tests/game-roster-troops-status.test.js",
+      "bytes": 16015,
+      "sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55",
+      "copy_sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/basic-flying.js",
+      "relative_path": "src/content/cards/basic-flying.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/basic-flying.js",
+      "bytes": 16299,
+      "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083",
+      "copy_sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/basic-melee.js",
+      "relative_path": "src/content/cards/basic-melee.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/basic-melee.js",
+      "bytes": 3418,
+      "sha256": "2e9bc8b269f84a02e1b49d5a4e15a1e3f8a8240d29e0482e719cfd29f09e8bd0",
+      "copy_sha256": "2e9bc8b269f84a02e1b49d5a4e15a1e3f8a8240d29e0482e719cfd29f09e8bd0"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/basic-ranged.js",
+      "relative_path": "src/content/cards/basic-ranged.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/basic-ranged.js",
+      "bytes": 15100,
+      "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab",
+      "copy_sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/buildings-defensive.js",
+      "relative_path": "src/content/cards/buildings-defensive.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/buildings-defensive.js",
+      "bytes": 35883,
+      "sha256": "8259d6845aa1b1f45b17680e2594dbf0f3640f6744db5bc7d4104d9b432893f3",
+      "copy_sha256": "8259d6845aa1b1f45b17680e2594dbf0f3640f6744db5bc7d4104d9b432893f3"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/buildings-resource.js",
+      "relative_path": "src/content/cards/buildings-resource.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/buildings-resource.js",
+      "bytes": 19671,
+      "sha256": "34541c24fa1465f785c46dc676c046b58aed690e0f29216149e74cf18f49e117",
+      "copy_sha256": "34541c24fa1465f785c46dc676c046b58aed690e0f29216149e74cf18f49e117"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/buildings-spawner.js",
+      "relative_path": "src/content/cards/buildings-spawner.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/buildings-spawner.js",
+      "bytes": 14635,
+      "sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b",
+      "copy_sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/buildings-travel.js",
+      "relative_path": "src/content/cards/buildings-travel.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/buildings-travel.js",
+      "bytes": 19237,
+      "sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6",
+      "copy_sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/champion-abilities.js",
+      "relative_path": "src/content/cards/champion-abilities.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/champion-abilities.js",
+      "bytes": 23743,
+      "sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811",
+      "copy_sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/combat-status-heal.js",
+      "relative_path": "src/content/cards/combat-status-heal.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/combat-status-heal.js",
+      "bytes": 20663,
+      "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0",
+      "copy_sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/combat-status-invisibility.js",
+      "relative_path": "src/content/cards/combat-status-invisibility.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/combat-status-invisibility.js",
+      "bytes": 31498,
+      "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b",
+      "copy_sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/combat-status-stun.js",
+      "relative_path": "src/content/cards/combat-status-stun.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/combat-status-stun.js",
+      "bytes": 22255,
+      "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d",
+      "copy_sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/death-conversion-delegated.js",
+      "relative_path": "src/content/cards/death-conversion-delegated.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/death-conversion-delegated.js",
+      "bytes": 19326,
+      "sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d",
+      "copy_sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/death-conversion.js",
+      "relative_path": "src/content/cards/death-conversion.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/death-conversion.js",
+      "bytes": 15563,
+      "sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48",
+      "copy_sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/death-effects.js",
+      "relative_path": "src/content/cards/death-effects.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/death-effects.js",
+      "bytes": 18260,
+      "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81",
+      "copy_sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/death-spawns.js",
+      "relative_path": "src/content/cards/death-spawns.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/death-spawns.js",
+      "bytes": 25321,
+      "sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d",
+      "copy_sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/periodic-spawns.js",
+      "relative_path": "src/content/cards/periodic-spawns.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/periodic-spawns.js",
+      "bytes": 19418,
+      "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269",
+      "copy_sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/shields-forms.js",
+      "relative_path": "src/content/cards/shields-forms.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/shields-forms.js",
+      "bytes": 10199,
+      "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8",
+      "copy_sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spawn-placement.js",
+      "relative_path": "src/content/cards/spawn-placement.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spawn-placement.js",
+      "bytes": 12784,
+      "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c",
+      "copy_sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-combat-rage.js",
+      "relative_path": "src/content/cards/special-combat-rage.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-combat-rage.js",
+      "bytes": 24915,
+      "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61",
+      "copy_sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-combat-ramp.js",
+      "relative_path": "src/content/cards/special-combat-ramp.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-combat-ramp.js",
+      "bytes": 22611,
+      "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67",
+      "copy_sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-combat-reset.js",
+      "relative_path": "src/content/cards/special-combat-reset.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-combat-reset.js",
+      "bytes": 25794,
+      "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5",
+      "copy_sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-combat-slow.js",
+      "relative_path": "src/content/cards/special-combat-slow.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-combat-slow.js",
+      "bytes": 21724,
+      "sha256": "e5abbf25edec21f91a3b1b3f4a4b601a3c4ed04d4e3ce4af53d2bc5e560af536",
+      "copy_sha256": "e5abbf25edec21f91a3b1b3f4a4b601a3c4ed04d4e3ce4af53d2bc5e560af536"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-combat-snare.js",
+      "relative_path": "src/content/cards/special-combat-snare.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-combat-snare.js",
+      "bytes": 23377,
+      "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b",
+      "copy_sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-charge-knockback.js",
+      "relative_path": "src/content/cards/special-movement-charge-knockback.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-charge-knockback.js",
+      "bytes": 25324,
+      "sha256": "ae063d833d78cd4bd1e4f8e9dd86eedde3adc6df64989622c5245642bb8e1a7b",
+      "copy_sha256": "ae063d833d78cd4bd1e4f8e9dd86eedde3adc6df64989622c5245642bb8e1a7b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-charge.js",
+      "relative_path": "src/content/cards/special-movement-charge.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-charge.js",
+      "bytes": 17698,
+      "sha256": "0ab1102bc859c75e4f20e05092ec9730fe132e21eb814e49070ba5731ffa74ec",
+      "copy_sha256": "0ab1102bc859c75e4f20e05092ec9730fe132e21eb814e49070ba5731ffa74ec"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-dash-knockback.js",
+      "relative_path": "src/content/cards/special-movement-dash-knockback.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-dash-knockback.js",
+      "bytes": 19264,
+      "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649",
+      "copy_sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-dash.js",
+      "relative_path": "src/content/cards/special-movement-dash.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-dash.js",
+      "bytes": 17995,
+      "sha256": "715f3d43530dc10436e3295b9da2e8b3c851ae546f0ed47e05763686d10259f6",
+      "copy_sha256": "715f3d43530dc10436e3295b9da2e8b3c851ae546f0ed47e05763686d10259f6"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-jump.js",
+      "relative_path": "src/content/cards/special-movement-jump.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-jump.js",
+      "bytes": 18772,
+      "sha256": "cb7b76760f1662905ac7ccf84bb89d720eecd30899385c924b1c768f8be5454b",
+      "copy_sha256": "cb7b76760f1662905ac7ccf84bb89d720eecd30899385c924b1c768f8be5454b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-knockback.js",
+      "relative_path": "src/content/cards/special-movement-knockback.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-knockback.js",
+      "bytes": 18070,
+      "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f",
+      "copy_sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-leap-knockback.js",
+      "relative_path": "src/content/cards/special-movement-leap-knockback.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-leap-knockback.js",
+      "bytes": 21027,
+      "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8",
+      "copy_sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-recoil.js",
+      "relative_path": "src/content/cards/special-movement-recoil.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-recoil.js",
+      "bytes": 19091,
+      "sha256": "f0f13f05ce1b40b6632c7ad80088ff3f495a4313db9c78e960e7def43d5d422f",
+      "copy_sha256": "f0f13f05ce1b40b6632c7ad80088ff3f495a4313db9c78e960e7def43d5d422f"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-movement-retarget.js",
+      "relative_path": "src/content/cards/special-movement-retarget.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-movement-retarget.js",
+      "bytes": 15203,
+      "sha256": "48635cb6af9054eaba37121c62b055d6a1994280063d158456d05bc2f0013758",
+      "copy_sha256": "48635cb6af9054eaba37121c62b055d6a1994280063d158456d05bc2f0013758"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-projectiles-chain.js",
+      "relative_path": "src/content/cards/special-projectiles-chain.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-projectiles-chain.js",
+      "bytes": 18563,
+      "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86",
+      "copy_sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-projectiles-pellets.js",
+      "relative_path": "src/content/cards/special-projectiles-pellets.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-projectiles-pellets.js",
+      "bytes": 22279,
+      "sha256": "c08956182728d94eed2f22930d26bb35bbb64122676a02f837ce960608b8a32c",
+      "copy_sha256": "c08956182728d94eed2f22930d26bb35bbb64122676a02f837ce960608b8a32c"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-projectiles-pierce.js",
+      "relative_path": "src/content/cards/special-projectiles-pierce.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-projectiles-pierce.js",
+      "bytes": 20450,
+      "sha256": "ef71fd7fb4cb64894ab38110035f2a75fda5c03e33e3b3cefd5a29ad8cc3f4a9",
+      "copy_sha256": "ef71fd7fb4cb64894ab38110035f2a75fda5c03e33e3b3cefd5a29ad8cc3f4a9"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-projectiles-reflection.js",
+      "relative_path": "src/content/cards/special-projectiles-reflection.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-projectiles-reflection.js",
+      "bytes": 24645,
+      "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715",
+      "copy_sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/special-projectiles-return.js",
+      "relative_path": "src/content/cards/special-projectiles-return.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/special-projectiles-return.js",
+      "bytes": 21827,
+      "sha256": "e34fe64880369975d09e14edfe004b572dbba6ea17bf0bf8e1a80e3d45ddf602",
+      "copy_sha256": "e34fe64880369975d09e14edfe004b572dbba6ea17bf0bf8e1a80e3d45ddf602"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-clone-unit.js",
+      "relative_path": "src/content/cards/spells-clone-unit.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-clone-unit.js",
+      "bytes": 21401,
+      "sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de",
+      "copy_sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-copy-card.js",
+      "relative_path": "src/content/cards/spells-copy-card.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-copy-card.js",
+      "bytes": 14370,
+      "sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89",
+      "copy_sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-instant.js",
+      "relative_path": "src/content/cards/spells-instant.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-instant.js",
+      "bytes": 26158,
+      "sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a",
+      "copy_sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-periodic.js",
+      "relative_path": "src/content/cards/spells-periodic.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-periodic.js",
+      "bytes": 26791,
+      "sha256": "a705e0873465c8d88d9e42b9c8561dbb3361cea2fab9e71bdc4fd41ea9432832",
+      "copy_sha256": "a705e0873465c8d88d9e42b9c8561dbb3361cea2fab9e71bdc4fd41ea9432832"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-return.js",
+      "relative_path": "src/content/cards/spells-return.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-return.js",
+      "bytes": 20100,
+      "sha256": "261a6cef3bc4478aa0eef2411b0154431d7c1d7178ba2588a00584c4e4f30d76",
+      "copy_sha256": "261a6cef3bc4478aa0eef2411b0154431d7c1d7178ba2588a00584c4e4f30d76"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-roll.js",
+      "relative_path": "src/content/cards/spells-roll.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-roll.js",
+      "bytes": 29604,
+      "sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a",
+      "copy_sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-spawn.js",
+      "relative_path": "src/content/cards/spells-spawn.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-spawn.js",
+      "bytes": 19758,
+      "sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406",
+      "copy_sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-three-wave.js",
+      "relative_path": "src/content/cards/spells-three-wave.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-three-wave.js",
+      "bytes": 18266,
+      "sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8",
+      "copy_sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/spells-travel-line.js",
+      "relative_path": "src/content/cards/spells-travel-line.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/spells-travel-line.js",
+      "bytes": 27268,
+      "sha256": "43c5d1a0e64545bec21d57bd8a9e2620fb9d4aceea42f2cec8820e6e0717b469",
+      "copy_sha256": "43c5d1a0e64545bec21d57bd8a9e2620fb9d4aceea42f2cec8820e6e0717b469"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/structure-seeker.js",
+      "relative_path": "src/content/cards/structure-seeker.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/structure-seeker.js",
+      "bytes": 18226,
+      "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9",
+      "copy_sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/cards/swarms.js",
+      "relative_path": "src/content/cards/swarms.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/cards/swarms.js",
+      "bytes": 5024,
+      "sha256": "16dc7229e3f31bea636022aed2d1dae9fd52c360cef96386635eb9f692d01a7d",
+      "copy_sha256": "16dc7229e3f31bea636022aed2d1dae9fd52c360cef96386635eb9f692d01a7d"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/index.js",
+      "relative_path": "src/content/index.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/index.js",
+      "bytes": 8616,
+      "sha256": "7e2fdb8eae54e167ed5d430216c85989d4375d8cfdcef22b7f32b3f91124219a",
+      "copy_sha256": "7e2fdb8eae54e167ed5d430216c85989d4375d8cfdcef22b7f32b3f91124219a"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/playable-roster.js",
+      "relative_path": "src/content/playable-roster.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99",
+      "copy_sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/schema.js",
+      "relative_path": "src/content/schema.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/schema.js",
+      "bytes": 12776,
+      "sha256": "4fee9ba313a778c49253a1ff902ae2a49648d0a1be1fb19aa3b2dd2c0561c6f4",
+      "copy_sha256": "4fee9ba313a778c49253a1ff902ae2a49648d0a1be1fb19aa3b2dd2c0561c6f4"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/session-card-catalog.js",
+      "relative_path": "src/content/session-card-catalog.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/session-card-catalog.js",
+      "bytes": 14795,
+      "sha256": "70b22579e28a558d0a1440e350f0f7238ed86158cfe18e909f12cd4b25b04323",
+      "copy_sha256": "70b22579e28a558d0a1440e350f0f7238ed86158cfe18e909f12cd4b25b04323"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/session-spell-profile-receipts.js",
+      "relative_path": "src/content/session-spell-profile-receipts.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/session-spell-profile-receipts.js",
+      "bytes": 4101,
+      "sha256": "09aea7972a38a7e76f5f5e89b2498dfbc1a3aca4dbc2c0d2312e1fee4c4a0f62",
+      "copy_sha256": "09aea7972a38a7e76f5f5e89b2498dfbc1a3aca4dbc2c0d2312e1fee4c4a0f62"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/session-troop-profile-catalog.js",
+      "relative_path": "src/content/session-troop-profile-catalog.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/session-troop-profile-catalog.js",
+      "bytes": 15066,
+      "sha256": "847682290057355c273c184322d7527fb0fb7d3bffc20c6b0be949f6220e0fc5",
+      "copy_sha256": "847682290057355c273c184322d7527fb0fb7d3bffc20c6b0be949f6220e0fc5"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/session-troop-roster.js",
+      "relative_path": "src/content/session-troop-roster.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/session-troop-roster.js",
+      "bytes": 16542,
+      "sha256": "56479fc70c88dab22689b8767c330fe04ea48ec37b816b6ac4052212dfd79fdd",
+      "copy_sha256": "56479fc70c88dab22689b8767c330fe04ea48ec37b816b6ac4052212dfd79fdd"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/session-troop-status-profiles.js",
+      "relative_path": "src/content/session-troop-status-profiles.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/session-troop-status-profiles.js",
+      "bytes": 27384,
+      "sha256": "ac75d4d546f76d03c64a8354b471a39f0dafd19379ce1b42b7b88f52bf74c616",
+      "copy_sha256": "ac75d4d546f76d03c64a8354b471a39f0dafd19379ce1b42b7b88f52bf74c616"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/content/session-troop-status-runtime-profiles.js",
+      "relative_path": "src/content/session-troop-status-runtime-profiles.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/content/session-troop-status-runtime-profiles.js",
+      "bytes": 3849,
+      "sha256": "94089f8317615e17e971ce7882c9dff57dca513ed46f1383b95777073970efdd",
+      "copy_sha256": "94089f8317615e17e971ce7882c9dff57dca513ed46f1383b95777073970efdd"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/area-damage.js",
+      "relative_path": "src/sim/area-damage.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/area-damage.js",
+      "bytes": 8922,
+      "sha256": "7836fb4e98109d63488ae6b7b3bc32247c8724c40c2f2d242704deb6c521af32",
+      "copy_sha256": "7836fb4e98109d63488ae6b7b3bc32247c8724c40c2f2d242704deb6c521af32"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/arena-geometry.js",
+      "relative_path": "src/sim/arena-geometry.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/arena-geometry.js",
+      "bytes": 9452,
+      "sha256": "038d192fc3758f480594f9c97ebaa4e12e6f366955f0e2a3575a33165f654fee",
+      "copy_sha256": "038d192fc3758f480594f9c97ebaa4e12e6f366955f0e2a3575a33165f654fee"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/attack-cycle.js",
+      "relative_path": "src/sim/attack-cycle.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/attack-cycle.js",
+      "bytes": 15800,
+      "sha256": "add7bc5dbfe981f04a69519f647a4599c9208a59578697024a751de3a14fcbb3",
+      "copy_sha256": "add7bc5dbfe981f04a69519f647a4599c9208a59578697024a751de3a14fcbb3"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/battle-continuation-kernel.js",
+      "relative_path": "src/sim/battle-continuation-kernel.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/battle-continuation-kernel.js",
+      "bytes": 480030,
+      "sha256": "7e2c367af780aaeb29643e4b07e0157781fb1eabd3f1920ef534e5433dfe5178",
+      "copy_sha256": "7e2c367af780aaeb29643e4b07e0157781fb1eabd3f1920ef534e5433dfe5178"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/damage.js",
+      "relative_path": "src/sim/damage.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/damage.js",
+      "bytes": 9963,
+      "sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7",
+      "copy_sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/deck.js",
+      "relative_path": "src/sim/deck.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/deck.js",
+      "bytes": 7833,
+      "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77",
+      "copy_sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/deployment.js",
+      "relative_path": "src/sim/deployment.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/deployment.js",
+      "bytes": 8820,
+      "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563",
+      "copy_sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/elixir.js",
+      "relative_path": "src/sim/elixir.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/elixir.js",
+      "bytes": 436,
+      "sha256": "5be6387d9358dcaba762bd7a0a62b82beeb1760faae24d315ce9ff33c154d235",
+      "copy_sha256": "5be6387d9358dcaba762bd7a0a62b82beeb1760faae24d315ce9ff33c154d235"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/entities.js",
+      "relative_path": "src/sim/entities.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/entities.js",
+      "bytes": 7903,
+      "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a",
+      "copy_sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/flying.js",
+      "relative_path": "src/sim/flying.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/flying.js",
+      "bytes": 8381,
+      "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b",
+      "copy_sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/formations.js",
+      "relative_path": "src/sim/formations.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/formations.js",
+      "bytes": 7615,
+      "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac",
+      "copy_sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/game-session.js",
+      "relative_path": "src/sim/game-session.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/game-session.js",
+      "bytes": 424,
+      "sha256": "9f6369e58b1b057cdbc6b478db5f040cc1e072bd741f8c065cf71bd4e508e83f",
+      "copy_sha256": "9f6369e58b1b057cdbc6b478db5f040cc1e072bd741f8c065cf71bd4e508e83f"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/game-side-deploy-core.js",
+      "relative_path": "src/sim/game-side-deploy-core.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/game-side-deploy-core.js",
+      "bytes": 5963,
+      "sha256": "d4f7a08525e9cde03e9988e17858132f86a1be89018651158306919ae24fc615",
+      "copy_sha256": "d4f7a08525e9cde03e9988e17858132f86a1be89018651158306919ae24fc615"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/movement.js",
+      "relative_path": "src/sim/movement.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/movement.js",
+      "bytes": 5688,
+      "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586",
+      "copy_sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/pathfinding.js",
+      "relative_path": "src/sim/pathfinding.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/pathfinding.js",
+      "bytes": 5865,
+      "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296",
+      "copy_sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/projectile.js",
+      "relative_path": "src/sim/projectile.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/projectile.js",
+      "bytes": 13960,
+      "sha256": "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa",
+      "copy_sha256": "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/rng.js",
+      "relative_path": "src/sim/rng.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/rng.js",
+      "bytes": 5778,
+      "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17",
+      "copy_sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/session-building-profile-receipts.js",
+      "relative_path": "src/sim/session-building-profile-receipts.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/session-building-profile-receipts.js",
+      "bytes": 3616,
+      "sha256": "3d2634bb6ea917845151c4c1fb3b68b86fe4108ce57132fb699404c7b48cd707",
+      "copy_sha256": "3d2634bb6ea917845151c4c1fb3b68b86fe4108ce57132fb699404c7b48cd707"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/session-building-runtime.js",
+      "relative_path": "src/sim/session-building-runtime.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/session-building-runtime.js",
+      "bytes": 41180,
+      "sha256": "60a1f70a51b7eed27aa970159ce916fbf80b68711cfa1d92d26bc2b71fbdd8b8",
+      "copy_sha256": "60a1f70a51b7eed27aa970159ce916fbf80b68711cfa1d92d26bc2b71fbdd8b8"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/session-card-runtime.js",
+      "relative_path": "src/sim/session-card-runtime.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/session-card-runtime.js",
+      "bytes": 9317,
+      "sha256": "420499c828178e50caddc64c46d5208e901509da744b2f044d6b5ae9ac876748",
+      "copy_sha256": "420499c828178e50caddc64c46d5208e901509da744b2f044d6b5ae9ac876748"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/session-troop-runtime.js",
+      "relative_path": "src/sim/session-troop-runtime.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/session-troop-runtime.js",
+      "bytes": 24373,
+      "sha256": "aaa63c7c796ace5c507f17a17b75f4d7006a33baf17603ad9ee8cd5cbf8456b2",
+      "copy_sha256": "aaa63c7c796ace5c507f17a17b75f4d7006a33baf17603ad9ee8cd5cbf8456b2"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/session-troop-status-runtime.js",
+      "relative_path": "src/sim/session-troop-status-runtime.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/session-troop-status-runtime.js",
+      "bytes": 19195,
+      "sha256": "97f57c8ac988470e6cb6a762ea58cd36f04268a078e0d6290b28dfb298a7c27b",
+      "copy_sha256": "97f57c8ac988470e6cb6a762ea58cd36f04268a078e0d6290b28dfb298a7c27b"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/spatial.js",
+      "relative_path": "src/sim/spatial.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/spatial.js",
+      "bytes": 10584,
+      "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e",
+      "copy_sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/spell-intent-runtime.js",
+      "relative_path": "src/sim/spell-intent-runtime.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/spell-intent-runtime.js",
+      "bytes": 9815,
+      "sha256": "a2f4d516d06a1aea78762c2029fc298ae2e3d7be636f10cdfad536855e1a4a16",
+      "copy_sha256": "a2f4d516d06a1aea78762c2029fc298ae2e3d7be636f10cdfad536855e1a4a16"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/targeting.js",
+      "relative_path": "src/sim/targeting.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/targeting.js",
+      "bytes": 8267,
+      "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470",
+      "copy_sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a/src/sim/tower-evidence-map.js",
+      "relative_path": "src/sim/tower-evidence-map.js",
+      "copy_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/src/sim/tower-evidence-map.js",
+      "bytes": 4021,
+      "sha256": "1d3ad4b67304fa356eb85ed0bcc4a1229cbdbdd6bda0996c4e387fe96dee96c2",
+      "copy_sha256": "1d3ad4b67304fa356eb85ed0bcc4a1229cbdbdd6bda0996c4e387fe96dee96c2"
+    }
+  ],
+  "diagnostic_copy_source_copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/executed-source/diagnostic-copy-source.js",
+  "diagnostic_copy_source_sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55",
+  "capture_only_diff": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/capture-only-instrumentation.patch",
+  "setup_normalization": "none in this capture step",
+  "original_hash_assertions_preserved": true,
+  "test_selector": "game roster troop status: deterministic session continuation hashes stay stable",
+  "diagnostic_copy_src_symlink": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/diagnostic-copy/src"
+}

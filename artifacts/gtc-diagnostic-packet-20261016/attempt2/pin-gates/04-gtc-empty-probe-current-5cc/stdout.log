@@ -1,0 +1,59 @@
+{
+  "sourceRoot": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc",
+  "sourceCommit": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+  "outputRoot": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/fixture-view",
+  "exactSetupFiles": [
+    "setup.json",
+    "roster.json",
+    "questions.json",
+    "snapshot.json",
+    "snapshot.raw"
+  ],
+  "rosterCount": 8,
+  "rosterIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "questionCount": 33,
+  "briarPolicies": [
+    {
+      "archetypeId": "briar-runner",
+      "sourceConfidenceQuestionKeys": [
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ]
+    },
+    {
+      "archetypeId": "briar-darter",
+      "sourceConfidenceQuestionKeys": [
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode"
+      ]
+    }
+  ],
+  "serializedVersion": 2,
+  "serializedBytes": 17731,
+  "serializedSha256": "cb92fe16188370ae2bdfa260f574d220dcc02e1cdf4aa847c861e0fca5d20d54"
+}

@@ -1,0 +1,214 @@
+## c9c818f7 commit
+
+c9c818f7ac281b0e71890a2be17ce757f688b4c5
+e84cc705f0d2e7b6d89592a519a5b99cd3e0fe20
+0b09af4c76cadfc4191968591b2a6c21cf93f3b1
+2026-08-08 14:34:36 -0700
+feat(sim): add troop runtime host seam
+
+## a8f43298 pin-assertion commit
+
+a8f432985a758144af6c29ff7e29174b05f8e6ee
+365d30fb79c804de970ef54a166bb88ab80fb16b
+83e57688c2c1b527706427231e0b40b5814b66de
+2026-08-08 16:53:37 -0700
+feat(sim): commit representative troop contact seam
+
+## 2a5bd7a4 status-pin commit
+
+2a5bd7a44ad3773de59e8e6dd8baaebf0ec09764
+aba48473586ec46b64db89752dacd185a8b19d57
+4c7ce65bf77303918b08960057a3de21d3539136
+2026-08-21 23:57:19 -0700
+Integrate shared troop status runtime
+
+## c981ec24 setup-change commit
+
+c981ec2444b9d2f08dacdb5c6f04ce6b5b786dfb
+b12b1b53f06b3ca3ca4b3bd3949cfbfc3b554ad5
+394dcaa3fcee5975b0bf54869a511fba019cf30f
+2026-10-13 09:37:54 -0700
+Add sourced staggered troop spawning
+
+## blame GTC literals
+
+83e57688c (ThatXliner 2026-08-08 14:34:36 -0700 26)       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+83e57688c (ThatXliner 2026-08-08 14:34:36 -0700 27)   }
+
+## blame GTC assertion/comment
+
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 485)   assert.equal(unit(deadTarget.battle.state, deadTarget.targetId).alive, false);
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 486)   const deadTargetBefore = deadTarget.battle.serialize();
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 487)   assert.throws(() => deadTarget.battle.scheduleTroopAction(legacyAction({ commandId: 13,
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 488)     sourceId: deadTarget.sourceId, targetId: deadTarget.targetId, tick: deadTarget.battle.state.tick })), /not live/u);
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 489)   assert.equal(deadTarget.battle.serialize(), deadTargetBefore, "dead target action rejects atomically");
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 490) 
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 491)   const deadSource = legacyContactBattle();
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 492)   deadSource.battle.stepMany(319 - deadSource.battle.state.tick);
+4b30c83c9 (ThatXliner 2026-08-08 16:24:28 -0700 493)   assert.equal(unit(deadSource.battle.state, deadSource.sourceId).alive, false);
+
+## blame status literals and assertion
+
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 874) test("game roster troop status: deterministic session continuation hashes stay stable", () => {
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 875)   const expectedHashes = Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 876)     "bloom-wisp": Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 877)       replay: "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 878)       snapshot: "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 879)     }),
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 880)     dawnmender: Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 881)       replay: "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 882)       snapshot: "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 883)     }),
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 884)     "pulse-sentry": Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 885)       replay: "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 886)       snapshot: "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 887)     }),
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 888)     "rime-adept": Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 889)       replay: "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 890)       snapshot: "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 891)     }),
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 892)     "tether-rider": Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 893)       replay: "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 894)       snapshot: "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 895)     }),
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 896)     "veil-prowler": Object.freeze({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 897)       replay: "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 898)       snapshot: "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 899)     }),
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 900)   });
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 901)   const hashes = [];
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 902)   for (const id of ["bloom-wisp", "dawnmender", "pulse-sentry", "rime-adept", "tether-rider", "veil-prowler"]) {
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 903)     const { session, slot } = makeSession(id);
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 904)     const { source, target } = deployWitness(session, id, slot);
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 905)     session.submitPlayerCommand(statusCommand({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 906)       actionId: id === "bloom-wisp" || id === "dawnmender" ? "heal" : id === "pulse-sentry" ? "stun" :
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 907)         id === "rime-adept" ? "slow" : id === "tether-rider" ? "snare" : "hide",
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 908)       commandId: 1,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 909)       sourceId: source.id,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 910)       targetId: id === "veil-prowler" ? null : id === "bloom-wisp" || id === "dawnmender" ? source.id : target.id,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 911)       tick: session.state.tick,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 912)     }));
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 913)     session.stepMany(10);
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 914)     hashes.push({ id, replay: hash(session.replayBytes()), snapshot: hash(session.serialize()) });
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 915)   }
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 916)   assert.deepEqual(hashes, Object.entries(expectedHashes).map(([id, values]) => ({
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 917)     id,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 918)     replay: values.replay,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 919)     snapshot: values.snapshot,
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 920)   })));
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 921)   assert.equal(new Set(hashes.map(({ replay, snapshot }) => `${replay}:${snapshot}`)).size, hashes.length);
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 922)   assert.equal(hashes.length, 6);
+2a5bd7a44 (ThatXliner 2026-08-21 23:56:09 -0700 923) });
+
+## c9 GTC test source includes no empty-v2 golden assertion
+
+bytes=17396; EMPTY_V2 token present=False; literal 11_618 present=False
+
+
+## Static change hunk: c981ec24 Briar source policy and question records
+
+commit c981ec2444b9d2f08dacdb5c6f04ce6b5b786dfb
+Author: ThatXliner <bryan.hu.2020@gmail.com>
+Date:   Tue Oct 13 09:37:54 2026 -0700
+
+    Add sourced staggered troop spawning
+
+diff --git a/src/content/playable-roster.js b/src/content/playable-roster.js
+index 21f16cb9..9ce4c062 100644
+--- a/src/content/playable-roster.js
++++ b/src/content/playable-roster.js
+@@ -1,5 +1,9 @@
+ import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
+ import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
++import {
++  encodeSessionTroopSourceConfidenceValue,
++  getSessionTroopSourceConfidencePolicy,
++} from "../shared/session-troop-source-confidence-authority.js";
+ 
+ export const PLAYABLE_CARD_IDS = Object.freeze([
+   "coilblade",
+@@ -205,6 +209,7 @@ function entityProjection(card, component) {
+   };
+   const archetypeId = source.id;
+   const projectile = PROJECTILE_ARCHETYPES.has(archetypeId);
++  const sourceConfidencePolicy = getSessionTroopSourceConfidencePolicy(card.id, archetypeId);
+   return {
+     archetypeId,
+     areaDamageRadiusMillitiles: source.areaDamageRadiusMillitiles,
+@@ -235,6 +240,7 @@ function entityProjection(card, component) {
+     rangeMillitiles: source.rangeMillitiles,
+     role: source.role,
+     sightRangeMillitiles: source.sightRangeMillitiles,
++    ...(sourceConfidencePolicy === null ? {} : { sourceConfidencePolicy }),
+     targetMode: source.targetMode,
+   };
+ }
+@@ -292,14 +298,24 @@ export function createPlayableRosterQuestionRecords(...args) {
+   if (args.length !== 0) {
+     throw new TypeError("playable roster question records take no arguments");
+   }
+-  return deepFreeze(Object.entries(QUESTION_VALUES).map(([key, value]) => ({
++  const estimateQuestions = Object.entries(QUESTION_VALUES).map(([key, value]) => ({
+     authoritative: false,
+     confidence: "unverified",
+     disposition: "question",
+     key,
+     source: QUESTION_SOURCE,
+     value,
+-  })));
++  }));
++  const sourceQuestions = createPlayableRoster().flatMap(({ entities }) => entities.flatMap((entity) =>
++    (entity.sourceConfidencePolicy?.fields ?? []).map(({ field, questionKey, valueEncoding }) => ({
++      authoritative: false,
++      confidence: "unverified",
++      disposition: "question",
++      key: questionKey,
++      source: QUESTION_SOURCE,
++      value: encodeSessionTroopSourceConfidenceValue(valueEncoding, entity[field]),
++    }))));
++  return deepFreeze([...estimateQuestions, ...sourceQuestions]);
+ }
+ 
+ /** Canonical bytes for repeatability checks and future deterministic replay. */
+diff --git a/src/shared/session-troop-source-confidence-authority.js b/src/shared/session-troop-source-confidence-authority.js
+index 4df61d71..dc025679 100644
+--- a/src/shared/session-troop-source-confidence-authority.js
++++ b/src/shared/session-troop-source-confidence-authority.js
+@@ -12,8 +12,14 @@ const SOURCE_CONFIDENCE_FIELDS = Object.freeze([
+ ]);
+ 
+ const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
++  Object.freeze({ cardId: "briar-band", archetypeId: "briar-runner" }),
++  Object.freeze({ cardId: "briar-band", archetypeId: "briar-darter" }),
+   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
+   Object.freeze({ cardId: "coppershade-flock", archetypeId: "coppershade" }),
++  Object.freeze({ cardId: "duskwing-trio", archetypeId: "duskwing" }),
++  Object.freeze({ cardId: "forgeguard", archetypeId: "forgeguard" }),
++  Object.freeze({ cardId: "sunthread-pair", archetypeId: "sunthread-warden" }),
++  Object.freeze({ cardId: "thornscouts", archetypeId: "thornscout" }),
+ ]);
+ const DEPLOYMENT_INTERVAL = Object.freeze({
+   milliseconds: 100,
+@@ -52,7 +58,7 @@ function expectedPolicy(archetypeId) {
+       questionKey: `${archetypeId}.${questionKeySuffix}`,
+       valueEncoding,
+     })),
+-    deploymentInterval: DEPLOYMENT_INTERVAL,
++    deploymentInterval: { ...DEPLOYMENT_INTERVAL },
+   };
+ }
+ 
+@@ -60,9 +66,10 @@ export function getSessionTroopSourceConfidencePolicy(cardId, archetypeId) {
+   if (typeof cardId !== "string" || typeof archetypeId !== "string") {
+     throw new TypeError("session troop confidence identities must be strings");
+   }
+-  const claim = SOURCE_CONFIDENCE_CLAIMS.find((candidate) => candidate.cardId === cardId);
+-  if (claim === undefined) return null;
+-  if (claim.archetypeId !== archetypeId) {
++  const cardClaims = SOURCE_CONFIDENCE_CLAIMS.filter((candidate) => candidate.cardId === cardId);
++  if (cardClaims.length === 0) return null;
++  const claim = cardClaims.find((candidate) => candidate.archetypeId === archetypeId);
++  if (claim === undefined) {
+     throw new TypeError("session troop source confidence archetype diverges from its card identity");
+   }
+   return expectedPolicy(archetypeId);

@@ -1,0 +1,993 @@
+{
+  "classification": "focused baseline diagnosis evidence only; no source/test/golden edit",
+  "strategy": "private full shared clones at exact commits; no sparse worktree; source clones removed only when clean after fences",
+  "runtime": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "node_bin": "/Users/me/.hermes/node/bin"
+  },
+  "execution_commit": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+  "coordination_commit": "090d685a4fa07aa07c17618b1e18d00ecb63ff51",
+  "source_identity": {
+    "execution_source_pin": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "coordination_head": "090d685a4fa07aa07c17618b1e18d00ecb63ff51",
+    "shared_source_scope_objects": {
+      "src": {
+        "execution_pin": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+        "coordination_head": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+        "equal": true
+      },
+      "scripts": {
+        "execution_pin": "29dacc49987adddd1dce36ab07995b11154cbbdb",
+        "coordination_head": "29dacc49987adddd1dce36ab07995b11154cbbdb",
+        "equal": true
+      },
+      "package.json": {
+        "execution_pin": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "coordination_head": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "equal": true
+      },
+      "package-lock.json": {
+        "execution_pin": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "coordination_head": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "equal": true
+      },
+      "demo/assets": {
+        "execution_pin": "5ba23821a18a8a0b15404cafb74b9700e486fd06",
+        "coordination_head": "5ba23821a18a8a0b15404cafb74b9700e486fd06",
+        "equal": true
+      },
+      "public/assets": {
+        "execution_pin": "131caf66aded9d94ae4d85ea7240ed291897f2df",
+        "coordination_head": "131caf66aded9d94ae4d85ea7240ed291897f2df",
+        "equal": true
+      },
+      "reference": {
+        "execution_pin": "84735c4eebf8e59e97ecc510a682718495c6125e",
+        "coordination_head": "84735c4eebf8e59e97ecc510a682718495c6125e",
+        "equal": true
+      }
+    },
+    "targeted_test_runner_blobs": {
+      "tests/game-troop-runtime.test.js": {
+        "execution_pin": "5c5dc7738fb2281833ff46991c3f36508658287f",
+        "coordination_head": "5c5dc7738fb2281833ff46991c3f36508658287f",
+        "equal": true
+      },
+      "tests/game-troop-runtime-runner.js": {
+        "execution_pin": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "coordination_head": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "equal": true
+      },
+      "tests/game-roster-troops-status.test.js": {
+        "execution_pin": "5bb150fef8d0bc5369532ec1a47f0b44494aba46",
+        "coordination_head": "5bb150fef8d0bc5369532ec1a47f0b44494aba46",
+        "equal": true
+      },
+      "tests/game-roster-troops-status-runner.js": {
+        "execution_pin": "d555b2fe632a471a649ddf33d9cc359dc4813329",
+        "coordination_head": "d555b2fe632a471a649ddf33d9cc359dc4813329",
+        "equal": true
+      }
+    },
+    "tests_tree_diff_paths_execution_pin_to_coordination_head": [
+      "tests/game-roster-troops-movement.test.js"
+    ]
+  },
+  "pin_run": {
+    "stamp": "20261016T013607.615059Z",
+    "run_root": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z",
+    "gate_artifacts_root": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z",
+    "summary": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/summary.json",
+    "clone_setup_log": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/git-shared-clone-setup.log",
+    "clone_cleanup": [
+      {
+        "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-vintage-c9",
+        "removed": true,
+        "strategy": "clean full private shared clone removed after diagnostics"
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8",
+        "removed": true,
+        "strategy": "clean full private shared clone removed after diagnostics"
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/status-pin-2a",
+        "removed": true,
+        "strategy": "clean full private shared clone removed after diagnostics"
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc",
+        "removed": true,
+        "strategy": "clean full private shared clone removed after diagnostics"
+      }
+    ],
+    "gates": [
+      {
+        "gate": "gtc-pin-test-a8",
+        "pid": 28334,
+        "exit": 1,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8"
+      },
+      {
+        "gate": "gtc-empty-probe-c9",
+        "pid": 28371,
+        "exit": 0,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9"
+      },
+      {
+        "gate": "gtc-current-test-5cc",
+        "pid": 28385,
+        "exit": 1,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc"
+      },
+      {
+        "gate": "gtc-empty-probe-current-5cc",
+        "pid": 28425,
+        "exit": 0,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc"
+      },
+      {
+        "gate": "status-pin-test-2a",
+        "pid": 28439,
+        "exit": 0,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a"
+      },
+      {
+        "gate": "status-current-test-5cc",
+        "pid": 28479,
+        "exit": 1,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc"
+      }
+    ],
+    "empty_comparison": {
+      "unfiltered_snapshot_bytes": {
+        "historical": 11618,
+        "current": 17731,
+        "delta_current_minus_historical": 6113,
+        "historical_sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a",
+        "current_sha256": "cb92fe16188370ae2bdfa260f574d220dcc02e1cdf4aa847c861e0fca5d20d54"
+      },
+      "measured_addition_sizes": {
+        "policy_json_bytes": 2358,
+        "question_record_json_bytes": 3683,
+        "policy_field_count": 20
+      },
+      "setup_equal_after_exact_removal": true,
+      "snapshot_equal_after_exact_removal": true,
+      "snapshot_normalized_canonical_bytes": {
+        "bytes": 11618,
+        "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a"
+      },
+      "snapshot_normalized_equals_historical_raw": true,
+      "residual_snapshot_differences": []
+    },
+    "note_about_metrics": "policy_json_bytes and question_record_json_bytes count canonical record payloads only; the serialized 6113-byte delta includes surrounding field/array syntax. The source-level exact delta is measured as 6113 bytes."
+  },
+  "status_view_run": {
+    "stamp": "20261016T013739.298063Z",
+    "run_root": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z",
+    "summary": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/summary.json",
+    "clone_cleanup": [
+      {
+        "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/status-pin-2a",
+        "removed": true,
+        "strategy": "clean full private shared clone removed after diagnostics"
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/private-clones/current-5cc",
+        "removed": true,
+        "strategy": "clean full private shared clone removed after diagnostics"
+      }
+    ],
+    "gates": [
+      {
+        "gate": "status-pin-2a",
+        "pid": 28686,
+        "exit": 0,
+        "captured_scenarios": 6,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a"
+      },
+      {
+        "gate": "current-5cc",
+        "pid": 28701,
+        "exit": 1,
+        "captured_scenarios": 6,
+        "source_clean_after": true,
+        "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc"
+      }
+    ],
+    "same_known_setup_delta_for_all_six": true,
+    "scenarios": [
+      {
+        "card_id": "bloom-wisp",
+        "replay_bytes_equal": true,
+        "event_objects_equal": true,
+        "event_differences": 0,
+        "state_equal": false,
+        "state_diff_paths": [
+          "$.battle.units[id=1].targetId",
+          "$.battle.units[id=3].attack.nextTick",
+          "$.battle.units[id=3].movement.commands[0].tick",
+          "$.battle.units[id=3].movement.position.y",
+          "$.battle.units[id=3].movement.remainder",
+          "$.battle.units[id=3].movement.segmentProgress",
+          "$.battle.units[id=3].movement.tick",
+          "$.battle.units[id=3].position.y",
+          "$.battle.units[id=3].spawnedAt",
+          "$.battle.units[id=4]",
+          "$.battle.units[id=5]",
+          "$.battle.units[id=6]",
+          "$.battle.units[id=7]"
+        ],
+        "old_vs_current_unit_witness": {
+          "historical": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "bloom-wisp",
+              "archetypeId": "bloom-wisp",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 4,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            },
+            {
+              "id": 5,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 6,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 7,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            }
+          ],
+          "current": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "bloom-wisp",
+              "archetypeId": "bloom-wisp",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 6,
+              "memberIndex": 1
+            }
+          ]
+        },
+        "snapshot_non_setup_equal": true,
+        "snapshot_setup_byte_delta": {
+          "battleSetup": 6113,
+          "rosterWitness": 6113
+        },
+        "snapshot_equal_after_exact_removal": true,
+        "residual_snapshot_differences": 0,
+        "snapshot_bytes": {
+          "historical": 200458,
+          "current": 214020,
+          "delta_current_minus_historical": 13562,
+          "historical_sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+          "current_sha256": "e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763"
+        },
+        "replay_sha256": {
+          "historical": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+          "current": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86"
+        }
+      },
+      {
+        "card_id": "dawnmender",
+        "replay_bytes_equal": true,
+        "event_objects_equal": true,
+        "event_differences": 0,
+        "state_equal": false,
+        "state_diff_paths": [
+          "$.battle.units[id=1].movement.commands[0].target.position.x",
+          "$.battle.units[id=1].movement.commands[1]",
+          "$.battle.units[id=1].movement.position.y",
+          "$.battle.units[id=1].movement.remainder",
+          "$.battle.units[id=1].movement.routeIndex",
+          "$.battle.units[id=1].movement.routeOrigin.y",
+          "$.battle.units[id=1].movement.segmentLength",
+          "$.battle.units[id=1].movement.segmentProgress",
+          "$.battle.units[id=1].movement.segmentStart.y",
+          "$.battle.units[id=1].position.y",
+          "$.battle.units[id=1].targetId",
+          "$.battle.units[id=3].attack.nextTick",
+          "$.battle.units[id=3].movement.commands[0].tick",
+          "$.battle.units[id=3].movement.position.y",
+          "$.battle.units[id=3].movement.remainder",
+          "$.battle.units[id=3].movement.segmentProgress",
+          "$.battle.units[id=3].movement.tick",
+          "$.battle.units[id=3].position.y",
+          "$.battle.units[id=3].spawnedAt",
+          "$.battle.units[id=4]",
+          "$.battle.units[id=5]",
+          "$.battle.units[id=6]",
+          "$.battle.units[id=7]"
+        ],
+        "old_vs_current_unit_witness": {
+          "historical": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "dawnmender",
+              "archetypeId": "dawnmender",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 4,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            },
+            {
+              "id": 5,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 6,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 7,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            }
+          ],
+          "current": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "dawnmender",
+              "archetypeId": "dawnmender",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 6,
+              "memberIndex": 1
+            }
+          ]
+        },
+        "snapshot_non_setup_equal": true,
+        "snapshot_setup_byte_delta": {
+          "battleSetup": 6113,
+          "rosterWitness": 6113
+        },
+        "snapshot_equal_after_exact_removal": true,
+        "residual_snapshot_differences": 0,
+        "snapshot_bytes": {
+          "historical": 200434,
+          "current": 213996,
+          "delta_current_minus_historical": 13562,
+          "historical_sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+          "current_sha256": "560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3"
+        },
+        "replay_sha256": {
+          "historical": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+          "current": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7"
+        }
+      },
+      {
+        "card_id": "pulse-sentry",
+        "replay_bytes_equal": true,
+        "event_objects_equal": true,
+        "event_differences": 0,
+        "state_equal": false,
+        "state_diff_paths": [
+          "$.battle.units[id=1].targetId",
+          "$.battle.units[id=3].attack.nextTick",
+          "$.battle.units[id=3].movement.commands[0].tick",
+          "$.battle.units[id=3].movement.position.y",
+          "$.battle.units[id=3].movement.remainder",
+          "$.battle.units[id=3].movement.segmentProgress",
+          "$.battle.units[id=3].movement.tick",
+          "$.battle.units[id=3].position.y",
+          "$.battle.units[id=3].spawnedAt",
+          "$.battle.units[id=4]",
+          "$.battle.units[id=5]",
+          "$.battle.units[id=6]",
+          "$.battle.units[id=7]"
+        ],
+        "old_vs_current_unit_witness": {
+          "historical": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "pulse-sentry",
+              "archetypeId": "pulse-sentry",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 4,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            },
+            {
+              "id": 5,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 6,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 7,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            }
+          ],
+          "current": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "pulse-sentry",
+              "archetypeId": "pulse-sentry",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 6,
+              "memberIndex": 1
+            }
+          ]
+        },
+        "snapshot_non_setup_equal": true,
+        "snapshot_setup_byte_delta": {
+          "battleSetup": 6113,
+          "rosterWitness": 6113
+        },
+        "snapshot_equal_after_exact_removal": true,
+        "residual_snapshot_differences": 0,
+        "snapshot_bytes": {
+          "historical": 200506,
+          "current": 214068,
+          "delta_current_minus_historical": 13562,
+          "historical_sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+          "current_sha256": "12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f"
+        },
+        "replay_sha256": {
+          "historical": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+          "current": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138"
+        }
+      },
+      {
+        "card_id": "rime-adept",
+        "replay_bytes_equal": true,
+        "event_objects_equal": true,
+        "event_differences": 0,
+        "state_equal": false,
+        "state_diff_paths": [
+          "$.battle.units[id=1].targetId",
+          "$.battle.units[id=3].attack.nextTick",
+          "$.battle.units[id=3].movement.commands[0].tick",
+          "$.battle.units[id=3].movement.position.y",
+          "$.battle.units[id=3].movement.remainder",
+          "$.battle.units[id=3].movement.segmentProgress",
+          "$.battle.units[id=3].movement.tick",
+          "$.battle.units[id=3].position.y",
+          "$.battle.units[id=3].spawnedAt",
+          "$.battle.units[id=4]",
+          "$.battle.units[id=5]",
+          "$.battle.units[id=6]",
+          "$.battle.units[id=7]"
+        ],
+        "old_vs_current_unit_witness": {
+          "historical": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "rime-adept",
+              "archetypeId": "rime-adept",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 4,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            },
+            {
+              "id": 5,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 6,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 7,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            }
+          ],
+          "current": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "rime-adept",
+              "archetypeId": "rime-adept",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 6,
+              "memberIndex": 1
+            }
+          ]
+        },
+        "snapshot_non_setup_equal": true,
+        "snapshot_setup_byte_delta": {
+          "battleSetup": 6113,
+          "rosterWitness": 6113
+        },
+        "snapshot_equal_after_exact_removal": true,
+        "residual_snapshot_differences": 0,
+        "snapshot_bytes": {
+          "historical": 200458,
+          "current": 214020,
+          "delta_current_minus_historical": 13562,
+          "historical_sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+          "current_sha256": "5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40"
+        },
+        "replay_sha256": {
+          "historical": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+          "current": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a"
+        }
+      },
+      {
+        "card_id": "tether-rider",
+        "replay_bytes_equal": true,
+        "event_objects_equal": true,
+        "event_differences": 0,
+        "state_equal": false,
+        "state_diff_paths": [
+          "$.battle.units[id=3].attack.nextTick",
+          "$.battle.units[id=3].movement.commands[0].tick",
+          "$.battle.units[id=3].movement.position.y",
+          "$.battle.units[id=3].movement.remainder",
+          "$.battle.units[id=3].movement.segmentProgress",
+          "$.battle.units[id=3].movement.tick",
+          "$.battle.units[id=3].position.y",
+          "$.battle.units[id=3].spawnedAt",
+          "$.battle.units[id=4]",
+          "$.battle.units[id=5]",
+          "$.battle.units[id=6]",
+          "$.battle.units[id=7]"
+        ],
+        "old_vs_current_unit_witness": {
+          "historical": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "tether-rider",
+              "archetypeId": "tether-rider",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 4,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            },
+            {
+              "id": 5,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 6,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 7,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            }
+          ],
+          "current": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "tether-rider",
+              "archetypeId": "tether-rider",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 6,
+              "memberIndex": 1
+            }
+          ]
+        },
+        "snapshot_non_setup_equal": true,
+        "snapshot_setup_byte_delta": {
+          "battleSetup": 6113,
+          "rosterWitness": 6113
+        },
+        "snapshot_equal_after_exact_removal": true,
+        "residual_snapshot_differences": 0,
+        "snapshot_bytes": {
+          "historical": 200495,
+          "current": 214057,
+          "delta_current_minus_historical": 13562,
+          "historical_sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+          "current_sha256": "d091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab"
+        },
+        "replay_sha256": {
+          "historical": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+          "current": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b"
+        }
+      },
+      {
+        "card_id": "veil-prowler",
+        "replay_bytes_equal": true,
+        "event_objects_equal": true,
+        "event_differences": 0,
+        "state_equal": false,
+        "state_diff_paths": [
+          "$.battle.units[id=1].movement.commands[0].target.position.x",
+          "$.battle.units[id=1].movement.commands[1].kind",
+          "$.battle.units[id=1].movement.commands[1].target",
+          "$.battle.units[id=1].movement.commands[1].tick",
+          "$.battle.units[id=1].movement.commands[2]",
+          "$.battle.units[id=1].movement.position.y",
+          "$.battle.units[id=1].movement.segmentStart.y",
+          "$.battle.units[id=1].position.y",
+          "$.battle.units[id=1].targetId",
+          "$.battle.units[id=3].attack.nextTick",
+          "$.battle.units[id=3].movement.commands[0].target.position.y",
+          "$.battle.units[id=3].movement.commands[0].target.radius",
+          "$.battle.units[id=3].movement.commands[0].tick",
+          "$.battle.units[id=3].movement.commands[1]",
+          "$.battle.units[id=3].movement.position.y",
+          "$.battle.units[id=3].movement.routeIndex",
+          "$.battle.units[id=3].movement.routeOrigin.y",
+          "$.battle.units[id=3].movement.segmentLength",
+          "$.battle.units[id=3].movement.segmentProgress",
+          "$.battle.units[id=3].movement.segmentStart.y",
+          "$.battle.units[id=3].movement.tick",
+          "$.battle.units[id=3].position.y",
+          "$.battle.units[id=3].spawnedAt",
+          "$.battle.units[id=4]",
+          "$.battle.units[id=5]",
+          "$.battle.units[id=6]",
+          "$.battle.units[id=7]"
+        ],
+        "old_vs_current_unit_witness": {
+          "historical": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "veil-prowler",
+              "archetypeId": "veil-prowler",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 4,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            },
+            {
+              "id": 5,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 6,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 1
+            },
+            {
+              "id": 7,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-darter",
+              "spawnedAt": 0,
+              "memberIndex": 2
+            }
+          ],
+          "current": [
+            {
+              "id": 1,
+              "side": "south",
+              "cardId": "veil-prowler",
+              "archetypeId": "veil-prowler",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 0,
+              "memberIndex": 0
+            },
+            {
+              "id": 3,
+              "side": "north",
+              "cardId": "briar-band",
+              "archetypeId": "briar-runner",
+              "spawnedAt": 6,
+              "memberIndex": 1
+            }
+          ]
+        },
+        "snapshot_non_setup_equal": true,
+        "snapshot_setup_byte_delta": {
+          "battleSetup": 6113,
+          "rosterWitness": 6113
+        },
+        "snapshot_equal_after_exact_removal": true,
+        "residual_snapshot_differences": 0,
+        "snapshot_bytes": {
+          "historical": 200501,
+          "current": 214063,
+          "delta_current_minus_historical": 13562,
+          "historical_sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+          "current_sha256": "95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579"
+        },
+        "replay_sha256": {
+          "historical": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+          "current": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b"
+        }
+      }
+    ],
+    "structural_difference_note": "Each capture is at tick 11. Historical state has six briar-band units spawnedAt=0 plus the south status unit (7 total); current has two briar-runner members spawnedAt=0 and 6 plus the south status unit (3 total). This is a state residual outside the serialized session snapshot; it is reported, not normalized. In contrast, each snapshot JSON has setup/transcript/version; transcript and version match, and exact known setup removals yield full snapshot equality."
+  },
+  "source_test_mutation": "The status test was instrumented only in an external diagnostic-copy to save setup, replay bytes/object/events, session.state and snapshot. Original pinned test bytes are saved and SHA-checked. Hash assertion remained intact; repository clone stayed clean.",
+  "attempt1_sparse_failure": "preserved at /Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z; failed before Node launch with sparse-checkout omitted tracked files; no runtime PID."
+}

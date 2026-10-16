@@ -1,0 +1,166 @@
+
+> original-card-battler@0.0.0 test:game-troop-runtime
+> node tests/game-troop-runtime-runner.js game-troop-runtime
+
+TAP version 13
+# Subtest: game troop runtime: v2 profile is a pure representative basic-melee contact fixture, not roster or manual-ability support
+ok 1 - game troop runtime: v2 profile is a pure representative basic-melee contact fixture, not roster or manual-ability support
+  ---
+  duration_ms: 2.679292
+  type: 'test'
+  ...
+# Subtest: game troop runtime: LiveBattle keeps unprofiled units and more than eight profiled sources in the shared authority
+not ok 2 - game troop runtime: LiveBattle keeps unprofiled units and more than eight profiled sources in the shared authority
+  ---
+  duration_ms: 59.422334
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:287:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 13
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 13
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:304:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: game troop runtime: CONTENT-002 basic-melee contact is host-derived and visibly changes shared unit health
+not ok 3 - game troop runtime: CONTENT-002 basic-melee contact is host-derived and visibly changes shared unit health
+  ---
+  duration_ms: 134.810167
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:328:1'
+  failureType: 'testCodeFailure'
+  error: 'battle.scheduleTroopAction is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:347:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game troop runtime: stale, wrong-side, duplicate, and dead contact actions reject atomically
+not ok 4 - game troop runtime: stale, wrong-side, duplicate, and dead contact actions reject atomically
+  ---
+  duration_ms: 67.461667
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:423:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /current tick/u. Input:
+    
+    'TypeError: battle.scheduleTroopAction is not a function'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+  error: 'battle.scheduleTroopAction is not a function'
+  name: 'TypeError'
+  stack: |-
+    file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:426:30
+    getActual (node:assert:609:5)
+    Function.throws (node:assert:757:24)
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:426:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:426:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game troop runtime: empty v2 bytes and v1-profile/v3 causal snapshots remain exact
+not ok 5 - game troop runtime: empty v2 bytes and v1-profile/v3 causal snapshots remain exact
+  ---
+  duration_ms: 18.077625
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:485:1'
+  failureType: 'testCodeFailure'
+  error: 'legacy.scheduleTroopAction is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:499:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game troop runtime: v4 and legacy v3 hostile canonical-text admission is bounded and atomic
+not ok 6 - game troop runtime: v4 and legacy v3 hostile canonical-text admission is bounded and atomic
+  ---
+  duration_ms: 1.337667
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:517:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:527:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game troop runtime: real GameSession has one causal action commit and diverges from a no-action shared-combat control
+not ok 7 - game troop runtime: real GameSession has one causal action commit and diverges from a no-action shared-combat control
+  ---
+  duration_ms: 2.925125
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:601:1'
+  failureType: 'testCodeFailure'
+  error: 'game session setup has an invalid shape'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    exact (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/src/sim/battle-continuation-kernel.js:7890:11)
+    validateSetup (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/src/sim/battle-continuation-kernel.js:7958:17)
+    new GameSession (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/src/sim/battle-continuation-kernel.js:8040:21)
+    sessionAtContact (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:186:19)
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/tests/game-troop-runtime.test.js:602:43)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 1
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 412.700666

@@ -1,0 +1,189 @@
+{
+  "purpose": "current LiveBattle.restore on exact c9 v2 bytes, then current GameSession.restore on six exact captured 2a v2 snapshots",
+  "sourcePin": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+  "coordinationHead": "090d685a4fa07aa07c17618b1e18d00ecb63ff51",
+  "cloneStrategy": "private full shared clone; detached pin; no sparse checkout",
+  "clone": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc",
+  "cloneHead": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+  "sourceFenceBefore": {
+    "head": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "tree": "d0fac5a0abb5690c12d83ca9118b9d72d81974e2",
+    "status_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/source-status-before.porcelain0",
+    "status_bytes": 0,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unstaged_diff_bytes": 0,
+    "unstaged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_diff_bytes": 0,
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "sourceTree": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+  "sourceCopies": [
+    {
+      "relativePath": "package.json",
+      "sourcePath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc/package.json",
+      "copyPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+      "gitBlob": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+      "copySha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "relativePath": "src/sim/game-session.js",
+      "sourcePath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc/src/sim/game-session.js",
+      "copyPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/game-session.js",
+      "bytes": 1357,
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+      "gitBlob": "c3e86cb21fa926fc985120044d0adfd45e9f69c2",
+      "copySha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+    },
+    {
+      "relativePath": "src/sim/live-battle.js",
+      "sourcePath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc/src/sim/live-battle.js",
+      "copyPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/live-battle.js",
+      "bytes": 1298,
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a",
+      "gitBlob": "55286bda922f84ae496dbb7a89bcce5a58d140da",
+      "copySha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+    },
+    {
+      "relativePath": "src/sim/battle-continuation-kernel.js",
+      "sourcePath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js",
+      "copyPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/battle-continuation-kernel.js",
+      "bytes": 523788,
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea",
+      "gitBlob": "3426d73673cd532418eadcbe4cd704cd0f4c3614",
+      "copySha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+    },
+    {
+      "relativePath": "src/sim/session-troop-projectile-runtime.js",
+      "sourcePath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc/src/sim/session-troop-projectile-runtime.js",
+      "copyPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/session-troop-projectile-runtime.js",
+      "bytes": 46231,
+      "sha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f",
+      "gitBlob": "85a46c2fa285b675ade18558c54475ef0e245b94",
+      "copySha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f"
+    },
+    {
+      "relativePath": "src/shared/session-troop-source-confidence-authority.js",
+      "sourcePath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc/src/shared/session-troop-source-confidence-authority.js",
+      "copyPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd",
+      "gitBlob": "874b41447edbfed08350f0fb963f0bde70700839",
+      "copySha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    }
+  ],
+  "recorderCopy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/record_restore.py",
+  "recorderSha256": "d4a91f932d1747d411f848ec67f3988eee476ec39f79f178437ca7af9c1b7ddd",
+  "probeSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/public-restore-control.mjs",
+  "probeSourceSha256": "41f84d50abd1293cc239e9865dfcbd6cb4a180fd5a8eebe4d3a1793adbf6a913",
+  "inputManifest": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/captured-snapshot-input-manifest.json",
+  "inputManifestSha256": "a6afdcbbc8e814b02a42b9fbcc2d07934e5109a588d774da848541aa41adac45",
+  "inputs": {
+    "liveBattle": {
+      "historicalSourceCommit": "c9c818f7ac281b0e71890a2be17ce757f688b4c5",
+      "sourceRawFile": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/snapshot.raw",
+      "copiedRawFile": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/c9-empty-live-battle-v2.snapshot",
+      "rawBytes": 11618,
+      "rawSha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a",
+      "parsedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/snapshot.json",
+      "copiedParsedView": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/c9-empty-live-battle-snapshot-view.json",
+      "viewSha256": "b36192bd597f4f0c1c4a1f03ce1ef573a953fd129fce19f61bcbe0086c0ef994"
+    },
+    "gameSessions": [
+      {
+        "cardId": "bloom-wisp",
+        "snapshotPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-bloom-wisp-v2.snapshot",
+        "bytes": 200458,
+        "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+        "capturedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/bloom-wisp.json",
+        "capturedViewSha256": "fba122f18655b7391e5a1d976767bdbbe2e9c09ecc23c5f6d6a1b96b7021e6e7",
+        "snapshotVersion": 2
+      },
+      {
+        "cardId": "dawnmender",
+        "snapshotPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-dawnmender-v2.snapshot",
+        "bytes": 200434,
+        "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+        "capturedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/dawnmender.json",
+        "capturedViewSha256": "b58c74a37eac4f27fcd9a78c6525b44c12654f64c2aa166838d1beabb7b0407e",
+        "snapshotVersion": 2
+      },
+      {
+        "cardId": "pulse-sentry",
+        "snapshotPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-pulse-sentry-v2.snapshot",
+        "bytes": 200506,
+        "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+        "capturedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/pulse-sentry.json",
+        "capturedViewSha256": "e057ae8bbecaec56fabd514248db733f8cc55405d2fe992ec7069fde33cea6a0",
+        "snapshotVersion": 2
+      },
+      {
+        "cardId": "rime-adept",
+        "snapshotPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-rime-adept-v2.snapshot",
+        "bytes": 200458,
+        "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+        "capturedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/rime-adept.json",
+        "capturedViewSha256": "557ceb82e072840bd80a0918acf8929afc69899ca34c708cc5b9ca5c69d5e09c",
+        "snapshotVersion": 2
+      },
+      {
+        "cardId": "tether-rider",
+        "snapshotPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-tether-rider-v2.snapshot",
+        "bytes": 200495,
+        "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+        "capturedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/tether-rider.json",
+        "capturedViewSha256": "db77230afad65e95bf756d7bb2291df44157dcb049e02af73dca1f4ac42df6ee",
+        "snapshotVersion": 2
+      },
+      {
+        "cardId": "veil-prowler",
+        "snapshotPath": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-veil-prowler-v2.snapshot",
+        "bytes": 200501,
+        "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+        "capturedViewSource": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/veil-prowler.json",
+        "capturedViewSha256": "d6a388e9d6d9ee4c6d7fc56a67dde7f7ef04e44f99dfaaa6e5a9b764c6f29725",
+        "snapshotVersion": 2
+      }
+    ]
+  },
+  "argv": [
+    "/Users/me/.hermes/node/bin/node",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/public-restore-control.mjs",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/captured-snapshot-input-manifest.json",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/restore-results.json"
+  ],
+  "cwd": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-current-5cc",
+  "nodeExecutable": "/Users/me/.hermes/node/bin/node",
+  "nodeVersion": "v22.22.3",
+  "environmentAllowlist": {
+    "PATH": "/Users/me/.hermes/node/bin:/Users/me/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/usr/local/MacGPG2/bin:/opt/homebrew/bin:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/me/.codex/tmp/arg0/codex-arg0WccBGj:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/me/.darkbloom/bin:/Users/me/bin:/Users/me/.local/bin:/Users/me/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/me/.cargo/bin:/Users/me/Applications/darktable.app/Contents/MacOS:/Users/me/.bun/bin:/Users/me/Library/Android/sdk/platform-tools:/Users/me/Library/Android/sdk/emulator:/Users/me/Library/Android/sdk/cmdline-tools/latest/bin:/opt/homebrew/sbin:/Users/me/.orbstack/bin:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/me/Applications/ChatGPT.app/Contents/Resources:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/Users/me/.orbstack/bin",
+    "CI": null,
+    "NODE_ENV": null,
+    "TZ": null,
+    "NODE_OPTIONS": null,
+    "FORCE_COLOR": null,
+    "NO_COLOR": "1",
+    "TERM": "dumb"
+  },
+  "stdoutFile": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/stdout.log",
+  "stderrFile": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/stderr.log",
+  "resultFile": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/restore-results.json",
+  "createdAtUtc": "2026-10-16T01:44:58.396751+00:00",
+  "directPid": 29561,
+  "popenReturnedAtUtc": "2026-10-16T01:44:58.399707+00:00",
+  "directExitCode": 0,
+  "sourceFenceAfter": {
+    "head": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "tree": "d0fac5a0abb5690c12d83ca9118b9d72d81974e2",
+    "status_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/source-status-after.porcelain0",
+    "status_bytes": 0,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unstaged_diff_bytes": 0,
+    "unstaged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_diff_bytes": 0,
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finishedAtUtc": "2026-10-16T01:44:58.732740+00:00"
+}

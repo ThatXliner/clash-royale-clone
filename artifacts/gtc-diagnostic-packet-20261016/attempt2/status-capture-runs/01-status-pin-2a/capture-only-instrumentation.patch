@@ -1,0 +1,47 @@
+--- exact-test-source
++++ external-capture-copy
+@@ -1,6 +1,8 @@
+ import assert from "node:assert/strict";
+ import { createHash } from "node:crypto";
+ import test from "node:test";
++import { writeFileSync } from "node:fs";
++import { join } from "node:path";
+ 
+ import { createSessionTroopWitness } from "../src/content/session-troop-roster.js";
+ import {
+@@ -348,7 +350,7 @@
+   });
+   const hashes = [];
+   for (const id of ["bloom-wisp", "dawnmender", "pulse-sentry", "rime-adept", "tether-rider", "veil-prowler"]) {
+-    const { session, slot } = makeSession(id);
++    const { session, setup, slot } = makeSession(id);
+     const { source, target } = deployWitness(session, id, slot);
+     session.submitPlayerCommand(statusCommand({
+       actionId: id === "bloom-wisp" || id === "dawnmender" ? "heal" : id === "pulse-sentry" ? "stun" :
+@@ -359,7 +361,25 @@
+       tick: session.state.tick,
+     }));
+     session.stepMany(10);
+-    hashes.push({ id, replay: hash(session.replayBytes()), snapshot: hash(session.serialize()) });
++    const replayBytes = session.replayBytes();
++    const snapshotBytes = session.serialize();
++    const replayEvents = session.replay;
++    const state = session.state;
++    const record = {
++      id,
++      setup,
++      battleSetup: JSON.parse(setup.battleSetup),
++      rosterWitness: JSON.parse(setup.rosterWitness),
++      replayBytes,
++      replayObject: JSON.parse(replayBytes),
++      replayEvents,
++      state,
++      snapshotBytes,
++      snapshot: JSON.parse(snapshotBytes),
++    };
++    writeFileSync(join(process.env.GTC_STATUS_VIEW_DIR, `${id}.json`),
++      `${JSON.stringify(record, null, 2)}\n`);
++    hashes.push({ id, replay: hash(replayBytes), snapshot: hash(snapshotBytes) });
+   }
+   assert.deepEqual(hashes, Object.entries(expectedHashes).map(([id, values]) => ({
+     id,

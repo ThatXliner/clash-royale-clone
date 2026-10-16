@@ -1,0 +1,44 @@
+{
+  "prelaunch_attempt": "attempt2-shared-clone-20261016",
+  "prelaunch_status": "ready; no Node/npm launched in this attempt at manifest creation",
+  "clone_strategy": "git clone --shared --no-checkout from canonical local checkout, then detached checkout of each exact pinned commit; private clones under each evidence run directory; no sparse checkout",
+  "recorders_and_tool_sources": [
+    {
+      "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/record_pins.py",
+      "bytes": 18465,
+      "sha256": "26165e370170683264eb2c444758a61d9658663074e3239d187be93b3db31979"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/record_status_views.py",
+      "bytes": 17802,
+      "sha256": "008ce63e9b61b1956ba65ba780bfed99621adf8e2422e67a10abe48f1a6bbde5"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/probe-empty-live-battle.mjs",
+      "bytes": 2800,
+      "sha256": "3637b3d344a70d1d95cb82d49bc4d4d88a2eeb57a08431e8c8c1b6602a0d5f8b"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/instrument_status_test.py",
+      "bytes": 6713,
+      "sha256": "a7f751b63366bbdddd46aa06461efd33b9e82a4f9585abb4e62532ccd774166c"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/compare_fixture_views.py",
+      "bytes": 18507,
+      "sha256": "d0143cb4cbfc0f93a9ec14d810d45ffe0990d7d8706aeb916a97741b012e3cb5"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/README.txt",
+      "bytes": 6858,
+      "sha256": "ad07a2a19d8169f2d69289ba8889b85309f53bb4b01a27a35c625b25dbaf7a0e"
+    }
+  ],
+  "preserved_preexecution_versions": [
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/record_pins.py",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/record_status_views.py",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/exact-recorder-inputs/record_pins.py",
+    "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/exact-recorder-inputs/record_status_views.py"
+  ],
+  "verification": "Python AST parsed both modified recorders and both Python diagnostic helpers. Recorder writes each gate\u2019s exact package/test/runner/supporting sources and SHA-256 before launch, writes direct Popen PID immediately after Popen returns, streams complete stdout and stderr to separate files, records actual exit code, and fences source before/after."
+}

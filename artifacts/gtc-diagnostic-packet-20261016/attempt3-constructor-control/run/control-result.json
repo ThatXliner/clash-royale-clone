@@ -1,0 +1,18 @@
+{
+  "label": "current public API, exact captured historical 2a setup and bloom-wisp scenario",
+  "sourceRoot": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc",
+  "historicalInput": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/exact-inputs/historical-bloom-wisp-view.json",
+  "historicalInputSha256": "fba122f18655b7391e5a1d976767bdbbe2e9c09ecc23c5f6d6a1b96b7021e6e7",
+  "historicalTestSourceSha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55",
+  "historicalStateTick": 11,
+  "historicalUnitCount": 7,
+  "historicalReplaySha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+  "historicalSnapshotSha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+  "apiAcceptedHistoricalSetup": false,
+  "rejectionOrProbeError": {
+    "stage": "GameSession constructor",
+    "name": "TypeError",
+    "message": "roster[7].entities[0] source confidence policy is missing or unexpected",
+    "stack": "TypeError: roster[7].entities[0] source confidence policy is missing or unexpected\n    at assertSessionTroopSourceConfidenceQuestions (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/shared/session-troop-source-confidence-authority.js:258:11)\n    at file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:5941:42\n    at Array.map (<anonymous>)\n    at file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:5923:10\n    at Array.map (<anonymous>)\n    at checkedSetup (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:5905:6)\n    at admittedSetup (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:6211:41)\n    at new LiveBattle (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:6803:19)\n    at validateSetup (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:12014:7)\n    at new GameSession (file:///Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-current-5cc/src/sim/battle-continuation-kernel.js:12173:21)"
+  }
+}

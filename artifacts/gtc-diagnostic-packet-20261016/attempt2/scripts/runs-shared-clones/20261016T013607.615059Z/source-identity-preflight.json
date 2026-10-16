@@ -1,0 +1,69 @@
+{
+  "captured_at_utc": "2026-10-16T01:36:07.615696+00:00",
+  "evidence": {
+    "execution_source_pin": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "coordination_head": "090d685a4fa07aa07c17618b1e18d00ecb63ff51",
+    "shared_source_scope_objects": {
+      "src": {
+        "execution_pin": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+        "coordination_head": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+        "equal": true
+      },
+      "scripts": {
+        "execution_pin": "29dacc49987adddd1dce36ab07995b11154cbbdb",
+        "coordination_head": "29dacc49987adddd1dce36ab07995b11154cbbdb",
+        "equal": true
+      },
+      "package.json": {
+        "execution_pin": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "coordination_head": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "equal": true
+      },
+      "package-lock.json": {
+        "execution_pin": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "coordination_head": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "equal": true
+      },
+      "demo/assets": {
+        "execution_pin": "5ba23821a18a8a0b15404cafb74b9700e486fd06",
+        "coordination_head": "5ba23821a18a8a0b15404cafb74b9700e486fd06",
+        "equal": true
+      },
+      "public/assets": {
+        "execution_pin": "131caf66aded9d94ae4d85ea7240ed291897f2df",
+        "coordination_head": "131caf66aded9d94ae4d85ea7240ed291897f2df",
+        "equal": true
+      },
+      "reference": {
+        "execution_pin": "84735c4eebf8e59e97ecc510a682718495c6125e",
+        "coordination_head": "84735c4eebf8e59e97ecc510a682718495c6125e",
+        "equal": true
+      }
+    },
+    "targeted_test_runner_blobs": {
+      "tests/game-troop-runtime.test.js": {
+        "execution_pin": "5c5dc7738fb2281833ff46991c3f36508658287f",
+        "coordination_head": "5c5dc7738fb2281833ff46991c3f36508658287f",
+        "equal": true
+      },
+      "tests/game-troop-runtime-runner.js": {
+        "execution_pin": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "coordination_head": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "equal": true
+      },
+      "tests/game-roster-troops-status.test.js": {
+        "execution_pin": "5bb150fef8d0bc5369532ec1a47f0b44494aba46",
+        "coordination_head": "5bb150fef8d0bc5369532ec1a47f0b44494aba46",
+        "equal": true
+      },
+      "tests/game-roster-troops-status-runner.js": {
+        "execution_pin": "d555b2fe632a471a649ddf33d9cc359dc4813329",
+        "coordination_head": "d555b2fe632a471a649ddf33d9cc359dc4813329",
+        "equal": true
+      }
+    },
+    "tests_tree_diff_paths_execution_pin_to_coordination_head": [
+      "tests/game-roster-troops-movement.test.js"
+    ]
+  }
+}

@@ -1,0 +1,462 @@
+[
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 4,
+    "count": 1,
+    "damage": 720,
+    "deployTimeTicks": 60,
+    "displayName": "Coilblade",
+    "entities": [
+      {
+        "archetypeId": "coilblade",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "coilblade.body-radius-millitiles"
+        },
+        "count": 1,
+        "damage": 720,
+        "delivery": "melee",
+        "deployTimeTicks": 60,
+        "displayName": "Coilblade",
+        "firstHitTicks": 66,
+        "hitSpeedTicks": 96,
+        "hitpoints": 1361,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 1500,
+        "projectileSpeedPolicy": {
+          "kind": "not-applicable",
+          "questionKey": null
+        },
+        "rangeMillitiles": 800,
+        "role": "primary",
+        "sightRangeMillitiles": 5500,
+        "targetMode": "ground"
+      }
+    ],
+    "firstHitTicks": 66,
+    "formation": {
+      "componentOrder": [
+        "coilblade"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 1
+    },
+    "hitSpeedTicks": 96,
+    "hitpoints": 1361,
+    "id": "coilblade",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 1500,
+    "rangeMillitiles": 800,
+    "rarity": "uncommon",
+    "sightRangeMillitiles": 5500,
+    "targetMode": "ground"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 3,
+    "count": 1,
+    "damage": 202,
+    "deployTimeTicks": 60,
+    "displayName": "Mossguard",
+    "entities": [
+      {
+        "archetypeId": "mossguard",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "mossguard.body-radius-millitiles"
+        },
+        "count": 1,
+        "damage": 202,
+        "delivery": "melee",
+        "deployTimeTicks": 60,
+        "displayName": "Mossguard",
+        "firstHitTicks": 42,
+        "hitSpeedTicks": 72,
+        "hitpoints": 1766,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 1000,
+        "projectileSpeedPolicy": {
+          "kind": "not-applicable",
+          "questionKey": null
+        },
+        "rangeMillitiles": 1200,
+        "role": "primary",
+        "sightRangeMillitiles": 5500,
+        "targetMode": "ground"
+      }
+    ],
+    "firstHitTicks": 42,
+    "formation": {
+      "componentOrder": [
+        "mossguard"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 1
+    },
+    "hitSpeedTicks": 72,
+    "hitpoints": 1766,
+    "id": "mossguard",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 1000,
+    "rangeMillitiles": 1200,
+    "rarity": "standard",
+    "sightRangeMillitiles": 5500,
+    "targetMode": "ground"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 4,
+    "count": 1,
+    "damage": 171,
+    "deployTimeTicks": 60,
+    "displayName": "Copperskiff",
+    "entities": [
+      {
+        "archetypeId": "copperskiff",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "copperskiff.body-radius-millitiles"
+        },
+        "count": 1,
+        "damage": 171,
+        "delivery": "projectile",
+        "deployTimeTicks": 60,
+        "displayName": "Copperskiff",
+        "firstHitTicks": 36,
+        "hitSpeedTicks": 66,
+        "hitpoints": 614,
+        "kind": "unit",
+        "layer": "air",
+        "movementMillitilesPerSecond": 1500,
+        "projectileSpeedPolicy": {
+          "kind": "question",
+          "questionKey": "copperskiff.projectile-speed-millitiles-per-tick"
+        },
+        "rangeMillitiles": 6000,
+        "role": "primary",
+        "sightRangeMillitiles": 6000,
+        "targetMode": "ground-and-air"
+      }
+    ],
+    "firstHitTicks": 36,
+    "formation": {
+      "componentOrder": [
+        "copperskiff"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 1
+    },
+    "hitSpeedTicks": 66,
+    "hitpoints": 614,
+    "id": "copperskiff",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 1500,
+    "rangeMillitiles": 6000,
+    "rarity": "uncommon",
+    "sightRangeMillitiles": 6000,
+    "targetMode": "ground-and-air"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 3,
+    "count": 1,
+    "damage": 311,
+    "deployTimeTicks": 60,
+    "displayName": "Skymaul",
+    "entities": [
+      {
+        "archetypeId": "skymaul",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "skymaul.body-radius-millitiles"
+        },
+        "count": 1,
+        "damage": 311,
+        "delivery": "melee",
+        "deployTimeTicks": 60,
+        "displayName": "Skymaul",
+        "firstHitTicks": 72,
+        "hitSpeedTicks": 96,
+        "hitpoints": 837,
+        "kind": "unit",
+        "layer": "air",
+        "movementMillitilesPerSecond": 1000,
+        "projectileSpeedPolicy": {
+          "kind": "not-applicable",
+          "questionKey": null
+        },
+        "rangeMillitiles": 1600,
+        "role": "primary",
+        "sightRangeMillitiles": 5500,
+        "targetMode": "ground-and-air"
+      }
+    ],
+    "firstHitTicks": 72,
+    "formation": {
+      "componentOrder": [
+        "skymaul"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 1
+    },
+    "hitSpeedTicks": 96,
+    "hitpoints": 837,
+    "id": "skymaul",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 1000,
+    "rangeMillitiles": 1600,
+    "rarity": "uncommon",
+    "sightRangeMillitiles": 5500,
+    "targetMode": "ground-and-air"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 4,
+    "count": 1,
+    "damage": 218,
+    "deployTimeTicks": 60,
+    "displayName": "Brassbolt",
+    "entities": [
+      {
+        "archetypeId": "brassbolt",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "brassbolt.body-radius-millitiles"
+        },
+        "count": 1,
+        "damage": 218,
+        "delivery": "projectile",
+        "deployTimeTicks": 60,
+        "displayName": "Brassbolt",
+        "firstHitTicks": 12,
+        "hitSpeedTicks": 60,
+        "hitpoints": 720,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 1000,
+        "projectileSpeedPolicy": {
+          "kind": "question",
+          "questionKey": "brassbolt.projectile-speed-millitiles-per-tick"
+        },
+        "rangeMillitiles": 6000,
+        "role": "primary",
+        "sightRangeMillitiles": 6000,
+        "targetMode": "ground-and-air"
+      }
+    ],
+    "firstHitTicks": 12,
+    "formation": {
+      "componentOrder": [
+        "brassbolt"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 1
+    },
+    "hitSpeedTicks": 60,
+    "hitpoints": 720,
+    "id": "brassbolt",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 1000,
+    "rangeMillitiles": 6000,
+    "rarity": "uncommon",
+    "sightRangeMillitiles": 6000,
+    "targetMode": "ground-and-air"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 3,
+    "count": 1,
+    "damage": 131,
+    "deployTimeTicks": 60,
+    "displayName": "Reedsting",
+    "entities": [
+      {
+        "archetypeId": "reedsting",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "reedsting.body-radius-millitiles"
+        },
+        "count": 1,
+        "damage": 131,
+        "delivery": "projectile",
+        "deployTimeTicks": 60,
+        "displayName": "Reedsting",
+        "firstHitTicks": 21,
+        "hitSpeedTicks": 42,
+        "hitpoints": 260,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 2000,
+        "projectileSpeedPolicy": {
+          "kind": "question",
+          "questionKey": "reedsting.projectile-speed-millitiles-per-tick"
+        },
+        "rangeMillitiles": 6500,
+        "role": "primary",
+        "sightRangeMillitiles": 7500,
+        "targetMode": "ground-and-air"
+      }
+    ],
+    "firstHitTicks": 21,
+    "formation": {
+      "componentOrder": [
+        "reedsting"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 1
+    },
+    "hitSpeedTicks": 42,
+    "hitpoints": 260,
+    "id": "reedsting",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 2000,
+    "rangeMillitiles": 6500,
+    "rarity": "uncommon",
+    "sightRangeMillitiles": 7500,
+    "targetMode": "ground-and-air"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 3,
+    "count": 6,
+    "damage": 120,
+    "deployTimeTicks": 60,
+    "displayName": "Briar Band",
+    "entities": [
+      {
+        "archetypeId": "briar-runner",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "briar-runner.body-radius-millitiles"
+        },
+        "count": 3,
+        "damage": 120,
+        "delivery": "melee",
+        "deployTimeTicks": 60,
+        "displayName": "Briar Runner",
+        "firstHitTicks": 42,
+        "hitSpeedTicks": 66,
+        "hitpoints": 202,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 2000,
+        "projectileSpeedPolicy": {
+          "kind": "not-applicable",
+          "questionKey": null
+        },
+        "rangeMillitiles": 500,
+        "role": "primary",
+        "sightRangeMillitiles": 5500,
+        "targetMode": "ground"
+      },
+      {
+        "archetypeId": "briar-darter",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "briar-darter.body-radius-millitiles"
+        },
+        "count": 3,
+        "damage": 81,
+        "delivery": "projectile",
+        "deployTimeTicks": 60,
+        "displayName": "Briar Darter",
+        "firstHitTicks": 72,
+        "hitSpeedTicks": 102,
+        "hitpoints": 133,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 2000,
+        "projectileSpeedPolicy": {
+          "kind": "question",
+          "questionKey": "briar-darter.projectile-speed-millitiles-per-tick"
+        },
+        "rangeMillitiles": 5000,
+        "role": "secondary",
+        "sightRangeMillitiles": 5500,
+        "targetMode": "ground-and-air"
+      }
+    ],
+    "firstHitTicks": 42,
+    "formation": {
+      "componentOrder": [
+        "briar-runner",
+        "briar-darter"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 6
+    },
+    "hitSpeedTicks": 66,
+    "hitpoints": 202,
+    "id": "briar-band",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 2000,
+    "rangeMillitiles": 500,
+    "rarity": "standard",
+    "sightRangeMillitiles": 5500,
+    "targetMode": "ground"
+  },
+  {
+    "areaDamageRadiusMillitiles": null,
+    "cost": 1,
+    "count": 3,
+    "damage": 81,
+    "deployTimeTicks": 60,
+    "displayName": "Cinderlings",
+    "entities": [
+      {
+        "archetypeId": "cinderling",
+        "areaDamageRadiusMillitiles": null,
+        "bodyRadiusPolicy": {
+          "kind": "question",
+          "questionKey": "cinderling.body-radius-millitiles"
+        },
+        "count": 3,
+        "damage": 81,
+        "delivery": "melee",
+        "deployTimeTicks": 60,
+        "displayName": "Cinderling",
+        "firstHitTicks": 30,
+        "hitSpeedTicks": 60,
+        "hitpoints": 81,
+        "kind": "unit",
+        "layer": "ground",
+        "movementMillitilesPerSecond": 1500,
+        "projectileSpeedPolicy": {
+          "kind": "not-applicable",
+          "questionKey": null
+        },
+        "rangeMillitiles": 500,
+        "role": "primary",
+        "sightRangeMillitiles": 5500,
+        "targetMode": "ground"
+      }
+    ],
+    "firstHitTicks": 30,
+    "formation": {
+      "componentOrder": [
+        "cinderling"
+      ],
+      "expansionOrder": "component-order-then-member-index",
+      "totalCount": 3
+    },
+    "hitSpeedTicks": 60,
+    "hitpoints": 81,
+    "id": "cinderlings",
+    "kind": "unit",
+    "movementMillitilesPerSecond": 1500,
+    "rangeMillitiles": 500,
+    "rarity": "standard",
+    "sightRangeMillitiles": 5500,
+    "targetMode": "ground"
+  }
+]

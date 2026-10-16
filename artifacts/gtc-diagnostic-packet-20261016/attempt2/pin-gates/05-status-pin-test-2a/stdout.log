@@ -1,0 +1,86 @@
+
+> original-card-battler@0.0.0 test:game-roster-troops-status
+> node tests/game-roster-troops-status-runner.js game-roster-troops-status
+
+TAP version 13
+# Subtest: game roster troop status: the exact eight identities and sourced executable facts are admitted
+ok 1 - game roster troop status: the exact eight identities and sourced executable facts are admitted
+  ---
+  duration_ms: 22.848667
+  type: 'test'
+  ...
+# Subtest: game roster troop status: setup receipt mutations reject atomically before a session is exposed
+ok 2 - game roster troop status: setup receipt mutations reject atomically before a session is exposed
+  ---
+  duration_ms: 47.058583
+  type: 'test'
+  ...
+# Subtest: game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+ok 3 - game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+  ---
+  duration_ms: 2193.006792
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender applies its shared heal boundary
+ok 4 - game roster troop status: dawnmender applies its shared heal boundary
+  ---
+  duration_ms: 199.5625
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry applies its shared stun boundary
+ok 5 - game roster troop status: pulse-sentry applies its shared stun boundary
+  ---
+  duration_ms: 199.210291
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept applies its shared slow boundary
+ok 6 - game roster troop status: rime-adept applies its shared slow boundary
+  ---
+  duration_ms: 203.614
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider applies its shared snare boundary
+ok 7 - game roster troop status: tether-rider applies its shared snare boundary
+  ---
+  duration_ms: 204.631417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: veil-prowler applies its shared hide boundary
+ok 8 - game roster troop status: veil-prowler applies its shared hide boundary
+  ---
+  duration_ms: 229.597583
+  type: 'test'
+  ...
+# Subtest: game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+ok 9 - game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+  ---
+  duration_ms: 86.98475
+  type: 'test'
+  ...
+# Subtest: game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+ok 10 - game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 50.709833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: railward rejects its visible QUESTION with zero mutation
+ok 11 - game roster troop status: railward rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 50.547
+  type: 'test'
+  ...
+# Subtest: game roster troop status: deterministic session continuation hashes stay stable
+ok 12 - game roster troop status: deterministic session continuation hashes stay stable
+  ---
+  duration_ms: 599.903458
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4230.343917

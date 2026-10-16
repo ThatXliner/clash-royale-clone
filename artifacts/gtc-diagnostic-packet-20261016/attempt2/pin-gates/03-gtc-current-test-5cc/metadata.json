@@ -1,0 +1,117 @@
+{
+  "gate": "gtc-current-test-5cc",
+  "kind": "npm",
+  "source_worktree": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc",
+  "expected_commit": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+  "source_fence_before": {
+    "head": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "tree": "d0fac5a0abb5690c12d83ca9118b9d72d81974e2",
+    "status_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/source-status-before.porcelain0",
+    "status_bytes": 0,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unstaged_diff_bytes": 0,
+    "unstaged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_diff_bytes": 0,
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "command_display": "npm run test:game-troop-runtime",
+  "argv": [
+    "/Users/me/.hermes/node/bin/npm",
+    "run",
+    "test:game-troop-runtime"
+  ],
+  "cwd": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc",
+  "package_script_name": "test:game-troop-runtime",
+  "package_script_value": "node tests/game-troop-runtime-runner.js game-troop-runtime",
+  "package_json_sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+  "environment_allowlist": {
+    "PATH": "/Users/me/.hermes/node/bin:/Users/me/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/usr/local/MacGPG2/bin:/opt/homebrew/bin:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/me/.codex/tmp/arg0/codex-arg0WccBGj:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/me/.darkbloom/bin:/Users/me/bin:/Users/me/.local/bin:/Users/me/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/me/.cargo/bin:/Users/me/Applications/darktable.app/Contents/MacOS:/Users/me/.bun/bin:/Users/me/Library/Android/sdk/platform-tools:/Users/me/Library/Android/sdk/emulator:/Users/me/Library/Android/sdk/cmdline-tools/latest/bin:/opt/homebrew/sbin:/Users/me/.orbstack/bin:/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/me/Applications/ChatGPT.app/Contents/Resources:/Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/Users/me/.orbstack/bin",
+    "CI": null,
+    "NODE_ENV": null,
+    "TZ": null,
+    "NODE_OPTIONS": null,
+    "FORCE_COLOR": null,
+    "NO_COLOR": "1",
+    "TERM": "dumb"
+  },
+  "node_bin": "/Users/me/.hermes/node/bin",
+  "runtime_versions": {
+    "node": "v22.22.3",
+    "npm": "10.9.8"
+  },
+  "executed_source_copies": [
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/package.json",
+      "relative_path": "package.json",
+      "present": true,
+      "copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+      "copy_sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/tests/game-troop-runtime-runner.js",
+      "relative_path": "tests/game-troop-runtime-runner.js",
+      "present": true,
+      "copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/tests/game-troop-runtime-runner.js",
+      "bytes": 412,
+      "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813",
+      "copy_sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/tests/game-troop-runtime.test.js",
+      "relative_path": "tests/game-troop-runtime.test.js",
+      "present": true,
+      "copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/tests/game-troop-runtime.test.js",
+      "bytes": 26242,
+      "sha256": "b0fe89da3e6f848595020fd319ad937d2167de504c36b163d3c925fa4c9c1925",
+      "copy_sha256": "b0fe89da3e6f848595020fd319ad937d2167de504c36b163d3c925fa4c9c1925"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/src/content/playable-roster.js",
+      "relative_path": "src/content/playable-roster.js",
+      "present": true,
+      "copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/src/content/playable-roster.js",
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052",
+      "copy_sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/src/sim/live-battle.js",
+      "relative_path": "src/sim/live-battle.js",
+      "present": true,
+      "copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/src/sim/live-battle.js",
+      "bytes": 1298,
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a",
+      "copy_sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+    },
+    {
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/current-5cc/src/shared/session-troop-source-confidence-authority.js",
+      "relative_path": "src/shared/session-troop-source-confidence-authority.js",
+      "present": true,
+      "copy": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd",
+      "copy_sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    }
+  ],
+  "stdout_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/stdout.log",
+  "stderr_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/stderr.log",
+  "metadata_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/metadata.json",
+  "started_at_utc": "2026-10-16T01:36:14.398370+00:00",
+  "direct_pid": 28385,
+  "popen_returned_at_utc": "2026-10-16T01:36:14.400375+00:00",
+  "direct_exit_code": 1,
+  "finished_at_utc": "2026-10-16T01:36:17.362881+00:00",
+  "source_fence_after": {
+    "head": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "tree": "d0fac5a0abb5690c12d83ca9118b9d72d81974e2",
+    "status_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/source-status-after.porcelain0",
+    "status_bytes": 0,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unstaged_diff_bytes": 0,
+    "unstaged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_diff_bytes": 0,
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

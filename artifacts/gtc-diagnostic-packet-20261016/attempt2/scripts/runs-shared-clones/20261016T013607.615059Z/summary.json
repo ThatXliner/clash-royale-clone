@@ -1,0 +1,135 @@
+{
+  "source_repo": "/Users/me/.codex/worktrees/9456/clash-royale-clone",
+  "coordination_head_at_launch": "090d685a4fa07aa07c17618b1e18d00ecb63ff51",
+  "pinned_source_identity_evidence": {
+    "execution_source_pin": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+    "coordination_head": "090d685a4fa07aa07c17618b1e18d00ecb63ff51",
+    "shared_source_scope_objects": {
+      "src": {
+        "execution_pin": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+        "coordination_head": "01d869b32c563dac270acd4fddc7fa4d0ec207de",
+        "equal": true
+      },
+      "scripts": {
+        "execution_pin": "29dacc49987adddd1dce36ab07995b11154cbbdb",
+        "coordination_head": "29dacc49987adddd1dce36ab07995b11154cbbdb",
+        "equal": true
+      },
+      "package.json": {
+        "execution_pin": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "coordination_head": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "equal": true
+      },
+      "package-lock.json": {
+        "execution_pin": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "coordination_head": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "equal": true
+      },
+      "demo/assets": {
+        "execution_pin": "5ba23821a18a8a0b15404cafb74b9700e486fd06",
+        "coordination_head": "5ba23821a18a8a0b15404cafb74b9700e486fd06",
+        "equal": true
+      },
+      "public/assets": {
+        "execution_pin": "131caf66aded9d94ae4d85ea7240ed291897f2df",
+        "coordination_head": "131caf66aded9d94ae4d85ea7240ed291897f2df",
+        "equal": true
+      },
+      "reference": {
+        "execution_pin": "84735c4eebf8e59e97ecc510a682718495c6125e",
+        "coordination_head": "84735c4eebf8e59e97ecc510a682718495c6125e",
+        "equal": true
+      }
+    },
+    "targeted_test_runner_blobs": {
+      "tests/game-troop-runtime.test.js": {
+        "execution_pin": "5c5dc7738fb2281833ff46991c3f36508658287f",
+        "coordination_head": "5c5dc7738fb2281833ff46991c3f36508658287f",
+        "equal": true
+      },
+      "tests/game-troop-runtime-runner.js": {
+        "execution_pin": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "coordination_head": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "equal": true
+      },
+      "tests/game-roster-troops-status.test.js": {
+        "execution_pin": "5bb150fef8d0bc5369532ec1a47f0b44494aba46",
+        "coordination_head": "5bb150fef8d0bc5369532ec1a47f0b44494aba46",
+        "equal": true
+      },
+      "tests/game-roster-troops-status-runner.js": {
+        "execution_pin": "d555b2fe632a471a649ddf33d9cc359dc4813329",
+        "coordination_head": "d555b2fe632a471a649ddf33d9cc359dc4813329",
+        "equal": true
+      }
+    },
+    "tests_tree_diff_paths_execution_pin_to_coordination_head": [
+      "tests/game-roster-troops-movement.test.js"
+    ]
+  },
+  "source_identity_preflight_file": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/source-identity-preflight.json",
+  "commits": {
+    "gtc-vintage-c9": "c9c818f7ac281b0e71890a2be17ce757f688b4c5",
+    "gtc-pin-a8": "a8f432985a758144af6c29ff7e29174b05f8e6ee",
+    "status-pin-2a": "2a5bd7a44ad3773de59e8e6dd8baaebf0ec09764",
+    "current-5cc": "5cc4d3e424661cf638c5dbea288836ef4419fcf0"
+  },
+  "node_bin": "/Users/me/.hermes/node/bin",
+  "versions": {
+    "node": "v22.22.3",
+    "npm": "10.9.8"
+  },
+  "serial_order": [
+    "gtc-pin-test-a8",
+    "gtc-empty-probe-c9",
+    "gtc-current-test-5cc",
+    "gtc-empty-probe-current-5cc",
+    "status-pin-test-2a",
+    "status-current-test-5cc"
+  ],
+  "results": [
+    {
+      "gate": "gtc-pin-test-a8",
+      "pid": 28334,
+      "exit": 1,
+      "source_clean_after": true,
+      "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8"
+    },
+    {
+      "gate": "gtc-empty-probe-c9",
+      "pid": 28371,
+      "exit": 0,
+      "source_clean_after": true,
+      "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9"
+    },
+    {
+      "gate": "gtc-current-test-5cc",
+      "pid": 28385,
+      "exit": 1,
+      "source_clean_after": true,
+      "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc"
+    },
+    {
+      "gate": "gtc-empty-probe-current-5cc",
+      "pid": 28425,
+      "exit": 0,
+      "source_clean_after": true,
+      "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc"
+    },
+    {
+      "gate": "status-pin-test-2a",
+      "pid": 28439,
+      "exit": 0,
+      "source_clean_after": true,
+      "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a"
+    },
+    {
+      "gate": "status-current-test-5cc",
+      "pid": 28479,
+      "exit": 1,
+      "source_clean_after": true,
+      "evidence_directory": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc"
+    }
+  ],
+  "all_gates_executed": true
+}

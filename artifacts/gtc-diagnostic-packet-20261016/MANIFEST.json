@@ -1,0 +1,1372 @@
+{
+  "packet": "GTC diagnostic evidence packet",
+  "packet_created_file_only": true,
+  "runtime_executed_during_collection": false,
+  "source_pin": "5cc4d3e424661cf638c5dbea288836ef4419fcf0",
+  "coordination_identity": "090d685a4fa07aa07c17618b1e18d00ecb63ff51 (targeted functional identity only)",
+  "excluded": [
+    "full clones/worktrees",
+    ".git",
+    "dependencies",
+    "caches",
+    "build output"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "source_path": "generated in packet",
+      "bytes": 7215,
+      "sha256": "d9ec8f706a558691ce59f2837494f672a263530c5b219ea43d93c08247c5a6b2"
+    },
+    {
+      "path": "attempt1-sparse-preflight/exact-recorder-inputs/README.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/exact-recorder-inputs/README.txt",
+      "bytes": 6858,
+      "sha256": "ad07a2a19d8169f2d69289ba8889b85309f53bb4b01a27a35c625b25dbaf7a0e"
+    },
+    {
+      "path": "attempt1-sparse-preflight/exact-recorder-inputs/preserved-input-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/exact-recorder-inputs/preserved-input-manifest.json",
+      "bytes": 3308,
+      "sha256": "2787322bb54abeb0164d3c6b804d12875658cd52b367f852a37e7d306d632ab8"
+    },
+    {
+      "path": "attempt1-sparse-preflight/exact-recorder-inputs/record_pins.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/exact-recorder-inputs/record_pins.py",
+      "bytes": 18712,
+      "sha256": "8b620e239e32ba789b9d7a7e77adda2c325968414a7f358f8ac7f3f2c30e9de2"
+    },
+    {
+      "path": "attempt1-sparse-preflight/failed-c9-index-skipflags.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/failed-c9-index-skipflags.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt1-sparse-preflight/failed-c9-sparse-config.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/failed-c9-sparse-config.txt",
+      "bytes": 200,
+      "sha256": "b77951b506e5d9f4e64b56a15e2795ca323870dd10318d9906da26a09c2a8c6a"
+    },
+    {
+      "path": "attempt1-sparse-preflight/failed-c9-sparse-list.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/failed-c9-sparse-list.txt",
+      "bytes": 10,
+      "sha256": "296df1824cfd34b3137269b380abd6f11169085911210d3ce6acead9d8857faf"
+    },
+    {
+      "path": "attempt1-sparse-preflight/failed-c9-status.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/failed-c9-status.porcelain0",
+      "bytes": 18284,
+      "sha256": "e435e1c3043ef9e5734f07e837b0e6a43c8e4d0756efa7bcb20019e340830054"
+    },
+    {
+      "path": "attempt1-sparse-preflight/git-worktree-setup.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/git-worktree-setup.log",
+      "bytes": 44,
+      "sha256": "56caef75a71139813cf52d60519fc2fe513810062a3a6ac50d203dfc40d031a3"
+    },
+    {
+      "path": "attempt1-sparse-preflight/source-identity-preflight.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/source-identity-preflight.json",
+      "bytes": 2682,
+      "sha256": "d2def4a781ff1e2a1106dff90dda3bc4dcc3d78f275ef3641f0e47f08ce27a49"
+    },
+    {
+      "path": "attempt1-sparse-preflight/worktree-cleanup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/runs/20261016T013319.261110Z/worktree-cleanup.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/executed-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/executed-source/package.json",
+      "bytes": 9851,
+      "sha256": "48d708dd2e3432a2f5a34468234499d5590c1d8d454082ffd87afcda803842b1"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/executed-source/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/executed-source/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/executed-source/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/executed-source/src/sim/live-battle.js",
+      "bytes": 322,
+      "sha256": "1b067b4b3a7212adffecb1d41ad97a0a832c4bff0a06705606950c6eb07ae5cb"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/executed-source/tests/game-troop-runtime-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/executed-source/tests/game-troop-runtime-runner.js",
+      "bytes": 412,
+      "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/executed-source/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/executed-source/tests/game-troop-runtime.test.js",
+      "bytes": 30823,
+      "sha256": "11fa5b5eafebbf04a366c12c7cc3046713a06cd24a92663bf072b8d844008786"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/metadata.json",
+      "bytes": 8768,
+      "sha256": "e18652e9d090764209728ab7fb1ae4031d543e52889eceb187af69b177527aaa"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/01-gtc-pin-test-a8/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/01-gtc-pin-test-a8/stdout.log",
+      "bytes": 10360,
+      "sha256": "1dd0b925e123c158c27b5d11e299c7b4c736a8632a0b06f5e28a7552dba0dd3f"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/executed-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/executed-source/package.json",
+      "bytes": 9749,
+      "sha256": "1570bdf2ad1405c1f3c32e73cbc600460d01344cf3d494575d2106ee99b1cbfa"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/executed-source/probe-empty-live-battle.mjs",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/executed-source/probe-empty-live-battle.mjs",
+      "bytes": 2800,
+      "sha256": "3637b3d344a70d1d95cb82d49bc4d4d88a2eeb57a08431e8c8c1b6602a0d5f8b"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/executed-source/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/executed-source/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/executed-source/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/executed-source/src/sim/live-battle.js",
+      "bytes": 59837,
+      "sha256": "90ebbd9bac4603849b63c6fc5b8c9a2c6b0fda3398ea98888e2f2e7b8192d070"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/executed-source/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/executed-source/tests/game-troop-runtime.test.js",
+      "bytes": 17396,
+      "sha256": "21bd268162d720fe3521089124ad63bbea963e46c57238b63148bb97e8029dd5"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/fixture-view/questions.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/questions.json",
+      "bytes": 3087,
+      "sha256": "ac39f1df007d87274519d0125ba5ffc01ba84e52f3a9d4656ceeb5f57727685a"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/fixture-view/roster.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/roster.json",
+      "bytes": 12333,
+      "sha256": "3b8694fa2ae450c83cdcf2bb12a28d13f63727e70ce0074b22a4174f24747ac6"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/fixture-view/setup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/setup.json",
+      "bytes": 16647,
+      "sha256": "2952f740d9a1478d7d68159b2fed47e844eb0b0b0fd53abbe47c45c1cc687998"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/fixture-view/snapshot.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/snapshot.json",
+      "bytes": 18249,
+      "sha256": "b36192bd597f4f0c1c4a1f03ce1ef573a953fd129fce19f61bcbe0086c0ef994"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/fixture-view/snapshot.raw",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/fixture-view/snapshot.raw",
+      "bytes": 11618,
+      "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/metadata.json",
+      "bytes": 9444,
+      "sha256": "3c0db5998900296413813dab5a07010ec35ad2e48bdfbafd495ba57d9a93b624"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/02-gtc-empty-probe-c9/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/02-gtc-empty-probe-c9/stdout.log",
+      "bytes": 1137,
+      "sha256": "1351ac9429ca07c25268628529a597275133d9626dbfdecb68495ed24dc4acef"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/executed-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/executed-source/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/src/content/playable-roster.js",
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/executed-source/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/src/sim/live-battle.js",
+      "bytes": 1298,
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/executed-source/tests/game-troop-runtime-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/tests/game-troop-runtime-runner.js",
+      "bytes": 412,
+      "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/executed-source/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/executed-source/tests/game-troop-runtime.test.js",
+      "bytes": 26242,
+      "sha256": "b0fe89da3e6f848595020fd319ad937d2167de504c36b163d3c925fa4c9c1925"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/metadata.json",
+      "bytes": 9277,
+      "sha256": "3767db1eab33de798f39dac6e490f54281bd80655f68fff26a829307106b25ca"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/03-gtc-current-test-5cc/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/03-gtc-current-test-5cc/stdout.log",
+      "bytes": 3337,
+      "sha256": "7c041a93c1dfbc1b3ea65f1423cc2b40977770931ead4c459f37d0e26b4e9b3f"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/executed-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/executed-source/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/executed-source/probe-empty-live-battle.mjs",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/executed-source/probe-empty-live-battle.mjs",
+      "bytes": 2800,
+      "sha256": "3637b3d344a70d1d95cb82d49bc4d4d88a2eeb57a08431e8c8c1b6602a0d5f8b"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/executed-source/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/executed-source/src/content/playable-roster.js",
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/executed-source/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/executed-source/src/sim/live-battle.js",
+      "bytes": 1298,
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/executed-source/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/executed-source/tests/game-troop-runtime.test.js",
+      "bytes": 26242,
+      "sha256": "b0fe89da3e6f848595020fd319ad937d2167de504c36b163d3c925fa4c9c1925"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/fixture-view/questions.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/fixture-view/questions.json",
+      "bytes": 7630,
+      "sha256": "2f6a84a365783ffef0343442e568b392d8cced44e9d7cd19be228d8d55a62025"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/fixture-view/roster.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/fixture-view/roster.json",
+      "bytes": 16437,
+      "sha256": "204df707e6e608760a0a86869378a29e4d3aeb9b30cf75345b4dd3fef9d69ed2"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/fixture-view/setup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/fixture-view/setup.json",
+      "bytes": 25850,
+      "sha256": "244824440983790d84f09e3cae1373aa392712e9ed64afd528b328ed665f6b52"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/fixture-view/snapshot.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/fixture-view/snapshot.json",
+      "bytes": 28008,
+      "sha256": "01382e9360ae87890ebe74a0806a8a97485812edd831cbefa9673d099c9a521e"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/fixture-view/snapshot.raw",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/fixture-view/snapshot.raw",
+      "bytes": 17731,
+      "sha256": "cb92fe16188370ae2bdfa260f574d220dcc02e1cdf4aa847c861e0fca5d20d54"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/metadata.json",
+      "bytes": 9997,
+      "sha256": "df7cbbc3f2def2011bd402ccbc651a241a4a32645196ccffe4b873ea7ac00fdf"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/04-gtc-empty-probe-current-5cc/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/04-gtc-empty-probe-current-5cc/stdout.log",
+      "bytes": 1947,
+      "sha256": "5a265bb2afb06557da11166d8ef0f65974c5afb0c44af127447e0f4e9fb01bd2"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/package.json",
+      "bytes": 11195,
+      "sha256": "f65b03d4bf1a1e7653ad8d9ec9134393dc1e89f874176adc4d2f66bfb88f0e31"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/src/content/session-troop-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/src/content/session-troop-roster.js",
+      "bytes": 16542,
+      "sha256": "56479fc70c88dab22689b8767c330fe04ea48ec37b816b6ac4052212dfd79fdd"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/src/sim/game-session.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/src/sim/game-session.js",
+      "bytes": 424,
+      "sha256": "9f6369e58b1b057cdbc6b478db5f040cc1e072bd741f8c065cf71bd4e508e83f"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/src/sim/session-troop-status-runtime.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/src/sim/session-troop-status-runtime.js",
+      "bytes": 19195,
+      "sha256": "97f57c8ac988470e6cb6a762ea58cd36f04268a078e0d6290b28dfb298a7c27b"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/tests/game-roster-troops-status-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/tests/game-roster-troops-status-runner.js",
+      "bytes": 537,
+      "sha256": "835e24d55530729a58b00ed719da7c69408f1f71874f3f156591577bf597f34c"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/tests/game-roster-troops-status.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/executed-source/tests/game-roster-troops-status.test.js",
+      "bytes": 16015,
+      "sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/metadata.json",
+      "bytes": 10438,
+      "sha256": "73bc4443e32c395d55adcb1c2b0ae97ed362a5d2dc711dcce977d3a4d7cb4ad5"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/05-status-pin-test-2a/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/05-status-pin-test-2a/stdout.log",
+      "bytes": 3083,
+      "sha256": "8f1ce55e88362904a19cbb72c0c192fbbabf34030a0ab1b4903cb815d3f57fca"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/src/content/playable-roster.js",
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/src/content/session-troop-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/src/content/session-troop-roster.js",
+      "bytes": 22716,
+      "sha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/src/sim/game-session.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/src/sim/game-session.js",
+      "bytes": 1357,
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/src/sim/session-troop-status-runtime.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/src/sim/session-troop-status-runtime.js",
+      "bytes": 36964,
+      "sha256": "175880a08bad4ea5e3c8a3b096ef06352836938f3f89a657a73fc2b6c24dc4e9"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/tests/game-roster-troops-status-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/tests/game-roster-troops-status-runner.js",
+      "bytes": 537,
+      "sha256": "835e24d55530729a58b00ed719da7c69408f1f71874f3f156591577bf597f34c"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/executed-source/tests/game-roster-troops-status.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/executed-source/tests/game-roster-troops-status.test.js",
+      "bytes": 40347,
+      "sha256": "8343065c3e27db6e0d05917913e93a8ee5ca10d6b133bd968ec0403fe45af51f"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/metadata.json",
+      "bytes": 10931,
+      "sha256": "486a32b5fa5ded09356160fb3843d5ffcb2e6bfcabca27260f3c32aaef993db6"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/pin-gates/06-status-current-test-5cc/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs/20261016T013607.615059Z/06-status-current-test-5cc/stdout.log",
+      "bytes": 13515,
+      "sha256": "c4c0018cfab4939d00af31a64f93d7eaa8b2b5f2559033050e1536efb19f01a4"
+    },
+    {
+      "path": "attempt2/scripts/README.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/README.txt",
+      "bytes": 6858,
+      "sha256": "ad07a2a19d8169f2d69289ba8889b85309f53bb4b01a27a35c625b25dbaf7a0e"
+    },
+    {
+      "path": "attempt2/scripts/compare_fixture_views.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/compare_fixture_views.py",
+      "bytes": 18507,
+      "sha256": "d0143cb4cbfc0f93a9ec14d810d45ffe0990d7d8706aeb916a97741b012e3cb5"
+    },
+    {
+      "path": "attempt2/scripts/instrument_status_test.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/instrument_status_test.py",
+      "bytes": 6713,
+      "sha256": "a7f751b63366bbdddd46aa06461efd33b9e82a4f9585abb4e62532ccd774166c"
+    },
+    {
+      "path": "attempt2/scripts/probe-empty-live-battle.mjs",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/probe-empty-live-battle.mjs",
+      "bytes": 2800,
+      "sha256": "3637b3d344a70d1d95cb82d49bc4d4d88a2eeb57a08431e8c8c1b6602a0d5f8b"
+    },
+    {
+      "path": "attempt2/scripts/record_pins.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/record_pins.py",
+      "bytes": 18465,
+      "sha256": "26165e370170683264eb2c444758a61d9658663074e3239d187be93b3db31979"
+    },
+    {
+      "path": "attempt2/scripts/record_status_views.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/record_status_views.py",
+      "bytes": 17802,
+      "sha256": "008ce63e9b61b1956ba65ba780bfed99621adf8e2422e67a10abe48f1a6bbde5"
+    },
+    {
+      "path": "attempt2/scripts/runs-shared-clones/20261016T013607.615059Z/clone-cleanup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/clone-cleanup.json",
+      "bytes": 1203,
+      "sha256": "ac9418cfcec878c096224482f59bd8769ce572c429370f3386eae2257c12f6a3"
+    },
+    {
+      "path": "attempt2/scripts/runs-shared-clones/20261016T013607.615059Z/git-shared-clone-setup.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/git-shared-clone-setup.log",
+      "bytes": 1105,
+      "sha256": "1fc4b66a0e4909718f7d24f50ca107e4abd656564660541c04c180039a6dcdd0"
+    },
+    {
+      "path": "attempt2/scripts/runs-shared-clones/20261016T013607.615059Z/source-identity-preflight.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/source-identity-preflight.json",
+      "bytes": 2682,
+      "sha256": "e13928b4470e00c03a755d52c28b07969faae44566e5fc0d80bc2be58db6597b"
+    },
+    {
+      "path": "attempt2/scripts/runs-shared-clones/20261016T013607.615059Z/summary.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/summary.json",
+      "bytes": 5523,
+      "sha256": "9b525ba9036deb3e1e472498c4d0bb17c24b4b05488c7f68cf9a70c36ef20153"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/clone-cleanup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/clone-cleanup.json",
+      "bytes": 627,
+      "sha256": "0a77243154baf4b8ea8450ab83e952b97d21db5ec7357bf1927411c262813b79"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison/empty-fixture-comparison.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison/empty-fixture-comparison.json",
+      "bytes": 60240,
+      "sha256": "3f3d4498a9fca2254facbf7184702095db0f4c2a79b2dbb257460b10ec4926cd"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison/fixture-comparison-summary.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison/fixture-comparison-summary.json",
+      "bytes": 590253,
+      "sha256": "51fd8f695e36ceb52d8d992175c9d41f073c5bfa3dbde3d698fdb6376dd3d836"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison/status-fixture-comparison.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison/status-fixture-comparison.json",
+      "bytes": 498399,
+      "sha256": "5447d6714e2364811ebba7e4c1bc2ef0b3e19fab61c1434fa2eb730b5e2745d5"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison.stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison.stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/comparison.stdout.log",
+      "bytes": 206,
+      "sha256": "75f21a28ace834e892b335e21413810c2bd18dd704c7f28fe2a081190f456fd2"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/diagnostic-tool-source/compare_fixture_views.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/diagnostic-tool-source/compare_fixture_views.py",
+      "bytes": 18507,
+      "sha256": "d0143cb4cbfc0f93a9ec14d810d45ffe0990d7d8706aeb916a97741b012e3cb5"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/diagnostic-tool-source/instrument_status_test.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/diagnostic-tool-source/instrument_status_test.py",
+      "bytes": 6713,
+      "sha256": "a7f751b63366bbdddd46aa06461efd33b9e82a4f9585abb4e62532ccd774166c"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/diagnostic-tool-source/record_status_views.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/diagnostic-tool-source/record_status_views.py",
+      "bytes": 17802,
+      "sha256": "008ce63e9b61b1956ba65ba780bfed99621adf8e2422e67a10abe48f1a6bbde5"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/git-shared-clone-setup.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/git-shared-clone-setup.log",
+      "bytes": 584,
+      "sha256": "aaa3c11501399635ab028704b3e7dd1c0ad21349b52d496d5b54c53f496e6c12"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/source-identity-preflight.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/source-identity-preflight.json",
+      "bytes": 2682,
+      "sha256": "a5716725e8e9698e46f4e71e3aea8dfbdcaf8f808986a380f0346933856a0974"
+    },
+    {
+      "path": "attempt2/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/summary.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/summary.json",
+      "bytes": 7651,
+      "sha256": "17eb3b061b069d584420d2999043dddc6061847ff16eeb520eabf29f2264b11e"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/capture-only-instrumentation.patch",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/capture-only-instrumentation.patch",
+      "bytes": 1832,
+      "sha256": "7487772a37daa5b59579faba436c1a35e88ff44b10b0c019e9c62b190b2ab3f3"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/diagnostic-copy/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/diagnostic-copy/package.json",
+      "bytes": 11195,
+      "sha256": "f65b03d4bf1a1e7653ad8d9ec9134393dc1e89f874176adc4d2f66bfb88f0e31"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/diagnostic-copy/tests/game-roster-troops-status.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/diagnostic-copy/tests/game-roster-troops-status.test.js",
+      "bytes": 16683,
+      "sha256": "4ef919d2e4f20bf53b7d572e16ddb86585b4ccad87d859852b401c9c280a38d2"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/instrumentation.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/instrumentation.json",
+      "bytes": 68612,
+      "sha256": "6b69db9cc314a4839ec18101c5b4e82bcae99ea3057907af7df93f6c39333a53"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/instrumenter.stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/instrumenter.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/instrumenter.stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/instrumenter.stdout.log",
+      "bytes": 201,
+      "sha256": "8c5551d2f89990e935419d5758d07e4fc5bbccef46a679bc829e9c1dec076ce0"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/metadata.json",
+      "bytes": 7187,
+      "sha256": "b66ff2308f78998e6626f05143a90cfb88c232731ab5ddb722792fb829f59213"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/stdout.log",
+      "bytes": 350,
+      "sha256": "597a93048ecab1223ff71b2227a197b349fae6edd8cc752e67019ddee0797ef0"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/views/bloom-wisp.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/bloom-wisp.json",
+      "bytes": 1018258,
+      "sha256": "fba122f18655b7391e5a1d976767bdbbe2e9c09ecc23c5f6d6a1b96b7021e6e7"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/views/dawnmender.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/dawnmender.json",
+      "bytes": 1018945,
+      "sha256": "b58c74a37eac4f27fcd9a78c6525b44c12654f64c2aa166838d1beabb7b0407e"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/views/pulse-sentry.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/pulse-sentry.json",
+      "bytes": 1018129,
+      "sha256": "e057ae8bbecaec56fabd514248db733f8cc55405d2fe992ec7069fde33cea6a0"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/views/rime-adept.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/rime-adept.json",
+      "bytes": 1019118,
+      "sha256": "557ceb82e072840bd80a0918acf8929afc69899ca34c708cc5b9ca5c69d5e09c"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/views/tether-rider.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/tether-rider.json",
+      "bytes": 1019243,
+      "sha256": "db77230afad65e95bf756d7bb2291df44157dcb049e02af73dca1f4ac42df6ee"
+    },
+    {
+      "path": "attempt2/status-capture-runs/01-status-pin-2a/views/veil-prowler.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/01-status-pin-2a/views/veil-prowler.json",
+      "bytes": 1028957,
+      "sha256": "d6a388e9d6d9ee4c6d7fc56a67dde7f7ef04e44f99dfaaa6e5a9b764c6f29725"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/capture-only-instrumentation.patch",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/capture-only-instrumentation.patch",
+      "bytes": 1832,
+      "sha256": "99927a1d5506cde4888a36ce01641c6c64821e2606d634059fe1b3059a1fe801"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/diagnostic-copy/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/diagnostic-copy/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/diagnostic-copy/tests/game-roster-troops-status.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/diagnostic-copy/tests/game-roster-troops-status.test.js",
+      "bytes": 41015,
+      "sha256": "3213dd80abb281cb7c7c83e08fe283c8232b4aa4e4dfc9487acac891110526b9"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/instrumentation.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/instrumentation.json",
+      "bytes": 80153,
+      "sha256": "151d878d16ddf752c171c2fec06b8047ab514b5b8cb32f95135e95fef2b92892"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/instrumenter.stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/instrumenter.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/instrumenter.stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/instrumenter.stdout.log",
+      "bytes": 199,
+      "sha256": "00f335b6ae92aa6712e9411620f489060ea25805ae2b9dd83ef9cb8096a99ade"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/metadata.json",
+      "bytes": 7159,
+      "sha256": "001edb13098423fcf6ec7aa391703240c9cc86a6e3ec68d4ee85b510ff359c0a"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/stdout.log",
+      "bytes": 5574,
+      "sha256": "8880547910d5c5ebc5aafe7d24af78a839820db5d359b9a6440e114d00c55aa4"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/views/bloom-wisp.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/views/bloom-wisp.json",
+      "bytes": 1072202,
+      "sha256": "b317a1130dbbbc2cd1ec816a0c2ecc2835b9ef613172247f56469aee79e416e6"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/views/dawnmender.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/views/dawnmender.json",
+      "bytes": 1073207,
+      "sha256": "18b193c042c6ccd1557b109559bf5e96a557611662bdd6c32b7c2f0e7e60c2d4"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/views/pulse-sentry.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/views/pulse-sentry.json",
+      "bytes": 1072073,
+      "sha256": "6badbbde0f3d1bc6bac9a07cdd460509714b5ca1ca3798d0ee6b27c1338bcffd"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/views/rime-adept.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/views/rime-adept.json",
+      "bytes": 1073062,
+      "sha256": "6e812ab1341a67f6639be769ee4059d350da75a4ba3dba14ae1049d796a4d295"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/views/tether-rider.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/views/tether-rider.json",
+      "bytes": 1073187,
+      "sha256": "70785307340cf4f228c7fac0b20621cd920211d687f810b6e984dce42da55fd5"
+    },
+    {
+      "path": "attempt2/status-capture-runs/02-current-5cc/views/veil-prowler.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/status-view-runs-shared-clones/20261016T013739.298063Z/02-current-5cc/views/veil-prowler.json",
+      "bytes": 1075332,
+      "sha256": "eb44bfd51f890b388866273930db36f5bde2a32aefdae4eb5feebb43974c8f3c"
+    },
+    {
+      "path": "attempt3-constructor-control/prelaunch-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/prelaunch-manifest.json",
+      "bytes": 1187,
+      "sha256": "89fbe761cf1498d9c9abc2104b6c8cca70c36b965c7b7fe4cf7cbe56cef20282"
+    },
+    {
+      "path": "attempt3-constructor-control/record_control.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/record_control.py",
+      "bytes": 12571,
+      "sha256": "d07ac4cd0a380e01b866981aec609c5a8fbbe7df8a550d7fb3fcdcdb65e49ca2"
+    },
+    {
+      "path": "attempt3-constructor-control/run/clone-cleanup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/clone-cleanup.json",
+      "bytes": 237,
+      "sha256": "4e3e9f14a7b3bc3ef2f5af7750f4e0d471a195b99de6df130003ee1097abf340"
+    },
+    {
+      "path": "attempt3-constructor-control/run/control-result.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/control-result.json",
+      "bytes": 3027,
+      "sha256": "cb875531705ad8fd9f0696f35a03a6c2e35beb658b0dfcc96abc31a6254afccc"
+    },
+    {
+      "path": "attempt3-constructor-control/run/exact-inputs/current-game-session.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/exact-inputs/current-game-session.js",
+      "bytes": 1357,
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+    },
+    {
+      "path": "attempt3-constructor-control/run/exact-inputs/current-package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/exact-inputs/current-package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "attempt3-constructor-control/run/exact-inputs/current-status-test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/exact-inputs/current-status-test.js",
+      "bytes": 40347,
+      "sha256": "8343065c3e27db6e0d05917913e93a8ee5ca10d6b133bd968ec0403fe45af51f"
+    },
+    {
+      "path": "attempt3-constructor-control/run/exact-inputs/historical-bloom-wisp-view.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/exact-inputs/historical-bloom-wisp-view.json",
+      "bytes": 1018258,
+      "sha256": "fba122f18655b7391e5a1d976767bdbbe2e9c09ecc23c5f6d6a1b96b7021e6e7"
+    },
+    {
+      "path": "attempt3-constructor-control/run/exact-inputs/historical-status-test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/exact-inputs/historical-status-test.js",
+      "bytes": 16015,
+      "sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55"
+    },
+    {
+      "path": "attempt3-constructor-control/run/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/metadata.json",
+      "bytes": 7717,
+      "sha256": "22a489424b58ee4ba19382d7aba8b537da2a819c37bb0c77be23ba23e2d55ba2"
+    },
+    {
+      "path": "attempt3-constructor-control/run/private-clone-setup.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/private-clone-setup.log",
+      "bytes": 256,
+      "sha256": "d62e3b0ec572c43e203504dc19827773361c7b93d4506cd6d51f25137061b90a"
+    },
+    {
+      "path": "attempt3-constructor-control/run/public-api-same-input-control.mjs",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/public-api-same-input-control.mjs",
+      "bytes": 3609,
+      "sha256": "ae166b3ac79a3a5a193864ab11e5a5d9ec791936fca901267489e5cc4887360b"
+    },
+    {
+      "path": "attempt3-constructor-control/run/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt3-constructor-control/run/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt3-constructor-control/run/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt3-constructor-control/run/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run/stdout.log",
+      "bytes": 3027,
+      "sha256": "cb875531705ad8fd9f0696f35a03a6c2e35beb658b0dfcc96abc31a6254afccc"
+    },
+    {
+      "path": "attempt3-constructor-control/run-summary.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt3-current-public-control-20261016/run-summary.json",
+      "bytes": 3735,
+      "sha256": "b371ef9081102840542c237dfe77d1c2c40657ba3f7d593d2345090b6cf1751e"
+    },
+    {
+      "path": "attempt4-public-restore-control/prelaunch-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/prelaunch-manifest.json",
+      "bytes": 641,
+      "sha256": "16c6a57bcf126a5b9a999a53b3892997c3dcd33e6a5ebd81100b75bf9975de36"
+    },
+    {
+      "path": "attempt4-public-restore-control/record_restore.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/record_restore.py",
+      "bytes": 14964,
+      "sha256": "d4a91f932d1747d411f848ec67f3988eee476ec39f79f178437ca7af9c1b7ddd"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/captured-snapshot-input-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/captured-snapshot-input-manifest.json",
+      "bytes": 3091473,
+      "sha256": "a6afdcbbc8e814b02a42b9fbcc2d07934e5109a588d774da848541aa41adac45"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/clone-cleanup.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/clone-cleanup.json",
+      "bytes": 250,
+      "sha256": "654e5986dce032ec96dcd00438afac0f47eb4ccecfdb24e4d52c9f31c3dfef22"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/2a-game-session-bloom-wisp-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-bloom-wisp-v2.snapshot",
+      "bytes": 200458,
+      "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/2a-game-session-dawnmender-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-dawnmender-v2.snapshot",
+      "bytes": 200434,
+      "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/2a-game-session-pulse-sentry-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-pulse-sentry-v2.snapshot",
+      "bytes": 200506,
+      "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/2a-game-session-rime-adept-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-rime-adept-v2.snapshot",
+      "bytes": 200458,
+      "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/2a-game-session-tether-rider-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-tether-rider-v2.snapshot",
+      "bytes": 200495,
+      "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/2a-game-session-veil-prowler-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/2a-game-session-veil-prowler-v2.snapshot",
+      "bytes": 200501,
+      "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/c9-empty-live-battle-snapshot-view.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/c9-empty-live-battle-snapshot-view.json",
+      "bytes": 18249,
+      "sha256": "b36192bd597f4f0c1c4a1f03ce1ef573a953fd129fce19f61bcbe0086c0ef994"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-captured-snapshots/c9-empty-live-battle-v2.snapshot",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-captured-snapshots/c9-empty-live-battle-v2.snapshot",
+      "bytes": 11618,
+      "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/public-restore-control.mjs",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/public-restore-control.mjs",
+      "bytes": 5472,
+      "sha256": "41f84d50abd1293cc239e9865dfcbd6cb4a180fd5a8eebe4d3a1793adbf6a913"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/record_restore.py",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/record_restore.py",
+      "bytes": 14964,
+      "sha256": "d4a91f932d1747d411f848ec67f3988eee476ec39f79f178437ca7af9c1b7ddd"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/src/shared/session-troop-source-confidence-authority.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/src/sim/battle-continuation-kernel.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/battle-continuation-kernel.js",
+      "bytes": 523788,
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/src/sim/game-session.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/game-session.js",
+      "bytes": 1357,
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/live-battle.js",
+      "bytes": 1298,
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/exact-current-source/src/sim/session-troop-projectile-runtime.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/exact-current-source/src/sim/session-troop-projectile-runtime.js",
+      "bytes": 46231,
+      "sha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/metadata.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/metadata.json",
+      "bytes": 15630,
+      "sha256": "417358b1bc410f099cde1f8b9ab2aed77189d3c01362d8c71d8c8e4bb0407528"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/private-clone-setup.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/private-clone-setup.log",
+      "bytes": 256,
+      "sha256": "2d74abda7b549517966151b0363f6d1628bcf0e1e3b2b36d829ea3e06597e2fb"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/public-restore-control.mjs",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/public-restore-control.mjs",
+      "bytes": 5472,
+      "sha256": "41f84d50abd1293cc239e9865dfcbd6cb4a180fd5a8eebe4d3a1793adbf6a913"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/restore-results.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/restore-results.json",
+      "bytes": 17054,
+      "sha256": "cabd95158447f1d65634edbd01cd026a4f6ac1362dcfdaf4bbd30d90be4192b0"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/source-status-after.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/source-status-after.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/source-status-before.porcelain0",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/source-status-before.porcelain0",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/stderr.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt4-public-restore-control/run/stdout.log",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt4-public-restore-control-20261016/run/stdout.log",
+      "bytes": 17054,
+      "sha256": "cabd95158447f1d65634edbd01cd026a4f6ac1362dcfdaf4bbd30d90be4192b0"
+    },
+    {
+      "path": "provenance/README.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/README.txt",
+      "bytes": 6858,
+      "sha256": "ad07a2a19d8169f2d69289ba8889b85309f53bb4b01a27a35c625b25dbaf7a0e"
+    },
+    {
+      "path": "provenance/attempt2-input-source-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/input-source-manifest.json",
+      "bytes": 3308,
+      "sha256": "2787322bb54abeb0164d3c6b804d12875658cd52b367f852a37e7d306d632ab8"
+    },
+    {
+      "path": "provenance/attempt2-prelaunch-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/prelaunch-manifest.json",
+      "bytes": 2841,
+      "sha256": "ba1677ae369076d1201b37a0d11a2180d05e9297f26b320d1d491dfc13169600"
+    },
+    {
+      "path": "provenance/causal-diagnostic-summary.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/causal-diagnostic-summary.json",
+      "bytes": 36798,
+      "sha256": "3e4c371d74ac7cd7e6196d9c26aed10e249f1bb9ca8aa96a251b1a40e3ef629d"
+    },
+    {
+      "path": "provenance/history-provenance.txt",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/history-provenance.txt",
+      "bytes": 12409,
+      "sha256": "dc54078835a742198e2ebc7b37fd0a6def9e8e961e4cd7e11426c926e5c5cdc5"
+    },
+    {
+      "path": "provenance/source-manifest.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/source-manifest.json",
+      "bytes": 16607,
+      "sha256": "ff00c93d28a48e6406516390dd10e65574799daba524e61a5dee4ce2702d28de"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/package.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/src/content/playable-roster.js",
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/src/content/session-troop-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/src/content/session-troop-roster.js",
+      "bytes": 22716,
+      "sha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/src/shared/session-troop-source-confidence-authority.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/src/shared/session-troop-source-confidence-authority.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/src/sim/game-session.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/src/sim/game-session.js",
+      "bytes": 1357,
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/src/sim/live-battle.js",
+      "bytes": 1298,
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/src/sim/session-troop-status-runtime.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/src/sim/session-troop-status-runtime.js",
+      "bytes": 36964,
+      "sha256": "175880a08bad4ea5e3c8a3b096ef06352836938f3f89a657a73fc2b6c24dc4e9"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/tests/game-roster-troops-status-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/tests/game-roster-troops-status-runner.js",
+      "bytes": 537,
+      "sha256": "835e24d55530729a58b00ed719da7c69408f1f71874f3f156591577bf597f34c"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/tests/game-roster-troops-status.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/tests/game-roster-troops-status.test.js",
+      "bytes": 40347,
+      "sha256": "8343065c3e27db6e0d05917913e93a8ee5ca10d6b133bd968ec0403fe45af51f"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/tests/game-troop-runtime-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/tests/game-troop-runtime-runner.js",
+      "bytes": 412,
+      "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+    },
+    {
+      "path": "source-objects/current_accepted_5cc4d3e/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/current_accepted_5cc4d3e/tests/game-troop-runtime.test.js",
+      "bytes": 26242,
+      "sha256": "b0fe89da3e6f848595020fd319ad937d2167de504c36b163d3c925fa4c9c1925"
+    },
+    {
+      "path": "source-objects/gtc_pin_test_a8f43298/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_pin_test_a8f43298/package.json",
+      "bytes": 9851,
+      "sha256": "48d708dd2e3432a2f5a34468234499d5590c1d8d454082ffd87afcda803842b1"
+    },
+    {
+      "path": "source-objects/gtc_pin_test_a8f43298/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_pin_test_a8f43298/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "path": "source-objects/gtc_pin_test_a8f43298/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_pin_test_a8f43298/src/sim/live-battle.js",
+      "bytes": 322,
+      "sha256": "1b067b4b3a7212adffecb1d41ad97a0a832c4bff0a06705606950c6eb07ae5cb"
+    },
+    {
+      "path": "source-objects/gtc_pin_test_a8f43298/tests/game-troop-runtime-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_pin_test_a8f43298/tests/game-troop-runtime-runner.js",
+      "bytes": 412,
+      "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+    },
+    {
+      "path": "source-objects/gtc_pin_test_a8f43298/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_pin_test_a8f43298/tests/game-troop-runtime.test.js",
+      "bytes": 30823,
+      "sha256": "11fa5b5eafebbf04a366c12c7cc3046713a06cd24a92663bf072b8d844008786"
+    },
+    {
+      "path": "source-objects/gtc_vintage_c9c818f/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_vintage_c9c818f/package.json",
+      "bytes": 9749,
+      "sha256": "1570bdf2ad1405c1f3c32e73cbc600460d01344cf3d494575d2106ee99b1cbfa"
+    },
+    {
+      "path": "source-objects/gtc_vintage_c9c818f/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_vintage_c9c818f/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "path": "source-objects/gtc_vintage_c9c818f/src/sim/live-battle.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_vintage_c9c818f/src/sim/live-battle.js",
+      "bytes": 59837,
+      "sha256": "90ebbd9bac4603849b63c6fc5b8c9a2c6b0fda3398ea98888e2f2e7b8192d070"
+    },
+    {
+      "path": "source-objects/gtc_vintage_c9c818f/tests/game-troop-runtime-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_vintage_c9c818f/tests/game-troop-runtime-runner.js",
+      "bytes": 412,
+      "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+    },
+    {
+      "path": "source-objects/gtc_vintage_c9c818f/tests/game-troop-runtime.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/gtc_vintage_c9c818f/tests/game-troop-runtime.test.js",
+      "bytes": 17396,
+      "sha256": "21bd268162d720fe3521089124ad63bbea963e46c57238b63148bb97e8029dd5"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/package.json",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/package.json",
+      "bytes": 11195,
+      "sha256": "f65b03d4bf1a1e7653ad8d9ec9134393dc1e89f874176adc4d2f66bfb88f0e31"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/src/content/playable-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/src/content/playable-roster.js",
+      "bytes": 11119,
+      "sha256": "58d5d7ac7b57e2b61065d01b218a6dd9c1dfd1273c30646038ed18b754a0fe99"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/src/content/session-troop-roster.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/src/content/session-troop-roster.js",
+      "bytes": 16542,
+      "sha256": "56479fc70c88dab22689b8767c330fe04ea48ec37b816b6ac4052212dfd79fdd"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/src/sim/game-session.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/src/sim/game-session.js",
+      "bytes": 424,
+      "sha256": "9f6369e58b1b057cdbc6b478db5f040cc1e072bd741f8c065cf71bd4e508e83f"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/src/sim/session-troop-status-runtime.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/src/sim/session-troop-status-runtime.js",
+      "bytes": 19195,
+      "sha256": "97f57c8ac988470e6cb6a762ea58cd36f04268a078e0d6290b28dfb298a7c27b"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/tests/game-roster-troops-status-runner.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/tests/game-roster-troops-status-runner.js",
+      "bytes": 537,
+      "sha256": "835e24d55530729a58b00ed719da7c69408f1f71874f3f156591577bf597f34c"
+    },
+    {
+      "path": "source-objects/status_pin_2a5bd7a4/tests/game-roster-troops-status.test.js",
+      "source_path": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/sources/status_pin_2a5bd7a4/tests/game-roster-troops-status.test.js",
+      "bytes": 16015,
+      "sha256": "8b991ea87d938f8b53ef16601a80e6722f45ea584bae69080270c0900cfeeb55"
+    }
+  ],
+  "recorded_historical_source_absences": [
+    {
+      "source": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-pin-a8/src/shared/session-troop-source-confidence-authority.js",
+      "packet_path": "attempt2/pin-gates/01-gtc-pin-test-a8/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "reason": "recorder metadata marked source absent"
+    },
+    {
+      "source": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/gtc-vintage-c9/src/shared/session-troop-source-confidence-authority.js",
+      "packet_path": "attempt2/pin-gates/02-gtc-empty-probe-c9/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "reason": "recorder metadata marked source absent"
+    },
+    {
+      "source": "/Users/me/.codex/worktrees/gtc-golden-pin-diagnostic-5cc4d3/attempts/attempt2-shared-clone-20261016/scripts/runs-shared-clones/20261016T013607.615059Z/private-clones/status-pin-2a/src/shared/session-troop-source-confidence-authority.js",
+      "packet_path": "attempt2/pin-gates/05-status-pin-test-2a/executed-source/src/shared/session-troop-source-confidence-authority.js",
+      "reason": "recorder metadata marked source absent"
+    }
+  ],
+  "recorded_historical_source_absences_note": "These entries were marked present:false by the source recorder at the respective historical pins; they were not packet omissions and were not reconstructed."
+}
