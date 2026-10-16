@@ -1,0 +1,24 @@
+/usr/bin/env
+-i
+PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin
+HOME=/private/tmp/game-001htjx-r2-gates-591512ba/record/home
+TMPDIR=/private/tmp/game-001htjx-r2-gates-591512ba/record/tmp
+SHARED_COMBAT_BASELINE_ROOT=/private/tmp/game-001htjx-baseline
+GAME001HTJX_RUNTIME_RELEASE=1
+GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+GAME_BROWSER_PLAYWRIGHT=/private/tmp/game-001htjx-round2-builder-591512b/node_modules/playwright/index.mjs
+PLAYWRIGHT_PACKAGE_ROOT=/private/tmp/game-001htjx-round2-builder-591512b/node_modules/playwright
+PLAYWRIGHT_BROWSERS_PATH=/private/tmp/game-001htjx-r2-gates-591512ba/record/playwright-browsers
+PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+npm_config_cache=/private/tmp/game-001htjx-r2-gates-591512ba/record/npm-cache
+npm_config_update_notifier=false
+SHIPPING_ISOLATION_RELEASE_EVIDENCE=/private/tmp/game-001htjx-r2-gates-591512ba/record/new-generated-reports/release-isolation-evidence.json
+LANG=C
+LC_ALL=C
+CI=1
+NO_COLOR=1
+/usr/bin/awk
+-F
+"
+$2 == "version" { print $4; exit }
+/private/tmp/game-001htjx-round2-builder-591512b/node_modules/playwright/package.json

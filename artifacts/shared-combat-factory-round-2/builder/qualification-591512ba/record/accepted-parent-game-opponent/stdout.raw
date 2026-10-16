@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: game opponent: all eight cards and squad counts transact on both legal north lanes
+not ok 1 - game opponent: all eight cards and squad counts transact on both legal north lanes
+  ---
+  duration_ms: 208.579208
+  type: 'test'
+  location: '/private/tmp/game-001htjx-game-opponent-accepted-main-4669996/tests/game-opponent.test.js:109:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 6
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 6
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-game-opponent-accepted-main-4669996/tests/game-opponent.test.js:125:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: game opponent: exact tick order waits for generated elixir then autonomously spends once
+ok 2 - game opponent: exact tick order waits for generated elixir then autonomously spends once
+  ---
+  duration_ms: 458.663459
+  type: 'test'
+  ...
+# Subtest: game opponent: repeated autonomous plays produce combat and south tower damage
+ok 3 - game opponent: repeated autonomous plays produce combat and south tower damage
+  ---
+  duration_ms: 1741.347833
+  type: 'test'
+  ...
+# Subtest: game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+ok 4 - game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+  ---
+  duration_ms: 6944.462625
+  type: 'test'
+  ...
+# Subtest: game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+ok 5 - game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+  ---
+  duration_ms: 44.410708
+  type: 'test'
+  ...
+# Subtest: game opponent: legal and batch bounds fail atomically
+ok 6 - game opponent: legal and batch bounds fail atomically
+  ---
+  duration_ms: 21.206042
+  type: 'test'
+  ...
+# Subtest: game opponent: resolved shared history supports a full terminal match
+ok 7 - game opponent: resolved shared history supports a full terminal match # SKIP GAME-001HC owns the open tick-874 shared transcript cap; set GAME_001HC_RESOLVED=1 after its fix
+  ---
+  duration_ms: 0.064208
+  type: 'test'
+  ...
+# Subtest: game opponent: canonical text admission invokes no caller callbacks
+ok 8 - game opponent: canonical text admission invokes no caller callbacks
+  ---
+  duration_ms: 11.748042
+  type: 'test'
+  ...
+# Subtest: game opponent: admitted roster is the only deck and cost authority
+ok 9 - game opponent: admitted roster is the only deck and cost authority
+  ---
+  duration_ms: 146.644417
+  type: 'test'
+  ...
+# Subtest: game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+ok 10 - game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+  ---
+  duration_ms: 124.789333
+  type: 'test'
+  ...
+# Subtest: game opponent: object key string-length bounds are exact at every admission layer
+ok 11 - game opponent: object key string-length bounds are exact at every admission layer
+  ---
+  duration_ms: 1224.221541
+  type: 'test'
+  ...
+# Subtest: game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+ok 12 - game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+  ---
+  duration_ms: 101.962458
+  type: 'test'
+  ...
+# Subtest: game opponent: nested setup witnesses and restore history preflight before recursion
+ok 13 - game opponent: nested setup witnesses and restore history preflight before recursion
+  ---
+  duration_ms: 98.267875
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 11222.678459

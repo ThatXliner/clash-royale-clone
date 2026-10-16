@@ -1,0 +1,1247 @@
+
+> moss-and-ember@0.0.0 test
+> node scripts/test-portable.js -- node tests/content-schema-runner.js
+
+TAP version 13
+# Subtest: fixed-step-kernel: commands resolve only at exact integer ticks
+ok 1 - fixed-step-kernel: commands resolve only at exact integer ticks
+  ---
+  duration_ms: 1.105625
+  type: 'test'
+  ...
+# Subtest: fixed-step-kernel: fresh runs are byte-identical
+ok 2 - fixed-step-kernel: fresh runs are byte-identical
+  ---
+  duration_ms: 1.044125
+  type: 'test'
+  ...
+# Subtest: fixed-step-kernel: serialize/restore is byte-identical
+ok 3 - fixed-step-kernel: serialize/restore is byte-identical
+  ---
+  duration_ms: 0.427875
+  type: 'test'
+  ...
+# Subtest: fixed-step-kernel: JSON inputs and snapshots are isolated
+ok 4 - fixed-step-kernel: JSON inputs and snapshots are isolated
+  ---
+  duration_ms: 0.36075
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 53.220041
+TAP version 13
+# Subtest: rng: algorithm and seed vectors are pinned for replay compatibility
+ok 1 - rng: algorithm and seed vectors are pinned for replay compatibility
+  ---
+  duration_ms: 1.076709
+  type: 'test'
+  ...
+# Subtest: rng: bounded integers stay in range and use pinned selections
+ok 2 - rng: bounded integers stay in range and use pinned selections
+  ---
+  duration_ms: 15.641
+  type: 'test'
+  ...
+# Subtest: rng: named child streams ignore draws and fork call order
+ok 3 - rng: named child streams ignore draws and fork call order
+  ---
+  duration_ms: 0.624791
+  type: 'test'
+  ...
+# Subtest: rng: JSON round-trip restores every stream and fork state
+ok 4 - rng: JSON round-trip restores every stream and fork state
+  ---
+  duration_ms: 0.3625
+  type: 'test'
+  ...
+# Subtest: rng: 10,000 fresh runs reproduce draws, bounds, forks, and snapshots
+ok 5 - rng: 10,000 fresh runs reproduce draws, bounds, forks, and snapshots
+  ---
+  duration_ms: 306.681458
+  type: 'test'
+  ...
+# Subtest: rng: invalid implicit seeds, bounds, names, and snapshots fail closed
+ok 6 - rng: invalid implicit seeds, bounds, names, and snapshots fail closed
+  ---
+  duration_ms: 0.75575
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 376.773958
+TAP version 13
+# Subtest: entities: IDs are explicit, monotonic, and never reused
+ok 1 - entities: IDs are explicit, monotonic, and never reused
+  ---
+  duration_ms: 1.184834
+  type: 'test'
+  ...
+# Subtest: entities: same-tick batches resolve strictly in array order
+ok 2 - entities: same-tick batches resolve strictly in array order
+  ---
+  duration_ms: 0.753792
+  type: 'test'
+  ...
+# Subtest: entities: inputs and every returned state are isolated JSON values
+ok 3 - entities: inputs and every returned state are isolated JSON values
+  ---
+  duration_ms: 0.449583
+  type: 'test'
+  ...
+# Subtest: entities: restore preserves order and byte-identical continuation
+ok 4 - entities: restore preserves order and byte-identical continuation
+  ---
+  duration_ms: 0.48275
+  type: 'test'
+  ...
+# Subtest: entities: malformed snapshots are rejected
+ok 5 - entities: malformed snapshots are rejected
+  ---
+  duration_ms: 0.367958
+  type: 'test'
+  ...
+# Subtest: entities: invalid IDs and operations have explicit errors
+ok 6 - entities: invalid IDs and operations have explicit errors
+  ---
+  duration_ms: 0.130375
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 54.213667
+TAP version 13
+# Subtest: damage: health values and stable numeric IDs are strictly validated
+ok 1 - damage: health values and stable numeric IDs are strictly validated
+  ---
+  duration_ms: 1.171417
+  type: 'test'
+  ...
+# Subtest: damage: sequential armor-free damage clamps overkill and dies once
+ok 2 - damage: sequential armor-free damage clamps overkill and dies once
+  ---
+  duration_ms: 1.087167
+  type: 'test'
+  ...
+# Subtest: damage: sequential hits resolve in caller input order
+ok 3 - damage: sequential hits resolve in caller input order
+  ---
+  duration_ms: 0.238958
+  type: 'test'
+  ...
+# Subtest: damage: simultaneous lethal hits trade from pre-batch alive state
+ok 4 - damage: simultaneous lethal hits trade from pre-batch alive state
+  ---
+  duration_ms: 0.128416
+  type: 'test'
+  ...
+# Subtest: damage: simultaneous multiple hits aggregate deterministically
+ok 5 - damage: simultaneous multiple hits aggregate deterministically
+  ---
+  duration_ms: 0.236375
+  type: 'test'
+  ...
+# Subtest: damage: invalid batches are atomic, including unsafe aggregation
+ok 6 - damage: invalid batches are atomic, including unsafe aggregation
+  ---
+  duration_ms: 0.280334
+  type: 'test'
+  ...
+# Subtest: damage: returned values are isolated JSON
+ok 7 - damage: returned values are isolated JSON
+  ---
+  duration_ms: 0.182834
+  type: 'test'
+  ...
+# Subtest: damage: restore continues byte-identically
+ok 8 - damage: restore continues byte-identically
+  ---
+  duration_ms: 0.206375
+  type: 'test'
+  ...
+# Subtest: damage: malformed snapshots are rejected
+ok 9 - damage: malformed snapshots are rejected
+  ---
+  duration_ms: 0.388917
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 58.128916
+TAP version 13
+# Subtest: spatial: tile conversion uses exact integer millitiles
+ok 1 - spatial: tile conversion uses exact integer millitiles
+  ---
+  duration_ms: 1.069
+  type: 'test'
+  ...
+# Subtest: spatial: positions, radii, and layers have isolated JSON shapes
+ok 2 - spatial: positions, radii, and layers have isolated JSON shapes
+  ---
+  duration_ms: 1.349833
+  type: 'test'
+  ...
+# Subtest: spatial: squared center distance is exact and needs no square root
+ok 3 - spatial: squared center distance is exact and needs no square root
+  ---
+  duration_ms: 0.273292
+  type: 'test'
+  ...
+# Subtest: spatial: circle contact is inclusively or strictly selectable
+ok 4 - spatial: circle contact is inclusively or strictly selectable
+  ---
+  duration_ms: 0.232125
+  type: 'test'
+  ...
+# Subtest: spatial: nearest query is stable by ID across candidate order
+ok 5 - spatial: nearest query is stable by ID across candidate order
+  ---
+  duration_ms: 0.427709
+  type: 'test'
+  ...
+# Subtest: spatial: ground, air, and both layer queries are explicit
+ok 6 - spatial: ground, air, and both layer queries are explicit
+  ---
+  duration_ms: 0.225709
+  type: 'test'
+  ...
+# Subtest: spatial: optional edge range has a documented boundary
+ok 7 - spatial: optional edge range has a documented boundary
+  ---
+  duration_ms: 0.670958
+  type: 'test'
+  ...
+# Subtest: spatial: nearest results are isolated from inputs and later callers
+ok 8 - spatial: nearest results are isolated from inputs and later callers
+  ---
+  duration_ms: 0.2155
+  type: 'test'
+  ...
+# Subtest: spatial: malformed and unsafe query values are rejected before use
+ok 9 - spatial: malformed and unsafe query values are rejected before use
+  ---
+  duration_ms: 0.691083
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 58.848292
+TAP version 13
+# Subtest: targeting: attack modes have explicit layer and structure semantics
+ok 1 - targeting: attack modes have explicit layer and structure semantics
+  ---
+  duration_ms: 3.659125
+  type: 'test'
+  ...
+# Subtest: targeting: dead and untargetable candidates are never eligible
+ok 2 - targeting: dead and untargetable candidates are never eligible
+  ---
+  duration_ms: 0.338958
+  type: 'test'
+  ...
+# Subtest: targeting: sight is inclusive circle-edge range from spatial
+ok 3 - targeting: sight is inclusive circle-edge range from spatial
+  ---
+  duration_ms: 0.211916
+  type: 'test'
+  ...
+# Subtest: targeting: nearest acquisition ties use ascending ID in any order
+ok 4 - targeting: nearest acquisition ties use ascending ID in any order
+  ---
+  duration_ms: 0.28675
+  type: 'test'
+  ...
+# Subtest: targeting: a valid current target is retained over a nearer target
+ok 5 - targeting: a valid current target is retained over a nearer target
+  ---
+  duration_ms: 0.183833
+  type: 'test'
+  ...
+# Subtest: targeting: invalid current targets deterministically reacquire
+ok 6 - targeting: invalid current targets deterministically reacquire
+  ---
+  duration_ms: 0.492333
+  type: 'test'
+  ...
+# Subtest: targeting: candidates and returned values are isolated
+ok 7 - targeting: candidates and returned values are isolated
+  ---
+  duration_ms: 0.174
+  type: 'test'
+  ...
+# Subtest: targeting: malformed, duplicate, and accessor inputs are rejected
+ok 8 - targeting: malformed, duplicate, and accessor inputs are rejected
+  ---
+  duration_ms: 0.684792
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 59.780916
+TAP version 13
+# Subtest: movement: reference speeds cover exact pinned seconds and minutes
+ok 1 - movement: reference speeds cover exact pinned seconds and minutes
+  ---
+  duration_ms: 1.771333
+  type: 'test'
+  ...
+# Subtest: movement: intermediate rounding is deterministic and documented
+ok 2 - movement: intermediate rounding is deterministic and documented
+  ---
+  duration_ms: 0.661167
+  type: 'test'
+  ...
+# Subtest: movement: positive and negative axes are exactly symmetric
+ok 3 - movement: positive and negative axes are exactly symmetric
+  ---
+  duration_ms: 0.797
+  type: 'test'
+  ...
+# Subtest: movement: chunking preserves position and fractional phase
+ok 4 - movement: chunking preserves position and fractional phase
+  ---
+  duration_ms: 13.082709
+  type: 'test'
+  ...
+# Subtest: movement: stop is explicit and clears fractional phase
+ok 5 - movement: stop is explicit and clears fractional phase
+  ---
+  duration_ms: 0.2305
+  type: 'test'
+  ...
+# Subtest: movement: serialize/restore preserves phase and continuation bytes
+ok 6 - movement: serialize/restore preserves phase and continuation bytes
+  ---
+  duration_ms: 0.191291
+  type: 'test'
+  ...
+# Subtest: movement: invalid tick, speed, direction, state, and overflow reject atomically
+ok 7 - movement: invalid tick, speed, direction, state, and overflow reject atomically
+  ---
+  duration_ms: 0.492541
+  type: 'test'
+  ...
+# Subtest: movement: malformed snapshots reject without producing partial state
+ok 8 - movement: malformed snapshots reject without producing partial state
+  ---
+  duration_ms: 0.105708
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 70.191875
+TAP version 13
+# Subtest: battle movement: ground delegates a stable bridge-constrained route
+ok 1 - battle movement: ground delegates a stable bridge-constrained route
+  ---
+  duration_ms: 7.304667
+  type: 'test'
+  ...
+# Subtest: battle movement: air follows arbitrary signed direct 2D segments
+ok 2 - battle movement: air follows arbitrary signed direct 2D segments
+  ---
+  duration_ms: 4.261875
+  type: 'test'
+  ...
+# Subtest: battle movement: rational 60 Hz phase is exact and never overshoots
+ok 3 - battle movement: rational 60 Hz phase is exact and never overshoots
+  ---
+  duration_ms: 3.333
+  type: 'test'
+  ...
+# Subtest: battle movement: retargeting is canonical and an in-bar command stops
+ok 4 - battle movement: retargeting is canonical and an in-bar command stops
+  ---
+  duration_ms: 18.369125
+  type: 'test'
+  ...
+# Subtest: battle movement: radius-inset arena bounds reject before exposure
+ok 5 - battle movement: radius-inset arena bounds reject before exposure
+  ---
+  duration_ms: 1.663333
+  type: 'test'
+  ...
+# Subtest: battle movement: chunking and restore cuts are byte-identical
+ok 6 - battle movement: chunking and restore cuts are byte-identical
+  ---
+  duration_ms: 1596.633709
+  type: 'test'
+  ...
+# Subtest: battle movement: public snapshots retain full command history
+ok 7 - battle movement: public snapshots retain full command history
+  ---
+  duration_ms: 1.57375
+  type: 'test'
+  ...
+# Subtest: battle movement: isolated state/events are deeply frozen fresh data
+ok 8 - battle movement: isolated state/events are deeply frozen fresh data
+  ---
+  duration_ms: 0.15075
+  type: 'test'
+  ...
+# Subtest: battle movement: hostile snapshots and oversized steps reject atomically
+ok 9 - battle movement: hostile snapshots and oversized steps reject atomically
+  ---
+  duration_ms: 45.200042
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1760.859417
+TAP version 13
+# Subtest: battle movement kernel: radius-safe ground routes cross the river only through a bridge
+ok 1 - battle movement kernel: radius-safe ground routes cross the river only through a bridge
+  ---
+  duration_ms: 17.635667
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: rational speed has exact signed displacement and no drift
+ok 2 - battle movement kernel: rational speed has exact signed displacement and no drift
+  ---
+  duration_ms: 9.383667
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: every live ground cut restores identical continuation events/state/bytes
+ok 3 - battle movement kernel: every live ground cut restores identical continuation events/state/bytes
+  ---
+  duration_ms: 7964.120875
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: every live air cut restores arbitrary-angle stop/retarget continuation
+ok 4 - battle movement kernel: every live air cut restores arbitrary-angle stop/retarget continuation
+  ---
+  duration_ms: 93.000375
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: live radius and total-tick bounds reject without mutation
+ok 5 - battle movement kernel: live radius and total-tick bounds reject without mutation
+  ---
+  duration_ms: 1.905167
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8165.69625
+TAP version 13
+# Subtest: battle movement history: ground arrival frontier replays the exact Cinderlings trace
+ok 1 - battle movement history: ground arrival frontier replays the exact Cinderlings trace
+  ---
+  duration_ms: 105.646667
+  type: 'test'
+  ...
+# Subtest: battle movement history: arrival-boundary matrix preserves signed, routed, and air controls
+ok 2 - battle movement history: arrival-boundary matrix preserves signed, routed, and air controls
+  ---
+  duration_ms: 101.804709
+  type: 'test'
+  ...
+# Subtest: battle movement history: critic cross-tick case is rejected and live serialization is canonical
+ok 3 - battle movement history: critic cross-tick case is rejected and live serialization is canonical
+  ---
+  duration_ms: 0.937916
+  type: 'test'
+  ...
+# Subtest: battle movement history: round-three 27-command trace crosses the exact frontier
+ok 4 - battle movement history: round-three 27-command trace crosses the exact frontier
+  ---
+  duration_ms: 7436.973125
+  type: 'test'
+  ...
+# Subtest: battle movement history: compact frontier size matrix is byte and continuation idempotent
+ok 5 - battle movement history: compact frontier size matrix is byte and continuation idempotent
+  ---
+  duration_ms: 33281.854875
+  type: 'test'
+  ...
+# Subtest: battle movement history: padded joint redundancy crosses exact windows
+ok 6 - battle movement history: padded joint redundancy crosses exact windows
+  ---
+  duration_ms: 19868.779792
+  type: 'test'
+  ...
+# Subtest: battle movement history: changing-position redundancy covers signed air and bridge ground paths
+ok 7 - battle movement history: changing-position redundancy covers signed air and bridge ground paths
+  ---
+  duration_ms: 248.027459
+  type: 'test'
+  ...
+# Subtest: battle movement history: arrival and A-to-B-to-A reductions preserve the final continuation
+ok 8 - battle movement history: arrival and A-to-B-to-A reductions preserve the final continuation
+  ---
+  duration_ms: 6.04225
+  type: 'test'
+  ...
+# Subtest: battle movement history: joint redundancy reaches one shortest lexicographic fixed point
+ok 9 - battle movement history: joint redundancy reaches one shortest lexicographic fixed point
+  ---
+  duration_ms: 16.769833
+  type: 'test'
+  ...
+# Subtest: battle movement history: seeded exhaustive subsequences choose the independent shortest representative
+ok 10 - battle movement history: seeded exhaustive subsequences choose the independent shortest representative
+  ---
+  duration_ms: 2403.913167
+  type: 'test'
+  ...
+# Subtest: battle movement history: semantic admission has no guessed-position canonicalization gate
+ok 11 - battle movement history: semantic admission has no guessed-position canonicalization gate
+  ---
+  duration_ms: 1.143458
+  type: 'test'
+  ...
+# Subtest: battle movement history: same-tick overrides and duplicate stop/target forms are not admitted
+ok 12 - battle movement history: same-tick overrides and duplicate stop/target forms are not admitted
+  ---
+  duration_ms: 0.553375
+  type: 'test'
+  ...
+# Subtest: battle movement history: later target/stop commands are removed only when full authoritative omission is equal
+ok 13 - battle movement history: later target/stop commands are removed only when full authoritative omission is equal
+  ---
+  duration_ms: 0.39925
+  type: 'test'
+  ...
+# Subtest: battle movement history: same-target retarget after movement preserves route/remainder causality
+ok 14 - battle movement history: same-target retarget after movement preserves route/remainder causality
+  ---
+  duration_ms: 37.037334
+  type: 'test'
+  ...
+# Subtest: battle movement history: omitted, altered, forged, duplicated, and reordered histories fail atomically
+ok 15 - battle movement history: omitted, altered, forged, duplicated, and reordered histories fail atomically
+  ---
+  duration_ms: 1.656375
+  type: 'test'
+  ...
+# Subtest: battle movement history: ground bridge provenance and signed air movement restore as one authority
+ok 16 - battle movement history: ground bridge provenance and signed air movement restore as one authority
+  ---
+  duration_ms: 21.042
+  type: 'test'
+  ...
+# Subtest: battle movement history: idle, active, arrived, in-bar, speed-zero, and stop/restart states are canonical
+ok 17 - battle movement history: idle, active, arrived, in-bar, speed-zero, and stop/restart states are canonical
+  ---
+  duration_ms: 39.950167
+  type: 'test'
+  ...
+# Subtest: battle movement history: every representative live cut restores bytes and continuation events
+ok 18 - battle movement history: every representative live cut restores bytes and continuation events
+  ---
+  duration_ms: 2227.123125
+  type: 'test'
+  ...
+# Subtest: battle movement history: direct air replay keeps pre-arrival and arrival bytes exact
+ok 19 - battle movement history: direct air replay keeps pre-arrival and arrival bytes exact
+  ---
+  duration_ms: 0.32975
+  type: 'test'
+  ...
+# Subtest: battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and complexity scaling remain fixed
+ok 20 - battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and complexity scaling remain fixed
+  ---
+  duration_ms: 9217.502333
+  type: 'test'
+  ...
+# Subtest: battle movement history: hostile depth, shape, accessors, callables, and revoked proxies never execute callbacks
+ok 21 - battle movement history: hostile depth, shape, accessors, callables, and revoked proxies never execute callbacks
+  ---
+  duration_ms: 0.60725
+  type: 'test'
+  ...
+# Subtest: battle movement history: canonical JSON, fresh frozen state, and deterministic runs are stable
+ok 22 - battle movement history: canonical JSON, fresh frozen state, and deterministic runs are stable
+  ---
+  duration_ms: 6.165875
+  type: 'test'
+  ...
+# Subtest: battle movement history: serialize never mutates live commands and matches a never-serialized twin
+ok 23 - battle movement history: serialize never mutates live commands and matches a never-serialized twin
+  ---
+  duration_ms: 287.489
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 75515.452708
+TAP version 13
+# Subtest: battle combat: dynamic units acquire by distance/ID, retain targets, and obey explicit positions
+ok 1 - battle combat: dynamic units acquire by distance/ID, retain targets, and obey explicit positions
+  ---
+  duration_ms: 6.196791
+  type: 'test'
+  ...
+# Subtest: battle combat: deployment, first-hit, cadence, and mutual lethal damage share exact windows
+ok 2 - battle combat: deployment, first-hit, cadence, and mutual lethal damage share exact windows
+  ---
+  duration_ms: 3.426042
+  type: 'test'
+  ...
+# Subtest: battle combat: projectile launch geometry is integer and dead targets fizzle in flight
+ok 3 - battle combat: projectile launch geometry is integer and dead targets fizzle in flight
+  ---
+  duration_ms: 3.648916
+  type: 'test'
+  ...
+# Subtest: battle combat: same-tick projectile contacts and melee attacks resolve simultaneously
+ok 4 - battle combat: same-tick projectile contacts and melee attacks resolve simultaneously
+  ---
+  duration_ms: 1.832875
+  type: 'test'
+  ...
+# Subtest: battle combat: scheduled post-zero spawns, chunking, replay, and every restore cut are identical
+ok 5 - battle combat: scheduled post-zero spawns, chunking, replay, and every restore cut are identical
+  ---
+  duration_ms: 4519.347959
+  type: 'test'
+  ...
+# Subtest: battle combat: hostile commands and snapshots reject atomically without invoking accessors
+ok 6 - battle combat: hostile commands and snapshots reject atomically without invoking accessors
+  ---
+  duration_ms: 2.431834
+  type: 'test'
+  ...
+# Subtest: battle combat: parsed snapshots are iteratively bounded before canonicalization
+ok 7 - battle combat: parsed snapshots are iteratively bounded before canonicalization
+  ---
+  duration_ms: 84.302083
+  type: 'test'
+  ...
+# Subtest: battle combat: invalid target modes and delivery combinations fail closed
+ok 8 - battle combat: invalid target modes and delivery combinations fail closed
+  ---
+  duration_ms: 0.665083
+  type: 'test'
+  ...
+# Subtest: battle combat: an over-capacity deferred spawn boundary rejects without partial activation
+ok 9 - battle combat: an over-capacity deferred spawn boundary rejects without partial activation
+  ---
+  duration_ms: 65.915542
+  type: 'test'
+  ...
+# Subtest: battle combat: mixed invalid schedules and adjacent deferred capacity failures are atomic
+ok 10 - battle combat: mixed invalid schedules and adjacent deferred capacity failures are atomic
+  ---
+  duration_ms: 160.259417
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4936.436541
+TAP version 13
+# Subtest: battle combat external: building-only units attack external structures with canonical contacts
+ok 1 - battle combat external: building-only units attack external structures with canonical contacts
+  ---
+  duration_ms: 3.628833
+  type: 'test'
+  ...
+# Subtest: battle combat external: projectile contacts use launch geometry and current boundary liveness
+ok 2 - battle combat external: projectile contacts use launch geometry and current boundary liveness
+  ---
+  duration_ms: 8.188667
+  type: 'test'
+  ...
+# Subtest: battle combat external: ingress shares the internal simultaneous damage/death window
+ok 3 - battle combat external: ingress shares the internal simultaneous damage/death window
+  ---
+  duration_ms: 2.16775
+  type: 'test'
+  ...
+# Subtest: battle combat external: duplicate ingress provenance rejects but distinct sources trade
+ok 4 - battle combat external: duplicate ingress provenance rejects but distinct sources trade
+  ---
+  duration_ms: 0.92675
+  type: 'test'
+  ...
+# Subtest: battle combat external: structure side identity is immutable through projectile flight and restore
+ok 5 - battle combat external: structure side identity is immutable through projectile flight and restore
+  ---
+  duration_ms: 2.206208
+  type: 'test'
+  ...
+# Subtest: battle combat external: observed structure IDs remain reserved after omission and restore
+ok 6 - battle combat external: observed structure IDs remain reserved after omission and restore
+  ---
+  duration_ms: 1.307417
+  type: 'test'
+  ...
+# Subtest: battle combat external: live and scheduled unit IDs permanently exclude structures
+ok 7 - battle combat external: live and scheduled unit IDs permanently exclude structures
+  ---
+  duration_ms: 0.552083
+  type: 'test'
+  ...
+# Subtest: battle combat external: canonical sorting, replay, and restore continuation are identical
+ok 8 - battle combat external: canonical sorting, replay, and restore continuation are identical
+  ---
+  duration_ms: 2.771208
+  type: 'test'
+  ...
+# Subtest: battle combat external: hostile boundaries and duplicate projectile ingress reject atomically
+ok 9 - battle combat external: hostile boundaries and duplicate projectile ingress reject atomically
+  ---
+  duration_ms: 1.792584
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 103.126125
+TAP version 13
+# Subtest: projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage
+ok 1 - projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage
+  ---
+  duration_ms: 7.0465
+  type: 'test'
+  ...
+# Subtest: projectile history: unit-to-tower launch, contact, and structure ingress retain identity
+ok 2 - projectile history: unit-to-tower launch, contact, and structure ingress retain identity
+  ---
+  duration_ms: 4.028042
+  type: 'test'
+  ...
+# Subtest: projectile history: tower shot authority and projected tower damage share the allocated identity
+ok 3 - projectile history: tower shot authority and projected tower damage share the allocated identity
+  ---
+  duration_ms: 7.6265
+  type: 'test'
+  ...
+# Subtest: projectile history: simultaneous unit and tower namespaces may both allocate projectile ID one
+ok 4 - projectile history: simultaneous unit and tower namespaces may both allocate projectile ID one
+  ---
+  duration_ms: 4.972333
+  type: 'test'
+  ...
+# Subtest: projectile history: a dead in-flight target keeps terminal identity without false damage
+ok 5 - projectile history: a dead in-flight target keeps terminal identity without false damage
+  ---
+  duration_ms: 1.305709
+  type: 'test'
+  ...
+# Subtest: projectile history: fresh, chunks, and every restore cut preserve identity events and bytes
+ok 6 - projectile history: fresh, chunks, and every restore cut preserve identity events and bytes
+  ---
+  duration_ms: 392.265459
+  type: 'test'
+  ...
+# Subtest: projectile history: delayed impact and damage use their own current identity
+ok 7 - projectile history: delayed impact and damage use their own current identity
+  ---
+  duration_ms: 11.36425
+  type: 'test'
+  ...
+# Subtest: projectile history: unit-to-tower contact forwards its current identity into tower damage
+ok 8 - projectile history: unit-to-tower contact forwards its current identity into tower damage
+  ---
+  duration_ms: 2.708875
+  type: 'test'
+  ...
+# Subtest: projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins
+ok 9 - projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins
+  ---
+  duration_ms: 6.574583
+  type: 'test'
+  ...
+# Subtest: projectile history: current raw identity and mirrors reject atomically without prior-launch repair
+ok 10 - projectile history: current raw identity and mirrors reject atomically without prior-launch repair
+  ---
+  duration_ms: 1.04425
+  type: 'test'
+  ...
+# Subtest: projectile history: legacy ingress normalizes once to current nested identity
+ok 11 - projectile history: legacy ingress normalizes once to current nested identity
+  ---
+  duration_ms: 0.796791
+  type: 'test'
+  ...
+# Subtest: projectile history: every nested identity and scalar mirror rejects atomically
+ok 12 - projectile history: every nested identity and scalar mirror rejects atomically
+  ---
+  duration_ms: 0.821583
+  type: 'test'
+  ...
+# Subtest: projectile history: structure projectile source and scope mirrors reject atomically
+ok 13 - projectile history: structure projectile source and scope mirrors reject atomically
+  ---
+  duration_ms: 0.35575
+  type: 'test'
+  ...
+# Subtest: projectile history: missing, swapped, duplicate, and wrong ingress identities reject byte-atomically
+ok 14 - projectile history: missing, swapped, duplicate, and wrong ingress identities reject byte-atomically
+  ---
+  duration_ms: 5.634417
+  type: 'test'
+  ...
+# Subtest: projectile history: preview capability admission is trap-zero and atomic
+ok 15 - projectile history: preview capability admission is trap-zero and atomic
+  ---
+  duration_ms: 2.776583
+  type: 'test'
+  ...
+# Subtest: projectile history: preview receipts bind owner, generation, and retry rule
+ok 16 - projectile history: preview receipts bind owner, generation, and retry rule
+  ---
+  duration_ms: 4.138625
+  type: 'test'
+  ...
+# Subtest: projectile history: no adjacent-event lookup remains in the provenance authority
+ok 17 - projectile history: no adjacent-event lookup remains in the provenance authority
+  ---
+  duration_ms: 1.397667
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 540.185583
+TAP version 13
+# Subtest: battle towers: one boundary joins structure contact, tower shot, and authoritative unit damage
+ok 1 - battle towers: one boundary joins structure contact, tower shot, and authoritative unit damage
+  ---
+  duration_ms: 13.478625
+  type: 'test'
+  ...
+# Subtest: battle towers: a same-boundary lethal structure hit suppresses that tower's shot
+ok 2 - battle towers: a same-boundary lethal structure hit suppresses that tower's shot
+  ---
+  duration_ms: 4.06
+  type: 'test'
+  ...
+# Subtest: battle towers: central direct damage activates once before legal shooting
+ok 3 - battle towers: central direct damage activates once before legal shooting
+  ---
+  duration_ms: 85.293667
+  type: 'test'
+  ...
+# Subtest: battle towers: unit projectiles use the arena tower footprint for contact travel
+ok 4 - battle towers: unit projectiles use the arena tower footprint for contact travel
+  ---
+  duration_ms: 5.240333
+  type: 'test'
+  ...
+# Subtest: battle towers: public forks retain pending unit projectile provenance
+ok 5 - battle towers: public forks retain pending unit projectile provenance
+  ---
+  duration_ms: 17.193708
+  type: 'test'
+  ...
+# Subtest: battle towers: scheduled boundary units participate and chunking/restore cuts are byte-identical
+ok 6 - battle towers: scheduled boundary units participate and chunking/restore cuts are byte-identical
+  ---
+  duration_ms: 1085.757708
+  type: 'test'
+  ...
+# Subtest: battle towers: strict legacy combat and tower witnesses restore, continue, and upgrade
+ok 7 - battle towers: strict legacy combat and tower witnesses restore, continue, and upgrade
+  ---
+  duration_ms: 349.149792
+  type: 'test'
+  ...
+# Subtest: battle towers: legacy admission preserves hidden structure and projectile identity reservations
+ok 8 - battle towers: legacy admission preserves hidden structure and projectile identity reservations
+  ---
+  duration_ms: 16.117875
+  type: 'test'
+  ...
+# Subtest: battle towers: amplified valid legacy continuation compares without a proof-string cap
+ok 9 - battle towers: amplified valid legacy continuation compares without a proof-string cap
+  ---
+  duration_ms: 124372.02225
+  type: 'test'
+  ...
+# Subtest: battle towers: hostile commands, upstream witnesses, histories, and bounds reject atomically
+ok 10 - battle towers: hostile commands, upstream witnesses, histories, and bounds reject atomically
+  ---
+  duration_ms: 3.976292
+  type: 'test'
+  ...
+# Subtest: battle towers: simultaneous opposing units and towers retain stable event/projectile identities
+ok 11 - battle towers: simultaneous opposing units and towers retain stable event/projectile identities
+  ---
+  duration_ms: 3.119584
+  type: 'test'
+  ...
+# Subtest: battle towers: simultaneous unit-origin and tower-origin projectile ID 1 remain exactly namespaced
+ok 12 - battle towers: simultaneous unit-origin and tower-origin projectile ID 1 remain exactly namespaced
+  ---
+  duration_ms: 6.499875
+  type: 'test'
+  ...
+# Subtest: battle towers: every tower candidate ID is rejected for initial, spawned, and scheduled units
+ok 13 - battle towers: every tower candidate ID is rejected for initial, spawned, and scheduled units
+  ---
+  duration_ms: 0.597125
+  type: 'test'
+  ...
+# Subtest: battle towers: every projectile-bearing causal event has one complete scoped identity
+ok 14 - battle towers: every projectile-bearing causal event has one complete scoped identity
+  ---
+  duration_ms: 6.989709
+  type: 'test'
+  ...
+# Subtest: battle towers: missing, divergent, and reordered serialized identity links reject
+ok 15 - battle towers: missing, divergent, and reordered serialized identity links reject
+  ---
+  duration_ms: 7.910417
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 126072.562583
+TAP version 13
+# Subtest: battle tower kernel: one state owns exact bidirectional HP and preview work never leaks
+ok 1 - battle tower kernel: one state owns exact bidirectional HP and preview work never leaks
+  ---
+  duration_ms: 13.5445
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: hostile layer targeting and friendly filtering are side-correct
+ok 2 - battle tower kernel: hostile layer targeting and friendly filtering are side-correct
+  ---
+  duration_ms: 7.436542
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: lane death activates central, suppresses the dead lane, and shoots legally
+ok 3 - battle tower kernel: lane death activates central, suppresses the dead lane, and shoots legally
+  ---
+  duration_ms: 4.878542
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: direct central activation and simultaneous lethal windows are exact
+ok 4 - battle tower kernel: direct central activation and simultaneous lethal windows are exact
+  ---
+  duration_ms: 10.310583
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: a due scheduled unit attacks and is targetable on its first boundary
+ok 5 - battle tower kernel: a due scheduled unit attacks and is targetable on its first boundary
+  ---
+  duration_ms: 7.607334
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: sequential, chunked, and every live restore cut match events/state/bytes
+ok 6 - battle tower kernel: sequential, chunked, and every live restore cut match events/state/bytes
+  ---
+  duration_ms: 806.103417
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: structurally valid bounds and invalid commands reject atomically
+ok 7 - battle tower kernel: structurally valid bounds and invalid commands reject atomically
+  ---
+  duration_ms: 0.938083
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 928.386959
+TAP version 13
+# Subtest: game battle: all eight starter cards materialize stable singles and squad counts
+ok 1 - game battle: all eight starter cards materialize stable singles and squad counts
+  ---
+  duration_ms: 451.83425
+  type: 'test'
+  ...
+# Subtest: game battle: public forks preserve causal state and transcripts
+ok 2 - game battle: public forks preserve causal state and transcripts
+  ---
+  duration_ms: 87.234459
+  type: 'test'
+  ...
+# Subtest: game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+ok 3 - game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+  ---
+  duration_ms: 20463.413459
+  type: 'test'
+  ...
+# Subtest: game battle: symmetric opposing troops die in one simultaneous trade window
+ok 4 - game battle: symmetric opposing troops die in one simultaneous trade window
+  ---
+  duration_ms: 562.538208
+  type: 'test'
+  ...
+# Subtest: game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+ok 5 - game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+  ---
+  duration_ms: 126.231625
+  type: 'test'
+  ...
+# Subtest: game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+ok 6 - game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+  ---
+  duration_ms: 319.265958
+  type: 'test'
+  ...
+# Subtest: game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+ok 7 - game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+  ---
+  duration_ms: 18.242584
+  type: 'test'
+  ...
+# Subtest: game battle: injected identity graph and QUESTION inventory are canonically closed
+ok 8 - game battle: injected identity graph and QUESTION inventory are canonically closed
+  ---
+  duration_ms: 123.751917
+  type: 'test'
+  ...
+# Subtest: game battle: untrusted executable setup graphs reject without running traps
+ok 9 - game battle: untrusted executable setup graphs reject without running traps
+  ---
+  duration_ms: 61.940875
+  type: 'test'
+  ...
+# Subtest: game battle: restore preflights hostile parsed graphs before recursive canonicalization
+ok 10 - game battle: restore preflights hostile parsed graphs before recursive canonicalization
+  ---
+  duration_ms: 117.653125
+  type: 'test'
+  ...
+# Subtest: game battle: an over-capacity due boundary rejects before any mutation
+ok 11 - game battle: an over-capacity due boundary rejects before any mutation
+  ---
+  duration_ms: 22.85175
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22452.279916
+TAP version 13
+# Subtest: game history cap: BattleCombat and empty LiveBattle cross tick 874 and full match
+ok 1 - game history cap: BattleCombat and empty LiveBattle cross tick 874 and full match
+  ---
+  duration_ms: 34946.844042
+  type: 'test'
+  ...
+# Subtest: game history cap: cuts around structural run boundaries restore and continue exactly
+ok 2 - game history cap: cuts around structural run boundaries restore and continue exactly
+  ---
+  duration_ms: 8651.7115
+  type: 'test'
+  ...
+# Subtest: game history cap: eight active units complete, chunk, and restore a bounded full match
+ok 3 - game history cap: eight active units complete, chunk, and restore a bounded full match
+  ---
+  duration_ms: 69298.167292
+  type: 'test'
+  ...
+# Subtest: game history cap: malformed compact runs and oversized tails reject
+ok 4 - game history cap: malformed compact runs and oversized tails reject
+  ---
+  duration_ms: 299.171375
+  type: 'test'
+  ...
+# Subtest: game history cap: genuine nested Live, tower, and combat v1 witnesses upgrade
+ok 5 - game history cap: genuine nested Live, tower, and combat v1 witnesses upgrade
+  ---
+  duration_ms: 44.80625
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 113342.676583
+TAP version 13
+# Subtest: game opponent: all eight cards and squad counts transact on both legal north lanes
+not ok 1 - game opponent: all eight cards and squad counts transact on both legal north lanes
+  ---
+  duration_ms: 211.499625
+  type: 'test'
+  location: '/private/tmp/game-001htjx-round2-builder-591512b/tests/game-opponent.test.js:109:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 6
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 6
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-round2-builder-591512b/tests/game-opponent.test.js:125:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: game opponent: exact tick order waits for generated elixir then autonomously spends once
+ok 2 - game opponent: exact tick order waits for generated elixir then autonomously spends once
+  ---
+  duration_ms: 465.686875
+  type: 'test'
+  ...
+# Subtest: game opponent: repeated autonomous plays produce combat and south tower damage
+ok 3 - game opponent: repeated autonomous plays produce combat and south tower damage
+  ---
+  duration_ms: 1788.123916
+  type: 'test'
+  ...
+# Subtest: game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+ok 4 - game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+  ---
+  duration_ms: 7067.047125
+  type: 'test'
+  ...
+# Subtest: game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+ok 5 - game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+  ---
+  duration_ms: 41.039833
+  type: 'test'
+  ...
+# Subtest: game opponent: legal and batch bounds fail atomically
+ok 6 - game opponent: legal and batch bounds fail atomically
+  ---
+  duration_ms: 23.08025
+  type: 'test'
+  ...
+# Subtest: game opponent: resolved shared history supports a full terminal match
+ok 7 - game opponent: resolved shared history supports a full terminal match # SKIP GAME-001HC owns the open tick-874 shared transcript cap; set GAME_001HC_RESOLVED=1 after its fix
+  ---
+  duration_ms: 0.055375
+  type: 'test'
+  ...
+# Subtest: game opponent: canonical text admission invokes no caller callbacks
+ok 8 - game opponent: canonical text admission invokes no caller callbacks
+  ---
+  duration_ms: 12.642625
+  type: 'test'
+  ...
+# Subtest: game opponent: admitted roster is the only deck and cost authority
+ok 9 - game opponent: admitted roster is the only deck and cost authority
+  ---
+  duration_ms: 150.324416
+  type: 'test'
+  ...
+# Subtest: game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+ok 10 - game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+  ---
+  duration_ms: 130.188667
+  type: 'test'
+  ...
+# Subtest: game opponent: object key string-length bounds are exact at every admission layer
+ok 11 - game opponent: object key string-length bounds are exact at every admission layer
+  ---
+  duration_ms: 1219.095708
+  type: 'test'
+  ...
+# Subtest: game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+ok 12 - game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+  ---
+  duration_ms: 106.41625
+  type: 'test'
+  ...
+# Subtest: game opponent: nested setup witnesses and restore history preflight before recursion
+ok 13 - game opponent: nested setup witnesses and restore history preflight before recursion
+  ---
+  duration_ms: 97.939916
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 11410.880958
+TAP version 13

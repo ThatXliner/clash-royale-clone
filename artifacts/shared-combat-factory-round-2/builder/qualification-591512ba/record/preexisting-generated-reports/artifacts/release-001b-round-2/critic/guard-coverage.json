@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "candidate": "RELEASE-001B",
+  "kind": "pre-browser-producer-guard-retention",
+  "testFile": "tests/release-001b-guards.test.js",
+  "command": "node --test tests/release-001b-guards.test.js",
+  "result": {
+    "status": "PASS",
+    "tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "durationMs": 293.72875
+  },
+  "covered": [
+    {
+      "case": "escaped release input entry path",
+      "result": "rejected before browser qualification",
+      "atomicity": "existing four-file output tree remained byte-identical"
+    },
+    {
+      "case": "internal and external symlink inputs under a static asset root",
+      "result": "both rejected before browser qualification",
+      "atomicity": "existing output tree remained byte-identical in each case"
+    },
+    {
+      "case": "source map in a configured static asset root",
+      "result": "rejected before browser qualification",
+      "atomicity": "existing output tree remained byte-identical"
+    },
+    {
+      "case": "file-count, per-file byte, and aggregate byte limits",
+      "result": "all three rejected before browser qualification",
+      "atomicity": "existing output tree remained byte-identical in each case"
+    },
+    {
+      "case": "workspace root, protected reference/dist paths, workspace ancestor, and temporary-directory root output targets",
+      "result": "all five refused before build work"
+    }
+  ],
+  "limitations": [
+    "These tests cover pre-browser rejection paths and do not replace positive browser qualification or Pages subpath qualification.",
+    "The atomicity assertions cover rejected builds in-process; they do not simulate abrupt process termination or power loss during the rename transaction."
+  ]
+}

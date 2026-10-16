@@ -1,0 +1,6 @@
+Captured final exec-session control output (gate raw streams are in record/):
+EXIT	02-repository-default-npm-test	direct=130
+STOP	first nonzero at 02-repository-default-npm-test; raw output is in /private/tmp/game-001htjx-r2-gates-591512ba/record
+cp: /private/tmp/game-001htjx-r2-gates-591512ba/record/new-generated-reports/artifacts/guard-002r-round-1/release-isolation-evidence.json: No such file or directory
+
+The earlier exec-session output also contained an intentional SIGTERM notice for the short-lived process-snapshot monitor after the Playwright-version preflight gate. Per-gate stdout/stderr files and direct exit codes are the authoritative command evidence.
