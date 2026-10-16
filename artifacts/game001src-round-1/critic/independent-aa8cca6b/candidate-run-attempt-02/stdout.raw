@@ -1,0 +1,26 @@
+
+> moss-and-ember@0.0.0 test:game-shared-runtime-integration
+> node tests/game-shared-runtime-integration-runner.js game-shared-runtime-integration
+
+TAP version 13
+# Subtest: game shared runtime integration: referenced source-confidence QUESTION receipts remain required
+ok 1 - game shared runtime integration: referenced source-confidence QUESTION receipts remain required
+  ---
+  duration_ms: 9.516
+  type: 'test'
+  ...
+# Subtest: game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations
+ok 2 - game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations
+  ---
+  duration_ms: 10882.363625
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11072.696875

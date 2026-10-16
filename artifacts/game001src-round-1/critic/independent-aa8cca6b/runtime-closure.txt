@@ -1,0 +1,6 @@
+Runtime closure
+- Candidate npm PID 12497 returned exit 0; parent npm PID 12525 returned exit 1; both waits completed.
+- ps -p 12497,12525 returned no rows after both runs.
+- Node was resolved through /Users/me/.hermes/node/bin first in PATH; the inspected runtime was v22.22.3.
+- NODE_DISABLE_COMPILE_CACHE=1. npm cache path: /private/tmp/clash-royale-game001src-critic-work-20261015/npm-cache, outside this packet.
+- Candidate and parent source fences match before/after. No install, build, browser, or server run.

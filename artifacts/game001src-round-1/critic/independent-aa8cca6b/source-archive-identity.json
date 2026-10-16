@@ -1,0 +1,36 @@
+{
+  "candidate": {
+    "archive_path_outside_packet": "/private/tmp/clash-royale-game001src-critic-work-20261015/candidate.tar",
+    "archive_sha256": "cc285d94c25439ceb1b06d7b0cb70d66ad4e135198b1dc3138695ab37c729df3",
+    "commit": "aa8cca6bfe2d2594064651d8a2bcda5243787a82",
+    "git_archive_argv": [
+      "git",
+      "archive",
+      "--format=tar",
+      "aa8cca6bfe2d2594064651d8a2bcda5243787a82",
+      "--",
+      ".",
+      ":(exclude)artifacts"
+    ],
+    "member_count": 823,
+    "root_artifacts_members_present": [],
+    "tree": "a831e505c55e179b1ddbf372954ffd5428c73b95"
+  },
+  "parent": {
+    "archive_path_outside_packet": "/private/tmp/clash-royale-game001src-critic-work-20261015/parent.tar",
+    "archive_sha256": "c5eb769469c99880baabfb5752ae3aa090f850e686e5ca5c97d05e05812be1fd",
+    "commit": "f0742221f2f20733be27529fcd2423e0ee55d7ee",
+    "git_archive_argv": [
+      "git",
+      "archive",
+      "--format=tar",
+      "f0742221f2f20733be27529fcd2423e0ee55d7ee",
+      "--",
+      ".",
+      ":(exclude)artifacts"
+    ],
+    "member_count": 823,
+    "root_artifacts_members_present": [],
+    "tree": "747f8f6a87c0c11f02ab9c03900d0ce9d1ae6b11"
+  }
+}

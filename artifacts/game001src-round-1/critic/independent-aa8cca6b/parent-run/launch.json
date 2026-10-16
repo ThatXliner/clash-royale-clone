@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/Users/me/.hermes/node/bin/npm",
+    "run",
+    "test:game-shared-runtime-integration"
+  ],
+  "cwd": "/private/tmp/clash-royale-game001src-critic-work-20261015/parent",
+  "environment": {
+    "CI": "true",
+    "HOME": "/Users/me",
+    "NODE_DISABLE_COMPILE_CACHE": "1",
+    "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin",
+    "npm_config_audit": "false",
+    "npm_config_cache": "/private/tmp/clash-royale-game001src-critic-work-20261015/npm-cache",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_userconfig": "/dev/null"
+  },
+  "executed_files": [
+    "package.json",
+    "tests/game-shared-runtime-integration-runner.js",
+    "tests/game-shared-runtime-integration.test.js"
+  ],
+  "label": "parent",
+  "node_version_expected": "v22.22.3",
+  "package_script": "node tests/game-shared-runtime-integration-runner.js game-shared-runtime-integration",
+  "source_commit": "f0742221f2f20733be27529fcd2423e0ee55d7ee"
+}

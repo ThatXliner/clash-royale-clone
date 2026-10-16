@@ -37,9 +37,15 @@ function integratedBattleSetup() {
   }
   assert.deepEqual(roster.map(({ id }) => id), DECK);
   const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
-    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy].filter((policy) =>
-      policy?.kind === "question").map(({ questionKey }) => questionKey))));
+    [
+      ...[entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
+        .filter((policy) => policy?.kind === "question")
+        .map(({ questionKey }) => questionKey),
+      ...(entity.sourceConfidencePolicy?.fields ?? []).map(({ questionKey }) => questionKey),
+    ])));
   const questions = createPlayableRosterQuestionRecords().filter(({ key }) => referenced.has(key));
+  assert.deepEqual(questions.map(({ key }) => key).sort(), [...referenced].sort(),
+    "the mixed setup carries every referenced QUESTION exactly once and no unused records");
   return {
     initialWindupTicks: { central: 0, lane: 0 },
     questions,
@@ -79,7 +85,27 @@ function setupBytes() {
   });
 }
 
+function setupWithoutSourceConfidenceQuestion(questionKey) {
+  const setup = JSON.parse(SETUP);
+  const battle = JSON.parse(setup.battleSetup);
+  const questions = battle.questions.filter(({ key }) => key !== questionKey);
+  assert.equal(battle.questions.length - questions.length, 1,
+    "the chosen source-confidence receipt is present exactly once");
+  battle.questions = questions;
+  setup.battleSetup = canonical(battle);
+  setup.rosterWitness = canonical({ questions, roster: battle.roster });
+  return canonical(setup);
+}
+
 const SETUP = setupBytes();
+
+test("game shared runtime integration: referenced source-confidence QUESTION receipts remain required", () => {
+  const sourceField = JSON.parse(SETUP).rosterWitness;
+  const roster = JSON.parse(sourceField).roster;
+  const requiredKey = roster[6].entities[0].sourceConfidencePolicy.fields[0].questionKey;
+  assert.throws(() => new GameSession(setupWithoutSourceConfidenceQuestion(requiredKey)),
+    /roster\[6\]\.entities\[0\] source confidence field lacks a QUESTION record/u);
+});
 
 function byteViews(session) {
   const serialized = session.serialize();

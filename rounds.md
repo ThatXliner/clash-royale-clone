@@ -9687,3 +9687,12 @@ EVIDENCE: Fresh candidate89fe7c90 npm run test:game-opponent PID8756 actualexit0
 BIGGEST GAP: The separate GAME-001HC terminal-match cap remains explicitly skipped; no gap in judged opponent fixture repair.
 
 Adopt tests/game-opponent.test.js only plusevidence/tracking. Builder13passes1skip andcausalprobe retained withfirstimportfailure explicitlyunqualified. This doesnotqualify extraction orfullcurrent-source browserendurance, norcomplete109cards. GAME001SRC next repairs independentlyreproduced missingQUESTION fixture.
+
+## Round 514 - GAME-001SRC shared runtime integration fixture contract
+
+PIECE: GAME-001SRC
+VERDICT: PASS
+EVIDENCE: Fresh exactaa8cca6b candidate npm run test:game-shared-runtime-integration PID12497 directexit0:2pass0fail0skip. Acceptedf074 control PID12525 directexit1:0pass1fail0skip, requiredBriar source-confidence QUESTION omitted. Candidate setup includes all referenced body/projectile and source-confidence field keys exactly once with no unused inventory. Explicit missingfield negativecontrol still rejects through unchangedproductionvalidator. Existing mixedunit/structure/profiledeffect graph executes all causalidentity/receipt/debit/route/health/history andone-step/chunk/restore byteassertions unchanged. Rootverifiedexecutedtest/runner/packageGitbytes andbefore/aftersourcefences; boundedcriticledger verified.
+BIGGEST GAP: The integration test deletes one representative source-confidence receipt; forged/dangling/wrong-value variants are covered only by unchanged focused validation tests outside this gate. Engine extraction and full current-source browser qualification remain independently pending.
+
+Adopt tests/game-shared-runtime-integration.test.js only plus boundedbuilder/critic evidence andtracking. Initialcritic npmconfig collision PID12472 direct1 happened before any test, preserved as unqualifiedsetupfailure; correctedrecorderretry qualifies. No production/stat/QUESTIONpolicy/cap/sourcebudget changes. Historical low-confidence mechanics and full109 scope remain unresolved.
