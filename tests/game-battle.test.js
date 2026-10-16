@@ -48,22 +48,88 @@ test("game battle: all eight starter cards materialize stable singles and squad 
     deploy(battle, id, "south", index * 2);
     deploy(battle, id, "north", index * 2 + 1);
   });
-  const events = battle.step(0);
   const expected = new Map([
     ["coilblade", 1], ["mossguard", 1], ["copperskiff", 1], ["skymaul", 1],
     ["brassbolt", 1], ["reedsting", 1], ["briar-band", 6], ["cinderlings", 3],
   ]);
-  assert.equal(battle.state.units.length, 30);
-  for (const id of ids) {
-    assert.equal(battle.state.units.filter(({ cardId }) => cardId === id).length,
-      expected.get(id) * 2);
-    assert.deepEqual(new Set(battle.state.units.filter(({ cardId }) => cardId === id)
-      .map(({ side }) => side)), new Set(["north", "south"]));
+  const staggeredCard = configured.roster.find(({ id }) => id === "briar-band");
+  const stagger = staggeredCard.entities[0].sourceConfidencePolicy.deploymentInterval;
+  assert.equal(stagger.milliseconds, 100);
+  assert.equal(stagger.ticks, 6);
+  assert.deepEqual(staggeredCard.entities.map(({ sourceConfidencePolicy }) =>
+    sourceConfidencePolicy.deploymentInterval), [stagger, stagger]);
+  const memberArchetypes = staggeredCard.entities.flatMap(({ archetypeId, count }) =>
+    Array.from({ length: count }, () => archetypeId));
+  assert.equal(memberArchetypes.length, expected.get("briar-band"));
+
+  const assertMaterialized = (briarMembersPerSide) => {
+    const expectedTotal = [...expected].reduce((total, [id, count]) =>
+      total + (id === "briar-band" ? briarMembersPerSide : count) * 2, 0);
+    assert.equal(battle.state.units.length, expectedTotal);
+    for (const id of ids) {
+      const countPerSide = id === "briar-band" ? briarMembersPerSide : expected.get(id);
+      const cardUnits = battle.state.units.filter(({ cardId }) => cardId === id);
+      assert.equal(cardUnits.length, countPerSide * 2);
+      assert.deepEqual(new Set(cardUnits.map(({ side }) => side)),
+        new Set(["north", "south"]));
+      for (const side of ["south", "north"]) {
+        const sideUnits = cardUnits.filter((unit) => unit.side === side);
+        assert.equal(sideUnits.length, countPerSide);
+        if (id === "briar-band") {
+          assert.deepEqual(sideUnits.map(({ archetypeId }) => archetypeId),
+            memberArchetypes.slice(0, briarMembersPerSide));
+        }
+      }
+    }
+    const unitIds = battle.state.units.map(({ id }) => id);
+    assert.deepEqual(unitIds, [...unitIds].sort((left, right) => left - right));
+    assert.equal(new Set(unitIds).size, expectedTotal);
+  };
+
+  const events = battle.step(0);
+  assertMaterialized(1);
+  const deployments = events.filter(({ type }) => type === "deployed");
+  assert.equal(deployments.length, 16);
+  assert.deepEqual(deployments.map(({ cardId, side, sequence }) =>
+    [cardId, side, sequence]), ids.flatMap((id, index) => [
+    [id, "south", index * 2], [id, "north", index * 2 + 1],
+  ]));
+  const firstSpawns = events.filter(({ type }) => type === "spawn");
+  assert.equal(firstSpawns.length, 20);
+  assert.deepEqual(firstSpawns.map(({ id }) => id),
+    battle.state.units.map(({ id }) => id));
+  assert.deepEqual(new Set(firstSpawns.map(({ tick }) => tick)), new Set([0]));
+
+  const briarDeploymentIds = new Map(deployments.filter(({ cardId }) => cardId === "briar-band")
+    .map(({ entityIds, side }) => [side, entityIds]));
+  const materializedIds = new Set(battle.state.units.map(({ id }) => id));
+  for (let membersPerSide = 2; membersPerSide <= expected.get("briar-band");
+    membersPerSide += 1) {
+    const boundaryTick = (membersPerSide - 1) * stagger.ticks;
+    const boundaryEvents = battle.stepMany(stagger.ticks);
+    const spawned = boundaryEvents.filter(({ type }) => type === "spawn");
+    const newUnits = battle.state.units.filter(({ id }) => !materializedIds.has(id));
+    assert.equal(newUnits.length, 2);
+    assert.deepEqual(newUnits.map(({ id, cardId, archetypeId, side }) =>
+      ({ id, cardId, archetypeId, side })), ["south", "north"].map((side) => ({
+      id: briarDeploymentIds.get(side)[membersPerSide - 1],
+      cardId: "briar-band",
+      archetypeId: memberArchetypes[membersPerSide - 1],
+      side,
+    })));
+    assert.deepEqual(spawned.map(({ id, tick }) => ({ id, tick })), newUnits.map(({ id }) => ({
+      id,
+      tick: boundaryTick,
+    })));
+    assert.equal(boundaryEvents.filter(({ type }) => type === "deployed").length, 0);
+    assertMaterialized(membersPerSide);
+    assert.equal(battle.state.tick, boundaryTick + 1);
+    newUnits.forEach(({ id }) => materializedIds.add(id));
   }
+  assert.equal(battle.state.pendingDeployments.length, 0);
   assert.deepEqual(battle.state.units.map(({ id }) => id),
     Array.from({ length: 30 }, (_, index) => index + 1));
-  assert.equal(events.filter(({ type }) => type === "deployed").length, 16);
-  assert.equal(battle.state.tick, 1);
+  assert.equal(battle.state.tick, 31);
 });
 
 test("game battle: public forks preserve causal state and transcripts", () => {
@@ -275,12 +341,18 @@ test("game battle: injected identity graph and QUESTION inventory are canonicall
   reject((value) => {
     value.questions.push({ ...value.questions[0], key: "unused.body-radius-millitiles" });
   }, /inventory/u);
-  reject((value) => { value.questions.pop(); }, /unresolved|inventory/u);
+  reject((value) => {
+    const omitted = value.questions.pop();
+    assert.equal(omitted.key, "briar-darter.target-mode");
+  }, /roster\[6\]\.entities\[1\] source confidence field lacks a QUESTION record/u);
   reject((value) => { value.questions.push(structuredClone(value.questions[0])); }, /unique/u);
   reject((value) => { value.questions[0].key = "stale.body-radius-millitiles"; },
     /unresolved|inventory/u);
-  reject((value) => { value.questions[0].confidence = "stale"; }, /provenance/u);
-  reject((value) => { value.questions[0].source = "different-source"; }, /provenance/u);
+  reject((value) => { value.questions[0].confidence = "stale"; }, /retain unverified confidence/u);
+  reject((value) => {
+    const claim = value.questions.find(({ key }) => key === "briar-runner.count");
+    claim.source = "different-source";
+  }, /roster\[6\]\.entities\[0\] source confidence QUESTION provenance diverges/u);
   for (const hostileValue of [0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1]) {
     reject((value) => { value.questions[0].value = hostileValue; }, /safe integer/u);
   }
@@ -458,14 +530,24 @@ test("game battle: restore preflights hostile parsed graphs before recursive can
     keyAttack.setup[lone] = null;
     controlled(() => LiveBattle.restore(canonicalJson(keyAttack)), /Unicode scalar/u);
   }
+
+  const pairedGeneric = structuredClone(parsed);
+  pairedGeneric.setup.questions[0].source = "paired-\uD83D\uDE00";
+  const genericRestore = LiveBattle.restore(canonicalJson(pairedGeneric));
+  assert.equal(genericRestore.serialize(), canonicalJson(pairedGeneric),
+    "a valid surrogate pair is accepted in a bounded generic QUESTION source");
+
   const paired = structuredClone(parsed);
-  paired.setup.questions[0].source = "paired-\uD83D\uDE00";
+  const sourceClaim = paired.setup.questions.find(({ key }) => key === "briar-runner.count");
+  assert.ok(sourceClaim, "the setup includes the Briar Runner count confidence receipt");
+  sourceClaim.source = "paired-\uD83D\uDE00";
   let pairedError;
   try { LiveBattle.restore(canonicalJson(paired)); }
   catch (error) { pairedError = error; }
   assert.ok(pairedError instanceof TypeError);
-  assert.doesNotMatch(pairedError.message, /Unicode scalar/u,
-    "a valid surrogate pair is one Unicode scalar and reaches semantic validation");
+  assert.match(pairedError.message, /source confidence QUESTION provenance diverges/u,
+    "the valid scalar reaches the source-confidence provenance check");
+  assert.doesNotMatch(pairedError.message, /Unicode scalar/u);
 });
 
 test("game battle: an over-capacity due boundary rejects before any mutation", () => {

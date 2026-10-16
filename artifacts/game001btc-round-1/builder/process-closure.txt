@@ -1,0 +1,3 @@
+Process closure check performed after the final test runs.
+Command: ps -o pid=,ppid=,command= -p 94235,95083,95126,95771,95867,96076,96136
+Observed output: empty; all owned direct processes had exited.

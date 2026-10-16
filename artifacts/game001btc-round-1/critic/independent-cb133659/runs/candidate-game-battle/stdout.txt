@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: game battle: all eight starter cards materialize stable singles and squad counts
+ok 1 - game battle: all eight starter cards materialize stable singles and squad counts
+  ---
+  duration_ms: 445.857042
+  type: 'test'
+  ...
+# Subtest: game battle: public forks preserve causal state and transcripts
+ok 2 - game battle: public forks preserve causal state and transcripts
+  ---
+  duration_ms: 83.264334
+  type: 'test'
+  ...
+# Subtest: game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+ok 3 - game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+  ---
+  duration_ms: 20079.176542
+  type: 'test'
+  ...
+# Subtest: game battle: symmetric opposing troops die in one simultaneous trade window
+ok 4 - game battle: symmetric opposing troops die in one simultaneous trade window
+  ---
+  duration_ms: 558.863
+  type: 'test'
+  ...
+# Subtest: game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+ok 5 - game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+  ---
+  duration_ms: 122.334125
+  type: 'test'
+  ...
+# Subtest: game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+ok 6 - game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+  ---
+  duration_ms: 311.964333
+  type: 'test'
+  ...
+# Subtest: game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+ok 7 - game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+  ---
+  duration_ms: 18.105375
+  type: 'test'
+  ...
+# Subtest: game battle: injected identity graph and QUESTION inventory are canonically closed
+ok 8 - game battle: injected identity graph and QUESTION inventory are canonically closed
+  ---
+  duration_ms: 123.235
+  type: 'test'
+  ...
+# Subtest: game battle: untrusted executable setup graphs reject without running traps
+ok 9 - game battle: untrusted executable setup graphs reject without running traps
+  ---
+  duration_ms: 61.430958
+  type: 'test'
+  ...
+# Subtest: game battle: restore preflights hostile parsed graphs before recursive canonicalization
+ok 10 - game battle: restore preflights hostile parsed graphs before recursive canonicalization
+  ---
+  duration_ms: 117.71875
+  type: 'test'
+  ...
+# Subtest: game battle: an over-capacity due boundary rejects before any mutation
+ok 11 - game battle: an over-capacity due boundary rejects before any mutation
+  ---
+  duration_ms: 25.511417
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22039.393541

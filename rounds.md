@@ -9669,3 +9669,12 @@ EVIDENCE: Fresh independent exacta71 candidate game-battle.test.js8pass3fail/dir
 BIGGEST GAP: Required shared battle verification fails three existing assertions on both accepted production and extraction, leaving the required default suite unqualified.
 
 Critic raw NO-GO is recorded as FAIL in the required tracking vocabulary; raw report preserved unchanged. No extraction source/test adopted. Split GAME-001BTC todiagnose actual scheduling,source-confidence andUnicode contracts before repair; do notassumeallare staleexpectations merelybecausebaselinefails. Fresh independent critique and matching factoryqualification remainrequired. Fullcurrentbrowserendurance,full109 andhistoricalparity remainopen.
+
+## Round 512 - GAME-001BTC shared battle contract verification repair
+
+PIECE: GAME-001BTC
+VERDICT: PASS
+EVIDENCE: Fresh exactcb133659 candidate gamebattle11/11,ordinary25/25,admission7/7 all actualdirect0,43passes0skips; separateindependentcausalprobe actual0. Accepted511 baselinecontrol8pass3fail expected1. Test verifiesBriar sourcepinned100ms/6tickstagger:activeunits20/22/24/26/28/30 at0/6/12/18/24/30, sides/archetypes,16tick0deploymentreceipts, canonicalreservedspawnIDs andfinal1..30. Missingtarget-modeQUESTION refusal matchesactualfield-specific semanticguard. Genericnon-authoritativeQUESTION source supportsvalidpairedUnicode, boundcountclaimprovenance remainsstrict, lone-surrogate/depth/width/safeinteger/canonicalguards retained. Historicala295 explicitlyremovedglobalone-source rule; confidence remainsunverified andfield-specificprovenancevalidated. Productiontree/package/assets/referenceobjects unchanged. Rootverifiedexecutedraws/directexits,sourcefences andsealedledgers.
+BIGGEST GAP: No remaining gap in this test-only repair; extraction and full current-source endurance remain independently unqualified.
+
+Adopt tests/game-battle.test.js only plusevidence/tracking. Builder43passes anddiagnosticmatrix retained. Firstprobe badrelativeimport andfirstcandidate incorrectpartialIDassertion raws retained, unavailableoriginalsources explicitlydocumented andnotreconstructed. Criticfirstarchiveomittedlegitmodule andfirstordinarycapturefailed; bothretainedasunqualifiedsetup/recordingfailures, correctedrecordedrunsqualify. No production/stat/sourceconfidence/capchanges. FactoryRound511FAIL remainshistory; nextmatchingfactoryretry required. No historical/full109/release-complete claim.

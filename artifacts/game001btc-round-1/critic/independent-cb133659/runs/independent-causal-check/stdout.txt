@@ -1,0 +1,74 @@
+{
+  "deploymentReceiptIds": {
+    "south": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "north": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ]
+  },
+  "firstBoundaryIds": [
+    1,
+    7
+  ],
+  "pendingMemberBoundaries": [
+    {
+      "tick": 6,
+      "ids": [
+        2,
+        8
+      ],
+      "memberIndex": 1
+    },
+    {
+      "tick": 12,
+      "ids": [
+        3,
+        9
+      ],
+      "memberIndex": 2
+    },
+    {
+      "tick": 18,
+      "ids": [
+        4,
+        10
+      ],
+      "memberIndex": 3
+    },
+    {
+      "tick": 24,
+      "ids": [
+        5,
+        11
+      ],
+      "memberIndex": 4
+    },
+    {
+      "tick": 30,
+      "ids": [
+        6,
+        12
+      ],
+      "memberIndex": 5
+    }
+  ],
+  "totalBriarMembers": 12,
+  "genericQuestionKey": "brassbolt.body-radius-millitiles",
+  "genericPairedSource": "accepted",
+  "boundQuestionKey": "briar-runner.count",
+  "boundPairedSource": "rejected at provenance",
+  "loneSurrogate": "rejected at Unicode scalar preflight",
+  "pendingDeploymentsAfterFinalMember": 0,
+  "finalTick": 31
+}

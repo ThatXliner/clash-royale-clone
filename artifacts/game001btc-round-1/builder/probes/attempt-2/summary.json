@@ -1,0 +1,1122 @@
+{
+  "firstQuestion": {
+    "authoritative": false,
+    "confidence": "unverified",
+    "disposition": "question",
+    "key": "briar-darter.body-radius-millitiles",
+    "source": "runtime-playability-estimate-not-comparison-corpus",
+    "value": 300
+  },
+  "sourceConfidenceClaimQuestion": {
+    "authoritative": false,
+    "confidence": "unverified",
+    "disposition": "question",
+    "key": "briar-runner.count",
+    "source": "runtime-playability-estimate-not-comparison-corpus",
+    "value": 3
+  },
+  "questionMatrix": {
+    "missing-tail-question": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "roster[6].entities[1] source confidence field lacks a QUESTION record",
+      "note": {
+        "removedKey": "briar-darter.target-mode",
+        "removedSource": "runtime-playability-estimate-not-comparison-corpus"
+      }
+    },
+    "added-unreferenced-question": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "live battle questions must be the canonical exact referenced inventory",
+      "note": {
+        "addedKey": "unused.body-radius-millitiles"
+      }
+    },
+    "duplicate-question": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "live battle setup question keys must be unique",
+      "note": {
+        "duplicatedKey": "briar-darter.body-radius-millitiles"
+      }
+    },
+    "stale-first-question-key": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "roster[6].entities[1] has an unresolved question policy",
+      "note": {
+        "old": "briar-darter.body-radius-millitiles",
+        "current": "stale.body-radius-millitiles"
+      }
+    },
+    "stale-first-question-confidence": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "live battle questions must retain unverified confidence",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles"
+      }
+    },
+    "different-generic-question-source": {
+      "accepted": true,
+      "note": {
+        "key": "briar-darter.body-radius-millitiles",
+        "old": "runtime-playability-estimate-not-comparison-corpus",
+        "current": "different-source"
+      }
+    },
+    "different-source-confidence-source": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "roster[6].entities[0] source confidence QUESTION provenance diverges",
+      "note": {
+        "key": "briar-runner.count",
+        "old": "runtime-playability-estimate-not-comparison-corpus",
+        "current": "different-source"
+      }
+    },
+    "empty-generic-question-source": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "questions[0].source must be a bounded non-empty primitive string",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles"
+      }
+    },
+    "bad-question-value-0": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "questions[0].value must be a safe integer from 1 through 9007199254740991",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles",
+        "value": 0
+      }
+    },
+    "bad-question-value--1": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "questions[0].value must be a safe integer from 1 through 9007199254740991",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles",
+        "value": -1
+      }
+    },
+    "bad-question-value-1.5": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "live battle setup numbers must be safe integers",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles",
+        "value": 1.5
+      }
+    },
+    "bad-question-value-9007199254740992": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "live battle setup numbers must be safe integers",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles",
+        "value": 9007199254740992
+      }
+    },
+    "restoreGenericPairedSource": {
+      "accepted": true,
+      "restoredSource": "paired-😀",
+      "restoredSnapshotEqual": true
+    },
+    "restoreSourceClaimPairedSource": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "roster[6].entities[0] source confidence QUESTION provenance diverges",
+      "note": {
+        "key": "briar-runner.count"
+      }
+    },
+    "restoreLoneSurrogateSource": {
+      "accepted": false,
+      "errorName": "TypeError",
+      "message": "live battle snapshot strings must contain only Unicode scalar values",
+      "note": {
+        "key": "briar-darter.body-radius-millitiles"
+      }
+    }
+  },
+  "cardIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "cardDetails": [
+    {
+      "cardId": "coilblade",
+      "count": 1,
+      "entities": [
+        {
+          "archetypeId": "coilblade",
+          "count": 1,
+          "deploymentInterval": null
+        }
+      ]
+    },
+    {
+      "cardId": "mossguard",
+      "count": 1,
+      "entities": [
+        {
+          "archetypeId": "mossguard",
+          "count": 1,
+          "deploymentInterval": null
+        }
+      ]
+    },
+    {
+      "cardId": "copperskiff",
+      "count": 1,
+      "entities": [
+        {
+          "archetypeId": "copperskiff",
+          "count": 1,
+          "deploymentInterval": null
+        }
+      ]
+    },
+    {
+      "cardId": "skymaul",
+      "count": 1,
+      "entities": [
+        {
+          "archetypeId": "skymaul",
+          "count": 1,
+          "deploymentInterval": null
+        }
+      ]
+    },
+    {
+      "cardId": "brassbolt",
+      "count": 1,
+      "entities": [
+        {
+          "archetypeId": "brassbolt",
+          "count": 1,
+          "deploymentInterval": null
+        }
+      ]
+    },
+    {
+      "cardId": "reedsting",
+      "count": 1,
+      "entities": [
+        {
+          "archetypeId": "reedsting",
+          "count": 1,
+          "deploymentInterval": null
+        }
+      ]
+    },
+    {
+      "cardId": "briar-band",
+      "count": 6,
+      "entities": [
+        {
+          "archetypeId": "briar-runner",
+          "count": 3,
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "count": 3,
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ]
+    },
+    {
+      "cardId": "cinderlings",
+      "count": 3,
+      "entities": [
+        {
+          "archetypeId": "cinderling",
+          "count": 3,
+          "deploymentInterval": null
+        }
+      ]
+    }
+  ],
+  "scheduledCommandCount": 16,
+  "boundaries": [
+    {
+      "sourceBoundaryTick": 0,
+      "stateTick": 1,
+      "unitCount": 20,
+      "cardCounts": [
+        {
+          "cardId": "brassbolt",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            9,
+            10
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            13,
+            19
+          ]
+        },
+        {
+          "cardId": "cinderlings",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "cardId": "coilblade",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "cardId": "copperskiff",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            5,
+            6
+          ]
+        },
+        {
+          "cardId": "mossguard",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            3,
+            4
+          ]
+        },
+        {
+          "cardId": "reedsting",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            11,
+            12
+          ]
+        },
+        {
+          "cardId": "skymaul",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            7,
+            8
+          ]
+        }
+      ],
+      "spawnEvents": [
+        {
+          "id": 1,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 2,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 5,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 6,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 7,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 8,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 9,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 10,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 11,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 12,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 13,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 19,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 25,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 26,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 27,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "id": 28,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 29,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "id": 30,
+          "side": "north",
+          "tick": 0
+        }
+      ],
+      "deploymentEvents": [
+        {
+          "cardId": "coilblade",
+          "entityIds": [
+            1
+          ],
+          "side": "south",
+          "sequence": 0,
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "entityIds": [
+            2
+          ],
+          "side": "north",
+          "sequence": 1,
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "entityIds": [
+            3
+          ],
+          "side": "south",
+          "sequence": 2,
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "entityIds": [
+            4
+          ],
+          "side": "north",
+          "sequence": 3,
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "entityIds": [
+            5
+          ],
+          "side": "south",
+          "sequence": 4,
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "entityIds": [
+            6
+          ],
+          "side": "north",
+          "sequence": 5,
+          "tick": 0
+        },
+        {
+          "cardId": "skymaul",
+          "entityIds": [
+            7
+          ],
+          "side": "south",
+          "sequence": 6,
+          "tick": 0
+        },
+        {
+          "cardId": "skymaul",
+          "entityIds": [
+            8
+          ],
+          "side": "north",
+          "sequence": 7,
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "entityIds": [
+            9
+          ],
+          "side": "south",
+          "sequence": 8,
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "entityIds": [
+            10
+          ],
+          "side": "north",
+          "sequence": 9,
+          "tick": 0
+        },
+        {
+          "cardId": "reedsting",
+          "entityIds": [
+            11
+          ],
+          "side": "south",
+          "sequence": 10,
+          "tick": 0
+        },
+        {
+          "cardId": "reedsting",
+          "entityIds": [
+            12
+          ],
+          "side": "north",
+          "sequence": 11,
+          "tick": 0
+        },
+        {
+          "cardId": "briar-band",
+          "entityIds": [
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "side": "south",
+          "sequence": 12,
+          "tick": 0
+        },
+        {
+          "cardId": "briar-band",
+          "entityIds": [
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "side": "north",
+          "sequence": 13,
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "entityIds": [
+            25,
+            26,
+            27
+          ],
+          "side": "south",
+          "sequence": 14,
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "entityIds": [
+            28,
+            29,
+            30
+          ],
+          "side": "north",
+          "sequence": 15,
+          "tick": 0
+        }
+      ],
+      "pendingDeployments": []
+    },
+    {
+      "sourceBoundaryTick": 6,
+      "stateTick": 7,
+      "unitCount": 22,
+      "cardCounts": [
+        {
+          "cardId": "brassbolt",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            9,
+            10
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "south": 2,
+          "north": 2,
+          "ids": [
+            13,
+            14,
+            19,
+            20
+          ]
+        },
+        {
+          "cardId": "cinderlings",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "cardId": "coilblade",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "cardId": "copperskiff",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            5,
+            6
+          ]
+        },
+        {
+          "cardId": "mossguard",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            3,
+            4
+          ]
+        },
+        {
+          "cardId": "reedsting",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            11,
+            12
+          ]
+        },
+        {
+          "cardId": "skymaul",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            7,
+            8
+          ]
+        }
+      ],
+      "spawnEvents": [
+        {
+          "id": 14,
+          "side": "south",
+          "tick": 6
+        },
+        {
+          "id": 20,
+          "side": "north",
+          "tick": 6
+        }
+      ],
+      "deploymentEvents": [],
+      "pendingDeployments": []
+    },
+    {
+      "sourceBoundaryTick": 12,
+      "stateTick": 13,
+      "unitCount": 24,
+      "cardCounts": [
+        {
+          "cardId": "brassbolt",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            9,
+            10
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            13,
+            14,
+            15,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "cardId": "cinderlings",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "cardId": "coilblade",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "cardId": "copperskiff",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            5,
+            6
+          ]
+        },
+        {
+          "cardId": "mossguard",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            3,
+            4
+          ]
+        },
+        {
+          "cardId": "reedsting",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            11,
+            12
+          ]
+        },
+        {
+          "cardId": "skymaul",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            7,
+            8
+          ]
+        }
+      ],
+      "spawnEvents": [
+        {
+          "id": 15,
+          "side": "south",
+          "tick": 12
+        },
+        {
+          "id": 21,
+          "side": "north",
+          "tick": 12
+        }
+      ],
+      "deploymentEvents": [],
+      "pendingDeployments": []
+    },
+    {
+      "sourceBoundaryTick": 18,
+      "stateTick": 19,
+      "unitCount": 26,
+      "cardCounts": [
+        {
+          "cardId": "brassbolt",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            9,
+            10
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "south": 4,
+          "north": 4,
+          "ids": [
+            13,
+            14,
+            15,
+            16,
+            19,
+            20,
+            21,
+            22
+          ]
+        },
+        {
+          "cardId": "cinderlings",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "cardId": "coilblade",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "cardId": "copperskiff",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            5,
+            6
+          ]
+        },
+        {
+          "cardId": "mossguard",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            3,
+            4
+          ]
+        },
+        {
+          "cardId": "reedsting",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            11,
+            12
+          ]
+        },
+        {
+          "cardId": "skymaul",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            7,
+            8
+          ]
+        }
+      ],
+      "spawnEvents": [
+        {
+          "id": 16,
+          "side": "south",
+          "tick": 18
+        },
+        {
+          "id": 22,
+          "side": "north",
+          "tick": 18
+        }
+      ],
+      "deploymentEvents": [],
+      "pendingDeployments": []
+    },
+    {
+      "sourceBoundaryTick": 24,
+      "stateTick": 25,
+      "unitCount": 28,
+      "cardCounts": [
+        {
+          "cardId": "brassbolt",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            9,
+            10
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "south": 5,
+          "north": 5,
+          "ids": [
+            13,
+            14,
+            15,
+            16,
+            17,
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        },
+        {
+          "cardId": "cinderlings",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "cardId": "coilblade",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "cardId": "copperskiff",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            5,
+            6
+          ]
+        },
+        {
+          "cardId": "mossguard",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            3,
+            4
+          ]
+        },
+        {
+          "cardId": "reedsting",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            11,
+            12
+          ]
+        },
+        {
+          "cardId": "skymaul",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            7,
+            8
+          ]
+        }
+      ],
+      "spawnEvents": [
+        {
+          "id": 17,
+          "side": "south",
+          "tick": 24
+        },
+        {
+          "id": 23,
+          "side": "north",
+          "tick": 24
+        }
+      ],
+      "deploymentEvents": [],
+      "pendingDeployments": []
+    },
+    {
+      "sourceBoundaryTick": 30,
+      "stateTick": 31,
+      "unitCount": 30,
+      "cardCounts": [
+        {
+          "cardId": "brassbolt",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            9,
+            10
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "south": 6,
+          "north": 6,
+          "ids": [
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ]
+        },
+        {
+          "cardId": "cinderlings",
+          "south": 3,
+          "north": 3,
+          "ids": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "cardId": "coilblade",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            1,
+            2
+          ]
+        },
+        {
+          "cardId": "copperskiff",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            5,
+            6
+          ]
+        },
+        {
+          "cardId": "mossguard",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            3,
+            4
+          ]
+        },
+        {
+          "cardId": "reedsting",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            11,
+            12
+          ]
+        },
+        {
+          "cardId": "skymaul",
+          "south": 1,
+          "north": 1,
+          "ids": [
+            7,
+            8
+          ]
+        }
+      ],
+      "spawnEvents": [
+        {
+          "id": 18,
+          "side": "south",
+          "tick": 30
+        },
+        {
+          "id": 24,
+          "side": "north",
+          "tick": 30
+        }
+      ],
+      "deploymentEvents": [],
+      "pendingDeployments": []
+    }
+  ]
+}
