@@ -1,0 +1,5739 @@
+{
+  "historicalRoot": "/tmp/game001gtc-history-status-2a",
+  "currentRoot": "/tmp/game001gtc-critic-1664884685",
+  "results": [
+    {
+      "id": "bloom-wisp",
+      "historical": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 176394,
+        "runtimeStateSha256": "c1f2625b95cd2e03740f72837defc1cfcd82938db6ecbc337817b1aa540a5a07",
+        "replaySha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+        "snapshotBytes": 200458,
+        "snapshotSha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "bloom-wisp",
+            "archetypeId": "bloom-wisp",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14500
+            },
+            "hitpoints": 231,
+            "maxHealth": 231,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2866,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17134
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 4,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 5,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 6,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 7,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "current": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 172264,
+        "runtimeStateSha256": "3cd0bab779052773307e23c42613507e8363cd6e0021050e7b428459ddfb4b64",
+        "replaySha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+        "snapshotBytes": 214020,
+        "snapshotSha256": "e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "bloom-wisp",
+            "archetypeId": "bloom-wisp",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14500
+            },
+            "hitpoints": 231,
+            "maxHealth": 231,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2866,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17367
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "stateDiffCount": 14,
+      "stateDiffTruncatedAt200": false,
+      "stateDiffs": [
+        {
+          "path": "$.battle.units.length",
+          "historical": 7,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[0].targetId",
+          "historical": 3,
+          "current": 2
+        },
+        {
+          "path": "$.battle.units[2].attack.nextTick",
+          "historical": 11,
+          "current": 5
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].tick",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[2].movement.position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].movement.remainder",
+          "historical": 40,
+          "current": 20
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentProgress",
+          "historical": 366,
+          "current": 133
+        },
+        {
+          "path": "$.battle.units[2].movement.tick",
+          "historical": 11,
+          "current": 10
+        },
+        {
+          "path": "$.battle.units[2].position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].spawnedAt",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[3]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 42,
+                "hitSpeedTicks": 66
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 66,
+            "damage": 120,
+            "delivery": "melee",
+            "deployTicks": 60,
+            "firstHitTicks": 42,
+            "hitpoints": 202,
+            "id": 4,
+            "layer": "ground",
+            "maxHealth": 202,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "projectileSpeed": null,
+            "radius": 300,
+            "reach": 500,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "ground",
+            "archetypeId": "briar-runner",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 14500
+                    },
+                    "radius": 500,
+                    "range": 500
+                  },
+                  "tick": 0
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 17500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4134,
+                "y": 17500
+              },
+              "remainder": 40,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 17500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 366,
+              "segmentStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 14500
+                },
+                "radius": 500,
+                "range": 500
+              },
+              "tick": 11
+            },
+            "role": "primary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[4]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 5,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 0,
+            "movement": {
+              "anchor": {
+                "x": 2500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 2500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 2500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 2500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[5]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 6,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 1,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 3500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 3500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[6]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 7,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 4500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        }
+      ]
+    },
+    {
+      "id": "dawnmender",
+      "historical": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 176608,
+        "runtimeStateSha256": "ff60c73b93df80e7f64761e4a6a18ed9d99c247342388604ad862267b5eedc25",
+        "replaySha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+        "snapshotBytes": 200434,
+        "snapshotSha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "dawnmender",
+            "archetypeId": "dawnmender",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14683
+            },
+            "hitpoints": 1717,
+            "maxHealth": 1717,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2866,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17134
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 4,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 5,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 6,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 7,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "current": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 172572,
+        "runtimeStateSha256": "125837b43df7c5fa61865eed555383a6e97987cf531ba14485d71faf7b85da58",
+        "replaySha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+        "snapshotBytes": 213996,
+        "snapshotSha256": "560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "dawnmender",
+            "archetypeId": "dawnmender",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14682
+            },
+            "hitpoints": 1717,
+            "maxHealth": 1717,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2866,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17367
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "stateDiffCount": 25,
+      "stateDiffTruncatedAt200": false,
+      "stateDiffs": [
+        {
+          "path": "$.battle.units.length",
+          "historical": 7,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[0].movement.commands.length",
+          "historical": 1,
+          "current": 2
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[0].target.position.x",
+          "historical": 3500,
+          "current": 2500
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[1]",
+          "historical": "<missing>",
+          "current": {
+            "kind": "target",
+            "target": {
+              "position": {
+                "x": 3500,
+                "y": 17500
+              },
+              "radius": 300,
+              "range": 1600
+            },
+            "tick": 7
+          }
+        },
+        {
+          "path": "$.battle.units[0].movement.position.y",
+          "historical": 14683,
+          "current": 14682
+        },
+        {
+          "path": "$.battle.units[0].movement.remainder",
+          "historical": 20,
+          "current": 40
+        },
+        {
+          "path": "$.battle.units[0].movement.routeIndex",
+          "historical": 1,
+          "current": 0
+        },
+        {
+          "path": "$.battle.units[0].movement.routeOrigin.y",
+          "historical": 14500,
+          "current": 15500
+        },
+        {
+          "path": "$.battle.units[0].movement.segmentLength",
+          "historical": 1000,
+          "current": 884
+        },
+        {
+          "path": "$.battle.units[0].movement.segmentProgress",
+          "historical": 183,
+          "current": 66
+        },
+        {
+          "path": "$.battle.units[0].movement.segmentStart.y",
+          "historical": 14500,
+          "current": 14616
+        },
+        {
+          "path": "$.battle.units[0].position.y",
+          "historical": 14683,
+          "current": 14682
+        },
+        {
+          "path": "$.battle.units[0].targetId",
+          "historical": 3,
+          "current": 2
+        },
+        {
+          "path": "$.battle.units[2].attack.nextTick",
+          "historical": 11,
+          "current": 5
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].tick",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[2].movement.position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].movement.remainder",
+          "historical": 40,
+          "current": 20
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentProgress",
+          "historical": 366,
+          "current": 133
+        },
+        {
+          "path": "$.battle.units[2].movement.tick",
+          "historical": 11,
+          "current": 10
+        },
+        {
+          "path": "$.battle.units[2].position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].spawnedAt",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[3]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 42,
+                "hitSpeedTicks": 66
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 66,
+            "damage": 120,
+            "delivery": "melee",
+            "deployTicks": 60,
+            "firstHitTicks": 42,
+            "hitpoints": 202,
+            "id": 4,
+            "layer": "ground",
+            "maxHealth": 202,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "projectileSpeed": null,
+            "radius": 300,
+            "reach": 500,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "ground",
+            "archetypeId": "briar-runner",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 14500
+                    },
+                    "radius": 500,
+                    "range": 500
+                  },
+                  "tick": 0
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 17500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4134,
+                "y": 17500
+              },
+              "remainder": 40,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 17500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 366,
+              "segmentStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 14500
+                },
+                "radius": 500,
+                "range": 500
+              },
+              "tick": 11
+            },
+            "role": "primary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[4]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 5,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 0,
+            "movement": {
+              "anchor": {
+                "x": 2500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 2500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 2500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 2500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[5]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 6,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 1,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 3500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 3500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[6]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 7,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 4500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        }
+      ]
+    },
+    {
+      "id": "pulse-sentry",
+      "historical": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 176561,
+        "runtimeStateSha256": "24963b4dc3ca4747a6605bca2d9c350bf486c219d67b88ea9e5e67961f395e88",
+        "replaySha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+        "snapshotBytes": 200506,
+        "snapshotSha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "pulse-sentry",
+            "archetypeId": "pulse-sentry",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14500
+            },
+            "hitpoints": 1000,
+            "maxHealth": 1000,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2533,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17134
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 4,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 5,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 6,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 7,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "current": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 172431,
+        "runtimeStateSha256": "71857d88045dd11133873a440eee85323981c08ca5738c0e2de305516eaa57ae",
+        "replaySha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+        "snapshotBytes": 214068,
+        "snapshotSha256": "12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "pulse-sentry",
+            "archetypeId": "pulse-sentry",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14500
+            },
+            "hitpoints": 1000,
+            "maxHealth": 1000,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2533,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17367
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "stateDiffCount": 14,
+      "stateDiffTruncatedAt200": false,
+      "stateDiffs": [
+        {
+          "path": "$.battle.units.length",
+          "historical": 7,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[0].targetId",
+          "historical": 3,
+          "current": 2
+        },
+        {
+          "path": "$.battle.units[2].attack.nextTick",
+          "historical": 11,
+          "current": 5
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].tick",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[2].movement.position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].movement.remainder",
+          "historical": 40,
+          "current": 20
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentProgress",
+          "historical": 366,
+          "current": 133
+        },
+        {
+          "path": "$.battle.units[2].movement.tick",
+          "historical": 11,
+          "current": 10
+        },
+        {
+          "path": "$.battle.units[2].position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].spawnedAt",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[3]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 42,
+                "hitSpeedTicks": 66
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 66,
+            "damage": 120,
+            "delivery": "melee",
+            "deployTicks": 60,
+            "firstHitTicks": 42,
+            "hitpoints": 202,
+            "id": 4,
+            "layer": "ground",
+            "maxHealth": 202,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "projectileSpeed": null,
+            "radius": 300,
+            "reach": 500,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "ground",
+            "archetypeId": "briar-runner",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 14500
+                    },
+                    "radius": 500,
+                    "range": 500
+                  },
+                  "tick": 0
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 17500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4134,
+                "y": 17500
+              },
+              "remainder": 40,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 17500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 366,
+              "segmentStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 14500
+                },
+                "radius": 500,
+                "range": 500
+              },
+              "tick": 11
+            },
+            "role": "primary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[4]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 5,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 0,
+            "movement": {
+              "anchor": {
+                "x": 2500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 2500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 2500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 2500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[5]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 6,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 1,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 3500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 3500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[6]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 7,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 4500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        }
+      ]
+    },
+    {
+      "id": "rime-adept",
+      "historical": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 176657,
+        "runtimeStateSha256": "1fbae1b59f29d833cb13e735a21ce6a787c0e83eb5617eeb9b46c0cab902f028",
+        "replaySha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+        "snapshotBytes": 200458,
+        "snapshotSha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "rime-adept",
+            "archetypeId": "rime-adept",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14500
+            },
+            "hitpoints": 688,
+            "maxHealth": 688,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2733,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17134
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 4,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 5,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 6,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 7,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "current": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 172527,
+        "runtimeStateSha256": "6429a27e545da25965f7c95a5b29922b71d57cd0fbb19da1e4e5354e298e7a5b",
+        "replaySha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+        "snapshotBytes": 214020,
+        "snapshotSha256": "5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "rime-adept",
+            "archetypeId": "rime-adept",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14500
+            },
+            "hitpoints": 688,
+            "maxHealth": 688,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2733,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17367
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "stateDiffCount": 14,
+      "stateDiffTruncatedAt200": false,
+      "stateDiffs": [
+        {
+          "path": "$.battle.units.length",
+          "historical": 7,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[0].targetId",
+          "historical": 3,
+          "current": 2
+        },
+        {
+          "path": "$.battle.units[2].attack.nextTick",
+          "historical": 11,
+          "current": 5
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].tick",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[2].movement.position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].movement.remainder",
+          "historical": 40,
+          "current": 20
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentProgress",
+          "historical": 366,
+          "current": 133
+        },
+        {
+          "path": "$.battle.units[2].movement.tick",
+          "historical": 11,
+          "current": 10
+        },
+        {
+          "path": "$.battle.units[2].position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].spawnedAt",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[3]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 42,
+                "hitSpeedTicks": 66
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 66,
+            "damage": 120,
+            "delivery": "melee",
+            "deployTicks": 60,
+            "firstHitTicks": 42,
+            "hitpoints": 202,
+            "id": 4,
+            "layer": "ground",
+            "maxHealth": 202,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "projectileSpeed": null,
+            "radius": 300,
+            "reach": 500,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "ground",
+            "archetypeId": "briar-runner",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 14500
+                    },
+                    "radius": 500,
+                    "range": 500
+                  },
+                  "tick": 0
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 17500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4134,
+                "y": 17500
+              },
+              "remainder": 40,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 17500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 366,
+              "segmentStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 14500
+                },
+                "radius": 500,
+                "range": 500
+              },
+              "tick": 11
+            },
+            "role": "primary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[4]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 5,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 0,
+            "movement": {
+              "anchor": {
+                "x": 2500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 2500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 2500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 2500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[5]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 6,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 1,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 3500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 3500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[6]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 7,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 4500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        }
+      ]
+    },
+    {
+      "id": "tether-rider",
+      "historical": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 176862,
+        "runtimeStateSha256": "4bcd66e0dfb4c0775df4969c41dcf95e85145251d93c0298cd47c6bd89648f28",
+        "replaySha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+        "snapshotBytes": 200495,
+        "snapshotSha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "tether-rider",
+            "archetypeId": "tether-rider",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14683
+            },
+            "hitpoints": 1767,
+            "maxHealth": 1767,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2533,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17134
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 4,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 5,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 6,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 7,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "current": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 172732,
+        "runtimeStateSha256": "9bd59787f9fd2b98aa23e671f6c8a198acff2cb3fde506a37e38d55edb1f445e",
+        "replaySha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+        "snapshotBytes": 214057,
+        "snapshotSha256": "d091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "tether-rider",
+            "archetypeId": "tether-rider",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14683
+            },
+            "hitpoints": 1767,
+            "maxHealth": 1767,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2533,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17367
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "stateDiffCount": 13,
+      "stateDiffTruncatedAt200": false,
+      "stateDiffs": [
+        {
+          "path": "$.battle.units.length",
+          "historical": 7,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[2].attack.nextTick",
+          "historical": 11,
+          "current": 5
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].tick",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[2].movement.position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].movement.remainder",
+          "historical": 40,
+          "current": 20
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentProgress",
+          "historical": 366,
+          "current": 133
+        },
+        {
+          "path": "$.battle.units[2].movement.tick",
+          "historical": 11,
+          "current": 10
+        },
+        {
+          "path": "$.battle.units[2].position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].spawnedAt",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[3]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 42,
+                "hitSpeedTicks": 66
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 66,
+            "damage": 120,
+            "delivery": "melee",
+            "deployTicks": 60,
+            "firstHitTicks": 42,
+            "hitpoints": 202,
+            "id": 4,
+            "layer": "ground",
+            "maxHealth": 202,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "projectileSpeed": null,
+            "radius": 300,
+            "reach": 500,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "ground",
+            "archetypeId": "briar-runner",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 14500
+                    },
+                    "radius": 500,
+                    "range": 500
+                  },
+                  "tick": 0
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 17500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4134,
+                "y": 17500
+              },
+              "remainder": 40,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 17500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 366,
+              "segmentStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 14500
+                },
+                "radius": 500,
+                "range": 500
+              },
+              "tick": 11
+            },
+            "role": "primary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[4]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 5,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 2500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 0,
+            "movement": {
+              "anchor": {
+                "x": 2500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 2500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 2500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 2500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[5]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 6,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 3500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 1,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 3500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 3500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[6]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 7,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 4500,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": 1,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 4500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [],
+              "edgeStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4500,
+                "y": 18500
+              },
+              "remainder": 0,
+              "route": [],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 18500
+              },
+              "segmentLength": 0,
+              "segmentProgress": 0,
+              "segmentStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": null,
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        }
+      ]
+    },
+    {
+      "id": "veil-prowler",
+      "historical": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 179271,
+        "runtimeStateSha256": "8fa6bc3d8f70df57dce3d0cad0200747e7554726f2cafe3953cb38f8a5f449b1",
+        "replaySha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+        "snapshotBytes": 200501,
+        "snapshotSha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "veil-prowler",
+            "archetypeId": "veil-prowler",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14583
+            },
+            "hitpoints": 900,
+            "maxHealth": 900,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2866,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17134
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 4,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 5,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2833,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 6,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 18167
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 7,
+            "cardId": "briar-band",
+            "archetypeId": "briar-darter",
+            "side": "north",
+            "memberIndex": 2,
+            "spawnTick": null,
+            "position": {
+              "x": 4167,
+              "y": 18500
+            },
+            "hitpoints": 133,
+            "maxHealth": 133,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "current": {
+        "targetCard": "briar-band",
+        "runtimeStateBytes": 173238,
+        "runtimeStateSha256": "9ab4d1055683e9c50245dae7c655ce566a1ff272ed60397b0dff1359c2d6ea76",
+        "replaySha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+        "snapshotBytes": 214063,
+        "snapshotSha256": "95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579",
+        "units": [
+          {
+            "id": 1,
+            "cardId": "veil-prowler",
+            "archetypeId": "veil-prowler",
+            "side": "south",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 14649
+            },
+            "hitpoints": 900,
+            "maxHealth": 900,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 2,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 0,
+            "spawnTick": null,
+            "position": {
+              "x": 2866,
+              "y": 17500
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          },
+          {
+            "id": 3,
+            "cardId": "briar-band",
+            "archetypeId": "briar-runner",
+            "side": "north",
+            "memberIndex": 1,
+            "spawnTick": null,
+            "position": {
+              "x": 3500,
+              "y": 17367
+            },
+            "hitpoints": 202,
+            "maxHealth": 202,
+            "alive": true,
+            "keys": [
+              "alive",
+              "archetypeId",
+              "attack",
+              "cadenceTicks",
+              "cardId",
+              "count",
+              "damage",
+              "delivery",
+              "deployTicks",
+              "firstHitTicks",
+              "hitpoints",
+              "id",
+              "layer",
+              "maxHealth",
+              "memberIndex",
+              "movement",
+              "position",
+              "projectileSpeed",
+              "radius",
+              "reach",
+              "role",
+              "side",
+              "sightRange",
+              "spawnedAt",
+              "targetId",
+              "targetMode"
+            ]
+          }
+        ]
+      },
+      "stateDiffCount": 30,
+      "stateDiffTruncatedAt200": false,
+      "stateDiffs": [
+        {
+          "path": "$.battle.units.length",
+          "historical": 7,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[0].movement.commands.length",
+          "historical": 2,
+          "current": 3
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[0].target.position.x",
+          "historical": 3500,
+          "current": 2500
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[1].kind",
+          "historical": "stop",
+          "current": "target"
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[1].target",
+          "historical": "<missing>",
+          "current": {
+            "position": {
+              "x": 3500,
+              "y": 17500
+            },
+            "radius": 300,
+            "range": 2000
+          }
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[1].tick",
+          "historical": 5,
+          "current": 7
+        },
+        {
+          "path": "$.battle.units[0].movement.commands[2]",
+          "historical": "<missing>",
+          "current": {
+            "kind": "stop",
+            "tick": 9
+          }
+        },
+        {
+          "path": "$.battle.units[0].movement.position.y",
+          "historical": 14583,
+          "current": 14649
+        },
+        {
+          "path": "$.battle.units[0].movement.segmentStart.y",
+          "historical": 14583,
+          "current": 14649
+        },
+        {
+          "path": "$.battle.units[0].position.y",
+          "historical": 14583,
+          "current": 14649
+        },
+        {
+          "path": "$.battle.units[0].targetId",
+          "historical": 3,
+          "current": 2
+        },
+        {
+          "path": "$.battle.units[2].attack.nextTick",
+          "historical": 11,
+          "current": 5
+        },
+        {
+          "path": "$.battle.units[2].movement.commands.length",
+          "historical": 2,
+          "current": 1
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].target.position.y",
+          "historical": 14500,
+          "current": 5500
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].target.radius",
+          "historical": 500,
+          "current": 0
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[0].tick",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[2].movement.commands[1]",
+          "historical": {
+            "kind": "target",
+            "target": {
+              "position": {
+                "x": 3500,
+                "y": 5500
+              },
+              "radius": 0,
+              "range": 500
+            },
+            "tick": 1
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[2].movement.position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].movement.routeIndex",
+          "historical": 0,
+          "current": 1
+        },
+        {
+          "path": "$.battle.units[2].movement.routeOrigin.y",
+          "historical": 16500,
+          "current": 17500
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentLength",
+          "historical": 967,
+          "current": 1000
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentProgress",
+          "historical": 333,
+          "current": 133
+        },
+        {
+          "path": "$.battle.units[2].movement.segmentStart.y",
+          "historical": 17467,
+          "current": 17500
+        },
+        {
+          "path": "$.battle.units[2].movement.tick",
+          "historical": 11,
+          "current": 10
+        },
+        {
+          "path": "$.battle.units[2].position.y",
+          "historical": 17134,
+          "current": 17367
+        },
+        {
+          "path": "$.battle.units[2].spawnedAt",
+          "historical": 0,
+          "current": 6
+        },
+        {
+          "path": "$.battle.units[3]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 42,
+                "hitSpeedTicks": 66
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 66,
+            "damage": 120,
+            "delivery": "melee",
+            "deployTicks": 60,
+            "firstHitTicks": 42,
+            "hitpoints": 202,
+            "id": 4,
+            "layer": "ground",
+            "maxHealth": 202,
+            "position": {
+              "x": 4134,
+              "y": 17500
+            },
+            "projectileSpeed": null,
+            "radius": 300,
+            "reach": 500,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": null,
+            "targetMode": "ground",
+            "archetypeId": "briar-runner",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 14500
+                    },
+                    "radius": 500,
+                    "range": 500
+                  },
+                  "tick": 0
+                },
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 5500
+                    },
+                    "radius": 0,
+                    "range": 500
+                  },
+                  "tick": 1
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 17500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 17500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4134,
+                "y": 17500
+              },
+              "remainder": 20,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                },
+                {
+                  "x": 2500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 13500
+                },
+                {
+                  "x": 1500,
+                  "y": 12500
+                },
+                {
+                  "x": 1500,
+                  "y": 11500
+                },
+                {
+                  "x": 1500,
+                  "y": 10500
+                },
+                {
+                  "x": 1500,
+                  "y": 9500
+                },
+                {
+                  "x": 1500,
+                  "y": 8500
+                },
+                {
+                  "x": 1500,
+                  "y": 7500
+                },
+                {
+                  "x": 1500,
+                  "y": 6500
+                },
+                {
+                  "x": 1500,
+                  "y": 5500
+                },
+                {
+                  "x": 2500,
+                  "y": 5500
+                },
+                {
+                  "x": 3500,
+                  "y": 5500
+                }
+              ],
+              "routeIndex": 0,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 17500
+              },
+              "segmentLength": 967,
+              "segmentProgress": 333,
+              "segmentStart": {
+                "x": 4467,
+                "y": 17500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "radius": 0,
+                "range": 500
+              },
+              "tick": 11
+            },
+            "role": "primary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[4]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 5,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 2833,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 0,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 5500
+                    },
+                    "radius": 0,
+                    "range": 5000
+                  },
+                  "tick": 1
+                }
+              ],
+              "edgeStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 2500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 2833,
+                "y": 18500
+              },
+              "remainder": 20,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 18500
+                },
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                },
+                {
+                  "x": 2500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 13500
+                },
+                {
+                  "x": 1500,
+                  "y": 12500
+                },
+                {
+                  "x": 1500,
+                  "y": 11500
+                },
+                {
+                  "x": 1500,
+                  "y": 10500
+                },
+                {
+                  "x": 1500,
+                  "y": 9500
+                },
+                {
+                  "x": 1500,
+                  "y": 8500
+                },
+                {
+                  "x": 1500,
+                  "y": 7500
+                },
+                {
+                  "x": 1500,
+                  "y": 6500
+                },
+                {
+                  "x": 1500,
+                  "y": 5500
+                },
+                {
+                  "x": 2500,
+                  "y": 5500
+                },
+                {
+                  "x": 3500,
+                  "y": 5500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 2500,
+                "y": 18500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 333,
+              "segmentStart": {
+                "x": 2500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "radius": 0,
+                "range": 5000
+              },
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[5]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 6,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 3500,
+              "y": 18167
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 1,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 17500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 5500
+                    },
+                    "radius": 0,
+                    "range": 5000
+                  },
+                  "tick": 1
+                }
+              ],
+              "edgeStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 3500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 3500,
+                "y": 18167
+              },
+              "remainder": 20,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                },
+                {
+                  "x": 2500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 13500
+                },
+                {
+                  "x": 1500,
+                  "y": 12500
+                },
+                {
+                  "x": 1500,
+                  "y": 11500
+                },
+                {
+                  "x": 1500,
+                  "y": 10500
+                },
+                {
+                  "x": 1500,
+                  "y": 9500
+                },
+                {
+                  "x": 1500,
+                  "y": 8500
+                },
+                {
+                  "x": 1500,
+                  "y": 7500
+                },
+                {
+                  "x": 1500,
+                  "y": 6500
+                },
+                {
+                  "x": 1500,
+                  "y": 5500
+                },
+                {
+                  "x": 2500,
+                  "y": 5500
+                },
+                {
+                  "x": 3500,
+                  "y": 5500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 3500,
+                "y": 18500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 333,
+              "segmentStart": {
+                "x": 3500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "radius": 0,
+                "range": 5000
+              },
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        },
+        {
+          "path": "$.battle.units[6]",
+          "historical": {
+            "alive": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 60,
+                "firstHitTicks": 72,
+                "hitSpeedTicks": 102
+              },
+              "nextAttackTick": null,
+              "nextTick": 11,
+              "phase": "deploying",
+              "targetId": null
+            },
+            "cadenceTicks": 102,
+            "damage": 81,
+            "delivery": "projectile",
+            "deployTicks": 60,
+            "firstHitTicks": 72,
+            "hitpoints": 133,
+            "id": 7,
+            "layer": "ground",
+            "maxHealth": 133,
+            "position": {
+              "x": 4167,
+              "y": 18500
+            },
+            "projectileSpeed": 500,
+            "radius": 300,
+            "reach": 5000,
+            "side": "north",
+            "sightRange": 5500,
+            "spawnedAt": 0,
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "archetypeId": "briar-darter",
+            "cardId": "briar-band",
+            "count": 3,
+            "memberIndex": 2,
+            "movement": {
+              "anchor": {
+                "x": 3500,
+                "y": 18500
+              },
+              "bodyRadius": 300,
+              "commands": [
+                {
+                  "kind": "target",
+                  "target": {
+                    "position": {
+                      "x": 3500,
+                      "y": 5500
+                    },
+                    "radius": 0,
+                    "range": 5000
+                  },
+                  "tick": 1
+                }
+              ],
+              "edgeStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "initialPosition": {
+                "x": 4500,
+                "y": 18500
+              },
+              "mode": "ground",
+              "position": {
+                "x": 4167,
+                "y": 18500
+              },
+              "remainder": 20,
+              "route": [
+                {
+                  "x": 3500,
+                  "y": 18500
+                },
+                {
+                  "x": 3500,
+                  "y": 17500
+                },
+                {
+                  "x": 3500,
+                  "y": 16500
+                },
+                {
+                  "x": 3500,
+                  "y": 15500
+                },
+                {
+                  "x": 3500,
+                  "y": 14500
+                },
+                {
+                  "x": 2500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 14500
+                },
+                {
+                  "x": 1500,
+                  "y": 13500
+                },
+                {
+                  "x": 1500,
+                  "y": 12500
+                },
+                {
+                  "x": 1500,
+                  "y": 11500
+                },
+                {
+                  "x": 1500,
+                  "y": 10500
+                },
+                {
+                  "x": 1500,
+                  "y": 9500
+                },
+                {
+                  "x": 1500,
+                  "y": 8500
+                },
+                {
+                  "x": 1500,
+                  "y": 7500
+                },
+                {
+                  "x": 1500,
+                  "y": 6500
+                },
+                {
+                  "x": 1500,
+                  "y": 5500
+                },
+                {
+                  "x": 2500,
+                  "y": 5500
+                },
+                {
+                  "x": 3500,
+                  "y": 5500
+                }
+              ],
+              "routeIndex": 1,
+              "routeOrigin": {
+                "x": 4500,
+                "y": 18500
+              },
+              "segmentLength": 1000,
+              "segmentProgress": 333,
+              "segmentStart": {
+                "x": 4500,
+                "y": 18500
+              },
+              "speed": 2000,
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 5500
+                },
+                "radius": 0,
+                "range": 5000
+              },
+              "tick": 11
+            },
+            "role": "secondary"
+          },
+          "current": "<missing>"
+        }
+      ]
+    }
+  ]
+}

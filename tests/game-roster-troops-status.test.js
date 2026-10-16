@@ -872,30 +872,32 @@ test("game roster troop status: status admission receipts are frozen and carry r
 });
 
 test("game roster troop status: deterministic session continuation hashes stay stable", () => {
+  // Current full snapshots include Briar's six-tick member-spawn policy and
+  // its unverified QUESTION receipts; keep the separate replay controls intact.
   const expectedHashes = Object.freeze({
     "bloom-wisp": Object.freeze({
       replay: "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
-      snapshot: "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+      snapshot: "e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763",
     }),
     dawnmender: Object.freeze({
       replay: "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
-      snapshot: "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+      snapshot: "560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3",
     }),
     "pulse-sentry": Object.freeze({
       replay: "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
-      snapshot: "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+      snapshot: "12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f",
     }),
     "rime-adept": Object.freeze({
       replay: "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
-      snapshot: "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+      snapshot: "5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40",
     }),
     "tether-rider": Object.freeze({
       replay: "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
-      snapshot: "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+      snapshot: "d091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab",
     }),
     "veil-prowler": Object.freeze({
       replay: "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
-      snapshot: "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+      snapshot: "95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579",
     }),
   });
   const hashes = [];

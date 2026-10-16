@@ -1,0 +1,438 @@
+{
+  "kind": "status",
+  "root": "/tmp/game001gtc-critic-1664884685",
+  "results": [
+    {
+      "id": "bloom-wisp",
+      "seed": 1,
+      "targetCard": "briar-band",
+      "runtimeStateBytes": 172264,
+      "runtimeStateSha256": "3cd0bab779052773307e23c42613507e8363cd6e0021050e7b428459ddfb4b64",
+      "replayBytes": 1339,
+      "replaySha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+      "snapshotBytes": 214020,
+      "snapshotSha256": "e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763",
+      "ablation": {
+        "bytes": 200458,
+        "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        },
+        "residualComparedToHistorical": null
+      },
+      "rosterCards": 8,
+      "totalQuestions": 51,
+      "briarEntities": [
+        {
+          "archetypeId": "briar-runner",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ],
+      "briarQuestionCount": 27,
+      "briarQuestionKeys": [
+        "briar-darter.body-radius-millitiles",
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.delivery",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.layer",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.projectile-speed-millitiles-per-tick",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.body-radius-millitiles",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.delivery",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.layer",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "sourcePolicyEntities": 2,
+      "sessionSetupSha256": "ffc119bb9461c7acc3b85cae6b053f0718cc0566c872ee45a51d79486832567b"
+    },
+    {
+      "id": "dawnmender",
+      "seed": 1,
+      "targetCard": "briar-band",
+      "runtimeStateBytes": 172572,
+      "runtimeStateSha256": "125837b43df7c5fa61865eed555383a6e97987cf531ba14485d71faf7b85da58",
+      "replayBytes": 1342,
+      "replaySha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+      "snapshotBytes": 213996,
+      "snapshotSha256": "560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3",
+      "ablation": {
+        "bytes": 200434,
+        "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        },
+        "residualComparedToHistorical": null
+      },
+      "rosterCards": 8,
+      "totalQuestions": 51,
+      "briarEntities": [
+        {
+          "archetypeId": "briar-runner",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ],
+      "briarQuestionCount": 27,
+      "briarQuestionKeys": [
+        "briar-darter.body-radius-millitiles",
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.delivery",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.layer",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.projectile-speed-millitiles-per-tick",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.body-radius-millitiles",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.delivery",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.layer",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "sourcePolicyEntities": 2,
+      "sessionSetupSha256": "da24d6cae22148410b6c9da81035940cd197d6aabd2b1ef303b83b9a037eb2ae"
+    },
+    {
+      "id": "pulse-sentry",
+      "seed": 1,
+      "targetCard": "briar-band",
+      "runtimeStateBytes": 172431,
+      "runtimeStateSha256": "71857d88045dd11133873a440eee85323981c08ca5738c0e2de305516eaa57ae",
+      "replayBytes": 1180,
+      "replaySha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+      "snapshotBytes": 214068,
+      "snapshotSha256": "12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f",
+      "ablation": {
+        "bytes": 200506,
+        "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        },
+        "residualComparedToHistorical": null
+      },
+      "rosterCards": 8,
+      "totalQuestions": 51,
+      "briarEntities": [
+        {
+          "archetypeId": "briar-runner",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ],
+      "briarQuestionCount": 27,
+      "briarQuestionKeys": [
+        "briar-darter.body-radius-millitiles",
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.delivery",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.layer",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.projectile-speed-millitiles-per-tick",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.body-radius-millitiles",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.delivery",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.layer",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "sourcePolicyEntities": 2,
+      "sessionSetupSha256": "d875e37365af89f2e23116468ef1ee119cc465e0b7514ec1a8c70a606ae0283a"
+    },
+    {
+      "id": "rime-adept",
+      "seed": 1,
+      "targetCard": "briar-band",
+      "runtimeStateBytes": 172527,
+      "runtimeStateSha256": "6429a27e545da25965f7c95a5b29922b71d57cd0fbb19da1e4e5354e298e7a5b",
+      "replayBytes": 1366,
+      "replaySha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+      "snapshotBytes": 214020,
+      "snapshotSha256": "5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40",
+      "ablation": {
+        "bytes": 200458,
+        "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        },
+        "residualComparedToHistorical": null
+      },
+      "rosterCards": 8,
+      "totalQuestions": 51,
+      "briarEntities": [
+        {
+          "archetypeId": "briar-runner",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ],
+      "briarQuestionCount": 27,
+      "briarQuestionKeys": [
+        "briar-darter.body-radius-millitiles",
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.delivery",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.layer",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.projectile-speed-millitiles-per-tick",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.body-radius-millitiles",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.delivery",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.layer",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "sourcePolicyEntities": 2,
+      "sessionSetupSha256": "48d1f6fbbb7027c3c7a0fa854cfde30ff4ea2930df887ee142d551864b63d806"
+    },
+    {
+      "id": "tether-rider",
+      "seed": 1,
+      "targetCard": "briar-band",
+      "runtimeStateBytes": 172732,
+      "runtimeStateSha256": "9bd59787f9fd2b98aa23e671f6c8a198acff2cb3fde506a37e38d55edb1f445e",
+      "replayBytes": 1184,
+      "replaySha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+      "snapshotBytes": 214057,
+      "snapshotSha256": "d091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab",
+      "ablation": {
+        "bytes": 200495,
+        "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        },
+        "residualComparedToHistorical": null
+      },
+      "rosterCards": 8,
+      "totalQuestions": 51,
+      "briarEntities": [
+        {
+          "archetypeId": "briar-runner",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ],
+      "briarQuestionCount": 27,
+      "briarQuestionKeys": [
+        "briar-darter.body-radius-millitiles",
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.delivery",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.layer",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.projectile-speed-millitiles-per-tick",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.body-radius-millitiles",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.delivery",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.layer",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "sourcePolicyEntities": 2,
+      "sessionSetupSha256": "a78469cf28015ff61ee7f7a1fc7aaf038fb827daacbc870b846367db5b9f86f9"
+    },
+    {
+      "id": "veil-prowler",
+      "seed": 1,
+      "targetCard": "briar-band",
+      "runtimeStateBytes": 173238,
+      "runtimeStateSha256": "9ab4d1055683e9c50245dae7c655ce566a1ff272ed60397b0dff1359c2d6ea76",
+      "replayBytes": 1186,
+      "replaySha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+      "snapshotBytes": 214063,
+      "snapshotSha256": "95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579",
+      "ablation": {
+        "bytes": 200501,
+        "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        },
+        "residualComparedToHistorical": null
+      },
+      "rosterCards": 8,
+      "totalQuestions": 51,
+      "briarEntities": [
+        {
+          "archetypeId": "briar-runner",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "archetypeId": "briar-darter",
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ],
+      "briarQuestionCount": 27,
+      "briarQuestionKeys": [
+        "briar-darter.body-radius-millitiles",
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.delivery",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.layer",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.projectile-speed-millitiles-per-tick",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.body-radius-millitiles",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.delivery",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.layer",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "sourcePolicyEntities": 2,
+      "sessionSetupSha256": "8643af22cc30b20b0cad44582bc4c09500ef6bb27329649ae1c852e4d1e52dfb"
+    }
+  ]
+}

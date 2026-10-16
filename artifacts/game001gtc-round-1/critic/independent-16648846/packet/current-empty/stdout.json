@@ -1,0 +1,33 @@
+{
+  "kind": "empty",
+  "root": "/tmp/game001gtc-critic-1664884685",
+  "bytes": 17731,
+  "sha256": "cb92fe16188370ae2bdfa260f574d220dcc02e1cdf4aa847c861e0fca5d20d54",
+  "version": 2,
+  "rosterCards": 8,
+  "totalQuestions": 33,
+  "sourcePolicyEntities": 2,
+  "sourceQuestionCountForBriar": 23,
+  "policies": [
+    {
+      "cardId": "briar-band",
+      "archetypeId": "briar-runner",
+      "fields": 10,
+      "deploymentInterval": {
+        "milliseconds": 100,
+        "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+        "ticks": 6
+      }
+    },
+    {
+      "cardId": "briar-band",
+      "archetypeId": "briar-darter",
+      "fields": 10,
+      "deploymentInterval": {
+        "milliseconds": 100,
+        "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+        "ticks": 6
+      }
+    }
+  ]
+}

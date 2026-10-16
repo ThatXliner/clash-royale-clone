@@ -1,0 +1,15 @@
+area	path	contents
+candidate	/tmp/game001gtc-critic-1664884685	Detached clean candidate checkout at 16648846857450b8507cfa3d5ad0f90da83c5d36; parent 090d685a4fa07aa07c17618b1e18d00ecb63ff51
+runtime-gate	current-runtime/	Direct npm PID 33709, exit 0, raw stdout/stderr, process IDs, prelaunch static manifest, source fences before/after
+status-gate	/tmp/game001gtc-status-rerun.BHmObW/	Fresh isolated direct npm PID 40939 exit 0, raw stdout/stderr, 102-file prelaunch byte copies/hashes, process IDs, source fences before/after
+historical-empty	historical-empty-c9/	Source-pinned c9c818f7ac281b0e71890a2be17ce757f688b4c5 empty-v2 output and launch evidence
+current-empty	current-empty/	Candidate current-source empty-v2 output and launch evidence
+historical-status	historical-status-2a/	Six independent status witnesses at 2a5bd7a44ad3773de59e8e6dd8baaebf0ec09764
+current-status-witness	current-status/	Current-source six status witness output in stdout.json; other retained gate files are labeled mixed/overwritten in PROVENANCE.md
+empty-ablation	ablation-current-empty/	Current empty-v2 payload after removing exactly two Briar policy records and 20 added Briar questions
+status-ablation	ablation-current-status/	Six current status payloads after removing exactly four policy copies and 40 added question copies per status
+state-comparison	public-state-diff-attempt-02/	Paired historical/current canonical state hashes, replay hashes, unit profiles, and exact differing state paths
+compact-comparisons	golden-comparison.json; state-classification.json	Compact independently derived source-pinned byte/hash and public-state comparisons
+postrun-source-copies	copied-source/	Post-run source copies checked against prelaunch manifests, unchanged worktree files, and candidate Git blobs; timing explicitly documented
+retained-runtime-wrapper-failure	wrapper-failure-runtime-01/	Initial wrapper/setup failure retained without assigning a gate result
+retained-status-setup-failure	/tmp/game001gtc-status-rerun.5qhd7e/	Prelaunch failure before npm/test start; exact error recorded

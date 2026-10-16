@@ -16,8 +16,10 @@ const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
 const NORTH = Object.freeze({ x: 3_500, y: 17_500 });
 const MOSS = "mossguard";
 const COIL = "coilblade";
-const EMPTY_V2_BYTES = 11_618;
-const EMPTY_V2_SHA256 = "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a";
+// The current v2 witness includes Briar's accepted 100 ms / six-tick spawn
+// interval and its 20 non-authoritative source-confidence QUESTION records.
+const EMPTY_V2_BYTES = 17_731;
+const EMPTY_V2_SHA256 = "cb92fe16188370ae2bdfa260f574d220dcc02e1cdf4aa847c861e0fca5d20d54";
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;

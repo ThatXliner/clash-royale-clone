@@ -1,0 +1,4 @@
+PIECE: GAME-001GTC
+VERDICT: PASS
+EVIDENCE: Both focused gates passed: troop runtime 7/7 (direct PID33709, exit0) and roster status33/33 (fresh isolated direct PID40939, exit0). Independent source-pinned comparisons remove only added Briar policies/questions to reproduce exact historical empty-v2 bytes and all six status snapshot hashes; all six replay pins remain unchanged. Hostile admission, chunk/fork/restore and lifecycle assertions retained.
+BIGGEST GAP: Historical/current public gameplay states differ materially under the accepted100ms/six-tick Briar stagger: six historical members versus two current runners at the observed tick. This is current-witness serialization proof, not cross-vintage gameplay equivalence.

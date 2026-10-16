@@ -1,0 +1,671 @@
+{
+  "sourcePins": {
+    "emptySerializer": "c9c818f7ac281b0e71890a2be17ce757f688b4c5",
+    "historicalStatus": "2a5bd7a44ad3773de59e8e6dd8baaebf0ec09764",
+    "sourcePolicyChange": "c981ec2444b9d2f08dacdb5c6f04ce6b5b786dfb"
+  },
+  "policy": {
+    "durationMilliseconds": 100,
+    "ticks": 6,
+    "sourceId": "supercell-2020-06-02-multi-unit-deployment"
+  },
+  "crossVintageGameplayEqualityClaim": false,
+  "scenarios": [
+    {
+      "id": "bloom-wisp",
+      "oldStateSha256": "c1f2625b95cd2e03740f72837defc1cfcd82938db6ecbc337817b1aa540a5a07",
+      "currentStateSha256": "3cd0bab779052773307e23c42613507e8363cd6e0021050e7b428459ddfb4b64",
+      "stateHashesEqual": false,
+      "oldReplaySha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+      "currentReplaySha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+      "replayHashesEqual": true,
+      "historicalUnitCount": 7,
+      "currentUnitCount": 3,
+      "historicalBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2866,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17134
+          }
+        },
+        {
+          "id": 4,
+          "archetypeId": "briar-runner",
+          "memberIndex": 2,
+          "position": {
+            "x": 4134,
+            "y": 17500
+          }
+        },
+        {
+          "id": 5,
+          "archetypeId": "briar-darter",
+          "memberIndex": 0,
+          "position": {
+            "x": 2500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 6,
+          "archetypeId": "briar-darter",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 7,
+          "archetypeId": "briar-darter",
+          "memberIndex": 2,
+          "position": {
+            "x": 4500,
+            "y": 18500
+          }
+        }
+      ],
+      "currentBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2866,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17367
+          }
+        }
+      ],
+      "stateDiffCount": 14,
+      "stateDiffPaths": [
+        "$.battle.units.length",
+        "$.battle.units[0].targetId",
+        "$.battle.units[2].attack.nextTick",
+        "$.battle.units[2].movement.commands[0].tick",
+        "$.battle.units[2].movement.position.y",
+        "$.battle.units[2].movement.remainder",
+        "$.battle.units[2].movement.segmentProgress",
+        "$.battle.units[2].movement.tick",
+        "$.battle.units[2].position.y",
+        "$.battle.units[2].spawnedAt",
+        "$.battle.units[3]",
+        "$.battle.units[4]",
+        "$.battle.units[5]",
+        "$.battle.units[6]"
+      ],
+      "stateDiffTruncatedAt200": false
+    },
+    {
+      "id": "dawnmender",
+      "oldStateSha256": "ff60c73b93df80e7f64761e4a6a18ed9d99c247342388604ad862267b5eedc25",
+      "currentStateSha256": "125837b43df7c5fa61865eed555383a6e97987cf531ba14485d71faf7b85da58",
+      "stateHashesEqual": false,
+      "oldReplaySha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+      "currentReplaySha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+      "replayHashesEqual": true,
+      "historicalUnitCount": 7,
+      "currentUnitCount": 3,
+      "historicalBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2866,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17134
+          }
+        },
+        {
+          "id": 4,
+          "archetypeId": "briar-runner",
+          "memberIndex": 2,
+          "position": {
+            "x": 4134,
+            "y": 17500
+          }
+        },
+        {
+          "id": 5,
+          "archetypeId": "briar-darter",
+          "memberIndex": 0,
+          "position": {
+            "x": 2500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 6,
+          "archetypeId": "briar-darter",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 7,
+          "archetypeId": "briar-darter",
+          "memberIndex": 2,
+          "position": {
+            "x": 4500,
+            "y": 18500
+          }
+        }
+      ],
+      "currentBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2866,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17367
+          }
+        }
+      ],
+      "stateDiffCount": 25,
+      "stateDiffPaths": [
+        "$.battle.units.length",
+        "$.battle.units[0].movement.commands.length",
+        "$.battle.units[0].movement.commands[0].target.position.x",
+        "$.battle.units[0].movement.commands[1]",
+        "$.battle.units[0].movement.position.y",
+        "$.battle.units[0].movement.remainder",
+        "$.battle.units[0].movement.routeIndex",
+        "$.battle.units[0].movement.routeOrigin.y",
+        "$.battle.units[0].movement.segmentLength",
+        "$.battle.units[0].movement.segmentProgress",
+        "$.battle.units[0].movement.segmentStart.y",
+        "$.battle.units[0].position.y",
+        "$.battle.units[0].targetId",
+        "$.battle.units[2].attack.nextTick",
+        "$.battle.units[2].movement.commands[0].tick",
+        "$.battle.units[2].movement.position.y",
+        "$.battle.units[2].movement.remainder",
+        "$.battle.units[2].movement.segmentProgress",
+        "$.battle.units[2].movement.tick",
+        "$.battle.units[2].position.y",
+        "$.battle.units[2].spawnedAt",
+        "$.battle.units[3]",
+        "$.battle.units[4]",
+        "$.battle.units[5]",
+        "$.battle.units[6]"
+      ],
+      "stateDiffTruncatedAt200": false
+    },
+    {
+      "id": "pulse-sentry",
+      "oldStateSha256": "24963b4dc3ca4747a6605bca2d9c350bf486c219d67b88ea9e5e67961f395e88",
+      "currentStateSha256": "71857d88045dd11133873a440eee85323981c08ca5738c0e2de305516eaa57ae",
+      "stateHashesEqual": false,
+      "oldReplaySha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+      "currentReplaySha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+      "replayHashesEqual": true,
+      "historicalUnitCount": 7,
+      "currentUnitCount": 3,
+      "historicalBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2533,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17134
+          }
+        },
+        {
+          "id": 4,
+          "archetypeId": "briar-runner",
+          "memberIndex": 2,
+          "position": {
+            "x": 4134,
+            "y": 17500
+          }
+        },
+        {
+          "id": 5,
+          "archetypeId": "briar-darter",
+          "memberIndex": 0,
+          "position": {
+            "x": 2500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 6,
+          "archetypeId": "briar-darter",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 7,
+          "archetypeId": "briar-darter",
+          "memberIndex": 2,
+          "position": {
+            "x": 4500,
+            "y": 18500
+          }
+        }
+      ],
+      "currentBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2533,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17367
+          }
+        }
+      ],
+      "stateDiffCount": 14,
+      "stateDiffPaths": [
+        "$.battle.units.length",
+        "$.battle.units[0].targetId",
+        "$.battle.units[2].attack.nextTick",
+        "$.battle.units[2].movement.commands[0].tick",
+        "$.battle.units[2].movement.position.y",
+        "$.battle.units[2].movement.remainder",
+        "$.battle.units[2].movement.segmentProgress",
+        "$.battle.units[2].movement.tick",
+        "$.battle.units[2].position.y",
+        "$.battle.units[2].spawnedAt",
+        "$.battle.units[3]",
+        "$.battle.units[4]",
+        "$.battle.units[5]",
+        "$.battle.units[6]"
+      ],
+      "stateDiffTruncatedAt200": false
+    },
+    {
+      "id": "rime-adept",
+      "oldStateSha256": "1fbae1b59f29d833cb13e735a21ce6a787c0e83eb5617eeb9b46c0cab902f028",
+      "currentStateSha256": "6429a27e545da25965f7c95a5b29922b71d57cd0fbb19da1e4e5354e298e7a5b",
+      "stateHashesEqual": false,
+      "oldReplaySha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+      "currentReplaySha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+      "replayHashesEqual": true,
+      "historicalUnitCount": 7,
+      "currentUnitCount": 3,
+      "historicalBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2733,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17134
+          }
+        },
+        {
+          "id": 4,
+          "archetypeId": "briar-runner",
+          "memberIndex": 2,
+          "position": {
+            "x": 4134,
+            "y": 17500
+          }
+        },
+        {
+          "id": 5,
+          "archetypeId": "briar-darter",
+          "memberIndex": 0,
+          "position": {
+            "x": 2500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 6,
+          "archetypeId": "briar-darter",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 7,
+          "archetypeId": "briar-darter",
+          "memberIndex": 2,
+          "position": {
+            "x": 4500,
+            "y": 18500
+          }
+        }
+      ],
+      "currentBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2733,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17367
+          }
+        }
+      ],
+      "stateDiffCount": 14,
+      "stateDiffPaths": [
+        "$.battle.units.length",
+        "$.battle.units[0].targetId",
+        "$.battle.units[2].attack.nextTick",
+        "$.battle.units[2].movement.commands[0].tick",
+        "$.battle.units[2].movement.position.y",
+        "$.battle.units[2].movement.remainder",
+        "$.battle.units[2].movement.segmentProgress",
+        "$.battle.units[2].movement.tick",
+        "$.battle.units[2].position.y",
+        "$.battle.units[2].spawnedAt",
+        "$.battle.units[3]",
+        "$.battle.units[4]",
+        "$.battle.units[5]",
+        "$.battle.units[6]"
+      ],
+      "stateDiffTruncatedAt200": false
+    },
+    {
+      "id": "tether-rider",
+      "oldStateSha256": "4bcd66e0dfb4c0775df4969c41dcf95e85145251d93c0298cd47c6bd89648f28",
+      "currentStateSha256": "9bd59787f9fd2b98aa23e671f6c8a198acff2cb3fde506a37e38d55edb1f445e",
+      "stateHashesEqual": false,
+      "oldReplaySha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+      "currentReplaySha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+      "replayHashesEqual": true,
+      "historicalUnitCount": 7,
+      "currentUnitCount": 3,
+      "historicalBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2533,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17134
+          }
+        },
+        {
+          "id": 4,
+          "archetypeId": "briar-runner",
+          "memberIndex": 2,
+          "position": {
+            "x": 4134,
+            "y": 17500
+          }
+        },
+        {
+          "id": 5,
+          "archetypeId": "briar-darter",
+          "memberIndex": 0,
+          "position": {
+            "x": 2500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 6,
+          "archetypeId": "briar-darter",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 18500
+          }
+        },
+        {
+          "id": 7,
+          "archetypeId": "briar-darter",
+          "memberIndex": 2,
+          "position": {
+            "x": 4500,
+            "y": 18500
+          }
+        }
+      ],
+      "currentBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2533,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17367
+          }
+        }
+      ],
+      "stateDiffCount": 13,
+      "stateDiffPaths": [
+        "$.battle.units.length",
+        "$.battle.units[2].attack.nextTick",
+        "$.battle.units[2].movement.commands[0].tick",
+        "$.battle.units[2].movement.position.y",
+        "$.battle.units[2].movement.remainder",
+        "$.battle.units[2].movement.segmentProgress",
+        "$.battle.units[2].movement.tick",
+        "$.battle.units[2].position.y",
+        "$.battle.units[2].spawnedAt",
+        "$.battle.units[3]",
+        "$.battle.units[4]",
+        "$.battle.units[5]",
+        "$.battle.units[6]"
+      ],
+      "stateDiffTruncatedAt200": false
+    },
+    {
+      "id": "veil-prowler",
+      "oldStateSha256": "8fa6bc3d8f70df57dce3d0cad0200747e7554726f2cafe3953cb38f8a5f449b1",
+      "currentStateSha256": "9ab4d1055683e9c50245dae7c655ce566a1ff272ed60397b0dff1359c2d6ea76",
+      "stateHashesEqual": false,
+      "oldReplaySha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+      "currentReplaySha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+      "replayHashesEqual": true,
+      "historicalUnitCount": 7,
+      "currentUnitCount": 3,
+      "historicalBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2866,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17134
+          }
+        },
+        {
+          "id": 4,
+          "archetypeId": "briar-runner",
+          "memberIndex": 2,
+          "position": {
+            "x": 4134,
+            "y": 17500
+          }
+        },
+        {
+          "id": 5,
+          "archetypeId": "briar-darter",
+          "memberIndex": 0,
+          "position": {
+            "x": 2833,
+            "y": 18500
+          }
+        },
+        {
+          "id": 6,
+          "archetypeId": "briar-darter",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 18167
+          }
+        },
+        {
+          "id": 7,
+          "archetypeId": "briar-darter",
+          "memberIndex": 2,
+          "position": {
+            "x": 4167,
+            "y": 18500
+          }
+        }
+      ],
+      "currentBriarUnits": [
+        {
+          "id": 2,
+          "archetypeId": "briar-runner",
+          "memberIndex": 0,
+          "position": {
+            "x": 2866,
+            "y": 17500
+          }
+        },
+        {
+          "id": 3,
+          "archetypeId": "briar-runner",
+          "memberIndex": 1,
+          "position": {
+            "x": 3500,
+            "y": 17367
+          }
+        }
+      ],
+      "stateDiffCount": 30,
+      "stateDiffPaths": [
+        "$.battle.units.length",
+        "$.battle.units[0].movement.commands.length",
+        "$.battle.units[0].movement.commands[0].target.position.x",
+        "$.battle.units[0].movement.commands[1].kind",
+        "$.battle.units[0].movement.commands[1].target",
+        "$.battle.units[0].movement.commands[1].tick",
+        "$.battle.units[0].movement.commands[2]",
+        "$.battle.units[0].movement.position.y",
+        "$.battle.units[0].movement.segmentStart.y",
+        "$.battle.units[0].position.y",
+        "$.battle.units[0].targetId",
+        "$.battle.units[2].attack.nextTick",
+        "$.battle.units[2].movement.commands.length",
+        "$.battle.units[2].movement.commands[0].target.position.y",
+        "$.battle.units[2].movement.commands[0].target.radius",
+        "$.battle.units[2].movement.commands[0].tick",
+        "$.battle.units[2].movement.commands[1]",
+        "$.battle.units[2].movement.position.y",
+        "$.battle.units[2].movement.routeIndex",
+        "$.battle.units[2].movement.routeOrigin.y",
+        "$.battle.units[2].movement.segmentLength",
+        "$.battle.units[2].movement.segmentProgress",
+        "$.battle.units[2].movement.segmentStart.y",
+        "$.battle.units[2].movement.tick",
+        "$.battle.units[2].position.y",
+        "$.battle.units[2].spawnedAt",
+        "$.battle.units[3]",
+        "$.battle.units[4]",
+        "$.battle.units[5]",
+        "$.battle.units[6]"
+      ],
+      "stateDiffTruncatedAt200": false
+    }
+  ]
+}

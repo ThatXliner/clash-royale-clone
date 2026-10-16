@@ -1,0 +1,97 @@
+73721 73720 /opt/homebrew/bin/uv run blender-mcp
+48729 1 /Applications/Zen.app/Contents/MacOS/zen
+80069 1 launchd_sim /Users/me/Library/Developer/CoreSimulator/Devices/6BABEB5D-2CB6-475C-9E7D-6FFDF1AF3FEF/data/var/run/launchd_bootstrap.plist
+78514 1793 npm exec resend-mcp   
+886 1 /bin/bash /usr/local/MacGPG2/libexec/shutdown-gpg-agent
+73646 1 /Applications/Claude.app/Contents/MacOS/Claude
+10645 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+10646 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+7062 1 /Users/me/Applications/Discord.app/Contents/MacOS/Discord
+1432 1 /Applications/Ghostty.app/Contents/MacOS/ghostty
+33709 33689 npm   
+1433 1432 /usr/bin/login -q -flp me /bin/bash --noprofile --norc -c exec -l /bin/zsh
+78489 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+71227 1 npm exec expo start --port 8081 -c      
+10668 1793 npm exec resend-mcp   
+341 1 /usr/sbin/systemstats --daemon
+1615 1 /Users/me/Applications/ChatGPT.app/Contents/MacOS/ChatGPT
+10682 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+10683 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+891 1 /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
+1793 1615 /Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex -c features.code_mode_host=true app-server --analytics-default-enabled -c plugins.codex-app-tools@openai-bundled.mcp_servers.codex_app.enabled=true -c plugins.code-review@openai-bundled.mcp_servers.code-review.enabled=true
+892 1 /Users/me/.hermes/hermes-agent/venv/bin/python -m hermes_cli.stderr_timestamp --error-log /Users/me/.hermes/logs/gateway.error.log -- /Users/me/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main gateway run --replace --external-supervisor
+1471 1 -/bin/zsh
+78492 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+73750 73646 /Applications/Claude.app/Contents/Helpers/disclaimer --pgroup -- /opt/homebrew/bin/uv run blender-mcp
+73751 73750 /opt/homebrew/bin/uv run blender-mcp
+10708 1793 npm exec resend-mcp   
+0  
+33689 1793 /bin/zsh -lc set -eu\012repo=/tmp/game001gtc-critic-1664884685\012evidence=/tmp/game001gtc-evidence-1664884685\012mv "$evidence/current-runtime" "$evidence/wrapper-failure-runtime-01"\012mkdir -p "$evidence/current-runtime"\012node=/Users/me/.hermes/node/bin/node\012npm=/Users/me/.hermes/node/bin/npm\012export PATH="/Users/me/.hermes/node/bin:$PATH"\012printf 'node=%s\n' "$($node --version)" > "$evidence/current-runtime/runtime-versions.txt"\012printf 'npm=%s\n' "$($npm --version)" >> "$evidence/current-runtime/runtime-versions.txt"\012git -C "$repo" ls-files -z src | xargs -0 shasum -a 256 > "$evidence/current-runtime/source-fences-before.sha256"\012"$node" "$evidence/trace-imports.mjs" package.json package-lock.json tests/game-troop-runtime-runner.js tests/game-troop-runtime.test.js > "$evidence/current-runtime/executed-source.sha256"\012printf 'command=PATH=/Users/me/.hermes/node/bin:$PATH /Users/me/.hermes/node/bin/npm run test:game-troop-runtime\n' > "$evidence/current-runtime/launch-record.txt"\012"$npm" run test:game-troop-runtime > "$evidence/current-runtime/stdout.log" 2> "$evidence/current-runtime/stderr.log" &\012npm_pid=$!\012printf '%s\n' "$npm_pid" > "$evidence/current-runtime/direct-pid.txt"\012: > "$evidence/current-runtime/process-snapshots.txt"\012for i in $(seq 1 160); do\012  ps -axo pid=,ppid=,command= | awk -v root="$npm_pid" '\012    { parent[$1]=$2; command[$1]=substr($0, index($0,$3)); }\012    END { seen[root]=1; changed=1; while (changed) { changed=0; for (p in parent) if (seen[parent[p]] && !seen[p]) { seen[p]=1; changed=1; } } for (p in seen) print p, parent[p], command[p]; }\012  ' >> "$evidence/current-runtime/process-snapshots.txt" || true\012  if rg -q 'node --test.*game-troop-runtime\.test\.js' "$evidence/current-runtime/process-snapshots.txt"; then break; fi\012  sleep 0.05\012done\012set +e\012wait "$npm_pid"\012gate_rc=$?\012set -e\012printf '%s\n' "$gate_rc" > "$evidence/current-runtime/exit-code.txt"\012git -C "$repo" ls-files -z src | xargs -0 shasum -a 256 > "$evidence/current-runtime/source-fences-after.sha256"\012git -C "$repo" status --porcelain=v1 > "$evidence/current-runtime/post-status.txt"\012printf 'exit=%s\n' "$gate_rc"\012printf 'npm_pid=%s\n' "$npm_pid"\012printf 'processes:\n'; rg -v '^$' "$evidence/current-runtime/process-snapshots.txt" | tail -n 12 || true\012printf 'stdout_summary:\n'; tail -n 12 "$evidence/current-runtime/stdout.log"\012printf 'stderr_bytes='; wc -c < "$evidence/current-runtime/stderr.log"\012printf 'source_fence='; cmp -s "$evidence/current-runtime/source-fences-before.sha256" "$evidence/current-runtime/source-fences-after.sha256" && echo unchanged || echo changed\012printf 'executed_file_count='; wc -l < "$evidence/current-runtime/executed-source.sha256"\012exit 0
+73720 73646 /Applications/Claude.app/Contents/Helpers/disclaimer --pgroup -- /opt/homebrew/bin/uv run blender-mcp
+1 0 /sbin/launchd
+73721 73720 /opt/homebrew/bin/uv run blender-mcp
+48729 1 /Applications/Zen.app/Contents/MacOS/zen
+80069 1 launchd_sim /Users/me/Library/Developer/CoreSimulator/Devices/6BABEB5D-2CB6-475C-9E7D-6FFDF1AF3FEF/data/var/run/launchd_bootstrap.plist
+78514 1793 npm exec resend-mcp   
+886 1 /bin/bash /usr/local/MacGPG2/libexec/shutdown-gpg-agent
+73646 1 /Applications/Claude.app/Contents/MacOS/Claude
+10645 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+10646 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+7062 1 /Users/me/Applications/Discord.app/Contents/MacOS/Discord
+1432 1 /Applications/Ghostty.app/Contents/MacOS/ghostty
+33709 33689 npm run test:game-troop-runtime   
+1433 1432 /usr/bin/login -q -flp me /bin/bash --noprofile --norc -c exec -l /bin/zsh
+78489 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+71227 1 npm exec expo start --port 8081 -c      
+10668 1793 npm exec resend-mcp   
+33727 33709 node tests/game-troop-runtime-runner.js game-troop-runtime
+341 1 /usr/sbin/systemstats --daemon
+1615 1 /Users/me/Applications/ChatGPT.app/Contents/MacOS/ChatGPT
+10682 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+10683 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+891 1 /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
+1793 1615 /Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex -c features.code_mode_host=true app-server --analytics-default-enabled -c plugins.codex-app-tools@openai-bundled.mcp_servers.codex_app.enabled=true -c plugins.code-review@openai-bundled.mcp_servers.code-review.enabled=true
+892 1 /Users/me/.hermes/hermes-agent/venv/bin/python -m hermes_cli.stderr_timestamp --error-log /Users/me/.hermes/logs/gateway.error.log -- /Users/me/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main gateway run --replace --external-supervisor
+1471 1 -/bin/zsh
+78492 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+73750 73646 /Applications/Claude.app/Contents/Helpers/disclaimer --pgroup -- /opt/homebrew/bin/uv run blender-mcp
+73751 73750 /opt/homebrew/bin/uv run blender-mcp
+10708 1793 npm exec resend-mcp   
+0  
+33689 1793 /bin/zsh -lc set -eu\012repo=/tmp/game001gtc-critic-1664884685\012evidence=/tmp/game001gtc-evidence-1664884685\012mv "$evidence/current-runtime" "$evidence/wrapper-failure-runtime-01"\012mkdir -p "$evidence/current-runtime"\012node=/Users/me/.hermes/node/bin/node\012npm=/Users/me/.hermes/node/bin/npm\012export PATH="/Users/me/.hermes/node/bin:$PATH"\012printf 'node=%s\n' "$($node --version)" > "$evidence/current-runtime/runtime-versions.txt"\012printf 'npm=%s\n' "$($npm --version)" >> "$evidence/current-runtime/runtime-versions.txt"\012git -C "$repo" ls-files -z src | xargs -0 shasum -a 256 > "$evidence/current-runtime/source-fences-before.sha256"\012"$node" "$evidence/trace-imports.mjs" package.json package-lock.json tests/game-troop-runtime-runner.js tests/game-troop-runtime.test.js > "$evidence/current-runtime/executed-source.sha256"\012printf 'command=PATH=/Users/me/.hermes/node/bin:$PATH /Users/me/.hermes/node/bin/npm run test:game-troop-runtime\n' > "$evidence/current-runtime/launch-record.txt"\012"$npm" run test:game-troop-runtime > "$evidence/current-runtime/stdout.log" 2> "$evidence/current-runtime/stderr.log" &\012npm_pid=$!\012printf '%s\n' "$npm_pid" > "$evidence/current-runtime/direct-pid.txt"\012: > "$evidence/current-runtime/process-snapshots.txt"\012for i in $(seq 1 160); do\012  ps -axo pid=,ppid=,command= | awk -v root="$npm_pid" '\012    { parent[$1]=$2; command[$1]=substr($0, index($0,$3)); }\012    END { seen[root]=1; changed=1; while (changed) { changed=0; for (p in parent) if (seen[parent[p]] && !seen[p]) { seen[p]=1; changed=1; } } for (p in seen) print p, parent[p], command[p]; }\012  ' >> "$evidence/current-runtime/process-snapshots.txt" || true\012  if rg -q 'node --test.*game-troop-runtime\.test\.js' "$evidence/current-runtime/process-snapshots.txt"; then break; fi\012  sleep 0.05\012done\012set +e\012wait "$npm_pid"\012gate_rc=$?\012set -e\012printf '%s\n' "$gate_rc" > "$evidence/current-runtime/exit-code.txt"\012git -C "$repo" ls-files -z src | xargs -0 shasum -a 256 > "$evidence/current-runtime/source-fences-after.sha256"\012git -C "$repo" status --porcelain=v1 > "$evidence/current-runtime/post-status.txt"\012printf 'exit=%s\n' "$gate_rc"\012printf 'npm_pid=%s\n' "$npm_pid"\012printf 'processes:\n'; rg -v '^$' "$evidence/current-runtime/process-snapshots.txt" | tail -n 12 || true\012printf 'stdout_summary:\n'; tail -n 12 "$evidence/current-runtime/stdout.log"\012printf 'stderr_bytes='; wc -c < "$evidence/current-runtime/stderr.log"\012printf 'source_fence='; cmp -s "$evidence/current-runtime/source-fences-before.sha256" "$evidence/current-runtime/source-fences-after.sha256" && echo unchanged || echo changed\012printf 'executed_file_count='; wc -l < "$evidence/current-runtime/executed-source.sha256"\012exit 0
+73720 73646 /Applications/Claude.app/Contents/Helpers/disclaimer --pgroup -- /opt/homebrew/bin/uv run blender-mcp
+1 0 /sbin/launchd
+73721 73720 /opt/homebrew/bin/uv run blender-mcp
+48729 1 /Applications/Zen.app/Contents/MacOS/zen
+80069 1 launchd_sim /Users/me/Library/Developer/CoreSimulator/Devices/6BABEB5D-2CB6-475C-9E7D-6FFDF1AF3FEF/data/var/run/launchd_bootstrap.plist
+78514 1793 npm exec resend-mcp   
+886 1 /bin/bash /usr/local/MacGPG2/libexec/shutdown-gpg-agent
+73646 1 /Applications/Claude.app/Contents/MacOS/Claude
+10645 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+10646 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+7062 1 /Users/me/Applications/Discord.app/Contents/MacOS/Discord
+1432 1 /Applications/Ghostty.app/Contents/MacOS/ghostty
+33709 33689 npm run test:game-troop-runtime   
+1433 1432 /usr/bin/login -q -flp me /bin/bash --noprofile --norc -c exec -l /bin/zsh
+78489 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+71227 1 npm exec expo start --port 8081 -c      
+10668 1793 npm exec resend-mcp   
+33727 33709 node tests/game-troop-runtime-runner.js game-troop-runtime
+341 1 /usr/sbin/systemstats --daemon
+1615 1 /Users/me/Applications/ChatGPT.app/Contents/MacOS/ChatGPT
+10682 1793 /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node /Users/me/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+10683 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+891 1 /opt/homebrew/opt/postgresql@16/bin/postgres -D /opt/homebrew/var/postgresql@16
+1793 1615 /Users/me/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex -c features.code_mode_host=true app-server --analytics-default-enabled -c plugins.codex-app-tools@openai-bundled.mcp_servers.codex_app.enabled=true -c plugins.code-review@openai-bundled.mcp_servers.code-review.enabled=true
+892 1 /Users/me/.hermes/hermes-agent/venv/bin/python -m hermes_cli.stderr_timestamp --error-log /Users/me/.hermes/logs/gateway.error.log -- /Users/me/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main gateway run --replace --external-supervisor
+1471 1 -/bin/zsh
+78492 1793 /opt/homebrew/bin/uv tool uvx blender-mcp
+73750 73646 /Applications/Claude.app/Contents/Helpers/disclaimer --pgroup -- /opt/homebrew/bin/uv run blender-mcp
+73751 73750 /opt/homebrew/bin/uv run blender-mcp
+33730 33727 /Users/me/.hermes/node/bin/node --test /private/tmp/game001gtc-critic-1664884685/tests/game-troop-runtime.test.js
+10708 1793 npm exec resend-mcp   
+33731 33730 /Users/me/.hermes/node/bin/node /private/tmp/game001gtc-critic-1664884685/tests/game-troop-runtime.test.js
+0  
+33689 1793 /bin/zsh -lc set -eu\012repo=/tmp/game001gtc-critic-1664884685\012evidence=/tmp/game001gtc-evidence-1664884685\012mv "$evidence/current-runtime" "$evidence/wrapper-failure-runtime-01"\012mkdir -p "$evidence/current-runtime"\012node=/Users/me/.hermes/node/bin/node\012npm=/Users/me/.hermes/node/bin/npm\012export PATH="/Users/me/.hermes/node/bin:$PATH"\012printf 'node=%s\n' "$($node --version)" > "$evidence/current-runtime/runtime-versions.txt"\012printf 'npm=%s\n' "$($npm --version)" >> "$evidence/current-runtime/runtime-versions.txt"\012git -C "$repo" ls-files -z src | xargs -0 shasum -a 256 > "$evidence/current-runtime/source-fences-before.sha256"\012"$node" "$evidence/trace-imports.mjs" package.json package-lock.json tests/game-troop-runtime-runner.js tests/game-troop-runtime.test.js > "$evidence/current-runtime/executed-source.sha256"\012printf 'command=PATH=/Users/me/.hermes/node/bin:$PATH /Users/me/.hermes/node/bin/npm run test:game-troop-runtime\n' > "$evidence/current-runtime/launch-record.txt"\012"$npm" run test:game-troop-runtime > "$evidence/current-runtime/stdout.log" 2> "$evidence/current-runtime/stderr.log" &\012npm_pid=$!\012printf '%s\n' "$npm_pid" > "$evidence/current-runtime/direct-pid.txt"\012: > "$evidence/current-runtime/process-snapshots.txt"\012for i in $(seq 1 160); do\012  ps -axo pid=,ppid=,command= | awk -v root="$npm_pid" '\012    { parent[$1]=$2; command[$1]=substr($0, index($0,$3)); }\012    END { seen[root]=1; changed=1; while (changed) { changed=0; for (p in parent) if (seen[parent[p]] && !seen[p]) { seen[p]=1; changed=1; } } for (p in seen) print p, parent[p], command[p]; }\012  ' >> "$evidence/current-runtime/process-snapshots.txt" || true\012  if rg -q 'node --test.*game-troop-runtime\.test\.js' "$evidence/current-runtime/process-snapshots.txt"; then break; fi\012  sleep 0.05\012done\012set +e\012wait "$npm_pid"\012gate_rc=$?\012set -e\012printf '%s\n' "$gate_rc" > "$evidence/current-runtime/exit-code.txt"\012git -C "$repo" ls-files -z src | xargs -0 shasum -a 256 > "$evidence/current-runtime/source-fences-after.sha256"\012git -C "$repo" status --porcelain=v1 > "$evidence/current-runtime/post-status.txt"\012printf 'exit=%s\n' "$gate_rc"\012printf 'npm_pid=%s\n' "$npm_pid"\012printf 'processes:\n'; rg -v '^$' "$evidence/current-runtime/process-snapshots.txt" | tail -n 12 || true\012printf 'stdout_summary:\n'; tail -n 12 "$evidence/current-runtime/stdout.log"\012printf 'stderr_bytes='; wc -c < "$evidence/current-runtime/stderr.log"\012printf 'source_fence='; cmp -s "$evidence/current-runtime/source-fences-before.sha256" "$evidence/current-runtime/source-fences-after.sha256" && echo unchanged || echo changed\012printf 'executed_file_count='; wc -l < "$evidence/current-runtime/executed-source.sha256"\012exit 0
+73720 73646 /Applications/Claude.app/Contents/Helpers/disclaimer --pgroup -- /opt/homebrew/bin/uv run blender-mcp
+1 0 /sbin/launchd

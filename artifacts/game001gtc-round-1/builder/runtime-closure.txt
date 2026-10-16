@@ -1,0 +1,9 @@
+# GAME-001GTC direct process closure
+
+At freeze, `ps -p 29717,29807 -o pid=,ppid=,stat=,command=` returned no rows (exit 1).
+
+- PID 29717: `npm run test:game-troop-runtime`, exit 0, TAP 7/7.
+- PID 29807: `npm run test:game-roster-troops-status`, exit 0, TAP 33/33.
+- Historical restore audit PID 29561: probe wrapper exited 0; all seven restore attempts (historical empty LiveBattle v2 and six historical GameSession snapshots) rejected the missing/unexpected source-confidence policy and restored none. Its raw evidence remains in the coordinating agent's separate audit packet.
+
+No builder-owned Node/npm process remains active.

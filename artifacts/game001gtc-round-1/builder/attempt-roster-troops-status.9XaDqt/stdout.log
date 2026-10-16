@@ -1,0 +1,212 @@
+
+> moss-and-ember@0.0.0 test:game-roster-troops-status
+> node tests/game-roster-troops-status-runner.js game-roster-troops-status
+
+TAP version 13
+# Subtest: game roster troop status: the exact eight identities and sourced executable facts are admitted
+ok 1 - game roster troop status: the exact eight identities and sourced executable facts are admitted
+  ---
+  duration_ms: 22.156125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: setup receipt mutations reject atomically before a session is exposed
+ok 2 - game roster troop status: setup receipt mutations reject atomically before a session is exposed
+  ---
+  duration_ms: 51.525541
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pinned live source fields reject before setup exposure
+ok 3 - game roster troop status: pinned live source fields reject before setup exposure
+  ---
+  duration_ms: 4041.4315
+  type: 'test'
+  ...
+# Subtest: game roster troop status: coupled QUESTION projection mutations fail closed
+ok 4 - game roster troop status: coupled QUESTION projection mutations fail closed
+  ---
+  duration_ms: 425.420042
+  type: 'test'
+  ...
+# Subtest: game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight
+ok 5 - game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight
+  ---
+  duration_ms: 94.703542
+  type: 'test'
+  ...
+# Subtest: game roster troop status: source binding reads hostile wrappers once and never invokes accessors
+ok 6 - game roster troop status: source binding reads hostile wrappers once and never invokes accessors
+  ---
+  duration_ms: 26.297625
+  type: 'test'
+  ...
+# Subtest: game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+ok 7 - game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+  ---
+  duration_ms: 2029.045417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender applies its shared heal boundary
+ok 8 - game roster troop status: dawnmender applies its shared heal boundary
+  ---
+  duration_ms: 195.815792
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry applies its shared stun boundary
+ok 9 - game roster troop status: pulse-sentry applies its shared stun boundary
+  ---
+  duration_ms: 198.8725
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept applies its shared slow boundary
+ok 10 - game roster troop status: rime-adept applies its shared slow boundary
+  ---
+  duration_ms: 197.18075
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider applies its shared snare boundary
+ok 11 - game roster troop status: tether-rider applies its shared snare boundary
+  ---
+  duration_ms: 195.879333
+  type: 'test'
+  ...
+# Subtest: game roster troop status: veil-prowler applies its shared hide boundary
+ok 12 - game roster troop status: veil-prowler applies its shared hide boundary
+  ---
+  duration_ms: 202.441083
+  type: 'test'
+  ...
+# Subtest: game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+ok 13 - game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+  ---
+  duration_ms: 82.567375
+  type: 'test'
+  ...
+# Subtest: game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+ok 14 - game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 57.585
+  type: 'test'
+  ...
+# Subtest: game roster troop status: railward rejects its visible QUESTION with zero mutation
+ok 15 - game roster troop status: railward rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 55.453917
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects missing and wrong-side targets atomically
+ok 16 - game roster troop status: bloom-wisp rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 240.087458
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects missing and wrong-side targets atomically
+ok 17 - game roster troop status: dawnmender rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 227.118792
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects missing and wrong-side targets atomically
+ok 18 - game roster troop status: pulse-sentry rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 226.910375
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects missing and wrong-side targets atomically
+ok 19 - game roster troop status: rime-adept rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 227.239958
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects missing and wrong-side targets atomically
+ok 20 - game roster troop status: tether-rider rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 231.563666
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects a structure target atomically
+ok 21 - game roster troop status: bloom-wisp rejects a structure target atomically
+  ---
+  duration_ms: 56.043583
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects a structure target atomically
+ok 22 - game roster troop status: dawnmender rejects a structure target atomically
+  ---
+  duration_ms: 53.574875
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects a structure target atomically
+ok 23 - game roster troop status: pulse-sentry rejects a structure target atomically
+  ---
+  duration_ms: 50.508833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects a structure target atomically
+ok 24 - game roster troop status: rime-adept rejects a structure target atomically
+  ---
+  duration_ms: 52.04225
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects a structure target atomically
+ok 25 - game roster troop status: tether-rider rejects a structure target atomically
+  ---
+  duration_ms: 57.550417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects a dead target at the scheduling boundary
+ok 26 - game roster troop status: bloom-wisp rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2893.910416
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects a dead target at the scheduling boundary
+ok 27 - game roster troop status: dawnmender rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2874.793042
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects a dead target at the scheduling boundary
+ok 28 - game roster troop status: pulse-sentry rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2812.263125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects a dead target at the scheduling boundary
+ok 29 - game roster troop status: rime-adept rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2841.497875
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects a dead target at the scheduling boundary
+ok 30 - game roster troop status: tether-rider rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2832.024125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: status admission receipts are frozen and carry resolved host facts
+ok 31 - game roster troop status: status admission receipts are frozen and carry resolved host facts
+  ---
+  duration_ms: 25.527417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: deterministic session continuation hashes stay stable
+ok 32 - game roster troop status: deterministic session continuation hashes stay stable
+  ---
+  duration_ms: 547.078167
+  type: 'test'
+  ...
+# Subtest: game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12
+ok 33 - game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12
+  ---
+  duration_ms: 7313.13125
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 31626.659041

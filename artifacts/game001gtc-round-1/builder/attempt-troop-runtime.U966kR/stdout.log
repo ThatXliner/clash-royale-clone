@@ -1,0 +1,56 @@
+
+> moss-and-ember@0.0.0 test:game-troop-runtime
+> node tests/game-troop-runtime-runner.js game-troop-runtime
+
+TAP version 13
+# Subtest: game troop runtime: current v3 is exactly one structural CONTENT-002 live-contact profile and a pure reducer
+ok 1 - game troop runtime: current v3 is exactly one structural CONTENT-002 live-contact profile and a pure reducer
+  ---
+  duration_ms: 7.884708
+  type: 'test'
+  ...
+# Subtest: game troop runtime: source deployment gate rejects an early v5 witness and mints one host contact at the real tick
+ok 2 - game troop runtime: source deployment gate rejects an early v5 witness and mints one host contact at the real tick
+  ---
+  duration_ms: 452.529125
+  type: 'test'
+  ...
+# Subtest: game troop runtime: current raw deploy/action boundaries reject Proxy and accessor input before observation
+ok 3 - game troop runtime: current raw deploy/action boundaries reject Proxy and accessor input before observation
+  ---
+  duration_ms: 10.348
+  type: 'test'
+  ...
+# Subtest: game troop runtime: current v5 hostile witnesses, chunks, forks, and empty v2 bytes remain causal
+ok 4 - game troop runtime: current v5 hostile witnesses, chunks, forks, and empty v2 bytes remain causal
+  ---
+  duration_ms: 1086.69175
+  type: 'test'
+  ...
+# Subtest: game troop runtime: legacy v1/v3 and v2/v4 action snapshots remain causal and preserve atomic rejections
+ok 5 - game troop runtime: legacy v1/v3 and v2/v4 action snapshots remain causal and preserve atomic rejections
+  ---
+  duration_ms: 1051.1795
+  type: 'test'
+  ...
+# Subtest: game troop runtime: thirteen profiled live Mossguards use one v3 profile with no source cap or dummy profile
+ok 6 - game troop runtime: thirteen profiled live Mossguards use one v3 profile with no source cap or dummy profile
+  ---
+  duration_ms: 47.143375
+  type: 'test'
+  ...
+# Subtest: game troop runtime: real GameSession profile/no-profile control has one sourced 202 hit and no duplicate seam effect
+ok 7 - game troop runtime: real GameSession profile/no-profile control has one sourced 202 hit and no duplicate seam effect
+  ---
+  duration_ms: 909.863417
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3688.284875

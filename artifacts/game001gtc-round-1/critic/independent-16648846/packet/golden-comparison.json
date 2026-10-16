@@ -1,0 +1,282 @@
+{
+  "sourcePins": {
+    "emptySerializer": "c9c818f7ac281b0e71890a2be17ce757f688b4c5",
+    "historicalStatus": "2a5bd7a44ad3773de59e8e6dd8baaebf0ec09764",
+    "sourcePolicyChange": "c981ec2444b9d2f08dacdb5c6f04ce6b5b786dfb"
+  },
+  "emptyV2": {
+    "historical": {
+      "bytes": 11618,
+      "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a",
+      "version": 2,
+      "rosterCards": 8,
+      "totalQuestions": 13,
+      "sourcePolicyEntities": 0,
+      "sourceQuestionCountForBriar": 3
+    },
+    "current": {
+      "bytes": 17731,
+      "sha256": "cb92fe16188370ae2bdfa260f574d220dcc02e1cdf4aa847c861e0fca5d20d54",
+      "version": 2,
+      "rosterCards": 8,
+      "totalQuestions": 33,
+      "sourcePolicyEntities": 2,
+      "sourceQuestionCountForBriar": 23,
+      "policies": [
+        {
+          "cardId": "briar-band",
+          "archetypeId": "briar-runner",
+          "fields": 10,
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "archetypeId": "briar-darter",
+          "fields": 10,
+          "deploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ]
+    },
+    "afterExactBriarAblation": {
+      "bytes": 11618,
+      "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a",
+      "removed": {
+        "policies": 2,
+        "questions": 20
+      }
+    },
+    "ablationMatchesHistorical": true
+  },
+  "statusScenarios": [
+    {
+      "id": "bloom-wisp",
+      "historicalSnapshot": {
+        "bytes": 200458,
+        "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9"
+      },
+      "currentSnapshot": {
+        "bytes": 214020,
+        "sha256": "e1b9c73e1f1a12e19661b375db7ba7f16855519b33476a4994477e22db29f763"
+      },
+      "afterExactBriarAblation": {
+        "bytes": 200458,
+        "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        }
+      },
+      "ablationMatchesHistorical": true,
+      "replay": {
+        "historicalSha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+        "currentSha256": "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
+        "equal": true
+      },
+      "questionCounts": {
+        "historical": 31,
+        "current": 51
+      },
+      "briarQuestionCounts": {
+        "historical": 7,
+        "current": 27
+      },
+      "sourcePolicyEntityCounts": {
+        "historical": 0,
+        "current": 2
+      }
+    },
+    {
+      "id": "dawnmender",
+      "historicalSnapshot": {
+        "bytes": 200434,
+        "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e"
+      },
+      "currentSnapshot": {
+        "bytes": 213996,
+        "sha256": "560503e6911cb66e0b7f4df47f5c70ec794d0946519140c7b17b15faa5c32fa3"
+      },
+      "afterExactBriarAblation": {
+        "bytes": 200434,
+        "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        }
+      },
+      "ablationMatchesHistorical": true,
+      "replay": {
+        "historicalSha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+        "currentSha256": "32ca31c6a29c77928845992163841293862c8c9ee458c53530ea7d367d541be7",
+        "equal": true
+      },
+      "questionCounts": {
+        "historical": 31,
+        "current": 51
+      },
+      "briarQuestionCounts": {
+        "historical": 7,
+        "current": 27
+      },
+      "sourcePolicyEntityCounts": {
+        "historical": 0,
+        "current": 2
+      }
+    },
+    {
+      "id": "pulse-sentry",
+      "historicalSnapshot": {
+        "bytes": 200506,
+        "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0"
+      },
+      "currentSnapshot": {
+        "bytes": 214068,
+        "sha256": "12d9664948f64070021bb6cf4755ed58e0fa35e4ad26a0b6eac268d8ea8d0f7f"
+      },
+      "afterExactBriarAblation": {
+        "bytes": 200506,
+        "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        }
+      },
+      "ablationMatchesHistorical": true,
+      "replay": {
+        "historicalSha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+        "currentSha256": "b21f4742b539a0ebfdc6d0a90444901f3b754a032684391fc2d6186e4ef04138",
+        "equal": true
+      },
+      "questionCounts": {
+        "historical": 31,
+        "current": 51
+      },
+      "briarQuestionCounts": {
+        "historical": 7,
+        "current": 27
+      },
+      "sourcePolicyEntityCounts": {
+        "historical": 0,
+        "current": 2
+      }
+    },
+    {
+      "id": "rime-adept",
+      "historicalSnapshot": {
+        "bytes": 200458,
+        "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92"
+      },
+      "currentSnapshot": {
+        "bytes": 214020,
+        "sha256": "5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40"
+      },
+      "afterExactBriarAblation": {
+        "bytes": 200458,
+        "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        }
+      },
+      "ablationMatchesHistorical": true,
+      "replay": {
+        "historicalSha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+        "currentSha256": "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
+        "equal": true
+      },
+      "questionCounts": {
+        "historical": 31,
+        "current": 51
+      },
+      "briarQuestionCounts": {
+        "historical": 7,
+        "current": 27
+      },
+      "sourcePolicyEntityCounts": {
+        "historical": 0,
+        "current": 2
+      }
+    },
+    {
+      "id": "tether-rider",
+      "historicalSnapshot": {
+        "bytes": 200495,
+        "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5"
+      },
+      "currentSnapshot": {
+        "bytes": 214057,
+        "sha256": "d091a33be5e46665307caa5cb1a989ff8a9980536d5f348ec8273ac5548465ab"
+      },
+      "afterExactBriarAblation": {
+        "bytes": 200495,
+        "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        }
+      },
+      "ablationMatchesHistorical": true,
+      "replay": {
+        "historicalSha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+        "currentSha256": "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",
+        "equal": true
+      },
+      "questionCounts": {
+        "historical": 31,
+        "current": 51
+      },
+      "briarQuestionCounts": {
+        "historical": 7,
+        "current": 27
+      },
+      "sourcePolicyEntityCounts": {
+        "historical": 0,
+        "current": 2
+      }
+    },
+    {
+      "id": "veil-prowler",
+      "historicalSnapshot": {
+        "bytes": 200501,
+        "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3"
+      },
+      "currentSnapshot": {
+        "bytes": 214063,
+        "sha256": "95235078f037fe91b0037d8f424d08d0f5ca9d491d9efe3393b80b1793645579"
+      },
+      "afterExactBriarAblation": {
+        "bytes": 200501,
+        "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+        "removed": {
+          "policies": 4,
+          "questions": 40
+        }
+      },
+      "ablationMatchesHistorical": true,
+      "replay": {
+        "historicalSha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+        "currentSha256": "53039869e13dc2e1be0d01d114b7a365f8329ed6d568ed19b865200d3cfab75b",
+        "equal": true
+      },
+      "questionCounts": {
+        "historical": 31,
+        "current": 51
+      },
+      "briarQuestionCounts": {
+        "historical": 7,
+        "current": 27
+      },
+      "sourcePolicyEntityCounts": {
+        "historical": 0,
+        "current": 2
+      }
+    }
+  ]
+}
