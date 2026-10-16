@@ -1,0 +1,31 @@
+{
+  "recorded_at_utc": "2026-10-16T01:06:10.301924+00:00",
+  "source_checkout": "/Users/me/.codex/worktrees/stagger-movement-accepted-aea303",
+  "expected_commit": "aea303091a18baeacd1b7805c415732d7a1c1417",
+  "node_bin_prefix": "/Users/me/.hermes/node/bin",
+  "runtime_versions": {
+    "node": "v22.22.3",
+    "npm": "10.9.8"
+  },
+  "execution_order": [
+    "test:game-troop-runtime",
+    "test:game-roster-troops-status"
+  ],
+  "results": [
+    {
+      "gate": "game-troop-runtime",
+      "direct_npm_pid": 22475,
+      "direct_npm_exit_code": 1,
+      "evidence_directory": "/Users/me/.codex/worktrees/stagger-movement-golden-gates/01-game-troop-runtime-20261016T010534.902847Z",
+      "source_clean_after": true
+    },
+    {
+      "gate": "game-roster-troops-status",
+      "direct_npm_pid": 22519,
+      "direct_npm_exit_code": 1,
+      "evidence_directory": "/Users/me/.codex/worktrees/stagger-movement-golden-gates/02-game-roster-troops-status-20261016T010534.902847Z",
+      "source_clean_after": true
+    }
+  ],
+  "all_gates_executed": true
+}
