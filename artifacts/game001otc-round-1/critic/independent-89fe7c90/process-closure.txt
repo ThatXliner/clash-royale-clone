@@ -1,0 +1,3 @@
+Candidate PID 8756: exit 0; direct PID liveness check false; source fence identical
+Accepted-parent PID 8838: exit 1; direct PID liveness check false; source fence identical
+Exact ps -p 8756,8838 query: no process rows; stdout/stderr/exit are preserved in process-closure-ps.*

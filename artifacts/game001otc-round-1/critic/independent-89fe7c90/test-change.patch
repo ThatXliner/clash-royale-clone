@@ -1,0 +1,292 @@
+tests/game-opponent.test.js --- 1/2 --- JavaScript
+106   });                                106   });
+107 }                                    107 }
+...                                      108 
+...                                      109 function briarRuntime(point) {
+...                                      110   return new OpponentBattleRuntime(
+...                                      ... setup({
+...                                      111     candidates: [{ cardId: "briar-b
+...                                      ... and", point: { ...point } }],
+...                                      112     seed: seedWithInitialCard("bria
+...                                      ... r-band"),
+...                                      113   }));
+...                                      114 }
+...                                      115 
+...                                      116 function assertBriarTimeline(runtim
+...                                      ... e, events, commit) {
+...                                      117   const briar = ROSTER.find(({ id }
+...                                      ... ) => id === "briar-band");
+...                                      118   const interval = briar.entities[0
+...                                      ... ].sourceConfidencePolicy.deployment
+...                                      ... Interval;
+...                                      119   assert.deepEqual(interval, {
+...                                      120     milliseconds: 100,
+...                                      121     sourceId: "supercell-2020-06-02
+...                                      ... -multi-unit-deployment",
+...                                      122     ticks: 6,
+...                                      123   });
+...                                      124   assert.deepEqual(briar.entities.m
+...                                      ... ap(({ sourceConfidencePolicy }) =>
+...                                      125     sourceConfidencePolicy.deployme
+...                                      ... ntInterval), [interval, interval]);
+...                                      126   const archetypes = briar.entities
+...                                      ... .flatMap(({ archetypeId, count }) =
+...                                      ... >
+...                                      127     Array.from({ length: count }, (
+...                                      ... ) => archetypeId));
+...                                      128   const expectedCount = COUNTS.get(
+...                                      ... "briar-band");
+...                                      129   assert.equal(archetypes.length, e
+...                                      ... xpectedCount,
+...                                      130     "the current roster count, incl
+...                                      ... uding its unresolved QUESTION claim
+...                                      ... s, defines this fixture");
+...                                      131   const deployment = events.find(({
+...                                      ...  type }) => type === "deployed");
+...                                      132   assert.deepEqual(deployment.entit
+...                                      ... yIds, commit.deployment.entityIds);
+...                                      133   assert.equal(deployment.sequence,
+...                                      ...  commit.proposalSequence);
+...                                      134   assert.deepEqual(deployment.point
+...                                      ... , commit.point);
+...                                      135   assert.equal(new Set(deployment.e
+...                                      ... ntityIds).size, expectedCount);
+...                                      136 
+...                                      137   const initialSpawns = events.filt
+...                                      ... er(({ type }) => type === "spawn");
+...                                      138   assert.deepEqual(initialSpawns.ma
+...                                      ... p(({ id, tick }) => ({ id, tick }))
+...                                      ... , [
+...                                      139     { id: deployment.entityIds[0], 
+...                                      ... tick: 0 },
+...                                      140   ]);
+...                                      141   const initialElixir = runtime.sta
+...                                      ... te.elixir.sides.north.amount;
+...                                      142   const assertVisiblePrefix = (memb
+...                                      ... erCount) => {
+...                                      143     const units = runtime.state.bat
+...                                      ... tle.units;
+...                                      144     assert.equal(units.length, memb
+...                                      ... erCount);
+...                                      145     assert.deepEqual(units.map(({ i
+...                                      ... d, archetypeId, cardId, side }) =>
+...                                      146       ({ id, archetypeId, cardId, s
+...                                      ... ide })),
+...                                      147     deployment.entityIds.slice(0, m
+...                                      ... emberCount).map((id, index) => ({
+...                                      148       id,
+...                                      149       archetypeId: archetypes[index
+...                                      ... ],
+...                                      150       cardId: "briar-band",
+...                                      151       side: "north",
+...                                      152     })));
+...                                      153   };
+...                                      154   assertVisiblePrefix(1);
+...                                      155 
+...                                      156   for (let memberIndex = 1; memberI
+...                                      ... ndex < expectedCount; memberIndex +
+...                                      ... = 1) {
+...                                      157     const sourceTick = memberIndex 
+...                                      ... * interval.ticks;
+...                                      158     const boundaryEvents = runtime.
+...                                      ... stepMany(interval.ticks);
+...                                      159     const spawned = boundaryEvents.
+...                                      ... filter(({ type }) => type === "spaw
+...                                      ... n");
+...                                      160     assert.deepEqual(spawned.map(({
+...                                      ...  id, tick }) => ({ id, tick })), [{
+...                                      161       id: deployment.entityIds[memb
+...                                      ... erIndex],
+...                                      162       tick: sourceTick,
+...                                      163     }]);
+...                                      164     assertVisiblePrefix(memberIndex
+...                                      ...  + 1);
+...                                      165     assert.equal(runtime.state.tick
+...                                      ... , sourceTick + 1);
+...                                      166     assert.equal(runtime.replay.fil
+...                                      ... ter(({ type }) =>
+...                                      167       type === "opponent-deployment
+...                                      ... -committed").length, 1,
+...                                      168     "scheduled members do not issue
+...                                      ...  additional AI deployment commits")
+...                                      ... ;
+...                                      169     assert.equal(runtime.replay.fil
+...                                      ... ter(({ type, proposal }) =>
+...                                      170       type === "opponent-decision" 
+...                                      ... && proposal !== null).length, 1,
+...                                      171     "scheduled members do not issue
+...                                      ...  additional AI proposals");
+...                                      172     assert.equal(runtime.state.deck
+...                                      ... .sequence, commit.cycle.sequence + 
+...                                      ... 1,
+...                                      173       "scheduled members do not adv
+...                                      ... ance the deck cycle");
+...                                      174     assert.equal(runtime.state.elix
+...                                      ... ir.sides.north.amount, initialElixi
+...                                      ... r,
+...                                      175       "scheduled members do not spe
+...                                      ... nd more elixir");
+...                                      176   }
+...                                      177 
+...                                      178   assertVisiblePrefix(expectedCount
+...                                      ... );
+...                                      179   assert.equal(runtime.state.tick, 
+...                                      ... (expectedCount - 1) * interval.tick
+...                                      ... s + 1);
+...                                      180 }
+108                                      181 
+109 test("game opponent: all eight card  182 test("game opponent: all eight card
+... s and squad counts transact on both  ... s and squad counts transact on both
+...  legal north lanes", () => {         ...  legal north lanes", () => {
+110   for (const [index, cardId] of DEC  183   for (const cardId of DECK) {
+... K.entries()) {                       ... 
+111     const point = index % 2 === 0 ?  184     for (const point of [WEST, EAST
+...  WEST : EAST;                        ... ]) {
+112     const runtime = new OpponentBat  185       const runtime = new OpponentB
+... tleRuntime(setup({                   ... attleRuntime(setup({
+113       candidates: [{ cardId, point:  186         candidates: [{ cardId, poin
+...  { ...point } }],                    ... t: { ...point } }],
+114       seed: seedWithInitialCard(car  187         seed: seedWithInitialCard(c
+... dId),                                ... ardId),
+
+tests/game-opponent.test.js --- 2/2 --- JavaScript
+122     assert.equal(commit.cycle.seque  195       assert.equal(commit.cycle.seq
+... nce, 0);                             ... uence, 0);
+123     assert.equal(commit.deployment.  196       assert.equal(commit.deploymen
+... entityIds.length, COUNTS.get(cardId  ... t.entityIds.length, COUNTS.get(card
+... ));                                  ... Id));
+124     assert.deepEqual(commit.point,   197       assert.deepEqual(commit.point
+... point);                              ... , point);
+...                                      198       assert.equal(runtime.state.el
+...                                      ... ixir.sides.north.amount,
+...                                      199         10 - COSTS.find(({ cardId: 
+...                                      ... id }) => id === cardId).cost);
+...                                      200 
+...                                      201       if (cardId === "briar-band") 
+...                                      ... {
+...                                      202         assertBriarTimeline(runtime
+...                                      ... , events, commit);
+...                                      203       } else {
+125     assert.equal(runtime.state.batt  204         assert.equal(runtime.state.
+... le.units.length, COUNTS.get(cardId)  ... battle.units.length, COUNTS.get(car
+... );                                   ... dId));
+126     assert.ok(runtime.state.battle.  205         assert.ok(runtime.state.bat
+... units.every(({ side }) => side ===   ... tle.units.every(({ cardId: unitCard
+... "north"));                           ... Id, side }) =>
+127     assert.equal(runtime.state.elix  206           unitCardId === cardId && 
+... ir.sides.north.amount,               ... side === "north"));
+128       10 - COSTS.find(({ cardId: id  207       }
+...  }) => id === cardId).cost);         ... 
+...                                      208     }
+129   }                                  209   }
+130 });                                  210 });
+...                                      211 
+...                                      212 test("game opponent: pending Briar 
+...                                      ... members preserve chunks and every r
+...                                      ... estore cut", () => {
+...                                      213   const point = WEST;
+...                                      214   const expectedCount = COUNTS.get(
+...                                      ... "briar-band");
+...                                      215   const interval = ROSTER.find(({ i
+...                                      ... d }) => id === "briar-band")
+...                                      216     .entities[0].sourceConfidencePo
+...                                      ... licy.deploymentInterval;
+...                                      217   const ticks = (expectedCount - 1)
+...                                      ...  * interval.ticks + 1;
+...                                      218   const makeRuntime = () => briarRu
+...                                      ... ntime(point);
+...                                      219 
+...                                      220   const direct = makeRuntime();
+...                                      221   const directEvents = direct.stepM
+...                                      ... any(ticks);
+...                                      222   const expectedBytes = direct.seri
+...                                      ... alize();
+...                                      223   const expectedState = direct.stat
+...                                      ... e;
+...                                      224   const expectedReplay = direct.rep
+...                                      ... lay;
+...                                      225   const commit = directEvents.find(
+...                                      ... ({ type }) =>
+...                                      226     type === "opponent-deployment-c
+...                                      ... ommitted");
+...                                      227   assert.equal(commit.deployment.en
+...                                      ... tityIds.length, expectedCount);
+...                                      228   assert.deepEqual(directEvents.fil
+...                                      ... ter(({ type }) => type === "spawn")
+...                                      229     .map(({ id, tick }) => ({ id, t
+...                                      ... ick })),
+...                                      230   commit.deployment.entityIds.map((
+...                                      ... id, index) => ({
+...                                      231     id,
+...                                      232     tick: index * interval.ticks,
+...                                      233   })));
+...                                      234 
+...                                      235   const chunked = makeRuntime();
+...                                      236   const chunkedEvents = [];
+...                                      237   for (const count of [1, 5, 1, 5, 
+...                                      ... 1, 5, 1, 5, 1, 5, 1]) {
+...                                      238     chunkedEvents.push(...chunked.s
+...                                      ... tepMany(count));
+...                                      239   }
+...                                      240   assert.deepEqual(chunkedEvents, d
+...                                      ... irectEvents);
+...                                      241   assert.equal(chunked.serialize(),
+...                                      ...  expectedBytes);
+...                                      242   assert.deepEqual(chunked.state, e
+...                                      ... xpectedState);
+...                                      243   assert.deepEqual(chunked.replay, 
+...                                      ... expectedReplay);
+...                                      244 
+...                                      245   for (const cut of [1, 6, 7, 12, 1
+...                                      ... 3, 18, 19, 24, 25, 30]) {
+...                                      246     const partial = makeRuntime();
+...                                      247     partial.stepMany(cut);
+...                                      248     const spawnedCount = Math.min(e
+...                                      ... xpectedCount,
+...                                      249       1 + Math.floor((cut - 1) / in
+...                                      ... terval.ticks));
+...                                      250     assert.equal(partial.state.batt
+...                                      ... le.units.length, spawnedCount, `act
+...                                      ... ive members at cut ${cut}`);
+...                                      251     assert.equal(partial.state.deck
+...                                      ... .sequence, 1, `deck cycle at cut ${
+...                                      ... cut}`);
+...                                      252     assert.equal(partial.replay.fil
+...                                      ... ter(({ type }) =>
+...                                      253       type === "opponent-deployment
+...                                      ... -committed").length, 1, `commits at
+...                                      ...  cut ${cut}`);
+...                                      254 
+...                                      255     const cutBytes = partial.serial
+...                                      ... ize();
+...                                      256     const restored = OpponentBattle
+...                                      ... Runtime.restore(cutBytes);
+...                                      257     assert.equal(restored.serialize
+...                                      ... (), cutBytes, `restore bytes at cut
+...                                      ...  ${cut}`);
+...                                      258     assert.equal(restored.state.bat
+...                                      ... tle.units.length, spawnedCount,
+...                                      259       `restored active members at c
+...                                      ... ut ${cut}`);
+...                                      260     restored.stepMany(ticks - cut);
+...                                      261     assert.equal(restored.serialize
+...                                      ... (), expectedBytes, `final bytes at 
+...                                      ... cut ${cut}`);
+...                                      262     assert.deepEqual(restored.state
+...                                      ... , expectedState, `final state at cu
+...                                      ... t ${cut}`);
+...                                      263     assert.deepEqual(restored.repla
+...                                      ... y, expectedReplay, `final replay at
+...                                      ...  cut ${cut}`);
+...                                      264     assert.equal(restored.replayByt
+...                                      ... es(), canonical(expectedReplay),
+...                                      265       `final replay bytes at cut ${
+...                                      ... cut}`);
+...                                      266   }
+...                                      267 });
+131                                      268 
+132 test("game opponent: exact tick ord  269 test("game opponent: exact tick ord
+... er waits for generated elixir then   ... er waits for generated elixir then 
+... autonomously spends once", () => {   ... autonomously spends once", () => {
+133   const cardId = "cinderlings";      270   const cardId = "cinderlings";
+

@@ -1,0 +1,98 @@
+
+> moss-and-ember@0.0.0 test:game-opponent
+> node tests/game-opponent-runner.js game-opponent
+
+TAP version 13
+# Subtest: game opponent: all eight cards and squad counts transact on both legal north lanes
+ok 1 - game opponent: all eight cards and squad counts transact on both legal north lanes
+  ---
+  duration_ms: 993.573959
+  type: 'test'
+  ...
+# Subtest: game opponent: pending Briar members preserve chunks and every restore cut
+ok 2 - game opponent: pending Briar members preserve chunks and every restore cut
+  ---
+  duration_ms: 2473.528417
+  type: 'test'
+  ...
+# Subtest: game opponent: exact tick order waits for generated elixir then autonomously spends once
+ok 3 - game opponent: exact tick order waits for generated elixir then autonomously spends once
+  ---
+  duration_ms: 419.600834
+  type: 'test'
+  ...
+# Subtest: game opponent: repeated autonomous plays produce combat and south tower damage
+ok 4 - game opponent: repeated autonomous plays produce combat and south tower damage
+  ---
+  duration_ms: 1739.335875
+  type: 'test'
+  ...
+# Subtest: game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+ok 5 - game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+  ---
+  duration_ms: 7021.518708
+  type: 'test'
+  ...
+# Subtest: game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+ok 6 - game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+  ---
+  duration_ms: 40.922875
+  type: 'test'
+  ...
+# Subtest: game opponent: legal and batch bounds fail atomically
+ok 7 - game opponent: legal and batch bounds fail atomically
+  ---
+  duration_ms: 21.526292
+  type: 'test'
+  ...
+# Subtest: game opponent: resolved shared history supports a full terminal match
+ok 8 - game opponent: resolved shared history supports a full terminal match # SKIP GAME-001HC owns the open tick-874 shared transcript cap; set GAME_001HC_RESOLVED=1 after its fix
+  ---
+  duration_ms: 0.103584
+  type: 'test'
+  ...
+# Subtest: game opponent: canonical text admission invokes no caller callbacks
+ok 9 - game opponent: canonical text admission invokes no caller callbacks
+  ---
+  duration_ms: 11.671416
+  type: 'test'
+  ...
+# Subtest: game opponent: admitted roster is the only deck and cost authority
+ok 10 - game opponent: admitted roster is the only deck and cost authority
+  ---
+  duration_ms: 142.087167
+  type: 'test'
+  ...
+# Subtest: game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+ok 11 - game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+  ---
+  duration_ms: 125.897292
+  type: 'test'
+  ...
+# Subtest: game opponent: object key string-length bounds are exact at every admission layer
+ok 12 - game opponent: object key string-length bounds are exact at every admission layer
+  ---
+  duration_ms: 1200.598125
+  type: 'test'
+  ...
+# Subtest: game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+ok 13 - game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+  ---
+  duration_ms: 102.248791
+  type: 'test'
+  ...
+# Subtest: game opponent: nested setup witnesses and restore history preflight before recursion
+ok 14 - game opponent: nested setup witnesses and restore history preflight before recursion
+  ---
+  duration_ms: 98.027542
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 14486.115917

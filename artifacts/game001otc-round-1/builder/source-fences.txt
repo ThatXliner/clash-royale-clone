@@ -1,0 +1,14 @@
+accepted_parent=0cb3a13be4e498f48cc17909f0219aee50a1f12b
+parent:src=01d869b32c563dac270acd4fddc7fa4d0ec207de
+parent:package.json=7a637dd1af982c8fb44c5640d82e1f44fbcafcd6
+parent:package-lock.json=57d4f206ec6d041922c394cd67db615333eb8af5
+parent:demo/assets=5ba23821a18a8a0b15404cafb74b9700e486fd06
+parent:public/assets=131caf66aded9d94ae4d85ea7240ed291897f2df
+parent:site/assets=f0ebe1abfe9a70f6402d6396a1bea1daa16342cb
+parent:reference/stats=674bc3a455dcfffc168f60061e92c198558aa673
+parent:dist=5458f617a71ee610ed231d758384128f87b5e478
+parent:package-lock-sha256=d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4
+working-tree-before-freeze: diff clean for src, package.json, package-lock.json, demo/assets, public/assets, site/assets, reference/stats, dist
+candidate expectation: these exact path objects remain identical to accepted_parent; owned changes are tests/game-opponent.test.js and artifacts/game001otc-round-1/builder/**
+parent:tests/game-opponent.test.js=ecf1bcb1fd841c40a87db8117c83bcf3d34ad056
+candidate:tests/game-opponent.test.js sha256=016457747f078e02014508e4d10c6ebb925ff2f118893523bf91b6983079fb76

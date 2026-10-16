@@ -106,26 +106,163 @@ function nodeGraph(totalNodes) {
   });
 }
 
+function briarRuntime(point) {
+  return new OpponentBattleRuntime(setup({
+    candidates: [{ cardId: "briar-band", point: { ...point } }],
+    seed: seedWithInitialCard("briar-band"),
+  }));
+}
+
+function assertBriarTimeline(runtime, events, commit) {
+  const briar = ROSTER.find(({ id }) => id === "briar-band");
+  const interval = briar.entities[0].sourceConfidencePolicy.deploymentInterval;
+  assert.deepEqual(interval, {
+    milliseconds: 100,
+    sourceId: "supercell-2020-06-02-multi-unit-deployment",
+    ticks: 6,
+  });
+  assert.deepEqual(briar.entities.map(({ sourceConfidencePolicy }) =>
+    sourceConfidencePolicy.deploymentInterval), [interval, interval]);
+  const archetypes = briar.entities.flatMap(({ archetypeId, count }) =>
+    Array.from({ length: count }, () => archetypeId));
+  const expectedCount = COUNTS.get("briar-band");
+  assert.equal(archetypes.length, expectedCount,
+    "the current roster count, including its unresolved QUESTION claims, defines this fixture");
+  const deployment = events.find(({ type }) => type === "deployed");
+  assert.deepEqual(deployment.entityIds, commit.deployment.entityIds);
+  assert.equal(deployment.sequence, commit.proposalSequence);
+  assert.deepEqual(deployment.point, commit.point);
+  assert.equal(new Set(deployment.entityIds).size, expectedCount);
+
+  const initialSpawns = events.filter(({ type }) => type === "spawn");
+  assert.deepEqual(initialSpawns.map(({ id, tick }) => ({ id, tick })), [
+    { id: deployment.entityIds[0], tick: 0 },
+  ]);
+  const initialElixir = runtime.state.elixir.sides.north.amount;
+  const assertVisiblePrefix = (memberCount) => {
+    const units = runtime.state.battle.units;
+    assert.equal(units.length, memberCount);
+    assert.deepEqual(units.map(({ id, archetypeId, cardId, side }) =>
+      ({ id, archetypeId, cardId, side })),
+    deployment.entityIds.slice(0, memberCount).map((id, index) => ({
+      id,
+      archetypeId: archetypes[index],
+      cardId: "briar-band",
+      side: "north",
+    })));
+  };
+  assertVisiblePrefix(1);
+
+  for (let memberIndex = 1; memberIndex < expectedCount; memberIndex += 1) {
+    const sourceTick = memberIndex * interval.ticks;
+    const boundaryEvents = runtime.stepMany(interval.ticks);
+    const spawned = boundaryEvents.filter(({ type }) => type === "spawn");
+    assert.deepEqual(spawned.map(({ id, tick }) => ({ id, tick })), [{
+      id: deployment.entityIds[memberIndex],
+      tick: sourceTick,
+    }]);
+    assertVisiblePrefix(memberIndex + 1);
+    assert.equal(runtime.state.tick, sourceTick + 1);
+    assert.equal(runtime.replay.filter(({ type }) =>
+      type === "opponent-deployment-committed").length, 1,
+    "scheduled members do not issue additional AI deployment commits");
+    assert.equal(runtime.replay.filter(({ type, proposal }) =>
+      type === "opponent-decision" && proposal !== null).length, 1,
+    "scheduled members do not issue additional AI proposals");
+    assert.equal(runtime.state.deck.sequence, commit.cycle.sequence + 1,
+      "scheduled members do not advance the deck cycle");
+    assert.equal(runtime.state.elixir.sides.north.amount, initialElixir,
+      "scheduled members do not spend more elixir");
+  }
+
+  assertVisiblePrefix(expectedCount);
+  assert.equal(runtime.state.tick, (expectedCount - 1) * interval.ticks + 1);
+}
+
 test("game opponent: all eight cards and squad counts transact on both legal north lanes", () => {
-  for (const [index, cardId] of DECK.entries()) {
-    const point = index % 2 === 0 ? WEST : EAST;
-    const runtime = new OpponentBattleRuntime(setup({
-      candidates: [{ cardId, point: { ...point } }],
-      seed: seedWithInitialCard(cardId),
-    }));
-    const events = runtime.step(0);
-    const commit = events.find(({ type }) => type === "opponent-deployment-committed");
-    assert.equal(commit.cardId, cardId);
-    assert.equal(commit.commandId, "north:0");
-    assert.equal(commit.proposalSequence, 0);
-    assert.equal(commit.spendSequence, 0);
-    assert.equal(commit.cycle.sequence, 0);
-    assert.equal(commit.deployment.entityIds.length, COUNTS.get(cardId));
-    assert.deepEqual(commit.point, point);
-    assert.equal(runtime.state.battle.units.length, COUNTS.get(cardId));
-    assert.ok(runtime.state.battle.units.every(({ side }) => side === "north"));
-    assert.equal(runtime.state.elixir.sides.north.amount,
-      10 - COSTS.find(({ cardId: id }) => id === cardId).cost);
+  for (const cardId of DECK) {
+    for (const point of [WEST, EAST]) {
+      const runtime = new OpponentBattleRuntime(setup({
+        candidates: [{ cardId, point: { ...point } }],
+        seed: seedWithInitialCard(cardId),
+      }));
+      const events = runtime.step(0);
+      const commit = events.find(({ type }) => type === "opponent-deployment-committed");
+      assert.equal(commit.cardId, cardId);
+      assert.equal(commit.commandId, "north:0");
+      assert.equal(commit.proposalSequence, 0);
+      assert.equal(commit.spendSequence, 0);
+      assert.equal(commit.cycle.sequence, 0);
+      assert.equal(commit.deployment.entityIds.length, COUNTS.get(cardId));
+      assert.deepEqual(commit.point, point);
+      assert.equal(runtime.state.elixir.sides.north.amount,
+        10 - COSTS.find(({ cardId: id }) => id === cardId).cost);
+
+      if (cardId === "briar-band") {
+        assertBriarTimeline(runtime, events, commit);
+      } else {
+        assert.equal(runtime.state.battle.units.length, COUNTS.get(cardId));
+        assert.ok(runtime.state.battle.units.every(({ cardId: unitCardId, side }) =>
+          unitCardId === cardId && side === "north"));
+      }
+    }
+  }
+});
+
+test("game opponent: pending Briar members preserve chunks and every restore cut", () => {
+  const point = WEST;
+  const expectedCount = COUNTS.get("briar-band");
+  const interval = ROSTER.find(({ id }) => id === "briar-band")
+    .entities[0].sourceConfidencePolicy.deploymentInterval;
+  const ticks = (expectedCount - 1) * interval.ticks + 1;
+  const makeRuntime = () => briarRuntime(point);
+
+  const direct = makeRuntime();
+  const directEvents = direct.stepMany(ticks);
+  const expectedBytes = direct.serialize();
+  const expectedState = direct.state;
+  const expectedReplay = direct.replay;
+  const commit = directEvents.find(({ type }) =>
+    type === "opponent-deployment-committed");
+  assert.equal(commit.deployment.entityIds.length, expectedCount);
+  assert.deepEqual(directEvents.filter(({ type }) => type === "spawn")
+    .map(({ id, tick }) => ({ id, tick })),
+  commit.deployment.entityIds.map((id, index) => ({
+    id,
+    tick: index * interval.ticks,
+  })));
+
+  const chunked = makeRuntime();
+  const chunkedEvents = [];
+  for (const count of [1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1]) {
+    chunkedEvents.push(...chunked.stepMany(count));
+  }
+  assert.deepEqual(chunkedEvents, directEvents);
+  assert.equal(chunked.serialize(), expectedBytes);
+  assert.deepEqual(chunked.state, expectedState);
+  assert.deepEqual(chunked.replay, expectedReplay);
+
+  for (const cut of [1, 6, 7, 12, 13, 18, 19, 24, 25, 30]) {
+    const partial = makeRuntime();
+    partial.stepMany(cut);
+    const spawnedCount = Math.min(expectedCount,
+      1 + Math.floor((cut - 1) / interval.ticks));
+    assert.equal(partial.state.battle.units.length, spawnedCount, `active members at cut ${cut}`);
+    assert.equal(partial.state.deck.sequence, 1, `deck cycle at cut ${cut}`);
+    assert.equal(partial.replay.filter(({ type }) =>
+      type === "opponent-deployment-committed").length, 1, `commits at cut ${cut}`);
+
+    const cutBytes = partial.serialize();
+    const restored = OpponentBattleRuntime.restore(cutBytes);
+    assert.equal(restored.serialize(), cutBytes, `restore bytes at cut ${cut}`);
+    assert.equal(restored.state.battle.units.length, spawnedCount,
+      `restored active members at cut ${cut}`);
+    restored.stepMany(ticks - cut);
+    assert.equal(restored.serialize(), expectedBytes, `final bytes at cut ${cut}`);
+    assert.deepEqual(restored.state, expectedState, `final state at cut ${cut}`);
+    assert.deepEqual(restored.replay, expectedReplay, `final replay at cut ${cut}`);
+    assert.equal(restored.replayBytes(), canonical(expectedReplay),
+      `final replay bytes at cut ${cut}`);
   }
 });
 

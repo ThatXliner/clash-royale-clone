@@ -9678,3 +9678,12 @@ EVIDENCE: Fresh exactcb133659 candidate gamebattle11/11,ordinary25/25,admission7
 BIGGEST GAP: No remaining gap in this test-only repair; extraction and full current-source endurance remain independently unqualified.
 
 Adopt tests/game-battle.test.js only plusevidence/tracking. Builder43passes anddiagnosticmatrix retained. Firstprobe badrelativeimport andfirstcandidate incorrectpartialIDassertion raws retained, unavailableoriginalsources explicitlydocumented andnotreconstructed. Criticfirstarchiveomittedlegitmodule andfirstordinarycapturefailed; bothretainedasunqualifiedsetup/recordingfailures, correctedrecordedrunsqualify. No production/stat/sourceconfidence/capchanges. FactoryRound511FAIL remainshistory; nextmatchingfactoryretry required. No historical/full109/release-complete claim.
+
+## Round 513 - GAME-001OTC opponent deployment contract verification
+
+PIECE: GAME-001OTC
+VERDICT: PASS
+EVIDENCE: Fresh candidate89fe7c90 npm run test:game-opponent PID8756 actualexit0:13pass0fail1existingGAME001HCskip. Accepted0cb3 parentcontrol PID8838 actualexit1:11pass1fail1skip; legacy immediate-full-count assertion1!==6 reproduced. Candidate tests all8cards on both legalnorthpoints, canonical reservedIDs, command/proposal/spend/cycle/point/cost/side. Briar policy sourced100ms/6ticks: members spawn0/6/12/18/24/30 with exactIDs/archetypes, no repeatAIproposal/commit/cycle/spend. Chunked and pendingrestore cuts preserve snapshots/state/replay/bytes. Production/package/reference unchanged; rostercount remainsQUESTION. Rawsourcefences unchanged; rootverifiedcandidateexecutedtestbytes andall232criticledgerentries. Boundedrepositorypacket omits npm/Node compile caches; originalfullmanifest retained with exclusions noted.
+BIGGEST GAP: The separate GAME-001HC terminal-match cap remains explicitly skipped; no gap in judged opponent fixture repair.
+
+Adopt tests/game-opponent.test.js only plusevidence/tracking. Builder13passes1skip andcausalprobe retained withfirstimportfailure explicitlyunqualified. This doesnotqualify extraction orfullcurrent-source browserendurance, norcomplete109cards. GAME001SRC next repairs independentlyreproduced missingQUESTION fixture.

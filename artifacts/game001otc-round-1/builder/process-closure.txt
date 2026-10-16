@@ -1,0 +1,2 @@
+Owned direct process PIDs: probe attempt 1 = 5675; probe attempt 2 = 6186; candidate test runner = 6442.
+Post-run check: `ps -o pid=,ppid=,command= -p 5675,6186,6442` returned no rows; no owned process remains active.

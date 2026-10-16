@@ -1,0 +1,9 @@
+PIECE: GAME-001OTC
+VERDICT: PASS
+EVIDENCE:
+- Frozen candidate 89fe7c90bb55eba9772887c08532c0f09368755c; accepted parent 0cb3a13be4e498f48cc17909f0219aee50a1f12b. After excluding only artifacts/, the sole product path is tests/game-opponent.test.js (SHA-256 is recorded in SHA256SUMS).
+- Candidate npm run test:game-opponent: exit 0, 13 pass, 0 fail, 1 skip. The skip is the existing GAME-001HC terminal-match cap. Output, stderr, argv, cwd, env/PATH, PID, and before/after source fences are preserved under candidate/.
+- Accepted-parent negative control: exit 1, 11 pass, 1 fail, 1 skip. The first failure is the legacy immediate-full-count assertion (1 !== 6) for staggered Briar Band deployment. Output and process/source-fence metadata are preserved under parent/.
+- The new matrix tests all 8 current roster cards on both legal north points and retains command, proposal, spend, cycle, reserved-ID count, point, cost, and side assertions. Briar Band verifies the pinned 100ms/6-tick policy, member IDs/archetypes at ticks 0, 6, 12, 18, 24, and 30, and one proposal/commit/cycle/spend total. Chunked progression and every pending restore cut compare exact snapshots, final state, replay, and bytes.
+- Reference source is not imported by the test path. The roster member count remains a QUESTION-backed fixture and is not asserted as historical proof. Source fences stayed identical across both runs.
+BIGGEST GAP: The pre-existing shared-history terminal-match test remains skipped under GAME-001HC; this focused test-only round does not resolve that separate cap.
