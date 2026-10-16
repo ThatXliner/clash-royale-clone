@@ -9481,7 +9481,7 @@ BIGGEST GAP: Declare and audit the new sharedmelee-areaauthority in the determin
 
 No core/source adoption; archive17failedcandidatepaths plusavailablebuilderraw andcriticreports only. Two rosteradmission fixturefailures also requireexactset/count updates. Two release-host testfiles failtoloadmissingvite, environmentlimitation ratherthan proven runtimefailure; those files remainunqualified, not included in139/142 executedcandidate-case denominator. Nextfreshcheckout mustinstallpinneddependencies beforethosegates. Initialcomparisonunsortedlegal-deployment harnessfailure preserved, correctedcanonical-order run separate. Malformed repeatedhash incriticchat corrected; savedcomparisonJSON containsvalid64hex value. RLwitness provesdeployment/spend/cycle/restore, notRLcombatcontact; extendpublicAPIwitness beforebroadRLcombatclaim. Historicalactivefields/radiusconflict remainQUESTION/unimplemented; no fullhistoricalrole/parity claim. Criticparent/candidateworktrees removed, no browser launched. Builderinitialtwo-failure rawunavailable: clearlylabeledreconstruction retained, notrepresentedashistoricaloriginal.
 
-## Round 491 - ART-022B Brackenwheel battle cutout
+## Round 491 — ART-022B Brackenwheel battle cutout
 
 PIECE: ART-022B
 VERDICT: FAIL
@@ -9490,7 +9490,7 @@ BIGGEST GAP: At required13CSSpxbody, the head, apron, sickle andfeet do not reso
 
 No asset/source adoption. Four failedcandidatepaths andallavailablebuilder/critic evidence archived. Root sealedcriticfiles withnewexplicitchecksumledger (critic suppliednoaggregateledger). Four builtin generationattempts belongto thissingle gauntletround. Prompt requested10%margin butbar didnot: actual2%clearance is disclosed, notthefailure. Testsideeffects onfiveevidenceJSONs restoredexact; releaseoutputs absentbefore/after, ownedbrowser/testprocesses closed andwindowreleasedtoKcritic. Nextbuilder mustdesign fornative13pxreadability, preserveoriginalidentity andrealalpha, keep26pxcheck andunchangedsizebudgets. No gameplay/fullhistoricalparityclaim.
 
-## Round 492 - CARDS-022K Brackenwheel core audit repair
+## Round 492 — CARDS-022K Brackenwheel core audit repair
 
 PIECE: CARDS-022K
 VERDICT: FAIL
@@ -9499,7 +9499,7 @@ BIGGEST GAP: Carry the added roster occurrence through canonical audit count/dig
 
 Archive seven R2 failedcandidate scripts/tests plusbuilder andfreshcritic evidence. Root independently parsed17raw TAP/exit ledgers to232/235 andverified69builderchecksums; rootsealedcritic files with explicitnewchecksumledger. Audit internally completed two equal canonical byte runs butfailedtest beforeprinting concretehashes/manifest, so nextbuilder mustregenerate andpreserve thoseartifacts, notinventdigest. Exactruntimeidentity permitsretaining existingmatchingfocused/source/default20checkpoint evidence with scopeexplicit; nextchangedfixture testsneed freshexecution. NewRLcontactwitness passedfresh. DefaultTMPDIR host/release passes resolve priorcheckout-specific temp-root observation; no requiredtmp override. Allcriticprocesses/profiles closed andprivateworktree removed. Unimplementedrawmechanics/radiusconflict remainQUESTION; no fullparity/art/UI/endurance claim.
 
-## Round 493 - ART-022B Brackenwheel cutout revision
+## Round 493 — ART-022B Brackenwheel cutout revision
 
 PIECE: ART-022B
 VERDICT: FAIL
@@ -9508,7 +9508,7 @@ BIGGEST GAP: Make the head, apron, copper sickle and separate feet read at nativ
 
 No product adoption. Archive exactfourfailedcandidatepaths, builtin generation/provenance evidence, independentnativecaptures andallrawgatehistory. Initialshippingrelease3/4 was unqualified browserpreflight: fileURL suppliedwherefilesystempath required; correctedinvocation hasnewfilenames andactual4/4, no product/testchanges andno repeated22casebuild/staticcapture. c72releaseevidence was correctlyexcluded fromthis0edasset qualification. Browser/server/profile closed, existinguserChrome93861untouched. Nextthirdround mustchange tiny-size art direction toward bold simplified silhouette; unchanged13/26bar andbudgets retained. Stopthisapproach ifsamegapfailsathirdround. Fullgameintegration andhistoricalparity remainunproved.
 
-## Round 494 - GAME-001HBR shared resource lifecycle
+## Round 494 — GAME-001HBR shared resource lifecycle
 
 PIECE: GAME-001HBR
 VERDICT: Scoped PASS
@@ -9517,7 +9517,7 @@ BIGGEST GAP: Production adoption still depends on separately accepting the pendi
 
 This is scoped artifact acceptance, NOT source adoption. Archive seven HBR owned source/test paths under accepted-candidate-deferred, frozen builder evidence andallcritic evidence. c72sourceequals7ef;59adds exactlyfourHBRsrc; c1sourceequals59. Frozenbuilder ambiguousbase wording andcriticinitialmisinterpretation arepreserved with explicitderivedcorrection in sourcegraph.md. No implicitBrackenwheel adoption. Missingpackage-script invocation failedandpreserved; wiredrunner passed11/11. Firstlegacyharness failedtomaterializebeforedeathcheck; distinctcorrectedharnesssteps481/assertsrealdeath andpassesactualexit0, originals retained. Criticusedcleanexistingprivatecandidatecheckout withGitfences andindependentfreshcontext; temporaryparentworktree removed. Knowncanonical67vs68 andeditable21vs22 baselinefixturefailures notrerunandnotcountedaswhole-releasePASS. Only540cadence/3900lifetime/death1 areindependentlysourcealigned; recipient/anchor/reset/cap/order/expiry/placement remainQUESTION, periodicamountdatamineonly andHP/deployunverified. No editableAethercard/browser/fullhistoricalclaim.
 
-## Round 495 - CARDS-022K Brackenwheel provisional core admission
+## Round 495 — CARDS-022K Brackenwheel provisional core admission
 
 PIECE: CARDS-022K
 VERDICT: PASS
@@ -9526,7 +9526,7 @@ BIGGEST GAP: Unresolved raw stat semantics and area-radius conflict remain QUEST
 
 Adopt exact25 reviewed source/script/test paths fromdebe, preserving unrelatedacceptedportrait/manifest/metadata. Rootverifiednoneofthese25paths changedonacceptedHEAD since09base, so nooverwriteofacceptedinterveningwork. Criticfreshcontextreusedcleanfrozenprivatebuildercheckout withpre/postGitfences; bothactualrunexits0, no browserused. No newfullendurance orUI/artclaim. CARDS022I stillrequires acceptedbattlecutout; CARDS022Q requiresmatchingcombinedsourcefull18000/default andcustomnaturalterminal/audio/input/restore/restart underunchangedcaps. R1publicGameSessionareacontact/R2publicRLcontact anddefault20checkpoint evidence retainexactscopes. HBRfour-source delta remains separately scoped/deferreduntilcombinedguards, notincludedinthiscoreadoption.
 
-## Round 496 - ART-022B third native-size review and stop
+## Round 496 — ART-022B third native-size review and stop
 
 PIECE: ART-022B
 VERDICT: FAIL
@@ -9535,7 +9535,7 @@ BIGGEST GAP: Preserve an open copper crescent and two separate feet at native13C
 
 Thirdfailureonsamegap: STOP thishigh-resolution-painted-cutout generation approach. It is wrong-shaped as a single representation for both13and26 pixels; retainthereadabilitybar. No fourthgenerationloop andno assetadoption. Allfailedcandidate4paths, two generationattempts, builder58-filechecksumledger andfreshcritic evidence retained; originalguardexit limitation explicit. NewART022L uses a different repo-native vector authoring method for tiny rendering plus unchanged originalpaintedimagefor26, judgedtogether asonecharacterfamily atbothoriginalsizes. This doesnotretroactivelypassART022B orloweritsbar. Rasterbytesstayunchanged; no codecrop/pad/repaint/fakeraster. ExistingSVG art-systemextension iscode-native output, notimageediting. CARDS022I keepsallactualgame trusted input/restore/audio/PNG/restart requirements andnowdepends on compositeartgate.
 
-## Round 497 - GAME-001HBRC accepted core and resource assembly
+## Round 497 — GAME-001HBRC accepted core and resource assembly
 
 PIECE: GAME-001HBRC
 VERDICT: PASS
@@ -9544,7 +9544,7 @@ BIGGEST GAP: Builder report says seven tracked paths differ; actualscope is seve
 
 Adopt exact7HBR source/test paths only, preserving acceptedcore, portrait/manifest, package/lock andkernel. Fresh critic worktree clean, four mutated release reports restored, dist identical, reviewed processes closed anduserChrome93861 untouched. Independent source identity and real release execution support this assembly acceptance; canonical raw-output gap remains explicit. This does not accept editable/RL admission, art/UI integration, full18000 browser endurance, orhistorical parity. All unsupported consumer/stat semantics remain QUESTION.
 
-## Round 498 - ART-022L Brackenwheel scale-specific native and painted art
+## Round 498 — ART-022L Brackenwheel scale-specific native and painted art
 
 PIECE: ART-022L
 VERDICT: PASS
@@ -9553,7 +9553,7 @@ BIGGEST GAP: Dark-background13px boots have modest contrast, but their separatio
 
 Adopt exact9isolatedasset/helper/fixture/provenance/testpaths. Builderchecked-in capture usesGPUoverrideflags andits screenshots are excluded fromfreshvisualproof; criticexternalcorrectedharness usedno customlauncharguments, exactdiff/argv/rawcaptures retained. Fourreleaseartifactsideeffects restored, distbyteequal, candidateclean, correctedprocessclosureexit0, userChromeuntouched. Initialself-matchingprocessprobe andbrowserpathdiscoverymethodcorrections preserved. Unrelatedfullhistoricalreleasebackup excludedfromboundedcriticpacket. This doesnotretroactivelypassstoppedART022B; newnative-small/painted-large methodindependentlymeetssamebar. ActualCARDS022Icollection/battleintegration andCARDS022Qmatching-sourcefullendurance remainrequired.
 
-## Round 499 - CARDS-023K Aether Well editable and RL admission
+## Round 499 — CARDS-023K Aether Well editable and RL admission
 
 PIECE: CARDS-023K
 VERDICT: PASS
@@ -9562,7 +9562,7 @@ BIGGEST GAP: Resource amount, deploy/HP, recipient, cap, placement andordering h
 
 Adopt exact5editable/RL source-test paths, preserving acceptedART022L manifest/helper/assets andallothermainchanges. Naturaltrace maxpostgrant7 did not hitcap; retained exactunchangedHBR test proves expiry3900 atElixir10 requests1/grants0 andrestore/replayexact. FreshK23case verifiespublicRLpolicy/targetnone/lifetime, missing/forgedreceipttransactionalreject andlegacyv1hostvalid/currentRLconfigreject. Initialbuilder27/29rawTAPmissing stays explicit; finalfreshcritic65rawcaptures available. Assemblywhitespacecheck flaggedonlypreservedrawbuilderTAP trailing spaces, source/testdiffcheckclean. ActualgameUI andmatching-sourcefull18000/browserrestore/input/audio/restart qualification remainpending.
 
-## Round 500 - ART-023P Aether Well portrait and concept
+## Round 500 — ART-023P Aether Well portrait and concept
 
 PIECE: ART-023P
 VERDICT: PASS
@@ -9571,7 +9571,7 @@ BIGGEST GAP: Fine riverbank/workshop scenery compresses into backgroundtextureat
 
 Adopt exact5portrait/concept/provenance/manifestpaths. Originalbuilder missingwrapperexits and reconstructedfirstmissingVitefailure remainexplicitlyunqualified; freshcritic45directexits independentlyqualify. Source/package/distfences unchanged; test-writtenreleaseevidence copiedexternally/restored, temporarytestworktree removed, ownedChromeclosed/userChrome93861untouched. No battleart, actualgameUI, fullendurance or historicalparity claim.
 
-## Round 501 - CARDS-022QH Brackenwheel endurance harness
+## Round 501 — CARDS-022QH Brackenwheel endurance harness
 
 PIECE: CARDS-022QH
 VERDICT: PASS
@@ -9580,7 +9580,7 @@ BIGGEST GAP: This bounded900smoke doesnotprovefull18000default orcustomnaturalte
 
 Adopt exact3frozenharnessfilesonly; no production/package changes. Default/Kiln canonicalsetups preserved; Brackcustomrestart preservescanonicalseed2setup perexistingpublicAPI. FullCARDS022Q stillrequiresacceptedCARDS022I andmatching-sourcefullqualification. Existinggenericseed-zero testtitle doesnotdescribeactualBrackseed2; setupdigest/seedassertionsareauthoritative. Criticbroadwhitespacecheckexit2frompreservedrawartifactwhitespace; source-onlycheckexit0. Initialfencepath-countmethodfailurecorrectedtoexcludecommittedevidence, notweakenproductscope. Builderfirstsetup-versus-sessionassertionfailure remainsraw; freshmatchingassemblycriticproof qualifies independently. No historicalconsumerconfidencepromotion.
 
-## Round 502 - CARDS-022I Brackenwheel real UI integration
+## Round 502 — CARDS-022I Brackenwheel real UI integration
 
 PIECE: CARDS-022I
 VERDICT: FAIL
@@ -9589,7 +9589,7 @@ BIGGEST GAP: Render canonical unverified-stat provenance visibly for each affect
 
 No sourceadoption; archive10failedcandidateUI/testpaths andall331builderchecksums plusindependentcriticpacket. Initial22releasegateusedcachedChromiumandisunqualifiedfornativebar; corrected22native155actual0retainedseparately, nofalsecombinedcount. Criticrestoredonlyfourtest-generatedreports, cleanfencesandunchangedoutsideallowlist. R2limitedtodisclosure/meaningfulregressionassertions, notstats/sim/API/art. Thisisfirstsame-gapFAIL, notSTOP.
 
-## Round 503 - CARDS-023D resource card information
+## Round 503 — CARDS-023D resource card information
 
 PIECE: CARDS-023D
 VERDICT: Scoped PASS
@@ -9598,7 +9598,7 @@ BIGGEST GAP: AetherWellportraitlookupremainsblank; actualportrait/battleintegrat
 
 Scopedacceptanceonly; sharedapp-shellsourceadoptionDEFERREDbecauseCARDS022I failedindependently. Preserveexactresourcebranchandrequirematchingcombinedapp-shellproofduringI-R2. AcceptedportraitassetexistsfromRound500, butisnotwiredbythispiece. No historicalconfidence/statpromotionorfullrelease/enduranceclaim.
 
-## Round 504 - ART-023B Aether Well battle art
+## Round 504 — ART-023B Aether Well battle art
 
 PIECE: ART-023B
 VERDICT: PASS
@@ -9607,7 +9607,7 @@ BIGGEST GAP: At13px fine copper/rootwood ornament and hanging mechanism compress
 
 Adopt five isolatedhelper/fixture/provenance/test paths only. Originalbuildernative01-05 attempts including clipped/geometryfailures remain immutable; cachedChrome145release22 pass is excluded, qualifiednative155rerun22 retained. Fourgeneratedrelease001breports copied externally then onlythosefour restored. No sim/API/stats/package/asset changes, actualgameintegration, historicalvisualparity or newfullendurance claim. Browserwindow released for CARDS022I R2.
 
-## Round 505 - CARDS-022I Brackenwheel UI integration, round 2
+## Round 505 — CARDS-022I Brackenwheel UI integration, round 2
 
 PIECE: CARDS-022I
 VERDICT: PASS
@@ -9616,7 +9616,7 @@ BIGGEST GAP: Brackenwheel combatvalues andbroader matchup parity remain provisio
 
 Adopt10UI/testpaths only. R1FAIL502 remains. MissingVite setupfailure andinvaliddesktopBacktestfailure preserved, latterfixedonlytestone-line. No simulation/content/RL/kernel/package/assets changes. D503resourcebranchbyte-identicaltobcba andfreshmatchingnativeapp-shellresourceassertionspass; itsdeferredsourceadoptionisresolvedbythiscombinedapp-shelladoption. Fullcurrent-source endurance remainsCARDS022Q, notprovenbyshort3987journey. Fivegeneratedtestreports copiedexternallythenonlythosefive restored; allownedprocessesclosed.
 
-## Round 506 - CARDS-022Q exact-source full qualification
+## Round 506 — CARDS-022Q exact-source full qualification
 
 PIECE: CARDS-022Q
 VERDICT: FAIL
@@ -9625,7 +9625,7 @@ BIGGEST GAP: Customworkloaddriver reaches7200withoutpaidSouthdeploymentafter6000
 
 5/6executedendurancecasespassed,NOT22-casePASS. Preservedefaultac224actualfullPASSasscopedproof; newmatchingharness/sourcequalificationstillrequiredafterfix. No source/harness/limit edits bycritic. Defaultartifactprefixlackedslash, originalbrowseractive/terminal/restart/result filenames preserved; no liveenvchange/restart. Source/package/harness/kernel pre/postfencesmatch, checkoutclean, bothownedbrowsersclosed/userChrome93861untouched. QH2builderassignedroot-causeNodeprobe, no weakerguardsorforcedterminal. Sourceauditof2018officialElectroDragonbalancepost resolvesnochainfields; publisherfirst-attackdeltaisnothopdelay.
 
-## Round 507 - CARDS-022QH idle-refresh correctness, round 2
+## Round 507 — CARDS-022QH idle-refresh correctness, round 2
 
 PIECE: CARDS-022QH
 VERDICT: PASS
@@ -9634,7 +9634,7 @@ BIGGEST GAP: Bounded8100smoke doesnotprovefull18000browserqualification orBrackn
 
 Adopt tests/helpers/endurance-workload.js and tests/endurance-workload.test.js only. Production/src, browserenduranceharness, setupdigests, package/assets/stats,900paidguard and50/300/40/30000/1200000caps unchanged. Builderinitialtestfailureandmissingrawlegacycomparisonlimitation retained; freshcriticactualrawcomparison closeslatter. Native6900recordlabelisfrozen-GH-baseline; no-threatcausalityisfromseparaterealNodecontract, notmisattributedbrowserlabel. CurrentfullQ5/6FAILretained, nohistoricalparity/fullrosterclaim. SplitexistingcombatfactoryextractionGAME001HTJX beforeactualsharedchain; Aether023I sourcecandidateprepared/nativegatesqueued.
 
-## Round 508 - CARDS-023I Aether Well live UI, round 1
+## Round 508 — CARDS-023I Aether Well live UI, round 1
 
 PIECE: CARDS-023I
 VERDICT: FAIL
@@ -9643,7 +9643,7 @@ BIGGEST GAP: Requiredrelease-buildgatefailsenvironment-sensitiveparent/tmp rejec
 
 No UI or production source adopted. Allcriticraws/reports/generatedfailedreportscaptured; no testsafterfirstnonzero, allownedruntimeclosed. Subsequentroot-requestedbuilderprobe safelyconfirmsaseparatecanonical-outputgap: outputthroughsymlinkedparentreachesdeliberatelymissingconfig(ENOENT)insteadofworkspace-rootguard; disposablefixturebefore/afterexactandno build. Split RELEASE-GUARD-PATH-001 torepaircanonicalidentityandportablefixtures withseparatefreshcritique, thenfreshAetherR2. Do notinferanAether-specificproductregression or historical/full109/fullendurancecompletion.
 
-## Round 509 - RELEASE-GUARD-PATH-001 canonical output preflight
+## Round 509 — RELEASE-GUARD-PATH-001 canonical output preflight
 
 PIECE: RELEASE-GUARD-PATH-001
 VERDICT: PASS
@@ -9652,7 +9652,7 @@ BIGGEST GAP: No remaining gap within canonical output guard scope; Aether live U
 
 Adopt only scripts/build-release.js and tests/release-001b-guards.test.js plus bounded evidence and tracking. Production fix changes two lexical comparisons to existing canonical outputReal. Guard ordering, errors, caps, reference isolation, game simulation and public APIs unchanged. Preserve builder failed matcher attempt and old-source controls. No full roster, historical parity or full endurance completion claim.
 
-## Round 510 - CARDS-023I Aether Well live UI, round 2
+## Round 510 — CARDS-023I Aether Well live UI, round 2
 
 PIECE: CARDS-023I
 VERDICT: PASS
@@ -9661,7 +9661,7 @@ BIGGEST GAP: Full current-source endurance remains open under CARDS-022Q; no ful
 
 Adopt seven UI/test paths only plus evidence/tracking. No sim/content/RL/package/assets changes. InitialmissingVite attempt and originalstatus-capturelimitation preserved; locked npmci repaired environment beforefresh passing sequence, no productfix or weakened test. Round508FAIL retained as history; Round509 separately repaired requiredreleaseguard.
 
-## Round 511 - GAME-001HTJX shared combat factory extraction, round 1
+## Round 511 — GAME-001HTJX shared combat factory extraction, round 1
 
 PIECE: GAME-001HTJX
 VERDICT: FAIL
@@ -9670,7 +9670,7 @@ BIGGEST GAP: Required shared battle verification fails three existing assertions
 
 Critic raw NO-GO is recorded as FAIL in the required tracking vocabulary; raw report preserved unchanged. No extraction source/test adopted. Split GAME-001BTC todiagnose actual scheduling,source-confidence andUnicode contracts before repair; do notassumeallare staleexpectations merelybecausebaselinefails. Fresh independent critique and matching factoryqualification remainrequired. Fullcurrentbrowserendurance,full109 andhistoricalparity remainopen.
 
-## Round 512 - GAME-001BTC shared battle contract verification repair
+## Round 512 — GAME-001BTC shared battle contract verification repair
 
 PIECE: GAME-001BTC
 VERDICT: PASS
@@ -9679,7 +9679,7 @@ BIGGEST GAP: No remaining gap in this test-only repair; extraction and full curr
 
 Adopt tests/game-battle.test.js only plusevidence/tracking. Builder43passes anddiagnosticmatrix retained. Firstprobe badrelativeimport andfirstcandidate incorrectpartialIDassertion raws retained, unavailableoriginalsources explicitlydocumented andnotreconstructed. Criticfirstarchiveomittedlegitmodule andfirstordinarycapturefailed; bothretainedasunqualifiedsetup/recordingfailures, correctedrecordedrunsqualify. No production/stat/sourceconfidence/capchanges. FactoryRound511FAIL remainshistory; nextmatchingfactoryretry required. No historical/full109/release-complete claim.
 
-## Round 513 - GAME-001OTC opponent deployment contract verification
+## Round 513 — GAME-001OTC opponent deployment contract verification
 
 PIECE: GAME-001OTC
 VERDICT: PASS
@@ -9688,7 +9688,7 @@ BIGGEST GAP: The separate GAME-001HC terminal-match cap remains explicitly skipp
 
 Adopt tests/game-opponent.test.js only plusevidence/tracking. Builder13passes1skip andcausalprobe retained withfirstimportfailure explicitlyunqualified. This doesnotqualify extraction orfullcurrent-source browserendurance, norcomplete109cards. GAME001SRC next repairs independentlyreproduced missingQUESTION fixture.
 
-## Round 514 - GAME-001SRC shared runtime integration fixture contract
+## Round 514 — GAME-001SRC shared runtime integration fixture contract
 
 PIECE: GAME-001SRC
 VERDICT: PASS
@@ -9697,7 +9697,7 @@ BIGGEST GAP: The integration test deletes one representative source-confidence r
 
 Adopt tests/game-shared-runtime-integration.test.js only plus boundedbuilder/critic evidence andtracking. Initialcritic npmconfig collision PID12472 direct1 happened before any test, preserved as unqualifiedsetupfailure; correctedrecorderretry qualifies. No production/stat/QUESTIONpolicy/cap/sourcebudget changes. Historical low-confidence mechanics and full109 scope remain unresolved.
 
-## Round 515 - GAME-001MTC movement continuation snapshot contract
+## Round 515 — GAME-001MTC movement continuation snapshot contract
 
 PIECE: GAME-001MTC
 VERDICT: PASS
