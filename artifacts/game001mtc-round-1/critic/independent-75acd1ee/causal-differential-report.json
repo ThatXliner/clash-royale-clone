@@ -1,0 +1,1299 @@
+{
+  "method": {
+    "scenario": "ordinary and movement-profiled Cinderlings battles, witness mossguard, deploy schedule copied from cinderlingsPair and scheduleCinderlingsRedeploy; one step at a time; capture after ticks 120, 200, 320",
+    "snapshotComparison": "JSON.parse(serialize()), delete only the top-level setup property, then compare JSON.stringify output and all remaining fields",
+    "eventComparison": "full battle.events array copied at each capture; no filtering",
+    "stateComparison": "full battle.state copied at each capture; no filtering"
+  },
+  "witness": {
+    "historical": {
+      "serializedBytes": 15562,
+      "sha256": "4c9435f0a4b0f5b10143c34dca805e9ee715082e1ab4b7fec3a7fb72b9d73d79",
+      "rosterBytes": 9836,
+      "questionBytes": 5658,
+      "questionCount": 31
+    },
+    "current": {
+      "serializedBytes": 21675,
+      "sha256": "2c815fe6f353d3822cd65d4ad02fc2148549b04f61710e599b28dab1f1f08c21",
+      "rosterBytes": 12246,
+      "questionBytes": 9361,
+      "questionCount": 51
+    },
+    "delta": {
+      "serializedBytes": 6113,
+      "rosterBytes": 2410,
+      "questionBytes": 3703,
+      "questionRecords": 20
+    },
+    "addedQuestionRecords": [
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.count",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 3
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.damage",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 81
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.deploy-time-ticks",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 60
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.first-hit-ticks",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 72
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.hit-speed-ticks",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 102
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.hitpoints",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 133
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.movement-millitiles-per-second",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 2000
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.range-millitiles",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 5000
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.sight-range-millitiles",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 5500
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-darter.target-mode",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 3
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.count",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 3
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.damage",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 120
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.deploy-time-ticks",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 60
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.first-hit-ticks",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 42
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.hit-speed-ticks",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 66
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.hitpoints",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 202
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.movement-millitiles-per-second",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 2000
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.range-millitiles",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 500
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.sight-range-millitiles",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 5500
+      },
+      {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "briar-runner.target-mode",
+        "source": "runtime-playability-estimate-not-comparison-corpus",
+        "value": 2
+      }
+    ],
+    "removedQuestionKeys": [],
+    "sameKeyQuestionValueChanges": [],
+    "changedRosterCards": [
+      {
+        "cardId": "briar-band",
+        "fieldDiffs": [
+          {
+            "path": "$.roster[briar-band].entities[0].sourceConfidencePolicy",
+            "old": null,
+            "current": {
+              "deploymentInterval": {
+                "milliseconds": 100,
+                "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+                "ticks": 6
+              },
+              "fields": [
+                {
+                  "field": "count",
+                  "questionKey": "briar-runner.count",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "damage",
+                  "questionKey": "briar-runner.damage",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "deployTimeTicks",
+                  "questionKey": "briar-runner.deploy-time-ticks",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "firstHitTicks",
+                  "questionKey": "briar-runner.first-hit-ticks",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "hitSpeedTicks",
+                  "questionKey": "briar-runner.hit-speed-ticks",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "hitpoints",
+                  "questionKey": "briar-runner.hitpoints",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "movementMillitilesPerSecond",
+                  "questionKey": "briar-runner.movement-millitiles-per-second",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "rangeMillitiles",
+                  "questionKey": "briar-runner.range-millitiles",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "sightRangeMillitiles",
+                  "questionKey": "briar-runner.sight-range-millitiles",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "targetMode",
+                  "questionKey": "briar-runner.target-mode",
+                  "valueEncoding": "target-mode-code"
+                }
+              ]
+            }
+          },
+          {
+            "path": "$.roster[briar-band].entities[1].sourceConfidencePolicy",
+            "old": null,
+            "current": {
+              "deploymentInterval": {
+                "milliseconds": 100,
+                "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+                "ticks": 6
+              },
+              "fields": [
+                {
+                  "field": "count",
+                  "questionKey": "briar-darter.count",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "damage",
+                  "questionKey": "briar-darter.damage",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "deployTimeTicks",
+                  "questionKey": "briar-darter.deploy-time-ticks",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "firstHitTicks",
+                  "questionKey": "briar-darter.first-hit-ticks",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "hitSpeedTicks",
+                  "questionKey": "briar-darter.hit-speed-ticks",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "hitpoints",
+                  "questionKey": "briar-darter.hitpoints",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "movementMillitilesPerSecond",
+                  "questionKey": "briar-darter.movement-millitiles-per-second",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "rangeMillitiles",
+                  "questionKey": "briar-darter.range-millitiles",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "sightRangeMillitiles",
+                  "questionKey": "briar-darter.sight-range-millitiles",
+                  "valueEncoding": "positive-integer"
+                },
+                {
+                  "field": "targetMode",
+                  "questionKey": "briar-darter.target-mode",
+                  "valueEncoding": "target-mode-code"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goldenPins": {
+    "tick120": {
+      "historicalExpectedBytes": 417386,
+      "historicalActualBytes": 417386,
+      "historicalExpectedSha256": "0263778593d12c500721bb3914123269940e3e702ae5fc841f93613d2c2d0cb5",
+      "historicalActualSha256": "0263778593d12c500721bb3914123269940e3e702ae5fc841f93613d2c2d0cb5",
+      "historicalMatches": true,
+      "candidateExpectedBytes": 423499,
+      "candidateActualBytes": 423499,
+      "candidateExpectedSha256": "538f8a87fe8478881ffd035bf6ddf30972c9a5daa4f5420f46bfea20d002cf5b",
+      "candidateActualSha256": "538f8a87fe8478881ffd035bf6ddf30972c9a5daa4f5420f46bfea20d002cf5b",
+      "candidateMatches": true
+    },
+    "tick200": {
+      "historicalExpectedSha256": "07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d",
+      "historicalActualSha256": "07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d",
+      "historicalMatches": true,
+      "candidateExpectedSha256": "63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996",
+      "candidateActualSha256": "63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996",
+      "candidateMatches": true
+    }
+  },
+  "historicalVsCurrentComparisons": [
+    {
+      "kind": "ordinary",
+      "tick": 120,
+      "historicalVsCurrent": {
+        "stateEqual": true,
+        "stateDiffCount": 0,
+        "fullPublicEventsEqual": true,
+        "fullPublicEventsDiffCount": 0,
+        "fullReplayEqual": true,
+        "snapshotEqualAfterRemovingOnlyTopLevelSetup": true,
+        "snapshotRemainingFieldDiffCount": 0
+      },
+      "snapshot": {
+        "historicalBytes": 417386,
+        "currentBytes": 423499,
+        "byteDelta": 6113,
+        "historicalSha256": "0263778593d12c500721bb3914123269940e3e702ae5fc841f93613d2c2d0cb5",
+        "currentSha256": "538f8a87fe8478881ffd035bf6ddf30972c9a5daa4f5420f46bfea20d002cf5b",
+        "setupFieldPresent": {
+          "historical": true,
+          "current": true
+        }
+      },
+      "publicEventCount": 880,
+      "publicEventTypeCounts": {
+        "deploy-scheduled": 2,
+        "deployed": 2,
+        "movement": 432,
+        "position": 432,
+        "spawn": 6,
+        "target": 6
+      },
+      "scheduledDeploymentReceipts": [
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 12500,
+            "y": 17500
+          },
+          "sequence": 5,
+          "side": "north",
+          "tick": 0,
+          "scheduledAt": 0,
+          "type": "deploy-scheduled"
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 15500,
+            "y": 14500
+          },
+          "sequence": 6,
+          "side": "south",
+          "tick": 96,
+          "scheduledAt": 96,
+          "type": "deploy-scheduled"
+        }
+      ],
+      "units": [
+        {
+          "id": 1,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 16500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 2,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 17500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 3,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 4,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14900,
+            "y": 13500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 15500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 5,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14900,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 15500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 6,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 15900,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 15500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        }
+      ]
+    },
+    {
+      "kind": "ordinary",
+      "tick": 200,
+      "historicalVsCurrent": {
+        "stateEqual": true,
+        "stateDiffCount": 0,
+        "fullPublicEventsEqual": true,
+        "fullPublicEventsDiffCount": 0,
+        "fullReplayEqual": true,
+        "snapshotEqualAfterRemovingOnlyTopLevelSetup": true,
+        "snapshotRemainingFieldDiffCount": 0
+      },
+      "snapshot": {
+        "historicalBytes": 64073,
+        "currentBytes": 70186,
+        "byteDelta": 6113,
+        "historicalSha256": "07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d",
+        "currentSha256": "63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996",
+        "setupFieldPresent": {
+          "historical": true,
+          "current": true
+        }
+      },
+      "publicEventCount": 1383,
+      "publicEventTypeCounts": {
+        "attack": 1,
+        "damage": 1,
+        "death": 1,
+        "deploy-scheduled": 2,
+        "deployed": 2,
+        "movement": 681,
+        "position": 680,
+        "spawn": 6,
+        "target": 9
+      },
+      "scheduledDeploymentReceipts": [
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 12500,
+            "y": 17500
+          },
+          "sequence": 5,
+          "side": "north",
+          "tick": 0,
+          "scheduledAt": 0,
+          "type": "deploy-scheduled"
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 15500,
+            "y": 14500
+          },
+          "sequence": 6,
+          "side": "south",
+          "tick": 96,
+          "scheduledAt": 96,
+          "type": "deploy-scheduled"
+        }
+      ],
+      "units": [
+        {
+          "id": 1,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": null
+        },
+        {
+          "id": 2,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 3,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": null
+        },
+        {
+          "id": 4,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": null
+        },
+        {
+          "id": 5,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 6,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": null
+        }
+      ]
+    },
+    {
+      "kind": "ordinary",
+      "tick": 320,
+      "historicalVsCurrent": {
+        "stateEqual": true,
+        "stateDiffCount": 0,
+        "fullPublicEventsEqual": true,
+        "fullPublicEventsDiffCount": 0,
+        "fullReplayEqual": true,
+        "snapshotEqualAfterRemovingOnlyTopLevelSetup": true,
+        "snapshotRemainingFieldDiffCount": 0
+      },
+      "snapshot": {
+        "historicalBytes": 51720,
+        "currentBytes": 57833,
+        "byteDelta": 6113,
+        "historicalSha256": "4b2f4143a90f7b60fe328bc421b63234f1e3aba188742fe7d4e1a004eb380ae3",
+        "currentSha256": "1ad523a67b1bcc758e089e6781b567b313e5ee79e0c808c89395357b2fd90529",
+        "setupFieldPresent": {
+          "historical": true,
+          "current": true
+        }
+      },
+      "publicEventCount": 1430,
+      "publicEventTypeCounts": {
+        "attack": 8,
+        "damage": 9,
+        "death": 6,
+        "deploy-scheduled": 2,
+        "deployed": 2,
+        "external-unit-contact": 1,
+        "movement": 691,
+        "position": 690,
+        "spawn": 6,
+        "target": 14,
+        "tower-projectile-launch": 1
+      },
+      "scheduledDeploymentReceipts": [
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 12500,
+            "y": 17500
+          },
+          "sequence": 5,
+          "side": "north",
+          "tick": 0,
+          "scheduledAt": 0,
+          "type": "deploy-scheduled"
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 15500,
+            "y": 14500
+          },
+          "sequence": 6,
+          "side": "south",
+          "tick": 96,
+          "scheduledAt": 96,
+          "type": "deploy-scheduled"
+        }
+      ],
+      "units": [
+        {
+          "id": 1,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 2,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 15250
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 3,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 4,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 5,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 6,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        }
+      ]
+    },
+    {
+      "kind": "profiled",
+      "tick": 120,
+      "historicalVsCurrent": {
+        "stateEqual": true,
+        "stateDiffCount": 0,
+        "fullPublicEventsEqual": true,
+        "fullPublicEventsDiffCount": 0,
+        "fullReplayEqual": true,
+        "snapshotEqualAfterRemovingOnlyTopLevelSetup": true,
+        "snapshotRemainingFieldDiffCount": 0
+      },
+      "snapshot": {
+        "historicalBytes": 515248,
+        "currentBytes": 521361,
+        "byteDelta": 6113,
+        "historicalSha256": "7fbfe9700069e04c007c61ec7b8ec5803e1ca22bba4ff4896827c54da660f4b1",
+        "currentSha256": "0bff9f7b6fb294e70945a4dc2bb937f91517a65ed6d2fb1467f56d101d89a875",
+        "setupFieldPresent": {
+          "historical": true,
+          "current": true
+        }
+      },
+      "publicEventCount": 880,
+      "publicEventTypeCounts": {
+        "deploy-scheduled": 2,
+        "deployed": 2,
+        "movement": 432,
+        "position": 432,
+        "spawn": 6,
+        "target": 6
+      },
+      "scheduledDeploymentReceipts": [
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 12500,
+            "y": 17500
+          },
+          "sequence": 5,
+          "side": "north",
+          "tick": 0,
+          "scheduledAt": 0,
+          "type": "deploy-scheduled"
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 15500,
+            "y": 14500
+          },
+          "sequence": 6,
+          "side": "south",
+          "tick": 96,
+          "scheduledAt": 96,
+          "type": "deploy-scheduled"
+        }
+      ],
+      "units": [
+        {
+          "id": 1,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 16500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 2,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 17500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 3,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 4,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14900,
+            "y": 13500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 15500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 5,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14900,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 15500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 6,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 15900,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 15500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        }
+      ]
+    },
+    {
+      "kind": "profiled",
+      "tick": 200,
+      "historicalVsCurrent": {
+        "stateEqual": true,
+        "stateDiffCount": 0,
+        "fullPublicEventsEqual": true,
+        "fullPublicEventsDiffCount": 0,
+        "fullReplayEqual": true,
+        "snapshotEqualAfterRemovingOnlyTopLevelSetup": true,
+        "snapshotRemainingFieldDiffCount": 0
+      },
+      "snapshot": {
+        "historicalBytes": 161935,
+        "currentBytes": 168048,
+        "byteDelta": 6113,
+        "historicalSha256": "d9ce2ec5c8b09f083c3977e40a57801c21b3beae6a27eb3a5edfd788b8475199",
+        "currentSha256": "cecaad667417b82d4b2e1518bbd3c962d3d8629eb8eba2365a5d242770370373",
+        "setupFieldPresent": {
+          "historical": true,
+          "current": true
+        }
+      },
+      "publicEventCount": 1383,
+      "publicEventTypeCounts": {
+        "attack": 1,
+        "damage": 1,
+        "death": 1,
+        "deploy-scheduled": 2,
+        "deployed": 2,
+        "movement": 681,
+        "position": 680,
+        "spawn": 6,
+        "target": 9
+      },
+      "scheduledDeploymentReceipts": [
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 12500,
+            "y": 17500
+          },
+          "sequence": 5,
+          "side": "north",
+          "tick": 0,
+          "scheduledAt": 0,
+          "type": "deploy-scheduled"
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 15500,
+            "y": 14500
+          },
+          "sequence": 6,
+          "side": "south",
+          "tick": 96,
+          "scheduledAt": 96,
+          "type": "deploy-scheduled"
+        }
+      ],
+      "units": [
+        {
+          "id": 1,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": null
+        },
+        {
+          "id": 2,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 14500
+            },
+            "radius": 250,
+            "range": 500
+          }
+        },
+        {
+          "id": 3,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": "ground",
+          "target": null
+        },
+        {
+          "id": 4,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": null
+        },
+        {
+          "id": 5,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 6,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": true,
+          "hitpoints": 81,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": "ground",
+          "target": null
+        }
+      ]
+    },
+    {
+      "kind": "profiled",
+      "tick": 320,
+      "historicalVsCurrent": {
+        "stateEqual": true,
+        "stateDiffCount": 0,
+        "fullPublicEventsEqual": true,
+        "fullPublicEventsDiffCount": 0,
+        "fullReplayEqual": true,
+        "snapshotEqualAfterRemovingOnlyTopLevelSetup": true,
+        "snapshotRemainingFieldDiffCount": 0
+      },
+      "snapshot": {
+        "historicalBytes": 149582,
+        "currentBytes": 155695,
+        "byteDelta": 6113,
+        "historicalSha256": "9ecff0ff6219dd06df518ca60c1ceb274c22b7c46c0eaf25d85541e27799e532",
+        "currentSha256": "4a3af717d9f08951d304ceffb1ca29e71dd844cbec2eba8eca5b2692cefc822d",
+        "setupFieldPresent": {
+          "historical": true,
+          "current": true
+        }
+      },
+      "publicEventCount": 1430,
+      "publicEventTypeCounts": {
+        "attack": 8,
+        "damage": 9,
+        "death": 6,
+        "deploy-scheduled": 2,
+        "deployed": 2,
+        "external-unit-contact": 1,
+        "movement": 691,
+        "position": 690,
+        "spawn": 6,
+        "target": 14,
+        "tower-projectile-launch": 1
+      },
+      "scheduledDeploymentReceipts": [
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 12500,
+            "y": 17500
+          },
+          "sequence": 5,
+          "side": "north",
+          "tick": 0,
+          "scheduledAt": 0,
+          "type": "deploy-scheduled"
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 15500,
+            "y": 14500
+          },
+          "sequence": 6,
+          "side": "south",
+          "tick": 96,
+          "scheduledAt": 96,
+          "type": "deploy-scheduled"
+        }
+      ],
+      "units": [
+        {
+          "id": 1,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 2,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 15250
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 3,
+          "cardId": "cinderlings",
+          "side": "north",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 15500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 4,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 5,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        },
+        {
+          "id": 6,
+          "cardId": "cinderlings",
+          "side": "south",
+          "alive": false,
+          "hitpoints": 0,
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "movementMode": null,
+          "target": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+runner: /private/tmp/game001mtc-builder-69da/artifacts/game001mtc-round-1/builder/attempt-03-movement-test/run.sh
+runner argv: env -i PATH=/usr/bin:/bin /bin/sh /private/tmp/game001mtc-builder-69da/artifacts/game001mtc-round-1/builder/attempt-03-movement-test/run.sh
+child argv: env -i PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin /Users/me/.hermes/node/bin/npm run test:game-roster-troops-movement
+cwd: /private/tmp/game001mtc-builder-69da
+Node/npm environment: launched with env -i and PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin
+npm binary: /Users/me/.hermes/node/bin/npm
+executed source copies: executed-source/package.json and executed-source/tests/*
+argv source: package.json script test:game-roster-troops-movement -> node tests/game-roster-troops-movement-runner.js game-roster-troops-movement
+direct child PID: direct-pid.txt (npm is a Node process)
+runner and test child PID snapshot: process-tree.txt
+stdout: stdout.txt
+stderr: stderr.txt
+direct child exit: exit-code.txt

@@ -1,0 +1,27 @@
+diff --git a/tests/game-roster-troops-movement.test.js b/tests/game-roster-troops-movement.test.js
+index 1fd28188..5650ad04 100644
+--- a/tests/game-roster-troops-movement.test.js
++++ b/tests/game-roster-troops-movement.test.js
+@@ -340,9 +340,11 @@ test("troop movement runtime: ordinary two-Cinderlings continuation stays canoni
+     const evidence = cinderlingsTickEvidence(direct);
+     if (direct.control.state.tick === 120) {
+       tick120ControlBytes = evidence.controlBytes;
+-      assert.equal(new TextEncoder().encode(evidence.controlBytes).byteLength, 417_386);
++      // Briar Band's two policies add 2,410 roster bytes and 20 QUESTION
++      // records (3,703 bytes) to Mossguard's shared witness.
++      assert.equal(new TextEncoder().encode(evidence.controlBytes).byteLength, 423_499);
+       assert.equal(createHash("sha256").update(evidence.controlBytes).digest("hex"),
+-        "0263778593d12c500721bb3914123269940e3e702ae5fc841f93613d2c2d0cb5");
++        "538f8a87fe8478881ffd035bf6ddf30972c9a5daa4f5420f46bfea20d002cf5b");
+     }
+     if (direct.control.state.tick === 121) {
+       assert.ok(tick120ControlBytes, "tick 120 was serialized before the frontier tick");
+@@ -908,7 +910,7 @@ test("troop movement runtime: sourced flight shares ordinary combat/death and ta
+ 
+ test("troop movement runtime: intermediate serialization is observationally pure across schedules and cuts", () => {
+   const TICK_200_CONTROL_SHA =
+-    "07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d";
++    "63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996";
+   const KINDS = ["ordinary", "profiled"];
+ 
+   function cinderlingsRun(kind, battle, { secondScheduled = false } = {}) {

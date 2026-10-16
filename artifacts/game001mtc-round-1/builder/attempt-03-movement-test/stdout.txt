@@ -1,0 +1,110 @@
+
+> moss-and-ember@0.0.0 test:game-roster-troops-movement
+> node tests/game-roster-troops-movement-runner.js game-roster-troops-movement
+
+TAP version 13
+# Subtest: troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces
+ok 1 - troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces
+  ---
+  duration_ms: 8.796709
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical
+ok 2 - troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical
+  ---
+  duration_ms: 58.869209
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier
+ok 3 - troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier
+  ---
+  duration_ms: 87255.349958
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path
+ok 4 - troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path
+  ---
+  duration_ms: 291.627958
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks
+ok 5 - troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks
+  ---
+  duration_ms: 17153.624583
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer
+ok 6 - troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer
+  ---
+  duration_ms: 26.445792
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: both admitted flyers reject diagonal paths atomically
+ok 7 - troop movement runtime: both admitted flyers reject diagonal paths atomically
+  ---
+  duration_ms: 30.501791
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary
+ok 8 - troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary
+  ---
+  duration_ms: 169.802792
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history
+ok 9 - troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history
+  ---
+  duration_ms: 310.565583
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: GameSession restore cuts retain the v4 shared flying battle
+ok 10 - troop movement runtime: GameSession restore cuts retain the v4 shared flying battle
+  ---
+  duration_ms: 587.478084
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: two flying IDs share host movement and restore byte identity
+ok 11 - troop movement runtime: two flying IDs share host movement and restore byte identity
+  ---
+  duration_ms: 172.371375
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: v4 movement coexists with status/projectile snapshots
+ok 12 - troop movement runtime: v4 movement coexists with status/projectile snapshots
+  ---
+  duration_ms: 143.488083
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every unsourced movement/form family is a frozen QUESTION before host mutation
+ok 13 - troop movement runtime: every unsourced movement/form family is a frozen QUESTION before host mutation
+  ---
+  duration_ms: 157.832958
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: forged receipts, roster drift, stale commands, and hostile boundaries reject atomically
+ok 14 - troop movement runtime: forged receipts, roster drift, stale commands, and hostile boundaries reject atomically
+  ---
+  duration_ms: 53.063708
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: sourced flight shares ordinary combat/death and target retargeting without changing the control host
+ok 15 - troop movement runtime: sourced flight shares ordinary combat/death and target retargeting without changing the control host
+  ---
+  duration_ms: 948.235375
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: intermediate serialization is observationally pure across schedules and cuts
+ok 16 - troop movement runtime: intermediate serialization is observationally pure across schedules and cuts
+  ---
+  duration_ms: 107280.955375
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 214860.200375

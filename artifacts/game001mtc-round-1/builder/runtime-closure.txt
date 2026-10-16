@@ -1,0 +1,11 @@
+# Owned runtime closure check
+
+At packet freeze, `ps -p 22700,22837,23158,23166,23167 -o pid=,ppid=,stat=,command=` returned no process rows (exit 1).
+
+- 22700: attempt 01 historical/current differential, exit 0.
+- 22837: attempt 02 authoritative `battle.events` differential, exit 0.
+- 23158: npm movement-test process, exit 0.
+- 23166: movement-test runner child of 23158, completed.
+- 23167: Node test child of 23166, completed.
+
+No owned Node/npm process remains active.

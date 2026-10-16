@@ -1,0 +1,45 @@
+tests/game-roster-troops-movement.test.js --- 1/2 --- JavaScript
+340     const evidence = cinderlingsTic  340     const evidence = cinderlingsTic
+... kEvidence(direct);                   ... kEvidence(direct);
+341     if (direct.control.state.tick =  341     if (direct.control.state.tick =
+... == 120) {                            ... == 120) {
+342       tick120ControlBytes = evidenc  342       tick120ControlBytes = evidenc
+... e.controlBytes;                      ... e.controlBytes;
+...                                      343       // Briar Band's two policies 
+...                                      ... add 2,410 roster bytes and 20 QUEST
+...                                      ... ION
+...                                      344       // records (3,703 bytes) to M
+...                                      ... ossguard's shared witness.
+343       assert.equal(new TextEncoder(  345       assert.equal(new TextEncoder(
+... ).encode(evidence.controlBytes).byt  ... ).encode(evidence.controlBytes).byt
+... eLength, 417_386);                   ... eLength, 423_499);
+344       assert.equal(createHash("sha2  346       assert.equal(createHash("sha2
+... 56").update(evidence.controlBytes).  ... 56").update(evidence.controlBytes).
+... digest("hex"),                       ... digest("hex"),
+345         "0263778593d12c500721bb3914  347         "538f8a87fe8478881ffd035bf6
+... 123269940e3e702ae5fc841f93613d2c2d0  ... ddf30972c9a5daa4f5420f46bfea20d002c
+... cb5");                               ... f5b");
+346     }                                348     }
+347     if (direct.control.state.tick =  349     if (direct.control.state.tick =
+... == 121) {                            ... == 121) {
+348       assert.ok(tick120ControlBytes  350       assert.ok(tick120ControlBytes
+... , "tick 120 was serialized before t  ... , "tick 120 was serialized before t
+... he frontier tick");                  ... he frontier tick");
+
+tests/game-roster-troops-movement.test.js --- 2/2 --- JavaScript
+908                                      910 
+909 test("troop movement runtime: inter  911 test("troop movement runtime: inter
+... mediate serialization is observatio  ... mediate serialization is observatio
+... nally pure across schedules and cut  ... nally pure across schedules and cut
+... s", () => {                          ... s", () => {
+910   const TICK_200_CONTROL_SHA =       912   const TICK_200_CONTROL_SHA =
+911     "07525d6e712c40fe9c9bb473f173ae  913     "63c23019fc6aadaedb47a72a79a24d
+... 7604f224a04f67eef12c0a0d3fc319d02d"  ... ae266970a281eb8aca8978d008b6f80996"
+... ;                                    ... ;
+912   const KINDS = ["ordinary", "profi  914   const KINDS = ["ordinary", "profi
+... led"];                               ... led"];
+913                                      915 
+914   function cinderlingsRun(kind, bat  916   function cinderlingsRun(kind, bat
+... tle, { secondScheduled = false } =   ... tle, { secondScheduled = false } = 
+... {}) {                                ... {}) {
+

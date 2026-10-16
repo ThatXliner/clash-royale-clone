@@ -1,0 +1,10 @@
+Direct child PIDs captured by the task runners:
+failed probe=25664 exit=1 (JavaScript parse error before import)
+candidate npm=25743 exit=0; runner=25752; node --test=25753; worker=25754
+parent npm=26135 exit=1; runner=26144; node --test=26148
+causal probe=26382 exit=0
+probe summary=26485 exit=0
+archive path verification=26547 exit=0
+
+Process snapshot after all executions:
+  PID  PPID STAT COMMAND

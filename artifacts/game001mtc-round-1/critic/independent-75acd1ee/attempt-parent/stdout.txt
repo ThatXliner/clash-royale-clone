@@ -1,0 +1,152 @@
+
+> moss-and-ember@0.0.0 test:game-roster-troops-movement
+> node tests/game-roster-troops-movement-runner.js game-roster-troops-movement
+
+TAP version 13
+# Subtest: troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces
+ok 1 - troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces
+  ---
+  duration_ms: 8.658875
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical
+ok 2 - troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical
+  ---
+  duration_ms: 49.448917
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier
+not ok 3 - troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier
+  ---
+  duration_ms: 4296.4835
+  type: 'test'
+  location: '/private/tmp/game001mtc-critic-sources.0m4ONi/parent/tests/game-roster-troops-movement.test.js:317:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    423499 !== 417386
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 417386
+  actual: 423499
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game001mtc-critic-sources.0m4ONi/parent/tests/game-roster-troops-movement.test.js:343:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path
+ok 4 - troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path
+  ---
+  duration_ms: 293.528709
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks
+ok 5 - troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks
+  ---
+  duration_ms: 17768.820833
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer
+ok 6 - troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer
+  ---
+  duration_ms: 25.988417
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: both admitted flyers reject diagonal paths atomically
+ok 7 - troop movement runtime: both admitted flyers reject diagonal paths atomically
+  ---
+  duration_ms: 31.687708
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary
+ok 8 - troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary
+  ---
+  duration_ms: 170.538916
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history
+ok 9 - troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history
+  ---
+  duration_ms: 310.068334
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: GameSession restore cuts retain the v4 shared flying battle
+ok 10 - troop movement runtime: GameSession restore cuts retain the v4 shared flying battle
+  ---
+  duration_ms: 586.72825
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: two flying IDs share host movement and restore byte identity
+ok 11 - troop movement runtime: two flying IDs share host movement and restore byte identity
+  ---
+  duration_ms: 170.962333
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: v4 movement coexists with status/projectile snapshots
+ok 12 - troop movement runtime: v4 movement coexists with status/projectile snapshots
+  ---
+  duration_ms: 142.07175
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every unsourced movement/form family is a frozen QUESTION before host mutation
+ok 13 - troop movement runtime: every unsourced movement/form family is a frozen QUESTION before host mutation
+  ---
+  duration_ms: 156.904125
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: forged receipts, roster drift, stale commands, and hostile boundaries reject atomically
+ok 14 - troop movement runtime: forged receipts, roster drift, stale commands, and hostile boundaries reject atomically
+  ---
+  duration_ms: 52.750209
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: sourced flight shares ordinary combat/death and target retargeting without changing the control host
+ok 15 - troop movement runtime: sourced flight shares ordinary combat/death and target retargeting without changing the control host
+  ---
+  duration_ms: 938.638666
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: intermediate serialization is observationally pure across schedules and cuts
+not ok 16 - troop movement runtime: intermediate serialization is observationally pure across schedules and cuts
+  ---
+  duration_ms: 4134.79875
+  type: 'test'
+  location: '/private/tmp/game001mtc-critic-sources.0m4ONi/parent/tests/game-roster-troops-movement.test.js:909:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    uninterrupted ordinary tick-200 control matches the documented digest
+    + actual - expected
+    
+    + '63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996'
+    - '07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d'
+  actual: '63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game001mtc-critic-sources.0m4ONi/parent/tests/game-roster-troops-movement.test.js:969:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 14
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 29341.678208

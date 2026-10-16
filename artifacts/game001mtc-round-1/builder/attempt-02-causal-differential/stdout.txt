@@ -1,0 +1,298 @@
+{
+  "node": "v22.22.3",
+  "roots": {
+    "historical": "/private/tmp/game001mtc-historical-6a2f26dc8",
+    "current": "/private/tmp/game001mtc-builder-69da"
+  },
+  "witness": {
+    "historical": {
+      "bytes": 15562,
+      "sha256": "4c9435f0a4b0f5b10143c34dca805e9ee715082e1ab4b7fec3a7fb72b9d73d79",
+      "rosterBytes": 9836,
+      "questionBytes": 5658,
+      "questionCount": 31,
+      "rosterIds": [
+        "mossguard",
+        "coilblade",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ]
+    },
+    "current": {
+      "bytes": 21675,
+      "sha256": "2c815fe6f353d3822cd65d4ad02fc2148549b04f61710e599b28dab1f1f08c21",
+      "rosterBytes": 12246,
+      "questionBytes": 9361,
+      "questionCount": 51,
+      "rosterIds": [
+        "mossguard",
+        "coilblade",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ]
+    },
+    "byteDelta": 6113,
+    "diff": {
+      "addedQuestions": [
+        "briar-darter.count",
+        "briar-darter.damage",
+        "briar-darter.deploy-time-ticks",
+        "briar-darter.first-hit-ticks",
+        "briar-darter.hit-speed-ticks",
+        "briar-darter.hitpoints",
+        "briar-darter.movement-millitiles-per-second",
+        "briar-darter.range-millitiles",
+        "briar-darter.sight-range-millitiles",
+        "briar-darter.target-mode",
+        "briar-runner.count",
+        "briar-runner.damage",
+        "briar-runner.deploy-time-ticks",
+        "briar-runner.first-hit-ticks",
+        "briar-runner.hit-speed-ticks",
+        "briar-runner.hitpoints",
+        "briar-runner.movement-millitiles-per-second",
+        "briar-runner.range-millitiles",
+        "briar-runner.sight-range-millitiles",
+        "briar-runner.target-mode"
+      ],
+      "removedQuestions": [],
+      "changedQuestions": [],
+      "addedCards": [],
+      "removedCards": [],
+      "changedCards": [
+        {
+          "cardId": "briar-band",
+          "fields": [
+            {
+              "path": "roster.briar-band.entities[0].sourceConfidencePolicy",
+              "before": "<absent>",
+              "after": {
+                "deploymentInterval": {
+                  "milliseconds": 100,
+                  "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+                  "ticks": 6
+                },
+                "fields": [
+                  {
+                    "field": "count",
+                    "questionKey": "briar-runner.count",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "damage",
+                    "questionKey": "briar-runner.damage",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "deployTimeTicks",
+                    "questionKey": "briar-runner.deploy-time-ticks",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "firstHitTicks",
+                    "questionKey": "briar-runner.first-hit-ticks",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "hitSpeedTicks",
+                    "questionKey": "briar-runner.hit-speed-ticks",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "hitpoints",
+                    "questionKey": "briar-runner.hitpoints",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "movementMillitilesPerSecond",
+                    "questionKey": "briar-runner.movement-millitiles-per-second",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "rangeMillitiles",
+                    "questionKey": "briar-runner.range-millitiles",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "sightRangeMillitiles",
+                    "questionKey": "briar-runner.sight-range-millitiles",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "targetMode",
+                    "questionKey": "briar-runner.target-mode",
+                    "valueEncoding": "target-mode-code"
+                  }
+                ]
+              }
+            },
+            {
+              "path": "roster.briar-band.entities[1].sourceConfidencePolicy",
+              "before": "<absent>",
+              "after": {
+                "deploymentInterval": {
+                  "milliseconds": 100,
+                  "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+                  "ticks": 6
+                },
+                "fields": [
+                  {
+                    "field": "count",
+                    "questionKey": "briar-darter.count",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "damage",
+                    "questionKey": "briar-darter.damage",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "deployTimeTicks",
+                    "questionKey": "briar-darter.deploy-time-ticks",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "firstHitTicks",
+                    "questionKey": "briar-darter.first-hit-ticks",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "hitSpeedTicks",
+                    "questionKey": "briar-darter.hit-speed-ticks",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "hitpoints",
+                    "questionKey": "briar-darter.hitpoints",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "movementMillitilesPerSecond",
+                    "questionKey": "briar-darter.movement-millitiles-per-second",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "rangeMillitiles",
+                    "questionKey": "briar-darter.range-millitiles",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "sightRangeMillitiles",
+                    "questionKey": "briar-darter.sight-range-millitiles",
+                    "valueEncoding": "positive-integer"
+                  },
+                  {
+                    "field": "targetMode",
+                    "questionKey": "briar-darter.target-mode",
+                    "valueEncoding": "target-mode-code"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "cardId": "briar-band",
+          "archetypeId": "briar-runner",
+          "oldConfidenceFieldCount": 0,
+          "newConfidenceFieldCount": 10,
+          "oldDeploymentInterval": null,
+          "newDeploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "archetypeId": "briar-darter",
+          "oldConfidenceFieldCount": 0,
+          "newConfidenceFieldCount": 10,
+          "oldDeploymentInterval": null,
+          "newDeploymentInterval": {
+            "milliseconds": 100,
+            "sourceId": "supercell-2020-06-02-multi-unit-deployment",
+            "ticks": 6
+          }
+        }
+      ]
+    }
+  },
+  "timeline": {
+    "historical": {
+      "120": {
+        "byteLength": 417386,
+        "sha256": "0263778593d12c500721bb3914123269940e3e702ae5fc841f93613d2c2d0cb5",
+        "nonSetupSnapshotSha256": "d13f2da496890990c75a7661b7eac0ba3fecd06f355b3ea4d9986fbdfbf45ca1",
+        "stateSha256": "9080acaaacdf0ff479070fb6dc98eb0eec67e8e1854f51dc743d9b2868fcdae0",
+        "eventCount": 880,
+        "eventSha256": "73cf739260e8370346d670ca46f672906bff49d603dc20e5426975f2ab0dc350",
+        "stateTick": 120
+      },
+      "200": {
+        "byteLength": 64073,
+        "sha256": "07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d",
+        "nonSetupSnapshotSha256": "e78752ac6edf1b559fc9d0c6813b2f7f2804b08303b0a354e756b3b6a6f4eafb",
+        "stateSha256": "59aef48c5ab7963ae4d514fbe999b9c12a6788a76c5ea828b8eadc805fa9726a",
+        "eventCount": 1383,
+        "eventSha256": "8443fa5eb43c1ce8129dba2c581f8986150d68cc17441169e7e94f0b24124f67",
+        "stateTick": 200
+      },
+      "320": {
+        "byteLength": 51720,
+        "sha256": "4b2f4143a90f7b60fe328bc421b63234f1e3aba188742fe7d4e1a004eb380ae3",
+        "nonSetupSnapshotSha256": "d911c8eacb588b8175f8259a3d0a83306f26a0bb400117272926336c6fe730e2",
+        "stateSha256": "aafa4c5b4a5db63e0018651b35ed63444855e6920f44bec9843954a27081812e",
+        "eventCount": 1430,
+        "eventSha256": "680395eefab636eff5d9dc5da35b0db62eb6c71d8831717645ce91e2e1767c9b",
+        "stateTick": 320
+      }
+    },
+    "current": {
+      "120": {
+        "byteLength": 423499,
+        "sha256": "538f8a87fe8478881ffd035bf6ddf30972c9a5daa4f5420f46bfea20d002cf5b",
+        "nonSetupSnapshotSha256": "d13f2da496890990c75a7661b7eac0ba3fecd06f355b3ea4d9986fbdfbf45ca1",
+        "stateSha256": "9080acaaacdf0ff479070fb6dc98eb0eec67e8e1854f51dc743d9b2868fcdae0",
+        "eventCount": 880,
+        "eventSha256": "73cf739260e8370346d670ca46f672906bff49d603dc20e5426975f2ab0dc350",
+        "stateTick": 120
+      },
+      "200": {
+        "byteLength": 70186,
+        "sha256": "63c23019fc6aadaedb47a72a79a24dae266970a281eb8aca8978d008b6f80996",
+        "nonSetupSnapshotSha256": "e78752ac6edf1b559fc9d0c6813b2f7f2804b08303b0a354e756b3b6a6f4eafb",
+        "stateSha256": "59aef48c5ab7963ae4d514fbe999b9c12a6788a76c5ea828b8eadc805fa9726a",
+        "eventCount": 1383,
+        "eventSha256": "8443fa5eb43c1ce8129dba2c581f8986150d68cc17441169e7e94f0b24124f67",
+        "stateTick": 200
+      },
+      "320": {
+        "byteLength": 57833,
+        "sha256": "1ad523a67b1bcc758e089e6781b567b313e5ee79e0c808c89395357b2fd90529",
+        "nonSetupSnapshotSha256": "d911c8eacb588b8175f8259a3d0a83306f26a0bb400117272926336c6fe730e2",
+        "stateSha256": "aafa4c5b4a5db63e0018651b35ed63444855e6920f44bec9843954a27081812e",
+        "eventCount": 1430,
+        "eventSha256": "680395eefab636eff5d9dc5da35b0db62eb6c71d8831717645ce91e2e1767c9b",
+        "stateTick": 320
+      }
+    },
+    "equalNonSetupSnapshotAt120": true,
+    "equalNonSetupSnapshotAt200": true,
+    "equalNonSetupSnapshotAt320": true,
+    "equalStateAt120": true,
+    "equalStateAt200": true,
+    "equalStateAt320": true,
+    "equalEventsAt120": true,
+    "equalEventsAt200": true,
+    "equalEventsAt320": true
+  }
+}

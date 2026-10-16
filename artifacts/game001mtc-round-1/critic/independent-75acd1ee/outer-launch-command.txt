@@ -1,0 +1,5 @@
+candidate suite: env -i PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin HOME=/Users/me TMPDIR=/private/tmp LC_ALL=C TZ=UTC /bin/sh /private/tmp/game001mtc-critic.0m4ONi/evidence/run-test-suite.sh candidate /private/tmp/game001mtc-critic-sources.0m4ONi/candidate
+parent negative control: env -i PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin HOME=/Users/me TMPDIR=/private/tmp LC_ALL=C TZ=UTC /bin/sh /private/tmp/game001mtc-critic.0m4ONi/evidence/run-test-suite.sh parent /private/tmp/game001mtc-critic-sources.0m4ONi/parent
+causal probe: env -i PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin HOME=/Users/me TMPDIR=/private/tmp LC_ALL=C TZ=UTC /bin/sh /private/tmp/game001mtc-critic.0m4ONi/evidence/run-causal-probe.sh
+probe report summary: env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin HOME=/Users/me TMPDIR=/private/tmp LC_ALL=C TZ=UTC /bin/sh /private/tmp/game001mtc-critic.0m4ONi/evidence/run-summarize-causal-probe.sh
+archive path verification: env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin HOME=/Users/me TMPDIR=/private/tmp LC_ALL=C TZ=UTC /bin/sh /private/tmp/game001mtc-critic.0m4ONi/evidence/run-verify-archive-paths.sh
