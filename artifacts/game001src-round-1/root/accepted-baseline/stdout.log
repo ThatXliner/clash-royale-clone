@@ -1,0 +1,36 @@
+
+> moss-and-ember@0.0.0 test:game-shared-runtime-integration
+> node tests/game-shared-runtime-integration-runner.js game-shared-runtime-integration
+
+TAP version 13
+# Subtest: game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations
+not ok 1 - game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations
+  ---
+  duration_ms: 7.429291
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/remaining-stagger-accepted54cc/tests/game-shared-runtime-integration.test.js:290:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/shared/session-troop-source-confidence-authority.js:264:13)
+    file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:6803:19)
+    validateSetup (file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:12014:7)
+    new GameSession (file:///Users/me/.codex/worktrees/remaining-stagger-accepted54cc/src/sim/battle-continuation-kernel.js:12173:21)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 162.96575
