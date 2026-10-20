@@ -1,0 +1,82 @@
+{"blend_sha256_before": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac", "blender_pid": 90334, "blender_version": "5.1.2", "environment_allowlist": {"HOME": "/Users/me", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "PATH": "/usr/bin:/bin:/usr/sbin:/sbin", "TMPDIR": "/tmp", "TZ": "UTC"}, "event": "audit-start", "probe_sha256": "cb211a03b1ecc3d51afec07acde5b67cc3f26353a0879e3a711a8b79590f99f8", "started_utc": "2026-10-20T17:55:57Z"}
+{
+  "status": "read-only saved-asset projection audit; no render or save",
+  "blender_pid": 90334,
+  "blend_sha256_before": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+  "blend_sha256_after": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+  "inputs_unchanged": true,
+  "projections": [
+    {
+      "camera": "east",
+      "bow_native64_px": [
+        40.42965316772461,
+        48.41236400604248
+      ],
+      "stern_native64_px": [
+        25.177318572998047,
+        49.28383159637451
+      ],
+      "bow_minus_stern_px": [
+        15.252334594726562,
+        -0.8714675903320312
+      ],
+      "facing": "east",
+      "matches": true
+    },
+    {
+      "camera": "west",
+      "bow_native64_px": [
+        23.570348739624023,
+        48.41236400604248
+      ],
+      "stern_native64_px": [
+        38.82268142700195,
+        49.28383159637451
+      ],
+      "bow_minus_stern_px": [
+        -15.25233268737793,
+        -0.8714675903320312
+      ],
+      "facing": "west",
+      "matches": true
+    },
+    {
+      "camera": "north",
+      "bow_native64_px": [
+        32.0,
+        41.954864501953125
+      ],
+      "stern_native64_px": [
+        32.000003814697266,
+        54.510294914245605
+      ],
+      "bow_minus_stern_px": [
+        -3.814697265625e-06,
+        -12.55543041229248
+      ],
+      "facing": "north",
+      "matches": true
+    },
+    {
+      "camera": "south",
+      "bow_native64_px": [
+        32.0,
+        54.86984729766846
+      ],
+      "stern_native64_px": [
+        32.0,
+        44.05734825134277
+      ],
+      "bow_minus_stern_px": [
+        0.0,
+        10.812499046325684
+      ],
+      "facing": "south",
+      "matches": true
+    }
+  ],
+  "receipt": "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/projection-receipt.json"
+}
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)
+
+Blender quit

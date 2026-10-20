@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py", line 279, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py", line 180, in main
+    objects = {key: find_suffix(scene, suffix) for key, suffix in SUFFIXES.items()}
+                    ~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py", line 59, in find_suffix
+    raise RuntimeError(f"Expected one object ending {suffix!r}; got {[o.name for o in matches]}")
+RuntimeError: Expected one object ending 'copperskiff_placement'; got []
+Traceback (most recent call last):
+  File "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py", line 279, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py", line 180, in main
+    objects = {key: find_suffix(scene, suffix) for key, suffix in SUFFIXES.items()}
+                    ~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py", line 59, in find_suffix
+    raise RuntimeError(f"Expected one object ending {suffix!r}; got {[o.name for o in matches]}")
+RuntimeError: Expected one object ending 'copperskiff_placement'; got []
+
+Error: script failed, file: '/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/inspect_saved_heading.py', exiting.

@@ -1,0 +1,6 @@
+/Users/me/.codex/clash-qualification/20261020-model-r4-critic/postprocess.py:99: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  "visible_pixels_threshold_16": sum(value >= 16 for value in image.getchannel("A").getdata()),
+/Users/me/.codex/clash-qualification/20261020-model-r4-critic/postprocess.py:144: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  idle_pixels = list(idle.getdata())
+/Users/me/.codex/clash-qualification/20261020-model-r4-critic/postprocess.py:145: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  contact_pixels = list(contact.getdata())

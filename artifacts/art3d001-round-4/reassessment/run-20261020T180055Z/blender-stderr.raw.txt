@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/audit_selected_scene.py", line 341, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/audit_selected_scene.py", line 239, in main
+    body_points = evaluated_vertices(objects["body"], depsgraph)
+  File "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/audit_selected_scene.py", line 88, in evaluated_vertices
+    mesh = evaluated.to_mesh()
+RuntimeError: Error: Object does not have geometry data
+
+
+Error: script failed, file: '/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/audit_selected_scene.py', exiting.

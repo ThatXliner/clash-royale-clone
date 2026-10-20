@@ -1,0 +1,66 @@
+{
+  "status": "UNRENDERED; macro heading proposals only",
+  "provisional_selection": "tapered_canopy",
+  "camera": {
+    "elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "native_cell": 64,
+    "supersample": 4,
+    "ground_anchor_normalized": [0.5, 0.84375],
+    "directions": [["north", 180], ["east", 270], ["south", 0], ["west", 90]]
+  },
+  "baseline": {
+    "variant": "R3 exposed_deck",
+    "blend_sha256": "299ec67386e6b2c8c8fb74d6e371f17f9e66b09fbb05385132ba46fc60fabd1c",
+    "native_idle_bounds_alpha_16": {"north": [14, 15], "east": [17, 12], "south": [14, 13], "west": [17, 12]},
+    "scope": "Keep boat, TEAM and contact reads; improve opposite-heading recognition at the same fixed native scale."
+  },
+  "common": {
+    "hover_base": 0.55,
+    "hull_center_z": 0.22,
+    "hull_beam": 1.58,
+    "hull_length": 1.45,
+    "hull_depth": 0.34,
+    "team_coaming_width": 0.20,
+    "contact_pitch_degrees": 7,
+    "contact_recoil": 0.04,
+    "contact_puff_radius": 0.21,
+    "foredeck_outline": [[0, -0.57], [0.15, -0.36], [0.28, -0.16], [-0.28, -0.16], [-0.15, -0.36]],
+    "heading_budget": {
+      "bow_taper_depth_pixels_min": 3,
+      "stern_flat_or_notch_width_pixels_min": 4,
+      "opposite_heading_changed_silhouette_pixels_min": 12,
+      "opposite_heading_silhouette_iou_target_max": 0.85,
+      "decision": "Native viewers must identify the facing direction; numeric silhouette differences are supporting evidence only."
+    }
+  },
+  "alternatives": [
+    {
+      "id": "wedge_hull",
+      "description": "A long triangular foredeck and broad flat transom carry heading in the hull itself.",
+      "hull_outline": [[0, -0.60], [0.26, -0.24], [0.50, 0.08], [0.47, 0.46], [-0.47, 0.46], [-0.50, 0.08], [-0.26, -0.24]],
+      "canopy": {"mode": "single", "radii": [0.63, 0.32, 0.11], "center_z": 0.79, "offset_y": 0.10},
+      "risk": "The unchanged cream oval may still dominate the visible facing read."
+    },
+    {
+      "id": "notched_stern",
+      "description": "The same pointed foredeck ends in a broad recessed transom around the stern pusher.",
+      "hull_outline": [[0, -0.60], [0.26, -0.24], [0.50, 0.08], [0.47, 0.46], [0.20, 0.46], [0.20, 0.20], [-0.20, 0.20], [-0.20, 0.46], [-0.47, 0.46], [-0.50, 0.08], [-0.26, -0.24]],
+      "canopy": {"mode": "single", "radii": [0.63, 0.32, 0.11], "center_z": 0.79, "offset_y": 0.10},
+      "risk": "The elevated canopy or stern pusher may occlude the recess in one head-on view."
+    },
+    {
+      "id": "tapered_canopy",
+      "description": "The wedge hull is paired with a canvas roof that narrows toward the bow and ends in a broad rear edge.",
+      "hull_outline": [[0, -0.60], [0.26, -0.24], [0.50, 0.08], [0.47, 0.46], [-0.47, 0.46], [-0.50, 0.08], [-0.26, -0.24]],
+      "canopy": {
+        "mode": "directional",
+        "radii": [0.63, 0.32, 0.11],
+        "center_z": 0.79,
+        "offset_y": 0.10,
+        "sections": [[-0.32, 0.025, 0.02], [-0.20, 0.22, 0.07], [-0.02, 0.47, 0.11], [0.15, 0.63, 0.10], [0.32, 0.57, 0.06]]
+      },
+      "risk": "The directional roof must still read as the existing canvas rivercraft, and preserve exposed TEAM area."
+    }
+  ]
+}

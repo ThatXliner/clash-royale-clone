@@ -1,0 +1,59 @@
+{
+  "status": "UNRENDERED; source prepared, execution awaits explicit runtime grant",
+  "piece": "ART-3D-001",
+  "round": 4,
+  "character": "copperskiff",
+  "named_gap": "Opposite headings must be recognizable from macro bow/stern asymmetry at native size",
+  "reference_verdict": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/critic-verdict.md",
+  "identity_source_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "source_ownership": "Only design/20261020-redesign/astra-round-4",
+  "authorship": "Original procedural models by GPT-6 Astra under Claude's Riverworks Diorama direction",
+  "license": "AGPL-3.0-only",
+  "parameters": "alternatives.json",
+  "provisional_selection": "tapered_canopy",
+  "render_plan": {
+    "engine": "EEVEE",
+    "source_resolution": [256, 256],
+    "native_resolution": [64, 64],
+    "reduction": "Fixed 4:1 alpha-weighted box; no crop, translation, mirror or fit",
+    "idle_frames": 1,
+    "idle_variants": 3,
+    "directions": ["north", "east", "south", "west"],
+    "teams": ["river", "ember"],
+    "idle_render_count": 24,
+    "selected_contact_frame": 100,
+    "selected_contact_render_count": 8,
+    "selected_quarter_view_render_count": 1,
+    "total_render_count": 33,
+    "saved_scene_readonly_reopens": 1
+  },
+  "preserved": {
+    "camera_elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "ground_anchor_native_pixels": [32, 54],
+    "palette_sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c",
+    "river_team_hex": "#2E7F86",
+    "ember_team_hex": "#C6452E",
+    "studio_and_lights": "Byte-identical round1_models.py helper",
+    "animation": "Unchanged R3 idle, walk, windup, contact and recovery transforms",
+    "other_characters": "Not rebuilt, copied, edited or rendered",
+    "name_lore_role_stats_audio": "Unchanged"
+  },
+  "changed": [
+    "Hull footprint becomes pointed at the bow and broad at the stern",
+    "One comparison cuts a large stern recess",
+    "Selected comparison tapers the cream roof toward the bow within the R3 axis extents",
+    "TEAM foredeck conforms to the new hull; selected roof bindings and support tips conform to the roof"
+  ],
+  "receipts": [
+    "Exact source snapshots and SHA-256 before and after",
+    "Immutable R3 control model and native idle SHA-256 before and after",
+    "Allowlisted environment, versions, command arrays, live PIDs, raw stdout/stderr and direct exits",
+    "Editable blend and GLB, mesh/material/triangle counts, ownership and animation validation",
+    "Actual projected pose bounds and saved camera/anchor measurements",
+    "Native PNGs, same-anchor opposite-heading silhouette measurements and R3 size deltas",
+    "Native comparison sheets and supplementary nearest-neighbor 4x inspection sheets"
+  ],
+  "quality_verdict": "Pending independent native-size critique; successful execution is not a visual pass",
+  "excluded": ["full atlas", "engine integration", "UI changes", "Coilblade or Mossguard revision", "reference assets", "external textures", "live Blender session"]
+}

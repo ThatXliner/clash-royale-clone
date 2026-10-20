@@ -1,0 +1,8 @@
+status=failed_before_projection
+process_exit_code=1
+blender_pid=not captured by pre-fix probe
+probe_sha256=c0dd33fcfc4cfec286b3e8b9902ac7fb253972ca7963ee034c11a16656e561bc
+stdout=blender-stdout.raw.txt
+stderr=blender-stderr.raw.txt
+failure=library-only .blend opened with an empty active scene; placement lookup found no scene object
+asset_action=no render, no save; subsequent input hash check pending

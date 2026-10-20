@@ -1,0 +1,765 @@
+{
+  "measurement": "Actual evaluated vertices and world_to_camera_view for the four saved camera objects",
+  "camera": {
+    "elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "native_cell": 64,
+    "supersample": 4,
+    "ground_anchor_normalized": [
+      0.5,
+      0.84375
+    ],
+    "directions": [
+      [
+        "north",
+        180
+      ],
+      [
+        "east",
+        270
+      ],
+      [
+        "south",
+        0
+      ],
+      [
+        "west",
+        90
+      ]
+    ],
+    "camera_target_height": 4.291610025503216,
+    "camera_names": {
+      "north": "ME_20261020_copperskiff_notched_stern_north",
+      "east": "ME_20261020_copperskiff_notched_stern_east",
+      "south": "ME_20261020_copperskiff_notched_stern_south",
+      "west": "ME_20261020_copperskiff_notched_stern_west"
+    },
+    "calibration": "Fixed R2 orthographic scale. No shape-dependent recalibration.",
+    "idle_body_height_px_target": 13
+  },
+  "maximum_anchor_error_uv": 1.6391277313232422e-07,
+  "crop_guard": 0.015,
+  "pose_direction_count": 48,
+  "frames": [
+    {
+      "direction": "north",
+      "motion": "idle",
+      "frame": 1,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.637176431064139,
+        "bottom": 0.8645390835361699
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "idle",
+      "frame": 11,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6351739822898215,
+        "bottom": 0.8626956101982906
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "idle",
+      "frame": 21,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.637176431064139,
+        "bottom": 0.8646980589726081
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "idle",
+      "frame": 31,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6386182025003024,
+        "bottom": 0.8659808549723333
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "walk",
+      "frame": 41,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6360368496208239,
+        "bottom": 0.8676645210082875
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "walk",
+      "frame": 51,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6345793470141139,
+        "bottom": 0.8642794523758197
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "walk",
+      "frame": 61,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6360368496208239,
+        "bottom": 0.8678454517516829
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "walk",
+      "frame": 71,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6369835719638515,
+        "bottom": 0.8706614352626829
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "attack",
+      "frame": 90,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.637176431064139,
+        "bottom": 0.8645390835361699
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "attack",
+      "frame": 96,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6325847712524401,
+        "bottom": 0.8664311912955497
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "attack",
+      "frame": 100,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6180821843290327,
+        "bottom": 0.8570800725196563
+      }
+    },
+    {
+      "direction": "north",
+      "motion": "attack",
+      "frame": 106,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106543548990103,
+        "right": 0.5989346090743215,
+        "top": 0.6409103484304244,
+        "bottom": 0.863804902825039
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "idle",
+      "frame": 1,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38903418723533306,
+        "right": 0.6473178666167865,
+        "top": 0.6762805707595478,
+        "bottom": 0.8594882636851974
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "idle",
+      "frame": 11,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38903418723533306,
+        "right": 0.6473178666167865,
+        "top": 0.6742781219852303,
+        "bottom": 0.8574858149108799
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "idle",
+      "frame": 21,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38903418723533306,
+        "right": 0.6473178666167865,
+        "top": 0.6762805707595478,
+        "bottom": 0.8594882636851974
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "idle",
+      "frame": 31,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38903418723533306,
+        "right": 0.6473178666167865,
+        "top": 0.6777223421957113,
+        "bottom": 0.8609300351213609
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "walk",
+      "frame": 41,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38749271077867126,
+        "right": 0.6445320233749449,
+        "top": 0.6765986553250918,
+        "bottom": 0.8598220497118061
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "walk",
+      "frame": 51,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38824643290137334,
+        "right": 0.6459471751155282,
+        "top": 0.6744275458233103,
+        "bottom": 0.8576503460203911
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "walk",
+      "frame": 61,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38749271077867126,
+        "right": 0.6445320233749449,
+        "top": 0.6765986553250918,
+        "bottom": 0.8598220497118061
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "walk",
+      "frame": 71,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38677327339782114,
+        "right": 0.6430728273277795,
+        "top": 0.67822826495914,
+        "bottom": 0.8614377404536899
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "attack",
+      "frame": 90,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38903418723533306,
+        "right": 0.6473178666167865,
+        "top": 0.6762805707595478,
+        "bottom": 0.8594882636851974
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "attack",
+      "frame": 96,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.38801937818767884,
+        "right": 0.644318946972378,
+        "top": 0.674784044748659,
+        "bottom": 0.857993520243209
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "attack",
+      "frame": 100,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3900236169582672,
+        "right": 0.6780292559961458,
+        "top": 0.6757760889059804,
+        "bottom": 0.8584723479593508
+      }
+    },
+    {
+      "direction": "east",
+      "motion": "attack",
+      "frame": 106,
+      "ground_anchor_uv": [
+        0.49999991059303284,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3894647518984953,
+        "right": 0.648678130089977,
+        "top": 0.6774813537351116,
+        "bottom": 0.8606152928725053
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "idle",
+      "frame": 1,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6755803479859706,
+        "bottom": 0.8752406468015603
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "idle",
+      "frame": 11,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6734189386299556,
+        "bottom": 0.8732381980272429
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "idle",
+      "frame": 21,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6754213874042732,
+        "bottom": 0.8752406468015603
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "idle",
+      "frame": 31,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.677022119422134,
+        "bottom": 0.8766824182377239
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "walk",
+      "frame": 41,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6762817442840741,
+        "bottom": 0.8713691151161604
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "walk",
+      "frame": 51,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6737987743531593,
+        "bottom": 0.8713136772233566
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "walk",
+      "frame": 61,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6762188047471474,
+        "bottom": 0.8713691151161604
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "walk",
+      "frame": 71,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6781306693118405,
+        "bottom": 0.8708420689112616
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "attack",
+      "frame": 90,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6755803479859706,
+        "bottom": 0.8752406468015603
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "attack",
+      "frame": 96,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6756261302972303,
+        "bottom": 0.8683524440564518
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "attack",
+      "frame": 100,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.670009136853994,
+        "bottom": 0.906085298060969
+      }
+    },
+    {
+      "direction": "south",
+      "motion": "attack",
+      "frame": 106,
+      "ground_anchor_uv": [
+        0.5,
+        0.8437500149011612
+      ],
+      "bounds": {
+        "left": 0.40106541320778977,
+        "right": 0.5989345867922102,
+        "top": 0.6754434466944161,
+        "bottom": 0.8795073145932261
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "idle",
+      "frame": 1,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3526821333832136,
+        "right": 0.6109658127646669,
+        "top": 0.6762805707595478,
+        "bottom": 0.8594882636851974
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "idle",
+      "frame": 11,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3526821333832136,
+        "right": 0.6109658127646669,
+        "top": 0.6742781219852303,
+        "bottom": 0.8574858149108799
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "idle",
+      "frame": 21,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3526821333832136,
+        "right": 0.6109658127646669,
+        "top": 0.6762805707595478,
+        "bottom": 0.8594882636851974
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "idle",
+      "frame": 31,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3526821333832136,
+        "right": 0.6109658127646669,
+        "top": 0.6777223421957113,
+        "bottom": 0.8609300351213609
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "walk",
+      "frame": 41,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3554679766250552,
+        "right": 0.6125072892213288,
+        "top": 0.6765986553250918,
+        "bottom": 0.8598220497118061
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "walk",
+      "frame": 51,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3540528248844717,
+        "right": 0.6117535670986267,
+        "top": 0.6744275458233103,
+        "bottom": 0.8576503460203911
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "walk",
+      "frame": 61,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3554679766250552,
+        "right": 0.6125072892213288,
+        "top": 0.6765986553250918,
+        "bottom": 0.8598220497118061
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "walk",
+      "frame": 71,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3569271726722205,
+        "right": 0.6132267266021789,
+        "top": 0.67822826495914,
+        "bottom": 0.8614377404536899
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "attack",
+      "frame": 90,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.3526821333832136,
+        "right": 0.6109658127646669,
+        "top": 0.6762805707595478,
+        "bottom": 0.8594882636851974
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "attack",
+      "frame": 96,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.355681053027622,
+        "right": 0.6119806218123212,
+        "top": 0.674784044748659,
+        "bottom": 0.857993520243209
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "attack",
+      "frame": 100,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.32197074400385417,
+        "right": 0.6099763830417327,
+        "top": 0.6757760889059804,
+        "bottom": 0.8584723479593508
+      }
+    },
+    {
+      "direction": "west",
+      "motion": "attack",
+      "frame": 106,
+      "ground_anchor_uv": [
+        0.5000000596046448,
+        0.8437501639127731
+      ],
+      "bounds": {
+        "left": 0.35132186991002307,
+        "right": 0.6105352481015047,
+        "top": 0.6774813537351116,
+        "bottom": 0.8606152928725053
+      }
+    }
+  ]
+}

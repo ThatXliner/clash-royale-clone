@@ -1,0 +1,1971 @@
+{
+  "status": "independent saved-model renders reduced to native 64x64 cells; visual judgment recorded separately",
+  "reduction": "alpha-weighted 4x4 box, 256x256 to 64x64; no crop or per-view resizing",
+  "context_source": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art3d001-round-2/critic/tile-context/arena-ground-tile-64.png",
+  "context_sha256": "c7f90f06e03b56930eb75f17d6aea60afe1e7636fb2e57d889bfbd93198b19cb",
+  "row_order": [
+    "river idle",
+    "ember idle",
+    "river contact",
+    "ember contact"
+  ],
+  "columns": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "candidate_choice_sheet_rows": [
+    "r3_control",
+    "wedge_hull",
+    "notched_stern",
+    "tapered_canopy"
+  ],
+  "candidate_choice_sheets": {
+    "candidate-choice-river-native.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "river",
+      "pose": "idle",
+      "presentation": "native",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    },
+    "candidate-choice-river-arena.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "river",
+      "pose": "idle",
+      "presentation": "arena",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    },
+    "candidate-choice-ember-native.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "ember",
+      "pose": "idle",
+      "presentation": "native",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    },
+    "candidate-choice-ember-arena.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "ember",
+      "pose": "idle",
+      "presentation": "arena",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    }
+  },
+  "selected_candidate": "tapered_canopy",
+  "renders": [
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-north-idle-256.png",
+      "raw_sha256": "b1f712c6a897facf78d128558728ab5a88ac41a95cce57063f36cbae9a485d02",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-north-idle-64.png",
+      "native_sha256": "282a0a559579cae91e916e0cf91e8b8d65373635844e16d4bd17e4fa9ce4306e",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-north-idle-on-arena-64.png",
+      "tile_context_sha256": "e905246c9f922b47c73414ed4ff5ae0aa3da670b29afe07f4b871097c29a6648",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 136
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-east-idle-256.png",
+      "raw_sha256": "9ce07b5218d1b3b6f9e96259060bcd7c45cc22b86352b73ed9c13af1eea1cd47",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-east-idle-64.png",
+      "native_sha256": "58142efe5e0aa6074923db21f0ab22a4476d7e24e0cacbb299541a98305786bb",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-east-idle-on-arena-64.png",
+      "tile_context_sha256": "900e98c34afb586e2064bb04913cd4165c196ac06d342bac5f2cc292072a487d",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-south-idle-256.png",
+      "raw_sha256": "a8898b9b2aee801d7c0e539af38b2dfd7aaddd0789df34f564affea6f6bfcdd1",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-south-idle-64.png",
+      "native_sha256": "858038910c1e54a03572ec1baff40086e55f29a708a4257c5cd9dfe3d3e74a67",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-south-idle-on-arena-64.png",
+      "tile_context_sha256": "982ffe5f7c76003c1b99181641b4cc384ae91db3192471be09523a6b5f36cada",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 144
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-west-idle-256.png",
+      "raw_sha256": "196eef3f7838e362795e5675545469be1450d7ce6951f3199745e60c28d21998",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-west-idle-64.png",
+      "native_sha256": "efa1b221932e72633ba749e3fec24af1e7326b5148f8d3cb79a6b6c2702b74d6",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-west-idle-on-arena-64.png",
+      "tile_context_sha256": "256910b6de4201ec3acb04339f636c04f2b6d464b320f0b24a0dd4cccf6db47a",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-north-idle-256.png",
+      "raw_sha256": "61a36373d4dc7ccfbb354f2450c8ff20b428456b4602948c42fcc2e9180617c0",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-north-idle-64.png",
+      "native_sha256": "ee86e1c68bca7dad5487554b7a2ba3f9836633f1cf4321ad946e4f67af1899a1",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-north-idle-on-arena-64.png",
+      "tile_context_sha256": "36266de3178a70857528a128ab4bc08ef67b9391fd0d669cc8cbd5f05bb636d2",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 136
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-east-idle-256.png",
+      "raw_sha256": "874668803806cbe2bf13d84be14789a9e7eedd737bdffe544e26dec4e24f41de",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-east-idle-64.png",
+      "native_sha256": "4805e6399284532352af97572d59f989977f0da19c523b81513971cdf88f2678",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-east-idle-on-arena-64.png",
+      "tile_context_sha256": "0c3bc59390eaaf45835acd4f8b0f5ad04f905c1ab070471b139276d47b59b6a2",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-south-idle-256.png",
+      "raw_sha256": "dbe6b0b84b575fb5462b9a7927204f0ba62cce3934a5a66be04cfe9e2e9201d6",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-south-idle-64.png",
+      "native_sha256": "8e8504c024e1a365221cf93e1cf0e8a64f9b7b51ecb1dda2d813e56336013277",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-south-idle-on-arena-64.png",
+      "tile_context_sha256": "d869ef95422a291db40e68ebe514b1e36ab16c512ba1de2cd5a97e46ea66c676",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 144
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-west-idle-256.png",
+      "raw_sha256": "d47851d3b935dbeb51f8bb414a7cdae263c70413cf5e6ff0f577ddcbd7a71f95",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-west-idle-64.png",
+      "native_sha256": "2b697b38772ba569c7a8223beffcadb21eba7469b78ac40294b6b43e3cdf2d51",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-west-idle-on-arena-64.png",
+      "tile_context_sha256": "3be2341f088cbd291438e9545ceb3315a4361aba336288dc9fe923cba77577a8",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-north-contact-256.png",
+      "raw_sha256": "3738e3c7574fa01a20506d697544642df69c38c95c0b3c6117bcf76b68a80c54",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-north-contact-64.png",
+      "native_sha256": "ae4b8b8d82a0d4f2f324faddbae3b4f1f4fd252b9b8195caa4ce2df34d805f22",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-north-contact-on-arena-64.png",
+      "tile_context_sha256": "17cf8197c0dd83118993a2ad01143cb0d9e43c8a55862e3bee6c8931a22daf4e",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 137
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-east-contact-256.png",
+      "raw_sha256": "f78a897e4b735d84a71cb63b697d5202db8210d02f2ddee73df66da985e735f4",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-east-contact-64.png",
+      "native_sha256": "ab8a79565146be35c04568728c18ccc13c3b5fec19165c6271c920d9a4d89d2b",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-east-contact-on-arena-64.png",
+      "tile_context_sha256": "f82598ee5f5ff374a13fdbd41d787d5d31a7e5a4981daf1e3388e872fabe0c2f",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 149
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-south-contact-256.png",
+      "raw_sha256": "472b6be51349ed6ec1911374fbf4dd564bc51d9d3687e0a8a31bf398c440780e",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-south-contact-64.png",
+      "native_sha256": "5ec651865236267918f2e95278d2a7f15e97703bdfc8ae50b96f2b12fd3d89de",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-south-contact-on-arena-64.png",
+      "tile_context_sha256": "e5bf3ee9c92ba503c1c5d23cd7d6d216fa73d92188f4b9d4aa52161ae6a8d8b6",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 154
+    },
+    {
+      "variant": "r3_control",
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-river-west-contact-256.png",
+      "raw_sha256": "bb3dedb920bbbb3c164a170a3ed35b383e2de8256e0f37e59e775863b1c36421",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-river-west-contact-64.png",
+      "native_sha256": "0620a8f76612c1fe8e91b6028b3b85a489aea5aa4328ca12d6da08e778557ff8",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-river-west-contact-on-arena-64.png",
+      "tile_context_sha256": "b10694c3afa9958cbd8377000c7bcfc237c5e5d35ad4cf633de549489e1c22e7",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 152
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-north-contact-256.png",
+      "raw_sha256": "e3f479bbd8b75d865c55ffa072bb21e5a485f381012556ef980e920f0ae21a67",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-north-contact-64.png",
+      "native_sha256": "cfe2920e57f52a0cdca9ca896b3eb13ca506f1809aee0bce1ed4eaab52acca52",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-north-contact-on-arena-64.png",
+      "tile_context_sha256": "35b5b25220ebcc50f72cb511e2ce68335839143be0eff2d37d9e562ce481c2d9",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 137
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-east-contact-256.png",
+      "raw_sha256": "27a05b9220b2a5031771f8fc0afbdbd1d3be1a4947d19b8140d0b90d7600e3ed",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-east-contact-64.png",
+      "native_sha256": "ce314997c2c7c778b5b7295636e138a511d69b279ee74ca57bf237a8251ebc9a",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-east-contact-on-arena-64.png",
+      "tile_context_sha256": "89614c3538e76be2acb2bdf33dac0aeddf8cacb26d8959fa8c705797e18582bd",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 149
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-south-contact-256.png",
+      "raw_sha256": "74290d084ce70a29ac5c42f1533cc5c4fcdec6894b8d08d4915d0805263ed780",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-south-contact-64.png",
+      "native_sha256": "1a9fd0acf6cb4b10857d0b5ee2f8349b7d8afd1dd4c095f3fb85569611157363",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-south-contact-on-arena-64.png",
+      "tile_context_sha256": "9a4fcab35c68c75628263ff420dd689764ab3ab79bbdcf2aa51a13a2281c9037",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 154
+    },
+    {
+      "variant": "r3_control",
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/r3_control/raw-256/r3_control/r3_control-ember-west-contact-256.png",
+      "raw_sha256": "1e5848acf9d5fa5a8178ada93a911aa76809b7222fe9894bdb0bf18c402a48b2",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/r3_control/r3_control-ember-west-contact-64.png",
+      "native_sha256": "a9dbe32fe95638d9d49c2af5273879ce7f05417dce7c7f4af5c261ab15146ee2",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/r3_control/r3_control-ember-west-contact-on-arena-64.png",
+      "tile_context_sha256": "840daf78d4e97b994f5b85b19d58ff90e185bd1186557077122c2e82b4bb8cb1",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 152
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-north-idle-256.png",
+      "raw_sha256": "ca29e6be253d1afdef9be2ff34ba22b012f930ea03189809f283fa5a2ea9d38f",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-north-idle-64.png",
+      "native_sha256": "12be2eb0cda19f1e2e3080cd930f0432f841b6979c810d0774aa05436a001c47",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-north-idle-on-arena-64.png",
+      "tile_context_sha256": "2fb2e84792a8ca67be8a1c7e6acfa77d5296f3d21b6590de6e41b7fe0eda0ee3",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 130
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-east-idle-256.png",
+      "raw_sha256": "9fde685b1e062e88af7badf9673d872ea174a8473d4caab4b2f98262ac1d1f0f",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-east-idle-64.png",
+      "native_sha256": "9fb94af84affcb92203c239e0ab0f980e752b7800d718d8c9b71a174f93bad87",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-east-idle-on-arena-64.png",
+      "tile_context_sha256": "60116dcbae2a675f0c6828cea3655cc12388af6f3cb058102376c5b61623a310",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-south-idle-256.png",
+      "raw_sha256": "61124c856f9b7a81f50bf98ac9ebe1ff7338f8781199d3e5d4453189dc44afb2",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-south-idle-64.png",
+      "native_sha256": "b4e20bc0f4f26b53e7d469e38c34536a9b989a378287e29c318e44c21534b8da",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-south-idle-on-arena-64.png",
+      "tile_context_sha256": "df801e08b479028d74a10212638eb3738e21a3eae75c905404117dba887e1dbe",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 132
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-west-idle-256.png",
+      "raw_sha256": "0a1f9e63701a7bd8d71677e77c87a54b89ac29cb1563975a517a44bf59cab210",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-west-idle-64.png",
+      "native_sha256": "6779b231fd30c22a56500a6ba4f6ba3bfc54e2fc6b708599de387303cce102a7",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-west-idle-on-arena-64.png",
+      "tile_context_sha256": "57d8b78deb2696aa12478876fe0d7d489374b2a9481c6f3c2fb0290babe72778",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-north-idle-256.png",
+      "raw_sha256": "01ef0c31824c270748e5c2978f6607d9c9cb73c117e4dc421ae0a6baf1aff63d",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-north-idle-64.png",
+      "native_sha256": "d598483d8b050857ff1d304bdeee3b4effd9d0e911ee568b743e4125d0f7b83b",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-north-idle-on-arena-64.png",
+      "tile_context_sha256": "bf05d08f9eaeb746fecaa7bbbb77c253042ee0b59b8b0a4560c3c28eff408009",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 130
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-east-idle-256.png",
+      "raw_sha256": "68b6b5c208dc3bb495fe2c6cebc4120c9dc4d7e1ec3e99005fb63b4f9efd11ff",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-east-idle-64.png",
+      "native_sha256": "a710112d3e4014060442da34e3e8789265c462230464cd13d25810ee916abc85",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-east-idle-on-arena-64.png",
+      "tile_context_sha256": "4bdbe6b653f5149c4c69b93c47ad88ebd29e0f69f2b9996bf5786c6a27a70a48",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-south-idle-256.png",
+      "raw_sha256": "425c4a020b29d7b72d6510722d06deb46d96769b67de3088c97d319877ed7415",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-south-idle-64.png",
+      "native_sha256": "a4e0ceb4201aa114165ac43c44a4783b3bfd01a31dd2e704f97cb38b7fa5137f",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-south-idle-on-arena-64.png",
+      "tile_context_sha256": "c7498971fbeddde39344463d71a92fc336abb4c9e578582541e146c1cd13de09",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 132
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-west-idle-256.png",
+      "raw_sha256": "5f7aa9df3fa0fe447306868c4a014939354bd408e1a8b212bc590616b9ab353c",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-west-idle-64.png",
+      "native_sha256": "828c3aae661cf302ad76fad8872ea7badbf943d48498e412db6306f003db6592",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-west-idle-on-arena-64.png",
+      "tile_context_sha256": "6a757cc12836d367269512fc6f8eb6da47eb8f07e49eb9e7bfb42f8fa7cf44dd",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-north-contact-256.png",
+      "raw_sha256": "b93ef2d2f9b554f18ab8d4625fecb7cfc29a4bf9df19286cb931ad2e3a93fe4b",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-north-contact-64.png",
+      "native_sha256": "eab75473092f7cd025d06c075cd013208be9e3648eb80cd78acb4fb2adbf6817",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-north-contact-on-arena-64.png",
+      "tile_context_sha256": "a02c0e3e10c0b0c664f353010b368e6ab2320e8a5c86f8bc6e04cfcef2f555fe",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 131
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-east-contact-256.png",
+      "raw_sha256": "52387c7c39f8b7fbd354f0a730fc610aaf0bb2c685385aaa1cf7fe42fe141f21",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-east-contact-64.png",
+      "native_sha256": "15e0a66f677180d0a42be66574996bdc5fe9ad99d1325bc9c19a4e3e70739df1",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-east-contact-on-arena-64.png",
+      "tile_context_sha256": "b06ebca49b8b8c47c478b0017ee775df98b6f0aa382178e86ab5f44f6ab2b080",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 138
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-south-contact-256.png",
+      "raw_sha256": "b4676f336b34d898cee014e53b4591e0ac0575371b201c0c0e79e83dde28fd3c",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-south-contact-64.png",
+      "native_sha256": "cf3afc3c350a6e86a5967a1b58a45c569f0c2c6883e839e30b4dcb716a24a682",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-south-contact-on-arena-64.png",
+      "tile_context_sha256": "1e56105c20a4dedac85dabc60599cf3c5d1ec186a16089ebed53ed018f722fba",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-west-contact-256.png",
+      "raw_sha256": "0617e84968159179f04135d7787511d51f3cf759b591a1778d33200e49045a81",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-river-west-contact-64.png",
+      "native_sha256": "cc2c707ec470edff72cec1c4db7b299e3ff3e778061642b162d9a09bf9c334a0",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-river-west-contact-on-arena-64.png",
+      "tile_context_sha256": "e2ee5a92596012dc36903a177b8ae2a6674956932a38bb40d3c70c2aeaf8a619",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 141
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-north-contact-256.png",
+      "raw_sha256": "a85b0c6732d57f142ab6dea04ab3fe07fdbc702d6c0ff28b01a11de5569e8212",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-north-contact-64.png",
+      "native_sha256": "55aa07499a8019cf291836dcd8b662d1d77596071a5b3cf087d5f9e5405f0345",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-north-contact-on-arena-64.png",
+      "tile_context_sha256": "a97f3f05f04e041f94a46873807572de6d533cd8d2b73ecd53c2aa72cdf8a0f3",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 131
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-east-contact-256.png",
+      "raw_sha256": "4a2c622f652b68e24932ee6bcff2171c17a2fb1573a045a5221b99e514512cdc",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-east-contact-64.png",
+      "native_sha256": "280c4f0660955b86fe000a3c8f6f74d37eab6f7d4d73a782761ac36910eabcb2",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-east-contact-on-arena-64.png",
+      "tile_context_sha256": "6cb1d29bb7f9957180cc8ab779a79e648bfc147aae02305efa441f2619d52f87",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 138
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-south-contact-256.png",
+      "raw_sha256": "ae423b4435aec714376f3327536ca6c9b3bf00663bbbefc038c1b2cdf63bd5c0",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-south-contact-64.png",
+      "native_sha256": "a3c596c7fcf332315b815bf1078d89badb578e4190579c20baadbf49b1e24e67",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-south-contact-on-arena-64.png",
+      "tile_context_sha256": "78d0dc1a0cfe24903c420fe385c7f6f78a435c0138afef1232d2871e4a158aa2",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-west-contact-256.png",
+      "raw_sha256": "15e54e1d96f65acb160e05b4d345539f26ae488b842326762330478acc4ec4fd",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/wedge_hull/wedge_hull-ember-west-contact-64.png",
+      "native_sha256": "88368de7f9abe4e56a29d97cc9bae69f1ca160a34a1145d76ac88162403a36df",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/wedge_hull/wedge_hull-ember-west-contact-on-arena-64.png",
+      "tile_context_sha256": "03ecf70fdfd9e671f4486ded56d84671f3eb47674f669d8ba89b03dc46088795",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 141
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-north-idle-256.png",
+      "raw_sha256": "7c3454eb25f35e710a6ee63c26322841b37487d600fe9aff13c57e0fb0b5464b",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-north-idle-64.png",
+      "native_sha256": "36139819e8eb2df5949b6c744c7fe663af00618fcfbf356b6486573c2ae3a80e",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-north-idle-on-arena-64.png",
+      "tile_context_sha256": "97edd37d9e86b153720ea2619cdadfe428295af5c6e9f378f53ccab3440d0a5b",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 130
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-east-idle-256.png",
+      "raw_sha256": "1a6b67ae853b8d35eb0e3b0316425e7b39dd3093c14a3e3575a1b830c3baa98a",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-east-idle-64.png",
+      "native_sha256": "4b9978366abcbe3c8df78753ce213b09bddd21c452a5a47718615a630c3deeb0",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-east-idle-on-arena-64.png",
+      "tile_context_sha256": "94384bc75bbc4cfa575693f7e02584984a85b7b93750ed545366132dbe113839",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-south-idle-256.png",
+      "raw_sha256": "6427ea3c6b946448c197565fd332920c19011e6cd7adb691c1ce533d42058a8f",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-south-idle-64.png",
+      "native_sha256": "ca2ab05a5b60a2894ca36f659af6389fa55eeda97bf831b51770fd7055cecad5",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-south-idle-on-arena-64.png",
+      "tile_context_sha256": "187ee9396bd3a7d700f540a668dd6ceccec6820f2da23002987c6f224d2b0978",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 132
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-west-idle-256.png",
+      "raw_sha256": "28850fa171554d2f5954570ca1cae6c2e6cd7002c7b2691caa4611b560fd60db",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-west-idle-64.png",
+      "native_sha256": "1ca78711fdd2c05ab2bd8d6019bd32919084bfeaf547f95da57b5039a2857eb7",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-west-idle-on-arena-64.png",
+      "tile_context_sha256": "13866da3cf619e5ccb21bb8f68e83f20e6571bc6caa5c63ad64be64897451998",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-north-idle-256.png",
+      "raw_sha256": "46662e36b9a13f0f6c8e065c4c7864d1fa9e1f9c004ca0b97952511b327e0a01",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-north-idle-64.png",
+      "native_sha256": "779c1be8bab6ce70bb18d955d2a096717a77e420a3051a5693a74790d38428b6",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-north-idle-on-arena-64.png",
+      "tile_context_sha256": "c1a1461bb640186448e4ef01827c7d251a31dd7574222b7617312de02260adce",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 130
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-east-idle-256.png",
+      "raw_sha256": "5bc440fc65406c9c9ffdd96fb2da37b9d79dcc4bc28388054d4ef903fe01f508",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-east-idle-64.png",
+      "native_sha256": "aa5c10e7d6a4cabc6e1e65cb408eabefa23b490800cd11d6348e81228d76406a",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-east-idle-on-arena-64.png",
+      "tile_context_sha256": "c1a860e5c56ceeb0d714ccdeca2840c88d014f26c210b6108298b8155a9cd238",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-south-idle-256.png",
+      "raw_sha256": "2b5b64028f039d7fc3ac2986eeb6fc97d90627133bab8785dd49fc92542de883",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-south-idle-64.png",
+      "native_sha256": "15b7d1b3dd645840fd56bbcb0b982f1bd258bf4c2265f65d403c3d26fd40d3fa",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-south-idle-on-arena-64.png",
+      "tile_context_sha256": "f0f8282d0607f38b7985b956fdd7b3e06f31cb408ba1221aecee7b5d5b828128",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 132
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-west-idle-256.png",
+      "raw_sha256": "91e18cc21cd2a80a78bd9f6eafe201d4c31e3f1f25cd1c947854a0d9e537c3ca",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-west-idle-64.png",
+      "native_sha256": "66a55b6da382e2274186adfdba50939f0343903926be63ec58d9f61f34b0eaa7",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-west-idle-on-arena-64.png",
+      "tile_context_sha256": "92971da9bae945744dc185cec167e555685e0d452912dadfedfe2a6e33fa6c2d",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 127
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-north-contact-256.png",
+      "raw_sha256": "104faec303ad010e68372bad51094872a8f58736dcd3baeaf6166779f5a6931d",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-north-contact-64.png",
+      "native_sha256": "5e1511c4b8391558ca585fcef4024d3424a6bd3ce904cbae6e44d9bddb504a45",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-north-contact-on-arena-64.png",
+      "tile_context_sha256": "18bd39ecfdce292c0082a168f26a7d68c9cb915764f299549d6687d8d02cbd2e",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 131
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-east-contact-256.png",
+      "raw_sha256": "10d2ca96d4ed85f7b398bb782f85cb756a8d82544dafd2183c884781b11f8f9d",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-east-contact-64.png",
+      "native_sha256": "0951d8f65f7cc49217385ba6c36dd2a45eafc31ef3c3d45000cb63cfdd39bd2f",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-east-contact-on-arena-64.png",
+      "tile_context_sha256": "ce95cad242363aeb42a22351cc3e6dece0ae6c9e0e95c315ce0f455d57bc504a",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 138
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-south-contact-256.png",
+      "raw_sha256": "1031ac15f05ef4312e56d2503485e950ee0d6e8d3da07772eb75224e2f8cb895",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-south-contact-64.png",
+      "native_sha256": "3afce92021524ab4bb6aff05372443c4491452650eee1c3b7131b19408f8212b",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-south-contact-on-arena-64.png",
+      "tile_context_sha256": "2203223e21006dea70d1db3206c9a6fcd5f78fb23df0d06aed123df64cb8b4f2",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-west-contact-256.png",
+      "raw_sha256": "86e01a5c34d27ba6a82e4137ce4a0ec71c023648bace5c87d434c6b4195aa047",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-river-west-contact-64.png",
+      "native_sha256": "6ba65c1753402f82d687142209ee98640fe89c36fcdf25b99e9f0648b9a036fd",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-river-west-contact-on-arena-64.png",
+      "tile_context_sha256": "ec2b280d3fe0ac27e2a0627554469746c14e7402aec271c968621b10b8512572",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 141
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-north-contact-256.png",
+      "raw_sha256": "c171e4138a9b801c286ea4c541db3c9f2d2f9066ed09a5813e68829c4f53bd8b",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-north-contact-64.png",
+      "native_sha256": "cfee519a4b86857bac255cc724672b6861e8afeca8157c0b3c672c1075bc5524",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-north-contact-on-arena-64.png",
+      "tile_context_sha256": "f65f7301e70dabe8e8a64aabb200d29b52b285fa8c51e64cdf264ff79fe36f74",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 131
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-east-contact-256.png",
+      "raw_sha256": "92a6f013216bdba7cd18afcd81361719ef7b5787f8910c44e594a44088397f0e",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-east-contact-64.png",
+      "native_sha256": "08b41c3953bdea9fc1966a014213dc09daf64361c0d9e364375a070dd2589a17",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-east-contact-on-arena-64.png",
+      "tile_context_sha256": "028f179cb3255bcd5a214eb07338266fced3e8c8719c8eb2643bb6038e670cf6",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 138
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-south-contact-256.png",
+      "raw_sha256": "2ff31e4ae4dadbda3d8a5a00ab0ca11d8331376229fb3ef75ce6f366f8812372",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-south-contact-64.png",
+      "native_sha256": "c01d634a0bf1e89033424a186d9f3c174fad1903c3c693630d81fdba617884ee",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-south-contact-on-arena-64.png",
+      "tile_context_sha256": "be7260a2d21f61916292a4ee38ef4aa78850cda91b77d37565fb28eac743f870",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-west-contact-256.png",
+      "raw_sha256": "6bcb6ca60a57439365820555033d4fb9c92d36db3dd6cbab2cba8df03ac17c4b",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/notched_stern/notched_stern-ember-west-contact-64.png",
+      "native_sha256": "b5bc29bb69c21d400e453abd66da50aa75e4b0b3a5f56457f3825fed20d434ca",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/notched_stern/notched_stern-ember-west-contact-on-arena-64.png",
+      "tile_context_sha256": "216139d1632e6f35b9e4229b34669f9b8675f5b3d8e9450849dad994abad8543",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 141
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-north-idle-256.png",
+      "raw_sha256": "a22884c72dd3bc084c79f8bc8060216958bdbddde885d3b945233244bbe4bf42",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-north-idle-64.png",
+      "native_sha256": "e6a7185e92d24aa168b56bcd5658247e96e942fffc49468f893c2a28d722bc51",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-north-idle-on-arena-64.png",
+      "tile_context_sha256": "828c2d88f31304d9a6f931306e7135a676fd7aee65b7766df2899af42246b58f",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 128
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-east-idle-256.png",
+      "raw_sha256": "4e7dcc36d36f412c23ae8ac271c6c8cb3916fee0d7699174f2dfee4c902ddc64",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-east-idle-64.png",
+      "native_sha256": "db4041f7b7b2255ca6e333a39e9b4f3e4f3511e80bd4de91c6d6d1437840d9e8",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-east-idle-on-arena-64.png",
+      "tile_context_sha256": "4fb410d64968b791a01f2a077d61e31c9eaa61ae4130ef9ae7efe301290d9a1f",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 125
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-south-idle-256.png",
+      "raw_sha256": "0a437002c04772b289368522df47cf9f8e704efd085831d8009fd5b99e039342",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-south-idle-64.png",
+      "native_sha256": "adca961dc9893b534a4efb389fb3413860ccaef5686216fede33539e2f9cdb40",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-south-idle-on-arena-64.png",
+      "tile_context_sha256": "58b3ab81dedbd4d3a6d330cdfc57f4ba6af90192ce71b9e9a439e2e95ea5f19f",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 132
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-west-idle-256.png",
+      "raw_sha256": "603831349babf4d4e3c10d166c3415d4802586904640bc1d4ebc25eabcc46107",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-west-idle-64.png",
+      "native_sha256": "0fd256b3b7cec81d8f1265009b285e468b255a4ca22ebe5ac7035efe67a6abc7",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-west-idle-on-arena-64.png",
+      "tile_context_sha256": "7e4c6752856852ac512e1cba220d6b675ffc99cccbeaec5117ccb501de0ad0c7",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 125
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-north-idle-256.png",
+      "raw_sha256": "7fa4d4d5120322a2efee5f4cf3044b5a8637859559d27ef9ddff85ad627018c4",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-north-idle-64.png",
+      "native_sha256": "cf69f0ff2a87e22a29e9da09df6eaafc68dbc2151f91265d615e31c88d1a48b3",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-north-idle-on-arena-64.png",
+      "tile_context_sha256": "a6366808a665089661e0a3d5bdea66475ed218c569f8985a82f8eb2ffc676fc4",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 128
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-east-idle-256.png",
+      "raw_sha256": "81beb36b1eb3f29aade1d7b713f38d5fd6ae52dfdc54b17cdb821609c7a9c789",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-east-idle-64.png",
+      "native_sha256": "ac8148a352d715800c8200c06bb291b785a46541c5fd424f12641bdc19548aaf",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-east-idle-on-arena-64.png",
+      "tile_context_sha256": "52bde1baa70b399c3fd33260e21085a70318ab857b616a7d5cce0c761d02065d",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 125
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-south-idle-256.png",
+      "raw_sha256": "b573558aaf4a4f533cd6208c51bf67e421ccdd018d47d8c9dc63ed6f59d70e78",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-south-idle-64.png",
+      "native_sha256": "2f407486a472b142fd0f529c003afd03b48b847bd25f1f8f5898a1baf9c10cda",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-south-idle-on-arena-64.png",
+      "tile_context_sha256": "6963be4fe2fe7267f12e7723dfdba426d514e21118c2f33e18d4ecbba55a5184",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      },
+      "visible_pixels_threshold_16": 132
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-west-idle-256.png",
+      "raw_sha256": "ba0c7532b3dcf51270643aa7976d2be3a369bfe14961dd26ce27afaf0d26d8d2",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-west-idle-64.png",
+      "native_sha256": "3db0ae57e43b36ca5596b07fc8735960d487d91db78da775c7d2220337a2a3fd",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-west-idle-on-arena-64.png",
+      "tile_context_sha256": "0f5274d9a5382184d55062269616807c51e942c1914929e5a7e6f933f043ea14",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 125
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-north-contact-256.png",
+      "raw_sha256": "814fa294564092e25a937adafa59188425942cb96f220df9de341b94bede9343",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-north-contact-64.png",
+      "native_sha256": "153078919ef7b084b8cc632ac8975b1234237cb54438baca9f9404e2bb834ed1",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-north-contact-on-arena-64.png",
+      "tile_context_sha256": "18dc84c144d8abdf5f77fea778d39f01363076df28ee29e756f7e1c839c93762",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 125
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-east-contact-256.png",
+      "raw_sha256": "4d3d536133905ec975b53099b405fb4ea243d1703d366cc9f3e924e30950e0e9",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-east-contact-64.png",
+      "native_sha256": "e2ee0a970105ef11999daab482d0be9c9effedd49a87b9fb1f291106d7af8ede",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-east-contact-on-arena-64.png",
+      "tile_context_sha256": "e9e95389b2547f872c6a93a171fd2d1213f38dbcaf5f3371cc691630c07aa6dc",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 137
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-south-contact-256.png",
+      "raw_sha256": "33a38a20b931447d01e0fc9f432def427a01de9b72881deba4c6d4c75f799dcb",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-south-contact-64.png",
+      "native_sha256": "14f1e305c2dcfe51ec076228e97c642460b1d210e7a49b9c5eb798cfdd982335",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-south-contact-on-arena-64.png",
+      "tile_context_sha256": "aa852093b0a160df274765d426fa2644ffa3fca61e3e330ea7ebbd3ba3240a7a",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-west-contact-256.png",
+      "raw_sha256": "642819d9c1fe3190827f63f6737dbbfd5b631be91f396a8cd7884e369ea685ca",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-river-west-contact-64.png",
+      "native_sha256": "a1d292139a769bd063e44f87495e858598fbd948500495823f97fb0046b25447",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-river-west-contact-on-arena-64.png",
+      "tile_context_sha256": "172f1750111afc5767bf63c544875b5ff65fe0c8d0c7ebc5a29efa8578b32949",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 140
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-north-contact-256.png",
+      "raw_sha256": "0f3d25cb2503841a73a67a381e1a5d7063966dc500fb0ccccdcdf67861becd1f",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-north-contact-64.png",
+      "native_sha256": "fef128f2992d9d0e8d247b6db2a3440d686d30ab72ccb7a386e34a68066d117c",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-north-contact-on-arena-64.png",
+      "tile_context_sha256": "b0fc683ad57bc02170cb5c5490fe52a23ea58c663ac098426b28595c1fe9a4f2",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 125
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-east-contact-256.png",
+      "raw_sha256": "82eccff80b761d51fc87f764128863e336d120767235ab8ebb14e10f4edee2b4",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-east-contact-64.png",
+      "native_sha256": "f4858ad8361081cb2abb356e5af84b6f251cc7e98a697e17bfbac8c1c232f1cc",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-east-contact-on-arena-64.png",
+      "tile_context_sha256": "70fd7da423453ddbaea298c935e5345ad2ce1c147b36dfb9800435718dc64a43",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 137
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-south-contact-256.png",
+      "raw_sha256": "221e9053803c0063affe86ddf7f34529893bb80f8a164e3d937eb4f4db756c54",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-south-contact-64.png",
+      "native_sha256": "b6cb4c9e5c246be6281631e9a8425d7c2a8857607321dcf91010bc1f142ea6c7",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-south-contact-on-arena-64.png",
+      "tile_context_sha256": "457ff1d17da98eb349c6bac04cba4eb7735141b2bb57b983ac1d722010ef4ddc",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      },
+      "visible_pixels_threshold_16": 142
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "raw_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-west-contact-256.png",
+      "raw_sha256": "f0689cecde5917c790198efd217acb026b8ab97342d93e2ab24936d5ebc0b541",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/native-64/tapered_canopy/tapered_canopy-ember-west-contact-64.png",
+      "native_sha256": "83788a1e3588e12a85cfd15ade4ee025ecb194ab25f049303e4253028ea52330",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tile-context/tapered_canopy/tapered_canopy-ember-west-contact-on-arena-64.png",
+      "tile_context_sha256": "26ba21ca545d4203d8595d39481aec9a41af86b8b08fc423296de92080a29ac9",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      },
+      "visible_pixels_threshold_16": 140
+    }
+  ],
+  "selected_contact_pixel_differences": [
+    {
+      "team": "river",
+      "direction": "north",
+      "changed_visible_pixels_contact_vs_idle": 139,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      }
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "changed_visible_pixels_contact_vs_idle": 141,
+      "idle_alpha_bounds_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "changed_visible_pixels_contact_vs_idle": 142,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      }
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "changed_visible_pixels_contact_vs_idle": 145,
+      "idle_alpha_bounds_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "changed_visible_pixels_contact_vs_idle": 139,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "east",
+      "changed_visible_pixels_contact_vs_idle": 141,
+      "idle_alpha_bounds_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "changed_visible_pixels_contact_vs_idle": 142,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "changed_visible_pixels_contact_vs_idle": 145,
+      "idle_alpha_bounds_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    }
+  ]
+}

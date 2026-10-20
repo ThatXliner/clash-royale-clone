@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:36:53Z",
+  "finished_utc": "2026-10-20T17:36:59Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 86049,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/copperskiff.blend",
+    "--variant",
+    "notched_stern",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/copperskiff.blend",
+  "blend_sha256_before": "0d218bbfa0f4821f1f5355138f01d6f70235304b8adaf8479b67947acce67724",
+  "blend_sha256_after": "0d218bbfa0f4821f1f5355138f01d6f70235304b8adaf8479b67947acce67724",
+  "scene": "ME_20261020_copperskiff_round_4_notched_stern",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_notched_stern_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654389858246,
+        "right": 0.5989345908164978,
+        "bottom": 0.13546088337898254,
+        "top": 0.36282357573509216
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_notched_stern_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3890341818332672,
+        "right": 0.6473178863525391,
+        "bottom": 0.14051173627376556,
+        "top": 0.32371944189071655
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_notched_stern_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654091835022,
+        "right": 0.5989345908164978,
+        "bottom": 0.12475935369729996,
+        "top": 0.32441964745521545
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_notched_stern_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5000000596046448,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 128.00001525878906,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3526821434497833,
+        "right": 0.6109657883644104,
+        "bottom": 0.14051173627376556,
+        "top": 0.32371944189071655
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 25,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-north-idle-256.png",
+      "bytes": 22722,
+      "sha256": "7c3454eb25f35e710a6ee63c26322841b37487d600fe9aff13c57e0fb0b5464b"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-east-idle-256.png",
+      "bytes": 22996,
+      "sha256": "1a6b67ae853b8d35eb0e3b0316425e7b39dd3093c14a3e3575a1b830c3baa98a"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-south-idle-256.png",
+      "bytes": 22325,
+      "sha256": "6427ea3c6b946448c197565fd332920c19011e6cd7adb691c1ce533d42058a8f"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-west-idle-256.png",
+      "bytes": 22788,
+      "sha256": "28850fa171554d2f5954570ca1cae6c2e6cd7002c7b2691caa4611b560fd60db"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-north-contact-256.png",
+      "bytes": 23174,
+      "sha256": "104faec303ad010e68372bad51094872a8f58736dcd3baeaf6166779f5a6931d"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-east-contact-256.png",
+      "bytes": 23374,
+      "sha256": "10d2ca96d4ed85f7b398bb782f85cb756a8d82544dafd2183c884781b11f8f9d"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-south-contact-256.png",
+      "bytes": 22998,
+      "sha256": "1031ac15f05ef4312e56d2503485e950ee0d6e8d3da07772eb75224e2f8cb895"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-river-west-contact-256.png",
+      "bytes": 23452,
+      "sha256": "86e01a5c34d27ba6a82e4137ce4a0ec71c023648bace5c87d434c6b4195aa047"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-north-idle-256.png",
+      "bytes": 22613,
+      "sha256": "46662e36b9a13f0f6c8e065c4c7864d1fa9e1f9c004ca0b97952511b327e0a01"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-east-idle-256.png",
+      "bytes": 22955,
+      "sha256": "5bc440fc65406c9c9ffdd96fb2da37b9d79dcc4bc28388054d4ef903fe01f508"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-south-idle-256.png",
+      "bytes": 22292,
+      "sha256": "2b5b64028f039d7fc3ac2986eeb6fc97d90627133bab8785dd49fc92542de883"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-west-idle-256.png",
+      "bytes": 22784,
+      "sha256": "91e18cc21cd2a80a78bd9f6eafe201d4c31e3f1f25cd1c947854a0d9e537c3ca"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-north-contact-256.png",
+      "bytes": 23177,
+      "sha256": "c171e4138a9b801c286ea4c541db3c9f2d2f9066ed09a5813e68829c4f53bd8b"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-east-contact-256.png",
+      "bytes": 23262,
+      "sha256": "92a6f013216bdba7cd18afcd81361719ef7b5787f8910c44e594a44088397f0e"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-south-contact-256.png",
+      "bytes": 22943,
+      "sha256": "2ff31e4ae4dadbda3d8a5a00ab0ca11d8331376229fb3ef75ce6f366f8812372"
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/notched_stern/raw-256/notched_stern/notched_stern-ember-west-contact-256.png",
+      "bytes": 23297,
+      "sha256": "6bcb6ca60a57439365820555033d4fb9c92d36db3dd6cbab2cba8df03ac17c4b"
+    }
+  ]
+}

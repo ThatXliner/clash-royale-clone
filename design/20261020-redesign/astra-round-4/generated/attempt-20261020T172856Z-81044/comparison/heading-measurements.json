@@ -1,0 +1,808 @@
+{
+  "status": "Measurements only; native facing recognition requires independent judgment",
+  "method": "Opposite idle masks share the fixed 64-square cell and (32,54) ground anchor; no realignment",
+  "targets": {
+    "bow_taper_depth_pixels_min": 3,
+    "stern_flat_or_notch_width_pixels_min": 4,
+    "opposite_heading_changed_silhouette_pixels_min": 12,
+    "opposite_heading_silhouette_iou_target_max": 0.85,
+    "decision": "Native viewers must identify the facing direction; numeric silhouette differences are supporting evidence only."
+  },
+  "opposite_heading_pairs": [
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 100,
+      "union_pixels": 162,
+      "changed_silhouette_pixels": 62,
+      "same_anchor_iou": 0.6172839506172839
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 78,
+      "union_pixels": 124,
+      "changed_silhouette_pixels": 46,
+      "same_anchor_iou": 0.6290322580645161
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 98,
+      "union_pixels": 156,
+      "changed_silhouette_pixels": 58,
+      "same_anchor_iou": 0.6282051282051282
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 74,
+      "union_pixels": 140,
+      "changed_silhouette_pixels": 66,
+      "same_anchor_iou": 0.5285714285714286
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 100,
+      "union_pixels": 162,
+      "changed_silhouette_pixels": 62,
+      "same_anchor_iou": 0.6172839506172839
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 78,
+      "union_pixels": 124,
+      "changed_silhouette_pixels": 46,
+      "same_anchor_iou": 0.6290322580645161
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 98,
+      "union_pixels": 156,
+      "changed_silhouette_pixels": 58,
+      "same_anchor_iou": 0.6282051282051282
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 74,
+      "union_pixels": 140,
+      "changed_silhouette_pixels": 66,
+      "same_anchor_iou": 0.5285714285714286
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 100,
+      "union_pixels": 162,
+      "changed_silhouette_pixels": 62,
+      "same_anchor_iou": 0.6172839506172839
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 72,
+      "union_pixels": 124,
+      "changed_silhouette_pixels": 52,
+      "same_anchor_iou": 0.5806451612903226
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 98,
+      "union_pixels": 156,
+      "changed_silhouette_pixels": 58,
+      "same_anchor_iou": 0.6282051282051282
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 70,
+      "union_pixels": 140,
+      "changed_silhouette_pixels": 70,
+      "same_anchor_iou": 0.5
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 100,
+      "union_pixels": 162,
+      "changed_silhouette_pixels": 62,
+      "same_anchor_iou": 0.6172839506172839
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 72,
+      "union_pixels": 124,
+      "changed_silhouette_pixels": 52,
+      "same_anchor_iou": 0.5806451612903226
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 98,
+      "union_pixels": 156,
+      "changed_silhouette_pixels": 58,
+      "same_anchor_iou": 0.6282051282051282
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 70,
+      "union_pixels": 140,
+      "changed_silhouette_pixels": 70,
+      "same_anchor_iou": 0.5
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 98,
+      "union_pixels": 162,
+      "changed_silhouette_pixels": 64,
+      "same_anchor_iou": 0.6049382716049383
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 74,
+      "union_pixels": 126,
+      "changed_silhouette_pixels": 52,
+      "same_anchor_iou": 0.5873015873015873
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 92,
+      "union_pixels": 158,
+      "changed_silhouette_pixels": 66,
+      "same_anchor_iou": 0.5822784810126582
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 70,
+      "union_pixels": 138,
+      "changed_silhouette_pixels": 68,
+      "same_anchor_iou": 0.5072463768115942
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 98,
+      "union_pixels": 162,
+      "changed_silhouette_pixels": 64,
+      "same_anchor_iou": 0.6049382716049383
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "directions": [
+        "north",
+        "south"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 74,
+      "union_pixels": 126,
+      "changed_silhouette_pixels": 52,
+      "same_anchor_iou": 0.5873015873015873
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 16,
+      "intersection_pixels": 92,
+      "union_pixels": 158,
+      "changed_silhouette_pixels": 66,
+      "same_anchor_iou": 0.5822784810126582
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "directions": [
+        "east",
+        "west"
+      ],
+      "alpha_threshold": 128,
+      "intersection_pixels": 70,
+      "union_pixels": 138,
+      "changed_silhouette_pixels": 68,
+      "same_anchor_iou": 0.5072463768115942
+    }
+  ],
+  "native_size_against_r3": [
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "north",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "r3_control_width_height": [
+        14,
+        15
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "east",
+      "actual_alpha_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "south",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "r3_control_width_height": [
+        14,
+        13
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "west",
+      "actual_alpha_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "north",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "r3_control_width_height": [
+        14,
+        15
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "east",
+      "actual_alpha_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "south",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "r3_control_width_height": [
+        14,
+        13
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "west",
+      "actual_alpha_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "north",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "r3_control_width_height": [
+        14,
+        15
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "east",
+      "actual_alpha_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "south",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "r3_control_width_height": [
+        14,
+        13
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "west",
+      "actual_alpha_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "north",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "r3_control_width_height": [
+        14,
+        15
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "east",
+      "actual_alpha_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "south",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "r3_control_width_height": [
+        14,
+        13
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "west",
+      "actual_alpha_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "north",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "r3_control_width_height": [
+        14,
+        15
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "east",
+      "actual_alpha_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "south",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "r3_control_width_height": [
+        14,
+        13
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "west",
+      "actual_alpha_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "north",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "r3_control_width_height": [
+        14,
+        15
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "east",
+      "actual_alpha_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "south",
+      "actual_alpha_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "r3_control_width_height": [
+        14,
+        13
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "west",
+      "actual_alpha_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "r3_control_width_height": [
+        17,
+        12
+      ],
+      "width_height_delta": [
+        0,
+        0
+      ],
+      "exceeds_r3_control_extent": false
+    }
+  ],
+  "extent_policy": "Flag any increase; never rescale a view or raise a size cap to hide it"
+}

@@ -1,0 +1,669 @@
+{
+  "status": "reconstructed evidence receipt; 16 raw renders completed; Blender post-render JSON serialization failed",
+  "scope": "selected frozen R4 tapered_canopy Copperskiff only; 2 teams x 4 saved camera labels x idle/contact",
+  "run_directory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z",
+  "raw_render_process": {
+    "blender_version": "5.1.2",
+    "pid": 91459,
+    "direct_exit_code": 1,
+    "argv_file": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/blender-argv.txt",
+    "environment_file": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/blender-environment.txt",
+    "stdout_raw": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/blender-stdout.raw.txt",
+    "stderr_raw": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/blender-stderr.raw.txt",
+    "rendered_event_count": 16,
+    "raw_sprite_count": 16,
+    "raw_sprites": [
+      {
+        "team": "ember",
+        "direction": "east",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-east-contact-256.png",
+        "sha256": "8cb1be191309b260bc3b20e05a937dfadee8f00bbd746c8a3fa2fd7a5e941d7f",
+        "bytes": 22868,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "east",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-east-idle-256.png",
+        "sha256": "5e1e62d60d2814ab5dd03b28521efdd6c46fb713ce15c35337c563e2b284a508",
+        "bytes": 22547,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "north",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-north-contact-256.png",
+        "sha256": "da08c93478f80a84a8be99c52cf8e5aa905cd3c4991110b67994d5078b1cbbeb",
+        "bytes": 22271,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "north",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-north-idle-256.png",
+        "sha256": "6cb8fe14b5d37cb1f4a873a9088189c455c11cc3dca9a5ae1e4358868771ed64",
+        "bytes": 21758,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "south",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-south-contact-256.png",
+        "sha256": "d78deb29b163c6a9fe4a44e1be99d200cbf34f98d36b152e9f652fc7d614832e",
+        "bytes": 22923,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "south",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-south-idle-256.png",
+        "sha256": "a7622bef8cbca4b43967fd4b3838c0a9684612af21fedeb7fb3eac459ff6d36a",
+        "bytes": 22213,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "west",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-west-contact-256.png",
+        "sha256": "1f152c3a1dfa50b8647b4ec35d36d5bc32df979592070b487988469279e687e9",
+        "bytes": 22806,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "ember",
+        "direction": "west",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/ember-west-idle-256.png",
+        "sha256": "6b6547f192d1e59ee36fa8ad74eba87c429d64eaa05958ad84d3bd0cc67d3d04",
+        "bytes": 22403,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "east",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-east-contact-256.png",
+        "sha256": "3b9f2a77d10719081e1c1613e5a204b74e80ca328cd2f27bae011668938c78b6",
+        "bytes": 22847,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "east",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-east-idle-256.png",
+        "sha256": "5742a8b6d92168f3594095caca85f56a3655b075059dbc94491d00c182920ebb",
+        "bytes": 22586,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "north",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-north-contact-256.png",
+        "sha256": "973693354db4b55c25082c3810517c9b822ef29b393c47cfefffafecf8cfd055",
+        "bytes": 22273,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "north",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-north-idle-256.png",
+        "sha256": "40a289c72c4342396b8833fd78aa73456e37223d61ea8df58be5c8c79123d83a",
+        "bytes": 21815,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "south",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-south-contact-256.png",
+        "sha256": "6e55ecffaf9ff7782c92b3ad9b8aa36f856ee2ce6f05909e46e4068b1fc8fd65",
+        "bytes": 23051,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "south",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-south-idle-256.png",
+        "sha256": "be7afc6f43a89ef8120672dc97577132e76fe2a34b0d06c5d4bf0c48f3e6ff8a",
+        "bytes": 22252,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "west",
+        "pose": "contact",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-west-contact-256.png",
+        "sha256": "7e00bae14afb552f58c26294b17880034d4f2506162d27570c90ab0230aab8a0",
+        "bytes": 22902,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      },
+      {
+        "team": "river",
+        "direction": "west",
+        "pose": "idle",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/raw-256/river-west-idle-256.png",
+        "sha256": "8eee40282f1edae38dbf2445db024a2cbb20260829132f3dc4f68d72a1b8f94f",
+        "bytes": 22481,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "format": "PNG"
+      }
+    ],
+    "post_render_failure": "Blender completed all 16 writes, then json.dumps(receipt) raised TypeError: Object of type Scene is not JSON serializable for stored_scene_names. The process therefore exited 1 and did not write fresh-render-receipt.json."
+  },
+  "native_derivation": {
+    "status": "fresh independent renders reduced to native 64x64 cells; visual judgment separate",
+    "postprocess_pid": 91509,
+    "direct_exit_code": 0,
+    "stdout_raw": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/postprocess-stdout.raw.txt",
+    "stderr_raw": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/postprocess-stderr.raw.txt",
+    "native_receipt": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/native-evidence-receipt.json",
+    "native_receipt_sha256": "401d6d73a6977f15c814e859278c299788849bf928c8a637ec13557c903cebd6",
+    "native_sprite_count": 16,
+    "native_sheet": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/selected-team-contact-native.png",
+      "sha256": "7cfdff907e2f04c5487ab26a3319ec2aa6c13f4e5e60cce3baec0bab29fc9450",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    "arena_context_sheet": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180144Z/selected-team-contact-arena-context-native.png",
+      "sha256": "c65cc0e7e98b090be939a4772e1f63c108cf0f317a0fd844a6f265c732926efe",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    "contact_pixel_differences": [
+      {
+        "team": "river",
+        "direction": "north",
+        "changed_visible_pixels_contact_vs_idle": 139,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 39,
+          "width": 14,
+          "height": 16
+        }
+      },
+      {
+        "team": "river",
+        "direction": "east",
+        "changed_visible_pixels_contact_vs_idle": 141,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 19,
+          "height": 12
+        }
+      },
+      {
+        "team": "river",
+        "direction": "south",
+        "changed_visible_pixels_contact_vs_idle": 142,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 15
+        }
+      },
+      {
+        "team": "river",
+        "direction": "west",
+        "changed_visible_pixels_contact_vs_idle": 145,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 20,
+          "top": 43,
+          "width": 19,
+          "height": 12
+        }
+      },
+      {
+        "team": "ember",
+        "direction": "north",
+        "changed_visible_pixels_contact_vs_idle": 139,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 39,
+          "width": 14,
+          "height": 16
+        }
+      },
+      {
+        "team": "ember",
+        "direction": "east",
+        "changed_visible_pixels_contact_vs_idle": 141,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 19,
+          "height": 12
+        }
+      },
+      {
+        "team": "ember",
+        "direction": "south",
+        "changed_visible_pixels_contact_vs_idle": 142,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 15
+        }
+      },
+      {
+        "team": "ember",
+        "direction": "west",
+        "changed_visible_pixels_contact_vs_idle": 145,
+        "idle_alpha_bounds_threshold_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "contact_alpha_bounds_threshold_16": {
+          "left": 20,
+          "top": 43,
+          "width": 19,
+          "height": 12
+        }
+      }
+    ],
+    "visible_alpha_bounds_threshold_16": [
+      {
+        "team": "river",
+        "direction": "north",
+        "pose": "idle",
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      {
+        "team": "river",
+        "direction": "north",
+        "pose": "contact",
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      {
+        "team": "river",
+        "direction": "east",
+        "pose": "idle",
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      {
+        "team": "river",
+        "direction": "east",
+        "pose": "contact",
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      {
+        "team": "river",
+        "direction": "south",
+        "pose": "idle",
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      {
+        "team": "river",
+        "direction": "south",
+        "pose": "contact",
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      {
+        "team": "river",
+        "direction": "west",
+        "pose": "idle",
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      {
+        "team": "river",
+        "direction": "west",
+        "pose": "contact",
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      {
+        "team": "ember",
+        "direction": "north",
+        "pose": "idle",
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      {
+        "team": "ember",
+        "direction": "north",
+        "pose": "contact",
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      {
+        "team": "ember",
+        "direction": "east",
+        "pose": "idle",
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      {
+        "team": "ember",
+        "direction": "east",
+        "pose": "contact",
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      {
+        "team": "ember",
+        "direction": "south",
+        "pose": "idle",
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      {
+        "team": "ember",
+        "direction": "south",
+        "pose": "contact",
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      {
+        "team": "ember",
+        "direction": "west",
+        "pose": "idle",
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      {
+        "team": "ember",
+        "direction": "west",
+        "pose": "contact",
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    ]
+  },
+  "saved_camera_projection_audit": {
+    "status": "read-only saved-asset projection audit; no render or save",
+    "receipt_path": "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/projection-receipt.json",
+    "receipt_sha256": "563ffd41c45ffe71f125c3dcda4cc8cad85c901b3535a3bd78b1888849f13b96",
+    "blender_version": "5.1.2",
+    "blender_pid": 90334,
+    "direct_exit_code": 0,
+    "stdout_raw": "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/attempt-3-blender-stdout.raw.txt",
+    "stderr_raw": "/Users/me/.codex/clash-qualification/20261020-sprite-heading-audit/attempt-3-blender-stderr.raw.txt",
+    "blend_sha256_before": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+    "blend_sha256_after": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+    "inputs_unchanged": true,
+    "scene": "ME_20261020_copperskiff_round_4_tapered_canopy",
+    "stored_camera_contract": {
+      "calibration": "Fixed R2 orthographic scale. No shape-dependent recalibration.",
+      "camera_names": {
+        "east": "ME_20261020_copperskiff_tapered_canopy_east",
+        "north": "ME_20261020_copperskiff_tapered_canopy_north",
+        "south": "ME_20261020_copperskiff_tapered_canopy_south",
+        "west": "ME_20261020_copperskiff_tapered_canopy_west"
+      },
+      "camera_target_height": 4.291610025503216,
+      "directions": [
+        [
+          "north",
+          180
+        ],
+        [
+          "east",
+          270
+        ],
+        [
+          "south",
+          0
+        ],
+        [
+          "west",
+          90
+        ]
+      ],
+      "elevation_degrees": 50,
+      "ground_anchor_normalized": [
+        0.5,
+        0.84375
+      ],
+      "idle_body_height_px_target": 13,
+      "native_cell": 64,
+      "orthographic_scale": 8.025,
+      "supersample": 4
+    },
+    "placement_forward_axis": "-Y",
+    "hull_forward_world": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "measured_idle_heading_signs": [
+      {
+        "saved_camera_label": "east",
+        "bow_minus_stern_native64_top_origin_pixels": [
+          15.252334594726562,
+          -0.8714675903320312
+        ],
+        "projected_facing": "east",
+        "matches_saved_camera_label": true
+      },
+      {
+        "saved_camera_label": "west",
+        "bow_minus_stern_native64_top_origin_pixels": [
+          -15.25233268737793,
+          -0.8714675903320312
+        ],
+        "projected_facing": "west",
+        "matches_saved_camera_label": true
+      },
+      {
+        "saved_camera_label": "north",
+        "bow_minus_stern_native64_top_origin_pixels": [
+          -3.814697265625e-06,
+          -12.55543041229248
+        ],
+        "projected_facing": "north",
+        "matches_saved_camera_label": true
+      },
+      {
+        "saved_camera_label": "south",
+        "bow_minus_stern_native64_top_origin_pixels": [
+          0.0,
+          10.812499046325684
+        ],
+        "projected_facing": "south",
+        "matches_saved_camera_label": true
+      }
+    ]
+  },
+  "integrity_fences": {
+    "frozen_manifest_entry_count": 126,
+    "frozen_precheck_line_count": 126,
+    "frozen_postcheck_line_count": 126,
+    "frozen_precheck_failed": false,
+    "frozen_postcheck_failed": false,
+    "all_hashed_inputs_identical_pre_post": true,
+    "blend_sha256": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+    "glb_sha256": "fdef3262b550903f512337442e10b51ffd4d869b6505f0c9c93f5cfd118dd500",
+    "model_source_sha256": "ee2a847414de7918bd11c78faa8005de612452a6ec6911424560a73706e587b3",
+    "blender_executable_sha256_prelaunch": "e0b80264bea559673212e0afc819fb33f3cef8b3dcfcc8d994b195132857ac8a",
+    "blender_executable_sha256_postrun": "e0b80264bea559673212e0afc819fb33f3cef8b3dcfcc8d994b195132857ac8a",
+    "blender_executable_hash_identical": true,
+    "blender_pid": 91459
+  },
+  "prior_preserved_setup_failure": {
+    "run_directory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-r4-reassessment/run-20261020T180055Z",
+    "blender_pid": 91331,
+    "direct_exit_code": 1,
+    "failure": "The first audit script tried to project the copperskiff_body Empty as a mesh; no render occurred."
+  }
+}

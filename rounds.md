@@ -9819,3 +9819,17 @@ The site explains the current 23-card roster, eight-card deck, four-card hand, e
 
 First attempts retain the missing external Playwright path and shell readonly-variable setup errors. The corrected runner uses its isolated pinned Playwright/core 1.58.2, Node 22.22.3/npm 10.9.8, and Chrome 155 with new prelaunch tool hashes; no source/assertion/cap changes. Raw evidence and separate independent verdicts are in artifacts/presentation-r4-site-r1/critic.
 BIGGEST GAP: The card count and gameplay image are static and must be refreshed when the catalog or game presentation changes. This is no character-art, in-game redesign, or complete-roster claim. Public deployment is verified separately.
+
+
+## Round 527 — ART-3D-COPPER-001 original Copperskiff R4 native model
+
+PIECE: ART-3D-COPPER-001
+VERDICT: PASS
+EVIDENCE: A fresh critic renders and views16 selected tapered-canopy saved-model frames (two teams, four headings, idle/contact). Native64 cells contain crop-safe idle bounds N14x15,E17x12,S14x13,W17x12 pixels; boat hull, team zones and contact plume/recoil read. The selected model has25 editable meshes and1014triangles; GLB has25mesh definitions/eight animations/ninechannels and noexternalimages. Common saved camera contract remains50degrees/8.025ortho/groundanchor32,54. All126 frozen delivery entries pass before/after and input/Blender executable hashes match.
+
+The original R4 critic rendered64 frames and accepted native boat/team/contact but rejected east/west by comparing camera location against world +X east. That objection mistakes camera position for actor-facing sprite labels. A separate actual saved-scene probe (Blender5.1.2 PID90334 exit0) projects evaluated bow/stern through stored cameras and parent transforms: east(+15.2523,-0.8715),west(-15.2523,-0.8715),north(~0,-12.5554),south(0,+10.8125) native pixels with top-originY; everylabel matches. Original failed report is retained unchanged beside the audit and new independent visual reassessment. No image flip, model modification, bar relaxation, or third-same-gap stop follows from that disproven finding.
+
+The reassessment renderer PID91459 writes all16RGBA256x256 images then exits1 on final Scene-to-JSON serialization. This execution limitation and earlier Empty-geometry setupfailure are preserved. No rerender is represented as successful: a separate postprocess exits0 and records verified actual16files/hashes/native images, linked to the exit0 saved-heading audit on the identical frozen blend3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac.
+
+BIGGEST GAP: Fine deck/trim details fade at native size; recognizable identity rests on hull outline and bow/stern markers.
+DISPOSITION: Adopt original R4 editable prototype/source and bounded evidence only. ART-3D-001 remainsBUILDING withone ofthree characters qualified; Coilblade/Mossguard and actualmodel-derivedsprite/app/motionintegration remainopen. No engine/stat/policy/test/API/shippedasset changes. Evidence: artifacts/art3d001-round-4/{original-review,heading-audit,reassessment}; source: design/20261020-redesign/astra-round-4.

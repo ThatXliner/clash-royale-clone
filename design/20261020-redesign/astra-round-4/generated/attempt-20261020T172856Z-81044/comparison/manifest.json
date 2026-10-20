@@ -1,0 +1,2467 @@
+{
+  "status": "Rendered comparison; independent decision pending",
+  "authorship": "Original procedural geometry by GPT-6 Astra; Riverworks Diorama direction by Claude",
+  "license": "AGPL-3.0-only",
+  "identity_source_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "source_files": [
+    {
+      "path": "build_comparison.py",
+      "bytes": 17384,
+      "sha256": "e2e41c49095336397ff1fd89196b4a252c1a7c06032e21a2021ce5bd5c527d13"
+    },
+    {
+      "path": "copperskiff_model.py",
+      "bytes": 10493,
+      "sha256": "ee2a847414de7918bd11c78faa8005de612452a6ec6911424560a73706e587b3"
+    },
+    {
+      "path": "alternatives.json",
+      "bytes": 3163,
+      "sha256": "510f94a8fa844cc34188d4da190dd92a441f5b1978c9ecfbd2b570f98aa6fa73"
+    },
+    {
+      "path": "round1_models.py",
+      "bytes": 65209,
+      "sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3"
+    },
+    {
+      "path": "round2_pipeline.py",
+      "bytes": 15883,
+      "sha256": "a544542f99b666739f75df6a2e3dc8d39bd19e957d5a193e84d8fa85f294bc89"
+    },
+    {
+      "path": "native_preview.py",
+      "bytes": 6700,
+      "sha256": "79fccc15728fbe7bd9fe4b75d4d4b948b6b52ec36140e8a61b9b5d4959735e57"
+    },
+    {
+      "path": "verify_saved_asset.py",
+      "bytes": 3667,
+      "sha256": "7381017d45cbf7e9c873b5bfeab1dbab2fbcb06ee8d186240d2445cb38cdf99d"
+    },
+    {
+      "path": "palette.json",
+      "bytes": 1645,
+      "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+    },
+    {
+      "path": "run-comparison.sh",
+      "bytes": 5358,
+      "sha256": "26be6b21c6b8e5e679ed8b83b134d08a3342db2c1c189bc4b18550429d24d4b0"
+    },
+    {
+      "path": "design-notes.md",
+      "bytes": 6050,
+      "sha256": "d36f2ca3d8f9e4ebc65a102b2e49f95454f52f5d47307c1e3e0c62904a32ba51"
+    },
+    {
+      "path": "comparison-plan.json",
+      "bytes": 3075,
+      "sha256": "0c1204097908d2d27a4d48998cf91167a047ec809a2c2ab7a2677cc470b8aff0"
+    }
+  ],
+  "provisional_selection": "tapered_canopy",
+  "selection_is_visual_pass": false,
+  "fixed_camera": {
+    "elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "native_cell": 64,
+    "supersample": 4,
+    "ground_anchor_normalized": [
+      0.5,
+      0.84375
+    ],
+    "directions": [
+      [
+        "north",
+        180
+      ],
+      [
+        "east",
+        270
+      ],
+      [
+        "south",
+        0
+      ],
+      [
+        "west",
+        90
+      ]
+    ]
+  },
+  "control": {
+    "variant": "R3 exposed_deck",
+    "blend_sha256": "299ec67386e6b2c8c8fb74d6e371f17f9e66b09fbb05385132ba46fc60fabd1c",
+    "native_idle_bounds_alpha_16": {
+      "north": [
+        14,
+        15
+      ],
+      "east": [
+        17,
+        12
+      ],
+      "south": [
+        14,
+        13
+      ],
+      "west": [
+        17,
+        12
+      ]
+    },
+    "scope": "Keep boat, TEAM and contact reads; improve opposite-heading recognition at the same fixed native scale."
+  },
+  "named_gap": "Reliable opposite-heading recognition at native size",
+  "no_per_view_or_variant_refit": true,
+  "other_characters_modified": false,
+  "external_geometry_or_textures": [],
+  "reference_assets_imported": false,
+  "blender_version": "5.1.2",
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "native_render_count": 32,
+  "portrait_render_count": 1,
+  "variants": [
+    {
+      "id": "wedge_hull",
+      "settings": {
+        "hover_base": 0.55,
+        "hull_center_z": 0.22,
+        "hull_beam": 1.58,
+        "hull_length": 1.45,
+        "hull_depth": 0.34,
+        "team_coaming_width": 0.2,
+        "contact_pitch_degrees": 7,
+        "contact_recoil": 0.04,
+        "contact_puff_radius": 0.21,
+        "foredeck_outline": [
+          [
+            0,
+            -0.57
+          ],
+          [
+            0.15,
+            -0.36
+          ],
+          [
+            0.28,
+            -0.16
+          ],
+          [
+            -0.28,
+            -0.16
+          ],
+          [
+            -0.15,
+            -0.36
+          ]
+        ],
+        "heading_budget": {
+          "bow_taper_depth_pixels_min": 3,
+          "stern_flat_or_notch_width_pixels_min": 4,
+          "opposite_heading_changed_silhouette_pixels_min": 12,
+          "opposite_heading_silhouette_iou_target_max": 0.85,
+          "decision": "Native viewers must identify the facing direction; numeric silhouette differences are supporting evidence only."
+        },
+        "id": "wedge_hull",
+        "description": "A long triangular foredeck and broad flat transom carry heading in the hull itself.",
+        "hull_outline": [
+          [
+            0,
+            -0.6
+          ],
+          [
+            0.26,
+            -0.24
+          ],
+          [
+            0.5,
+            0.08
+          ],
+          [
+            0.47,
+            0.46
+          ],
+          [
+            -0.47,
+            0.46
+          ],
+          [
+            -0.5,
+            0.08
+          ],
+          [
+            -0.26,
+            -0.24
+          ]
+        ],
+        "canopy": {
+          "mode": "single",
+          "radii": [
+            0.63,
+            0.32,
+            0.11
+          ],
+          "center_z": 0.79,
+          "offset_y": 0.1
+        },
+        "risk": "The unchanged cream oval may still dominate the visible facing read."
+      },
+      "editable_mesh_objects": 25,
+      "base_mesh_triangles": 1218,
+      "evaluated_triangles": 1218,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "31490ebd5759d766c79f108f35672ad82b64ab65f23056e2c27f5fb203108ebe",
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 35,
+        "mesh_definitions": 25,
+        "animations": 8,
+        "animation_channels": 9,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 63424,
+        "sha256": "5cabac10011278337ce7b0d9fe0cddffe74be43e06b0d8126b666cf2501a0d57"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 692257,
+        "sha256": "f6d998d514e9cf9937fb11f4452b37e7632f1b1d93559db88eb1c2f963afaf65"
+      },
+      "native_render_count": 8
+    },
+    {
+      "id": "notched_stern",
+      "settings": {
+        "hover_base": 0.55,
+        "hull_center_z": 0.22,
+        "hull_beam": 1.58,
+        "hull_length": 1.45,
+        "hull_depth": 0.34,
+        "team_coaming_width": 0.2,
+        "contact_pitch_degrees": 7,
+        "contact_recoil": 0.04,
+        "contact_puff_radius": 0.21,
+        "foredeck_outline": [
+          [
+            0,
+            -0.57
+          ],
+          [
+            0.15,
+            -0.36
+          ],
+          [
+            0.28,
+            -0.16
+          ],
+          [
+            -0.28,
+            -0.16
+          ],
+          [
+            -0.15,
+            -0.36
+          ]
+        ],
+        "heading_budget": {
+          "bow_taper_depth_pixels_min": 3,
+          "stern_flat_or_notch_width_pixels_min": 4,
+          "opposite_heading_changed_silhouette_pixels_min": 12,
+          "opposite_heading_silhouette_iou_target_max": 0.85,
+          "decision": "Native viewers must identify the facing direction; numeric silhouette differences are supporting evidence only."
+        },
+        "id": "notched_stern",
+        "description": "The same pointed foredeck ends in a broad recessed transom around the stern pusher.",
+        "hull_outline": [
+          [
+            0,
+            -0.6
+          ],
+          [
+            0.26,
+            -0.24
+          ],
+          [
+            0.5,
+            0.08
+          ],
+          [
+            0.47,
+            0.46
+          ],
+          [
+            0.2,
+            0.46
+          ],
+          [
+            0.2,
+            0.2
+          ],
+          [
+            -0.2,
+            0.2
+          ],
+          [
+            -0.2,
+            0.46
+          ],
+          [
+            -0.47,
+            0.46
+          ],
+          [
+            -0.5,
+            0.08
+          ],
+          [
+            -0.26,
+            -0.24
+          ]
+        ],
+        "canopy": {
+          "mode": "single",
+          "radii": [
+            0.63,
+            0.32,
+            0.11
+          ],
+          "center_z": 0.79,
+          "offset_y": 0.1
+        },
+        "risk": "The elevated canopy or stern pusher may occlude the recess in one head-on view."
+      },
+      "editable_mesh_objects": 25,
+      "base_mesh_triangles": 1262,
+      "evaluated_triangles": 1262,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "bc009492e2bbafa1465b173a4eeef7385ed1ccc7a2e318cfaf73db9a91e491d7",
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 35,
+        "mesh_definitions": 25,
+        "animations": 8,
+        "animation_channels": 9,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 65792,
+        "sha256": "848d5b3908862ab489d021a8cdf770edde43696f4e79a539ebf5b715d3827c1b"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 693760,
+        "sha256": "0d218bbfa0f4821f1f5355138f01d6f70235304b8adaf8479b67947acce67724"
+      },
+      "native_render_count": 8
+    },
+    {
+      "id": "tapered_canopy",
+      "settings": {
+        "hover_base": 0.55,
+        "hull_center_z": 0.22,
+        "hull_beam": 1.58,
+        "hull_length": 1.45,
+        "hull_depth": 0.34,
+        "team_coaming_width": 0.2,
+        "contact_pitch_degrees": 7,
+        "contact_recoil": 0.04,
+        "contact_puff_radius": 0.21,
+        "foredeck_outline": [
+          [
+            0,
+            -0.57
+          ],
+          [
+            0.15,
+            -0.36
+          ],
+          [
+            0.28,
+            -0.16
+          ],
+          [
+            -0.28,
+            -0.16
+          ],
+          [
+            -0.15,
+            -0.36
+          ]
+        ],
+        "heading_budget": {
+          "bow_taper_depth_pixels_min": 3,
+          "stern_flat_or_notch_width_pixels_min": 4,
+          "opposite_heading_changed_silhouette_pixels_min": 12,
+          "opposite_heading_silhouette_iou_target_max": 0.85,
+          "decision": "Native viewers must identify the facing direction; numeric silhouette differences are supporting evidence only."
+        },
+        "id": "tapered_canopy",
+        "description": "The wedge hull is paired with a canvas roof that narrows toward the bow and ends in a broad rear edge.",
+        "hull_outline": [
+          [
+            0,
+            -0.6
+          ],
+          [
+            0.26,
+            -0.24
+          ],
+          [
+            0.5,
+            0.08
+          ],
+          [
+            0.47,
+            0.46
+          ],
+          [
+            -0.47,
+            0.46
+          ],
+          [
+            -0.5,
+            0.08
+          ],
+          [
+            -0.26,
+            -0.24
+          ]
+        ],
+        "canopy": {
+          "mode": "directional",
+          "radii": [
+            0.63,
+            0.32,
+            0.11
+          ],
+          "center_z": 0.79,
+          "offset_y": 0.1,
+          "sections": [
+            [
+              -0.32,
+              0.025,
+              0.02
+            ],
+            [
+              -0.2,
+              0.22,
+              0.07
+            ],
+            [
+              -0.02,
+              0.47,
+              0.11
+            ],
+            [
+              0.15,
+              0.63,
+              0.1
+            ],
+            [
+              0.32,
+              0.57,
+              0.06
+            ]
+          ]
+        },
+        "risk": "The directional roof must still read as the existing canvas rivercraft, and preserve exposed TEAM area."
+      },
+      "editable_mesh_objects": 25,
+      "base_mesh_triangles": 1014,
+      "evaluated_triangles": 1014,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "473e7cda516c764e87e248a39f6f3dca14f146a9a221658882272d60f8691516",
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 35,
+        "mesh_definitions": 25,
+        "animations": 8,
+        "animation_channels": 9,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 59780,
+        "sha256": "fdef3262b550903f512337442e10b51ffd4d869b6505f0c9c93f5cfd118dd500"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 690199,
+        "sha256": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac"
+      },
+      "native_render_count": 16
+    }
+  ],
+  "native_image_receipts": [
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-river-north-idle.png",
+        "bytes": 22167,
+        "sha256": "8d16ecb410d86c11d49469c02480ae2a89e9340c9255e3118c67f8a897ec18bd"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 741,
+      "sha256": "3743c3989cbe2f0ff9ca85f40d5c77559331a6b9c5959c81e3cce2f05a7390a7",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-river-east-idle.png",
+        "bytes": 22559,
+        "sha256": "bf6b7785d8bde7a75e8723721b498f3a0abdaeaee3073d7104f51c3101349a4d"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 732,
+      "sha256": "cbe1eb858c10a8b7f63e90c7e39909486707f278766be457b4c7aa9dcf5ebc40",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-river-south-idle.png",
+        "bytes": 22134,
+        "sha256": "b5d4029750be073ef3f073b67a167732f1f658275bc0f9385f9ed06da8ceacc9"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 718,
+      "sha256": "abbaa47f241ffb5b021639e79f1dff10d8de971b9acbf1711422eb21d71c2881",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-river-west-idle.png",
+        "bytes": 22459,
+        "sha256": "1399bb0663b2ff74a2f3236dcd4516d10b6d310b92cfe6b008422dcc28ca8420"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 737,
+      "sha256": "83e94da787b50c8cc124294996cde634521a2f0d83e699765d0d7f68fb399d62",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-ember-north-idle.png",
+        "bytes": 22002,
+        "sha256": "abd01e696578fd482cec7d3acb4835b9e1309932fa12e0cd856d919770a29ed0"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 746,
+      "sha256": "0a12e3cfa10bef78be5f0bf7dbcdae4dadd2c987ea2aae7953a6e76a3839686d",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-ember-east-idle.png",
+        "bytes": 22574,
+        "sha256": "b30bb3d4f6846abe4f8bf8d5c9538c370a2c9d8da2b40801e8c52c6539bf470a"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 733,
+      "sha256": "ccfc03eba29f757ae8a8cfa7021a31eef519a9223627223ed1a1577164f32268",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-ember-south-idle.png",
+        "bytes": 22107,
+        "sha256": "91998412dd240f4892922f7d1696fd93522e147ed7b41d7575e66d57c26476be"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 731,
+      "sha256": "fccd866a9bf2b4cdcbee48279a4d49634ef37daa700ad6d0a6c59dfa1e56b965",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "wedge_hull-ember-west-idle.png",
+        "bytes": 22423,
+        "sha256": "ad5f33c8ac5373b3f5ed87a956aff16a656e5fdca5f41bc3cce6d6452416725c"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/native-64/wedge_hull-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 737,
+      "sha256": "abafac63c04d39eedd3ec6c197efc161d834e6dbfc4d86adaf25fb05d8667b7d",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-river-north-idle.png",
+        "bytes": 22547,
+        "sha256": "3e58790f87f2d677148bfa1053c1426a4cb5f7dca24ee130196d2274407f06a7"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 761,
+      "sha256": "860d83c8b239c7fd5b380882dc791a78fc950c8a68eb48effd0fcff7b96f2902",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-river-east-idle.png",
+        "bytes": 22821,
+        "sha256": "261396dbfe326fcc7ca3af05d7e2d6984588d3c99b636867f7c4537e8eb9a876"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 741,
+      "sha256": "ad5acbcbc5e8412a596ad8e15c8974125e813d74f8a775b6538e82d4615c86df",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-river-south-idle.png",
+        "bytes": 22150,
+        "sha256": "5f1e7c53034c292ef50c215b21297bba0b54c160cc02185a819fa165a71dd263"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 723,
+      "sha256": "d66c5b13f0b5ae7a9c104815672c93f2237fe3ad3f1ae7407d6ae3fbd509732f",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-river-west-idle.png",
+        "bytes": 22613,
+        "sha256": "b096e843ec4a023c0dcfa96ddb1cdab6b0f47b7441178ade103704dbbb00a3cc"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 744,
+      "sha256": "54908ef058fdce928a1d846eb6a96bce6bbb2908d09ddbc93a414594ebefc972",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-ember-north-idle.png",
+        "bytes": 22438,
+        "sha256": "39b83c644a7c2a9ea376083ca14a591def9916fcfd20d6f7ab9e352a3ce22e65"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 763,
+      "sha256": "8941f4994dc4e57510bed2579c6151cc5168069f88b071044087e0b0b6d64524",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-ember-east-idle.png",
+        "bytes": 22780,
+        "sha256": "9d77f517dcdf93253b9b724024c8980dc9c129a18197df0e45b0fbd7ecf152ed"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 746,
+      "sha256": "19e8c989cb0136eb8d80973d2c73b1f57c922b6ada438774a7c610a8f038e52d",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-ember-south-idle.png",
+        "bytes": 22117,
+        "sha256": "9ccd0370e4198f88b42345d94e20495767fea6b6aee875c3480c19d00bc71817"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 727,
+      "sha256": "a0aef5f718added47cd3ef41629cb0b6e63dd564e6debe58094026333a5d4f6f",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "notched_stern",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "notched_stern-ember-west-idle.png",
+        "bytes": 22609,
+        "sha256": "20ba89e8eb19d59356bbcf4b93c1c581e2652458cd319d1fb9ca5131b41088be"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/notched_stern/native-64/notched_stern-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 748,
+      "sha256": "ad1d65411c6176898a3574b39b2832daaeda5d0cfb62f5c30a48d62b5006dfb7",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-river-north-idle.png",
+        "bytes": 21803,
+        "sha256": "5619e62b2ddb50ea5c0d5de37d05f7231864026eb6045c4e76beecef1e44e9a2"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 711,
+      "sha256": "750aa296227190586a4688feceb16e96122b8c2e2cbe24f7b02968fc6d519cbd",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-river-east-idle.png",
+        "bytes": 22574,
+        "sha256": "1cf09795fb3731b4efa1332d233c2f43ebf1f0ae99f7ab478622ca646dd035ed"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 728,
+      "sha256": "060995d7352b3bcf40cb64e9d7d34bb782634612f49256ee69a79671acc3ec36",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-river-south-idle.png",
+        "bytes": 22240,
+        "sha256": "c95340de9dfd3deaba6cff30d6ef01907841c189170b2b9a5dbdcfd5dca9f562"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 723,
+      "sha256": "5fb788e368ab8375b7446cbd1402cbf45b9527954b011c9ba669464b3448094d",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-river-west-idle.png",
+        "bytes": 22469,
+        "sha256": "40e289bc0eac869beb7a4558730a5a3256c51b09f7ddd6e4ab84f03771912460"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 736,
+      "sha256": "59dc5edcde6401cb1e1fcafccef5c4351b52f40bf2a517727cd52b2865ce9f0c",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-ember-north-idle.png",
+        "bytes": 21746,
+        "sha256": "bfb46eacfc73d889a0ab2b839dca30ef8c9cdd8e343bc969cd8087609f02c945"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 712,
+      "sha256": "013882905aee404aa5188690d3eaa18c19457221955ed823fc313df61617d719",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-ember-east-idle.png",
+        "bytes": 22535,
+        "sha256": "beb44ca1bc5d22d4faf9da819a1b7c967613f152467df23e03c51ed5f1a74458"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 734,
+      "sha256": "6fb2f378863575282295fb211789eafa65ddf9efd350e3f81801600dca2620b8",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-ember-south-idle.png",
+        "bytes": 22201,
+        "sha256": "3e46117f6201219af3b02cfc0265edfe6af757005abfe45dc09cc4eea1748a9a"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 729,
+      "sha256": "03be0b8bb3067fbd2377987b869aebb5f2979f7130ec93ed17b4288904ad2b66",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "tapered_canopy-ember-west-idle.png",
+        "bytes": 22391,
+        "sha256": "ad4418dca9330ba21a7f451e1be24b62b32880dd72f946f93b1f947d55b14e09"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 737,
+      "sha256": "e7472a5ca285de29c25fc159ac16e49c5f344984de3138fcb61fd8c9c6594c42",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-river-north-contact.png",
+        "bytes": 22261,
+        "sha256": "103a840a25c587b4eef31c2b96b6e3c010c4a33795c6ed0483419fbb9610d0b1"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-north-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 779,
+      "sha256": "f594fc50fe1c5c6ee28fa53687300bf3800ef8533b7eb8c69be55046dc6e9601",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-river-east-contact.png",
+        "bytes": 22835,
+        "sha256": "bf5cb4020fe9c798b23e0d2dfd56ed39f10e1f7f011816045ba7a3c2c3607f22"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-east-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 792,
+      "sha256": "3fb14ec58187af6c6810fd2fe8e05523907ecb39d15d2357669c9df3bc19b790",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-river-south-contact.png",
+        "bytes": 23039,
+        "sha256": "f20ef79c350e216e59338b459b6e8c592f07137c853f2c5b547ae4971d844a47"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-south-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 783,
+      "sha256": "5476e6ccf511741c575ec67fc16bd79ef6db2d1838e5ed0c03533f5c30e24206",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-river-west-contact.png",
+        "bytes": 22890,
+        "sha256": "639ba38cff6fc06944c27db7daa029da78fabccc96a1ecebcf39aae498430118"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-river-west-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 806,
+      "sha256": "10fd31419e358cbeef6f190758288cf518b4ba1aaf5a596048f49d1d21f07bf6",
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-ember-north-contact.png",
+        "bytes": 22259,
+        "sha256": "bf703b2ef3b408a28709fffb7fdc3f6275163bd7c08a5be306344fb27090bd78"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-north-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 777,
+      "sha256": "7642afc5030ae5a10567ebf2136cc9e6a0e857d497a0dcb6bda2ac7422eca801",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-ember-east-contact.png",
+        "bytes": 22856,
+        "sha256": "6d8fea7381bc660f64da7c04f376811b389ea4a2e4567987817a06c7eb3b9079"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-east-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 788,
+      "sha256": "aa96fe8bbfd13e2dd3111e192d9e206a3ae54a0c9ddc95006fa8a845e0da343d",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-ember-south-contact.png",
+        "bytes": 22911,
+        "sha256": "741bbb53ca0b7c57e0a098062a70a75530f35eac3b8269c0ff49fcfb8031d623"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-south-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 787,
+      "sha256": "4fd35969ba06018562d39f635cdea3b51f95028ecc2b84f53bff07c1ef9d2984",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "tapered_canopy-ember-west-contact.png",
+        "bytes": 22794,
+        "sha256": "4d6ac5997bff2f631964e20c136998fda885a66d56ee62b623ae0b9de02518b2"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/native-64/tapered_canopy-ember-west-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 805,
+      "sha256": "864ea9acd549290acc489590a4aa0ad43e95d253b31c947cc7d57f71cb0ec262",
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    }
+  ],
+  "sheets": {
+    "columns": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "massing_rows": [
+      "r3_control",
+      "wedge_hull",
+      "notched_stern",
+      "tapered_canopy",
+      "r3_control silhouette",
+      "wedge_hull silhouette",
+      "notched_stern silhouette",
+      "tapered_canopy silhouette"
+    ],
+    "team_comparison_rows": [
+      "r3_control river",
+      "r3_control ember",
+      "wedge_hull river",
+      "wedge_hull ember",
+      "notched_stern river",
+      "notched_stern ember",
+      "tapered_canopy river",
+      "tapered_canopy ember"
+    ],
+    "team_contact_rows": [
+      "river idle",
+      "ember idle",
+      "river contact",
+      "ember contact"
+    ],
+    "control": "Existing immutable R3 exposed_deck native PNGs, byte-read only; not newly rendered",
+    "control_files": [
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-north-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 758,
+        "sha256": "678afce6c15830c8974f94fecd32de59b94bf007ab8c13c3233199ee396bf700",
+        "alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 26,
+          "top": 42,
+          "width": 12,
+          "height": 13
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-east-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 793,
+        "sha256": "7bdd9b21bee56dfbc7127a92b7001c637f31b572a913ad35219ebc449173c7ff",
+        "alpha_bounds_threshold_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 25,
+          "top": 43,
+          "width": 16,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-south-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 764,
+        "sha256": "d8c0ee7454b6979a60388a09afa4f06cca1ddcc378537aca3d1bd2989909698b",
+        "alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 26,
+          "top": 43,
+          "width": 12,
+          "height": 13
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-west-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 786,
+        "sha256": "55606631ccca3295faaf628225d40f177e1c9362e2c328e855e75af872df1914",
+        "alpha_bounds_threshold_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 23,
+          "top": 43,
+          "width": 16,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-north-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 760,
+        "sha256": "2ff5e9da9f488ee104a2d23c3031ef6019cbb5aded420958d373c944a877d716",
+        "alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 26,
+          "top": 42,
+          "width": 12,
+          "height": 13
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-east-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 794,
+        "sha256": "cb9c4db691af5fa04a49ed5c659ddd7306f503fd872fefd0b1349dd4eb9d1f4a",
+        "alpha_bounds_threshold_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 25,
+          "top": 43,
+          "width": 16,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-south-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 769,
+        "sha256": "74f613c3f54f29c1be0d0d9d769bab38468a69bea0d831ca7be01f18282d94a8",
+        "alpha_bounds_threshold_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 26,
+          "top": 43,
+          "width": 12,
+          "height": 13
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-west-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 790,
+        "sha256": "0fececd5c29aa82170962b359b43fd4c78643e4945a07db6169e49ed0c2b6ee0",
+        "alpha_bounds_threshold_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 23,
+          "top": 43,
+          "width": 16,
+          "height": 12
+        }
+      }
+    ]
+  },
+  "heading_measurements": {
+    "status": "Measurements only; native facing recognition requires independent judgment",
+    "method": "Opposite idle masks share the fixed 64-square cell and (32,54) ground anchor; no realignment",
+    "targets": {
+      "bow_taper_depth_pixels_min": 3,
+      "stern_flat_or_notch_width_pixels_min": 4,
+      "opposite_heading_changed_silhouette_pixels_min": 12,
+      "opposite_heading_silhouette_iou_target_max": 0.85,
+      "decision": "Native viewers must identify the facing direction; numeric silhouette differences are supporting evidence only."
+    },
+    "opposite_heading_pairs": [
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 100,
+        "union_pixels": 162,
+        "changed_silhouette_pixels": 62,
+        "same_anchor_iou": 0.6172839506172839
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 78,
+        "union_pixels": 124,
+        "changed_silhouette_pixels": 46,
+        "same_anchor_iou": 0.6290322580645161
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 98,
+        "union_pixels": 156,
+        "changed_silhouette_pixels": 58,
+        "same_anchor_iou": 0.6282051282051282
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 74,
+        "union_pixels": 140,
+        "changed_silhouette_pixels": 66,
+        "same_anchor_iou": 0.5285714285714286
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 100,
+        "union_pixels": 162,
+        "changed_silhouette_pixels": 62,
+        "same_anchor_iou": 0.6172839506172839
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 78,
+        "union_pixels": 124,
+        "changed_silhouette_pixels": 46,
+        "same_anchor_iou": 0.6290322580645161
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 98,
+        "union_pixels": 156,
+        "changed_silhouette_pixels": 58,
+        "same_anchor_iou": 0.6282051282051282
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 74,
+        "union_pixels": 140,
+        "changed_silhouette_pixels": 66,
+        "same_anchor_iou": 0.5285714285714286
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 100,
+        "union_pixels": 162,
+        "changed_silhouette_pixels": 62,
+        "same_anchor_iou": 0.6172839506172839
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 72,
+        "union_pixels": 124,
+        "changed_silhouette_pixels": 52,
+        "same_anchor_iou": 0.5806451612903226
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 98,
+        "union_pixels": 156,
+        "changed_silhouette_pixels": 58,
+        "same_anchor_iou": 0.6282051282051282
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 70,
+        "union_pixels": 140,
+        "changed_silhouette_pixels": 70,
+        "same_anchor_iou": 0.5
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 100,
+        "union_pixels": 162,
+        "changed_silhouette_pixels": 62,
+        "same_anchor_iou": 0.6172839506172839
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 72,
+        "union_pixels": 124,
+        "changed_silhouette_pixels": 52,
+        "same_anchor_iou": 0.5806451612903226
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 98,
+        "union_pixels": 156,
+        "changed_silhouette_pixels": 58,
+        "same_anchor_iou": 0.6282051282051282
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 70,
+        "union_pixels": 140,
+        "changed_silhouette_pixels": 70,
+        "same_anchor_iou": 0.5
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 98,
+        "union_pixels": 162,
+        "changed_silhouette_pixels": 64,
+        "same_anchor_iou": 0.6049382716049383
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 74,
+        "union_pixels": 126,
+        "changed_silhouette_pixels": 52,
+        "same_anchor_iou": 0.5873015873015873
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 92,
+        "union_pixels": 158,
+        "changed_silhouette_pixels": 66,
+        "same_anchor_iou": 0.5822784810126582
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 70,
+        "union_pixels": 138,
+        "changed_silhouette_pixels": 68,
+        "same_anchor_iou": 0.5072463768115942
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 98,
+        "union_pixels": 162,
+        "changed_silhouette_pixels": 64,
+        "same_anchor_iou": 0.6049382716049383
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "directions": [
+          "north",
+          "south"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 74,
+        "union_pixels": 126,
+        "changed_silhouette_pixels": 52,
+        "same_anchor_iou": 0.5873015873015873
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 16,
+        "intersection_pixels": 92,
+        "union_pixels": 158,
+        "changed_silhouette_pixels": 66,
+        "same_anchor_iou": 0.5822784810126582
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "directions": [
+          "east",
+          "west"
+        ],
+        "alpha_threshold": 128,
+        "intersection_pixels": 70,
+        "union_pixels": 138,
+        "changed_silhouette_pixels": 68,
+        "same_anchor_iou": 0.5072463768115942
+      }
+    ],
+    "native_size_against_r3": [
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "direction": "north",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "r3_control_width_height": [
+          14,
+          15
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "direction": "east",
+        "actual_alpha_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "direction": "south",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "r3_control_width_height": [
+          14,
+          13
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "river",
+        "direction": "west",
+        "actual_alpha_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "direction": "north",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "r3_control_width_height": [
+          14,
+          15
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "direction": "east",
+        "actual_alpha_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "direction": "south",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "r3_control_width_height": [
+          14,
+          13
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "wedge_hull",
+        "team": "ember",
+        "direction": "west",
+        "actual_alpha_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "direction": "north",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "r3_control_width_height": [
+          14,
+          15
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "direction": "east",
+        "actual_alpha_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "direction": "south",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "r3_control_width_height": [
+          14,
+          13
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "river",
+        "direction": "west",
+        "actual_alpha_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "direction": "north",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "r3_control_width_height": [
+          14,
+          15
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "direction": "east",
+        "actual_alpha_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "direction": "south",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "r3_control_width_height": [
+          14,
+          13
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "notched_stern",
+        "team": "ember",
+        "direction": "west",
+        "actual_alpha_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "direction": "north",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "r3_control_width_height": [
+          14,
+          15
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "direction": "east",
+        "actual_alpha_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "direction": "south",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "r3_control_width_height": [
+          14,
+          13
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "river",
+        "direction": "west",
+        "actual_alpha_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "direction": "north",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 41,
+          "width": 14,
+          "height": 15
+        },
+        "r3_control_width_height": [
+          14,
+          15
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "direction": "east",
+        "actual_alpha_16": {
+          "left": 24,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "direction": "south",
+        "actual_alpha_16": {
+          "left": 25,
+          "top": 43,
+          "width": 14,
+          "height": 13
+        },
+        "r3_control_width_height": [
+          14,
+          13
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      },
+      {
+        "variant": "tapered_canopy",
+        "team": "ember",
+        "direction": "west",
+        "actual_alpha_16": {
+          "left": 23,
+          "top": 43,
+          "width": 17,
+          "height": 12
+        },
+        "r3_control_width_height": [
+          17,
+          12
+        ],
+        "width_height_delta": [
+          0,
+          0
+        ],
+        "exceeds_r3_control_extent": false
+      }
+    ],
+    "extent_policy": "Flag any increase; never rescale a view or raise a size cap to hide it"
+  },
+  "remaining": [
+    "Independent native-size class/team/facing/contact judgment",
+    "Real arena context",
+    "Coilblade and Mossguard qualification",
+    "Complete motion and runtime integration"
+  ]
+}

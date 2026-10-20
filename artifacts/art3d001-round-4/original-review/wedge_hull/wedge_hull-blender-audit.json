@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:36:47Z",
+  "finished_utc": "2026-10-20T17:36:53Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 86033,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/copperskiff.blend",
+    "--variant",
+    "wedge_hull",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/wedge_hull/copperskiff.blend",
+  "blend_sha256_before": "f6d998d514e9cf9937fb11f4452b37e7632f1b1d93559db88eb1c2f963afaf65",
+  "blend_sha256_after": "f6d998d514e9cf9937fb11f4452b37e7632f1b1d93559db88eb1c2f963afaf65",
+  "scene": "ME_20261020_copperskiff_round_4_wedge_hull",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_wedge_hull_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654389858246,
+        "right": 0.5989345908164978,
+        "bottom": 0.13546088337898254,
+        "top": 0.36282357573509216
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_wedge_hull_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3890341818332672,
+        "right": 0.6473178863525391,
+        "bottom": 0.14051173627376556,
+        "top": 0.32371944189071655
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_wedge_hull_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654091835022,
+        "right": 0.5989345908164978,
+        "bottom": 0.12475935369729996,
+        "top": 0.32441964745521545
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_wedge_hull_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5000000596046448,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 128.00001525878906,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3526821434497833,
+        "right": 0.6109657883644104,
+        "bottom": 0.14051173627376556,
+        "top": 0.32371944189071655
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 25,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-north-idle-256.png",
+      "bytes": 22339,
+      "sha256": "ca29e6be253d1afdef9be2ff34ba22b012f930ea03189809f283fa5a2ea9d38f"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-east-idle-256.png",
+      "bytes": 22731,
+      "sha256": "9fde685b1e062e88af7badf9673d872ea174a8473d4caab4b2f98262ac1d1f0f"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-south-idle-256.png",
+      "bytes": 22306,
+      "sha256": "61124c856f9b7a81f50bf98ac9ebe1ff7338f8781199d3e5d4453189dc44afb2"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-west-idle-256.png",
+      "bytes": 22631,
+      "sha256": "0a1f9e63701a7bd8d71677e77c87a54b89ac29cb1563975a517a44bf59cab210"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-north-contact-256.png",
+      "bytes": 22888,
+      "sha256": "b93ef2d2f9b554f18ab8d4625fecb7cfc29a4bf9df19286cb931ad2e3a93fe4b"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-east-contact-256.png",
+      "bytes": 22999,
+      "sha256": "52387c7c39f8b7fbd354f0a730fc610aaf0bb2c685385aaa1cf7fe42fe141f21"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-south-contact-256.png",
+      "bytes": 22965,
+      "sha256": "b4676f336b34d898cee014e53b4591e0ac0575371b201c0c0e79e83dde28fd3c"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-river-west-contact-256.png",
+      "bytes": 23160,
+      "sha256": "0617e84968159179f04135d7787511d51f3cf759b591a1778d33200e49045a81"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-north-idle-256.png",
+      "bytes": 22174,
+      "sha256": "01ef0c31824c270748e5c2978f6607d9c9cb73c117e4dc421ae0a6baf1aff63d"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-east-idle-256.png",
+      "bytes": 22746,
+      "sha256": "68b6b5c208dc3bb495fe2c6cebc4120c9dc4d7e1ec3e99005fb63b4f9efd11ff"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-south-idle-256.png",
+      "bytes": 22279,
+      "sha256": "425c4a020b29d7b72d6510722d06deb46d96769b67de3088c97d319877ed7415"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-west-idle-256.png",
+      "bytes": 22595,
+      "sha256": "5f7aa9df3fa0fe447306868c4a014939354bd408e1a8b212bc590616b9ab353c"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-north-contact-256.png",
+      "bytes": 22840,
+      "sha256": "a85b0c6732d57f142ab6dea04ab3fe07fdbc702d6c0ff28b01a11de5569e8212"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-east-contact-256.png",
+      "bytes": 22926,
+      "sha256": "4a2c622f652b68e24932ee6bcff2171c17a2fb1573a045a5221b99e514512cdc"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-south-contact-256.png",
+      "bytes": 22928,
+      "sha256": "ae423b4435aec714376f3327536ca6c9b3bf00663bbbefc038c1b2cdf63bd5c0"
+    },
+    {
+      "variant": "wedge_hull",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/wedge_hull/raw-256/wedge_hull/wedge_hull-ember-west-contact-256.png",
+      "bytes": 23111,
+      "sha256": "15e54e1d96f65acb160e05b4d345539f26ae488b842326762330478acc4ec4fd"
+    }
+  ]
+}

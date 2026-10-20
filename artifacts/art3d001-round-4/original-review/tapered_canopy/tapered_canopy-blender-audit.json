@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:37:00Z",
+  "finished_utc": "2026-10-20T17:37:05Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 86055,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/copperskiff.blend",
+    "--variant",
+    "tapered_canopy",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/copperskiff.blend",
+  "blend_sha256_before": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+  "blend_sha256_after": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+  "scene": "ME_20261020_copperskiff_round_4_tapered_canopy",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_tapered_canopy_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654389858246,
+        "right": 0.5989345908164978,
+        "bottom": 0.13546088337898254,
+        "top": 0.36282357573509216
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_tapered_canopy_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3890341818332672,
+        "right": 0.6473178863525391,
+        "bottom": 0.14051173627376556,
+        "top": 0.32596877217292786
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_tapered_canopy_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654091835022,
+        "right": 0.5989345908164978,
+        "bottom": 0.12475935369729996,
+        "top": 0.32441964745521545
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_tapered_canopy_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5000000596046448,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 128.00001525878906,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3526821434497833,
+        "right": 0.6109657883644104,
+        "bottom": 0.14051173627376556,
+        "top": 0.32596877217292786
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 25,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-north-idle-256.png",
+      "bytes": 21979,
+      "sha256": "a22884c72dd3bc084c79f8bc8060216958bdbddde885d3b945233244bbe4bf42"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-east-idle-256.png",
+      "bytes": 22750,
+      "sha256": "4e7dcc36d36f412c23ae8ac271c6c8cb3916fee0d7699174f2dfee4c902ddc64"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-south-idle-256.png",
+      "bytes": 22416,
+      "sha256": "0a437002c04772b289368522df47cf9f8e704efd085831d8009fd5b99e039342"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-west-idle-256.png",
+      "bytes": 22645,
+      "sha256": "603831349babf4d4e3c10d166c3415d4802586904640bc1d4ebc25eabcc46107"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-north-contact-256.png",
+      "bytes": 22437,
+      "sha256": "814fa294564092e25a937adafa59188425942cb96f220df9de341b94bede9343"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-east-contact-256.png",
+      "bytes": 23011,
+      "sha256": "4d3d536133905ec975b53099b405fb4ea243d1703d366cc9f3e924e30950e0e9"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-south-contact-256.png",
+      "bytes": 23215,
+      "sha256": "33a38a20b931447d01e0fc9f432def427a01de9b72881deba4c6d4c75f799dcb"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-river-west-contact-256.png",
+      "bytes": 23066,
+      "sha256": "642819d9c1fe3190827f63f6737dbbfd5b631be91f396a8cd7884e369ea685ca"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-north-idle-256.png",
+      "bytes": 21922,
+      "sha256": "7fa4d4d5120322a2efee5f4cf3044b5a8637859559d27ef9ddff85ad627018c4"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-east-idle-256.png",
+      "bytes": 22711,
+      "sha256": "81beb36b1eb3f29aade1d7b713f38d5fd6ae52dfdc54b17cdb821609c7a9c789"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-south-idle-256.png",
+      "bytes": 22377,
+      "sha256": "b573558aaf4a4f533cd6208c51bf67e421ccdd018d47d8c9dc63ed6f59d70e78"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-west-idle-256.png",
+      "bytes": 22567,
+      "sha256": "ba0c7532b3dcf51270643aa7976d2be3a369bfe14961dd26ce27afaf0d26d8d2"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-north-contact-256.png",
+      "bytes": 22435,
+      "sha256": "0f3d25cb2503841a73a67a381e1a5d7063966dc500fb0ccccdcdf67861becd1f"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-east-contact-256.png",
+      "bytes": 23032,
+      "sha256": "82eccff80b761d51fc87f764128863e336d120767235ab8ebb14e10f4edee2b4"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-south-contact-256.png",
+      "bytes": 23087,
+      "sha256": "221e9053803c0063affe86ddf7f34529893bb80f8a164e3d937eb4f4db756c54"
+    },
+    {
+      "variant": "tapered_canopy",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r4-critic/run-20261020T173636Z/tapered_canopy/raw-256/tapered_canopy/tapered_canopy-ember-west-contact-256.png",
+      "bytes": 22970,
+      "sha256": "f0689cecde5917c790198efd217acb026b8ab97342d93e2ab24936d5ebc0b541"
+    }
+  ]
+}

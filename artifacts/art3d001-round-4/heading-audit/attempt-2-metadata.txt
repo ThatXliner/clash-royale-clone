@@ -1,0 +1,10 @@
+status=failed_before_projection
+process_exit_code=1
+blender_pid=90201
+blender_version=5.1.2
+environment_allowlist=PATH=/usr/bin:/bin:/usr/sbin:/sbin LANG=C.UTF-8 LC_ALL=C.UTF-8 TZ=UTC HOME=/Users/me TMPDIR=/tmp
+probe_sha256=4dd8e9af1cc70ffbaf76e55b3451a8d517f9214d6f1d1cf497b8da8dc400e7de
+stdout=attempt-2-blender-stdout.raw.txt
+stderr=attempt-2-blender-stderr.raw.txt
+failure=stored scene appended, but selected by first scene instead of sprite_camera_contract; placement lookup found no Copperskiff root
+asset_action=no render, no save
