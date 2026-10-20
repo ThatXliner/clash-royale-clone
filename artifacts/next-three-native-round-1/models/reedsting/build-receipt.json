@@ -1,0 +1,1914 @@
+{
+  "animation_source_frames": {
+    "attack": [
+      90,
+      96,
+      100,
+      106
+    ],
+    "idle": [
+      1,
+      11,
+      21,
+      31
+    ],
+    "walk": [
+      41,
+      51,
+      61,
+      71
+    ]
+  },
+  "authorship": "Original procedural geometry by GPT-6 Astra",
+  "blend": {
+    "bytes": 919875,
+    "path": "/Users/me/.codex/clash-qualification/20261020-astra-sky-brass-reed-models/attempts/native-r1/models/reedsting/reedsting.blend",
+    "sha256": "65fbccc6768e8647c129467c2931cfa67698613016680a97e1efdb167118bc60"
+  },
+  "blender_version": "5.1.2",
+  "canonical_state_sha256": "f23858e2cedc82287a66abaeaa2e7ac194ba9d25a972f9a33d65039eb7559a35",
+  "card_id": "reedsting",
+  "external_images_in_models": [],
+  "geometry": {
+    "all_authored_evaluated_triangles": 1546,
+    "editable_mesh_count": 45,
+    "evaluated_triangles": 1258,
+    "material_count": 8,
+    "material_names": [
+      "ME_SBR_R1_reedsting_amber",
+      "ME_SBR_R1_reedsting_bone",
+      "ME_SBR_R1_reedsting_heartwood",
+      "ME_SBR_R1_reedsting_ink",
+      "ME_SBR_R1_reedsting_leaf",
+      "ME_SBR_R1_reedsting_reed",
+      "ME_SBR_R1_reedsting_wood",
+      "TEAM"
+    ],
+    "meshes": [
+      {
+        "name": "ME_SBR_R1_reedsting_asymmetric_hood_reed",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_bark_torso",
+        "triangles": 32
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_bow_string.001",
+        "triangles": 20
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_draw_hand",
+        "triangles": 24
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_hood_inner_lip",
+        "triangles": 56
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_hood_peak",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_layered_reed_0",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_layered_reed_1",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_layered_reed_2",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_layered_reed_3",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_layered_reed_4",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_layered_reed_5",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_boot",
+        "triangles": 32
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_bow_arm",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_eye_socket",
+        "triangles": 24
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_grip",
+        "triangles": 24
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_leg_lower",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_leg_upper",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_upper_arm",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_left_warm_eye",
+        "triangles": 24
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_lining_crossing_stitch_0",
+        "triangles": 12
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_lining_crossing_stitch_1",
+        "triangles": 12
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_lining_crossing_stitch_2",
+        "triangles": 12
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_mask_dark_aperture",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_reed_arrow_cord",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_reed_arrow_shaft",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_reed_arrow_tip",
+        "triangles": 8
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_reed_bow_wrap",
+        "triangles": 20
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_reed_hood_back",
+        "triangles": 42
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_reed_quiver",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_boot",
+        "triangles": 32
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_draw_forearm",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_eye_socket",
+        "triangles": 24
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_leg_lower",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_leg_upper",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_upper_arm",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_right_warm_eye",
+        "triangles": 24
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_slender_recurve_bow",
+        "triangles": 80
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_spare_arrow_0",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_spare_arrow_1",
+        "triangles": 44
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_spare_reed_fletch_0",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_spare_reed_fletch_1",
+        "triangles": 16
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_team_chest_sash",
+        "triangles": 12
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_wooden_mask_left",
+        "triangles": 12
+      },
+      {
+        "name": "ME_SBR_R1_reedsting_wooden_mask_right",
+        "triangles": 12
+      }
+    ],
+    "presentation_evaluated_triangles": 288,
+    "presentation_ring_meshes": 4
+  },
+  "glb": {
+    "bytes": 94304,
+    "path": "/Users/me/.codex/clash-qualification/20261020-astra-sky-brass-reed-models/attempts/native-r1/models/reedsting/reedsting.glb",
+    "sha256": "38e41e3b2086e36c0e90db491393e6bbd5bc122a3d6a57c98181489319b906f7"
+  },
+  "glb_inspection": {
+    "animation_channels": 12,
+    "clips": [
+      "attack",
+      "idle",
+      "walk"
+    ],
+    "external_buffers": [],
+    "external_images": [],
+    "materials": [
+      "ME_SBR_R1_reedsting_reed",
+      "ME_SBR_R1_reedsting_wood",
+      "ME_SBR_R1_reedsting_bone",
+      "ME_SBR_R1_reedsting_heartwood",
+      "ME_SBR_R1_reedsting_ink",
+      "ME_SBR_R1_reedsting_amber",
+      "ME_SBR_R1_reedsting_leaf",
+      "TEAM"
+    ],
+    "triangles": 1258,
+    "unexpected_nodes": []
+  },
+  "identity_commit": "90efeb43555d35569a9bb66fab7ea8de83aa5045",
+  "license": "AGPL-3.0-only",
+  "projections": {
+    "idle_body_heights_px": [
+      13.24988079071045,
+      11.730072021484375,
+      12.54731798171997,
+      13.723917007446289
+    ],
+    "native_visual_verdict": "independent critic required",
+    "records": [
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425417065620422
+        },
+        "body_bounds": {
+          "bottom": 0.849571093916893,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425417065620422
+        },
+        "body_height_px": 13.24988079071045,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.1226692199707,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 1,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425417065620422
+        },
+        "body_bounds": {
+          "bottom": 0.849571093916893,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425417065620422
+        },
+        "body_height_px": 13.24988079071045,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.1226692199707,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 11,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425417065620422
+        },
+        "body_bounds": {
+          "bottom": 0.849571093916893,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425417065620422
+        },
+        "body_height_px": 13.24988079071045,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.1226692199707,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 21,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425417065620422
+        },
+        "body_bounds": {
+          "bottom": 0.849571093916893,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425417065620422
+        },
+        "body_height_px": 13.24988079071045,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.1226692199707,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 31,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425442397594452
+        },
+        "body_bounds": {
+          "bottom": 0.8489669412374496,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425442397594452
+        },
+        "body_height_px": 13.211052894592285,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.12283134460449,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 41,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6384207606315613
+        },
+        "body_bounds": {
+          "bottom": 0.8610765933990479,
+          "left": 0.4390156865119934,
+          "right": 0.5635852217674255,
+          "top": 0.6384207606315613
+        },
+        "body_height_px": 14.24997329711914,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          40.85892868041992,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 51,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425442397594452
+        },
+        "body_bounds": {
+          "bottom": 0.8489669412374496,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425442397594452
+        },
+        "body_height_px": 13.211052894592285,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.12283134460449,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 61,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425173580646515
+        },
+        "body_bounds": {
+          "bottom": 0.8610765933990479,
+          "left": 0.4399801790714264,
+          "right": 0.5708001255989075,
+          "top": 0.6425173580646515
+        },
+        "body_height_px": 13.987791061401367,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.121110916137695,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 71,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6425417065620422
+        },
+        "body_bounds": {
+          "bottom": 0.849571093916893,
+          "left": 0.4394148886203766,
+          "right": 0.5641565322875977,
+          "top": 0.6425417065620422
+        },
+        "body_height_px": 13.24988079071045,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.1226692199707,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 90,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6501761972904205
+        },
+        "body_bounds": {
+          "bottom": 0.8517109751701355,
+          "left": 0.43921297788619995,
+          "right": 0.5751329064369202,
+          "top": 0.6501761972904205
+        },
+        "body_height_px": 12.898225784301758,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          41.611276626586914,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 96,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6266584098339081
+        },
+        "body_bounds": {
+          "bottom": 0.8510686010122299,
+          "left": 0.4383241832256317,
+          "right": 0.5618477463722229,
+          "top": 0.6266584098339081
+        },
+        "body_height_px": 14.362252235412598,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          40.10613822937012,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 100,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          -0.09545724093914032
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912774085998535,
+          "right": 0.6208723187446594,
+          "top": 0.6384193599224091
+        },
+        "body_bounds": {
+          "bottom": 0.8499656021595001,
+          "left": 0.4393300712108612,
+          "right": 0.5639954805374146,
+          "top": 0.6384193599224091
+        },
+        "body_height_px": 13.538959503173828,
+        "camera_elevation_degrees": 49.99999648670619,
+        "crop_margins_px": [
+          24.264175415039062,
+          40.85883903503418,
+          24.264171600341797,
+          4.166284561157227
+        ],
+        "direction": "north",
+        "frame": 106,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6507787704467773,
+          "top": 0.684366375207901
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.46270620822906494,
+          "right": 0.6507787704467773,
+          "top": 0.684366375207901
+        },
+        "body_height_px": 11.730072021484375,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.799448013305664,
+          22.35015869140625,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 1,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6507787704467773,
+          "top": 0.6837151944637299
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.46270620822906494,
+          "right": 0.6507787704467773,
+          "top": 0.6837151944637299
+        },
+        "body_height_px": 11.771747589111328,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.75777244567871,
+          22.35015869140625,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 11,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6507787704467773,
+          "top": 0.684366375207901
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.46270620822906494,
+          "right": 0.6507787704467773,
+          "top": 0.684366375207901
+        },
+        "body_height_px": 11.730072021484375,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.799448013305664,
+          22.35015869140625,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 21,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6507787704467773,
+          "top": 0.6840816736221313
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.46270620822906494,
+          "right": 0.6507787704467773,
+          "top": 0.6840816736221313
+        },
+        "body_height_px": 11.748292922973633,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.781227111816406,
+          22.35015869140625,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 31,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6575502157211304,
+          "top": 0.6842154264450073
+        },
+        "body_bounds": {
+          "bottom": 0.8679465800523758,
+          "left": 0.46913546323776245,
+          "right": 0.6575502157211304,
+          "top": 0.6842154264450073
+        },
+        "body_height_px": 11.758793830871582,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.78978729248047,
+          21.916786193847656,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 41,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6592584848403931,
+          "top": 0.6811747550964355
+        },
+        "body_bounds": {
+          "bottom": 0.8642687797546387,
+          "left": 0.45869529247283936,
+          "right": 0.6592584848403931,
+          "top": 0.6811747550964355
+        },
+        "body_height_px": 11.718017578125,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.595184326171875,
+          21.807456970214844,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 51,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6575502157211304,
+          "top": 0.6842154264450073
+        },
+        "body_bounds": {
+          "bottom": 0.8679465800523758,
+          "left": 0.46913546323776245,
+          "right": 0.6575502157211304,
+          "top": 0.6842154264450073
+        },
+        "body_height_px": 11.758793830871582,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.78978729248047,
+          21.916786193847656,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 61,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.653910756111145,
+          "top": 0.6814861595630646
+        },
+        "body_bounds": {
+          "bottom": 0.8604542911052704,
+          "left": 0.45869529247283936,
+          "right": 0.653910756111145,
+          "top": 0.6814861595630646
+        },
+        "body_height_px": 11.453960418701172,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.61511421203613,
+          22.14971160888672,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 71,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6507787704467773,
+          "top": 0.684366375207901
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.46270620822906494,
+          "right": 0.6507787704467773,
+          "top": 0.684366375207901
+        },
+        "body_height_px": 11.730072021484375,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.799448013305664,
+          22.35015869140625,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 90,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6366312503814697,
+          "top": 0.6834251582622528
+        },
+        "body_bounds": {
+          "bottom": 0.8679906725883484,
+          "left": 0.4592302739620209,
+          "right": 0.6366312503814697,
+          "top": 0.6834251582622528
+        },
+        "body_height_px": 11.812192916870117,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.73921012878418,
+          23.255599975585938,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 96,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6773836016654968,
+          "top": 0.6817691028118134
+        },
+        "body_bounds": {
+          "bottom": 0.8668191730976105,
+          "left": 0.46741536259651184,
+          "right": 0.6773836016654968,
+          "top": 0.6817691028118134
+        },
+        "body_height_px": 11.843204498291016,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.633222579956055,
+          20.647449493408203,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 100,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.12461063265800476,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3791276216506958,
+          "right": 0.6584396958351135,
+          "top": 0.683898389339447
+        },
+        "body_bounds": {
+          "bottom": 0.8674950897693634,
+          "left": 0.46381649374961853,
+          "right": 0.6584396958351135,
+          "top": 0.683898389339447
+        },
+        "body_height_px": 11.750188827514648,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          24.26416778564453,
+          43.76949691772461,
+          21.859859466552734,
+          4.1662750244140625
+        ],
+        "direction": "east",
+        "frame": 106,
+        "ground_anchor_uv": [
+          0.49999991059303284,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6790983974933624
+        },
+        "body_bounds": {
+          "bottom": 0.875150240957737,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6790983974933624
+        },
+        "body_height_px": 12.54731798171997,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.462297439575195,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 1,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6790983974933624
+        },
+        "body_bounds": {
+          "bottom": 0.875150240957737,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6790983974933624
+        },
+        "body_height_px": 12.54731798171997,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.462297439575195,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 11,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6790983974933624
+        },
+        "body_bounds": {
+          "bottom": 0.875150240957737,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6790983974933624
+        },
+        "body_height_px": 12.54731798171997,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.462297439575195,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 21,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6790983974933624
+        },
+        "body_bounds": {
+          "bottom": 0.875150240957737,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6790983974933624
+        },
+        "body_height_px": 12.54731798171997,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.462297439575195,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 31,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6892892420291901
+        },
+        "body_bounds": {
+          "bottom": 0.8854252025485039,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6892892420291901
+        },
+        "body_height_px": 12.552701473236084,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          44.114511489868164,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 41,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6879805624485016
+        },
+        "body_bounds": {
+          "bottom": 0.8839189931750298,
+          "left": 0.43641477823257446,
+          "right": 0.5609843134880066,
+          "top": 0.6879805624485016
+        },
+        "body_height_px": 12.540059566497803,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          44.0307559967041,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 51,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6892892420291901
+        },
+        "body_bounds": {
+          "bottom": 0.8854252025485039,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6892892420291901
+        },
+        "body_height_px": 12.552701473236084,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          44.114511489868164,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 61,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6849713027477264
+        },
+        "body_bounds": {
+          "bottom": 0.8798224106431007,
+          "left": 0.42919987440109253,
+          "right": 0.560019850730896,
+          "top": 0.6849713027477264
+        },
+        "body_height_px": 12.470470905303955,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.83816337585449,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 71,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6790983974933624
+        },
+        "body_bounds": {
+          "bottom": 0.875150240957737,
+          "left": 0.43584346771240234,
+          "right": 0.5605851411819458,
+          "top": 0.6790983974933624
+        },
+        "body_height_px": 12.54731798171997,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.462297439575195,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 90,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6696009337902069
+        },
+        "body_bounds": {
+          "bottom": 0.8638087064027786,
+          "left": 0.42486706376075745,
+          "right": 0.5607870221138,
+          "top": 0.6696009337902069
+        },
+        "body_height_px": 12.42929744720459,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          42.85445976257324,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 96,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6966798007488251
+        },
+        "body_bounds": {
+          "bottom": 0.902963750064373,
+          "left": 0.4381522536277771,
+          "right": 0.5616758465766907,
+          "top": 0.6966798007488251
+        },
+        "body_height_px": 13.202172756195068,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          44.587507247924805,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 100,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          0.0,
+          0.09545725584030151
+        ],
+        "all_bounds": {
+          "bottom": 0.9349018037319183,
+          "left": 0.37912771105766296,
+          "right": 0.6208722591400146,
+          "top": 0.6834496259689331
+        },
+        "body_bounds": {
+          "bottom": 0.8827316537499428,
+          "left": 0.43600454926490784,
+          "right": 0.5606699585914612,
+          "top": 0.6834496259689331
+        },
+        "body_height_px": 12.75404977798462,
+        "camera_elevation_degrees": 49.99999648670621,
+        "crop_margins_px": [
+          24.26417350769043,
+          43.74077606201172,
+          24.264175415039062,
+          4.166284561157227
+        ],
+        "direction": "south",
+        "frame": 106,
+        "ground_anchor_uv": [
+          0.5,
+          0.8437500149011612
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34922125935554504,
+          "right": 0.6208723783493042,
+          "top": 0.6532125473022461
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.34922125935554504,
+          "right": 0.5372937917709351,
+          "top": 0.6532125473022461
+        },
+        "body_height_px": 13.723917007446289,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          22.350160598754883,
+          41.80560302734375,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 1,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34922125935554504,
+          "right": 0.6208723783493042,
+          "top": 0.6532125473022461
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.34922125935554504,
+          "right": 0.5372937917709351,
+          "top": 0.6532125473022461
+        },
+        "body_height_px": 13.723917007446289,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          22.350160598754883,
+          41.80560302734375,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 11,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34922125935554504,
+          "right": 0.6208723783493042,
+          "top": 0.6532125473022461
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.34922125935554504,
+          "right": 0.5372937917709351,
+          "top": 0.6532125473022461
+        },
+        "body_height_px": 13.723917007446289,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          22.350160598754883,
+          41.80560302734375,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 21,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34922125935554504,
+          "right": 0.6208723783493042,
+          "top": 0.6532125473022461
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.34922125935554504,
+          "right": 0.5372937917709351,
+          "top": 0.6532125473022461
+        },
+        "body_height_px": 13.723917007446289,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          22.350160598754883,
+          41.80560302734375,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 31,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "idle",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34244975447654724,
+          "right": 0.6208723783493042,
+          "top": 0.6533085107803345
+        },
+        "body_bounds": {
+          "bottom": 0.8679465800523758,
+          "left": 0.34244975447654724,
+          "right": 0.5308645367622375,
+          "top": 0.6533085107803345
+        },
+        "body_height_px": 13.736836433410645,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          21.916784286499023,
+          41.811744689941406,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 41,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34074151515960693,
+          "right": 0.6208723783493042,
+          "top": 0.6509229242801666
+        },
+        "body_bounds": {
+          "bottom": 0.8604542911052704,
+          "left": 0.34074151515960693,
+          "right": 0.5413047075271606,
+          "top": 0.6509229242801666
+        },
+        "body_height_px": 13.41000747680664,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          21.807456970214844,
+          41.659067153930664,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 51,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34244975447654724,
+          "right": 0.6208723783493042,
+          "top": 0.6533085107803345
+        },
+        "body_bounds": {
+          "bottom": 0.8679465800523758,
+          "left": 0.34244975447654724,
+          "right": 0.5308645367622375,
+          "top": 0.6533085107803345
+        },
+        "body_height_px": 13.736836433410645,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          21.916784286499023,
+          41.811744689941406,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 61,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.346089243888855,
+          "right": 0.6208723783493042,
+          "top": 0.6501660346984863
+        },
+        "body_bounds": {
+          "bottom": 0.8642687797546387,
+          "left": 0.346089243888855,
+          "right": 0.5413047075271606,
+          "top": 0.6501660346984863
+        },
+        "body_height_px": 13.70257568359375,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          22.14971160888672,
+          41.610626220703125,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 71,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "walk",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.34922125935554504,
+          "right": 0.6208723783493042,
+          "top": 0.6532125473022461
+        },
+        "body_bounds": {
+          "bottom": 0.8676487505435944,
+          "left": 0.34922125935554504,
+          "right": 0.5372937917709351,
+          "top": 0.6532125473022461
+        },
+        "body_height_px": 13.723917007446289,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          22.350160598754883,
+          41.80560302734375,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 90,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3633687198162079,
+          "right": 0.6208723783493042,
+          "top": 0.6541213095188141
+        },
+        "body_bounds": {
+          "bottom": 0.8666224628686905,
+          "left": 0.3633687198162079,
+          "right": 0.5407696962356567,
+          "top": 0.6541213095188141
+        },
+        "body_height_px": 13.60007381439209,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          23.255598068237305,
+          41.8637638092041,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 96,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3226163983345032,
+          "right": 0.6208723783493042,
+          "top": 0.6551930904388428
+        },
+        "body_bounds": {
+          "bottom": 0.8687486797571182,
+          "left": 0.3226163983345032,
+          "right": 0.5325846672058105,
+          "top": 0.6551930904388428
+        },
+        "body_height_px": 13.667557716369629,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          20.647449493408203,
+          41.93235778808594,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 100,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      },
+      {
+        "actor_forward_screen_delta": [
+          -0.12461057305335999,
+          0.0
+        ],
+        "all_bounds": {
+          "bottom": 0.9349019527435303,
+          "left": 0.3415602743625641,
+          "right": 0.6208723783493042,
+          "top": 0.6532302796840668
+        },
+        "body_bounds": {
+          "bottom": 0.8679660707712173,
+          "left": 0.3415602743625641,
+          "right": 0.5361834764480591,
+          "top": 0.6532302796840668
+        },
+        "body_height_px": 13.743090629577637,
+        "camera_elevation_degrees": 49.9999938705921,
+        "crop_margins_px": [
+          21.8598575592041,
+          41.80673789978027,
+          24.26416778564453,
+          4.1662750244140625
+        ],
+        "direction": "west",
+        "frame": 106,
+        "ground_anchor_uv": [
+          0.5000000596046448,
+          0.8437501639127731
+        ],
+        "motion": "attack",
+        "ortho_scale": 8.024999618530273
+      }
+    ],
+    "study_tolerance_px": [
+      10,
+      16
+    ],
+    "target_px": 13
+  },
+  "quality_verdict": "not reviewed",
+  "reference_imported": false,
+  "render_engine": "BLENDER_EEVEE",
+  "runtime_integration": false,
+  "status": "Generated; saved-scene rendering and independent art review still required"
+}

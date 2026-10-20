@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "status": "source preparation only; no model, export, render, or independent quality verdict",
+  "identity_commit": "90efeb43555d35569a9bb66fab7ea8de83aa5045",
+  "authorship": "Original procedural model-generation source by GPT-6 Astra, using Claude's committed Riverworks Diorama proposal for shared style guidance",
+  "license": "AGPL-3.0-only",
+  "characters": [
+    {"card_id":"skymaul","portrait_cell":3,"source":"scripts/skymaul.py","identity":"Floating separated stone masses, copper bindings, warm chest core; smith hammer added from existing lore"},
+    {"card_id":"brassbolt","portrait_cell":4,"source":"scripts/brassbolt.py","identity":"Animal-faced green-hood ranger, horizontal brass crossbow, amber bolts"},
+    {"card_id":"reedsting","portrait_cell":5,"source":"scripts/reedsting.py","identity":"Wooden mask, reed hood and lining marks, tall slender bow"}
+  ],
+  "canon_manifest": "input-manifest.json",
+  "verified_helper_manifest": "observed-renderer-input-manifest.json",
+  "design_status": "Claude handoff is a proposal about the first three characters, not approval for these three",
+  "runtime_integration": false,
+  "reference_imported": false,
+  "external_model_or_texture_imports": [],
+  "canonical_atlas_used_as_comparison_only": true,
+  "generated_models": [],
+  "generated_renders": [],
+  "blender_executed": false,
+  "quality_verdict": "not reviewed",
+  "expected_native_contract": {"pitch_degrees":50,"orthographic_scale":8.025,"raw_cell_px":256,"native_cell_px":64,"ground_anchor_px":[32,54],"body_target_px":13,"crop_margin_px":2,"supersample_reduction":"4:1 alpha-weighted area","mirror":false},
+  "expected_outputs_after_authorized_execution": {"blend":3,"glb":3,"raw_256":108,"native_64":108,"portrait_512":3},
+  "strict_gates": ["all authored character geometry including both team rings at most 3000 evaluated triangles", "at most eight materials including TEAM", "exact unrounded geometry/pivot/material/pose preservation", "saved scene reopened before rendering", "actual actor-forward projection checks", "alpha crop margins", "no silent clip fallback", "no per-view fit/crop/resize"],
+  "unexecuted_gates": ["Blender runtime compatibility", "GLB named clip/export integrity", "strict saved state preservation", "native crop/body/mask measurements", "independent original identity and grayscale team critique", "live runtime, restore, and reduced-motion qualification"]
+}

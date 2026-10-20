@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "pieces": ["ART-3D-COIL-001", "ART-3D-MOSS-001"],
+  "identity_commit": "87e18ba64762d1d0019e0e0c9d38020611d14f5f",
+  "identity_original_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "evaluated_triangle_maximum": 3000,
+  "material_maximum": 8,
+  "camera": {
+    "elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "native_cell": 64,
+    "supersample": 4,
+    "ground_anchor_normalized": [0.5, 0.84375],
+    "directions": [["north", 180], ["east", 270], ["south", 0], ["west", 90]],
+    "direction_semantics": "Actor facing on screen, measured from projected local -Y; camera azimuth is not the actor heading",
+    "idle_body_height_pixels_target": 13,
+    "crop_border_pixels": 2
+  },
+  "source_frames": {
+    "idle": [1, 9, 17, 25],
+    "walk": [41, 51, 61, 71],
+    "attack": [90, 96, 100, 106]
+  },
+  "render_poses": {"idle": 1, "walk": 51, "contact": 100},
+  "teams": ["river", "ember"],
+  "render_samples": 16,
+  "render_engine": "BLENDER_EEVEE",
+  "native_raster_maximum_bytes": 1048576,
+  "arena_context": {
+    "source": "controls/arena-painted.webp",
+    "width": 540,
+    "height": 960,
+    "cell_pixels": 64,
+    "adjacent_ground_anchor_distance_pixels": 30
+  },
+  "controls": {
+    "coilblade": {
+      "blend_sha256": "13266e98b20b84b9b175cf58a13fcf5bb85604fae80dda58174b8233bad066f3",
+      "glb_sha256": "4c44ff59323ccbc83bfa70155f5d8cdae6cd66f284caaacff4037417517dc9d5",
+      "explicit_geometry_sha256": "1a0b753a302effb27733f0325064bd369858e4a2e1c8fbcff93fda7cc3c09b4d",
+      "base_triangles": 8604,
+      "evaluated_triangles": 9668
+    },
+    "mossguard": {
+      "blend_sha256": "8e52a446a284b184f2c2f4cd75093b4368aa8f22f97725513f2579149f0e9402",
+      "glb_sha256": "96a42a032718ad6f8d94e147167dbd5c625e57f5d73897e523a7a968826daa02",
+      "explicit_geometry_sha256": "af5eb4494ae9aae818f99668ddcb97c2e02633c843ca9aab59634da7172b5f54",
+      "base_triangles": 5192,
+      "evaluated_triangles": 5904
+    }
+  }
+}

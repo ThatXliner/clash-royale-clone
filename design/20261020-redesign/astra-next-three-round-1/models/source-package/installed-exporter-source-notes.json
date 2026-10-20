@@ -1,0 +1,26 @@
+{
+  "status": "Read installed Python source as text only; Blender and bpy not run",
+  "executable": "/Applications/Blender.app/Contents/MacOS/Blender",
+  "version_directory": "5.1",
+  "files": [
+    {
+      "path": "/Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/__init__.py",
+      "bytes": 84539,
+      "sha256": "c37950a4be79e084c1991d6627a19300c285b1253a37988e397ac0ab2d5af090"
+    },
+    {
+      "path": "/Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/blender/exp/animation/tracks.py",
+      "bytes": 35483,
+      "sha256": "ccc5214b2ce176a9d606d25c56870e64b2890390ab5c11c261e9f72b3dc00216"
+    }
+  ],
+  "observations": [
+    "NLA_TRACKS is a declared export_animation_mode enum.",
+    "The exporter forces merge by NLA track names outside ACTIONS mode.",
+    "Named idle/walk/attack tracks merge object animation into the corresponding clips.",
+    "export_anim_slide_to_zero is a declared Boolean property."
+  ],
+  "limits": [
+    "RNA availability, NLA slot binding, export preservation, actual clip names and every visual criterion remain unexecuted."
+  ]
+}

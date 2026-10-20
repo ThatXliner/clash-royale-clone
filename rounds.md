@@ -9946,3 +9946,39 @@ VERDICT: FAIL — first actual browser-matrix critic
 EVIDENCE: Corrected independent report SHA-256 a152252d8fcbed2f82ebceb41a2a87743ed13f53fdb64fb6eba07584499f6863. The source-freeze preflight checks186 files and confirms181 unowned files match pinned main f3ef1e6; its src tree is identical to current main90efeb. The first four phone cases pass exact viewport restore and 120-tick continuation. The fifth required case, 1440×933 normal-motion horizontal, fails zero-tolerance restore with234 changed pixels and459 changed channels in inclusive bounds x=561–710,y=719–896. Browser/session/pointer-bridge/audio and the 120-future-tick continuation bytes match. The remaining three desktop cases and same-deck terminal/restart witness were not reached. Focused tests pass24/skip1; asset manifest6/6; shipping isolation13/13. The release build was NOT RUN: candidate node_modules are absent; external R5 contains Vite8.3.2, but candidate module resolution was not configured to use it. The corrected report/qualification/correction verification, original report and qualification, source-freeze/provenance/preflight records, raw failed-run TAP/JSON and only the failure/current-four-phone screenshots are retained at artifacts/app-redesign-copper-round-1/.
 BIGGEST GAP: Desktop1440×933 normal-horizontal restore is not pixel-exact; root cause remains unproven. The remaining desktop matrix and terminal/restart are unqualified. A separate builder is investigating with a matching current-main control; no product fix exists.
 DISPOSITION: Mark APP-REDESIGN-COPPER-001 FAIL0/1 after its first actual critic. Earlier setup and builder runs are not additional rounds. Preserve the five-file candidate patch and current browser test source only as recoverable artifact files; do not apply them to public/assets, src or tests. No stats, engine, live UI runtime, sprite integration or APP-REDESIGN-001 foundation acceptance.
+
+## Round 538 — 2026-10-20
+
+PIECE: ART-3D-SKY-001 Skymaul native model readability
+
+VERDICT: PASS — standalone native art only
+
+EVIDENCE: Fresh independent review of the saved editable Blend, standalone GLB, original portrait and actual reopened-scene renders. The floating stone body, copper bindings and lore-added hammer retain the original character read; four actor-facing headings, idle/walk/contact poses, both team treatments, common camera/anchor, crop safety and evaluated geometry pass. 1,136 evaluated triangles/26 editable meshes; body height N/E/S/W is 12.10/12.20/11.72/13.78 px. The hammer is the weakest front/back weapon read. All37 fresh PNG hashes match render receipts. Exact numerical preservation has the signed-zero caveat: 321 Euler-Y tokens are serialized -0.0 instead of +0.0. Independent reconstruction reproduces every recorded after digest; no nonzero numeric value changed or was rounded. Saved-state SHA differs, so bitwise identity is not claimed; full post-export/post-save JSON was not retained. This is standalone native art only, with no runtime/live integration, motion or full-cast acceptance. Bounded report and evidence: artifacts/next-three-native-round-1/.
+
+BIGGEST GAP: The signed-zero representation change means serialized state hashes differ even though every reconstructed numeric value matches; the complete after-state JSON was not captured.
+
+DISPOSITION: Record this PASS only for the named standalone native model. Keep ART-3D-001 at PASS 3/3 for Coilblade, Mossguard and Copperskiff; APP-REDESIGN-001 remains PENDING. No live runtime, motion, full-cast or foundation acceptance.
+
+## Round 539 — 2026-10-20
+
+PIECE: ART-3D-BRASS-001 Brassbolt native model readability
+
+VERDICT: PASS — standalone native art only
+
+EVIDENCE: Fresh independent review of the saved editable Blend, standalone GLB, original portrait and actual reopened-scene renders. The hooded animal face, ears, brass crossbow and amber bolt retain the original character read; four actor-facing headings, idle/walk/contact poses, both team treatments, common camera/anchor, crop safety and evaluated geometry pass. 1,248 evaluated triangles/39 editable meshes; body height N/E/S/W is 13.49/12.59/12.47/12.29 px. All37 fresh PNG hashes match render receipts. Exact numerical preservation has the signed-zero caveat: 642 Euler-Y tokens are serialized -0.0 instead of +0.0. Independent reconstruction reproduces every recorded after digest; no nonzero numeric value changed or was rounded. Saved-state SHA differs, so bitwise identity is not claimed; full post-export/post-save JSON was not retained. This is standalone native art only, with no runtime/live integration, motion or full-cast acceptance. Bounded report and evidence: artifacts/next-three-native-round-1/.
+
+BIGGEST GAP: The signed-zero representation change means serialized state hashes differ even though every reconstructed numeric value matches; the complete after-state JSON was not captured.
+
+DISPOSITION: Record this PASS only for the named standalone native model. Keep ART-3D-001 at PASS 3/3 for Coilblade, Mossguard and Copperskiff; APP-REDESIGN-001 remains PENDING. No live runtime, motion, full-cast or foundation acceptance.
+
+## Round 540 — 2026-10-20
+
+PIECE: ART-3D-REED-001 Reedsting native model readability
+
+VERDICT: PASS — standalone native art only
+
+EVIDENCE: Fresh independent review of the saved editable Blend, standalone GLB, original portrait and actual reopened-scene renders. The wooden mask, reed hood and slender bow retain the original character read; four actor-facing headings, idle/walk/contact poses, both team treatments, common camera/anchor, crop safety and evaluated geometry pass. 1,258 evaluated triangles/45 editable meshes; body height N/E/S/W is 13.25/11.73/12.55/13.72 px. All37 fresh PNG hashes match render receipts. Exact numerical preservation has the signed-zero caveat: 107 Euler-Y tokens are serialized -0.0 instead of +0.0. Independent reconstruction reproduces every recorded after digest; no nonzero numeric value changed or was rounded. Saved-state SHA differs, so bitwise identity is not claimed; full post-export/post-save JSON was not retained. This is standalone native art only, with no runtime/live integration, motion or full-cast acceptance. Bounded report and evidence: artifacts/next-three-native-round-1/.
+
+BIGGEST GAP: The signed-zero representation change means serialized state hashes differ even though every reconstructed numeric value matches; the complete after-state JSON was not captured.
+
+DISPOSITION: Record this PASS only for the named standalone native model. Keep ART-3D-001 at PASS 3/3 for Coilblade, Mossguard and Copperskiff; APP-REDESIGN-001 remains PENDING. No live runtime, motion, full-cast or foundation acceptance.

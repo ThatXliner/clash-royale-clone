@@ -1,0 +1,107 @@
+{
+  "teams": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "materials": {
+    "ink": {
+      "hex": "#191D22",
+      "roughness": 0.9,
+      "metallic": 0
+    },
+    "stone": {
+      "hex": "#727B7C",
+      "roughness": 0.92,
+      "metallic": 0
+    },
+    "stone_light": {
+      "hex": "#9BA5A2",
+      "roughness": 0.9,
+      "metallic": 0
+    },
+    "copper": {
+      "hex": "#B87938",
+      "roughness": 0.48,
+      "metallic": 0.65
+    },
+    "brass": {
+      "hex": "#D8A84A",
+      "roughness": 0.42,
+      "metallic": 0.65
+    },
+    "wood": {
+      "hex": "#66452E",
+      "roughness": 0.88,
+      "metallic": 0
+    },
+    "leaf": {
+      "hex": "#536A38",
+      "roughness": 0.9,
+      "metallic": 0
+    },
+    "reed": {
+      "hex": "#809448",
+      "roughness": 0.9,
+      "metallic": 0
+    },
+    "heartwood": {
+      "hex": "#C79A63",
+      "roughness": 0.82,
+      "metallic": 0
+    },
+    "fur": {
+      "hex": "#A06D3E",
+      "roughness": 0.92,
+      "metallic": 0
+    },
+    "bone": {
+      "hex": "#E7DCC0",
+      "roughness": 0.85,
+      "metallic": 0
+    },
+    "amber": {
+      "hex": "#FFD27A",
+      "roughness": 0.55,
+      "metallic": 0.1,
+      "emission": 0.35
+    },
+    "TEAM": {
+      "hex": "#2E7F86",
+      "roughness": 0.82,
+      "metallic": 0
+    }
+  },
+  "character_slots": {
+    "skymaul": [
+      "ink",
+      "stone",
+      "stone_light",
+      "copper",
+      "wood",
+      "amber",
+      "bone",
+      "TEAM"
+    ],
+    "brassbolt": [
+      "ink",
+      "wood",
+      "leaf",
+      "fur",
+      "bone",
+      "brass",
+      "amber",
+      "TEAM"
+    ],
+    "reedsting": [
+      "ink",
+      "wood",
+      "leaf",
+      "reed",
+      "heartwood",
+      "bone",
+      "amber",
+      "TEAM"
+    ]
+  },
+  "source_notes": "Existing palette tokens where available; new muted stone/fur/reed values are original medium-translation choices described in DESIGN.md. Team colors unchanged."
+}
