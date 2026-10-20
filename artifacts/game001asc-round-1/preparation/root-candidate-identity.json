@@ -1,0 +1,46 @@
+{
+  "candidate": "df86f516ec717a252c1c244bb0f1c1cdc477ee7e",
+  "parent": "d0ec2e7426fbdba42d3f69fb02ead34cc22fbed0",
+  "ref": "refs/heads/codex/game001asc-d0-r1",
+  "files": 11,
+  "exactHistoricalInputs": [
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/2a-game-session-bloom-wisp-v2.snapshot",
+      "bytes": 200458,
+      "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9"
+    },
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/2a-game-session-dawnmender-v2.snapshot",
+      "bytes": 200434,
+      "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e"
+    },
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/2a-game-session-pulse-sentry-v2.snapshot",
+      "bytes": 200506,
+      "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0"
+    },
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/2a-game-session-rime-adept-v2.snapshot",
+      "bytes": 200458,
+      "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92"
+    },
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/2a-game-session-tether-rider-v2.snapshot",
+      "bytes": 200495,
+      "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5"
+    },
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/2a-game-session-veil-prowler-v2.snapshot",
+      "bytes": 200501,
+      "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3"
+    },
+    {
+      "path": "tests/fixtures/source-vintage-checkpoints/c9-empty-live-battle-v2.snapshot",
+      "bytes": 11618,
+      "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a"
+    }
+  ],
+  "srcTreeUnchanged": true,
+  "testSha256": "9c68a5c29c9f6f3ceaa96cf43e8ccc1b3fc8d6a3ec916cfca079d5eb9dbb29f8",
+  "status": "UNEXECUTED; no adoption or runtime claim. Wait for full R5 qualification/factory acceptance before rebinding this test-only change onto the accepted source."
+}
