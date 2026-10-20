@@ -1,0 +1,314 @@
+{
+  "classification": "HOSTILE_CONTACT",
+  "primary": {
+    "identity": {
+      "attackSequence": 1,
+      "direction": "unit-to-unit",
+      "projectileId": 1,
+      "sourceId": 1
+    },
+    "target": {
+      "id": 2,
+      "type": "unit"
+    },
+    "targetSide": "south",
+    "targetHitpointsBeforeHop": 948,
+    "tick": 149
+  },
+  "hop": {
+    "target": {
+      "id": 4,
+      "type": "building"
+    },
+    "outcome": "contact",
+    "tick": 150,
+    "targetSide": "south",
+    "hitpointsBefore": 824,
+    "hitpointsAfter": 632,
+    "hpDelta": 192
+  },
+  "nearbyCandidatesAtHopStart": [
+    {
+      "alive": true,
+      "cardId": "bulwark-needle",
+      "hitpoints": 824,
+      "id": 4,
+      "position": {
+        "x": 3500,
+        "y": 12800
+      },
+      "side": "south",
+      "targetable": true,
+      "kind": "building",
+      "distanceFromPrimaryOrigin": 0
+    },
+    {
+      "alive": true,
+      "cardId": "mossguard",
+      "hitpoints": 948,
+      "id": 2,
+      "position": {
+        "x": 3500,
+        "y": 14916
+      },
+      "side": "south",
+      "kind": "unit",
+      "distanceFromPrimaryOrigin": 2116
+    },
+    {
+      "alive": true,
+      "cardId": "mossguard",
+      "hitpoints": 1766,
+      "id": 3,
+      "position": {
+        "x": 3500,
+        "y": 17084
+      },
+      "side": "north",
+      "kind": "unit",
+      "distanceFromPrimaryOrigin": 4284
+    },
+    {
+      "alive": true,
+      "cardId": "bulwark-needle",
+      "hitpoints": 400,
+      "id": 5,
+      "position": {
+        "x": 3500,
+        "y": 17200
+      },
+      "side": "north",
+      "targetable": true,
+      "kind": "building",
+      "distanceFromPrimaryOrigin": 4400
+    },
+    {
+      "alive": true,
+      "cardId": "stormkite",
+      "hitpoints": 950,
+      "id": 1,
+      "position": {
+        "x": 3500,
+        "y": 17500
+      },
+      "side": "north",
+      "kind": "unit",
+      "distanceFromPrimaryOrigin": 4700
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "south:lane:west",
+      "position": {
+        "x": 3500,
+        "y": 7500
+      },
+      "role": "lane",
+      "side": "south",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 5300
+    },
+    {
+      "alive": true,
+      "hitpoints": 4824,
+      "id": "south:central",
+      "position": {
+        "x": 9000,
+        "y": 3000
+      },
+      "role": "central",
+      "side": "south",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 11238
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "north:lane:west",
+      "position": {
+        "x": 3500,
+        "y": 24500
+      },
+      "role": "lane",
+      "side": "north",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 11700
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "south:lane:east",
+      "position": {
+        "x": 14500,
+        "y": 7500
+      },
+      "role": "lane",
+      "side": "south",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 12210
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "north:lane:east",
+      "position": {
+        "x": 14500,
+        "y": 24500
+      },
+      "role": "lane",
+      "side": "north",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 16059
+    },
+    {
+      "alive": true,
+      "hitpoints": 4824,
+      "id": "north:central",
+      "position": {
+        "x": 9000,
+        "y": 29000
+      },
+      "role": "central",
+      "side": "north",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 17108
+    }
+  ],
+  "nearestEligibleFriendly": {
+    "alive": true,
+    "cardId": "mossguard",
+    "hitpoints": 1766,
+    "id": 3,
+    "position": {
+      "x": 3500,
+      "y": 17084
+    },
+    "side": "north",
+    "kind": "unit",
+    "distanceFromPrimaryOrigin": 4284
+  },
+  "nearestEligibleHostile": {
+    "alive": true,
+    "cardId": "bulwark-needle",
+    "hitpoints": 824,
+    "id": 4,
+    "position": {
+      "x": 3500,
+      "y": 12800
+    },
+    "side": "south",
+    "targetable": true,
+    "kind": "building",
+    "distanceFromPrimaryOrigin": 0
+  },
+  "crownsNearPrimaryOrigin": [
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "south:lane:west",
+      "position": {
+        "x": 3500,
+        "y": 7500
+      },
+      "role": "lane",
+      "side": "south",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 5300
+    },
+    {
+      "alive": true,
+      "hitpoints": 4824,
+      "id": "south:central",
+      "position": {
+        "x": 9000,
+        "y": 3000
+      },
+      "role": "central",
+      "side": "south",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 11238
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "north:lane:west",
+      "position": {
+        "x": 3500,
+        "y": 24500
+      },
+      "role": "lane",
+      "side": "north",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 11700
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "south:lane:east",
+      "position": {
+        "x": 14500,
+        "y": 7500
+      },
+      "role": "lane",
+      "side": "south",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 12210
+    },
+    {
+      "alive": true,
+      "hitpoints": 3052,
+      "id": "north:lane:east",
+      "position": {
+        "x": 14500,
+        "y": 24500
+      },
+      "role": "lane",
+      "side": "north",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 16059
+    },
+    {
+      "alive": true,
+      "hitpoints": 4824,
+      "id": "north:central",
+      "position": {
+        "x": 9000,
+        "y": 29000
+      },
+      "role": "central",
+      "side": "north",
+      "kind": "crown-tower",
+      "distanceFromPrimaryOrigin": 17108
+    }
+  ],
+  "beforeTick": 150,
+  "afterTick": 151,
+  "hostEvents": [
+    {
+      "amountApplied": 192,
+      "amountRequested": 192,
+      "buildingId": 4,
+      "origin": "chain-hop",
+      "sourceId": "chain:1:1:unit-to-unit:1:2",
+      "tick": 150,
+      "type": "structure-damaged"
+    },
+    {
+      "requestedDamage": 192,
+      "hop": 2,
+      "identity": {
+        "attackSequence": 1,
+        "direction": "unit-to-unit",
+        "projectileId": 1,
+        "sourceId": 1
+      },
+      "outcome": "contact",
+      "target": {
+        "id": 4,
+        "type": "building"
+      },
+      "tick": 150,
+      "type": "chain-hop-contact"
+    }
+  ]
+}

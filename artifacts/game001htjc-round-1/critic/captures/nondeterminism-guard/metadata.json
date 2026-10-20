@@ -1,0 +1,78 @@
+{
+  "argv": [
+    "/Users/me/.hermes/node/bin/npm",
+    "run",
+    "test:nondeterminism-guard"
+  ],
+  "cwd": "/Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/candidate-files",
+  "directExitStatus": 0,
+  "endedAtUtc": "2026-10-20T18:29:25.321078+00:00",
+  "environmentAllowlist": {
+    "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/me",
+    "TMPDIR": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "observedProcessTree": [
+    {
+      "command": "npm run test:nondeterminism-guard",
+      "ppid": 99476,
+      "pid": 99477
+    },
+    {
+      "command": "node tests/nondeterminism-guard-runner.js nondeterminism-guard",
+      "ppid": 99477,
+      "pid": 99490
+    },
+    {
+      "command": "/Users/me/.hermes/node/bin/node --test /Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/candidate-files/tests/nondeterminism-guard.test.js",
+      "ppid": 99490,
+      "pid": 99491
+    },
+    {
+      "command": "/Users/me/.hermes/node/bin/node /Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/candidate-files/tests/nondeterminism-guard.test.js",
+      "ppid": 99491,
+      "pid": 99492
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99499
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99503
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99505
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99508
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99511
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99514
+    },
+    {
+      "command": "(node)",
+      "ppid": 99492,
+      "pid": 99518
+    }
+  ],
+  "pid": 99477,
+  "rootPid": 99477,
+  "startedAtUtc": "2026-10-20T18:29:23.860667+00:00",
+  "wallSeconds": 1.460665
+}

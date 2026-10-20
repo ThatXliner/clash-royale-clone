@@ -9833,3 +9833,17 @@ The reassessment renderer PID91459 writes all16RGBA256x256 images then exits1 on
 
 BIGGEST GAP: Fine deck/trim details fade at native size; recognizable identity rests on hull outline and bow/stern markers.
 DISPOSITION: Adopt original R4 editable prototype/source and bounded evidence only. ART-3D-001 remainsBUILDING withone ofthree characters qualified; Coilblade/Mossguard and actualmodel-derivedsprite/app/motionintegration remainopen. No engine/stat/policy/test/API/shippedasset changes. Evidence: artifacts/art3d001-round-4/{original-review,heading-audit,reassessment}; source: design/20261020-redesign/astra-round-4.
+
+
+## Round 528 — GAME-001HTJC actual shared chain host continuation
+
+PIECE: GAME-001HTJC
+VERDICT: FAIL
+EVIDENCE: Fresh independent execution of immutable candidate796557a95e6baca1747d7f5d45b97e4d8d094682 (srcc510ff4916996f6e9a182e6bdafb147c67320615) passes focusedhost9/9(PID99267), nondeterminism10/10(PID99477), shipping13/13(PID99525), actualunit/building/crown clone/adopt rollback plus in-place negativecontrols(PID99965), and raw-e35 no-policy snapshot/event equality through ordinary192HP combat at148(PID1273). Separatelylabeled one-sort compatibility control exercises ordinaryprojectile contact; it is not raw-e35 evidence. All154candidate source files match committedarchive.
+
+A separate actualLiveBattle hostile-side probe (PID2185 exit0) finds FRIENDLY_CONTACT. Primary149hits hostileMossguardunit2south. At hop150, friendlyBulwarkNeedlebuilding5north is2085millitiles fromprehopprimaryorigin, friendlyMossguardunit3north2168, hostileBulwarkbuilding4south2416, crownsatleast7416. Host emits chain-hop-contact forbuilding5 and structure-damaged amountRequested192/amountApplied192; friendlyHP400to208. Rootindependently parses rawJSON and confirms identity/side/HP/event values. Existing ordinary attack selection excludes same-side targets; the closedQUESTION layer/kind eligibility does not authorizefriendlyfire.
+
+BIGGEST GAP: Per-root chain target selection admits friendly structures despite an eligible farther enemy.
+DISPOSITION: Keepimplementation unadopted. BuilderR2 must apply source-side hostile eligibility and regression for units/buildings/crowns, noeligibleenemy, aftercasterdeath/restore/chunk continuation; preserveexact11QUESTIONpolicy and existingcaps/HPowners/tick. Earlier illegal-placement probe setups are executionerrors. The first post-settlement distance report is retained but superseded by reviewedprehop-originprobe; neither is an extra visual/mechanicround.
+
+Evidence: artifacts/game001htjc-round-1/critic containsactualrawcaptures, VERDICT, SOURCE-FENCE, originalprobe and rollback/defaultbyte helpers. Two portable patches reproduce the exactfactorybase from publica754b30 and the wholecandidate from publicd74c3d7c. Onlyprototypepatches/evidence/tracking arepublished; noengine/test/package/UI/runtime changes orfullsuite/browserqualification.

@@ -1,0 +1,68 @@
+
+> moss-and-ember@0.0.0 test:live-battle-chain-host
+> node tests/live-battle-chain-host-runner.js live-battle-chain-host
+
+TAP version 13
+# Subtest: Stormkite opt-in hits the shared unit, building, and crown health owners through one tick
+ok 1 - Stormkite opt-in hits the shared unit, building, and crown health owners through one tick
+  ---
+  duration_ms: 3718.458792
+  type: 'test'
+  ...
+# Subtest: an isolated primary completes without a target and leaves every HP owner unchanged
+ok 2 - an isolated primary completes without a target and leaves every HP owner unchanged
+  ---
+  duration_ms: 1009.330375
+  type: 'test'
+  ...
+# Subtest: same-boundary roots overkill a shared building through its host health owner
+ok 3 - same-boundary roots overkill a shared building through its host health owner
+  ---
+  duration_ms: 1782.014416
+  type: 'test'
+  ...
+# Subtest: dead-before-primary cancellations are replay-derived and opt-in snapshots are exact
+ok 4 - dead-before-primary cancellations are replay-derived and opt-in snapshots are exact
+  ---
+  duration_ms: 2128.958291
+  type: 'test'
+  ...
+# Subtest: same-boundary primary contact precedes ordinary damage and death in the host batch
+ok 5 - same-boundary primary contact precedes ordinary damage and death in the host batch
+  ---
+  duration_ms: 992.403083
+  type: 'test'
+  ...
+# Subtest: chain opt-in requires the real admitted Stormkite projectile source
+ok 6 - chain opt-in requires the real admitted Stormkite projectile source
+  ---
+  duration_ms: 31.929709
+  type: 'test'
+  ...
+# Subtest: LiveBattle host batching retains the 8-source direct reducer cap and final pending bound
+ok 7 - LiveBattle host batching retains the 8-source direct reducer cap and final pending bound
+  ---
+  duration_ms: 61.915125
+  type: 'test'
+  ...
+# Subtest: later projectile batches reject malformed and causally invalid identities atomically
+ok 8 - later projectile batches reject malformed and causally invalid identities atomically
+  ---
+  duration_ms: 10.299959
+  type: 'test'
+  ...
+# Subtest: later-batch history overflow does not commit earlier candidate batches
+ok 9 - later-batch history overflow does not commit earlier candidate batches
+  ---
+  duration_ms: 152.644458
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10076.130334

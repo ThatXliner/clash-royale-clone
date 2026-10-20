@@ -1,0 +1,253 @@
+{
+  "candidate": "796557a95e6baca1747d7f5d45b97e4d8d094682",
+  "sourceTree": "c510ff4916996f6e9a182e6bdafb147c67320615",
+  "verdict": "FAIL",
+  "actualFriendlyHP": [
+    400,
+    208
+  ],
+  "requestedAndApplied": 192,
+  "sourceAdopted": false,
+  "files": [
+    {
+      "path": "PLAN.md",
+      "bytes": 187237,
+      "sha256": "fd94ee6648ffcafcae327d1fdae8b06b6e037754d4da60e411c77a3b884b270c"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/candidate-from-d74.patch",
+      "bytes": 289657,
+      "sha256": "fba621f3bf78a4654923aa6a944c39773db5921bd2d54387d546f8f75ba188af"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/EVIDENCE-INDEX.md",
+      "bytes": 2225,
+      "sha256": "62eeca7b2697054cb85612366c4f96c674193a11d40ed1d3066ed25d481b3408"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/PREPARED.md",
+      "bytes": 2343,
+      "sha256": "77e5d3bfc46866fa8b6b6405d5a7d71434ddbbe5aaeb258a779e061d711c7a6b"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/SOURCE-FENCE.json",
+      "bytes": 24248,
+      "sha256": "6b3e9093e55ee588d806e8f238c5abdaad1724e0cbf3d4333bbd5723be6cf377"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/VERDICT.md",
+      "bytes": 5329,
+      "sha256": "474a8918ba42a72410a4cd21411ea0cbd3075da46d8c7d8c0fb93154943b5d30"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/absence-policy-byte-harness-v2.mjs",
+      "bytes": 13455,
+      "sha256": "1c4157fdadf3a004ab1cd49912e0661b32bea7007378c4f4cc821848df4b4115"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/candidate-files/private-boundary-rollback-copies/run-2026-10-20T18-30-19-616Z-99965/report.json",
+      "bytes": 76214,
+      "sha256": "cf5c4424e1dd9c153b5980a727042c2baff39df6b9e697eea6f3ffbbe601e629"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/candidate-files/private/chain-host-boundary-rollback-harness.mjs",
+      "bytes": 18933,
+      "sha256": "31c5c13bf823e2f594924ac9c4efbad805684097013865438becf7cbce462972"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/capture-command.py",
+      "bytes": 2882,
+      "sha256": "74745cef87da70319cfa2621c0dfb10c36b0ea2f891965c42132faf224dd9cd5"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/absence-policy-default-bytes/metadata.json",
+      "bytes": 1189,
+      "sha256": "f0179ecf49f717605afa7a3d9e3a07e178c105312616e553daf4df8649d4d1df"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/absence-policy-default-bytes/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/absence-policy-default-bytes/stdout.log",
+      "bytes": 2406,
+      "sha256": "c7e6ec26069126be7e980a6c2e29e26efcb9584cb7513a79747902fda6a270da"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-final/metadata.json",
+      "bytes": 802,
+      "sha256": "c5e92ebb9cd9a604a553f5ee36ffb8257891e3319aaf737f082bbc15125557e3"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-final/stderr.log",
+      "bytes": 1227,
+      "sha256": "e2608478af7be2a2dee86adb0cb066eaefb004d0f9e2a15874b26fdbfaf5b87d"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-final/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-nearest-friendly/metadata.json",
+      "bytes": 799,
+      "sha256": "8de6df07c390561947c8ceacf4b2144858d1ca4a68b32b9957c7d01268e93109"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-nearest-friendly/stderr.log",
+      "bytes": 1227,
+      "sha256": "e2608478af7be2a2dee86adb0cb066eaefb004d0f9e2a15874b26fdbfaf5b87d"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-nearest-friendly/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-reviewed-fixture/metadata.json",
+      "bytes": 928,
+      "sha256": "074c30770f22d656c50bce5525447432f273baad57fdd0dcef357e9a2a72dd32"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-reviewed-fixture/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe-reviewed-fixture/stdout.log",
+      "bytes": 6447,
+      "sha256": "7fef4c394da32c9322aeccb620df9b3886a6e0c6bb43415691f1f006a6cf25a5"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe/metadata.json",
+      "bytes": 802,
+      "sha256": "f29cf5aed5d4f9834bfee330cef0a1f81cbdf0af84c773a573cad34d46f95b38"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/hostile-side-probe/stdout.log",
+      "bytes": 6413,
+      "sha256": "b8d4a780c34a609914f85d4a9654bd27cf13e90202fff1afffaf0476a6c25d5c"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/live-battle-chain-host/metadata.json",
+      "bytes": 994,
+      "sha256": "d69a18f5ac71c4d97d2eaa2b236bbd5dfde073035beb33a41234ee4b6da75c48"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/live-battle-chain-host/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/live-battle-chain-host/stdout.log",
+      "bytes": 2343,
+      "sha256": "8eccd7b28bddb91714554039399996fc185b8f8f898c9c11aa9ab0effb7525b3"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/node-version/metadata.json",
+      "bytes": 709,
+      "sha256": "20983a2f954c071951b10c6a13fa3164ff2068db263a225a0ae9883077078b0b"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/node-version/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/node-version/stdout.log",
+      "bytes": 9,
+      "sha256": "28d5d468fcfe77594f84d719d1550610e3ff0904f1601e7d0e93325244965451"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/nondeterminism-guard/metadata.json",
+      "bytes": 1939,
+      "sha256": "5e2b8384e4427b33cff7abec7cfa312c327d1bf793e939f3332746336b84868e"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/nondeterminism-guard/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/nondeterminism-guard/stdout.log",
+      "bytes": 2637,
+      "sha256": "fded218777107a3bcee464846437fd91c86b57eaf934391d461da6fe6535ffb8"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/npm-version/metadata.json",
+      "bytes": 705,
+      "sha256": "6e54c50a20551dececa204f1be085fd8d555ee17c660a37d05693c39bcf7566f"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/npm-version/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/npm-version/stdout.log",
+      "bytes": 7,
+      "sha256": "7eeb2f42ee0d10d4e00355252af2e7468bbff992af43b511355feb76da5c7cfb"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/rollback-three-owners/metadata.json",
+      "bytes": 765,
+      "sha256": "442d8203326cf3e891e3dc816a1ac163a373796dd3dc1b025e3f38df2e74486f"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/rollback-three-owners/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/rollback-three-owners/stdout.log",
+      "bytes": 1572,
+      "sha256": "56609392d3a71c999d2c1b1b817694b0ad54a49e0fbda598b4b438c3bd980163"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/shipping-isolation-guard/metadata.json",
+      "bytes": 1236,
+      "sha256": "ea378d6159acc309dfdf0ee21830b7255cf7cad00b27053ea8e51e3fa4474887"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/shipping-isolation-guard/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/captures/shipping-isolation-guard/stdout.log",
+      "bytes": 3283,
+      "sha256": "6680c4c06371ae98751b03e3bbcd0722e46e1d9ecb97eb4318ca5273b8ee1b5f"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/compatibility-control-manifest.json",
+      "bytes": 48308,
+      "sha256": "be0f226ff89b2a8f889bc92558a4adaf96dd7f08539c76a9efedeb4a9fac921e"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/critic/private-hostile-side-probe.mjs",
+      "bytes": 7447,
+      "sha256": "fd8008911e85bd0787d6632cb9b000527d3deabdd6d635b2a79dacf7c11b46cc"
+    },
+    {
+      "path": "artifacts/game001htjc-round-1/factory-base.patch",
+      "bytes": 178729,
+      "sha256": "3acf3f229a3e04ff40a128fbf942ee19c7e0a0beea79804187a4536e573a1fe5"
+    },
+    {
+      "path": "progress.html",
+      "bytes": 299314,
+      "sha256": "da773859a08fa5834747e1dc5ccebc289c5fd8f68beb4dced58a094f4be4ac74"
+    },
+    {
+      "path": "rounds.md",
+      "bytes": 586851,
+      "sha256": "af1351e8e989eddfa55a2b7b92789eab6312571068f298e55d9caa5d258350df"
+    }
+  ]
+}

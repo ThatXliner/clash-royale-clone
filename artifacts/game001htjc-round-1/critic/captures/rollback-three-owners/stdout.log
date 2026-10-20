@@ -1,0 +1,39 @@
+{
+  "reportPath": "/Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/candidate-files/private-boundary-rollback-copies/run-2026-10-20T18-30-19-616Z-99965/report.json",
+  "runRoot": "/Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/candidate-files/private-boundary-rollback-copies/run-2026-10-20T18-30-19-616Z-99965",
+  "witnesses": [
+    {
+      "chosenCall": "LiveBattle.step()",
+      "cleanHPBefore": 1766,
+      "cleanHPAfter": 1574,
+      "forcedFaultSite": "candidate.#advance() returned; throw inserted before this.#adopt(candidate)",
+      "hpOwnerId": 2,
+      "witness": "unit",
+      "witnessEventType": "chain-primary-contact",
+      "rollbackExactBytes": true,
+      "negativeControlMutationVisible": true
+    },
+    {
+      "chosenCall": "LiveBattle.step()",
+      "cleanHPBefore": 824,
+      "cleanHPAfter": 632,
+      "forcedFaultSite": "candidate.#advance() returned; throw inserted before this.#adopt(candidate)",
+      "hpOwnerId": 3,
+      "witness": "building",
+      "witnessEventType": "chain-hop-contact",
+      "rollbackExactBytes": true,
+      "negativeControlMutationVisible": true
+    },
+    {
+      "chosenCall": "LiveBattle.step()",
+      "cleanHPBefore": 3052,
+      "cleanHPAfter": 2860,
+      "forcedFaultSite": "candidate.#advance() returned; throw inserted before this.#adopt(candidate)",
+      "hpOwnerId": "south:lane:west",
+      "witness": "crown",
+      "witnessEventType": "chain-hop-contact",
+      "rollbackExactBytes": true,
+      "negativeControlMutationVisible": true
+    }
+  ]
+}

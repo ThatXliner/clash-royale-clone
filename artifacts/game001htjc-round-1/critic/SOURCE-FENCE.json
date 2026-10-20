@@ -1,0 +1,636 @@
+{
+  "candidateCommit": "796557a95e6baca1747d7f5d45b97e4d8d094682",
+  "candidateGitTree": "0c9414f5fc9ef3fd7eeb11520e47d792ae82e78b",
+  "candidateSourceFingerprintFromPrep": "c510ff4916996f6e9a182e6bdafb147c67320615",
+  "candidateSrcArchiveMatchesPinnedGitArchive": true,
+  "sourceFileCount": 154,
+  "sourceBytes": 3179431,
+  "sourceFiles": {
+    "audio/audio-events.js": {
+      "bytes": 17721,
+      "sha256": "6be744a0b1080857aaa83285fe1c1d20bbc95422dc630e1d215be6faedd587f3"
+    },
+    "audio/audio-production-provenance.json": {
+      "bytes": 6183,
+      "sha256": "de5d85b9ec66e09d832ce52578546054c40f76105f66cf32a83b247b59209aae"
+    },
+    "audio/audio-provenance.json": {
+      "bytes": 7830,
+      "sha256": "18f44a42c137cd9c131b86c52062a34a0b3181a29db3c89cd09de4aa4f9e84e6"
+    },
+    "audio/audio-renderer.js": {
+      "bytes": 54452,
+      "sha256": "b8ebd1c05704b143612d60a5e08007fb7d7f0af3e4d4837c6bc7431da46e2dfb"
+    },
+    "audio/browser-audio.js": {
+      "bytes": 11492,
+      "sha256": "c8666b60a128683fa659c7cdd8c5c145a4206ecd105d9e0814c968071fc75b19"
+    },
+    "audio/game-audio-runtime.js": {
+      "bytes": 25694,
+      "sha256": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5"
+    },
+    "content/cards/basic-flying.js": {
+      "bytes": 16299,
+      "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083"
+    },
+    "content/cards/basic-melee.js": {
+      "bytes": 4400,
+      "sha256": "503ce411967087e8e9d77a0c6207e3971791127ae3bfdc75a8002f20fde9adf2"
+    },
+    "content/cards/basic-ranged.js": {
+      "bytes": 15100,
+      "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab"
+    },
+    "content/cards/buildings-defensive.js": {
+      "bytes": 36168,
+      "sha256": "30ee46b0f00766a9687f332a1eb236e77132b1da0cc496a9a6ad156e75767224"
+    },
+    "content/cards/buildings-resource.js": {
+      "bytes": 23716,
+      "sha256": "6e04f448e102ad2f0239f28170d04e6c78d989ea9c42851d47995055623ee47e"
+    },
+    "content/cards/buildings-spawner.js": {
+      "bytes": 14635,
+      "sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b"
+    },
+    "content/cards/buildings-travel.js": {
+      "bytes": 19237,
+      "sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6"
+    },
+    "content/cards/champion-abilities.js": {
+      "bytes": 23743,
+      "sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811"
+    },
+    "content/cards/combat-status-heal.js": {
+      "bytes": 20663,
+      "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0"
+    },
+    "content/cards/combat-status-invisibility.js": {
+      "bytes": 31498,
+      "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b"
+    },
+    "content/cards/combat-status-stun.js": {
+      "bytes": 22255,
+      "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d"
+    },
+    "content/cards/death-conversion-delegated.js": {
+      "bytes": 19326,
+      "sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d"
+    },
+    "content/cards/death-conversion.js": {
+      "bytes": 15563,
+      "sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48"
+    },
+    "content/cards/death-effects.js": {
+      "bytes": 18260,
+      "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81"
+    },
+    "content/cards/death-spawns.js": {
+      "bytes": 25321,
+      "sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d"
+    },
+    "content/cards/ordinary-projectile-splash.js": {
+      "bytes": 1045,
+      "sha256": "68e56615516a614a65e2dc0d7b248ca3e2bf871f50aaddf72c856b070b8a37a3"
+    },
+    "content/cards/ordinary-projectile-squads.js": {
+      "bytes": 3277,
+      "sha256": "293d8df31018598f2e347ac7a1a45b6cd15bcbca521bfe818736b37a06c11bcf"
+    },
+    "content/cards/periodic-spawns.js": {
+      "bytes": 19418,
+      "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269"
+    },
+    "content/cards/shields-forms.js": {
+      "bytes": 10199,
+      "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8"
+    },
+    "content/cards/spawn-placement.js": {
+      "bytes": 12784,
+      "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c"
+    },
+    "content/cards/special-combat-rage.js": {
+      "bytes": 24915,
+      "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61"
+    },
+    "content/cards/special-combat-ramp.js": {
+      "bytes": 22611,
+      "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67"
+    },
+    "content/cards/special-combat-reset.js": {
+      "bytes": 25794,
+      "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5"
+    },
+    "content/cards/special-combat-slow.js": {
+      "bytes": 24277,
+      "sha256": "7283ac30293607603181f442651277ac60c20ef3a121ceea4ca83c71862fea2d"
+    },
+    "content/cards/special-combat-snare.js": {
+      "bytes": 23377,
+      "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b"
+    },
+    "content/cards/special-movement-charge-knockback.js": {
+      "bytes": 23270,
+      "sha256": "f87ab0d28a87ae7c6bfaa17cd97ec38b39954a75c0af93dc03852b7f7cf3cc4c"
+    },
+    "content/cards/special-movement-charge.js": {
+      "bytes": 16893,
+      "sha256": "0341ad6c14f129d9052ac2a06402ff1aa6f3979b68d689a09d11e17e9e97a784"
+    },
+    "content/cards/special-movement-dash-knockback.js": {
+      "bytes": 19264,
+      "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649"
+    },
+    "content/cards/special-movement-dash.js": {
+      "bytes": 16754,
+      "sha256": "b9bb3bd5d4d8935b65d7a0f20dbbd18e70bd8eda69245c601d24eb1486f1179e"
+    },
+    "content/cards/special-movement-jump.js": {
+      "bytes": 17217,
+      "sha256": "e0f1ea28bf0694d19ad276b3dbf660520cff944a3522895398086848520c66ca"
+    },
+    "content/cards/special-movement-knockback.js": {
+      "bytes": 18070,
+      "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f"
+    },
+    "content/cards/special-movement-leap-knockback.js": {
+      "bytes": 21027,
+      "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8"
+    },
+    "content/cards/special-movement-recoil.js": {
+      "bytes": 17394,
+      "sha256": "950e449c03b1db3f7da071ec33da14562580fe5c76b348808890ddd0f42b1007"
+    },
+    "content/cards/special-movement-retarget.js": {
+      "bytes": 13550,
+      "sha256": "036fef7aac95b3959aaa5f3c6c69afdaee8c9c2fd8a4118c05aabef685ce7cec"
+    },
+    "content/cards/special-projectiles-chain.js": {
+      "bytes": 18563,
+      "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86"
+    },
+    "content/cards/special-projectiles-pellets.js": {
+      "bytes": 26141,
+      "sha256": "df257c20524a46dfc0eb2e877fa8bfae0cbe0a3f70c4a9da0c6981f0808edf50"
+    },
+    "content/cards/special-projectiles-pierce.js": {
+      "bytes": 23869,
+      "sha256": "0bda1c3c339ea53d4fdc0d62fddb445832f0300ebfbf18cdf6a8050128bc9f4f"
+    },
+    "content/cards/special-projectiles-reflection.js": {
+      "bytes": 24645,
+      "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715"
+    },
+    "content/cards/special-projectiles-return.js": {
+      "bytes": 25641,
+      "sha256": "8e66814513b366a50462016535ec8bac08d8599ecdb4b320a48c57dad9c7cd83"
+    },
+    "content/cards/spells-clone-unit.js": {
+      "bytes": 21401,
+      "sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de"
+    },
+    "content/cards/spells-copy-card.js": {
+      "bytes": 14370,
+      "sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89"
+    },
+    "content/cards/spells-instant.js": {
+      "bytes": 26158,
+      "sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a"
+    },
+    "content/cards/spells-periodic.js": {
+      "bytes": 27167,
+      "sha256": "b9a697436a4251b3a9fa329ddcf3f0eef9303b5d71ba4d2e116832f3479585cb"
+    },
+    "content/cards/spells-return.js": {
+      "bytes": 24164,
+      "sha256": "f15c26e693fb5c0f98b99e5de7ea9a662d597cc23600f81dac42334451aefa92"
+    },
+    "content/cards/spells-roll.js": {
+      "bytes": 29604,
+      "sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a"
+    },
+    "content/cards/spells-spawn.js": {
+      "bytes": 19758,
+      "sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406"
+    },
+    "content/cards/spells-three-wave.js": {
+      "bytes": 18266,
+      "sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8"
+    },
+    "content/cards/spells-travel-line.js": {
+      "bytes": 32563,
+      "sha256": "7694602949b8725db96ab0049f3bdbdd37a432fd6c850d0f1b9913ba5c5983d5"
+    },
+    "content/cards/structure-seeker.js": {
+      "bytes": 18226,
+      "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9"
+    },
+    "content/cards/swarms.js": {
+      "bytes": 8559,
+      "sha256": "674c4ec2a8feea0cfda48dc51f1dbdc5711047a608c30378824d4a1ff4b4b733"
+    },
+    "content/editable-deck.js": {
+      "bytes": 6121,
+      "sha256": "4ef893cd673419381e2ff32928ff3b095c91971b4bc1be53fab7d4dc88d638fc"
+    },
+    "content/index.js": {
+      "bytes": 8813,
+      "sha256": "6a6a38dfb0fffada77658f4be8848565d0f09847ac654aed9f397bf3f3c6b1ad"
+    },
+    "content/movement-question-graph.js": {
+      "bytes": 298,
+      "sha256": "8f81c0a8612da87156e8aab3911b5a626efa7277a5d9a38e3652c1fa0eefa0f2"
+    },
+    "content/playable-roster.js": {
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    "content/schema.js": {
+      "bytes": 17945,
+      "sha256": "d6f268a8a54a92413b5b0cf169eca3cb05fb25bb54a83e67c472c2f1e574ac7c"
+    },
+    "content/session-card-catalog.js": {
+      "bytes": 16782,
+      "sha256": "39d1e74bbb22e9738f685cd5d8174101bf379d6b100cd042438c61fd6c09fb26"
+    },
+    "content/session-spell-profile-receipts.js": {
+      "bytes": 7255,
+      "sha256": "0364439c12e2ba10c160c071d125d22ff5f1783da49b02b630c2231f0f9c0eca"
+    },
+    "content/session-troop-movement-profiles.js": {
+      "bytes": 74986,
+      "sha256": "80997116951834cc1cf1eb6aa83d9d2b347bb75a94abf164dbb355b4890bbce5"
+    },
+    "content/session-troop-movement-question-authority.js": {
+      "bytes": 21904,
+      "sha256": "deb8175d5ba71a21e0860244902ea2e5528fc641b23d4b8f335a3175d43e07e2"
+    },
+    "content/session-troop-movement-runtime-profiles.js": {
+      "bytes": 1675,
+      "sha256": "49e6a15c98a5a7206a5f6a5095eb114a351d0ee74d7a0b80ed3120ed1497e3c4"
+    },
+    "content/session-troop-profile-catalog.js": {
+      "bytes": 15683,
+      "sha256": "5948940ba0f3a2cbc80dd17eb8bf16983d49de71f0dd47d89e3624faf93f3e45"
+    },
+    "content/session-troop-projectile-admission.js": {
+      "bytes": 2206,
+      "sha256": "af1eef8a07921704899ccdea8bf849a8371d097fed39ad176b63358a57419827"
+    },
+    "content/session-troop-projectile-profiles.js": {
+      "bytes": 52546,
+      "sha256": "a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850"
+    },
+    "content/session-troop-projectile-source-admission.js": {
+      "bytes": 25976,
+      "sha256": "ba4ab5698c435b536284e13546b26aa2934a7035362078b55e47b9e7ac90938e"
+    },
+    "content/session-troop-roster.js": {
+      "bytes": 22716,
+      "sha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca"
+    },
+    "content/session-troop-status-profiles.js": {
+      "bytes": 27384,
+      "sha256": "ac75d4d546f76d03c64a8354b471a39f0dafd19379ce1b42b7b88f52bf74c616"
+    },
+    "content/session-troop-status-runtime-profiles.js": {
+      "bytes": 3849,
+      "sha256": "94089f8317615e17e971ce7882c9dff57dca513ed46f1383b95777073970efdd"
+    },
+    "content/visual-art-direction.js": {
+      "bytes": 6025,
+      "sha256": "da0473057d49a60860e6d18670f1aacec7aa65a592c78a4d7a47d6d00e3c7cf9"
+    },
+    "content/visual-asset-manifest.js": {
+      "bytes": 20357,
+      "sha256": "82dfad8341c0302b2da40395e6ad89ffa801755f20c3c548b9e91c28569c9b64"
+    },
+    "rl/environment.js": {
+      "bytes": 14537,
+      "sha256": "b1b273f385ab1ca3ab664e39829b45f7ce5c9d5a1aaf3f673d0f165ad8c238f7"
+    },
+    "shared/ordinary-projectile-delivery-authority.js": {
+      "bytes": 9006,
+      "sha256": "8b33dedcf971e76ae79d03517e1963adcd5c22a2a502f6ee3c6d028b6ddad751"
+    },
+    "shared/session-troop-melee-area-authority.js": {
+      "bytes": 3421,
+      "sha256": "6fd6fec634f0274ebac6b995e091db1ecea796170d60c57a23ed071e4dd66703"
+    },
+    "shared/session-troop-projectile-authority.js": {
+      "bytes": 83939,
+      "sha256": "e5c1b496551bb7b5d63f3f05a304f207a8c1de7b7c1dfcd072d7b27c1b5bbd82"
+    },
+    "shared/session-troop-source-confidence-authority.js": {
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    "sim/area-damage.js": {
+      "bytes": 15661,
+      "sha256": "c3df6728aceaebba8f9c0afbb94ed207c5cf842eb8a4f736bfae9bc1a823eab0"
+    },
+    "sim/area-target-selection.js": {
+      "bytes": 8351,
+      "sha256": "e13419e1b86f552f2d9c7ff6af837368731068f93357539ae200ede787963399"
+    },
+    "sim/arena-geometry.js": {
+      "bytes": 9452,
+      "sha256": "038d192fc3758f480594f9c97ebaa4e12e6f366955f0e2a3575a33165f654fee"
+    },
+    "sim/attack-cycle.js": {
+      "bytes": 15800,
+      "sha256": "add7bc5dbfe981f04a69519f647a4599c9208a59578697024a751de3a14fcbb3"
+    },
+    "sim/battle-combat-runtime.js": {
+      "bytes": 78860,
+      "sha256": "b055e2bb3b1fe70b401c623a9f471239eaba987cf4264da06c5882be3f1eb2a4"
+    },
+    "sim/battle-combat.js": {
+      "bytes": 207,
+      "sha256": "a9adf0d16359077bd0453cf2b8716e817d0a47c78073cde25a8b44a0c4ce3922"
+    },
+    "sim/battle-continuation-kernel.js": {
+      "bytes": 458613,
+      "sha256": "be54e62ff0d7863ba9a73310e0d2727687d2aa4ff1630e74249b8ea9f160a452"
+    },
+    "sim/battle-movement.js": {
+      "bytes": 213,
+      "sha256": "3252387a7657df2c5a7a6508b31bd21d68a8d63fa2a612cb2979edd024ddcb0b"
+    },
+    "sim/battle-towers.js": {
+      "bytes": 214,
+      "sha256": "e6a89d7d9d4cdd32fd03c0c3c336a64b8862e9fb0ef49f383609abf376c4cc64"
+    },
+    "sim/combat-effect-feed.js": {
+      "bytes": 48410,
+      "sha256": "427b3f9381d60ef77247d59ba05a73b175fed2490053967951fc1351fa3d0ba9"
+    },
+    "sim/damage.js": {
+      "bytes": 9963,
+      "sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7"
+    },
+    "sim/deck.js": {
+      "bytes": 7833,
+      "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77"
+    },
+    "sim/deployment.js": {
+      "bytes": 8820,
+      "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563"
+    },
+    "sim/elixir.js": {
+      "bytes": 436,
+      "sha256": "5be6387d9358dcaba762bd7a0a62b82beeb1760faae24d315ce9ff33c154d235"
+    },
+    "sim/entities.js": {
+      "bytes": 7903,
+      "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a"
+    },
+    "sim/fixed-step.js": {
+      "bytes": 7036,
+      "sha256": "4533f7695caed8f119195a396039a297b1f45b91f5a2d6255f60e75c66e5df8a"
+    },
+    "sim/flying.js": {
+      "bytes": 8381,
+      "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b"
+    },
+    "sim/formations.js": {
+      "bytes": 7615,
+      "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac"
+    },
+    "sim/game-opponent.js": {
+      "bytes": 20512,
+      "sha256": "475fb4b5d15551069fcf74d93d562c84837f47a327d1a99502758feacb738994"
+    },
+    "sim/game-player-deploy.js": {
+      "bytes": 21214,
+      "sha256": "89865ea25511294d0865a8e93a3d431879b3226e433d6a8e9c51487bfee1e1df"
+    },
+    "sim/game-session.js": {
+      "bytes": 1357,
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+    },
+    "sim/game-side-deploy-core.js": {
+      "bytes": 6346,
+      "sha256": "ec84ca5b175fc0fe50d6d6b4ca2e18b5ce3bd4bf69d12cc16f1db48f3f92c0b3"
+    },
+    "sim/game-side-deploy.js": {
+      "bytes": 689,
+      "sha256": "54c5404c1ba21c60034b4331244797fd12e37f6d2a7fd4adede97d03e803ce32"
+    },
+    "sim/live-battle-chain.js": {
+      "bytes": 29629,
+      "sha256": "422f55187f2af86f6498a4d841484a0193363a50ff5b9b335e412fefb948c01f"
+    },
+    "sim/live-battle.js": {
+      "bytes": 1473,
+      "sha256": "48e0fcddc5480b8afe9f502a463ffb5382efb3c1468c5b5c5101e934f549675d"
+    },
+    "sim/match.js": {
+      "bytes": 314,
+      "sha256": "717bb8e2cd0dc47d621afce31c185c571d2cad44f0cf914bf09e4e6fb09dac0c"
+    },
+    "sim/melee.js": {
+      "bytes": 13915,
+      "sha256": "41f014bd5118ccf9880c40f454e8ebaa53b707f7a469152f96228eff107c2f2b"
+    },
+    "sim/movement.js": {
+      "bytes": 5688,
+      "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586"
+    },
+    "sim/opaque-continuation.js": {
+      "bytes": 1474,
+      "sha256": "c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e"
+    },
+    "sim/opponent-controller.js": {
+      "bytes": 378,
+      "sha256": "3531d6b4f135802c57a465533fb22064f454557362ebf7a6efd4f56f70fa95df"
+    },
+    "sim/ordinary-projectile-homing.js": {
+      "bytes": 5481,
+      "sha256": "0dace911839cddf6fac8b9f6cc7b3d87006bc47089e270741fd4b3a588bf49b7"
+    },
+    "sim/ordinary-projectile-splash.js": {
+      "bytes": 12821,
+      "sha256": "0f011e7d6163fa81d05d01526efeacdd68c5f673b22adcd8523f0cef0f40f1b5"
+    },
+    "sim/pathfinding.js": {
+      "bytes": 5865,
+      "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296"
+    },
+    "sim/projectile.js": {
+      "bytes": 18014,
+      "sha256": "e911a45efb7167a9138f85254d76f1e0c7b4b1c76019c56ec5fbd1903ad1b765"
+    },
+    "sim/rng.js": {
+      "bytes": 5778,
+      "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17"
+    },
+    "sim/session-building-profile-receipts.js": {
+      "bytes": 13962,
+      "sha256": "94beeb6a4a2de0b1bea761314f28faecbe8f0c85845144caa758eecdcfb0a60e"
+    },
+    "sim/session-building-runtime.js": {
+      "bytes": 52781,
+      "sha256": "2a0ce9a523fbf2b0103114bdb34ef26a62c9a5f61c95083bce9e0fb823da051b"
+    },
+    "sim/session-card-runtime.js": {
+      "bytes": 9317,
+      "sha256": "420499c828178e50caddc64c46d5208e901509da744b2f044d6b5ae9ac876748"
+    },
+    "sim/session-troop-projectile-runtime.js": {
+      "bytes": 50097,
+      "sha256": "c7a104848452b303e88bc1269050d0722b54089ef1a6f21da401501ac15c5da8"
+    },
+    "sim/session-troop-runtime.js": {
+      "bytes": 48389,
+      "sha256": "1daef3770127a97152c8a2782b87c2f8760b671ece57430076b06adfc5278b4d"
+    },
+    "sim/session-troop-status-runtime.js": {
+      "bytes": 36964,
+      "sha256": "175880a08bad4ea5e3c8a3b096ef06352836938f3f89a657a73fc2b6c24dc4e9"
+    },
+    "sim/spatial.js": {
+      "bytes": 10584,
+      "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e"
+    },
+    "sim/spell-area-impact.js": {
+      "bytes": 4305,
+      "sha256": "f1b70073951908f8f62f6af93fe5565288becb1d8f52bc45741697f90f7a9d68"
+    },
+    "sim/spell-intent-runtime.js": {
+      "bytes": 13800,
+      "sha256": "f752f9be5d85039e115b94f15e95d9a975ea2afa057892ce8caa862a780bf177"
+    },
+    "sim/targeting.js": {
+      "bytes": 8267,
+      "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470"
+    },
+    "sim/tower-evidence-map.js": {
+      "bytes": 4021,
+      "sha256": "1d3ad4b67304fa356eb85ed0bcc4a1229cbdbdd6bda0996c4e387fe96dee96c2"
+    },
+    "sim/tower-evidence.js": {
+      "bytes": 10434,
+      "sha256": "f3b21b27bf5b367316826f3ec85bc94ce5f11afe4fe89e679946f78ea90a04ae"
+    },
+    "sim/towers.js": {
+      "bytes": 281,
+      "sha256": "1e063e7adaae32278838f877d6f248d57621661a3745d3fcccc0bc2538c36a94"
+    },
+    "ui/aether-well-art.js": {
+      "bytes": 8240,
+      "sha256": "164ffe448d59e6ec2b2d6d2f60f88759d09808447c0b9cefc910774c07d13af8"
+    },
+    "ui/app-shell.css": {
+      "bytes": 29996,
+      "sha256": "f4720d7b9f07b0b6bc646e68bfb4192a140c91d2da84e18227891fa5b56f3a04"
+    },
+    "ui/app-shell.js": {
+      "bytes": 32131,
+      "sha256": "e36aaccecdf44023d8c94e8ef9773eb75a2b2dc4400e64201624cdf4aa90ff95"
+    },
+    "ui/arena-shell-entry.js": {
+      "bytes": 19293,
+      "sha256": "88e3873cf7298223f8c8a96aceceff3b20185c05dad2f274c045c888ca5443d5"
+    },
+    "ui/arena-shell.css": {
+      "bytes": 14259,
+      "sha256": "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e"
+    },
+    "ui/arena-shell.js": {
+      "bytes": 5846,
+      "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249"
+    },
+    "ui/brackenwheel-art.js": {
+      "bytes": 6097,
+      "sha256": "8900a79ecac5f65c0af206781288aad1cbb280da7c615403431b3f0d15b2067b"
+    },
+    "ui/card-lore.js": {
+      "bytes": 5287,
+      "sha256": "3190a8d85c3f7b52b14026cc192a15530aaaafb24f46cdd8433fe840ccd9a864"
+    },
+    "ui/card-portrait-art.js": {
+      "bytes": 4256,
+      "sha256": "5e8662a844495092741860f5f92b18fa2e437a3a5743047fcd60de36225147ec"
+    },
+    "ui/combat-art.js": {
+      "bytes": 17311,
+      "sha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849"
+    },
+    "ui/combat-effects.js": {
+      "bytes": 30636,
+      "sha256": "6f4efe8b7e7b924530e914076ffda4e5d4589f330a1df0c1f96fb5f9ea5693cb"
+    },
+    "ui/combat-motion.js": {
+      "bytes": 10818,
+      "sha256": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03"
+    },
+    "ui/combat-sprite-prototype.js": {
+      "bytes": 11273,
+      "sha256": "626388c9d3a686636b85f2256595e7d3859ac24e042a3f21600ad3fe90c17272"
+    },
+    "ui/combat-state.js": {
+      "bytes": 26400,
+      "sha256": "8ee42a399c70b06bb62af0b0715048deb0b757936f8cf74ef3605a6aa4be7b6b"
+    },
+    "ui/game-audio-bridge.js": {
+      "bytes": 3701,
+      "sha256": "443af1ade77a8946a27d908c55e6336e4ed573e6807d6c2863b7d7bc2f4e5b4b"
+    },
+    "ui/game-audio-controls.js": {
+      "bytes": 4214,
+      "sha256": "f8ce83fa16da4fe6c59768bca57f6a8822822a0ab8cbed40193409abce4e639f"
+    },
+    "ui/game-browser-entry.js": {
+      "bytes": 46660,
+      "sha256": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d"
+    },
+    "ui/game-browser-loop.js": {
+      "bytes": 27416,
+      "sha256": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5"
+    },
+    "ui/game-input-bridge.js": {
+      "bytes": 5598,
+      "sha256": "69db673245cc2e6c4e7f0611423ee88eb40015feab533129d62f0698630d6814"
+    },
+    "ui/game-session-restore-continuation.js": {
+      "bytes": 9715,
+      "sha256": "160dd1149dd8abccd332832ec8008a3b9710dcfd0fa23a2730c868f13d6f9c20"
+    },
+    "ui/game-ui-projection.js": {
+      "bytes": 27469,
+      "sha256": "fca3bb51550df9ba99872d4d3b2020a3653f88d5de3af83f6dcd1af8b636f5cc"
+    },
+    "ui/hud-motion.js": {
+      "bytes": 1975,
+      "sha256": "18b377194878e070f3b4ddeda90a9c02dbd907959f99e4e0ca3e0c233de6157d"
+    },
+    "ui/hud-state.js": {
+      "bytes": 22303,
+      "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152"
+    },
+    "ui/input-controller.js": {
+      "bytes": 54290,
+      "sha256": "2d98212b2fde12ebd44acc878d8249769329d8b5d46b731eb2db189f503a00e8"
+    },
+    "ui/match-feedback.js": {
+      "bytes": 32502,
+      "sha256": "61accd1add542a56714ba37d10e5d57867f95f327eb143d520c1718c5bba923b"
+    },
+    "ui/placement-feedback.js": {
+      "bytes": 23437,
+      "sha256": "3c672625d7a89ced294fd349c82990a949cf348a0c3b36f8da77afa026a953a9"
+    }
+  },
+  "selectedModuleHashes": {
+    "src/sim/live-battle-chain.js": "422f55187f2af86f6498a4d841484a0193363a50ff5b9b335e412fefb948c01f",
+    "src/sim/battle-continuation-kernel.js": "be54e62ff0d7863ba9a73310e0d2727687d2aa4ff1630e74249b8ea9f160a452"
+  },
+  "reviewProbe": {
+    "path": "/Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/private-hostile-side-probe.mjs",
+    "sha256": "fd8008911e85bd0787d6632cb9b000527d3deabdd6d635b2a79dacf7c11b46cc",
+    "candidateProductCodeModified": false
+  },
+  "scopeNote": "Only candidate-files/src was compared with the immutable Git archive. Qualification harnesses and rollback copies live outside src and are not candidate product files."
+}

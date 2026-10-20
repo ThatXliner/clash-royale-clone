@@ -1,0 +1,43 @@
+{
+  "argv": [
+    "/Users/me/.hermes/node/bin/npm",
+    "run",
+    "test:live-battle-chain-host"
+  ],
+  "cwd": "/Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/candidate-files",
+  "directExitStatus": 0,
+  "endedAtUtc": "2026-10-20T18:29:09.863037+00:00",
+  "environmentAllowlist": {
+    "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/me",
+    "TMPDIR": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "observedProcessTree": [
+    {
+      "command": "(node)",
+      "ppid": 99266,
+      "pid": 99267
+    },
+    {
+      "command": "(node)",
+      "ppid": 99267,
+      "pid": 99280
+    },
+    {
+      "command": "(node)",
+      "ppid": 99280,
+      "pid": 99281
+    },
+    {
+      "command": "(node)",
+      "ppid": 99281,
+      "pid": 99283
+    }
+  ],
+  "pid": 99267,
+  "rootPid": 99267,
+  "startedAtUtc": "2026-10-20T18:28:59.473670+00:00",
+  "wallSeconds": 10.389646
+}
