@@ -1,0 +1,174 @@
+{
+  "review": "Independent file and runtime critique of the current-main two-file restoration candidate",
+  "verdict": "PASS",
+  "scope": "Bulwark Needle browser restore exactness, unchanged state/input checks, and native-size tower healthbar contrast",
+  "candidate": {
+    "baseCommit": "c750e104c22bb5d977b04c932591198286114f8d",
+    "positiveSnapshot": "positive/",
+    "positiveTrackedChanges": [
+      {
+        "path": "src/ui/game-browser-entry.js",
+        "baseGitBlob": "62ab029a51445cd06767656454f28338d2f88698",
+        "candidateGitBlob": "42cdefd5e5fc192d555d6748f421df72b95ec778",
+        "sha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+        "scope": "Adds existing source-confidence field question keys to the deduplicated Bulwark witness inventory; record lookup still throws on missing keys."
+      },
+      {
+        "path": "src/ui/combat-art.js",
+        "baseGitBlob": "5757522ce19742b30bf28360f9b1b425ebdb8a46",
+        "candidateGitBlob": "291dee5254abc98c70783967503fb26f9122e964",
+        "sha256": "59ba91723973a2578cd8222b84232a2e334143deec540e877b53e5a2d619d234",
+        "scope": "Adds border-radius:0 only to .combat-marker--tower[class] .combat-health; retains its width, height, team colors and 1px #191D22 outline."
+      }
+    ],
+    "unchangedTest": {
+      "path": "tests/game-browser-building-choice.test.js",
+      "gitBlob": "1040a1b688d1caff8d51c4de9c416d1534d0930d",
+      "sha256": "10ef953d33d4ac4e4af49aeb5a29b8271badf4c77a2847321c0348d26430e485"
+    },
+    "unchangedRunnerGitBlob": "70adf369f515f1910ae0399b25597383d746c58d",
+    "unchangedPackageGitBlob": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+    "unchangedPackageLockGitBlob": "57d4f206ec6d041922c394cd67db615333eb8af5"
+  },
+  "toolchain": {
+    "node": "v22.22.3",
+    "playwright": "1.58.2",
+    "chrome": "155.0.8059.85",
+    "nodePath": "/Users/me/.hermes/node/bin/node",
+    "playwrightPath": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs",
+    "chromePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  },
+  "command": [
+    "/Users/me/.hermes/node/bin/node",
+    "--test",
+    "tests/game-browser-building-choice.test.js"
+  ],
+  "positiveRun": {
+    "directPid": 40074,
+    "startedAtUtc": "2026-10-20T19:52:23.204201+00:00",
+    "finishedAtUtc": "2026-10-20T19:53:10.501742+00:00",
+    "exitCode": 0,
+    "tap": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "testDurationMs": 45214.853,
+      "totalDurationMs": 47276.72525
+    },
+    "restoredViewport": {
+      "width": 720,
+      "height": 1280,
+      "changedPixels": 0,
+      "maxChannelDelta": 0,
+      "meanChannelDelta": 0,
+      "pixelsOver8": 0,
+      "checkpointPngSha256": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+      "restoredPngSha256": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd"
+    },
+    "bulwarkArtCrop": {
+      "width": 66,
+      "height": 66,
+      "changedPixels": 0,
+      "maxChannelDelta": 0,
+      "pixelsOver8": 0
+    },
+    "stateChecks": {
+      "sessionBytesExact": true,
+      "browserBytesExact": true,
+      "combatDomExact": true,
+      "hudExact": true,
+      "inputExact": true,
+      "paintStateDifferences": [],
+      "restartExact": true,
+      "questionCount": 32,
+      "attackCountAfterCombat": 6,
+      "hitpointsAfterCombat": 311,
+      "terminalTick": 7863,
+      "winner": "north",
+      "consoleErrors": [],
+      "pageErrors": []
+    },
+    "sourceFence": {
+      "preflight": {
+        "match": true,
+        "sourceInputs": 526,
+        "publicAssets": 32
+      },
+      "postrun": {
+        "match": true,
+        "sourceInputs": 526,
+        "publicAssets": 32
+      }
+    },
+    "processTreeClosed": true,
+    "rawDirectory": "raw/positive/",
+    "screenshotDirectory": "positive/artifacts/building-choice/"
+  },
+  "oldRadiusControl": {
+    "label": "matching original-radius negative control",
+    "controlSnapshot": "control/",
+    "onlyProductSourceDifferenceFromPositive": "src/ui/combat-art.js: remove tower rule's border-radius:0 so the existing base border-radius:1px applies",
+    "controlCombatArtGitBlob": "5757522ce19742b30bf28360f9b1b425ebdb8a46",
+    "witnessEntryGitBlob": "42cdefd5e5fc192d555d6748f421df72b95ec778",
+    "directPid": 40362,
+    "startedAtUtc": "2026-10-20T19:53:53.865534+00:00",
+    "finishedAtUtc": "2026-10-20T19:54:01.911626+00:00",
+    "exitCode": 1,
+    "failAt": "tests/game-browser-building-choice.test.js:576 exact checkpoint/restored PNG hash assertion",
+    "viewportDiff": {
+      "width": 720,
+      "height": 1280,
+      "changedPixels": 22,
+      "pixelsOver8": 12,
+      "maxChannelDelta": 19,
+      "meanChannelDelta": 0.00023509837962962962,
+      "checkpointPngSha256": "bbaf6fab17a120ec9736ae798679d50bbfef275c6b0e3c223baa6d204eba710a",
+      "restoredPngSha256": "1a0e43f25bca4f68d6dcd2955b1b36319e579fbce1b02eb83b6f907c1ab7887d",
+      "repeatedRestoreMatchesFirst": true
+    },
+    "sourceFence": {
+      "preflight": {
+        "match": true,
+        "sourceInputs": 526,
+        "publicAssets": 32
+      },
+      "postrun": {
+        "match": true,
+        "sourceInputs": 526,
+        "publicAssets": 32
+      }
+    },
+    "processTreeClosed": true,
+    "rawDirectory": "raw/control/",
+    "screenshotDirectory": "control/artifacts/building-choice/"
+  },
+  "visualReview": {
+    "nativeViewport": "720x1280",
+    "result": "Square 4px healthbar ends remain crisp with dark outline and distinct bone/amber fills; no apparent tower-art spillover or contrast loss.",
+    "notEvaluated": "Direct side-by-side comparison against reference gameplay footage."
+  },
+  "authorityReview": {
+    "referenceSourcesRead": true,
+    "statChanges": 0,
+    "cardAdmissionChanges": 0,
+    "validationRuleChanges": 0,
+    "sourceConfidencePolicyRecordsChanged": 0,
+    "witnessQuestionCount": 32,
+    "unverifiedNoticeRetained": true
+  },
+  "claudeDesignConsult": "Prior consultation returned a session-limit notice only; no recommendation or approval is claimed.",
+  "evidenceFiles": {
+    "positiveStdout": "raw/positive/stdout.raw",
+    "positiveStderr": "raw/positive/stderr.raw",
+    "controlStdout": "raw/control/stdout.raw",
+    "controlStderr": "raw/control/stderr.raw",
+    "positiveEnvironment": "raw/positive/env.json",
+    "controlEnvironment": "raw/control/env.json",
+    "positiveEvidence": "positive/artifacts/building-choice/building-choice-evidence.json",
+    "controlEvidence": "control/artifacts/building-choice/building-choice-evidence.json",
+    "positiveCheckpoint": "positive/artifacts/building-choice/bulwark-restore-checkpoint.png",
+    "positiveRestored": "positive/artifacts/building-choice/bulwark-restored.png",
+    "controlCheckpoint": "control/artifacts/building-choice/bulwark-restore-checkpoint.png",
+    "controlRestored": "control/artifacts/building-choice/bulwark-restore-rebuilt.png"
+  }
+}

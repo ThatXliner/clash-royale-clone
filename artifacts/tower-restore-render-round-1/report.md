@@ -1,0 +1,17 @@
+# Independent tower restore critic
+
+PIECE: Current-main Bulwark Needle restore and tower healthbar raster  
+VERDICT: PASS
+
+EVIDENCE:
+
+- The isolated positive snapshot is based on `c750e104c22bb5d977b04c932591198286114f8d`. Its only tracked changes are [`src/ui/game-browser-entry.js`](positive/src/ui/game-browser-entry.js) at Git blob `42cdefd5e5fc192d555d6748f421df72b95ec778` and [`src/ui/combat-art.js`](positive/src/ui/combat-art.js) at Git blob `291dee5254abc98c70783967503fb26f9122e964`. The original test remains blob `1040a1b688d1caff8d51c4de9c416d1534d0930d` / SHA-256 `10ef953d33d4ac4e4af49aeb5a29b8271badf4c77a2847321c0348d26430e485`; the runner and package files also match their pinned blobs.
+- The unchanged command `/Users/me/.hermes/node/bin/node --test tests/game-browser-building-choice.test.js` passed on Node v22.22.3, Playwright 1.58.2, and Chrome 155.0.8059.85: 1 pass, 0 failures, 0 skips; direct Node PID 40074 exited 0. The original 140-tick continuation, restore/replay, terminal, and restart checks ran without test, wait, threshold, or instrumentation edits.
+- The 720×1280 checkpoint and restored full viewport are pixel-identical: 0 changed pixels, max channel delta 0. The 66×66 Bulwark art crop is also exact. The evidence records exact session/browser bytes, combat DOM, HUD, input, and paint state; six attacks, 311 HP, and the north win at tick 7863; and empty console/page-error arrays.
+- The labeled control keeps the witness-entry repair and changes only the tower bar back to the original 1px radius. It runs the same test and fails the unchanged exact restore assertion at line 576 with 22 changed pixels, 12 over channel delta 8, max delta 19, and mean delta 0.0002350984. Its checkpoint hash is `bbaf6fab17a120ec9736ae798679d50bbfef275c6b0e3c223baa6d204eba710a`; the restored hash is `1a0e43f25bca4f68d6dcd2955b1b36319e579fbce1b02eb83b6f907c1ab7887d`. The first and repeated restored frames match each other. Direct Node PID 40362 exited 1, as expected for this negative control.
+- The positive pre/post fences each match all 526 source/test/config inputs and 32 public assets. The control pre/post fences match the same counts with its one intentional `combat-art.js` baseline variant. No positive/control test, runner, package, public asset, or other source input changed. Both owned browser/server/test process trees were closed after capture.
+- At native 720×1280 size, square ends are visible on the 4px tower bars but read cleanly; the existing 1px dark outline and the bone/amber team colors remain distinct, with no apparent spillover into the towers. The added question keys are derived only from existing `sourceConfidencePolicy.fields`, mapped through the existing question records, and still throw if a record is missing. The scene keeps 32 questions and reports Bulwark's fields as unverified; no stats, card admission, or validation rules changed.
+
+Raw argv, allowlisted environments, timestamps, PIDs, stdout/stderr, exit codes, fences, evidence JSON, and native screenshots are preserved under this directory's `raw/`, `prelaunch/`, `postrun/`, and `positive/artifacts/building-choice/` / `control/artifacts/building-choice/` trees. Claude's earlier design consultation returned a session-limit notice only; this verdict does not claim a Claude recommendation or approval.
+
+BIGGEST GAP: This gate proves exact restoration against the candidate's own checkpoint, while direct side-by-side fidelity against a reference gameplay still remains unassessed in this bounded run.

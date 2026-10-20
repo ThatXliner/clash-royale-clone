@@ -79,7 +79,9 @@ function createBulwarkNeedleSessionWitness() {
     [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
       entity.layerPolicy, entity.damagePolicy]
       .filter((policy) => policy?.kind === "question")
-      .map(({ questionKey }) => questionKey))))].sort();
+      .map(({ questionKey }) => questionKey)
+      .concat((entity.sourceConfidencePolicy?.fields ?? [])
+        .map(({ questionKey }) => questionKey)))))].sort();
   const questionsByKey = new Map(createPlayableRosterQuestionRecords()
     .map((question) => [question.key, question]));
   const questions = questionKeys.map((key) => {

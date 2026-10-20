@@ -1,0 +1,95 @@
+{
+  "piece": "GAME-001HTJC",
+  "verdict": "PASS",
+  "scope": "R2 same-side chain-hop target exclusion only; candidate remains unadopted",
+  "candidate": {
+    "path": "/Users/me/.codex/clash-qualification/20261020-chain-host-r2-builder/candidate-files",
+    "fingerprintMethod": "SHA-256 of sorted relative-path NUL file-SHA256 LF entries",
+    "fingerprint": "60c498731667c6e4c4d5eba1b8a8ff973d3032758d964d027a7eba19a13239d1",
+    "files": 160,
+    "bytes": 3262689,
+    "changedCommonFilesFromR1": [
+      "src/sim/battle-continuation-kernel.js",
+      "src/sim/live-battle-chain.js",
+      "tests/live-battle-chain-host.test.js"
+    ],
+    "changedFileSha256": {
+      "src/sim/battle-continuation-kernel.js": "1c4653361832a80fadc9c0cf4747284f5947a81dcff20f3aea35db748e2c7226",
+      "src/sim/live-battle-chain.js": "a63f7ace1047437eecb80ce7cb6ef024a466126f9dcb35ea7bbbf8d9e42dfbe8",
+      "tests/live-battle-chain-host.test.js": "001a5ef6ba7ad0ec41fac5812f8640f8ae7d094b15f36e932f671dcf32e46989"
+    }
+  },
+  "runtime": {
+    "nodePath": "/Users/me/.hermes/node/bin/node",
+    "nodeVersion": "v22.22.3",
+    "candidateNodeModules": "absent; source paths resolve without external dependencies for these checks",
+    "environment": "Inherited exec environment; no environment variables were overridden or printed. Commands used the absolute Node executable."
+  },
+  "runs": [
+    {
+      "name": "actual hostile-side LiveBattle probe",
+      "command": "/Users/me/.hermes/node/bin/node /Users/me/.codex/clash-qualification/20261020-chain-host-r2-builder/private-hostile-side-probe.mjs",
+      "cwd": "/Users/me/.codex/clash-qualification/20261020-chain-host-r2-builder",
+      "execSessionId": 5651,
+      "osPid": null,
+      "exitCode": 0,
+      "result": {
+        "primaryTick": 149,
+        "primaryTarget": {"id": 2, "type": "unit", "side": "south"},
+        "hopTick": 150,
+        "hopTarget": {"id": 4, "type": "building", "side": "south"},
+        "hopHpBefore": 824,
+        "hopHpAfter": 632,
+        "requestedDamage": 192,
+        "nearestFriendlyBuilding": {"id": 5, "distanceMillitiles": 2085, "hp": 400},
+        "nearestFriendlyUnit": {"id": 3, "distanceMillitiles": 2168},
+        "selectedHostileBuildingDistanceMillitiles": 2416
+      },
+      "processClosed": true
+    },
+    {
+      "name": "focused chain-host tests",
+      "command": "/Users/me/.hermes/node/bin/node --test tests/live-battle-chain-host.test.js",
+      "cwd": "/Users/me/.codex/clash-qualification/20261020-chain-host-r2-builder/candidate-files",
+      "execSessionId": 54320,
+      "osPid": null,
+      "exitCode": 0,
+      "testsPassed": 11,
+      "testsFailed": 0,
+      "processClosed": true
+    },
+    {
+      "name": "default-eight absent-policy exact bytes against raw pinned e35",
+      "command": "/Users/me/.hermes/node/bin/node /Users/me/.codex/clash-qualification/20261020-chain-host-r2-fresh-critic/harness/absence-policy-byte-harness.mjs /Users/me/.codex/clash-qualification/20261020-chain-host-r2-builder/candidate-files /Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/raw-baseline-e35 /Users/me/.codex/clash-qualification/20261020-chain-host-r1-fresh-critic/compatibility-one-sort e35dda4c0225b88ddac91a56f15e81fee32c3c68",
+      "cwd": "/Users/me/.codex/clash-qualification/20261020-chain-host-r2-builder",
+      "osPid": 36494,
+      "execSessionId": 10055,
+      "exitCode": 0,
+      "rawBaselineCommit": "e35dda4c0225b88ddac91a56f15e81fee32c3c68",
+      "defaultEight": {
+        "chainRuntimePresent": false,
+        "outerSnapshotVersion": 2,
+        "optionalProjectileReceipt": false,
+        "contactTick": 148,
+        "damageEventAmount": 192,
+        "unitHpBefore": 1766,
+        "unitHpAfter": 1574,
+        "snapshotBytes": 45487,
+        "snapshotSha256": "c9cf3f9e946e7d2268f3dc045136c775086cca536c5d7a85ca9691d7174444f5",
+        "exactUtf8Match": true
+      },
+      "processClosed": true
+    }
+  ],
+  "rollback": {
+    "independentProductFailureAtomicity": "verified in focused tests for malformed causality and later history overflow; receiver state equals pre-failure state",
+    "forcedCloneAdoptException": "reviewed builder evidence only; not independently replayed",
+    "reason": "bounded critic run prioritized requested hostile-side, source-death restore/chunk, and raw-default-baseline probes"
+  },
+  "knownLimits": [
+    "No full repository test suite, build, browser, visual, or endurance run.",
+    "Chain QUESTION values are unsourced and unverified; this is not a historical-parity verdict.",
+    "The exec tool did not expose OS PIDs for hostile probe/focused suite; exec session IDs and exit states are preserved here.",
+    "No root repository or candidate files were modified."
+  ]
+}

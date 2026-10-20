@@ -1,0 +1,430 @@
+src/sim/battle-continuation-kernel.js --- 1/3 --- JavaScript
+7488 7488       position: clone(unit.position),
+7489 7489       proxyId: unit.id,
+7490 7490       radius: unit.radius,
+.... 7491       side: unit.side,
+7491 7492       target: { id: unit.id, type: "unit" },
+7492 7493       targetable: unit.alive && (targetableById.get(unit.id) ?? true),
+7493 7494     }));
+
+src/sim/battle-continuation-kernel.js --- 2/3 --- JavaScript
+7498 7499         position: clone(structure.position),
+7499 7500         proxyId: structure.id,
+7500 7501         radius: structure.radius,
+.... 7502         side: structure.side,
+7501 7503         target: { id: structure.id, type: "building" },
+7502 7504         targetable: structure.targetable,
+7503 7505       });
+
+src/sim/battle-continuation-kernel.js --- 3/3 --- JavaScript
+7509 7511         position: clone(structure.position),
+7510 7512         proxyId: structure.id,
+7511 7513         radius: structure.radius,
+.... 7514         side: structure.side,
+7512 7515         target: { id: structure.structureId, type: "crown-tower" },
+7513 7516         targetable: structure.targetable,
+7514 7517       });
+
+src/sim/live-battle-chain.js --- 1/3 --- JavaScript
+270 270 function checkedCandidate(value, index) {
+271 271   const label = `chain candidate ${index}`;
+272 272   const candidate = exact(value,
+273 273     ["alive", "layer", "position", "proxyId", "radius", "side", "target", "targetable"], label);
+274 274   const target = checkedTarget(candidate.target, `${label}.target`);
+275 275   if (typeof candidate.alive !== "boolean" || typeof candidate.targetable !== "boolean") {
+276 276     throw new TypeError(`${label} alive and targetable must be booleans`);
+277 277   }
+... 278   if (candidate.side !== "north" && candidate.side !== "south") {
+... 279     throw new TypeError(`${label}.side is invalid`);
+... 280   }
+... 281   if (target.type === "unit" && target.id !== candidate.proxyId) {
+... 282     throw new TypeError(`${label} unit target does not name its combat owner`);
+... 283   }
+278 284   if (candidate.layer !== "ground" && candidate.layer !== "air") {
+279 285     throw new TypeError(`${label}.layer is invalid`);
+280 286   }
+
+src/sim/live-battle-chain.js --- 2/3 --- JavaScript
+284 290     position: checkedPosition(candidate.position, `${label}.position`),
+285 291     proxyId: integer(candidate.proxyId, 1, Number.MAX_SAFE_INTEGER, `${label}.proxyId`),
+286 292     radius: integer(candidate.radius, 0, 1_000_000, `${label}.radius`),
+... 293     side: candidate.side,
+287 294     target,
+288 295     targetable: candidate.targetable,
+289 296   };
+
+src/sim/live-battle-chain.js --- 3/3 --- JavaScript
+495 502   return circleDistanceSquared(origin.position, candidate.position) <= reach * reach;
+496 503 }
+... 504 
+... 505 // The bounded host projection keeps dead unit owners, so a pending root can
+... 506 // recover its side from the canonical source unit even after caster death.
+... 507 // Side stays transient here instead of being duplicated into root identity or
+... 508 // serialized chain state.
+... 509 function sourceSide(pending, candidates) {
+... 510   const source = candidates.find(({ target }) => target.type === "unit" &&
+... 511     target.id === pending.identity.sourceId);
+... 512   if (source === undefined) {
+... 513     throw new TypeError("chain root has no canonical source-unit owner in the host projection");
+... 514   }
+... 515   return source.side;
+... 516 }
+497 517 
+498 518 function chooseNext(pending, candidates, policy) {
+... 519   const ownerSide = sourceSide(pending, candidates);
+499 520   const hit = new Set(pending.hitTargets.map(targetKey));
+500 521   const eligible = candidates.filter((candidate) => candidate.side !== ownerSide &&
+... 522     candidate.alive && candidate.targetable &&
+501 523     !(candidate.target.type === "unit" && candidate.target.id === pending.identity.sourceId) &&
+502 524     !hit.has(targetKey(candidate.target)) && candidateInRange(pending.origin, candidate,
+
+tests/live-battle-chain-host.test.js --- 1/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+ 13  13 } from "../src/content/session-troop-projectile-profiles.js";
+ 14  14 import { createSessionTroopWitness } from "../src/content/session-troop-roster.js";
+ 15  15 import {
+ ..  16   createStormkiteChainQuestionHostPolicy as createChainPolicyForProjectionTest,
+ ..  17   prepareChainBoundary,
+ ..  18 } from "../src/sim/live-battle-chain.js";
+ ..  19 import {
+ 16  20   createStormkiteChainQuestionHostPolicy,
+ 17  21   LiveBattle,
+ 18  22 } from "../src/sim/live-battle.js";
+
+tests/live-battle-chain-host.test.js --- 2/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+103 107   battle.step();
+104 108 }
+105 109 
+... 110 function stageHostileSideDecoys(battle, { includeHostileStructure = true } = {}) {
+... 111   battle.scheduleDeploy(canonical({ cardId: "stormkite", point: { x: 3_500, y: 17_500 },
+... 112     sequence: 0, side: "north", tick: 0 }));
+... 113   battle.scheduleDeploy(canonical({ cardId: "mossguard", point: { x: 3_500, y: 14_700 },
+... 114     sequence: 1, side: "south", tick: 0 }));
+... 115   battle.scheduleDeploy(canonical({ cardId: "mossguard", point: { x: 3_500, y: 17_300 },
+... 116     sequence: 2, side: "north", tick: 0 }));
+... 117   if (includeHostileStructure) {
+... 118     battle.scheduleStructure({ cardId: "bulwark-needle", destination: null,
+... 119       point: { x: 3_500, y: 12_500 }, sequence: 3, side: "south", tick: 0 });
+... 120   }
+... 121   battle.scheduleStructure({ cardId: "bulwark-needle", destination: null,
+... 122     point: { x: 3_500, y: 17_001 }, sequence: 4, side: "north", tick: 0 });
+... 123   battle.step();
+... 124 }
+... 125 
+106 126 function chainState(battle) {
+107 127   return JSON.parse(JSON.parse(battle.serialize()).chainRuntime).state;
+108 128 }
+
+tests/live-battle-chain-host.test.js --- 3/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+111 131   return event.projectileIdentity ?? event.projectile?.projectileIdentity ?? null;
+112 132 }
+113 133 
+... 134 function targetOwnerSide(battle, target) {
+... 135   const owners = target.type === "unit" ? battle.state.units
+... 136     : target.type === "building" ? battle.state.structures : battle.state.towers;
+... 137   return owners.find(({ id }) => id === target.id)?.side ?? null;
+... 138 }
+... 139 
+114 140 function projectileBoundarySources(count) {
+115 141   const profile = PROJECTILE_MANIFEST.profiles.find(({ id }) => id === "stormkite");
+116 142   assert.ok(profile, "Stormkite has an admitted projectile source profile");
+
+tests/live-battle-chain-host.test.js --- 4/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+202 228   assert.equal(battle.state.units.find(({ id }) => id === targetId).hitpoints, primaryTargetAfter,
+203 229     "the building hop does not report extra damage to the already-hit primary unit");
+204 230   const structure = battle.state.structures.find(({ cardId }) => cardId === "bulwark-needle");
+... 231   assert.equal(structure.side, "south",
+... 232     "the source-dead continuation still chooses the hostile structure owner");
+205 233   const structureDamage = chainHop2Events.find(({ buildingId, sourceId: damageSource, type }) =>
+206 234     type === "structure-damaged" && buildingId === structure.id && damageSource?.startsWith("chain:"));
+207 235   assert.ok(structureDamage, `the building health writer accepts the selected hop; chain events: ${
+
+tests/live-battle-chain-host.test.js --- 5/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+221 249   assert.ok(hop3);
+222 250   assert.equal(hop3.outcome, "contact");
+223 251   assert.equal(hop3.target.type, "crown-tower");
+... 252   assert.equal(battle.state.towers.find(({ id }) => id === hop3.target.id).side, "south",
+... 253     "a restored/chunked continuation preserves the root owner's side through crown selection");
+224 254   assert.equal(hop3.requestedDamage, 192,
+225 255     "the receipt records the exact fixture request without claiming per-root applied damage");
+226 256   const towerAfter = battle.state.towers.find(({ id }) => id === hop3.target.id).hitpoints;
+
+tests/live-battle-chain-host.test.js --- 6/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+232   const chunked = LiveBattle.restor  262   const chunked = LiveBattle.restor
+... e(snapshot);                         ... e(snapshot);
+233   scheduleKillSpells(split, sourceI  263   scheduleKillSpells(split, sourceI
+... d);                                  ... d);
+234   scheduleKillSpells(chunked, sourc  264   scheduleKillSpells(chunked, sourc
+... eId);                                ... eId);
+235   chunked.stepMany(2);               265   const chunkedEvents = chunked.ste
+...                                      ... pMany(2);
+236   split.step();                      266   const splitHop2Events = split.ste
+...                                      ... p();
+237   split.step();                      267   const splitHop3Events = split.ste
+...                                      ... p();
+...                                      268   const chunkedHop2 = chunkedEvents
+...                                      ... .find(({ hop, identity, type }) => 
+...                                      ... type === "chain-hop-contact" &&
+...                                      269     hop === 2 && canonical(identity
+...                                      ... ) === canonical(primary.identity));
+...                                      270   const chunkedHop3 = chunkedEvents
+...                                      ... .find(({ hop, identity, type }) => 
+...                                      ... type === "chain-hop-contact" &&
+...                                      271     hop === 3 && canonical(identity
+...                                      ... ) === canonical(primary.identity));
+...                                      272   const splitHop2 = splitHop2Events
+...                                      ... .find(({ identity, type }) => type 
+...                                      ... === "chain-hop-contact" &&
+...                                      273     canonical(identity) === canonic
+...                                      ... al(primary.identity));
+...                                      274   const splitHop3 = splitHop3Events
+...                                      ... .find(({ identity, type }) => type 
+...                                      ... === "chain-hop-contact" &&
+...                                      275     canonical(identity) === canonic
+...                                      ... al(primary.identity));
+...                                      276   assert.ok(chunkedHop2 && chunkedH
+...                                      ... op3 && splitHop2 && splitHop3,
+...                                      277     "restore and both continuation 
+...                                      ... shapes produce both expected hop co
+...                                      ... ntacts");
+...                                      278   assert.equal(chunked.state.units.
+...                                      ... find(({ id }) => id === sourceId).a
+...                                      ... live, false);
+...                                      279   assert.equal(split.state.units.fi
+...                                      ... nd(({ id }) => id === sourceId).ali
+...                                      ... ve, false);
+...                                      280   assert.equal(targetOwnerSide(chun
+...                                      ... ked, chunkedHop2.target), "south");
+...                                      281   assert.equal(targetOwnerSide(chun
+...                                      ... ked, chunkedHop3.target), "south");
+...                                      282   assert.equal(targetOwnerSide(spli
+...                                      ... t, splitHop2.target), "south");
+...                                      283   assert.equal(targetOwnerSide(spli
+...                                      ... t, splitHop3.target), "south");
+238   assert.equal(chunked.serialize(),  284   assert.equal(chunked.serialize(),
+...  split.serialize(),                  ...  split.serialize(),
+239     "one two-tick host continuation  285     "one two-tick host continuation
+...  matches two single-tick clone/adop  ...  matches two single-tick clone/adop
+... t boundaries");                      ... t boundaries");
+240 });                                  286 });
+241                                      287 
+242 test("an isolated primary completes  288 test("friendly units, buildings, an
+...  without a target and leaves every   ... d crowns are excluded before hostil
+... HP owner unchanged", () => {         ... e hop sorting", () => {
+...                                      289   const capability = createChainPol
+...                                      ... icyForProjectionTest();
+...                                      290   const identity = { attackSequence
+...                                      ... : 1, direction: "unit-to-unit", pro
+...                                      ... jectileId: 7, sourceId: 1 };
+...                                      291   const primaryTarget = { id: 2, ty
+...                                      ... pe: "unit" };
+...                                      292   const state = {
+...                                      293     history: [{ hop: 1, identity, o
+...                                      ... utcome: "contact", reason: null, ta
+...                                      ... rget: primaryTarget, tick: 4 }],
+...                                      294     pending: [{ dueTick: 5, hitTarg
+...                                      ... ets: [primaryTarget], identity, nex
+...                                      ... tHop: 2,
+...                                      295       origin: { position: { x: 1_00
+...                                      ... 0, y: 1_000 }, radius: 0 } }],
+...                                      296   };
+...                                      297   const candidate = (proxyId, targe
+...                                      ... t, side, x, y) => ({
+...                                      298     alive: true, layer: "ground", p
+...                                      ... osition: { x, y }, proxyId, radius:
+...                                      ...  0,
+...                                      299     side, target, targetable: true,
+...                                      300   });
+...                                      301   const candidates = [
+...                                      302     candidate(1, { id: 1, type: "un
+...                                      ... it" }, "north", 1_000, 1_000),
+...                                      303     candidate(2, primaryTarget, "so
+...                                      ... uth", 1_050, 1_000),
+...                                      304     candidate(3, { id: 3, type: "un
+...                                      ... it" }, "north", 1_100, 1_000),
+...                                      305     candidate(4, { id: 4, type: "un
+...                                      ... it" }, "south", 2_600, 1_000),
+...                                      306     candidate(5, { id: 5, type: "bu
+...                                      ... ilding" }, "north", 1_200, 1_000),
+...                                      307     candidate(6, { id: 6, type: "bu
+...                                      ... ilding" }, "south", 2_200, 1_000),
+...                                      308     candidate(7, { id: "north:lane:
+...                                      ... west", type: "crown-tower" }, "nort
+...                                      ... h", 1_300, 1_000),
+...                                      309     candidate(8, { id: "south:lane:
+...                                      ... west", type: "crown-tower" }, "sout
+...                                      ... h", 2_400, 1_000),
+...                                      310   ];
+...                                      311 
+...                                      312   const plan = prepareChainBoundary
+...                                      ... (capability, state, 5, candidates);
+...                                      313   assert.deepEqual(plan.contacts.ma
+...                                      ... p(({ target }) => target), [{ id: 6
+...                                      ... , type: "building" }],
+...                                      314     "closer friendly target classes
+...                                      ...  are skipped before selecting the n
+...                                      ... earest farther hostile owner");
+...                                      315   const mirroredCandidates = candid
+...                                      ... ates.map((entry) => ({ ...entry,
+...                                      316     side: entry.side === "north" ? 
+...                                      ... "south" : "north" }));
+...                                      317   const mirroredPlan = prepareChain
+...                                      ... Boundary(capability, state, 5, mirr
+...                                      ... oredCandidates);
+...                                      318   assert.deepEqual(mirroredPlan.con
+...                                      ... tacts.map(({ target }) => target), 
+...                                      ... [{ id: 6, type: "building" }],
+...                                      319     "the source owner lookup is sid
+...                                      ... e-symmetric and does not infer alle
+...                                      ... giance from ids");
+...                                      320 });
+...                                      321 
+...                                      322 test("a friendly-only continuation 
+...                                      ... completes without damaging its unit
+...                                      ...  or building decoys", () => {
+243   const battle = createBattle();     323   const battle = createBattle();
+244   stageBattle(battle, { includeStru  324   stageHostileSideDecoys(battle, { 
+... cture: false });                     ... includeHostileStructure: false });
+...                                      325   const sourceId = battle.state.uni
+...                                      ... ts.find(({ cardId }) => cardId === 
+...                                      ... "stormkite").id;
+...                                      326   const friendlyUnit = battle.state
+...                                      ... .units.find(({ id, side }) => id !=
+...                                      ... = sourceId && side === "north");
+...                                      327   const friendlyStructure = battle.
+...                                      ... state.structures.find(({ side }) =>
+...                                      ...  side === "north");
+...                                      328   const friendlyUnitHitpointsBefore
+...                                      ...  = friendlyUnit.hitpoints;
+...                                      329   const friendlyStructureHitpointsB
+...                                      ... efore = friendlyStructure.hitpoints
+...                                      ... ;
+245   const towerHitpointsBefore = batt  330   const towerHitpointsBefore = batt
+... le.state.towers.map(({ hitpoints, i  ... le.state.towers.map(({ hitpoints, i
+... d }) => ({ hitpoints, id }));        ... d }) => ({ hitpoints, id }));
+246   const { primary } = findPrimary(b  331   const { primary } = findPrimary(b
+... attle);                              ... attle);
+247   assert.equal(primary.target.type,  332   assert.equal(primary.target.type,
+...  "unit");                            ...  "unit");
+
+tests/live-battle-chain-host.test.js --- 7/7 --- Text (exceeded DFT_GRAPH_LIMIT)
+258   assert.equal(chainState(battle).p  343   assert.equal(chainState(battle).p
+... ending.length, 0);                   ... ending.length, 0);
+259   assert.deepEqual(battle.state.tow  344   assert.deepEqual(battle.state.tow
+... ers.map(({ hitpoints, id }) => ({ h  ... ers.map(({ hitpoints, id }) => ({ h
+... itpoints, id })),                    ... itpoints, id })),
+260     towerHitpointsBefore, "the no-c  345     towerHitpointsBefore, "the no-c
+... ontact chain does not change any to  ... ontact chain does not change any to
+... wer HP");                            ... wer HP");
+261   assert.equal(battle.state.structu  346   assert.equal(battle.state.units.f
+... res.length, 0);                      ... ind(({ id }) => id === friendlyUnit
+...                                      ... .id).hitpoints,
+...                                      347     friendlyUnitHitpointsBefore, "t
+...                                      ... he friendly unit is not used as a f
+...                                      ... allback target");
+...                                      348   assert.equal(battle.state.structu
+...                                      ... res.find(({ id }) => id === friendl
+...                                      ... yStructure.id).hitpoints,
+...                                      349     friendlyStructureHitpointsBefor
+...                                      ... e, "the friendly building is not us
+...                                      ... ed as a fallback target");
+...                                      350 });
+...                                      351 
+...                                      352 test("a real hop skips nearer frien
+...                                      ... dly decoys and damages the farther 
+...                                      ... hostile structure", () => {
+...                                      353   const battle = createBattle();
+...                                      354   stageHostileSideDecoys(battle);
+...                                      355   const source = battle.state.units
+...                                      ... .find(({ cardId }) => cardId === "s
+...                                      ... tormkite");
+...                                      356   const friendlyUnit = battle.state
+...                                      ... .units.find(({ id, side }) => id !=
+...                                      ... = source.id && side === source.side
+...                                      ... );
+...                                      357   const friendlyStructure = battle.
+...                                      ... state.structures.find(({ side }) =>
+...                                      ...  side === source.side);
+...                                      358   const hostileStructure = battle.s
+...                                      ... tate.structures.find(({ side }) => 
+...                                      ... side !== source.side);
+...                                      359   assert.ok(friendlyUnit && friendl
+...                                      ... yStructure && hostileStructure);
+...                                      360 
+...                                      361   const { primary } = findPrimary(b
+...                                      ... attle);
+...                                      362   assert.equal(primary.target.type,
+...                                      ...  "unit");
+...                                      363   assert.equal(targetOwnerSide(batt
+...                                      ... le, primary.target), "south");
+...                                      364   const pending = chainState(battle
+...                                      ... ).pending.find(({ identity }) =>
+...                                      365     canonical(identity) === canonic
+...                                      ... al(primary.identity));
+...                                      366   const preHopFriendlyUnit = battle
+...                                      ... .state.units.find(({ id }) => id ==
+...                                      ... = friendlyUnit.id);
+...                                      367   const preHopFriendlyStructure = b
+...                                      ... attle.state.structures.find(({ id }
+...                                      ... ) => id === friendlyStructure.id);
+...                                      368   const preHopHostileStructure = ba
+...                                      ... ttle.state.structures.find(({ id })
+...                                      ...  => id === hostileStructure.id);
+...                                      369   assert.ok(preHopFriendlyUnit && p
+...                                      ... reHopFriendlyStructure && preHopHos
+...                                      ... tileStructure,
+...                                      370     "the staged decoys still have c
+...                                      ... anonical owners at the actual pre-h
+...                                      ... op boundary");
+...                                      371   const distanceFromOrigin = ({ pos
+...                                      ... ition }) => Math.hypot(
+...                                      372     position.x - pending.origin.pos
+...                                      ... ition.x, position.y - pending.origi
+...                                      ... n.position.y);
+...                                      373   assert.ok(distanceFromOrigin(preH
+...                                      ... opFriendlyUnit) < distanceFromOrigi
+...                                      ... n(preHopHostileStructure),
+...                                      374     "the friendly unit is closer to
+...                                      ...  the actual chain origin than the h
+...                                      ... ostile building");
+...                                      375   assert.ok(distanceFromOrigin(preH
+...                                      ... opFriendlyStructure) < distanceFrom
+...                                      ... Origin(preHopHostileStructure),
+...                                      376     "the friendly building is close
+...                                      ... r to the actual chain origin than t
+...                                      ... he hostile building");
+...                                      377   const hostileHitpointsBefore = pr
+...                                      ... eHopHostileStructure.hitpoints;
+...                                      378   const events = battle.step();
+...                                      379   const hop = events.find(({ hop: h
+...                                      ... opIndex, identity, type }) => type 
+...                                      ... === "chain-hop-contact" &&
+...                                      380     hopIndex === 2 && canonical(ide
+...                                      ... ntity) === canonical(primary.identi
+...                                      ... ty));
+...                                      381   assert.ok(hop);
+...                                      382   assert.deepEqual(hop.target, { id
+...                                      ... : hostileStructure.id, type: "build
+...                                      ... ing" });
+...                                      383   assert.equal(targetOwnerSide(batt
+...                                      ... le, hop.target), "south");
+...                                      384   assert.equal(battle.state.structu
+...                                      ... res.find(({ id }) => id === hostile
+...                                      ... Structure.id).hitpoints,
+...                                      385     hostileHitpointsBefore - 192,
+...                                      386     "the existing hostile building 
+...                                      ... owner applies the exact non-overkil
+...                                      ... l hop damage");
+...                                      387   assert.equal(events.some(({ build
+...                                      ... ingId, origin, type }) => type === 
+...                                      ... "structure-damaged" &&
+...                                      388     buildingId === friendlyStructur
+...                                      ... e.id && origin === "chain-hop"), fa
+...                                      ... lse,
+...                                      389   "the friendly building receives n
+...                                      ... o chain damage");
+262 });                                  390 });
+263                                      391 
+264 test("same-boundary roots overkill   392 test("same-boundary roots overkill 
+... a shared building through its host   ... a shared building through its host 
+... health owner", () => {               ... health owner", () => {
+

@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 534 — 2026-10-20
+
+PIECE: VIS-003HT
+
+VERDICT: PASS — full building witness and exact tower raster restore scope
+
+EVIDENCE: A separate critic reran the original unchanged building-choice browser test on the two-file c750-based candidate. Positive Node40074 exit0: exact720x1280 viewport and66x66 art crop, session/browser/input/HUD/DOM equality, six attacks,311HP and natural north win tick7863; no console/page errors. Matching control retains the witness fix and changes only tower radius back to1px: Node40362 exit1 at the original pixel assertion, reproducing22 changed pixels,12 over8,max19. Source/test/config526 and public32 fences match before/after; both process trees closed. Native square-cap healthbars remain legible with their existing dark outline/team colors. The source witness repair only collects existing field questionKey records; no numeric or admission change. No extra waits, hooks, thresholds or test changes. artifacts/tower-restore-render-round-1/.
+
+BIGGEST GAP: None on this restore dimension. Direct reference-footage parity and whole shared-factory qualification remain unassessed.
+
+DISPOSITION: Adopt exactly the two independently reviewed source blobs; retain all positive/control evidence and the original assertions.
+
+## Round 533 — 2026-10-20
+
+PIECE: GAME-001HTJC
+
+VERDICT: PASS — scoped R2 same-side exclusion regression; host adoption still pending
+
+EVIDENCE: Fresh critic ran actual hostile-side probe, focused11/11 and raw pinned-e35 default-eight absence-policy byte comparison. Hop2 at tick150 hits hostile building4 for192 (824to632), while closer friendly building5 remains400; the nearer friendly unit is also excluded. Dead-caster direct/restored/chunked continuations agree. Without optional chain/projectile policy, exact raw-e35 bytes match through tick148 ordinary192 damage (1766to1574), outer version2 and no chainRuntime. Builder rollback/unit-building-crown forced-throw and source guards pass; fresh critic reviewed but did not replay that forced-throw harness. R2 stale-position fixture failure was corrected by reading owners at the actual pre-hop boundary, preserving the closeness assertion. All160 input files match private frozen candidate5d2355c7; portable three-file R1-to-R2 patch and reports retained. artifacts/game001htjc-round-2/.
+
+BIGGEST GAP: Shared-factory proposal is not adopted or fully qualified on current game source. Chain timing/range/caps/eligibility/damage remain explicit QUESTION fixtures, not historical facts.
+
+DISPOSITION: Preserve the independently tested proposal and continue matching engine qualification before canonical host adoption.
+
 ## Round 532 — 2026-10-20
 
 PIECE: ART-3D-COIL-001

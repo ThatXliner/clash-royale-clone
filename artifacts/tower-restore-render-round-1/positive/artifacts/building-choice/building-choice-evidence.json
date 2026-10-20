@@ -1,0 +1,162 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "restoreRaster": {
+    "artClip": {
+      "height": 66,
+      "width": 66,
+      "x": 158,
+      "y": 737
+    },
+    "artRaster": {
+      "changedPixels": 0,
+      "height": 66,
+      "maxChannelDelta": 0,
+      "meanChannelDelta": 0,
+      "pixelsOver8": 0,
+      "width": 66
+    },
+    "artSource": "off-page bitmap crops from full viewport PNG captures",
+    "checkpointHash": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+    "restoredHash": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+    "restoredRepeatHash": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+    "restoredPairRaster": {
+      "changedPixels": 0,
+      "height": 1280,
+      "maxChannelDelta": 0,
+      "meanChannelDelta": 0,
+      "pixelsOver8": 0,
+      "width": 720
+    },
+    "viewportRaster": {
+      "changedPixels": 0,
+      "height": 1280,
+      "maxChannelDelta": 0,
+      "meanChannelDelta": 0,
+      "pixelsOver8": 0,
+      "width": 720
+    }
+  },
+  "standard": {
+    "hiddenControlsCannotFocus": true,
+    "seedZeroExact": true
+  },
+  "chooser": {
+    "bulwarkSelected": true,
+    "modalWidth": 720,
+    "preMatchSeedZeroExact": true,
+    "runningDuringChoice": false
+  },
+  "bulwark": {
+    "artId": "bulwark-needle",
+    "artPathCount": 10,
+    "attackCount": 6,
+    "firstAttack": {
+      "amount": 212,
+      "buildingId": 2,
+      "targetId": 4,
+      "tick": 120,
+      "type": "structure-attack"
+    },
+    "hitpointsAfterCombat": 311,
+    "hand": [
+      {
+        "cost": 3,
+        "id": "bulwark-needle",
+        "name": "Bulwark Needle"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "name": "Skymaul"
+      },
+      {
+        "cost": 4,
+        "id": "brassbolt",
+        "name": "Brassbolt"
+      },
+      {
+        "cost": 3,
+        "id": "mossguard",
+        "name": "Mossguard"
+      }
+    ],
+    "inputSlots": [
+      "bulwark-needle",
+      "skymaul",
+      "brassbolt",
+      "mossguard"
+    ],
+    "placement": {
+      "x": 3366,
+      "y": 9933
+    },
+    "questionCount": 32,
+    "questionNotice": {
+      "cardId": "bulwark-needle",
+      "disposition": "question",
+      "hidden": false,
+      "text": "Bulwark Needle combat: QUESTION. First-hit timing is absent; damage, HP, deploy, range and target fields are unverified.",
+      "unverifiedFields": "damage,deployTicks,firstHitTicks,hitpoints,maxRange,mode,sightRange"
+    },
+    "restore": {
+      "browserBytesExact": true,
+      "checkpointCapturePixelExact": true,
+      "paintStateDifferences": [],
+      "combatDomExact": true,
+      "hudExact": true,
+      "inputExact": true,
+      "bulwarkArtPixelExact": true,
+      "bulwarkArtRaster": {
+        "changedPixels": 0,
+        "height": 66,
+        "maxChannelDelta": 0,
+        "meanChannelDelta": 0,
+        "pixelsOver8": 0,
+        "width": 66
+      },
+      "pixels": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+      "pixelsRepeatAtCheckpoint": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+      "pixelsAfterRestore": "a0bffc4df2407628bc17dc85d8f6e783af22d87ffc9c2641e6e2c35ddb39b8fd",
+      "viewportRaster": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "meanChannelDelta": 0,
+        "pixelsOver8": 0,
+        "width": 720
+      },
+      "viewportPixelExact": true,
+      "sessionBytesExact": true
+    },
+    "restartExact": true,
+    "restartCount": 1,
+    "sessionDeck": [
+      "bulwark-needle",
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band"
+    ],
+    "southElixirAfterDeploy": 7,
+    "targetKey": "unit:4",
+    "targetLinksVisible": true,
+    "targetAcquiredAfterTicks": 120,
+    "attackCountAfterCombat": 6,
+    "terminalChunks": 7,
+    "terminalResult": {
+      "crowns": {
+        "north": 3,
+        "south": 0
+      },
+      "endedAtTick": 7862,
+      "kind": "win",
+      "reason": "central_destroyed",
+      "winner": "north"
+    },
+    "terminalTick": 7863
+  }
+}
