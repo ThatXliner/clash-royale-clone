@@ -1,0 +1,67 @@
+TAP version 13
+# \# endurance-segment {"elapsedMs":805,"snapshotBytes":44478,"tick":300}
+# \# endurance-segment {"elapsedMs":996,"snapshotBytes":49409,"tick":600}
+# \# endurance-segment {"elapsedMs":1252,"snapshotBytes":54339,"tick":900}
+# \# endurance-segment {"elapsedMs":896,"snapshotBytes":59267,"tick":1200}
+# \# endurance-segment {"elapsedMs":1197,"snapshotBytes":64067,"tick":1500}
+# \# endurance-segment {"elapsedMs":1317,"snapshotBytes":68998,"tick":1800}
+# \# endurance-segment {"elapsedMs":1224,"snapshotBytes":73798,"tick":2100}
+# \# endurance-segment {"elapsedMs":982,"snapshotBytes":78598,"tick":2400}
+# \# endurance-segment {"elapsedMs":1040,"snapshotBytes":83528,"tick":2700}
+# \# endurance-segment {"elapsedMs":1340,"snapshotBytes":88458,"tick":3000}
+# \# endurance-segment {"elapsedMs":1350,"snapshotBytes":93388,"tick":3300}
+# \# endurance-segment {"elapsedMs":1505,"snapshotBytes":98188,"tick":3600}
+# \# endurance-segment {"elapsedMs":1505,"snapshotBytes":103121,"tick":3900}
+# \# endurance-segment {"elapsedMs":1400,"snapshotBytes":107921,"tick":4200}
+# \# endurance-segment {"elapsedMs":1265,"snapshotBytes":112721,"tick":4500}
+# \# endurance-segment {"elapsedMs":1725,"snapshotBytes":117652,"tick":4800}
+# \# endurance-segment {"elapsedMs":2023,"snapshotBytes":122581,"tick":5100}
+# \# endurance-segment {"elapsedMs":1703,"snapshotBytes":127381,"tick":5400}
+# \# endurance-segment {"elapsedMs":1787,"snapshotBytes":132181,"tick":5700}
+# \# endurance-segment {"elapsedMs":1726,"snapshotBytes":137112,"tick":6000}
+# \# endurance-segment {"elapsedMs":1533,"snapshotBytes":141912,"tick":6300}
+# \# endurance-segment {"elapsedMs":1467,"snapshotBytes":146712,"tick":6600}
+# \# endurance-segment {"elapsedMs":1552,"snapshotBytes":151643,"tick":6900}
+# \# endurance-segment {"elapsedMs":1566,"snapshotBytes":156443,"tick":7200}
+# \# endurance-segment {"elapsedMs":1854,"snapshotBytes":161243,"tick":7500}
+# \# endurance-segment {"elapsedMs":2119,"snapshotBytes":166175,"tick":7800}
+# \# endurance-segment {"elapsedMs":1788,"snapshotBytes":170975,"tick":8100}
+# \# endurance-segment {"elapsedMs":1884,"snapshotBytes":175775,"tick":8400}
+# \# endurance-segment {"elapsedMs":2079,"snapshotBytes":180707,"tick":8700}
+# \# endurance-segment {"elapsedMs":2522,"snapshotBytes":185639,"tick":9000}
+# \# endurance-segment {"elapsedMs":2331,"snapshotBytes":190439,"tick":9300}
+# \# endurance-segment {"elapsedMs":2630,"snapshotBytes":195371,"tick":9600}
+# \# endurance-segment {"elapsedMs":2799,"snapshotBytes":200301,"tick":9900}
+# \# endurance-segment {"elapsedMs":2485,"snapshotBytes":205233,"tick":10200}
+# \# endurance-segment {"elapsedMs":2352,"snapshotBytes":210033,"tick":10500}
+# \# endurance-segment {"elapsedMs":2695,"snapshotBytes":214967,"tick":10800}
+# Subtest: game session endurance: shared policy preserves the active seed-zero match across chunks and restore cuts
+not ok 1 - game session endurance: shared policy preserves the active seed-zero match across chunks and restore cuts
+  ---
+  duration_ms: 141423.042208
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-node-workload/builder/tests/game-session-endurance.test.js:156:1'
+  failureType: 'testCodeFailure'
+  error: '300-tick segment at 11100 stayed bounded'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    continueWithSharedPolicy (file:///Users/me/.codex/clash-qualification/20261020-node-workload/builder/tests/game-session-endurance.test.js:141:25)
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-node-workload/builder/tests/game-session-endurance.test.js:169:24)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 141598.820167

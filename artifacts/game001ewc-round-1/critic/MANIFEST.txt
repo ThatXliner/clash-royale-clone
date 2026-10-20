@@ -1,0 +1,38 @@
+GAME-001EWC critic run evidence
+
+Candidate commit: ba0250036e2c28b3aea7e039044d8b1993e7d155
+Expected accepted parent: cc690130e4f0edcfec64212b70356929cead0880
+Private worktree was detached at the candidate commit and clean before launch.
+Exact command: node --test --test-name-pattern='^game session endurance: shared policy preserves the active seed-zero match across chunks and restore cuts$' tests/game-session-endurance.test.js
+GAME_SESSION_ENDURANCE_TICKS was unset. No tick override was passed.
+Direct Node PID: 29612. Node test worker PID: 29615. Direct exit: 0.
+TAP result: 1 test, 1 pass, 0 fail, 0 skipped. stderr: 0 bytes.
+Paid South receipt gap diagnostic: 900 ticks maximum across initial, consecutive, and terminal gaps.
+Metrics: 204 rows; 60 direct, 60 irregular chunks, 53 restore@2100, 30 restore@9000, 1 restore@17700.
+Maximum segment: 7,833 ms at tick 14,400.
+Maximum snapshot: 332,963 bytes at tick 18,000. Both limits passed for every row.
+Test runner duration: 884,108.665833 ms.
+The pre-run source copy and post-run worktree source compare byte-for-byte; pre/post Git fences are included.
+
+Bounded evidence packet file list:
+- MANIFEST.txt
+- metrics-summary.json
+- post-run-git-fence.txt
+- pre-run/git-fence.txt
+- pre-run/metadata.txt
+- pre-run/runner-environment.txt
+- pre-run/runner-source.test.js
+- pre-run/source.sha256
+- process-start.txt
+- process-tree.raw
+- direct-node.pid
+- direct-node.exit
+- runner-started-at.txt
+- runner-ended-at.txt
+- source-fence.txt
+- stderr.raw
+- stdout.raw
+
+The checkout/ worktree is intentionally excluded from the bounded evidence packet and retained intact for root independent verification. It is pinned at ba0250036e2c28b3aea7e039044d8b1993e7d155.
+
+Source hash timing: pre-run/runner-source.test.js was copied before launch. Its SHA-256 in pre-run/source.sha256 was calculated after the test from that captured copy; source-fence.txt records a byte-identical comparison against the post-run worktree file.

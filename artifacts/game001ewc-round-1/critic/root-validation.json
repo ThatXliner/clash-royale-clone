@@ -1,0 +1,21 @@
+{
+  "candidate": "ba0250036e2c28b3aea7e039044d8b1993e7d155",
+  "parent": "cc690130e4f0edcfec64212b70356929cead0880",
+  "adoptionParent": "1a72b361a608745b066a05b140aac87566dad3f5",
+  "testSha256": "2ddb17fa42955df7ea2c88887b7085eed11db74124c0d0c274cc1e8ed3f53498",
+  "directPid": 29612,
+  "testWorkerPid": 29615,
+  "directExit": 0,
+  "actualPass": 1,
+  "actualFail": 0,
+  "actualSkip": 0,
+  "metricRows": 204,
+  "maxSegmentMs": 7833,
+  "maxSnapshotBytes": 332963,
+  "maxPaidSouthGapTicks": 900,
+  "postrunInputGitBlobsVerified": 531,
+  "captureScope": "The actual prelaunch copy/hash covers the test. Pre/post Git fences are clean. Root verified every imported-source/test/script/package inventory blob after the run; this post-run inventory is not a prelaunch byte-copy fence.",
+  "comparisonExitClarification": "source-bytes-identical=0 in the original fence is cmp exit status zero, not a false Boolean.",
+  "analysisParserCaveat": "Critic reported a first metrics parser matching the diagnostic array and raising Extra data. Its original error stream was not separately retained. The corrected summary and root prefix-only parse agree. This analysis error did not change or rerun the test.",
+  "scope": "Node workload only. No browser, full-factory, new-card, engine, policy, stat, or asset acceptance."
+}

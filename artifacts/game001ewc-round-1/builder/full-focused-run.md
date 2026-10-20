@@ -1,0 +1,9 @@
+# Full focused Node proof
+
+The complete bounded stdout is retained in `full-focused-run.stdout.raw`, and the exact executed test source is frozen in `full-focused-run.executed-test.js`. `full-focused-run.sources.sha256` records generated hashes for that test copy and the unchanged shared helper.
+
+The full receipt is at `/Users/me/.codex/clash-qualification/20261020-node-workload/attempts/20261020T145835Z-direct-live-focused-suite/`. It includes the exact argv/environment, Node identity, direct PID, raw stream hashes, pre/post Git state, tracked-source manifests, and source fence. It ran on Node v22.22.3, direct PID 25928, from the candidate at HEAD `cc690130e4f0edcfec64212b70356929cead0880`, with no tick override. Exit code was 0; the source/Git fence passed.
+
+The single focused test passed all 18,000 ticks, the chunked replay, and restore cuts at 2100, 9000, and 17700. All 204 emitted 300-tick metrics stayed below 30,000 ms. The largest measured segment was 5606 ms at tick 17400 in the chunked pass. The largest serialized snapshot was 332,963 bytes. Test duration was 819,784.111 ms. The 204 measured segment timers sum to 576,568 ms; the 243,216.111 ms difference is unmeasured time across setup and checks, serialization, and comparisons. It is not attributed to one phase: the worker remained CPU-active after the last tick-18000 metric, but the capture did not timestamp that boundary separately.
+
+The full pass executed the direct-policy source copy frozen here. The current candidate adds a North paid-deployment assertion and checks every gap between positive-paid South deployment receipts, including tick 0 to the first receipt and the last receipt to tick 18000. It prints the maximum South paid gap in the test diagnostic. These additions are a separate source revision and are not claimed as covered by this full-run result; the fresh critic is expected to run that exact revision.
