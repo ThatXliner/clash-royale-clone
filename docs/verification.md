@@ -19,7 +19,20 @@ The five-squad relative spawn interval correction passed independent review with
 
 The adaptive default-eight workload passed a strict 18,000-tick Chrome run on `5ba4002`: TAP 2/2, initialization 197 ms, and no non-initialization long tasks above the unchanged 50 ms cap. Restore, terminal cleanup and restart passed. See the [independent verdict](../artifacts/game001gpr5-round-3/critic/verdict.md). This supersedes the earlier workload shortfall at tick 13,352. The shipped `9f64011` presentation then passed its own strict 18,000-tick run: TAP 2/2, initialization 158 ms, and no measured non-initialization long tasks above the unchanged 50 ms cap. Restore, terminal and restart passed; see the [fresh verdict](../artifacts/game001gpr6-round-1/critic/verdict.md). These runs cover the default-eight workload, not every custom deck or later runtime changes. Pause/resume adds transcript records; the checked byte parity is between browser and direct sessions after both calls.
 
-The JS/RL environment is now version 2, with structure observations and an executable mixed-deck example. Version 1 checkpoints are rejected. The [API review](../artifacts/cards018-core-round-3/critic/verdict.md) records the tested behavior. Ember Basin's low-confidence profile values remain explicit questions; this release does not establish historical card parity.
+The JS/RL environment is version 2, with structure observations and an
+executable mixed-deck example.
+The RL wrapper rejects version-1 checkpoints.
+A checkpoint's envelope version is necessary but not sufficient for restore.
+`LiveBattle.restore()` and `GameSession.restore()` validate embedded setup
+against current card admission and source-confidence policy, then validate
+causal witnesses. A historical checkpoint can fail if its setup lacks a
+policy required by the current engine. This project has no source-vintage
+migration. A checkpoint that parses under another engine revision does not
+prove that it behaves the same.
+Keep the engine commit with each RL checkpoint for reproducibility. The [API
+review](../artifacts/cards018-core-round-3/critic/verdict.md) records the
+tested wrapper behavior.
+Ember Basin's low-confidence profile values remain explicit questions. This release does not establish historical card parity.
 
 First-member onset, Briar Band's historical formation geometry and internal order, and other low-confidence troop values remain unresolved.
 

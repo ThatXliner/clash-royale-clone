@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Users/me/.hermes/node/bin/npm",
+    "run",
+    "test:game-troop-runtime"
+  ],
+  "cwd": "/Users/me/.codex/clash-qualification/20261020-asc-critic/df86-input",
+  "npmScript": "node tests/game-troop-runtime-runner.js game-troop-runtime",
+  "runner": {
+    "bytes": 412,
+    "path": "tests/game-troop-runtime-runner.js",
+    "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+  },
+  "runnerChild": [
+    "/Users/me/.hermes/node/bin/node",
+    "--test",
+    "/Users/me/.codex/clash-qualification/20261020-asc-critic/df86-input/tests/game-troop-runtime.test.js"
+  ],
+  "testFile": "/Users/me/.codex/clash-qualification/20261020-asc-critic/df86-input/tests/game-troop-runtime.test.js"
+}

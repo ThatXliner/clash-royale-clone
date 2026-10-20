@@ -9783,3 +9783,12 @@ VERDICT: FAIL
 EVIDENCE: Fresh independent Chrome155/Node22.22.3/Playwright1.58.2 capture exits0, six exact native390x844/1440x933 DPR1 frames, no external/font requests or page errors. All23 unique card IDs/names/costs/types/rarities match committed source. Landing and battle frames remain byte-identical to R2. Focusable collection has518px client height and670px scroll height, but PageDown and End both record scrollTop0/atBottomfalse. Retained bottom audit still clips final card-name strips. Node70747 and Chrome70760 are confirmed closed. Exact source42778806 and full independent report/raw frames/capture/input/fences retained in artifacts/design001-round-3/critic.
 BIGGEST GAP: Keyboard access to the full collection is not demonstrated. Mouse-wheel behavior was not tested. R4 must diagnose source versus capture timing/focus before correction; DOM presence alone is insufficient.
 DISPOSITION: Proposal only; no shipped UI/mechanics change. Three rounds found different gaps (phone overflow, incomplete roster, now collection access), so no same-gap three-round stop is inferred.
+
+## Round 523 — GAME-001ASC archived checkpoint contract
+
+PIECE: GAME-001ASC
+VERDICT: PASS — documentation and historical-fixture regression scope
+EVIDENCE: Independent exactdf86/current accepted src01d869 focused npm run test:game-troop-runtime exits0:8pass/0fail/0skip, Node22.22.3/npm10.9.8. All seven genuine c9/2a historical snapshots match committed diagnostic bytes and reject with exact missing Briar confidence-policy TypeErrors at roster6/roster7 entity0. Existing current/legacy causal, hostile, rollback, chunk/fork and live profile cases pass unchanged.166 Git-pinned input files and source/runner/test/fixture pre/postfences match; runtime children closed. Exact11 owned docs/test/fixtures match builder734; root adopts accepted-source df86 blobs without factory code.
+
+Builder734 focused gate separately passes8/8; initial recorder preflight failed because npm user/global config shared a file. Distinct empty files repair only the recorder, preserved before/after and raw failure; no test/source change. Full critic report, raw, manifests, argv, allowlisted environment and captures retained in artifacts/game001asc-round-1.
+BIGGEST GAP: None within this contract-audit scope. The project does not implement source-vintage migration or promise behavioral compatibility merely because checkpoint envelope versions match. RL wrapper v1 remains rejected. This is no new engine mechanic, full-suite qualification, or general historical compatibility claim.

@@ -1,0 +1,1776 @@
+{
+  "candidate": "734dd8e3c5c8f21703b8fd39727e69f51eb93ab3",
+  "runId": "20261020T170019Z-bc40a624",
+  "status": "preflight-failed",
+  "gate": "npm run test:game-troop-runtime",
+  "intendedCommand": {
+    "argvTail": [
+      "run",
+      "test:game-troop-runtime"
+    ],
+    "unfiltered": true
+  },
+  "startedUtc": "2026-10-20T17:00:19.547+00:00",
+  "executionAuthorizedByCaller": true,
+  "runtimeSource": "/Users/me/.codex/clash-qualification/20261020-asc-builder/runtime-source",
+  "gitBlobManifest": {
+    "candidate": "734dd8e3c5c8f21703b8fd39727e69f51eb93ab3",
+    "path": "/Users/me/.codex/clash-qualification/20261020-asc-builder/gate-capture/source-git-blobs.json",
+    "sha256": "1aeac6e07d41505ad726f45d44d572eeae90e6d9df82ed41d573ba1bb06d1de4",
+    "fileCount": 166
+  },
+  "prelaunchSource": {
+    "fileCount": 166,
+    "totalBytes": 4418625,
+    "matchesGitManifest": true,
+    "files": {
+      ".nvmrc": {
+        "bytes": 3,
+        "git_blob": "2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a",
+        "sha256": "f14b4987904bcb5814e4459a057ed4d20f58a633152288a761214dcd28780b56"
+      },
+      "package-lock.json": {
+        "bytes": 26592,
+        "git_blob": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+      },
+      "package.json": {
+        "bytes": 13905,
+        "git_blob": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+      },
+      "src/audio/audio-events.js": {
+        "bytes": 17721,
+        "git_blob": "33d6db646434169d0a43ed46f62a09723ce65a70",
+        "sha256": "6be744a0b1080857aaa83285fe1c1d20bbc95422dc630e1d215be6faedd587f3"
+      },
+      "src/audio/audio-production-provenance.json": {
+        "bytes": 6183,
+        "git_blob": "93c26a325db4dc9dc3237ab172fef89505f40cca",
+        "sha256": "de5d85b9ec66e09d832ce52578546054c40f76105f66cf32a83b247b59209aae"
+      },
+      "src/audio/audio-provenance.json": {
+        "bytes": 7830,
+        "git_blob": "5320fafda379d10680c5f36a03a8533fa52c7ecc",
+        "sha256": "18f44a42c137cd9c131b86c52062a34a0b3181a29db3c89cd09de4aa4f9e84e6"
+      },
+      "src/audio/audio-renderer.js": {
+        "bytes": 54452,
+        "git_blob": "e677d3302ca03ba3a9839a76ce4fbe2edf42c11e",
+        "sha256": "b8ebd1c05704b143612d60a5e08007fb7d7f0af3e4d4837c6bc7431da46e2dfb"
+      },
+      "src/audio/browser-audio.js": {
+        "bytes": 11492,
+        "git_blob": "51384fa397a9c44e870f212f5766a1a3d5dea31c",
+        "sha256": "c8666b60a128683fa659c7cdd8c5c145a4206ecd105d9e0814c968071fc75b19"
+      },
+      "src/audio/game-audio-runtime.js": {
+        "bytes": 25694,
+        "git_blob": "feaef3dc9a0a07ed6a3448a0e57e0d2f29ef75f9",
+        "sha256": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5"
+      },
+      "src/content/cards/basic-flying.js": {
+        "bytes": 16299,
+        "git_blob": "db76c543c24cf0439a92da2cb36f4c84ad4f217a",
+        "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083"
+      },
+      "src/content/cards/basic-melee.js": {
+        "bytes": 4400,
+        "git_blob": "380857b92489b4086615e689a06c686e2c3c931c",
+        "sha256": "503ce411967087e8e9d77a0c6207e3971791127ae3bfdc75a8002f20fde9adf2"
+      },
+      "src/content/cards/basic-ranged.js": {
+        "bytes": 15100,
+        "git_blob": "d80208caa7edbdd6169a1fa9cac3dd4c69a54795",
+        "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab"
+      },
+      "src/content/cards/buildings-defensive.js": {
+        "bytes": 36168,
+        "git_blob": "253a2008584e95b1d42e852a3f5cafe2e20b8622",
+        "sha256": "30ee46b0f00766a9687f332a1eb236e77132b1da0cc496a9a6ad156e75767224"
+      },
+      "src/content/cards/buildings-resource.js": {
+        "bytes": 23716,
+        "git_blob": "0a09201295c073c1194245c94334e31b7b8c2daf",
+        "sha256": "6e04f448e102ad2f0239f28170d04e6c78d989ea9c42851d47995055623ee47e"
+      },
+      "src/content/cards/buildings-spawner.js": {
+        "bytes": 14635,
+        "git_blob": "33c0ec97d86b52b9570e5f80e5ac9cbd163e8e7d",
+        "sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b"
+      },
+      "src/content/cards/buildings-travel.js": {
+        "bytes": 19237,
+        "git_blob": "031fcf4b7e21e56a19cf75c460a89c36efef2469",
+        "sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6"
+      },
+      "src/content/cards/champion-abilities.js": {
+        "bytes": 23743,
+        "git_blob": "0d5eaa88883b4bd67207d04c65ef18c64ec03450",
+        "sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811"
+      },
+      "src/content/cards/combat-status-heal.js": {
+        "bytes": 20663,
+        "git_blob": "d4e7531a0ee4636e12dae670cbbd80ada8788526",
+        "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0"
+      },
+      "src/content/cards/combat-status-invisibility.js": {
+        "bytes": 31498,
+        "git_blob": "95c5971f3f5bcc7027254ecd0488e724727248c7",
+        "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b"
+      },
+      "src/content/cards/combat-status-stun.js": {
+        "bytes": 22255,
+        "git_blob": "f89c4c12922c748c06b3efee0fab1c581733821a",
+        "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d"
+      },
+      "src/content/cards/death-conversion-delegated.js": {
+        "bytes": 19326,
+        "git_blob": "0e2175bd7c8b3e0e54b315ddcfc45b7a8c855b86",
+        "sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d"
+      },
+      "src/content/cards/death-conversion.js": {
+        "bytes": 15563,
+        "git_blob": "ba41a68513977d35866f646de79247edf3114b2e",
+        "sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48"
+      },
+      "src/content/cards/death-effects.js": {
+        "bytes": 18260,
+        "git_blob": "919fb76fba634ff951be392251f8b64b0e36f4d3",
+        "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81"
+      },
+      "src/content/cards/death-spawns.js": {
+        "bytes": 25321,
+        "git_blob": "f739e0c97f083387a4ccc9677594937bb6f08efc",
+        "sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d"
+      },
+      "src/content/cards/ordinary-projectile-splash.js": {
+        "bytes": 1045,
+        "git_blob": "b0eb9b1a2454dd5b49792bf8a404bf2ba549d67e",
+        "sha256": "68e56615516a614a65e2dc0d7b248ca3e2bf871f50aaddf72c856b070b8a37a3"
+      },
+      "src/content/cards/ordinary-projectile-squads.js": {
+        "bytes": 3277,
+        "git_blob": "ffaa243a599e7466e47c32c281af04a1def8e9bb",
+        "sha256": "293d8df31018598f2e347ac7a1a45b6cd15bcbca521bfe818736b37a06c11bcf"
+      },
+      "src/content/cards/periodic-spawns.js": {
+        "bytes": 19418,
+        "git_blob": "530ee3950ddbc550f5a26c22ef09d107e4e76bed",
+        "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269"
+      },
+      "src/content/cards/shields-forms.js": {
+        "bytes": 10199,
+        "git_blob": "87409ec06b89bfb1e55196e3ed4645a6337eb8a5",
+        "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8"
+      },
+      "src/content/cards/spawn-placement.js": {
+        "bytes": 12784,
+        "git_blob": "b4bee6b12a655e66307a5852742a5dd05e83ca86",
+        "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c"
+      },
+      "src/content/cards/special-combat-rage.js": {
+        "bytes": 24915,
+        "git_blob": "d1a13d2a914ae26191dc854a40f1c686f22ba1bb",
+        "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61"
+      },
+      "src/content/cards/special-combat-ramp.js": {
+        "bytes": 22611,
+        "git_blob": "39b75aa56126faafc225d7730709a0639ca33ae6",
+        "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67"
+      },
+      "src/content/cards/special-combat-reset.js": {
+        "bytes": 25794,
+        "git_blob": "e9a833ec92dac7dfbcb3ff456e008ca76eec4736",
+        "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5"
+      },
+      "src/content/cards/special-combat-slow.js": {
+        "bytes": 24277,
+        "git_blob": "ec2d1c836d77017af0c7d8420163258390df4d9c",
+        "sha256": "7283ac30293607603181f442651277ac60c20ef3a121ceea4ca83c71862fea2d"
+      },
+      "src/content/cards/special-combat-snare.js": {
+        "bytes": 23377,
+        "git_blob": "ab4cf5f7a904988f77c84d8c71e53ae86c507d1f",
+        "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b"
+      },
+      "src/content/cards/special-movement-charge-knockback.js": {
+        "bytes": 23270,
+        "git_blob": "0d8ce4c74d8d7b3d79a732acd6398aecc5942551",
+        "sha256": "f87ab0d28a87ae7c6bfaa17cd97ec38b39954a75c0af93dc03852b7f7cf3cc4c"
+      },
+      "src/content/cards/special-movement-charge.js": {
+        "bytes": 16893,
+        "git_blob": "9751b948f6e9003012422981d39dbcb8f18c1b4d",
+        "sha256": "0341ad6c14f129d9052ac2a06402ff1aa6f3979b68d689a09d11e17e9e97a784"
+      },
+      "src/content/cards/special-movement-dash-knockback.js": {
+        "bytes": 19264,
+        "git_blob": "92e31a26d40f79f217d03ea113337a37deeac562",
+        "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649"
+      },
+      "src/content/cards/special-movement-dash.js": {
+        "bytes": 16754,
+        "git_blob": "2b3437fb1524bcc504f01c16eabda57cc69a999b",
+        "sha256": "b9bb3bd5d4d8935b65d7a0f20dbbd18e70bd8eda69245c601d24eb1486f1179e"
+      },
+      "src/content/cards/special-movement-jump.js": {
+        "bytes": 17217,
+        "git_blob": "65aa8cc963188ca8fc65f8514dd93c23f4d3b770",
+        "sha256": "e0f1ea28bf0694d19ad276b3dbf660520cff944a3522895398086848520c66ca"
+      },
+      "src/content/cards/special-movement-knockback.js": {
+        "bytes": 18070,
+        "git_blob": "1bc4ede449d5de5b99851c6cea73c3b00996a3f2",
+        "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f"
+      },
+      "src/content/cards/special-movement-leap-knockback.js": {
+        "bytes": 21027,
+        "git_blob": "ef0819dba8d501f9507f57d665214680f49954b0",
+        "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8"
+      },
+      "src/content/cards/special-movement-recoil.js": {
+        "bytes": 17394,
+        "git_blob": "b6d2ecd39420bf6c8903a73951f6518d0c276688",
+        "sha256": "950e449c03b1db3f7da071ec33da14562580fe5c76b348808890ddd0f42b1007"
+      },
+      "src/content/cards/special-movement-retarget.js": {
+        "bytes": 13550,
+        "git_blob": "6b309f7e4b28e8319bbe2a6935c178f9c55228ec",
+        "sha256": "036fef7aac95b3959aaa5f3c6c69afdaee8c9c2fd8a4118c05aabef685ce7cec"
+      },
+      "src/content/cards/special-projectiles-chain.js": {
+        "bytes": 18563,
+        "git_blob": "059abba02b8e84839efa747c374590bbbf786e05",
+        "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86"
+      },
+      "src/content/cards/special-projectiles-pellets.js": {
+        "bytes": 26141,
+        "git_blob": "cba018136fd4a4855771f2d0da56655ebba7e5da",
+        "sha256": "df257c20524a46dfc0eb2e877fa8bfae0cbe0a3f70c4a9da0c6981f0808edf50"
+      },
+      "src/content/cards/special-projectiles-pierce.js": {
+        "bytes": 23869,
+        "git_blob": "98248991fd78bd10dfa0ae5fb1606762a73f428a",
+        "sha256": "0bda1c3c339ea53d4fdc0d62fddb445832f0300ebfbf18cdf6a8050128bc9f4f"
+      },
+      "src/content/cards/special-projectiles-reflection.js": {
+        "bytes": 24645,
+        "git_blob": "902eb7826390dcb92ec9532ae49e18b226a5ccd9",
+        "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715"
+      },
+      "src/content/cards/special-projectiles-return.js": {
+        "bytes": 25641,
+        "git_blob": "5f1c8871b0253cad8f8ebbee1765a0d46a1b9a0f",
+        "sha256": "8e66814513b366a50462016535ec8bac08d8599ecdb4b320a48c57dad9c7cd83"
+      },
+      "src/content/cards/spells-clone-unit.js": {
+        "bytes": 21401,
+        "git_blob": "f706a29e404d8b2136b5d6bd9359062e79fd5f74",
+        "sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de"
+      },
+      "src/content/cards/spells-copy-card.js": {
+        "bytes": 14370,
+        "git_blob": "3d01cf186a6af36a5da361259333a3427bf79f95",
+        "sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89"
+      },
+      "src/content/cards/spells-instant.js": {
+        "bytes": 26158,
+        "git_blob": "82d9ae618122851dabe8f02389e88e909a4a30b9",
+        "sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a"
+      },
+      "src/content/cards/spells-periodic.js": {
+        "bytes": 27167,
+        "git_blob": "3032683aeabf0031a80128f14d5eb17a43a3836f",
+        "sha256": "b9a697436a4251b3a9fa329ddcf3f0eef9303b5d71ba4d2e116832f3479585cb"
+      },
+      "src/content/cards/spells-return.js": {
+        "bytes": 24164,
+        "git_blob": "8ae55aeb5838cb12e6652cd54fca7f4139abd7df",
+        "sha256": "f15c26e693fb5c0f98b99e5de7ea9a662d597cc23600f81dac42334451aefa92"
+      },
+      "src/content/cards/spells-roll.js": {
+        "bytes": 29604,
+        "git_blob": "d20ad00580eef1152fbc2e4d18149ae6dbcc46cb",
+        "sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a"
+      },
+      "src/content/cards/spells-spawn.js": {
+        "bytes": 19758,
+        "git_blob": "be85be44954a48151ef984a518f7b0a9c1f46b77",
+        "sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406"
+      },
+      "src/content/cards/spells-three-wave.js": {
+        "bytes": 18266,
+        "git_blob": "e5ad102e54f0703c2382df98e95858db877b2f7a",
+        "sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8"
+      },
+      "src/content/cards/spells-travel-line.js": {
+        "bytes": 32563,
+        "git_blob": "9d9becdee21b2c026e08c18873fe35523eeeb96b",
+        "sha256": "7694602949b8725db96ab0049f3bdbdd37a432fd6c850d0f1b9913ba5c5983d5"
+      },
+      "src/content/cards/structure-seeker.js": {
+        "bytes": 18226,
+        "git_blob": "8ab8882539882f4699fc4a9afb0850e41da18cce",
+        "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9"
+      },
+      "src/content/cards/swarms.js": {
+        "bytes": 8559,
+        "git_blob": "3262791442227989d5294296cd2d1e2b19d6ec24",
+        "sha256": "674c4ec2a8feea0cfda48dc51f1dbdc5711047a608c30378824d4a1ff4b4b733"
+      },
+      "src/content/editable-deck.js": {
+        "bytes": 6121,
+        "git_blob": "cdfb7f081400b8a4f797f0cf577a6923c6004347",
+        "sha256": "4ef893cd673419381e2ff32928ff3b095c91971b4bc1be53fab7d4dc88d638fc"
+      },
+      "src/content/index.js": {
+        "bytes": 8813,
+        "git_blob": "03c672e10fca2d7f4b18e8925585ecb89b3f81d9",
+        "sha256": "6a6a38dfb0fffada77658f4be8848565d0f09847ac654aed9f397bf3f3c6b1ad"
+      },
+      "src/content/movement-question-graph.js": {
+        "bytes": 298,
+        "git_blob": "683845a4766eeb5f3fbdd7172ecb63466e548cd0",
+        "sha256": "8f81c0a8612da87156e8aab3911b5a626efa7277a5d9a38e3652c1fa0eefa0f2"
+      },
+      "src/content/playable-roster.js": {
+        "bytes": 11989,
+        "git_blob": "9ce4c06226f2a4c2b54da3893849a85759fa00f5",
+        "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+      },
+      "src/content/schema.js": {
+        "bytes": 17945,
+        "git_blob": "975607547254430b57b06e871042d217c6c47604",
+        "sha256": "d6f268a8a54a92413b5b0cf169eca3cb05fb25bb54a83e67c472c2f1e574ac7c"
+      },
+      "src/content/session-card-catalog.js": {
+        "bytes": 16782,
+        "git_blob": "76150630402df875e0a0336fc9708feb7b0993a9",
+        "sha256": "39d1e74bbb22e9738f685cd5d8174101bf379d6b100cd042438c61fd6c09fb26"
+      },
+      "src/content/session-spell-profile-receipts.js": {
+        "bytes": 7255,
+        "git_blob": "6fcdc939d693f53c3373b40e69d9696cbbdced2c",
+        "sha256": "0364439c12e2ba10c160c071d125d22ff5f1783da49b02b630c2231f0f9c0eca"
+      },
+      "src/content/session-troop-movement-profiles.js": {
+        "bytes": 74986,
+        "git_blob": "b2ac0abb2bae8c21093d4bb0dab9676ff25b08b7",
+        "sha256": "80997116951834cc1cf1eb6aa83d9d2b347bb75a94abf164dbb355b4890bbce5"
+      },
+      "src/content/session-troop-movement-question-authority.js": {
+        "bytes": 21904,
+        "git_blob": "6a22d52a3edb2e8d8bcb3c8e13167668b9f0cc22",
+        "sha256": "deb8175d5ba71a21e0860244902ea2e5528fc641b23d4b8f335a3175d43e07e2"
+      },
+      "src/content/session-troop-movement-runtime-profiles.js": {
+        "bytes": 1675,
+        "git_blob": "52012f3973cd47bc7097872c9cb1d96194ae128e",
+        "sha256": "49e6a15c98a5a7206a5f6a5095eb114a351d0ee74d7a0b80ed3120ed1497e3c4"
+      },
+      "src/content/session-troop-profile-catalog.js": {
+        "bytes": 15683,
+        "git_blob": "b3ae967477ff387a2a192a9ab811610312a13043",
+        "sha256": "5948940ba0f3a2cbc80dd17eb8bf16983d49de71f0dd47d89e3624faf93f3e45"
+      },
+      "src/content/session-troop-projectile-admission.js": {
+        "bytes": 2206,
+        "git_blob": "0ddfcb469016cbb1adc1d1066630472acf36278b",
+        "sha256": "af1eef8a07921704899ccdea8bf849a8371d097fed39ad176b63358a57419827"
+      },
+      "src/content/session-troop-projectile-profiles.js": {
+        "bytes": 52546,
+        "git_blob": "f201128dc0285a3f3963f717d4cb9d4a47a86db3",
+        "sha256": "a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850"
+      },
+      "src/content/session-troop-projectile-source-admission.js": {
+        "bytes": 25976,
+        "git_blob": "4d363ae5f672141bc977f08e898411520677cf39",
+        "sha256": "ba4ab5698c435b536284e13546b26aa2934a7035362078b55e47b9e7ac90938e"
+      },
+      "src/content/session-troop-roster.js": {
+        "bytes": 22716,
+        "git_blob": "75fb7af5675c25e418bb06483bcf84d67eda1a4d",
+        "sha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca"
+      },
+      "src/content/session-troop-status-profiles.js": {
+        "bytes": 27384,
+        "git_blob": "703de20f84ef4072566045ce12659a8157a7df10",
+        "sha256": "ac75d4d546f76d03c64a8354b471a39f0dafd19379ce1b42b7b88f52bf74c616"
+      },
+      "src/content/session-troop-status-runtime-profiles.js": {
+        "bytes": 3849,
+        "git_blob": "8b6c89b46bbc24922aa043eb5f8f1dd624a0b979",
+        "sha256": "94089f8317615e17e971ce7882c9dff57dca513ed46f1383b95777073970efdd"
+      },
+      "src/content/visual-art-direction.js": {
+        "bytes": 6025,
+        "git_blob": "5c5ae4fcdc3ed12a3539bf155bff9d032c5d845f",
+        "sha256": "da0473057d49a60860e6d18670f1aacec7aa65a592c78a4d7a47d6d00e3c7cf9"
+      },
+      "src/content/visual-asset-manifest.js": {
+        "bytes": 20357,
+        "git_blob": "47b9ea1beefeea3e7cca4156a9253e14f1c0bd94",
+        "sha256": "82dfad8341c0302b2da40395e6ad89ffa801755f20c3c548b9e91c28569c9b64"
+      },
+      "src/rl/environment.js": {
+        "bytes": 14537,
+        "git_blob": "7fd3f017880a822975d76e864dcef6fa5beea45a",
+        "sha256": "b1b273f385ab1ca3ab664e39829b45f7ce5c9d5a1aaf3f673d0f165ad8c238f7"
+      },
+      "src/shared/ordinary-projectile-delivery-authority.js": {
+        "bytes": 9006,
+        "git_blob": "b950c8856fa09f4f7ae40bf7ffeeab7864759b6a",
+        "sha256": "8b33dedcf971e76ae79d03517e1963adcd5c22a2a502f6ee3c6d028b6ddad751"
+      },
+      "src/shared/session-troop-melee-area-authority.js": {
+        "bytes": 3421,
+        "git_blob": "7616de05e54061cfd0a0167e87abcb88f01ec1a0",
+        "sha256": "6fd6fec634f0274ebac6b995e091db1ecea796170d60c57a23ed071e4dd66703"
+      },
+      "src/shared/session-troop-projectile-authority.js": {
+        "bytes": 83939,
+        "git_blob": "358096a62c01fcf1e1ec9df863c7a36eb15a27ef",
+        "sha256": "e5c1b496551bb7b5d63f3f05a304f207a8c1de7b7c1dfcd072d7b27c1b5bbd82"
+      },
+      "src/shared/session-troop-source-confidence-authority.js": {
+        "bytes": 15190,
+        "git_blob": "874b41447edbfed08350f0fb963f0bde70700839",
+        "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+      },
+      "src/sim/area-damage.js": {
+        "bytes": 15661,
+        "git_blob": "6c4fe87b7da28cdfb93bdb85dad03c8e3c36f92c",
+        "sha256": "c3df6728aceaebba8f9c0afbb94ed207c5cf842eb8a4f736bfae9bc1a823eab0"
+      },
+      "src/sim/area-target-selection.js": {
+        "bytes": 8351,
+        "git_blob": "c0cda7af824ca48dae463e294e86d9f54fa011d3",
+        "sha256": "e13419e1b86f552f2d9c7ff6af837368731068f93357539ae200ede787963399"
+      },
+      "src/sim/arena-geometry.js": {
+        "bytes": 9452,
+        "git_blob": "3f09b6f47b1a103d513a4ef3779cfa13c9d30398",
+        "sha256": "038d192fc3758f480594f9c97ebaa4e12e6f366955f0e2a3575a33165f654fee"
+      },
+      "src/sim/attack-cycle.js": {
+        "bytes": 15800,
+        "git_blob": "f915e770cb601f5744e7d4e811162b0d6912d1ed",
+        "sha256": "add7bc5dbfe981f04a69519f647a4599c9208a59578697024a751de3a14fcbb3"
+      },
+      "src/sim/battle-combat-runtime.js": {
+        "bytes": 76417,
+        "git_blob": "9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6",
+        "sha256": "cdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8"
+      },
+      "src/sim/battle-combat.js": {
+        "bytes": 207,
+        "git_blob": "5b20900fc278376018808a54fc1e311ef462529b",
+        "sha256": "a9adf0d16359077bd0453cf2b8716e817d0a47c78073cde25a8b44a0c4ce3922"
+      },
+      "src/sim/battle-continuation-kernel.js": {
+        "bytes": 447260,
+        "git_blob": "d1cbde61485f4f98d04fc02785085eccda97e261",
+        "sha256": "502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732"
+      },
+      "src/sim/battle-movement.js": {
+        "bytes": 213,
+        "git_blob": "d0ca619347b5e4c04bc2f762555310255ec4a92d",
+        "sha256": "3252387a7657df2c5a7a6508b31bd21d68a8d63fa2a612cb2979edd024ddcb0b"
+      },
+      "src/sim/battle-towers.js": {
+        "bytes": 214,
+        "git_blob": "8fe2daeb877fc1bfc239daa02e912ec00a01fa8c",
+        "sha256": "e6a89d7d9d4cdd32fd03c0c3c336a64b8862e9fb0ef49f383609abf376c4cc64"
+      },
+      "src/sim/combat-effect-feed.js": {
+        "bytes": 48410,
+        "git_blob": "2c2ee7a40f1052beee6fa0a16f3d509e5b7c363a",
+        "sha256": "427b3f9381d60ef77247d59ba05a73b175fed2490053967951fc1351fa3d0ba9"
+      },
+      "src/sim/damage.js": {
+        "bytes": 9963,
+        "git_blob": "7c5d120f7b86ada8d9eb1b35a964888882a28880",
+        "sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7"
+      },
+      "src/sim/deck.js": {
+        "bytes": 7833,
+        "git_blob": "3c6dbd8a19d8d6558ce12ad8465202b3be56d069",
+        "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77"
+      },
+      "src/sim/deployment.js": {
+        "bytes": 8820,
+        "git_blob": "9d48eeef32f2a0ef2af3e392d9edff65c10f6e0e",
+        "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563"
+      },
+      "src/sim/elixir.js": {
+        "bytes": 436,
+        "git_blob": "2a1001290b1b2dfe51189c85bba887dde1a0b088",
+        "sha256": "5be6387d9358dcaba762bd7a0a62b82beeb1760faae24d315ce9ff33c154d235"
+      },
+      "src/sim/entities.js": {
+        "bytes": 7903,
+        "git_blob": "5a89c34b3718791d29af0bbcf0e9868d76f7e6ad",
+        "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a"
+      },
+      "src/sim/fixed-step.js": {
+        "bytes": 7036,
+        "git_blob": "8c04d4a34c981f7d6c3b0bb141e646d7483c4d6a",
+        "sha256": "4533f7695caed8f119195a396039a297b1f45b91f5a2d6255f60e75c66e5df8a"
+      },
+      "src/sim/flying.js": {
+        "bytes": 8381,
+        "git_blob": "d12f6eb0780d671dced10ef76f487965745163f6",
+        "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b"
+      },
+      "src/sim/formations.js": {
+        "bytes": 7615,
+        "git_blob": "396ef8c2459441f7eeef25d01d24d69c6d9d199d",
+        "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac"
+      },
+      "src/sim/game-opponent.js": {
+        "bytes": 20512,
+        "git_blob": "b30c1022a4efe2ad3d7a912ffdbf6e82ec40b933",
+        "sha256": "475fb4b5d15551069fcf74d93d562c84837f47a327d1a99502758feacb738994"
+      },
+      "src/sim/game-player-deploy.js": {
+        "bytes": 21214,
+        "git_blob": "86246c000cd6fe5f4f13c4d72b1facb5832be911",
+        "sha256": "89865ea25511294d0865a8e93a3d431879b3226e433d6a8e9c51487bfee1e1df"
+      },
+      "src/sim/game-session.js": {
+        "bytes": 1357,
+        "git_blob": "c3e86cb21fa926fc985120044d0adfd45e9f69c2",
+        "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+      },
+      "src/sim/game-side-deploy-core.js": {
+        "bytes": 6346,
+        "git_blob": "2916d0b2b35b582194f2df76af8c11841b2dede0",
+        "sha256": "ec84ca5b175fc0fe50d6d6b4ca2e18b5ce3bd4bf69d12cc16f1db48f3f92c0b3"
+      },
+      "src/sim/game-side-deploy.js": {
+        "bytes": 689,
+        "git_blob": "8c69ce4e9fdd5cb1f99a71211891e674f068b1d0",
+        "sha256": "54c5404c1ba21c60034b4331244797fd12e37f6d2a7fd4adede97d03e803ce32"
+      },
+      "src/sim/live-battle.js": {
+        "bytes": 1298,
+        "git_blob": "55286bda922f84ae496dbb7a89bcce5a58d140da",
+        "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+      },
+      "src/sim/match.js": {
+        "bytes": 314,
+        "git_blob": "2a280881d54bbc7dfb72b419c575c47ab6547ae8",
+        "sha256": "717bb8e2cd0dc47d621afce31c185c571d2cad44f0cf914bf09e4e6fb09dac0c"
+      },
+      "src/sim/melee.js": {
+        "bytes": 13915,
+        "git_blob": "2e7c7ae9ececae2ed18ad7108839f3daa9c9179f",
+        "sha256": "41f014bd5118ccf9880c40f454e8ebaa53b707f7a469152f96228eff107c2f2b"
+      },
+      "src/sim/movement.js": {
+        "bytes": 5688,
+        "git_blob": "0be315e14b1dceeb1c3b62d02d6e4608cc58fece",
+        "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586"
+      },
+      "src/sim/opaque-continuation.js": {
+        "bytes": 1474,
+        "git_blob": "59b9af639bc189e894b15641eb1d68813819b10a",
+        "sha256": "c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e"
+      },
+      "src/sim/opponent-controller.js": {
+        "bytes": 378,
+        "git_blob": "3bbb5c69cc3a14eea0ec68a775e22f557f3c5936",
+        "sha256": "3531d6b4f135802c57a465533fb22064f454557362ebf7a6efd4f56f70fa95df"
+      },
+      "src/sim/ordinary-projectile-homing.js": {
+        "bytes": 5481,
+        "git_blob": "769aa45f8048f1e195f0d09791e03c27b5d6a67e",
+        "sha256": "0dace911839cddf6fac8b9f6cc7b3d87006bc47089e270741fd4b3a588bf49b7"
+      },
+      "src/sim/ordinary-projectile-splash.js": {
+        "bytes": 12821,
+        "git_blob": "b9d3d9eec1d55341178c25e562482ef64d9655cc",
+        "sha256": "0f011e7d6163fa81d05d01526efeacdd68c5f673b22adcd8523f0cef0f40f1b5"
+      },
+      "src/sim/pathfinding.js": {
+        "bytes": 5865,
+        "git_blob": "448b5e3f695108e0bb1c4ec9442545ec9c4579d9",
+        "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296"
+      },
+      "src/sim/projectile.js": {
+        "bytes": 18014,
+        "git_blob": "615a474aa1af9e560db1c83cf72d9b00364c9278",
+        "sha256": "e911a45efb7167a9138f85254d76f1e0c7b4b1c76019c56ec5fbd1903ad1b765"
+      },
+      "src/sim/rng.js": {
+        "bytes": 5778,
+        "git_blob": "411ca70c3af3bec914dfac7c5cefff32ef48e13c",
+        "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17"
+      },
+      "src/sim/session-building-profile-receipts.js": {
+        "bytes": 13962,
+        "git_blob": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb",
+        "sha256": "94beeb6a4a2de0b1bea761314f28faecbe8f0c85845144caa758eecdcfb0a60e"
+      },
+      "src/sim/session-building-runtime.js": {
+        "bytes": 52781,
+        "git_blob": "55f326c1ce1231c72c6c74612dff4d601f79af05",
+        "sha256": "2a0ce9a523fbf2b0103114bdb34ef26a62c9a5f61c95083bce9e0fb823da051b"
+      },
+      "src/sim/session-card-runtime.js": {
+        "bytes": 9317,
+        "git_blob": "e0a6bfaea551521cd8413ac7f04314f548961b48",
+        "sha256": "420499c828178e50caddc64c46d5208e901509da744b2f044d6b5ae9ac876748"
+      },
+      "src/sim/session-troop-projectile-runtime.js": {
+        "bytes": 46231,
+        "git_blob": "85a46c2fa285b675ade18558c54475ef0e245b94",
+        "sha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f"
+      },
+      "src/sim/session-troop-runtime.js": {
+        "bytes": 48389,
+        "git_blob": "5bf72444924d7136601e9cf7cd1f1145f81ae217",
+        "sha256": "1daef3770127a97152c8a2782b87c2f8760b671ece57430076b06adfc5278b4d"
+      },
+      "src/sim/session-troop-status-runtime.js": {
+        "bytes": 36964,
+        "git_blob": "03f1665063d1442a90811e9714269896538b89c3",
+        "sha256": "175880a08bad4ea5e3c8a3b096ef06352836938f3f89a657a73fc2b6c24dc4e9"
+      },
+      "src/sim/spatial.js": {
+        "bytes": 10584,
+        "git_blob": "d8b0701f132205bf245af5933f07d5dcb47ea67e",
+        "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e"
+      },
+      "src/sim/spell-area-impact.js": {
+        "bytes": 4305,
+        "git_blob": "e2988c0b53ad27860139d0192df372f70583f23a",
+        "sha256": "f1b70073951908f8f62f6af93fe5565288becb1d8f52bc45741697f90f7a9d68"
+      },
+      "src/sim/spell-intent-runtime.js": {
+        "bytes": 13800,
+        "git_blob": "bffe9cc6a2bb109c65ad4811596fc2e02aa45c30",
+        "sha256": "f752f9be5d85039e115b94f15e95d9a975ea2afa057892ce8caa862a780bf177"
+      },
+      "src/sim/targeting.js": {
+        "bytes": 8267,
+        "git_blob": "5996532fec6120c6598cf425bb105ef772027743",
+        "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470"
+      },
+      "src/sim/tower-evidence-map.js": {
+        "bytes": 4021,
+        "git_blob": "177a1900714cbc73016e3b70f613e6bca18ba5ba",
+        "sha256": "1d3ad4b67304fa356eb85ed0bcc4a1229cbdbdd6bda0996c4e387fe96dee96c2"
+      },
+      "src/sim/tower-evidence.js": {
+        "bytes": 10434,
+        "git_blob": "e9cb626854afa5c4cb85394d691d0df928514deb",
+        "sha256": "f3b21b27bf5b367316826f3ec85bc94ce5f11afe4fe89e679946f78ea90a04ae"
+      },
+      "src/sim/towers.js": {
+        "bytes": 281,
+        "git_blob": "5858fde133d53b63ff90d1480148cca3ee713dbf",
+        "sha256": "1e063e7adaae32278838f877d6f248d57621661a3745d3fcccc0bc2538c36a94"
+      },
+      "src/ui/aether-well-art.js": {
+        "bytes": 8240,
+        "git_blob": "010d0d245020dcea26a8957baee2a3e541f2406b",
+        "sha256": "164ffe448d59e6ec2b2d6d2f60f88759d09808447c0b9cefc910774c07d13af8"
+      },
+      "src/ui/app-shell.css": {
+        "bytes": 29996,
+        "git_blob": "69da01d551f378dfe27c7b274d58d3f611affb01",
+        "sha256": "f4720d7b9f07b0b6bc646e68bfb4192a140c91d2da84e18227891fa5b56f3a04"
+      },
+      "src/ui/app-shell.js": {
+        "bytes": 32131,
+        "git_blob": "3d024e6bb4b824f22ff39bb446c4943cc12f1ad1",
+        "sha256": "e36aaccecdf44023d8c94e8ef9773eb75a2b2dc4400e64201624cdf4aa90ff95"
+      },
+      "src/ui/arena-shell-entry.js": {
+        "bytes": 19293,
+        "git_blob": "5f5f6bc3a60affd08537ba24381a3b6ae85772a6",
+        "sha256": "88e3873cf7298223f8c8a96aceceff3b20185c05dad2f274c045c888ca5443d5"
+      },
+      "src/ui/arena-shell.css": {
+        "bytes": 14259,
+        "git_blob": "7dd1733e2cd7e4b160cc28877a3cdd232248754d",
+        "sha256": "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e"
+      },
+      "src/ui/arena-shell.js": {
+        "bytes": 5846,
+        "git_blob": "6c3306106e2ed4896cc6b3d22e51c08b2dc26efb",
+        "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249"
+      },
+      "src/ui/brackenwheel-art.js": {
+        "bytes": 6097,
+        "git_blob": "bc93e4718f60663a3d6d3fe88f3052137115da61",
+        "sha256": "8900a79ecac5f65c0af206781288aad1cbb280da7c615403431b3f0d15b2067b"
+      },
+      "src/ui/card-lore.js": {
+        "bytes": 5287,
+        "git_blob": "305c769759c327c18c831a3cbc8257fc9dbe4640",
+        "sha256": "3190a8d85c3f7b52b14026cc192a15530aaaafb24f46cdd8433fe840ccd9a864"
+      },
+      "src/ui/card-portrait-art.js": {
+        "bytes": 4256,
+        "git_blob": "de8f8510cef466b18bb7d9de0463fa1ee607c641",
+        "sha256": "5e8662a844495092741860f5f92b18fa2e437a3a5743047fcd60de36225147ec"
+      },
+      "src/ui/combat-art.js": {
+        "bytes": 17311,
+        "git_blob": "5757522ce19742b30bf28360f9b1b425ebdb8a46",
+        "sha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849"
+      },
+      "src/ui/combat-effects.js": {
+        "bytes": 30636,
+        "git_blob": "209337cf3e55bda503918bdd9856e4192dac9d6f",
+        "sha256": "6f4efe8b7e7b924530e914076ffda4e5d4589f330a1df0c1f96fb5f9ea5693cb"
+      },
+      "src/ui/combat-motion.js": {
+        "bytes": 10818,
+        "git_blob": "fa31b6a9d5b79a1f21fb4890b920c15e529691f6",
+        "sha256": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03"
+      },
+      "src/ui/combat-sprite-prototype.js": {
+        "bytes": 11273,
+        "git_blob": "c8f11dd4cb2e2de3e760e1477b83bfbc2c556f22",
+        "sha256": "626388c9d3a686636b85f2256595e7d3859ac24e042a3f21600ad3fe90c17272"
+      },
+      "src/ui/combat-state.js": {
+        "bytes": 26400,
+        "git_blob": "e37ffa15ad40a6c0b06a05c8700dca0bd4524d1c",
+        "sha256": "8ee42a399c70b06bb62af0b0715048deb0b757936f8cf74ef3605a6aa4be7b6b"
+      },
+      "src/ui/game-audio-bridge.js": {
+        "bytes": 3701,
+        "git_blob": "215645684f0a1fa15cf93087e7782e9094ae59e1",
+        "sha256": "443af1ade77a8946a27d908c55e6336e4ed573e6807d6c2863b7d7bc2f4e5b4b"
+      },
+      "src/ui/game-audio-controls.js": {
+        "bytes": 4214,
+        "git_blob": "c039fc147a70db1f9a3fd693bae3e6d0643e68bf",
+        "sha256": "f8ce83fa16da4fe6c59768bca57f6a8822822a0ab8cbed40193409abce4e639f"
+      },
+      "src/ui/game-browser-entry.js": {
+        "bytes": 46660,
+        "git_blob": "62ab029a51445cd06767656454f28338d2f88698",
+        "sha256": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d"
+      },
+      "src/ui/game-browser-loop.js": {
+        "bytes": 27416,
+        "git_blob": "d3d09e0cfc46e1aab23e1e872f75dd3eefc943cf",
+        "sha256": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5"
+      },
+      "src/ui/game-input-bridge.js": {
+        "bytes": 5598,
+        "git_blob": "7dda37e62390e39a042d993e204d06dcf69cd2fb",
+        "sha256": "69db673245cc2e6c4e7f0611423ee88eb40015feab533129d62f0698630d6814"
+      },
+      "src/ui/game-session-restore-continuation.js": {
+        "bytes": 9715,
+        "git_blob": "63240fc584dcf7e7aa132bee25ea4bd9aa775d43",
+        "sha256": "160dd1149dd8abccd332832ec8008a3b9710dcfd0fa23a2730c868f13d6f9c20"
+      },
+      "src/ui/game-ui-projection.js": {
+        "bytes": 27469,
+        "git_blob": "844930649c8756a6a2e056f3d0697c69f81af20a",
+        "sha256": "fca3bb51550df9ba99872d4d3b2020a3653f88d5de3af83f6dcd1af8b636f5cc"
+      },
+      "src/ui/hud-motion.js": {
+        "bytes": 1975,
+        "git_blob": "aa54f89e9ee910ae508b8fb14524606ffcd328c9",
+        "sha256": "18b377194878e070f3b4ddeda90a9c02dbd907959f99e4e0ca3e0c233de6157d"
+      },
+      "src/ui/hud-state.js": {
+        "bytes": 22303,
+        "git_blob": "7baf4d803f55448b83dae6db3816184576679f9b",
+        "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152"
+      },
+      "src/ui/input-controller.js": {
+        "bytes": 54290,
+        "git_blob": "9b04d40f473e59f2d341d21d2ee79869e3313bb9",
+        "sha256": "2d98212b2fde12ebd44acc878d8249769329d8b5d46b731eb2db189f503a00e8"
+      },
+      "src/ui/match-feedback.js": {
+        "bytes": 32502,
+        "git_blob": "059ae2216d6635863b46f5bbdb7da20a6f132782",
+        "sha256": "61accd1add542a56714ba37d10e5d57867f95f327eb143d520c1718c5bba923b"
+      },
+      "src/ui/placement-feedback.js": {
+        "bytes": 23437,
+        "git_blob": "6d39725a4328fa167120ff8a403b0dc13fe55a0a",
+        "sha256": "3c672625d7a89ced294fd349c82990a949cf348a0c3b36f8da77afa026a953a9"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-bloom-wisp-v2.snapshot": {
+        "bytes": 200458,
+        "git_blob": "2d3c69e02436c45cb3bb750bb5359e44f0fd72b5",
+        "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-dawnmender-v2.snapshot": {
+        "bytes": 200434,
+        "git_blob": "a456658fec1cbc8a1e0484a34d25034b8f3fb809",
+        "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-pulse-sentry-v2.snapshot": {
+        "bytes": 200506,
+        "git_blob": "581712715c5c140a4e401cc7593e1e153792d7d9",
+        "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-rime-adept-v2.snapshot": {
+        "bytes": 200458,
+        "git_blob": "258fcf67e01a03bb840d534a5164f8ea1ffc82e4",
+        "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-tether-rider-v2.snapshot": {
+        "bytes": 200495,
+        "git_blob": "c58c5a8fc7008effa7adb5fcfeb44e77b2841fea",
+        "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-veil-prowler-v2.snapshot": {
+        "bytes": 200501,
+        "git_blob": "e014805dfea69a17c13a00e0afbd580b253e55ef",
+        "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3"
+      },
+      "tests/fixtures/source-vintage-checkpoints/README.md": {
+        "bytes": 1789,
+        "git_blob": "dd395f32618114a9d902d7fd2d92c655fae2f7de",
+        "sha256": "cb6394748b224e50513af13749f6eb3aaf12f404cba5ebd5c274b1f48f313011"
+      },
+      "tests/fixtures/source-vintage-checkpoints/c9-empty-live-battle-v2.snapshot": {
+        "bytes": 11618,
+        "git_blob": "aaabadbca141637b4d8661524d68fd76366558b3",
+        "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a"
+      },
+      "tests/game-troop-runtime-runner.js": {
+        "bytes": 412,
+        "git_blob": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+      },
+      "tests/game-troop-runtime.test.js": {
+        "bytes": 29489,
+        "git_blob": "e84745b74e51d20909b4d4a84d7b5d4cf6c03ab6",
+        "sha256": "9c68a5c29c9f6f3ceaa96cf43e8ccc1b3fc8d6a3ec916cfca079d5eb9dbb29f8"
+      }
+    }
+  },
+  "prelaunchCopy": {
+    "path": "/Users/me/.codex/clash-qualification/20261020-asc-builder/gate-capture/runs/20261020T170019Z-bc40a624/prelaunch-source",
+    "fileCount": 166,
+    "matchesSource": true
+  },
+  "environment": {
+    "allowlistPath": "environment-allowlist.json",
+    "keys": [
+      "CI",
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "NO_COLOR",
+      "PATH",
+      "TEMP",
+      "TMP",
+      "TMPDIR",
+      "TZ",
+      "npm_config_audit",
+      "npm_config_cache",
+      "npm_config_fund",
+      "npm_config_globalconfig",
+      "npm_config_update_notifier",
+      "npm_config_userconfig"
+    ],
+    "nodeBin": "/Users/me/.hermes/node/bin/node",
+    "npmBin": "/Users/me/.hermes/node/lib/node_modules/npm/bin/npm-cli.js",
+    "path": "/Users/me/.hermes/node/bin:/Users/me/.hermes/node/lib/node_modules/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  },
+  "versionChecks": {
+    "node": {
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "--version"
+      ],
+      "cwd": "/Users/me/.codex/clash-qualification/20261020-asc-builder/runtime-source",
+      "startedUtc": "2026-10-20T17:00:19.622+00:00",
+      "finishedUtc": "2026-10-20T17:00:19.642+00:00",
+      "directChildPid": 72326,
+      "exitCode": 0,
+      "stdout": {
+        "path": "raw/node-version.stdout.raw",
+        "bytes": 9,
+        "sha256": "28d5d468fcfe77594f84d719d1550610e3ff0904f1601e7d0e93325244965451"
+      },
+      "stderr": {
+        "path": "raw/node-version.stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "npm": {
+      "argv": [
+        "/Users/me/.hermes/node/lib/node_modules/npm/bin/npm-cli.js",
+        "--version"
+      ],
+      "cwd": "/Users/me/.codex/clash-qualification/20261020-asc-builder/runtime-source",
+      "startedUtc": "2026-10-20T17:00:19.642+00:00",
+      "finishedUtc": "2026-10-20T17:00:19.738+00:00",
+      "directChildPid": 72327,
+      "exitCode": 1,
+      "stdout": {
+        "path": "raw/npm-version.stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "raw/npm-version.stderr.raw",
+        "bytes": 233,
+        "sha256": "feb805379adfc8374a5a937d636bf2b30e156fca37ea9a1b5da6842711b2e128"
+      }
+    }
+  },
+  "error": "RuntimeError: required npm version is 10.9.8; observed ''",
+  "postFence": {
+    "runtimeSourceUnchanged": true,
+    "matchesGitManifest": true,
+    "fileCount": 166,
+    "changes": {
+      "added": [],
+      "deleted": [],
+      "modified": []
+    },
+    "files": {
+      ".nvmrc": {
+        "bytes": 3,
+        "git_blob": "2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a",
+        "sha256": "f14b4987904bcb5814e4459a057ed4d20f58a633152288a761214dcd28780b56"
+      },
+      "package-lock.json": {
+        "bytes": 26592,
+        "git_blob": "57d4f206ec6d041922c394cd67db615333eb8af5",
+        "sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+      },
+      "package.json": {
+        "bytes": 13905,
+        "git_blob": "7a637dd1af982c8fb44c5640d82e1f44fbcafcd6",
+        "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+      },
+      "src/audio/audio-events.js": {
+        "bytes": 17721,
+        "git_blob": "33d6db646434169d0a43ed46f62a09723ce65a70",
+        "sha256": "6be744a0b1080857aaa83285fe1c1d20bbc95422dc630e1d215be6faedd587f3"
+      },
+      "src/audio/audio-production-provenance.json": {
+        "bytes": 6183,
+        "git_blob": "93c26a325db4dc9dc3237ab172fef89505f40cca",
+        "sha256": "de5d85b9ec66e09d832ce52578546054c40f76105f66cf32a83b247b59209aae"
+      },
+      "src/audio/audio-provenance.json": {
+        "bytes": 7830,
+        "git_blob": "5320fafda379d10680c5f36a03a8533fa52c7ecc",
+        "sha256": "18f44a42c137cd9c131b86c52062a34a0b3181a29db3c89cd09de4aa4f9e84e6"
+      },
+      "src/audio/audio-renderer.js": {
+        "bytes": 54452,
+        "git_blob": "e677d3302ca03ba3a9839a76ce4fbe2edf42c11e",
+        "sha256": "b8ebd1c05704b143612d60a5e08007fb7d7f0af3e4d4837c6bc7431da46e2dfb"
+      },
+      "src/audio/browser-audio.js": {
+        "bytes": 11492,
+        "git_blob": "51384fa397a9c44e870f212f5766a1a3d5dea31c",
+        "sha256": "c8666b60a128683fa659c7cdd8c5c145a4206ecd105d9e0814c968071fc75b19"
+      },
+      "src/audio/game-audio-runtime.js": {
+        "bytes": 25694,
+        "git_blob": "feaef3dc9a0a07ed6a3448a0e57e0d2f29ef75f9",
+        "sha256": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5"
+      },
+      "src/content/cards/basic-flying.js": {
+        "bytes": 16299,
+        "git_blob": "db76c543c24cf0439a92da2cb36f4c84ad4f217a",
+        "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083"
+      },
+      "src/content/cards/basic-melee.js": {
+        "bytes": 4400,
+        "git_blob": "380857b92489b4086615e689a06c686e2c3c931c",
+        "sha256": "503ce411967087e8e9d77a0c6207e3971791127ae3bfdc75a8002f20fde9adf2"
+      },
+      "src/content/cards/basic-ranged.js": {
+        "bytes": 15100,
+        "git_blob": "d80208caa7edbdd6169a1fa9cac3dd4c69a54795",
+        "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab"
+      },
+      "src/content/cards/buildings-defensive.js": {
+        "bytes": 36168,
+        "git_blob": "253a2008584e95b1d42e852a3f5cafe2e20b8622",
+        "sha256": "30ee46b0f00766a9687f332a1eb236e77132b1da0cc496a9a6ad156e75767224"
+      },
+      "src/content/cards/buildings-resource.js": {
+        "bytes": 23716,
+        "git_blob": "0a09201295c073c1194245c94334e31b7b8c2daf",
+        "sha256": "6e04f448e102ad2f0239f28170d04e6c78d989ea9c42851d47995055623ee47e"
+      },
+      "src/content/cards/buildings-spawner.js": {
+        "bytes": 14635,
+        "git_blob": "33c0ec97d86b52b9570e5f80e5ac9cbd163e8e7d",
+        "sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b"
+      },
+      "src/content/cards/buildings-travel.js": {
+        "bytes": 19237,
+        "git_blob": "031fcf4b7e21e56a19cf75c460a89c36efef2469",
+        "sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6"
+      },
+      "src/content/cards/champion-abilities.js": {
+        "bytes": 23743,
+        "git_blob": "0d5eaa88883b4bd67207d04c65ef18c64ec03450",
+        "sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811"
+      },
+      "src/content/cards/combat-status-heal.js": {
+        "bytes": 20663,
+        "git_blob": "d4e7531a0ee4636e12dae670cbbd80ada8788526",
+        "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0"
+      },
+      "src/content/cards/combat-status-invisibility.js": {
+        "bytes": 31498,
+        "git_blob": "95c5971f3f5bcc7027254ecd0488e724727248c7",
+        "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b"
+      },
+      "src/content/cards/combat-status-stun.js": {
+        "bytes": 22255,
+        "git_blob": "f89c4c12922c748c06b3efee0fab1c581733821a",
+        "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d"
+      },
+      "src/content/cards/death-conversion-delegated.js": {
+        "bytes": 19326,
+        "git_blob": "0e2175bd7c8b3e0e54b315ddcfc45b7a8c855b86",
+        "sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d"
+      },
+      "src/content/cards/death-conversion.js": {
+        "bytes": 15563,
+        "git_blob": "ba41a68513977d35866f646de79247edf3114b2e",
+        "sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48"
+      },
+      "src/content/cards/death-effects.js": {
+        "bytes": 18260,
+        "git_blob": "919fb76fba634ff951be392251f8b64b0e36f4d3",
+        "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81"
+      },
+      "src/content/cards/death-spawns.js": {
+        "bytes": 25321,
+        "git_blob": "f739e0c97f083387a4ccc9677594937bb6f08efc",
+        "sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d"
+      },
+      "src/content/cards/ordinary-projectile-splash.js": {
+        "bytes": 1045,
+        "git_blob": "b0eb9b1a2454dd5b49792bf8a404bf2ba549d67e",
+        "sha256": "68e56615516a614a65e2dc0d7b248ca3e2bf871f50aaddf72c856b070b8a37a3"
+      },
+      "src/content/cards/ordinary-projectile-squads.js": {
+        "bytes": 3277,
+        "git_blob": "ffaa243a599e7466e47c32c281af04a1def8e9bb",
+        "sha256": "293d8df31018598f2e347ac7a1a45b6cd15bcbca521bfe818736b37a06c11bcf"
+      },
+      "src/content/cards/periodic-spawns.js": {
+        "bytes": 19418,
+        "git_blob": "530ee3950ddbc550f5a26c22ef09d107e4e76bed",
+        "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269"
+      },
+      "src/content/cards/shields-forms.js": {
+        "bytes": 10199,
+        "git_blob": "87409ec06b89bfb1e55196e3ed4645a6337eb8a5",
+        "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8"
+      },
+      "src/content/cards/spawn-placement.js": {
+        "bytes": 12784,
+        "git_blob": "b4bee6b12a655e66307a5852742a5dd05e83ca86",
+        "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c"
+      },
+      "src/content/cards/special-combat-rage.js": {
+        "bytes": 24915,
+        "git_blob": "d1a13d2a914ae26191dc854a40f1c686f22ba1bb",
+        "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61"
+      },
+      "src/content/cards/special-combat-ramp.js": {
+        "bytes": 22611,
+        "git_blob": "39b75aa56126faafc225d7730709a0639ca33ae6",
+        "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67"
+      },
+      "src/content/cards/special-combat-reset.js": {
+        "bytes": 25794,
+        "git_blob": "e9a833ec92dac7dfbcb3ff456e008ca76eec4736",
+        "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5"
+      },
+      "src/content/cards/special-combat-slow.js": {
+        "bytes": 24277,
+        "git_blob": "ec2d1c836d77017af0c7d8420163258390df4d9c",
+        "sha256": "7283ac30293607603181f442651277ac60c20ef3a121ceea4ca83c71862fea2d"
+      },
+      "src/content/cards/special-combat-snare.js": {
+        "bytes": 23377,
+        "git_blob": "ab4cf5f7a904988f77c84d8c71e53ae86c507d1f",
+        "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b"
+      },
+      "src/content/cards/special-movement-charge-knockback.js": {
+        "bytes": 23270,
+        "git_blob": "0d8ce4c74d8d7b3d79a732acd6398aecc5942551",
+        "sha256": "f87ab0d28a87ae7c6bfaa17cd97ec38b39954a75c0af93dc03852b7f7cf3cc4c"
+      },
+      "src/content/cards/special-movement-charge.js": {
+        "bytes": 16893,
+        "git_blob": "9751b948f6e9003012422981d39dbcb8f18c1b4d",
+        "sha256": "0341ad6c14f129d9052ac2a06402ff1aa6f3979b68d689a09d11e17e9e97a784"
+      },
+      "src/content/cards/special-movement-dash-knockback.js": {
+        "bytes": 19264,
+        "git_blob": "92e31a26d40f79f217d03ea113337a37deeac562",
+        "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649"
+      },
+      "src/content/cards/special-movement-dash.js": {
+        "bytes": 16754,
+        "git_blob": "2b3437fb1524bcc504f01c16eabda57cc69a999b",
+        "sha256": "b9bb3bd5d4d8935b65d7a0f20dbbd18e70bd8eda69245c601d24eb1486f1179e"
+      },
+      "src/content/cards/special-movement-jump.js": {
+        "bytes": 17217,
+        "git_blob": "65aa8cc963188ca8fc65f8514dd93c23f4d3b770",
+        "sha256": "e0f1ea28bf0694d19ad276b3dbf660520cff944a3522895398086848520c66ca"
+      },
+      "src/content/cards/special-movement-knockback.js": {
+        "bytes": 18070,
+        "git_blob": "1bc4ede449d5de5b99851c6cea73c3b00996a3f2",
+        "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f"
+      },
+      "src/content/cards/special-movement-leap-knockback.js": {
+        "bytes": 21027,
+        "git_blob": "ef0819dba8d501f9507f57d665214680f49954b0",
+        "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8"
+      },
+      "src/content/cards/special-movement-recoil.js": {
+        "bytes": 17394,
+        "git_blob": "b6d2ecd39420bf6c8903a73951f6518d0c276688",
+        "sha256": "950e449c03b1db3f7da071ec33da14562580fe5c76b348808890ddd0f42b1007"
+      },
+      "src/content/cards/special-movement-retarget.js": {
+        "bytes": 13550,
+        "git_blob": "6b309f7e4b28e8319bbe2a6935c178f9c55228ec",
+        "sha256": "036fef7aac95b3959aaa5f3c6c69afdaee8c9c2fd8a4118c05aabef685ce7cec"
+      },
+      "src/content/cards/special-projectiles-chain.js": {
+        "bytes": 18563,
+        "git_blob": "059abba02b8e84839efa747c374590bbbf786e05",
+        "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86"
+      },
+      "src/content/cards/special-projectiles-pellets.js": {
+        "bytes": 26141,
+        "git_blob": "cba018136fd4a4855771f2d0da56655ebba7e5da",
+        "sha256": "df257c20524a46dfc0eb2e877fa8bfae0cbe0a3f70c4a9da0c6981f0808edf50"
+      },
+      "src/content/cards/special-projectiles-pierce.js": {
+        "bytes": 23869,
+        "git_blob": "98248991fd78bd10dfa0ae5fb1606762a73f428a",
+        "sha256": "0bda1c3c339ea53d4fdc0d62fddb445832f0300ebfbf18cdf6a8050128bc9f4f"
+      },
+      "src/content/cards/special-projectiles-reflection.js": {
+        "bytes": 24645,
+        "git_blob": "902eb7826390dcb92ec9532ae49e18b226a5ccd9",
+        "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715"
+      },
+      "src/content/cards/special-projectiles-return.js": {
+        "bytes": 25641,
+        "git_blob": "5f1c8871b0253cad8f8ebbee1765a0d46a1b9a0f",
+        "sha256": "8e66814513b366a50462016535ec8bac08d8599ecdb4b320a48c57dad9c7cd83"
+      },
+      "src/content/cards/spells-clone-unit.js": {
+        "bytes": 21401,
+        "git_blob": "f706a29e404d8b2136b5d6bd9359062e79fd5f74",
+        "sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de"
+      },
+      "src/content/cards/spells-copy-card.js": {
+        "bytes": 14370,
+        "git_blob": "3d01cf186a6af36a5da361259333a3427bf79f95",
+        "sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89"
+      },
+      "src/content/cards/spells-instant.js": {
+        "bytes": 26158,
+        "git_blob": "82d9ae618122851dabe8f02389e88e909a4a30b9",
+        "sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a"
+      },
+      "src/content/cards/spells-periodic.js": {
+        "bytes": 27167,
+        "git_blob": "3032683aeabf0031a80128f14d5eb17a43a3836f",
+        "sha256": "b9a697436a4251b3a9fa329ddcf3f0eef9303b5d71ba4d2e116832f3479585cb"
+      },
+      "src/content/cards/spells-return.js": {
+        "bytes": 24164,
+        "git_blob": "8ae55aeb5838cb12e6652cd54fca7f4139abd7df",
+        "sha256": "f15c26e693fb5c0f98b99e5de7ea9a662d597cc23600f81dac42334451aefa92"
+      },
+      "src/content/cards/spells-roll.js": {
+        "bytes": 29604,
+        "git_blob": "d20ad00580eef1152fbc2e4d18149ae6dbcc46cb",
+        "sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a"
+      },
+      "src/content/cards/spells-spawn.js": {
+        "bytes": 19758,
+        "git_blob": "be85be44954a48151ef984a518f7b0a9c1f46b77",
+        "sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406"
+      },
+      "src/content/cards/spells-three-wave.js": {
+        "bytes": 18266,
+        "git_blob": "e5ad102e54f0703c2382df98e95858db877b2f7a",
+        "sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8"
+      },
+      "src/content/cards/spells-travel-line.js": {
+        "bytes": 32563,
+        "git_blob": "9d9becdee21b2c026e08c18873fe35523eeeb96b",
+        "sha256": "7694602949b8725db96ab0049f3bdbdd37a432fd6c850d0f1b9913ba5c5983d5"
+      },
+      "src/content/cards/structure-seeker.js": {
+        "bytes": 18226,
+        "git_blob": "8ab8882539882f4699fc4a9afb0850e41da18cce",
+        "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9"
+      },
+      "src/content/cards/swarms.js": {
+        "bytes": 8559,
+        "git_blob": "3262791442227989d5294296cd2d1e2b19d6ec24",
+        "sha256": "674c4ec2a8feea0cfda48dc51f1dbdc5711047a608c30378824d4a1ff4b4b733"
+      },
+      "src/content/editable-deck.js": {
+        "bytes": 6121,
+        "git_blob": "cdfb7f081400b8a4f797f0cf577a6923c6004347",
+        "sha256": "4ef893cd673419381e2ff32928ff3b095c91971b4bc1be53fab7d4dc88d638fc"
+      },
+      "src/content/index.js": {
+        "bytes": 8813,
+        "git_blob": "03c672e10fca2d7f4b18e8925585ecb89b3f81d9",
+        "sha256": "6a6a38dfb0fffada77658f4be8848565d0f09847ac654aed9f397bf3f3c6b1ad"
+      },
+      "src/content/movement-question-graph.js": {
+        "bytes": 298,
+        "git_blob": "683845a4766eeb5f3fbdd7172ecb63466e548cd0",
+        "sha256": "8f81c0a8612da87156e8aab3911b5a626efa7277a5d9a38e3652c1fa0eefa0f2"
+      },
+      "src/content/playable-roster.js": {
+        "bytes": 11989,
+        "git_blob": "9ce4c06226f2a4c2b54da3893849a85759fa00f5",
+        "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+      },
+      "src/content/schema.js": {
+        "bytes": 17945,
+        "git_blob": "975607547254430b57b06e871042d217c6c47604",
+        "sha256": "d6f268a8a54a92413b5b0cf169eca3cb05fb25bb54a83e67c472c2f1e574ac7c"
+      },
+      "src/content/session-card-catalog.js": {
+        "bytes": 16782,
+        "git_blob": "76150630402df875e0a0336fc9708feb7b0993a9",
+        "sha256": "39d1e74bbb22e9738f685cd5d8174101bf379d6b100cd042438c61fd6c09fb26"
+      },
+      "src/content/session-spell-profile-receipts.js": {
+        "bytes": 7255,
+        "git_blob": "6fcdc939d693f53c3373b40e69d9696cbbdced2c",
+        "sha256": "0364439c12e2ba10c160c071d125d22ff5f1783da49b02b630c2231f0f9c0eca"
+      },
+      "src/content/session-troop-movement-profiles.js": {
+        "bytes": 74986,
+        "git_blob": "b2ac0abb2bae8c21093d4bb0dab9676ff25b08b7",
+        "sha256": "80997116951834cc1cf1eb6aa83d9d2b347bb75a94abf164dbb355b4890bbce5"
+      },
+      "src/content/session-troop-movement-question-authority.js": {
+        "bytes": 21904,
+        "git_blob": "6a22d52a3edb2e8d8bcb3c8e13167668b9f0cc22",
+        "sha256": "deb8175d5ba71a21e0860244902ea2e5528fc641b23d4b8f335a3175d43e07e2"
+      },
+      "src/content/session-troop-movement-runtime-profiles.js": {
+        "bytes": 1675,
+        "git_blob": "52012f3973cd47bc7097872c9cb1d96194ae128e",
+        "sha256": "49e6a15c98a5a7206a5f6a5095eb114a351d0ee74d7a0b80ed3120ed1497e3c4"
+      },
+      "src/content/session-troop-profile-catalog.js": {
+        "bytes": 15683,
+        "git_blob": "b3ae967477ff387a2a192a9ab811610312a13043",
+        "sha256": "5948940ba0f3a2cbc80dd17eb8bf16983d49de71f0dd47d89e3624faf93f3e45"
+      },
+      "src/content/session-troop-projectile-admission.js": {
+        "bytes": 2206,
+        "git_blob": "0ddfcb469016cbb1adc1d1066630472acf36278b",
+        "sha256": "af1eef8a07921704899ccdea8bf849a8371d097fed39ad176b63358a57419827"
+      },
+      "src/content/session-troop-projectile-profiles.js": {
+        "bytes": 52546,
+        "git_blob": "f201128dc0285a3f3963f717d4cb9d4a47a86db3",
+        "sha256": "a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850"
+      },
+      "src/content/session-troop-projectile-source-admission.js": {
+        "bytes": 25976,
+        "git_blob": "4d363ae5f672141bc977f08e898411520677cf39",
+        "sha256": "ba4ab5698c435b536284e13546b26aa2934a7035362078b55e47b9e7ac90938e"
+      },
+      "src/content/session-troop-roster.js": {
+        "bytes": 22716,
+        "git_blob": "75fb7af5675c25e418bb06483bcf84d67eda1a4d",
+        "sha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca"
+      },
+      "src/content/session-troop-status-profiles.js": {
+        "bytes": 27384,
+        "git_blob": "703de20f84ef4072566045ce12659a8157a7df10",
+        "sha256": "ac75d4d546f76d03c64a8354b471a39f0dafd19379ce1b42b7b88f52bf74c616"
+      },
+      "src/content/session-troop-status-runtime-profiles.js": {
+        "bytes": 3849,
+        "git_blob": "8b6c89b46bbc24922aa043eb5f8f1dd624a0b979",
+        "sha256": "94089f8317615e17e971ce7882c9dff57dca513ed46f1383b95777073970efdd"
+      },
+      "src/content/visual-art-direction.js": {
+        "bytes": 6025,
+        "git_blob": "5c5ae4fcdc3ed12a3539bf155bff9d032c5d845f",
+        "sha256": "da0473057d49a60860e6d18670f1aacec7aa65a592c78a4d7a47d6d00e3c7cf9"
+      },
+      "src/content/visual-asset-manifest.js": {
+        "bytes": 20357,
+        "git_blob": "47b9ea1beefeea3e7cca4156a9253e14f1c0bd94",
+        "sha256": "82dfad8341c0302b2da40395e6ad89ffa801755f20c3c548b9e91c28569c9b64"
+      },
+      "src/rl/environment.js": {
+        "bytes": 14537,
+        "git_blob": "7fd3f017880a822975d76e864dcef6fa5beea45a",
+        "sha256": "b1b273f385ab1ca3ab664e39829b45f7ce5c9d5a1aaf3f673d0f165ad8c238f7"
+      },
+      "src/shared/ordinary-projectile-delivery-authority.js": {
+        "bytes": 9006,
+        "git_blob": "b950c8856fa09f4f7ae40bf7ffeeab7864759b6a",
+        "sha256": "8b33dedcf971e76ae79d03517e1963adcd5c22a2a502f6ee3c6d028b6ddad751"
+      },
+      "src/shared/session-troop-melee-area-authority.js": {
+        "bytes": 3421,
+        "git_blob": "7616de05e54061cfd0a0167e87abcb88f01ec1a0",
+        "sha256": "6fd6fec634f0274ebac6b995e091db1ecea796170d60c57a23ed071e4dd66703"
+      },
+      "src/shared/session-troop-projectile-authority.js": {
+        "bytes": 83939,
+        "git_blob": "358096a62c01fcf1e1ec9df863c7a36eb15a27ef",
+        "sha256": "e5c1b496551bb7b5d63f3f05a304f207a8c1de7b7c1dfcd072d7b27c1b5bbd82"
+      },
+      "src/shared/session-troop-source-confidence-authority.js": {
+        "bytes": 15190,
+        "git_blob": "874b41447edbfed08350f0fb963f0bde70700839",
+        "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+      },
+      "src/sim/area-damage.js": {
+        "bytes": 15661,
+        "git_blob": "6c4fe87b7da28cdfb93bdb85dad03c8e3c36f92c",
+        "sha256": "c3df6728aceaebba8f9c0afbb94ed207c5cf842eb8a4f736bfae9bc1a823eab0"
+      },
+      "src/sim/area-target-selection.js": {
+        "bytes": 8351,
+        "git_blob": "c0cda7af824ca48dae463e294e86d9f54fa011d3",
+        "sha256": "e13419e1b86f552f2d9c7ff6af837368731068f93357539ae200ede787963399"
+      },
+      "src/sim/arena-geometry.js": {
+        "bytes": 9452,
+        "git_blob": "3f09b6f47b1a103d513a4ef3779cfa13c9d30398",
+        "sha256": "038d192fc3758f480594f9c97ebaa4e12e6f366955f0e2a3575a33165f654fee"
+      },
+      "src/sim/attack-cycle.js": {
+        "bytes": 15800,
+        "git_blob": "f915e770cb601f5744e7d4e811162b0d6912d1ed",
+        "sha256": "add7bc5dbfe981f04a69519f647a4599c9208a59578697024a751de3a14fcbb3"
+      },
+      "src/sim/battle-combat-runtime.js": {
+        "bytes": 76417,
+        "git_blob": "9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6",
+        "sha256": "cdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8"
+      },
+      "src/sim/battle-combat.js": {
+        "bytes": 207,
+        "git_blob": "5b20900fc278376018808a54fc1e311ef462529b",
+        "sha256": "a9adf0d16359077bd0453cf2b8716e817d0a47c78073cde25a8b44a0c4ce3922"
+      },
+      "src/sim/battle-continuation-kernel.js": {
+        "bytes": 447260,
+        "git_blob": "d1cbde61485f4f98d04fc02785085eccda97e261",
+        "sha256": "502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732"
+      },
+      "src/sim/battle-movement.js": {
+        "bytes": 213,
+        "git_blob": "d0ca619347b5e4c04bc2f762555310255ec4a92d",
+        "sha256": "3252387a7657df2c5a7a6508b31bd21d68a8d63fa2a612cb2979edd024ddcb0b"
+      },
+      "src/sim/battle-towers.js": {
+        "bytes": 214,
+        "git_blob": "8fe2daeb877fc1bfc239daa02e912ec00a01fa8c",
+        "sha256": "e6a89d7d9d4cdd32fd03c0c3c336a64b8862e9fb0ef49f383609abf376c4cc64"
+      },
+      "src/sim/combat-effect-feed.js": {
+        "bytes": 48410,
+        "git_blob": "2c2ee7a40f1052beee6fa0a16f3d509e5b7c363a",
+        "sha256": "427b3f9381d60ef77247d59ba05a73b175fed2490053967951fc1351fa3d0ba9"
+      },
+      "src/sim/damage.js": {
+        "bytes": 9963,
+        "git_blob": "7c5d120f7b86ada8d9eb1b35a964888882a28880",
+        "sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7"
+      },
+      "src/sim/deck.js": {
+        "bytes": 7833,
+        "git_blob": "3c6dbd8a19d8d6558ce12ad8465202b3be56d069",
+        "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77"
+      },
+      "src/sim/deployment.js": {
+        "bytes": 8820,
+        "git_blob": "9d48eeef32f2a0ef2af3e392d9edff65c10f6e0e",
+        "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563"
+      },
+      "src/sim/elixir.js": {
+        "bytes": 436,
+        "git_blob": "2a1001290b1b2dfe51189c85bba887dde1a0b088",
+        "sha256": "5be6387d9358dcaba762bd7a0a62b82beeb1760faae24d315ce9ff33c154d235"
+      },
+      "src/sim/entities.js": {
+        "bytes": 7903,
+        "git_blob": "5a89c34b3718791d29af0bbcf0e9868d76f7e6ad",
+        "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a"
+      },
+      "src/sim/fixed-step.js": {
+        "bytes": 7036,
+        "git_blob": "8c04d4a34c981f7d6c3b0bb141e646d7483c4d6a",
+        "sha256": "4533f7695caed8f119195a396039a297b1f45b91f5a2d6255f60e75c66e5df8a"
+      },
+      "src/sim/flying.js": {
+        "bytes": 8381,
+        "git_blob": "d12f6eb0780d671dced10ef76f487965745163f6",
+        "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b"
+      },
+      "src/sim/formations.js": {
+        "bytes": 7615,
+        "git_blob": "396ef8c2459441f7eeef25d01d24d69c6d9d199d",
+        "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac"
+      },
+      "src/sim/game-opponent.js": {
+        "bytes": 20512,
+        "git_blob": "b30c1022a4efe2ad3d7a912ffdbf6e82ec40b933",
+        "sha256": "475fb4b5d15551069fcf74d93d562c84837f47a327d1a99502758feacb738994"
+      },
+      "src/sim/game-player-deploy.js": {
+        "bytes": 21214,
+        "git_blob": "86246c000cd6fe5f4f13c4d72b1facb5832be911",
+        "sha256": "89865ea25511294d0865a8e93a3d431879b3226e433d6a8e9c51487bfee1e1df"
+      },
+      "src/sim/game-session.js": {
+        "bytes": 1357,
+        "git_blob": "c3e86cb21fa926fc985120044d0adfd45e9f69c2",
+        "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+      },
+      "src/sim/game-side-deploy-core.js": {
+        "bytes": 6346,
+        "git_blob": "2916d0b2b35b582194f2df76af8c11841b2dede0",
+        "sha256": "ec84ca5b175fc0fe50d6d6b4ca2e18b5ce3bd4bf69d12cc16f1db48f3f92c0b3"
+      },
+      "src/sim/game-side-deploy.js": {
+        "bytes": 689,
+        "git_blob": "8c69ce4e9fdd5cb1f99a71211891e674f068b1d0",
+        "sha256": "54c5404c1ba21c60034b4331244797fd12e37f6d2a7fd4adede97d03e803ce32"
+      },
+      "src/sim/live-battle.js": {
+        "bytes": 1298,
+        "git_blob": "55286bda922f84ae496dbb7a89bcce5a58d140da",
+        "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+      },
+      "src/sim/match.js": {
+        "bytes": 314,
+        "git_blob": "2a280881d54bbc7dfb72b419c575c47ab6547ae8",
+        "sha256": "717bb8e2cd0dc47d621afce31c185c571d2cad44f0cf914bf09e4e6fb09dac0c"
+      },
+      "src/sim/melee.js": {
+        "bytes": 13915,
+        "git_blob": "2e7c7ae9ececae2ed18ad7108839f3daa9c9179f",
+        "sha256": "41f014bd5118ccf9880c40f454e8ebaa53b707f7a469152f96228eff107c2f2b"
+      },
+      "src/sim/movement.js": {
+        "bytes": 5688,
+        "git_blob": "0be315e14b1dceeb1c3b62d02d6e4608cc58fece",
+        "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586"
+      },
+      "src/sim/opaque-continuation.js": {
+        "bytes": 1474,
+        "git_blob": "59b9af639bc189e894b15641eb1d68813819b10a",
+        "sha256": "c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e"
+      },
+      "src/sim/opponent-controller.js": {
+        "bytes": 378,
+        "git_blob": "3bbb5c69cc3a14eea0ec68a775e22f557f3c5936",
+        "sha256": "3531d6b4f135802c57a465533fb22064f454557362ebf7a6efd4f56f70fa95df"
+      },
+      "src/sim/ordinary-projectile-homing.js": {
+        "bytes": 5481,
+        "git_blob": "769aa45f8048f1e195f0d09791e03c27b5d6a67e",
+        "sha256": "0dace911839cddf6fac8b9f6cc7b3d87006bc47089e270741fd4b3a588bf49b7"
+      },
+      "src/sim/ordinary-projectile-splash.js": {
+        "bytes": 12821,
+        "git_blob": "b9d3d9eec1d55341178c25e562482ef64d9655cc",
+        "sha256": "0f011e7d6163fa81d05d01526efeacdd68c5f673b22adcd8523f0cef0f40f1b5"
+      },
+      "src/sim/pathfinding.js": {
+        "bytes": 5865,
+        "git_blob": "448b5e3f695108e0bb1c4ec9442545ec9c4579d9",
+        "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296"
+      },
+      "src/sim/projectile.js": {
+        "bytes": 18014,
+        "git_blob": "615a474aa1af9e560db1c83cf72d9b00364c9278",
+        "sha256": "e911a45efb7167a9138f85254d76f1e0c7b4b1c76019c56ec5fbd1903ad1b765"
+      },
+      "src/sim/rng.js": {
+        "bytes": 5778,
+        "git_blob": "411ca70c3af3bec914dfac7c5cefff32ef48e13c",
+        "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17"
+      },
+      "src/sim/session-building-profile-receipts.js": {
+        "bytes": 13962,
+        "git_blob": "5d050ded0c012128a9a9ab57d3ad0ae668dd14bb",
+        "sha256": "94beeb6a4a2de0b1bea761314f28faecbe8f0c85845144caa758eecdcfb0a60e"
+      },
+      "src/sim/session-building-runtime.js": {
+        "bytes": 52781,
+        "git_blob": "55f326c1ce1231c72c6c74612dff4d601f79af05",
+        "sha256": "2a0ce9a523fbf2b0103114bdb34ef26a62c9a5f61c95083bce9e0fb823da051b"
+      },
+      "src/sim/session-card-runtime.js": {
+        "bytes": 9317,
+        "git_blob": "e0a6bfaea551521cd8413ac7f04314f548961b48",
+        "sha256": "420499c828178e50caddc64c46d5208e901509da744b2f044d6b5ae9ac876748"
+      },
+      "src/sim/session-troop-projectile-runtime.js": {
+        "bytes": 46231,
+        "git_blob": "85a46c2fa285b675ade18558c54475ef0e245b94",
+        "sha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f"
+      },
+      "src/sim/session-troop-runtime.js": {
+        "bytes": 48389,
+        "git_blob": "5bf72444924d7136601e9cf7cd1f1145f81ae217",
+        "sha256": "1daef3770127a97152c8a2782b87c2f8760b671ece57430076b06adfc5278b4d"
+      },
+      "src/sim/session-troop-status-runtime.js": {
+        "bytes": 36964,
+        "git_blob": "03f1665063d1442a90811e9714269896538b89c3",
+        "sha256": "175880a08bad4ea5e3c8a3b096ef06352836938f3f89a657a73fc2b6c24dc4e9"
+      },
+      "src/sim/spatial.js": {
+        "bytes": 10584,
+        "git_blob": "d8b0701f132205bf245af5933f07d5dcb47ea67e",
+        "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e"
+      },
+      "src/sim/spell-area-impact.js": {
+        "bytes": 4305,
+        "git_blob": "e2988c0b53ad27860139d0192df372f70583f23a",
+        "sha256": "f1b70073951908f8f62f6af93fe5565288becb1d8f52bc45741697f90f7a9d68"
+      },
+      "src/sim/spell-intent-runtime.js": {
+        "bytes": 13800,
+        "git_blob": "bffe9cc6a2bb109c65ad4811596fc2e02aa45c30",
+        "sha256": "f752f9be5d85039e115b94f15e95d9a975ea2afa057892ce8caa862a780bf177"
+      },
+      "src/sim/targeting.js": {
+        "bytes": 8267,
+        "git_blob": "5996532fec6120c6598cf425bb105ef772027743",
+        "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470"
+      },
+      "src/sim/tower-evidence-map.js": {
+        "bytes": 4021,
+        "git_blob": "177a1900714cbc73016e3b70f613e6bca18ba5ba",
+        "sha256": "1d3ad4b67304fa356eb85ed0bcc4a1229cbdbdd6bda0996c4e387fe96dee96c2"
+      },
+      "src/sim/tower-evidence.js": {
+        "bytes": 10434,
+        "git_blob": "e9cb626854afa5c4cb85394d691d0df928514deb",
+        "sha256": "f3b21b27bf5b367316826f3ec85bc94ce5f11afe4fe89e679946f78ea90a04ae"
+      },
+      "src/sim/towers.js": {
+        "bytes": 281,
+        "git_blob": "5858fde133d53b63ff90d1480148cca3ee713dbf",
+        "sha256": "1e063e7adaae32278838f877d6f248d57621661a3745d3fcccc0bc2538c36a94"
+      },
+      "src/ui/aether-well-art.js": {
+        "bytes": 8240,
+        "git_blob": "010d0d245020dcea26a8957baee2a3e541f2406b",
+        "sha256": "164ffe448d59e6ec2b2d6d2f60f88759d09808447c0b9cefc910774c07d13af8"
+      },
+      "src/ui/app-shell.css": {
+        "bytes": 29996,
+        "git_blob": "69da01d551f378dfe27c7b274d58d3f611affb01",
+        "sha256": "f4720d7b9f07b0b6bc646e68bfb4192a140c91d2da84e18227891fa5b56f3a04"
+      },
+      "src/ui/app-shell.js": {
+        "bytes": 32131,
+        "git_blob": "3d024e6bb4b824f22ff39bb446c4943cc12f1ad1",
+        "sha256": "e36aaccecdf44023d8c94e8ef9773eb75a2b2dc4400e64201624cdf4aa90ff95"
+      },
+      "src/ui/arena-shell-entry.js": {
+        "bytes": 19293,
+        "git_blob": "5f5f6bc3a60affd08537ba24381a3b6ae85772a6",
+        "sha256": "88e3873cf7298223f8c8a96aceceff3b20185c05dad2f274c045c888ca5443d5"
+      },
+      "src/ui/arena-shell.css": {
+        "bytes": 14259,
+        "git_blob": "7dd1733e2cd7e4b160cc28877a3cdd232248754d",
+        "sha256": "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e"
+      },
+      "src/ui/arena-shell.js": {
+        "bytes": 5846,
+        "git_blob": "6c3306106e2ed4896cc6b3d22e51c08b2dc26efb",
+        "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249"
+      },
+      "src/ui/brackenwheel-art.js": {
+        "bytes": 6097,
+        "git_blob": "bc93e4718f60663a3d6d3fe88f3052137115da61",
+        "sha256": "8900a79ecac5f65c0af206781288aad1cbb280da7c615403431b3f0d15b2067b"
+      },
+      "src/ui/card-lore.js": {
+        "bytes": 5287,
+        "git_blob": "305c769759c327c18c831a3cbc8257fc9dbe4640",
+        "sha256": "3190a8d85c3f7b52b14026cc192a15530aaaafb24f46cdd8433fe840ccd9a864"
+      },
+      "src/ui/card-portrait-art.js": {
+        "bytes": 4256,
+        "git_blob": "de8f8510cef466b18bb7d9de0463fa1ee607c641",
+        "sha256": "5e8662a844495092741860f5f92b18fa2e437a3a5743047fcd60de36225147ec"
+      },
+      "src/ui/combat-art.js": {
+        "bytes": 17311,
+        "git_blob": "5757522ce19742b30bf28360f9b1b425ebdb8a46",
+        "sha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849"
+      },
+      "src/ui/combat-effects.js": {
+        "bytes": 30636,
+        "git_blob": "209337cf3e55bda503918bdd9856e4192dac9d6f",
+        "sha256": "6f4efe8b7e7b924530e914076ffda4e5d4589f330a1df0c1f96fb5f9ea5693cb"
+      },
+      "src/ui/combat-motion.js": {
+        "bytes": 10818,
+        "git_blob": "fa31b6a9d5b79a1f21fb4890b920c15e529691f6",
+        "sha256": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03"
+      },
+      "src/ui/combat-sprite-prototype.js": {
+        "bytes": 11273,
+        "git_blob": "c8f11dd4cb2e2de3e760e1477b83bfbc2c556f22",
+        "sha256": "626388c9d3a686636b85f2256595e7d3859ac24e042a3f21600ad3fe90c17272"
+      },
+      "src/ui/combat-state.js": {
+        "bytes": 26400,
+        "git_blob": "e37ffa15ad40a6c0b06a05c8700dca0bd4524d1c",
+        "sha256": "8ee42a399c70b06bb62af0b0715048deb0b757936f8cf74ef3605a6aa4be7b6b"
+      },
+      "src/ui/game-audio-bridge.js": {
+        "bytes": 3701,
+        "git_blob": "215645684f0a1fa15cf93087e7782e9094ae59e1",
+        "sha256": "443af1ade77a8946a27d908c55e6336e4ed573e6807d6c2863b7d7bc2f4e5b4b"
+      },
+      "src/ui/game-audio-controls.js": {
+        "bytes": 4214,
+        "git_blob": "c039fc147a70db1f9a3fd693bae3e6d0643e68bf",
+        "sha256": "f8ce83fa16da4fe6c59768bca57f6a8822822a0ab8cbed40193409abce4e639f"
+      },
+      "src/ui/game-browser-entry.js": {
+        "bytes": 46660,
+        "git_blob": "62ab029a51445cd06767656454f28338d2f88698",
+        "sha256": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d"
+      },
+      "src/ui/game-browser-loop.js": {
+        "bytes": 27416,
+        "git_blob": "d3d09e0cfc46e1aab23e1e872f75dd3eefc943cf",
+        "sha256": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5"
+      },
+      "src/ui/game-input-bridge.js": {
+        "bytes": 5598,
+        "git_blob": "7dda37e62390e39a042d993e204d06dcf69cd2fb",
+        "sha256": "69db673245cc2e6c4e7f0611423ee88eb40015feab533129d62f0698630d6814"
+      },
+      "src/ui/game-session-restore-continuation.js": {
+        "bytes": 9715,
+        "git_blob": "63240fc584dcf7e7aa132bee25ea4bd9aa775d43",
+        "sha256": "160dd1149dd8abccd332832ec8008a3b9710dcfd0fa23a2730c868f13d6f9c20"
+      },
+      "src/ui/game-ui-projection.js": {
+        "bytes": 27469,
+        "git_blob": "844930649c8756a6a2e056f3d0697c69f81af20a",
+        "sha256": "fca3bb51550df9ba99872d4d3b2020a3653f88d5de3af83f6dcd1af8b636f5cc"
+      },
+      "src/ui/hud-motion.js": {
+        "bytes": 1975,
+        "git_blob": "aa54f89e9ee910ae508b8fb14524606ffcd328c9",
+        "sha256": "18b377194878e070f3b4ddeda90a9c02dbd907959f99e4e0ca3e0c233de6157d"
+      },
+      "src/ui/hud-state.js": {
+        "bytes": 22303,
+        "git_blob": "7baf4d803f55448b83dae6db3816184576679f9b",
+        "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152"
+      },
+      "src/ui/input-controller.js": {
+        "bytes": 54290,
+        "git_blob": "9b04d40f473e59f2d341d21d2ee79869e3313bb9",
+        "sha256": "2d98212b2fde12ebd44acc878d8249769329d8b5d46b731eb2db189f503a00e8"
+      },
+      "src/ui/match-feedback.js": {
+        "bytes": 32502,
+        "git_blob": "059ae2216d6635863b46f5bbdb7da20a6f132782",
+        "sha256": "61accd1add542a56714ba37d10e5d57867f95f327eb143d520c1718c5bba923b"
+      },
+      "src/ui/placement-feedback.js": {
+        "bytes": 23437,
+        "git_blob": "6d39725a4328fa167120ff8a403b0dc13fe55a0a",
+        "sha256": "3c672625d7a89ced294fd349c82990a949cf348a0c3b36f8da77afa026a953a9"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-bloom-wisp-v2.snapshot": {
+        "bytes": 200458,
+        "git_blob": "2d3c69e02436c45cb3bb750bb5359e44f0fd72b5",
+        "sha256": "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-dawnmender-v2.snapshot": {
+        "bytes": 200434,
+        "git_blob": "a456658fec1cbc8a1e0484a34d25034b8f3fb809",
+        "sha256": "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-pulse-sentry-v2.snapshot": {
+        "bytes": 200506,
+        "git_blob": "581712715c5c140a4e401cc7593e1e153792d7d9",
+        "sha256": "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-rime-adept-v2.snapshot": {
+        "bytes": 200458,
+        "git_blob": "258fcf67e01a03bb840d534a5164f8ea1ffc82e4",
+        "sha256": "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-tether-rider-v2.snapshot": {
+        "bytes": 200495,
+        "git_blob": "c58c5a8fc7008effa7adb5fcfeb44e77b2841fea",
+        "sha256": "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5"
+      },
+      "tests/fixtures/source-vintage-checkpoints/2a-game-session-veil-prowler-v2.snapshot": {
+        "bytes": 200501,
+        "git_blob": "e014805dfea69a17c13a00e0afbd580b253e55ef",
+        "sha256": "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3"
+      },
+      "tests/fixtures/source-vintage-checkpoints/README.md": {
+        "bytes": 1789,
+        "git_blob": "dd395f32618114a9d902d7fd2d92c655fae2f7de",
+        "sha256": "cb6394748b224e50513af13749f6eb3aaf12f404cba5ebd5c274b1f48f313011"
+      },
+      "tests/fixtures/source-vintage-checkpoints/c9-empty-live-battle-v2.snapshot": {
+        "bytes": 11618,
+        "git_blob": "aaabadbca141637b4d8661524d68fd76366558b3",
+        "sha256": "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a"
+      },
+      "tests/game-troop-runtime-runner.js": {
+        "bytes": 412,
+        "git_blob": "a99b5b65b7dd52558e7319017ed09256fdae139c",
+        "sha256": "4f29e96da7b47f1178e3c0a682f905f7795893b3e4b1025b064ef42d6506a813"
+      },
+      "tests/game-troop-runtime.test.js": {
+        "bytes": 29489,
+        "git_blob": "e84745b74e51d20909b4d4a84d7b5d4cf6c03ab6",
+        "sha256": "9c68a5c29c9f6f3ceaa96cf43e8ccc1b3fc8d6a3ec916cfca079d5eb9dbb29f8"
+      }
+    }
+  },
+  "finishedUtc": "2026-10-20T17:00:19.751+00:00"
+}

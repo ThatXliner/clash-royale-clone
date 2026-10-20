@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { createSessionTroopRuntimeProfiles } from "../src/content/session-card-catalog.js";
@@ -443,6 +444,76 @@ test("game troop runtime: current v5 hostile witnesses, chunks, forks, and empty
     tick: direct.state.tick })), /does not admit player actions/u);
   assert.equal(direct.serialize(), beforeCurrentAction,
     "current v3 action input rejects atomically after the ordinary contact too");
+});
+
+test("game troop runtime: archived c9 and 2a snapshots reject for missing Briar source-confidence policy", () => {
+  const fixtures = [
+    {
+      file: "c9-empty-live-battle-v2.snapshot",
+      bytes: 11_618,
+      sha256: "874c2b8e8642447e627e850e8511b58009e57c22e3d9d2cc42ab447b4af8429a",
+      restore: (serialized) => LiveBattle.restore(serialized),
+      errorLabel: "roster[6].entities[0]",
+    },
+    {
+      file: "2a-game-session-bloom-wisp-v2.snapshot",
+      bytes: 200_458,
+      sha256: "552625d664701401763e78aeb1b3b8ce79b2abaa41142b71eb45c98046d4dfd9",
+      restore: (serialized) => GameSession.restore(serialized),
+      errorLabel: "roster[7].entities[0]",
+    },
+    {
+      file: "2a-game-session-dawnmender-v2.snapshot",
+      bytes: 200_434,
+      sha256: "c7ee4536c9ca885fde04ef99b149fca31e8c138cc9cf9fc96c5ec03b4ff75a2e",
+      restore: (serialized) => GameSession.restore(serialized),
+      errorLabel: "roster[7].entities[0]",
+    },
+    {
+      file: "2a-game-session-pulse-sentry-v2.snapshot",
+      bytes: 200_506,
+      sha256: "711028fb73a858df0546bb847b038b40238823fa71d2bf3ad9b1f4bad279b3e0",
+      restore: (serialized) => GameSession.restore(serialized),
+      errorLabel: "roster[7].entities[0]",
+    },
+    {
+      file: "2a-game-session-rime-adept-v2.snapshot",
+      bytes: 200_458,
+      sha256: "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
+      restore: (serialized) => GameSession.restore(serialized),
+      errorLabel: "roster[7].entities[0]",
+    },
+    {
+      file: "2a-game-session-tether-rider-v2.snapshot",
+      bytes: 200_495,
+      sha256: "67221b82e6885ae4417dd7019d41c5e778c34038dac4cccd010eed166224c0b5",
+      restore: (serialized) => GameSession.restore(serialized),
+      errorLabel: "roster[7].entities[0]",
+    },
+    {
+      file: "2a-game-session-veil-prowler-v2.snapshot",
+      bytes: 200_501,
+      sha256: "e184782f3d14d389ef97dea893f9db469095e7f4e0326024b238233419c312e3",
+      restore: (serialized) => GameSession.restore(serialized),
+      errorLabel: "roster[7].entities[0]",
+    },
+  ];
+
+  for (const fixture of fixtures) {
+    const inputPath = new URL(`./fixtures/source-vintage-checkpoints/${fixture.file}`, import.meta.url);
+    const input = readFileSync(inputPath);
+    assert.equal(input.byteLength, fixture.bytes, `${fixture.file} byte length`);
+    assert.equal(createHash("sha256").update(input).digest("hex"), fixture.sha256,
+      `${fixture.file} preserves the captured bytes`);
+    const serialized = input.toString("utf8");
+    assert.equal(Buffer.byteLength(serialized, "utf8"), fixture.bytes,
+      `${fixture.file} is valid UTF-8 snapshot text`);
+    assert.equal(JSON.parse(serialized).version, 2, `${fixture.file} retains its v2 envelope`);
+    assert.throws(() => fixture.restore(serialized), (error) => (
+      error instanceof TypeError &&
+      error.message === `${fixture.errorLabel} source confidence policy is missing or unexpected`
+    ), `${fixture.file} must reject for the missing Briar source-confidence policy`);
+  }
 });
 
 test("game troop runtime: legacy v1/v3 and v2/v4 action snapshots remain causal and preserve atomic rejections", () => {
