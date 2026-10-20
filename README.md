@@ -12,10 +12,11 @@
   <img src="docs/brand/banner.svg" alt="Moss &amp; Ember — an original card battler" width="100%">
 </p>
 
-Play against a computer opponent. Build an eight-card deck from the twenty-card
-collection, then choose from your hand and spend elixir, which refills during
-the match, to deploy units in the arena. They move and fight on their own. Take
-tower crowns before time runs out to win.
+Play against a computer opponent. Build an eight-card deck from the 23 cards you can play
+now, then choose from your hand and spend elixir, which refills during
+the match, to deploy units in the arena. They move and fight on their own. Destroy
+more towers by three minutes to win. Ties go to sudden death, then a tower-health
+tiebreak at five minutes. Take the centre tower to win immediately.
 
 <p align="center">
   <img src="docs/brand/gameplay.png" alt="A Moss &amp; Ember match in progress" width="320">

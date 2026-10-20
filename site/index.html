@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101a22">
-    <meta name="description" content="Moss & Ember is an open-source card battler with a playable browser build and a documented reinforcement-learning environment.">
-    <title>Moss & Ember — Card battles for curious minds</title>
+    <meta name="description" content="An open-source browser prototype. Build an eight-card deck, play from a four-card hand, spend elixir as it refills, and battle a computer opponent to destroy the opposing towers.">
+    <title>Moss &amp; Ember — Real-time card battles</title>
     <link rel="icon" type="image/svg+xml" href="./brand/logo.svg">
     <link rel="stylesheet" href="./assets/site.css">
   </head>
@@ -14,15 +14,15 @@
 
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="brand" href="#top" aria-label="Moss & Ember home">
-          <img src="./brand/logo.svg" width="42" height="42" alt="">
+        <a class="brand" href="#top" aria-label="Moss &amp; Ember home">
+          <img src="./brand/logo.svg" width="40" height="40" alt="">
           <span class="brand__words">
             <strong>Moss &amp; Ember</strong>
-            <span>Card battles</span>
+            <span>Riverworks card battles</span>
           </span>
         </a>
         <nav class="primary-nav" aria-label="Main navigation">
-          <a href="#field-notes">The project</a>
+          <a href="#how">How to play</a>
           <a href="@@RL_DOCS_URL@@">RL environment</a>
           <a class="primary-nav__play" href="./game/public/index.html">
             Play the demo <span aria-hidden="true">↗</span>
@@ -34,100 +34,130 @@
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero__copy">
-          <p class="eyebrow"><span aria-hidden="true"></span> Active prototype · open-source card battles</p>
-          <h1 id="hero-title">Make a move.<br><em>Shape the field.</em></h1>
+          <p class="eyebrow"><span aria-hidden="true"></span> Active prototype</p>
+          <h1 id="hero-title">Light the path.<br><em>Hold the bridge.</em></h1>
           <p class="hero__lede">
-            Build an eight-card deck, choose from a four-card hand, spend elixir to
-            deploy units, and take the opposing towers. Play the active prototype,
-            then explore its deterministic simulation and learning environment in code.
+            Build an eight-card deck. Play from a four-card hand, spend elixir as it
+            refills, and battle a computer rival to destroy its towers.
           </p>
           <div class="hero__actions">
             <a class="button button--ember" href="./game/public/index.html">
-              Enter the arena <span aria-hidden="true">↗</span>
+              Play the demo <span aria-hidden="true">↗</span>
             </a>
-            <a class="text-link" href="@@RL_DOCS_URL@@">Read the RL environment notes</a>
+            <a class="text-link" href="#how">See how a match works <span aria-hidden="true">↓</span></a>
           </div>
-          <div class="hero__index">
-            <span><b>01</b> A browser-playable build</span>
-            <span><b>02</b> Source-first project</span>
-          </div>
+          <p class="hero__note">Original world and art · Open source under AGPL-3.0-only</p>
         </div>
 
         <figure class="match-card">
           <div class="match-card__topline">
-            <span>Field capture</span>
-            <span class="match-card__index">M&amp;E / 01</span>
+            <span>Current browser build</span>
+            <span>Phone match</span>
           </div>
           <div class="match-card__screen">
             <img
               src="./brand/gameplay.png"
               width="390"
               height="844"
-              alt="A Moss &amp; Ember match with an arena, towers, a card hand, and battle controls."
+              alt="A real phone capture of the Moss &amp; Ember prototype, showing its river arena, towers, cards, and resource meter."
             >
           </div>
           <figcaption>
-            <span>From the browser build</span>
-            <span class="match-card__caption-mark" aria-hidden="true">✳</span>
+            <span>Phone prototype</span>
+            <span aria-hidden="true">M&amp;E / 01</span>
           </figcaption>
         </figure>
-
-        <span class="hero__registration" aria-hidden="true">FIELD / 01</span>
       </section>
 
-      <section class="field-notes" id="field-notes" aria-labelledby="notes-title">
-        <div class="field-notes__label">
-          <span class="section-number">01</span>
-          <span>Field notes</span>
+      <section class="how" id="how" aria-labelledby="how-title">
+        <div class="how__heading">
+          <p class="eyebrow">The first ten seconds</p>
+          <h2 id="how-title">How a match works</h2>
         </div>
-        <div class="field-notes__body">
-          <h2 id="notes-title">A game to play.<br><span>A system to explore.</span></h2>
-          <p>
-            Step into a match, then follow the same project into its source. The
-            reinforcement-learning interface documents observations, actions, and
-            the fixed-step environment used to advance a battle.
-          </p>
-          <div class="field-notes__links">
-            <a href="@@RL_SOURCE_URL@@">
-              <span class="link-kicker">The source</span>
-              <strong>Explore the environment module</strong>
-              <span class="link-arrow" aria-hidden="true">↗</span>
-            </a>
-            <a href="@@RL_DOCS_URL@@">
-              <span class="link-kicker">The guide</span>
-              <strong>Read the RL API notes</strong>
-              <span class="link-arrow" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </div>
-        <div class="field-notes__art" aria-hidden="true">
-          <img src="./brand/banner.svg" alt="">
-          <span class="field-notes__art-label">Moss &amp; Ember / an open build</span>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="mini-deck">
+                <i class="mini-card"></i><i class="mini-card mini-card--selected"></i>
+                <i class="mini-card"></i><i class="mini-card"></i>
+                <i class="mini-card mini-card--teal"></i><i class="mini-card"></i>
+                <i class="mini-card"></i><i class="mini-card mini-card--wood"></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>01</span> Choose 8 from 23</h3>
+              <p>Build a deck from the cards you can play now.</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="mini-hand">
+                <i class="mini-card mini-card--next"></i>
+                <i class="mini-card"></i><i class="mini-card mini-card--raised"></i>
+                <i class="mini-card"></i><i class="mini-card mini-card--teal"></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>02</span> Hold 4 cards in hand</h3>
+              <p>Use one card. The next one joins your hand.</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="ember-cost">3</span>
+              <span class="ember-rail">
+                <i class="is-full"></i><i class="is-full"></i><i class="is-full"></i>
+                <i class="is-filling"></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>03</span> Spend elixir</h3>
+              <p>Cards have a cost. Elixir refills to 10.</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="mini-keeps">
+                <i class="mini-keep"></i><i class="mini-keep mini-keep--centre"></i>
+                <i class="mini-keep"></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>04</span> Take the towers</h3>
+              <p>Destroy more towers by 3 minutes. Ties go to sudden death, then a tower-health tiebreak at 5 minutes. Take the centre tower to win immediately.</p>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="closing-callout" aria-labelledby="closing-title">
-        <div class="closing-callout__ornament" aria-hidden="true">M<span>&amp;</span>E</div>
-        <div>
-          <p class="eyebrow eyebrow--light"><span aria-hidden="true"></span> Your next turn is ready</p>
-          <h2 id="closing-title">Take the field.</h2>
+      <section class="project-links" aria-labelledby="project-title">
+        <div class="project-links__copy">
+          <p class="eyebrow">For builders</p>
+          <h2 id="project-title">Follow the game into its source.</h2>
+          <p>The battle is deterministic. Read how code observes and controls a match in the RL environment guide.</p>
         </div>
-        <a class="button button--paper" href="./game/public/index.html">
-          Play Moss &amp; Ember <span aria-hidden="true">↗</span>
-        </a>
+        <div class="project-links__actions">
+          <a href="@@RL_DOCS_URL@@">Read the RL API notes <span aria-hidden="true">↗</span></a>
+          <a href="@@RL_SOURCE_URL@@">Explore the environment source <span aria-hidden="true">↗</span></a>
+          <a href="@@REPOSITORY_URL@@">View the GitHub repository <span aria-hidden="true">↗</span></a>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <a class="footer-brand" href="#top">Moss &amp; Ember</a>
-      <p>Original art and an open source card-battler project.</p>
+      <p>An original card-battler prototype.</p>
       <nav aria-label="Project and legal links">
         <a href="@@REPOSITORY_URL@@">GitHub source</a>
         <a href="@@RL_DOCS_URL@@">RL API</a>
         <a href="./LICENSE">AGPL-3.0-only</a>
         <a href="./NOTICE">Notice</a>
       </nav>
-      <span class="site-footer__stamp">Built for curious minds <span aria-hidden="true">✳</span></span>
+      <span class="site-footer__stamp">Original art and sound</span>
     </footer>
   </body>
 </html>

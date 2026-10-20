@@ -9801,3 +9801,21 @@ EVIDENCE: Fresh independent Blender5.1.2 reopens R2 control and all3 R3 alternat
 BIGGEST GAP: Native opposite headings need a clear macro bow/stern cue. Coilblade/Mossguard unchanged and unqualified, not fresh judged failures in this boundedrun. No livearena/atlas/shippedasset acceptance.
 
 Astra generator first attempted exactR3 and aborted134 in Blender name-suffix stoi parsing beforeimages. Separate naming-only repair usesstableenumeration and preserves geometry/camera/palette. Actual repairedgeneration71953/reopen72037 exit0,33previews and3editableexports retained in design/20261020-redesign/astra-round-3-repair. Independentwrapper initiallyexit1 onlyfrompostprocessorrawpath; preservedoriginal andsupplementalcorrector useexisting64renders, noBlenderrepeat. These tooling failures are not additional visualrounds. R1 namedboat/team/posegap; explicitheadinggap survivesR2andR3(twoactualrounds), so no same-gapthree-roundstop is inferred. Astra nextrevision addresses macro asymmetry only.
+
+## Round 525 — DESIGN-001 complete collection access
+
+PIECE: DESIGN-001
+VERDICT: PASS — static presentation, roster, and accessibility scope
+EVIDENCE: Independent Chrome 155 renders six exact native 390x844/1440x933 DPR-1 frames without zoom, transforms, external fonts, or HTTP requests. Catalog comparison matches all 23 IDs, names, costs, kinds, and rarities: 19 troops, one spell, three buildings. After three stable animation frames, PageDown, End, and actual wheel input reach scrollTop 152/152. Tab reaches all 23 cards in order with a visible 3-pixel outline; the final name strip is fully in bounds. Exact board bytes, capture scripts, tool identities, raw images, and browser evidence are retained in artifacts/presentation-r4-site-r1/critic.
+BIGGEST GAP: Fifteen collection entries retain explicit art placeholders. This scoped design pass does not accept character art, the live application, or motion implementation. Claude supplied the original direction; Luna implemented factual/accessibility corrections.
+
+## Round 526 — SITE-REDESIGN-001 public landing page
+
+PIECE: SITE-REDESIGN-001
+VERDICT: PASS — site and Pages publication scope
+EVIDENCE: Exact private candidate 4b18faf1 changes only README.md, site/index.html, and site/assets/site.css. Independent publication tests pass 5/5. Pages builds successfully: game release is 57 files/6,369,740 bytes; the complete retained Pages tree is 67 files/6,785,727 bytes. Native 390x844 and 1440x933 captures have no horizontal overflow, external requests, failed requests, console errors, or page errors. All 14 phone and 15 desktop keyboard stops have visible focus; in-page navigation and the built demo work. The 647-file source fence matches after install/build/capture. Source engine and tests are unchanged.
+
+The site explains the current 23-card roster, eight-card deck, four-card hand, elixir, tower result, overtime/tiebreak, and centre-tower win. It uses the existing original logo and real game capture through the approved publication graph. SITE dependency is corrected to DESIGN-001 and PUB-002: there is no new 3D model consumer here. ART-3D-001 remains required for the application redesign and full goal. The acceptance bar itself is unchanged.
+
+First attempts retain the missing external Playwright path and shell readonly-variable setup errors. The corrected runner uses its isolated pinned Playwright/core 1.58.2, Node 22.22.3/npm 10.9.8, and Chrome 155 with new prelaunch tool hashes; no source/assertion/cap changes. Raw evidence and separate independent verdicts are in artifacts/presentation-r4-site-r1/critic.
+BIGGEST GAP: The card count and gameplay image are static and must be refreshed when the catalog or game presentation changes. This is no character-art, in-game redesign, or complete-roster claim. Public deployment is verified separately.

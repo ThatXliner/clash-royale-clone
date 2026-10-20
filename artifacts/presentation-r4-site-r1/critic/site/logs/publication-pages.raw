@@ -1,0 +1,74 @@
+
+> moss-and-ember@0.0.0 test:publication-pages
+> node --test tests/publication-pages.test.js
+
+TAP version 13
+# Subtest: Pages build contains the branded landing, approved source assets, and isolated game release
+not ok 1 - Pages build contains the branded landing, approved source assets, and isolated game release
+  ---
+  duration_ms: 1019.234417
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input/tests/publication-pages.test.js:41:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot find module '/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs' imported from /Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input/scripts/release-browser-qualification.js"
+  code: 'ERR_MODULE_NOT_FOUND'
+  stack: |-
+    finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    moduleResolve (node:internal/modules/esm/resolve:861:10)
+    defaultResolve (node:internal/modules/esm/resolve:985:11)
+    #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+    ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+    ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+    onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:36)
+    TracingChannel.tracePromise (node:diagnostics_channel:350:14)
+    ModuleLoader.import (node:internal/modules/esm/loader:679:21)
+    defaultImportModuleDynamicallyForModule (node:internal/modules/esm/utils:222:31)
+  ...
+# Subtest: Pages output refuses protected workspace destinations before writing
+ok 2 - Pages output refuses protected workspace destinations before writing
+  ---
+  duration_ms: 1.448834
+  type: 'test'
+  ...
+# Subtest: local preview serves the landing and playable routes without escaping its artifact
+not ok 3 - local preview serves the landing and playable routes without escaping its artifact
+  ---
+  duration_ms: 630.81575
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input/tests/publication-pages.test.js:147:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot find module '/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs' imported from /Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input/scripts/release-browser-qualification.js"
+  code: 'ERR_MODULE_NOT_FOUND'
+  stack: |-
+    finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    moduleResolve (node:internal/modules/esm/resolve:861:10)
+    defaultResolve (node:internal/modules/esm/resolve:985:11)
+    #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+    ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+    ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+    onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:36)
+    TracingChannel.tracePromise (node:diagnostics_channel:350:14)
+    ModuleLoader.import (node:internal/modules/esm/loader:679:21)
+    defaultImportModuleDynamicallyForModule (node:internal/modules/esm/utils:222:31)
+  ...
+# Subtest: Pages workflow is manually dispatched and uses the required official deploy actions
+ok 4 - Pages workflow is manually dispatched and uses the required official deploy actions
+  ---
+  duration_ms: 1.283834
+  type: 'test'
+  ...
+# Subtest: portable test wrapper resolves local browser paths and preserves explicit overrides
+ok 5 - portable test wrapper resolves local browser paths and preserves explicit overrides
+  ---
+  duration_ms: 835.769875
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 3
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3356.634292

@@ -1,0 +1,2420 @@
+{
+  "startedAt": "2026-10-20T17:22:40.352Z",
+  "runner": {
+    "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/capture-site.mjs",
+    "sha256": "00b00b60a2d37691dab798d2a33f7883abb23c55c88548ff9aca2d30d91526f3"
+  },
+  "source": {
+    "gitCommit": "4b18faf1f163244d592cdde6c82ea8ef06041b5e",
+    "sourceRoot": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input",
+    "artifactRoot": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/pages"
+  },
+  "process": {
+    "pid": 79541,
+    "ppid": 79540,
+    "execPath": "/Users/me/.hermes/node/bin/node",
+    "argv": [
+      "/Users/me/.hermes/node/bin/node",
+      "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/capture-site.mjs"
+    ],
+    "cwd": "/Users/me/.codex/worktrees/9456/clash-royale-clone",
+    "nodeVersion": "v22.22.3",
+    "relevantEnvironment": {
+      "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME": "/Users/me",
+      "TMPDIR": "/tmp",
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input/node_modules/playwright/index.mjs"
+    }
+  },
+  "browserExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "playwrightModule": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/input/node_modules/playwright/index.mjs",
+  "viewports": [
+    {
+      "id": "phone",
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 1,
+      "top": {
+        "title": "Moss & Ember — Real-time card battles",
+        "lang": "en",
+        "viewport": {
+          "innerWidth": 390,
+          "innerHeight": 844,
+          "devicePixelRatio": 1,
+          "visualViewportScale": 1
+        },
+        "document": {
+          "scrollWidth": 390,
+          "scrollHeight": 1345,
+          "clientWidth": 390,
+          "clientHeight": 844,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "landmarks": {
+          "headerCount": 1,
+          "navCount": 2,
+          "mainCount": 1,
+          "footerCount": 1,
+          "skipLinkCount": 1
+        },
+        "headings": [
+          {
+            "level": 1,
+            "text": "Light the path.Hold the bridge.",
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 114.609375,
+              "width": 250.15625,
+              "height": 73.96875,
+              "top": 114.609375,
+              "right": 266.15625,
+              "bottom": 188.578125,
+              "left": 16
+            }
+          },
+          {
+            "level": 2,
+            "text": "How a match works",
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 438.265625,
+              "width": 217.859375,
+              "height": 27.265625,
+              "top": 438.265625,
+              "right": 233.859375,
+              "bottom": 465.53125,
+              "left": 16
+            }
+          },
+          {
+            "level": 3,
+            "text": "01 Choose 8 from 23",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 494.828125,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 494.828125,
+              "right": 363.40625,
+              "bottom": 511.234375,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "02 Hold 4 cards in hand",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 572.421875,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 572.421875,
+              "right": 363.40625,
+              "bottom": 588.828125,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "03 Spend elixir",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 650.015625,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 650.015625,
+              "right": 363.40625,
+              "bottom": 666.421875,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "04 Take the towers",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 717.703125,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 717.703125,
+              "right": 363.40625,
+              "bottom": 734.109375,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 2,
+            "text": "Follow the game into its source.",
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 899.75,
+              "width": 358,
+              "height": 66.875,
+              "top": 899.75,
+              "right": 374,
+              "bottom": 966.625,
+              "left": 16
+            }
+          }
+        ],
+        "links": [
+          {
+            "text": "Skip to content",
+            "ariaLabel": null,
+            "href": "#main",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 12,
+              "y": -55.19999694824219,
+              "width": 141.796875,
+              "height": 42,
+              "top": -55.19999694824219,
+              "right": 153.796875,
+              "bottom": -13.199996948242188,
+              "left": 12
+            }
+          },
+          {
+            "text": "Moss & Ember Riverworks card battles",
+            "ariaLabel": "Moss & Ember home",
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 7.546875,
+              "width": 181.609375,
+              "height": 48.90625,
+              "top": 7.546875,
+              "right": 197.609375,
+              "bottom": 56.453125,
+              "left": 16
+            }
+          },
+          {
+            "text": "How to play",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 209.609375,
+              "y": 10,
+              "width": 51.703125,
+              "height": 44,
+              "top": 10,
+              "right": 261.3125,
+              "bottom": 54,
+              "left": 209.609375
+            }
+          },
+          {
+            "text": "RL environment",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": false,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 274.109375,
+              "y": 10,
+              "width": 99.890625,
+              "height": 44,
+              "top": 10,
+              "right": 374,
+              "bottom": 54,
+              "left": 274.109375
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 292.390625,
+              "width": 143.109375,
+              "height": 44,
+              "top": 292.390625,
+              "right": 159.109375,
+              "bottom": 336.390625,
+              "left": 16
+            }
+          },
+          {
+            "text": "See how a match works ↓",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 340.390625,
+              "width": 163.28125,
+              "height": 38,
+              "top": 340.390625,
+              "right": 179.28125,
+              "bottom": 378.390625,
+              "left": 16
+            }
+          },
+          {
+            "text": "Read the RL API notes ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1041.859375,
+              "width": 358,
+              "height": 44,
+              "top": 1041.859375,
+              "right": 374,
+              "bottom": 1085.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "Explore the environment source ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/src/rl/environment.js",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1089.859375,
+              "width": 358,
+              "height": 44,
+              "top": 1089.859375,
+              "right": 374,
+              "bottom": 1133.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "View the GitHub repository ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1137.859375,
+              "width": 358,
+              "height": 44,
+              "top": 1137.859375,
+              "right": 374,
+              "bottom": 1181.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "Moss & Ember",
+            "ariaLabel": null,
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1230.859375,
+              "width": 113.453125,
+              "height": 22,
+              "top": 1230.859375,
+              "right": 129.453125,
+              "bottom": 1252.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "GitHub source",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1261.65625,
+              "width": 81.28125,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 97.28125,
+              "bottom": 1305.65625,
+              "left": 16
+            }
+          },
+          {
+            "text": "RL API",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 113.28125,
+              "y": 1261.65625,
+              "width": 36.953125,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 150.234375,
+              "bottom": 1305.65625,
+              "left": 113.28125
+            }
+          },
+          {
+            "text": "AGPL-3.0-only",
+            "ariaLabel": null,
+            "href": "./LICENSE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 166.234375,
+              "y": 1261.65625,
+              "width": 82.8125,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 249.046875,
+              "bottom": 1305.65625,
+              "left": 166.234375
+            }
+          },
+          {
+            "text": "Notice",
+            "ariaLabel": null,
+            "href": "./NOTICE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 265.046875,
+              "y": 1261.65625,
+              "width": 36.890625,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 301.9375,
+              "bottom": 1305.65625,
+              "left": 265.046875
+            }
+          }
+        ],
+        "visibleFocusableCount": 14,
+        "activeElement": {
+          "tag": "body",
+          "text": "Skip to content Moss & Ember Riverworks card battles How to play RL environment Play the demo ↗ Active prototype Light t",
+          "ariaLabel": null,
+          "href": null,
+          "matchesFocusVisible": false,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 1345.453125,
+            "top": 0,
+            "right": 390,
+            "bottom": 1345.453125,
+            "left": 0
+          },
+          "style": {
+            "outlineStyle": "none",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(244, 235, 214)",
+            "outlineOffset": "0px",
+            "boxShadow": "none"
+          }
+        },
+        "horizontalOverflow": false,
+        "overflowingElements": [],
+        "externalStylesheets": [],
+        "cssFontFaceRuleCount": 0
+      },
+      "screenshots": {
+        "viewport": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/phone-landing-390x844.png",
+          "width": 390,
+          "height": 844,
+          "bytes": 204049,
+          "sha256": "360073b78dbf31e5531e3aa63b4db6132b9f60d6091a91538b0be8610ea3ade8"
+        },
+        "fullPage": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/phone-landing-full.png",
+          "width": 390,
+          "height": 1345,
+          "bytes": 242757,
+          "sha256": "22fb8c4610d776185f4aebde266ba615f89c62d51a5ac200c5b84e51fcbff3e6"
+        },
+        "firstKeyboardFocus": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/phone-keyboard-first-focus.png",
+          "width": 390,
+          "height": 844,
+          "bytes": 201236,
+          "sha256": "c494cdfc0550b37118a27db0894270216755ad324295168a37f5054dd40084a4"
+        },
+        "howTo": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/phone-how-to.png",
+          "width": 390,
+          "height": 844,
+          "bytes": 203567,
+          "sha256": "57ab76fc13b8f22ed066710882987f5afb09df6cde8ee04652ebdad3143f4849"
+        }
+      },
+      "tabStops": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "href": "#main",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 141.796875,
+            "height": 42
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Moss & Ember Riverworks card battles",
+          "href": "#top",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 7.546875,
+            "width": 181.609375,
+            "height": 48.90625
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "How to play",
+          "href": "#how",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 209.609375,
+            "y": 10,
+            "width": 51.703125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Play the demo ↗",
+          "href": "./game/public/index.html",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 274.109375,
+            "y": 10,
+            "width": 99.890625,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Play the demo ↗",
+          "href": "./game/public/index.html",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 292.390625,
+            "width": 143.109375,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "See how a match works ↓",
+          "href": "#how",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 340.390625,
+            "width": 163.28125,
+            "height": 38
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Read the RL API notes ↗",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 1041.859375,
+            "width": 358,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Explore the environment source ↗",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/src/rl/environment.js",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 1089.859375,
+            "width": 358,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "View the GitHub repository ↗",
+          "href": "https://github.com/ThatXliner/clash-royale-clone",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 1137.859375,
+            "width": 358,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Moss & Ember",
+          "href": "#top",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 1230.859375,
+            "width": 113.453125,
+            "height": 22
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "GitHub source",
+          "href": "https://github.com/ThatXliner/clash-royale-clone",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 16,
+            "y": 1261.65625,
+            "width": 81.28125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "RL API",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 113.28125,
+            "y": 1261.65625,
+            "width": 36.953125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "AGPL-3.0-only",
+          "href": "./LICENSE",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 166.234375,
+            "y": 1261.65625,
+            "width": 82.8125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Notice",
+          "href": "./NOTICE",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 265.046875,
+            "y": 1261.65625,
+            "width": 36.890625,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        }
+      ],
+      "endAfterTabs": {
+        "title": "Moss & Ember — Real-time card battles",
+        "lang": "en",
+        "viewport": {
+          "innerWidth": 390,
+          "innerHeight": 844,
+          "devicePixelRatio": 1,
+          "visualViewportScale": 1
+        },
+        "document": {
+          "scrollWidth": 390,
+          "scrollHeight": 1345,
+          "clientWidth": 390,
+          "clientHeight": 844,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "landmarks": {
+          "headerCount": 1,
+          "navCount": 2,
+          "mainCount": 1,
+          "footerCount": 1,
+          "skipLinkCount": 1
+        },
+        "headings": [
+          {
+            "level": 1,
+            "text": "Light the path.Hold the bridge.",
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 114.609375,
+              "width": 250.15625,
+              "height": 73.96875,
+              "top": 114.609375,
+              "right": 266.15625,
+              "bottom": 188.578125,
+              "left": 16
+            }
+          },
+          {
+            "level": 2,
+            "text": "How a match works",
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 438.265625,
+              "width": 217.859375,
+              "height": 27.265625,
+              "top": 438.265625,
+              "right": 233.859375,
+              "bottom": 465.53125,
+              "left": 16
+            }
+          },
+          {
+            "level": 3,
+            "text": "01 Choose 8 from 23",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 494.828125,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 494.828125,
+              "right": 363.40625,
+              "bottom": 511.234375,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "02 Hold 4 cards in hand",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 572.421875,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 572.421875,
+              "right": 363.40625,
+              "bottom": 588.828125,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "03 Spend elixir",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 650.015625,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 650.015625,
+              "right": 363.40625,
+              "bottom": 666.421875,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "04 Take the towers",
+            "visible": true,
+            "rect": {
+              "x": 102.1875,
+              "y": 717.703125,
+              "width": 261.21875,
+              "height": 16.40625,
+              "top": 717.703125,
+              "right": 363.40625,
+              "bottom": 734.109375,
+              "left": 102.1875
+            }
+          },
+          {
+            "level": 2,
+            "text": "Follow the game into its source.",
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 899.75,
+              "width": 358,
+              "height": 66.875,
+              "top": 899.75,
+              "right": 374,
+              "bottom": 966.625,
+              "left": 16
+            }
+          }
+        ],
+        "links": [
+          {
+            "text": "Skip to content",
+            "ariaLabel": null,
+            "href": "#main",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 12,
+              "y": -55.19999694824219,
+              "width": 141.796875,
+              "height": 42,
+              "top": -55.19999694824219,
+              "right": 153.796875,
+              "bottom": -13.199996948242188,
+              "left": 12
+            }
+          },
+          {
+            "text": "Moss & Ember Riverworks card battles",
+            "ariaLabel": "Moss & Ember home",
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 7.546875,
+              "width": 181.609375,
+              "height": 48.90625,
+              "top": 7.546875,
+              "right": 197.609375,
+              "bottom": 56.453125,
+              "left": 16
+            }
+          },
+          {
+            "text": "How to play",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 209.609375,
+              "y": 10,
+              "width": 51.703125,
+              "height": 44,
+              "top": 10,
+              "right": 261.3125,
+              "bottom": 54,
+              "left": 209.609375
+            }
+          },
+          {
+            "text": "RL environment",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": false,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 274.109375,
+              "y": 10,
+              "width": 99.890625,
+              "height": 44,
+              "top": 10,
+              "right": 374,
+              "bottom": 54,
+              "left": 274.109375
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 292.390625,
+              "width": 143.109375,
+              "height": 44,
+              "top": 292.390625,
+              "right": 159.109375,
+              "bottom": 336.390625,
+              "left": 16
+            }
+          },
+          {
+            "text": "See how a match works ↓",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 340.390625,
+              "width": 163.28125,
+              "height": 38,
+              "top": 340.390625,
+              "right": 179.28125,
+              "bottom": 378.390625,
+              "left": 16
+            }
+          },
+          {
+            "text": "Read the RL API notes ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1041.859375,
+              "width": 358,
+              "height": 44,
+              "top": 1041.859375,
+              "right": 374,
+              "bottom": 1085.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "Explore the environment source ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/src/rl/environment.js",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1089.859375,
+              "width": 358,
+              "height": 44,
+              "top": 1089.859375,
+              "right": 374,
+              "bottom": 1133.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "View the GitHub repository ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1137.859375,
+              "width": 358,
+              "height": 44,
+              "top": 1137.859375,
+              "right": 374,
+              "bottom": 1181.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "Moss & Ember",
+            "ariaLabel": null,
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1230.859375,
+              "width": 113.453125,
+              "height": 22,
+              "top": 1230.859375,
+              "right": 129.453125,
+              "bottom": 1252.859375,
+              "left": 16
+            }
+          },
+          {
+            "text": "GitHub source",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 16,
+              "y": 1261.65625,
+              "width": 81.28125,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 97.28125,
+              "bottom": 1305.65625,
+              "left": 16
+            }
+          },
+          {
+            "text": "RL API",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 113.28125,
+              "y": 1261.65625,
+              "width": 36.953125,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 150.234375,
+              "bottom": 1305.65625,
+              "left": 113.28125
+            }
+          },
+          {
+            "text": "AGPL-3.0-only",
+            "ariaLabel": null,
+            "href": "./LICENSE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 166.234375,
+              "y": 1261.65625,
+              "width": 82.8125,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 249.046875,
+              "bottom": 1305.65625,
+              "left": 166.234375
+            }
+          },
+          {
+            "text": "Notice",
+            "ariaLabel": null,
+            "href": "./NOTICE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 265.046875,
+              "y": 1261.65625,
+              "width": 36.890625,
+              "height": 44,
+              "top": 1261.65625,
+              "right": 301.9375,
+              "bottom": 1305.65625,
+              "left": 265.046875
+            }
+          }
+        ],
+        "visibleFocusableCount": 14,
+        "activeElement": {
+          "tag": "a",
+          "text": "Notice",
+          "ariaLabel": null,
+          "href": "./NOTICE",
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 265.046875,
+            "y": 1261.65625,
+            "width": 36.890625,
+            "height": 44,
+            "top": 1261.65625,
+            "right": 301.9375,
+            "bottom": 1305.65625,
+            "left": 265.046875
+          },
+          "style": {
+            "outlineStyle": "solid",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 210, 122)",
+            "outlineOffset": "4px",
+            "boxShadow": "none"
+          }
+        },
+        "horizontalOverflow": false,
+        "overflowingElements": [],
+        "externalStylesheets": [],
+        "cssFontFaceRuleCount": 0
+      },
+      "howToNavigation": {
+        "hash": "#how",
+        "scrollY": 0,
+        "targetVisible": true
+      }
+    },
+    {
+      "id": "desktop",
+      "width": 1440,
+      "height": 933,
+      "deviceScaleFactor": 1,
+      "top": {
+        "title": "Moss & Ember — Real-time card battles",
+        "lang": "en",
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 933,
+          "devicePixelRatio": 1,
+          "visualViewportScale": 1
+        },
+        "document": {
+          "scrollWidth": 1440,
+          "scrollHeight": 1453,
+          "clientWidth": 1440,
+          "clientHeight": 933,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "landmarks": {
+          "headerCount": 1,
+          "navCount": 2,
+          "mainCount": 1,
+          "footerCount": 1,
+          "skipLinkCount": 1
+        },
+        "headings": [
+          {
+            "level": 1,
+            "text": "Light the path.Hold the bridge.",
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 233.578125,
+              "width": 680,
+              "height": 174.15625,
+              "top": 233.578125,
+              "right": 780,
+              "bottom": 407.734375,
+              "left": 100
+            }
+          },
+          {
+            "level": 2,
+            "text": "How a match works",
+            "visible": true,
+            "rect": {
+              "x": 291.03125,
+              "y": 752.09375,
+              "width": 351.375,
+              "height": 44,
+              "top": 752.09375,
+              "right": 642.40625,
+              "bottom": 796.09375,
+              "left": 291.03125
+            }
+          },
+          {
+            "level": 3,
+            "text": "01 Choose 8 from 23",
+            "visible": true,
+            "rect": {
+              "x": 117,
+              "y": 904.671875,
+              "width": 266.390625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 383.390625,
+              "bottom": 924.21875,
+              "left": 117
+            }
+          },
+          {
+            "level": 3,
+            "text": "02 Hold 4 cards in hand",
+            "visible": true,
+            "rect": {
+              "x": 430.1875,
+              "y": 904.671875,
+              "width": 266.40625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 696.59375,
+              "bottom": 924.21875,
+              "left": 430.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "03 Spend elixir",
+            "visible": true,
+            "rect": {
+              "x": 743.390625,
+              "y": 904.671875,
+              "width": 266.40625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 1009.796875,
+              "bottom": 924.21875,
+              "left": 743.390625
+            }
+          },
+          {
+            "level": 3,
+            "text": "04 Take the towers",
+            "visible": true,
+            "rect": {
+              "x": 1056.59375,
+              "y": 904.671875,
+              "width": 266.40625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 1323,
+              "bottom": 924.21875,
+              "left": 1056.59375
+            }
+          },
+          {
+            "level": 2,
+            "text": "Follow the game into its source.",
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 1185.6875,
+              "width": 610,
+              "height": 44,
+              "top": 1185.6875,
+              "right": 710,
+              "bottom": 1229.6875,
+              "left": 100
+            }
+          }
+        ],
+        "links": [
+          {
+            "text": "Skip to content",
+            "ariaLabel": null,
+            "href": "#main",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 12,
+              "y": -55.19999694824219,
+              "width": 141.796875,
+              "height": 42,
+              "top": -55.19999694824219,
+              "right": 153.796875,
+              "bottom": -13.199996948242188,
+              "left": 12
+            }
+          },
+          {
+            "text": "Moss & Ember Riverworks card battles",
+            "ariaLabel": "Moss & Ember home",
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 18,
+              "width": 250,
+              "height": 40,
+              "top": 18,
+              "right": 350,
+              "bottom": 58,
+              "left": 100
+            }
+          },
+          {
+            "text": "How to play",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 947.84375,
+              "y": 16,
+              "width": 76.3125,
+              "height": 44,
+              "top": 16,
+              "right": 1024.15625,
+              "bottom": 60,
+              "left": 947.84375
+            }
+          },
+          {
+            "text": "RL environment",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1059.34375,
+              "y": 16,
+              "width": 102.125,
+              "height": 44,
+              "top": 16,
+              "right": 1161.46875,
+              "bottom": 60,
+              "left": 1059.34375
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1196.65625,
+              "y": 16,
+              "width": 143.34375,
+              "height": 44,
+              "top": 16,
+              "right": 1340,
+              "bottom": 60,
+              "left": 1196.65625
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 510.765625,
+              "width": 158.9375,
+              "height": 48,
+              "top": 510.765625,
+              "right": 258.9375,
+              "bottom": 558.765625,
+              "left": 100
+            }
+          },
+          {
+            "text": "See how a match works ↓",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 278.9375,
+              "y": 512.765625,
+              "width": 173.75,
+              "height": 44,
+              "top": 512.765625,
+              "right": 452.6875,
+              "bottom": 556.765625,
+              "left": 278.9375
+            }
+          },
+          {
+            "text": "Read the RL API notes ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 842.578125,
+              "y": 1155.421875,
+              "width": 497.40625,
+              "height": 44,
+              "top": 1155.421875,
+              "right": 1339.984375,
+              "bottom": 1199.421875,
+              "left": 842.578125
+            }
+          },
+          {
+            "text": "Explore the environment source ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/src/rl/environment.js",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 842.578125,
+              "y": 1203.421875,
+              "width": 497.40625,
+              "height": 44,
+              "top": 1203.421875,
+              "right": 1339.984375,
+              "bottom": 1247.421875,
+              "left": 842.578125
+            }
+          },
+          {
+            "text": "View the GitHub repository ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 842.578125,
+              "y": 1251.421875,
+              "width": 497.40625,
+              "height": 44,
+              "top": 1251.421875,
+              "right": 1339.984375,
+              "bottom": 1295.421875,
+              "left": 842.578125
+            }
+          },
+          {
+            "text": "Moss & Ember",
+            "ariaLabel": null,
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 1395.921875,
+              "width": 113.453125,
+              "height": 22,
+              "top": 1395.921875,
+              "right": 213.453125,
+              "bottom": 1417.921875,
+              "left": 100
+            }
+          },
+          {
+            "text": "GitHub source",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 908.796875,
+              "y": 1384.921875,
+              "width": 81.28125,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 990.078125,
+              "bottom": 1428.921875,
+              "left": 908.796875
+            }
+          },
+          {
+            "text": "RL API",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1006.078125,
+              "y": 1384.921875,
+              "width": 36.953125,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 1043.03125,
+              "bottom": 1428.921875,
+              "left": 1006.078125
+            }
+          },
+          {
+            "text": "AGPL-3.0-only",
+            "ariaLabel": null,
+            "href": "./LICENSE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1059.03125,
+              "y": 1384.921875,
+              "width": 82.8125,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 1141.84375,
+              "bottom": 1428.921875,
+              "left": 1059.03125
+            }
+          },
+          {
+            "text": "Notice",
+            "ariaLabel": null,
+            "href": "./NOTICE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1157.84375,
+              "y": 1384.921875,
+              "width": 36.890625,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 1194.734375,
+              "bottom": 1428.921875,
+              "left": 1157.84375
+            }
+          }
+        ],
+        "visibleFocusableCount": 15,
+        "activeElement": {
+          "tag": "body",
+          "text": "Skip to content Moss & Ember Riverworks card battles How to play RL environment Play the demo ↗ Active prototype Light t",
+          "ariaLabel": null,
+          "href": null,
+          "matchesFocusVisible": false,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 1453.421875,
+            "top": 0,
+            "right": 1440,
+            "bottom": 1453.421875,
+            "left": 0
+          },
+          "style": {
+            "outlineStyle": "none",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(244, 235, 214)",
+            "outlineOffset": "0px",
+            "boxShadow": "none"
+          }
+        },
+        "horizontalOverflow": false,
+        "overflowingElements": [],
+        "externalStylesheets": [],
+        "cssFontFaceRuleCount": 0
+      },
+      "screenshots": {
+        "viewport": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/desktop-landing-1440x933.png",
+          "width": 1440,
+          "height": 933,
+          "bytes": 498497,
+          "sha256": "cba47953b0b5079d6392022c7d06a855ef5b333618ff0b965a9d7439b7198878"
+        },
+        "fullPage": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/desktop-landing-full.png",
+          "width": 1440,
+          "height": 1453,
+          "bytes": 588568,
+          "sha256": "33be5a79f8bbfda1493d7dbf513dc3d8158438377ebb6022d84ac732cf20046a"
+        },
+        "firstKeyboardFocus": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/desktop-keyboard-first-focus.png",
+          "width": 1440,
+          "height": 933,
+          "bytes": 500124,
+          "sha256": "c2039509736b9509de18f40327ba42acb8e5a2adb37b3ada58c8af4830f35640"
+        },
+        "howTo": {
+          "path": "/Users/me/.codex/clash-qualification/20261020-design-r4-site-critic/site/output/native-captures/desktop-how-to.png",
+          "width": 1440,
+          "height": 933,
+          "bytes": 497985,
+          "sha256": "f1601c8ac4d237124262d75734dba12fa917489293b0121a4b7d9bb90b677e23"
+        }
+      },
+      "tabStops": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "href": "#main",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 141.796875,
+            "height": 42
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Moss & Ember Riverworks card battles",
+          "href": "#top",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 100,
+            "y": 18,
+            "width": 250,
+            "height": 40
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "How to play",
+          "href": "#how",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 947.84375,
+            "y": 16,
+            "width": 76.3125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "RL environment",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 1059.34375,
+            "y": 16,
+            "width": 102.125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Play the demo ↗",
+          "href": "./game/public/index.html",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 1196.65625,
+            "y": 16,
+            "width": 143.34375,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Play the demo ↗",
+          "href": "./game/public/index.html",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 100,
+            "y": 510.765625,
+            "width": 158.9375,
+            "height": 48
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "See how a match works ↓",
+          "href": "#how",
+          "visible": true,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 278.9375,
+            "y": 512.765625,
+            "width": 173.75,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Read the RL API notes ↗",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 842.578125,
+            "y": 1155.421875,
+            "width": 497.40625,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Explore the environment source ↗",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/src/rl/environment.js",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 842.578125,
+            "y": 1203.421875,
+            "width": 497.40625,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "View the GitHub repository ↗",
+          "href": "https://github.com/ThatXliner/clash-royale-clone",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 842.578125,
+            "y": 1251.421875,
+            "width": 497.40625,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Moss & Ember",
+          "href": "#top",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 100,
+            "y": 1395.921875,
+            "width": 113.453125,
+            "height": 22
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "GitHub source",
+          "href": "https://github.com/ThatXliner/clash-royale-clone",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 908.796875,
+            "y": 1384.921875,
+            "width": 81.28125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "RL API",
+          "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 1006.078125,
+            "y": 1384.921875,
+            "width": 36.953125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "AGPL-3.0-only",
+          "href": "./LICENSE",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 1059.03125,
+            "y": 1384.921875,
+            "width": 82.8125,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        },
+        {
+          "tag": "a",
+          "text": "Notice",
+          "href": "./NOTICE",
+          "visible": false,
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 1157.84375,
+            "y": 1384.921875,
+            "width": 36.890625,
+            "height": 44
+          },
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "color": "rgb(255, 210, 122)"
+          }
+        }
+      ],
+      "endAfterTabs": {
+        "title": "Moss & Ember — Real-time card battles",
+        "lang": "en",
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 933,
+          "devicePixelRatio": 1,
+          "visualViewportScale": 1
+        },
+        "document": {
+          "scrollWidth": 1440,
+          "scrollHeight": 1453,
+          "clientWidth": 1440,
+          "clientHeight": 933,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "landmarks": {
+          "headerCount": 1,
+          "navCount": 2,
+          "mainCount": 1,
+          "footerCount": 1,
+          "skipLinkCount": 1
+        },
+        "headings": [
+          {
+            "level": 1,
+            "text": "Light the path.Hold the bridge.",
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 233.578125,
+              "width": 680,
+              "height": 174.15625,
+              "top": 233.578125,
+              "right": 780,
+              "bottom": 407.734375,
+              "left": 100
+            }
+          },
+          {
+            "level": 2,
+            "text": "How a match works",
+            "visible": true,
+            "rect": {
+              "x": 291.03125,
+              "y": 752.09375,
+              "width": 351.375,
+              "height": 44,
+              "top": 752.09375,
+              "right": 642.40625,
+              "bottom": 796.09375,
+              "left": 291.03125
+            }
+          },
+          {
+            "level": 3,
+            "text": "01 Choose 8 from 23",
+            "visible": true,
+            "rect": {
+              "x": 117,
+              "y": 904.671875,
+              "width": 266.390625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 383.390625,
+              "bottom": 924.21875,
+              "left": 117
+            }
+          },
+          {
+            "level": 3,
+            "text": "02 Hold 4 cards in hand",
+            "visible": true,
+            "rect": {
+              "x": 430.1875,
+              "y": 904.671875,
+              "width": 266.40625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 696.59375,
+              "bottom": 924.21875,
+              "left": 430.1875
+            }
+          },
+          {
+            "level": 3,
+            "text": "03 Spend elixir",
+            "visible": true,
+            "rect": {
+              "x": 743.390625,
+              "y": 904.671875,
+              "width": 266.40625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 1009.796875,
+              "bottom": 924.21875,
+              "left": 743.390625
+            }
+          },
+          {
+            "level": 3,
+            "text": "04 Take the towers",
+            "visible": true,
+            "rect": {
+              "x": 1056.59375,
+              "y": 904.671875,
+              "width": 266.40625,
+              "height": 19.546875,
+              "top": 904.671875,
+              "right": 1323,
+              "bottom": 924.21875,
+              "left": 1056.59375
+            }
+          },
+          {
+            "level": 2,
+            "text": "Follow the game into its source.",
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 1185.6875,
+              "width": 610,
+              "height": 44,
+              "top": 1185.6875,
+              "right": 710,
+              "bottom": 1229.6875,
+              "left": 100
+            }
+          }
+        ],
+        "links": [
+          {
+            "text": "Skip to content",
+            "ariaLabel": null,
+            "href": "#main",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 12,
+              "y": -55.19999694824219,
+              "width": 141.796875,
+              "height": 42,
+              "top": -55.19999694824219,
+              "right": 153.796875,
+              "bottom": -13.199996948242188,
+              "left": 12
+            }
+          },
+          {
+            "text": "Moss & Ember Riverworks card battles",
+            "ariaLabel": "Moss & Ember home",
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 18,
+              "width": 250,
+              "height": 40,
+              "top": 18,
+              "right": 350,
+              "bottom": 58,
+              "left": 100
+            }
+          },
+          {
+            "text": "How to play",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 947.84375,
+              "y": 16,
+              "width": 76.3125,
+              "height": 44,
+              "top": 16,
+              "right": 1024.15625,
+              "bottom": 60,
+              "left": 947.84375
+            }
+          },
+          {
+            "text": "RL environment",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1059.34375,
+              "y": 16,
+              "width": 102.125,
+              "height": 44,
+              "top": 16,
+              "right": 1161.46875,
+              "bottom": 60,
+              "left": 1059.34375
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1196.65625,
+              "y": 16,
+              "width": 143.34375,
+              "height": 44,
+              "top": 16,
+              "right": 1340,
+              "bottom": 60,
+              "left": 1196.65625
+            }
+          },
+          {
+            "text": "Play the demo ↗",
+            "ariaLabel": null,
+            "href": "./game/public/index.html",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 510.765625,
+              "width": 158.9375,
+              "height": 48,
+              "top": 510.765625,
+              "right": 258.9375,
+              "bottom": 558.765625,
+              "left": 100
+            }
+          },
+          {
+            "text": "See how a match works ↓",
+            "ariaLabel": null,
+            "href": "#how",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 278.9375,
+              "y": 512.765625,
+              "width": 173.75,
+              "height": 44,
+              "top": 512.765625,
+              "right": 452.6875,
+              "bottom": 556.765625,
+              "left": 278.9375
+            }
+          },
+          {
+            "text": "Read the RL API notes ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 842.578125,
+              "y": 1155.421875,
+              "width": 497.40625,
+              "height": 44,
+              "top": 1155.421875,
+              "right": 1339.984375,
+              "bottom": 1199.421875,
+              "left": 842.578125
+            }
+          },
+          {
+            "text": "Explore the environment source ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/src/rl/environment.js",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 842.578125,
+              "y": 1203.421875,
+              "width": 497.40625,
+              "height": 44,
+              "top": 1203.421875,
+              "right": 1339.984375,
+              "bottom": 1247.421875,
+              "left": 842.578125
+            }
+          },
+          {
+            "text": "View the GitHub repository ↗",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 842.578125,
+              "y": 1251.421875,
+              "width": 497.40625,
+              "height": 44,
+              "top": 1251.421875,
+              "right": 1339.984375,
+              "bottom": 1295.421875,
+              "left": 842.578125
+            }
+          },
+          {
+            "text": "Moss & Ember",
+            "ariaLabel": null,
+            "href": "#top",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 100,
+              "y": 1395.921875,
+              "width": 113.453125,
+              "height": 22,
+              "top": 1395.921875,
+              "right": 213.453125,
+              "bottom": 1417.921875,
+              "left": 100
+            }
+          },
+          {
+            "text": "GitHub source",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 908.796875,
+              "y": 1384.921875,
+              "width": 81.28125,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 990.078125,
+              "bottom": 1428.921875,
+              "left": 908.796875
+            }
+          },
+          {
+            "text": "RL API",
+            "ariaLabel": null,
+            "href": "https://github.com/ThatXliner/clash-royale-clone/blob/main/docs/rl-api.md",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1006.078125,
+              "y": 1384.921875,
+              "width": 36.953125,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 1043.03125,
+              "bottom": 1428.921875,
+              "left": 1006.078125
+            }
+          },
+          {
+            "text": "AGPL-3.0-only",
+            "ariaLabel": null,
+            "href": "./LICENSE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1059.03125,
+              "y": 1384.921875,
+              "width": 82.8125,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 1141.84375,
+              "bottom": 1428.921875,
+              "left": 1059.03125
+            }
+          },
+          {
+            "text": "Notice",
+            "ariaLabel": null,
+            "href": "./NOTICE",
+            "target": null,
+            "visible": true,
+            "rect": {
+              "x": 1157.84375,
+              "y": 1384.921875,
+              "width": 36.890625,
+              "height": 44,
+              "top": 1384.921875,
+              "right": 1194.734375,
+              "bottom": 1428.921875,
+              "left": 1157.84375
+            }
+          }
+        ],
+        "visibleFocusableCount": 15,
+        "activeElement": {
+          "tag": "a",
+          "text": "Notice",
+          "ariaLabel": null,
+          "href": "./NOTICE",
+          "matchesFocusVisible": true,
+          "rect": {
+            "x": 1157.84375,
+            "y": 1384.921875,
+            "width": 36.890625,
+            "height": 44,
+            "top": 1384.921875,
+            "right": 1194.734375,
+            "bottom": 1428.921875,
+            "left": 1157.84375
+          },
+          "style": {
+            "outlineStyle": "solid",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 210, 122)",
+            "outlineOffset": "4px",
+            "boxShadow": "none"
+          }
+        },
+        "horizontalOverflow": false,
+        "overflowingElements": [],
+        "externalStylesheets": [],
+        "cssFontFaceRuleCount": 0
+      },
+      "howToNavigation": {
+        "hash": "#how",
+        "scrollY": 0,
+        "targetVisible": true
+      }
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/",
+      "resourceType": "document",
+      "isNavigationRequest": true
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/assets/site.css",
+      "resourceType": "stylesheet",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "image",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/gameplay.png",
+      "resourceType": "image",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "other",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/",
+      "resourceType": "document",
+      "isNavigationRequest": true
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/assets/site.css",
+      "resourceType": "stylesheet",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "image",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/gameplay.png",
+      "resourceType": "image",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "other",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "other",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/",
+      "resourceType": "document",
+      "isNavigationRequest": true
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/assets/site.css",
+      "resourceType": "stylesheet",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "image",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/gameplay.png",
+      "resourceType": "image",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "other",
+      "isNavigationRequest": false
+    },
+    {
+      "url": "http://127.0.0.1:64218/clash-royale-clone/brand/logo.svg",
+      "resourceType": "other",
+      "isNavigationRequest": false
+    }
+  ],
+  "requestFailures": [],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "navigation": {
+    "requestedUrl": "http://127.0.0.1:64218/clash-royale-clone/",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:64218/clash-royale-clone/",
+    "playDemo": {
+      "sourceStatus": 200,
+      "destinationUrl": "http://127.0.0.1:64218/clash-royale-clone/game/public/index.html",
+      "destinationTitle": "Moss & Ember — Card battler",
+      "destinationStatus": "complete"
+    }
+  },
+  "browserVersion": "155.0.8059.85",
+  "finishedAt": "2026-10-20T17:22:45.640Z"
+}
