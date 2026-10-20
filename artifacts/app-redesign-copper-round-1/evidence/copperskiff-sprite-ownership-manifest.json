@@ -1,0 +1,551 @@
+{
+  "schemaVersion": 1,
+  "artifact": "APP-REDESIGN-COPPER-001 Copperskiff sprite integration builder",
+  "workspace": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1",
+  "baseline": {
+    "sourceCommit": "d74c3d7c076c2782a7d1bb09696ae6c470c40748",
+    "archive": "source-base.tar",
+    "archiveSha256": "074bd2e8158088b67c7d1c17570d2290397f65f7f64dc008d5cd2e8bd0a4f155",
+    "archiveBytes": 77608960,
+    "archiveDisposition": "local baseline input used for read-only file comparison; excluded from project contribution files"
+  },
+  "approvedUiOverlay": {
+    "sourceCommit": "7af62ecf7af25f9cfb944c9d4858272cdbd13220",
+    "combinedSha256InOrderPublicIndexAppShellJsAppShellCss": "320a386ab19bbaaeb5ef3fb393fae64aa2aac65d7d8a68c808eeec726afe8abb"
+  },
+  "files": [
+    {
+      "change": "modified",
+      "path": "public/index.html",
+      "sha256": "59e29ae8a1c978c350de8ad1e52f4fb84b179c983effb2ac74e93bf8bcfa981d",
+      "byteLength": 11952
+    },
+    {
+      "change": "added",
+      "path": "public/assets/copperskiff-battle-sprite.png",
+      "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+      "byteLength": 9990
+    },
+    {
+      "change": "modified",
+      "path": "src/content/visual-asset-manifest.js",
+      "sha256": "55728175441d54bb8e3cb7811afc0c70cfd7952e15782c2d6792045a0a7a7f98",
+      "byteLength": 20704
+    },
+    {
+      "change": "modified",
+      "path": "src/ui/app-shell.js",
+      "sha256": "58daaef6ed0acb0eca671ac02aaf1aa36a1f56e7ae448adb078b7eb5a33ef750",
+      "byteLength": 43153
+    },
+    {
+      "change": "modified",
+      "path": "src/ui/app-shell.css",
+      "sha256": "55398d234de91841918dcbe381f18d81dc3ae919c2fb4277e430368553ea7891",
+      "byteLength": 51221
+    },
+    {
+      "change": "modified",
+      "path": "src/ui/combat-art.js",
+      "sha256": "d813ef6c23cce7cb4d75056d40bb7ecaeff91bac3994f657c9f332141fa4b43d",
+      "byteLength": 22906
+    },
+    {
+      "change": "modified",
+      "path": "src/ui/combat-motion.js",
+      "sha256": "8ad48480ec3e5911ee03d89051a7a6a9a20cfeb74575d2b12ae85e100bdd6ea0",
+      "byteLength": 12822
+    },
+    {
+      "change": "modified",
+      "path": "src/ui/combat-state.js",
+      "sha256": "3061fb77a78e21d39ff4d6c0c3ba32bde8645c8f61d8c2dc51d8174222057aa1",
+      "byteLength": 27547
+    },
+    {
+      "change": "added",
+      "path": "scripts/build-copperskiff-atlas.py",
+      "sha256": "292d2d85cc8b3fd39c40eb46d8313c2cc2f8da3f76050107dbfe3483e011f937",
+      "byteLength": 12492
+    },
+    {
+      "change": "added",
+      "path": "docs/art/copperskiff-battle-sprite-provenance.json",
+      "sha256": "6e1160c1304da5d230cf28e3001368d0c9b56dabe60930f2814a5ea11eb47bab",
+      "byteLength": 14770,
+      "use": "Sprite provenance, pack/hash evidence, source freeze, and scoped browser results."
+    },
+    {
+      "change": "added",
+      "path": "docs/art/copperskiff-actual-game-browser-attempt-receipt.json",
+      "sha256": "3818aad62ead0d3fbf02931c8f9e9d92a6f5244ffff69ac39e66ef58dbf05971",
+      "byteLength": 56696,
+      "use": "Append-only run receipt with corrected pinned-main evidence and remaining input/audio gates."
+    },
+    {
+      "change": "added",
+      "path": "docs/art/copperskiff-sprite-ownership-manifest.json",
+      "sha256": "406cda50b1c3bd6e2125bbdc18263130b64a3f53ce16c1fba0c2728d2fc6384e",
+      "byteLength": 8015,
+      "use": "Ownership/source comparison manifest; its recursive hash is held externally."
+    },
+    {
+      "change": "added",
+      "path": "reference/stats/towers.json",
+      "sha256": "f14420eff33d6187c2cc8260b2bf4857db00c9b8e371910be64246601cfd0e53",
+      "byteLength": 1075,
+      "use": "Test-only byte-pinned tower fixture; not imported or bundled by product code."
+    },
+    {
+      "change": "modified",
+      "path": "tests/ui-combat-state.test.js",
+      "sha256": "bd3fc2c49d0aa7d3e45a3205fc788933615db53dbb86f1240caa22bfa681cc0e",
+      "byteLength": 34097,
+      "use": "Focused combat-state tests and test-only tower fixture coverage."
+    },
+    {
+      "change": "added",
+      "path": "tests/copperskiff-live-sprite.test.js",
+      "sha256": "e8d4cb52eb6a87710959e1f41029b22f14b54ad17a80cce315df1555e946e582",
+      "byteLength": 7728,
+      "use": "Focused Copperskiff unit coverage."
+    },
+    {
+      "change": "added",
+      "path": "tests/copperskiff-live-sprite-browser-fixture.html",
+      "sha256": "7db0bc190a69285b589941f8b1d437457469be47504331b29f635b1fca5bf303",
+      "byteLength": 1231,
+      "use": "Asset-only browser fixture page."
+    },
+    {
+      "change": "added",
+      "path": "tests/copperskiff-live-sprite-browser-fixture.js",
+      "sha256": "2a94ba13087f4a9d9d92125a676724009aa0c7c288c2a58d1a34fa67237504a0",
+      "byteLength": 3427,
+      "use": "Asset-only browser fixture implementation."
+    },
+    {
+      "change": "added",
+      "path": "tests/copperskiff-live-sprite-browser.test.js",
+      "sha256": "93ebd173c030ceff9976881ee4979ed03ecf6f6e60ebca08195cba0c622eb1ed",
+      "byteLength": 6943,
+      "use": "Asset-only browser fixture test."
+    },
+    {
+      "change": "added",
+      "path": "tests/copperskiff-live-sprite-game-browser.test.js",
+      "sha256": "80c12ee8dc5af5ac355ae05f6e2227ff6ace89579da35f7e876c8f9eb40d319d",
+      "byteLength": 44968,
+      "use": "Actual shipped-game browser fixture and bounded matrix assertions."
+    },
+    {
+      "change": "added",
+      "path": "scripts/run-copperskiff-one-case-probe.py",
+      "sha256": "12b53a744c7466764f052e1a3b092ff52fb494b010a68c508419e11d8442f20e",
+      "use": "Portable append-only launcher; runtime paths are supplied through an allowlisted environment, and source preflight runs before Node.",
+      "byteLength": 6466
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/architecture.md",
+      "sha256": "cebcf7a34c055398f3b4f4740a826c78a387538da79af11aecfeff9ac8ecd8a7",
+      "byteLength": 6362
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/raw-frame-sha256.txt",
+      "sha256": "277e819068fe234e9df27a20ac978247f9a9267f0d92e391ae9d8c957dd2d23c",
+      "byteLength": 3472
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/source-base.txt",
+      "sha256": "8fceb15a8ab248deebfe982cea032fe1e91570cfb581e3c46a07cb9a46e6a926",
+      "byteLength": 828
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/1440x933-26px-normal.png",
+      "sha256": "a4c66b745f89fdb166a5fe77e84876eb07d5a9c27fa7bdd3cade76b9da051e57",
+      "byteLength": 57222,
+      "use": "asset-only fixture screenshot; not full-app proof"
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/1440x933-26px-reduced.png",
+      "sha256": "a4c66b745f89fdb166a5fe77e84876eb07d5a9c27fa7bdd3cade76b9da051e57",
+      "byteLength": 57222,
+      "use": "asset-only fixture screenshot; not full-app proof"
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/390x844-13px-normal.png",
+      "sha256": "4ccbdf1709a28958ade2c91109b4042057f9528335228363b7a63c8d931d5631",
+      "byteLength": 28438,
+      "use": "asset-only fixture screenshot; not full-app proof"
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/390x844-13px-reduced.png",
+      "sha256": "4ccbdf1709a28958ade2c91109b4042057f9528335228363b7a63c8d931d5631",
+      "byteLength": 28438,
+      "use": "asset-only fixture screenshot; not full-app proof"
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/browser-report.json",
+      "sha256": "42d24c106cb5f4d804f008c02fdfa66bb123c7a80914f84de5cabe67d658b832",
+      "byteLength": 27481,
+      "use": "asset-only fixture report; not full-app proof"
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/actual-game-one-case-probe.json",
+      "sha256": "183bbc0b010ec166e215000effae02aeb58f749aa45305dcedae58ef918e8db8",
+      "byteLength": 18989,
+      "use": "historical corrected-owner one-case actual-game diagnostic; exact restore and two visible markers passed, but the 11,000-millitile pair targeted towers and did not validate horizontal headings"
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/390x844-normal-horizontal.png",
+      "sha256": "c9d19617dbf99f587955615631bc9ff773ea07cc129d1c251c859100f9efc110",
+      "byteLength": 335325,
+      "use": "corrected actual-game diagnostic screenshot with two visible markers; no full visual verdict"
+    },
+    {
+      "change": "added",
+      "path": "docs/art/copperskiff-source-freeze.json",
+      "sha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50",
+      "byteLength": 42723,
+      "use": "Pinned source inventory and main-object preflight expectations."
+    },
+    {
+      "change": "added",
+      "path": "scripts/check-copperskiff-source-freeze.py",
+      "sha256": "14599fd1f9bb7eae5574c36aa965add91b30956e8aa4d6d50461086c5eb0f072",
+      "byteLength": 3494,
+      "use": "Portable pre-launch fence requiring all unowned source/public/package/config bytes to match the pinned main freeze."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/game-browser-entry-dirty-input.js",
+      "sha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "byteLength": 45957,
+      "use": "Preserved historical incorrect physical-root source input; never used by the corrected-main run."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/source-correction-receipt.json",
+      "sha256": "2dc699c9bc443647b5edcdf8d7d10c3a53d0c1c2a3ce5ddf8d9b5c5fe5e64812",
+      "byteLength": 536,
+      "use": "Explains source input provenance correction and pinned main object hashes."
+    },
+    {
+      "change": "modified",
+      "path": "src/ui/game-browser-entry.js",
+      "sha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+      "byteLength": 46768,
+      "use": "Exact main Git-object bytes; no Copperskiff product delta."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-normal-horizontal.png",
+      "sha256": "cdfea29510fd4f4da12cad17d92c2d7c891221f00699202bb438e242ebd2ad97",
+      "byteLength": 477228,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-normal-vertical.png",
+      "sha256": "40709091e227716e9c79533fcf45c34cc2c2d6d3831f12370156dcd47f8a19f9",
+      "byteLength": 476315,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-reduced-horizontal.png",
+      "sha256": "87cbd24be8437eb02e31db821ed9699edd822f7990161080c6f45645f75c4542",
+      "byteLength": 477229,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-reduced-vertical.png",
+      "sha256": "2812e009edbf76747e583bb9c5948e1d6ee0a23ac475a16a348db14902cd4d76",
+      "byteLength": 476315,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-normal-horizontal.png",
+      "sha256": "566a8ac4bc0434c7e9e81dfbdea617c1e30b24475e64d67585fe5dec252f9330",
+      "byteLength": 335815,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-normal-vertical.png",
+      "sha256": "4868b5203ec666a57d4998aa0ca78edb64a35a832b5b4262f6f6d5a35205b115",
+      "byteLength": 335263,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-reduced-horizontal.png",
+      "sha256": "6a8c818713790c0aae91c04f9e5ebf0fa529c2cd0b7459fac16f25da0dc588c2",
+      "byteLength": 335817,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-reduced-vertical.png",
+      "sha256": "5a990eb63ad06ff2926f8f1f3bab8313b889dddc12fd2349b0afa5ad6fca5d91",
+      "byteLength": 335263,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/actual-game-report.json",
+      "sha256": "2a927be29705df6820f4b08c3d0b1cf41be26daa08fd479c4d9caf063cee8860",
+      "byteLength": 752972,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/argv.json",
+      "sha256": "e40d10f4e2fcd81fedbb4178c8812d18d0270d2b656f038828fb051405df94d4",
+      "byteLength": 108,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/artifact-directory.txt",
+      "sha256": "bad58ecbb4c0be79d30158b90a8f57958a745f3b799c0906c9fe3f875bf6ea7a",
+      "byteLength": 179,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/environment-allowlist.json",
+      "sha256": "58a6f0213b720cb48b9a8d83b96de7ce47783cd24fe8d0b61901388f8d933ba4",
+      "byteLength": 772,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/exit-code.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "byteLength": 2,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/launcher-argv.json",
+      "sha256": "2fa26e1b793abcd20a4605f66be74dcba366a3bbfb79fa5c3a80edd7071154ab",
+      "byteLength": 74,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/manager-pid.txt",
+      "sha256": "010445058b570d131cb3e93a6c6f58e47ab0bd520a65c1be55df79c3990f61ee",
+      "byteLength": 6,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/mode.txt",
+      "sha256": "76345fb1bd8105e65a9a187dd2dcc6d4010a535b3fd63d33adafc0a675c8c224",
+      "byteLength": 12,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-argv.json",
+      "sha256": "e183510be3c3b042f29598bb522a4fab10685bef7d3f6538ab66ffc7123ead1a",
+      "byteLength": 115,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-exit-code.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "byteLength": 2,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-stdout.txt",
+      "sha256": "afa7d1fca103c7e0697fe5bd7b0e42e50032a8faf84837e5faf3175ee333d2d9",
+      "byteLength": 386,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/stdout.txt",
+      "sha256": "52aab3fa3e4a1ee894930c4c6cc80ce6341c5016f08976d155c0a4798772165f",
+      "byteLength": 366,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/test-child-pid.txt",
+      "sha256": "e8328a5847f373d1e56f4a52035c2909fab32e34bb1238f377079bbc37680d27",
+      "byteLength": 6,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/working-directory.txt",
+      "sha256": "9f96fc4fdae2a7cb6136648f8ffc58f63ff6c71572cf2834d8459a731b812cf7",
+      "byteLength": 73,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/phone-horizontal-contact-after-restore.png",
+      "sha256": "566a8ac4bc0434c7e9e81dfbdea617c1e30b24475e64d67585fe5dec252f9330",
+      "byteLength": 335815,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/phone-horizontal-contact-before-restore.png",
+      "sha256": "566a8ac4bc0434c7e9e81dfbdea617c1e30b24475e64d67585fe5dec252f9330",
+      "byteLength": 335815,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/phone-horizontal-contact-checkpoint.png",
+      "sha256": "566a8ac4bc0434c7e9e81dfbdea617c1e30b24475e64d67585fe5dec252f9330",
+      "byteLength": 335815,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/restart-after-click.png",
+      "sha256": "0740bb9ba382407575ee17b158d9c0f3f35220e10314acb4b26d14d06d161405",
+      "byteLength": 335271,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    },
+    {
+      "change": "added",
+      "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/restart-terminal.png",
+      "sha256": "5aa7c473374ea82f8c0b1d88696ff422f7c92096a6fb93f275c743f4cce15070",
+      "byteLength": 324255,
+      "use": "Append-only corrected pinned-main browser run evidence or raw launcher receipt."
+    }
+  ],
+  "verification": {
+    "atlas": "256x256 RGBA, 9990 bytes, SHA-256 b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8; two separate pack outputs matched and --check passed",
+    "focusedTests": "24 passed, 0 failed, 1 skipped (ART004_PARENT_ROOT-dependent test) on Node 22.22.3; prior atlas pack repeatability checks and --check passed.",
+    "assetBrowserFixture": "passed with the pinned browser runtime; its screenshots and report are explicitly fixture-only",
+    "actualGameBrowser": "Corrected pinned-main run: eight initial-render scenario cases and terminal restart witness completed, report artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/actual-game-report.json. The live contact checkpoint screenshot equality is only phone/normal/horizontal. Byte-exact browser input/audio restore and full checkpoint session/browser/input/audio/future-continuation comparisons across all eight cases remain outstanding; no visual/adoption verdict.",
+    "adoptionOrVisualVerdict": "none; independent critic remains required",
+    "sourceFreeze": {
+      "path": "docs/art/copperskiff-source-freeze.json",
+      "sha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50",
+      "preflightScript": "scripts/check-copperskiff-source-freeze.py",
+      "mainCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc"
+    },
+    "pendingGates": [
+      "byte-exact actual browser input bridge restore",
+      "byte-exact actual browser audio continuation restore",
+      "checkpoint session/full browser/input/audio bytes and future continuation across all eight view/motion/heading cases (current screenshot equality is phone/normal/horizontal only)",
+      "independent visual critique"
+    ]
+  },
+  "selfReference": "The manifest own SHA-256 is intentionally kept outside this file; compute it from the saved bytes and record it in the parent task receipt.",
+  "comparisonToMain": {
+    "commit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+    "sourceFreeze": {
+      "path": "docs/art/copperskiff-source-freeze.json",
+      "sha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50"
+    },
+    "productSourceDeltas": [
+      {
+        "path": "public/assets/copperskiff-battle-sprite.png",
+        "change": "added",
+        "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8"
+      },
+      {
+        "path": "src/content/visual-asset-manifest.js",
+        "change": "modified",
+        "baseSha256": "82dfad8341c0302b2da40395e6ad89ffa801755f20c3c548b9e91c28569c9b64",
+        "sha256": "55728175441d54bb8e3cb7811afc0c70cfd7952e15782c2d6792045a0a7a7f98"
+      },
+      {
+        "path": "src/ui/combat-art.js",
+        "change": "modified",
+        "baseSha256": "59ba91723973a2578cd8222b84232a2e334143deec540e877b53e5a2d619d234",
+        "sha256": "d813ef6c23cce7cb4d75056d40bb7ecaeff91bac3994f657c9f332141fa4b43d"
+      },
+      {
+        "path": "src/ui/combat-motion.js",
+        "change": "modified",
+        "baseSha256": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03",
+        "sha256": "8ad48480ec3e5911ee03d89051a7a6a9a20cfeb74575d2b12ae85e100bdd6ea0"
+      },
+      {
+        "path": "src/ui/combat-state.js",
+        "change": "modified",
+        "baseSha256": "8ee42a399c70b06bb62af0b0715048deb0b757936f8cf74ef3605a6aa4be7b6b",
+        "sha256": "3061fb77a78e21d39ff4d6c0c3ba32bde8645c8f61d8c2dc51d8174222057aa1"
+      }
+    ],
+    "exactMainObjectsRetained": [
+      {
+        "path": "src/ui/game-browser-entry.js",
+        "sha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+        "status": "exact pinned-main bytes including sourceConfidencePolicy questionKey inclusion and Brackenwheel melee-area QUESTION notice"
+      },
+      {
+        "path": "src/ui/app-shell.js",
+        "sha256": "58daaef6ed0acb0eca671ac02aaf1aa36a1f56e7ae448adb078b7eb5a33ef750",
+        "status": "matches pinned main"
+      },
+      {
+        "path": "src/ui/app-shell.css",
+        "sha256": "55398d234de91841918dcbe381f18d81dc3ae919c2fb4277e430368553ea7891",
+        "status": "matches pinned main"
+      },
+      {
+        "path": "public/index.html",
+        "sha256": "59e29ae8a1c978c350de8ad1e52f4fb84b179c983effb2ac74e93bf8bcfa981d",
+        "status": "matches pinned main"
+      },
+      {
+        "path": "package.json",
+        "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+        "status": "matches pinned main"
+      },
+      {
+        "path": "package-lock.json",
+        "sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+        "status": "matches pinned main"
+      }
+    ],
+    "combatArtDelta": "Only the Copperskiff atlas/frame mapping and DOM renderer block is added atop main object 59ba91723973a2578cd8222b84232a2e334143deec540e877b53e5a2d619d234; tower health border-radius:0 matches main.",
+    "unownedPreflight": "181 unowned source/public/package/config files are pinned to main and checked before every browser launch; current preflight passed.",
+    "dirtyRootInput": {
+      "wrongFileSha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "preservedAt": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/game-browser-entry-dirty-input.js",
+      "correctedFileSha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3"
+    }
+  }
+}

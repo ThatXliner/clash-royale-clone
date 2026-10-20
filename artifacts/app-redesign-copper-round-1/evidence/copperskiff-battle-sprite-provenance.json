@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "artifact": "APP-REDESIGN-COPPER-001 Copperskiff live battle sprite",
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "method": "Deterministic reduction and atlas packing of the accepted original R4 native model renders; no semantic repaint or new geometry.",
+  "identity_source": {
+    "model": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/copperskiff.blend",
+    "model_sha256": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+    "glb": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/copperskiff.glb",
+    "glb_sha256": "fdef3262b550903f512337442e10b51ffd4d869b6505f0c9c93f5cfd118dd500",
+    "saved_model_inspection": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/saved-asset-inspection.json",
+    "saved_model_inspection_sha256": "ff87aeba8e166b4c1c61cd38f8e390db4ece7c6b20cedae049a7ac1d57fc85b6",
+    "sprite_projection": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/sprite-projection.json",
+    "sprite_projection_sha256": "9e924c76b3db60196893c0cba13659d4df88b243c22b9d79b4b00586253a7bbf",
+    "authorship_note": "Original Astra-authored tapered-canopy model. The saved model was reopened and measured without changing the approved source file."
+  },
+  "source_frames": {
+    "directory": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256",
+    "dimensions": {
+      "width": 256,
+      "height": 256
+    },
+    "format": "8-bit RGBA PNG, non-interlaced",
+    "color_profile": "All sixteen frames share the same sRGB intent 3, gAMA, and cHRM chunks; the encoder verifies and preserves those color chunks while removing per-image text/EXIF/physical-size metadata.",
+    "render": {
+      "blender_version": "5.1.2",
+      "camera_elevation_degrees": 50,
+      "orthographic_scale": 8.025,
+      "supersample": 4,
+      "ground_anchor_pixels": [
+        32,
+        54
+      ],
+      "ground_anchor_normalized": [
+        0.5,
+        0.84375
+      ],
+      "camera_direction_tags": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "direction_meaning": "Actor-facing direction, corroborated by the accepted R4 heading audit; not the viewer's camera location."
+    },
+    "heading_audit": {
+      "path": "artifacts/art3d001-round-4/heading-audit/projection-receipt.json",
+      "sha256": "563ffd41c45ffe71f125c3dcda4cc8cad85c901b3535a3bd78b1888849f13b96",
+      "result": "Each saved camera label matches the projected bow-minus-stern dominant axis for the saved model."
+    },
+    "sha256": {
+      "tapered_canopy-ember-east-contact.png": "6d8fea7381bc660f64da7c04f376811b389ea4a2e4567987817a06c7eb3b9079",
+      "tapered_canopy-ember-east-idle.png": "beb44ca1bc5d22d4faf9da819a1b7c967613f152467df23e03c51ed5f1a74458",
+      "tapered_canopy-ember-north-contact.png": "bf703b2ef3b408a28709fffb7fdc3f6275163bd7c08a5be306344fb27090bd78",
+      "tapered_canopy-ember-north-idle.png": "bfb46eacfc73d889a0ab2b839dca30ef8c9cdd8e343bc969cd8087609f02c945",
+      "tapered_canopy-ember-south-contact.png": "741bbb53ca0b7c57e0a098062a70a75530f35eac3b8269c0ff49fcfb8031d623",
+      "tapered_canopy-ember-south-idle.png": "3e46117f6201219af3b02cfc0265edfe6af757005abfe45dc09cc4eea1748a9a",
+      "tapered_canopy-ember-west-contact.png": "4d6ac5997bff2f631964e20c136998fda885a66d56ee62b623ae0b9de02518b2",
+      "tapered_canopy-ember-west-idle.png": "ad4418dca9330ba21a7f451e1be24b62b32880dd72f946f93b1f947d55b14e09",
+      "tapered_canopy-river-east-contact.png": "bf5cb4020fe9c798b23e0d2dfd56ed39f10e1f7f011816045ba7a3c2c3607f22",
+      "tapered_canopy-river-east-idle.png": "1cf09795fb3731b4efa1332d233c2f43ebf1f0ae99f7ab478622ca646dd035ed",
+      "tapered_canopy-river-north-contact.png": "103a840a25c587b4eef31c2b96b6e3c010c4a33795c6ed0483419fbb9610d0b1",
+      "tapered_canopy-river-north-idle.png": "5619e62b2ddb50ea5c0d5de37d05f7231864026eb6045c4e76beecef1e44e9a2",
+      "tapered_canopy-river-south-contact.png": "f20ef79c350e216e59338b459b6e8c592f07137c853f2c5b547ae4971d844a47",
+      "tapered_canopy-river-south-idle.png": "c95340de9dfd3deaba6cff30d6ef01907841c189170b2b9a5dbdcfd5dca9f562",
+      "tapered_canopy-river-west-contact.png": "639ba38cff6fc06944c27db7daa029da78fabccc96a1ecebcf39aae498430118",
+      "tapered_canopy-river-west-idle.png": "40e289bc0eac869beb7a4558730a5a3256c51b09f7ddd6e4ab84f03771912460"
+    }
+  },
+  "renderer": {
+    "source": "src/ui/combat-art.js",
+    "motion_source": "src/ui/combat-motion.js",
+    "format": "one 256x256 RGBA PNG atlas of sixteen 64x64 fixed cells",
+    "atlas_columns_actor_facing": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "atlas_rows": [
+      "ember-idle",
+      "ember-contact",
+      "river-idle",
+      "river-contact"
+    ],
+    "team_mapping": {
+      "north": "ember",
+      "south": "river"
+    },
+    "fixed_cell_window": "Each frame is exactly its atlas cell; no per-view crop, content bounds, or rescale.",
+    "pivot_pixels": [
+      32,
+      54
+    ],
+    "pivot_css_mapping": "The 64px viewBox is placed with its 50% x / 84.375% y pivot at the canonical marker center. The sprite is an overflowing visual child; marker and health bar retain their existing geometry.",
+    "frame_css_size": "64 * bodyCssPixels / 13 / frameScale; frameScale is compensated once, as in the existing scaled-art helpers.",
+    "body_readability": "The accepted projection declares a 13px idle body target, with bounds varying by heading and pose. Record decoded per-cell alpha bounds and actual arena body measurements before making any measured-size claim.",
+    "actor_facing": "Uses the canonical attacker-to-target axis with vertical tie-break. Accepted src/ui/combat-state.js maps screenY = arenaLength - worldY, so +worldY selects screen-up/north; +worldX selects east. The heading audit independently confirms the saved model's north/east/south/west actor-facing labels from projected bow/stern points.",
+    "pose_selection": "The existing tick-derived attack/recoil window selects the authored contact cell; all other live poses select idle. Contact names a sprite pose only and does not create a collision or projectile event.",
+    "reduced_motion": "The same canonical state selects the same static cell. No frame cycling, rotation, lift, scale, or clock-driven animation is added."
+  },
+  "encoder": {
+    "script": "scripts/build-copperskiff-atlas.py",
+    "dependencies": "Python standard library only",
+    "reduction": "single 4x4 area average with alpha-premultiplied RGB and integer rounding",
+    "png": "RGBA 8-bit, filter type 0 output rows, zlib level 9, preserves source sRGB/gAMA/cHRM, excludes text/EXIF/physical-size metadata",
+    "source_hashes_are_pinned": true,
+    "runtime": {
+      "python": "standard-library-only",
+      "zlib": "1.2.12"
+    },
+    "max_shipped_bytes": 1048576
+  },
+  "shipped_asset": {
+    "path": "public/assets/copperskiff-battle-sprite.png",
+    "dimensions": {
+      "width": 256,
+      "height": 256
+    },
+    "byte_length": 9990,
+    "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+    "color_profile_chunks": [
+      "sRGB",
+      "gAMA",
+      "cHRM"
+    ],
+    "status": "Packed, deterministic, and referenced by the visual asset manifest with preserved sRGB/gAMA/cHRM metadata. The corrected pinned-main actual-game matrix completed for eight initial-render scenarios and a terminal restart witness. Live checkpoint screenshot equality is verified only in the phone/normal/horizontal case; all-eight checkpoint continuation, byte-exact browser input/audio restore, and independent visual review remain outstanding. No adoption or visual PASS is claimed."
+  },
+  "verification": {
+    "status": "Atlas repeatability, size, --check, focused unit tests, asset-only browser fixture, and the corrected pinned-main actual-game matrix have evidence. Initial witnessed session restore, both viewports, normal/reduced motion, horizontal/vertical headings, reciprocal targets, team markers, contact/damage, size assertions and restart were covered. Live checkpoint screenshot equality is only phone/normal/horizontal; byte-exact GameInputBridge/audioContinuationBytes and live checkpoint continuation for all eight cases remain outstanding, alongside independent visual review.",
+    "focused_commands": [
+      "node --test tests/copperskiff-live-sprite.test.js tests/ui-combat-state.test.js",
+      "node --test tests/copperskiff-live-sprite-browser.test.js",
+      "node --test tests/copperskiff-live-sprite-game-browser.test.js"
+    ],
+    "browser_fixture": "tests/copperskiff-live-sprite-browser-fixture.html; atlas-only browser evidence, not a full-app battle verdict",
+    "actual_game_browser_harness": "The corrected pinned-main run is artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588; report SHA-256 2a927be29705df6820f4b08c3d0b1cf41be26daa08fd479c4d9caf063cee8860. The append-only runner records distinct manager/test-child PIDs and runs docs/art/copperskiff-source-freeze.json preflight before launching Node. The eight cases cover both viewports, both motion modes and horizontal/vertical headings. Exact GameSession source/controller restore, canonical target IDs/vectors, contact/HP evidence, measured frame/body bounds, and the phone horizontal checkpoint screenshot are recorded. The terminal witness reaches tick 1590 and restarts to tick 0 with the same deck. The current harness does not compare GameInputBridge bytes or audioContinuationBytes across restore; those gates remain for the next builder. No visual verdict is claimed.",
+    "comparison_fixture": {
+      "path": "reference/stats/towers.json",
+      "source_commit": "d74c3d7",
+      "byte_length": 1075,
+      "sha256": "f14420eff33d6187c2cc8260b2bf4857db00c9b8e371910be64246601cfd0e53",
+      "use": "test-only high-confidence tower HP fixture; not imported or bundled by product code"
+    },
+    "required_viewports": [
+      {
+        "width": 390,
+        "height": 844,
+        "body_css_pixels": 13
+      },
+      {
+        "width": 1440,
+        "height": 933,
+        "body_css_pixels": 26
+      }
+    ],
+    "required_modes": [
+      "normal",
+      "reduced-motion"
+    ],
+    "required_states": [
+      "idle",
+      "contact"
+    ],
+    "required_sides": [
+      "north",
+      "south"
+    ],
+    "required_actor_facing_directions": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "packed_atlas_repeatability": "Run the encoder twice to separate outputs, compare bytes and SHA-256, and verify each shipped raster is <=1 MiB.",
+    "engine_and_default_deck": "No simulation, mechanic, statistics, content, or default-deck changes.",
+    "actual_game_browser_attempt_receipt": "docs/art/copperskiff-actual-game-browser-attempt-receipt.json",
+    "source_freeze": {
+      "path": "docs/art/copperskiff-source-freeze.json",
+      "sha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50",
+      "mainCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+      "preflightScript": "scripts/check-copperskiff-source-freeze.py"
+    },
+    "focused_test_result": {
+      "command": "/Users/me/.hermes/node/bin/node --test tests/copperskiff-live-sprite.test.js tests/ui-combat-state.test.js",
+      "result": "24 passed, 0 failed, 1 skipped (expected ART004_PARENT_ROOT-dependent test); recorded before the corrected entry source audit, with the Copperskiff static sources unchanged afterward."
+    },
+    "pending_gates": [
+      "compare byte-exact GameInputBridge and audioContinuationBytes at actual controller restore",
+      "for all eight viewport/motion/heading cases, compare exact checkpoint session/full browser/input/audio bytes and future deterministic continuation; current screenshot equality is phone/normal/horizontal only",
+      "independent visual critique"
+    ]
+  },
+  "manifest": {
+    "id": "copperskiff-battle-sprite",
+    "entry": "src/content/visual-asset-manifest.js",
+    "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+    "byte_length": 9990
+  },
+  "source_audit": {
+    "pinnedMainCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+    "freezeManifest": "docs/art/copperskiff-source-freeze.json",
+    "freezeManifestSha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50",
+    "preflightScript": "scripts/check-copperskiff-source-freeze.py",
+    "preflightCheckedFiles": 186,
+    "pinnedUnownedFiles": 181,
+    "correctedMainFile": {
+      "path": "src/ui/game-browser-entry.js",
+      "sha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+      "matchesPinnedMain": true
+    },
+    "preservedWrongInput": {
+      "path": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/game-browser-entry-dirty-input.js",
+      "sha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "disposition": "historical wrong-root-input bytes preserved"
+    },
+    "ownedProductionDeltas": [
+      {
+        "path": "public/assets/copperskiff-battle-sprite.png",
+        "change": "added",
+        "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8"
+      },
+      {
+        "path": "src/content/visual-asset-manifest.js",
+        "change": "modified",
+        "baseSha256": "82dfad8341c0302b2da40395e6ad89ffa801755f20c3c548b9e91c28569c9b64",
+        "sha256": "55728175441d54bb8e3cb7811afc0c70cfd7952e15782c2d6792045a0a7a7f98"
+      },
+      {
+        "path": "src/ui/combat-art.js",
+        "change": "modified",
+        "baseSha256": "59ba91723973a2578cd8222b84232a2e334143deec540e877b53e5a2d619d234",
+        "sha256": "d813ef6c23cce7cb4d75056d40bb7ecaeff91bac3994f657c9f332141fa4b43d"
+      },
+      {
+        "path": "src/ui/combat-motion.js",
+        "change": "modified",
+        "baseSha256": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03",
+        "sha256": "8ad48480ec3e5911ee03d89051a7a6a9a20cfeb74575d2b12ae85e100bdd6ea0"
+      },
+      {
+        "path": "src/ui/combat-state.js",
+        "change": "modified",
+        "baseSha256": "8ee42a399c70b06bb62af0b0715048deb0b757936f8cf74ef3605a6aa4be7b6b",
+        "sha256": "3061fb77a78e21d39ff4d6c0c3ba32bde8645c8f61d8c2dc51d8174222057aa1"
+      }
+    ],
+    "unownedFiles": "All other src/public/package/config paths in the freeze inventory must remain byte-identical to main; the runtime launcher enforces this before browser start."
+  }
+}

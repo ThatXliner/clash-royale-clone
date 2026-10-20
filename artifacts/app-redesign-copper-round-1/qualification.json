@@ -1,0 +1,302 @@
+{
+  "piece": "APP-REDESIGN-COPPER-001",
+  "verdict": "fail",
+  "candidate": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1",
+  "sourceFreeze": {
+    "status": "pass",
+    "preflightCommand": "python3 scripts/check-copperskiff-source-freeze.py",
+    "preflightEvidence": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-round1-critic/evidence/source-freeze-preflight.json",
+    "checkedFiles": 186,
+    "pinnedUnownedFiles": 181,
+    "mainCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+    "browserTestSha256": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b",
+    "freezeManifestSha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50",
+    "ownedPaths": [
+      "public/assets/copperskiff-battle-sprite.png",
+      "src/content/visual-asset-manifest.js",
+      "src/ui/combat-art.js",
+      "src/ui/combat-motion.js",
+      "src/ui/combat-state.js"
+    ]
+  },
+  "browserMatrix": {
+    "command": "python3 scripts/run-copperskiff-one-case-probe.py --full-matrix",
+    "status": "failed_at_first_failing_gate",
+    "exitCode": 1,
+    "attemptId": "20261020T210045789057Z-2eeefb304f27",
+    "artifactDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T210045789057Z-2eeefb304f27",
+    "captureDirectory": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/copperskiff-20261020T210045789057Z-2eeefb304f27-capture-cnogrbbb",
+    "casesExecuted": 5,
+    "casesRequired": 8,
+    "cases": [
+      {
+        "case": "phone-normal-horizontal",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "bodyCssPixels": 13,
+        "status": "pass",
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "changedPixelBounds": null,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTicks": 120,
+        "referenceSessionTick": 283,
+        "replayedSessionTick": 283,
+        "nativePointerBridgeDeliveriesBefore": 0,
+        "nativePointerBridgeDeliveriesAfter": 1,
+        "nativeCommandAccepted": true
+      },
+      {
+        "case": "phone-normal-vertical",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "bodyCssPixels": 13,
+        "status": "pass",
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "changedPixelBounds": null,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTicks": 120,
+        "referenceSessionTick": 222,
+        "replayedSessionTick": 222,
+        "nativePointerBridgeDeliveriesBefore": 0,
+        "nativePointerBridgeDeliveriesAfter": 1,
+        "nativeCommandAccepted": true
+      },
+      {
+        "case": "phone-reduced-horizontal",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "bodyCssPixels": 13,
+        "status": "pass",
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "changedPixelBounds": null,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTicks": 120,
+        "referenceSessionTick": 283,
+        "replayedSessionTick": 283,
+        "nativePointerBridgeDeliveriesBefore": 0,
+        "nativePointerBridgeDeliveriesAfter": 1,
+        "nativeCommandAccepted": true
+      },
+      {
+        "case": "phone-reduced-vertical",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "bodyCssPixels": 13,
+        "status": "pass",
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "changedPixelBounds": null,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTicks": 120,
+        "referenceSessionTick": 222,
+        "replayedSessionTick": 222,
+        "nativePointerBridgeDeliveriesBefore": 0,
+        "nativePointerBridgeDeliveriesAfter": 1,
+        "nativeCommandAccepted": true
+      },
+      {
+        "case": "desktop-normal-horizontal",
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "bodyCssPixels": 26,
+        "status": "fail",
+        "changedPixels": 234,
+        "pixelChannelsDifferent": 459,
+        "changedPixelBounds": {
+          "bottom": 896,
+          "left": 561,
+          "right": 710,
+          "top": 719
+        },
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTicks": 120,
+        "referenceSessionTick": 283,
+        "replayedSessionTick": 283,
+        "nativePointerBridgeDeliveriesBefore": 0,
+        "nativePointerBridgeDeliveriesAfter": 1,
+        "nativeCommandAccepted": true
+      }
+    ],
+    "notRun": [
+      "desktop-normal-vertical",
+      "desktop-reduced-horizontal",
+      "desktop-reduced-vertical",
+      "same-deck-terminal-restart witness"
+    ],
+    "failure": "1440x933 normal horizontal checkpoint restore changed 234 viewport pixels at zero tolerance.",
+    "independentPixelRecomputation": {
+      "changedPixels": 234,
+      "channelsDifferent": 459,
+      "boundsInclusive": {
+        "left": 561,
+        "top": 719,
+        "right": 710,
+        "bottom": 896
+      },
+      "result": "matches browser report",
+      "evidence": "evidence/pixel-recheck.json"
+    },
+    "visualDomDiagnostics": "disabled"
+  },
+  "focusedTests": {
+    "command": "/Users/me/.hermes/node/bin/node --test tests/copperskiff-live-sprite.test.js tests/ui-combat-state.test.js",
+    "exitCode": 0,
+    "passed": 24,
+    "failed": 0,
+    "skipped": 1
+  },
+  "visualAssetManifest": {
+    "command": "/Users/me/.hermes/node/bin/node tests/visual-asset-manifest-runner.js visual-asset-manifest",
+    "exitCode": 0,
+    "passed": 6,
+    "failed": 0,
+    "checks": [
+      "registry bytes and dimensions",
+      "zero byte overlap with reference corpus",
+      "in-repo authorship and provenance"
+    ]
+  },
+  "shippingIsolation": {
+    "command": "/Users/me/.hermes/node/bin/node tests/shipping-isolation-guard-runner.js shipping-isolation-guard",
+    "exitCode": 0,
+    "passed": 13,
+    "failed": 0,
+    "candidateEntryGraph": "pass"
+  },
+  "releaseBuildGate": {
+    "status": "not_run",
+    "reason": "The candidate has no node_modules. The exact supplied R5 node_modules path used for Playwright also contains Vite 8.3.2. This run configured the external Playwright module but did not configure candidate module resolution to use external Vite; no dependency installation or symlink was made. The release build gate remains unqualified and was not run.",
+    "dependencyPathVerification": "correction-verification.json"
+  },
+  "processCleanup": {
+    "managerPid": 63457,
+    "testChildPid": 63458,
+    "managerAndTestChildClosed": true,
+    "candidateChromeOrPlaywrightProcessRemaining": false,
+    "unrelatedIdleProcessesWereLeftUntouched": true
+  },
+  "scopeLimits": [
+    "Future continuation evidence covers 120 deterministic ticks per executed case only; it does not establish an 18,000-tick endurance claim.",
+    "This Copperskiff family result does not establish all-art or reference-footage parity."
+  ],
+  "evidenceDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-round1-critic/evidence",
+  "copperskiffAsset": {
+    "path": "public/assets/copperskiff-battle-sprite.png",
+    "format": "png",
+    "dimensions": {
+      "width": 256,
+      "height": 256
+    },
+    "byteLength": 9990,
+    "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+    "authorship": "in-repo-authored",
+    "license": "AGPL-3.0-only",
+    "manifestGate": "pass"
+  },
+  "renderInspection": {
+    "status": "performed on fresh browser captures",
+    "captures": [
+      "evidence/390x844-normal-horizontal.png",
+      "evidence/390x844-normal-vertical.png",
+      "evidence/390x844-reduced-horizontal.png",
+      "evidence/390x844-reduced-vertical.png",
+      "evidence/1440x933-normal-horizontal.png",
+      "evidence/1440x933-normal-horizontal-checkpoint-before-restore.png",
+      "evidence/1440x933-normal-horizontal-checkpoint-after-restore.png"
+    ],
+    "note": "The actual battle shows both Copperskiff teams at the river. The desktop checkpoint pair is visually close at full-page scale, but pixel equality fails."
+  },
+  "correction": {
+    "status": "corrected_setup_fact",
+    "originalReport": "report-original.md",
+    "originalQualification": "qualification-original.json",
+    "runtimeRerun": false,
+    "overallVerdictUnchanged": "fail",
+    "browserRuntimeConfirmedClosed": true
+  },
+  "verifiedExternalDependencies": {
+    "root": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules",
+    "packages": {
+      "vite": {
+        "path": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/vite/package.json",
+        "exists": true,
+        "version": "8.3.2",
+        "packageJsonSha256": "2b906339263f24e9be4219f93d966b4bcf0d4141adc05939a537c3a8fd6f760a"
+      },
+      "playwright": {
+        "path": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/package.json",
+        "exists": true,
+        "version": "1.58.2",
+        "packageJsonSha256": "718c91812946dcfbb4b724cfa0084ee3be205c571df09094f218bc4571f43c2b"
+      }
+    }
+  }
+}

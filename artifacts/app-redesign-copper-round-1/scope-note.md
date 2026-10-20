@@ -1,0 +1,5 @@
+# Copperskiff live sprite review — Round 537 scope
+
+The corrected first actual critic run is a scoped FAIL. Four phone cases pass exact viewport restore and 120-tick continuation. The fifth case, desktop 1440×933 normal-motion horizontal, fails exact restore with 234 changed pixels / 459 channels in inclusive bounds x=561–710, y=719–896, even though browser/session/native pointer-bridge/audio and the 120-future-tick bytes match. Three desktop cases and same-deck terminal/restart were not reached. The release build was not run: the candidate lacks node_modules and the critic did not configure the available external R5 Vite 8.3.2.
+
+The five-file product patch and test source are retained under recoverability for follow-up only. They are not applied to public/assets, src, or tests. No stats, engine, or live UI runtime changes are adopted. The corrected critic and its original report/qualification are both retained; see correction-verification.json. A separate builder is investigating with a matching current-main control; root cause remains unproven and no product fix exists. APP-REDESIGN-001 remains PENDING.

@@ -1,0 +1,1435 @@
+{
+  "schemaVersion": 1,
+  "receiptType": "append-only receipt with historical transcripts and raw corrected-main run artifacts",
+  "artifactRetention": {
+    "priorFailedArtifactBytes": {
+      "note": "The first failed one-case report and screenshot were overwritten by the corrected run at the same flat paths. Their hashes and transcribed evidence are retained in this receipt, but the original report and screenshot bytes do not survive.",
+      "reportSha256": "ec49cd82bcab2415b8d338202e9a1a5549b50d7a4cc35f84291711c60200923f",
+      "screenshotSha256": "05f62e9399ebd0a4acb1852105c45a3ef911550d14d434539e30554244a48c66",
+      "rawReportBytesRetained": false,
+      "rawScreenshotBytesRetained": false
+    },
+    "futureInvocations": "The prepared launcher preallocates a unique attempt-<id> directory and refuses collisions. The test writes only inside that directory, so a later invocation cannot replace prior run artifacts."
+  },
+  "attempt": {
+    "command": [
+      "/Users/me/.hermes/node/bin/node",
+      "--test",
+      "tests/copperskiff-live-sprite-game-browser.test.js"
+    ],
+    "workingDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1",
+    "pid": 29816,
+    "execSessionId": "41556",
+    "exitCode": 1,
+    "reportedWallSeconds": 46.1,
+    "environmentAllowlist": {
+      "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+      "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs",
+      "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    },
+    "playwright": {
+      "version": "1.58.2",
+      "moduleSha256": "a0f5715ea22354f922791a9c53dc012d5d5c067ff9cc4cd35ffb7cd272071a9f",
+      "packageJsonSha256": "718c91812946dcfbb4b724cfa0084ee3be205c571df09094f218bc4571f43c2b"
+    },
+    "chrome": {
+      "version": "155.0.8059.85"
+    },
+    "reportedFailure": {
+      "scenario": "phone / 390x844 / normal motion / horizontal headings",
+      "assertion": "expected at least two live Copperskiff markers; observed fewer",
+      "rawTap": null,
+      "rawStdoutPath": null,
+      "rawStderrPath": null,
+      "source": "prior task tool output and parent-thread summary; details are paraphrased, not copied as raw output"
+    },
+    "artifacts": {
+      "actualGameScreenshotProduced": false,
+      "actualGameJsonReportProduced": false,
+      "actualGameArtifactDirectoryAtAudit": "artifacts/app-redesign-copper-001-builder/browser/actual-game/ (empty after the failed run)"
+    }
+  },
+  "sourceContractAudit": {
+    "sessionWitness": {
+      "deck": "PLAYABLE_CARD_IDS",
+      "northLegalDeployment": {
+        "cardId": "copperskiff",
+        "point": {
+          "x": 3500,
+          "y": 17500
+        }
+      },
+      "southAdmittedCommand": {
+        "cardId": "copperskiff",
+        "point": {
+          "x": 14500,
+          "y": 14500
+        },
+        "tick": 0,
+        "type": "deploy"
+      },
+      "admission": "player-command-admitted; the test asserts the command ID and tick are both zero",
+      "tickAtSerialization": 0,
+      "fixtureGap": "The prior seed search required Copperskiff only in the South opening hand. GameSession filters legalNorthDeployments against the North hand before asking OpponentController for a proposal, so a seed without North Copperskiff could never create a North unit. The prior report did not capture the selected seed or opening hands, so it cannot establish whether that exact seed lacked North Copperskiff."
+    },
+    "browserRestorePath": [
+      "Restore the witness bytes with GameSession.restore in the arena iframe.",
+      "Mount mountShippedGameBrowser on a detached staging root and serialize its browser snapshot.",
+      "Pass that snapshot to the existing arenaHudController.restore method, which restores the loop graph and renders it.",
+      "Compare the controller's serialized GameSession bytes with the exact source witness bytes before stepping."
+    ],
+    "shippedRootSelector": "[data-arena-shell-root]",
+    "combatMarkerSelector": ".combat-marker[data-kind=\"copperskiff\"]",
+    "markerContract": "bindCombatViewModel creates each marker from projected battle entities, sets data-kind from entity.kind (the GameSession unit archetype ID) and data-side from entity.side, and creates Copperskiff art as .combat-art--copperskiff.",
+    "failureInterpretation": "The one-case run persisted exact source/restore bytes, units, markers, computed style, console state, and a screenshot. Both source and restored GameSession units were empty at tick 0; after 120 ticks only the South Copperskiff existed and its real DOM marker was visible. LiveBattle retains unit records instead of removing killed units, so the North Copperskiff was never spawned in this fixture. This identifies a fixture precondition gap, not a renderer disappearance."
+  },
+  "diagnosticFollowup": {
+    "mode": "GAME_BROWSER_ONE_CASE_PROBE=1",
+    "case": "phone / 390x844 / normal motion / horizontal headings",
+    "maximumManualTicks": 120,
+    "captureBeforeAssertions": [
+      "source session SHA-256, byte length, admitted command, team, kind, position, and tick",
+      "staged browser snapshot and restored-controller exact-byte comparisons",
+      "controller state and GameSession units before and after restore and after stepping",
+      "real arena root, Copperskiff markers, computed style visibility and rendered bounds",
+      "page console, page errors, failed requests, and screenshot SHA-256"
+    ],
+    "reportPath": "artifacts/app-redesign-copper-001-builder/browser/actual-game/actual-game-one-case-probe.json",
+    "screenshotPath": "artifacts/app-redesign-copper-001-builder/browser/actual-game/390x844-normal-horizontal.png",
+    "executionStatus": "the first bounded diagnostic failed after saving the report and screenshot. A corrected one-case witness has since passed the two-marker assertion; its fresh report and screenshot replaced the prior files at the same paths. The previous run's summarized evidence and hashes remain transcribed here, but its raw image bytes were not retained. No eight-case rerun was made.",
+    "run": {
+      "pid": 38073,
+      "exitCode": 1,
+      "nodeVersion": "v22.22.3",
+      "testDurationMs": 2780.363042,
+      "totalTapDurationMs": 3153.057542,
+      "failure": "At tick 120 the assertion requiring at least two live Copperskiff markers failed; observed visibleUnits was 1.",
+      "stdoutPath": "/tmp/copperskiff-one-case-capture-20261020-001/stdout.txt",
+      "stdoutBytes": 1021,
+      "stdoutSha256": "655859dbcb272850ab5e82496bb823cd40296502db5657b0e7f3cd6d8805e71b",
+      "stderrPath": "/tmp/copperskiff-one-case-capture-20261020-001/stderr.txt",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pidFile": "/tmp/copperskiff-one-case-capture-20261020-001/pid.txt",
+      "argvFile": "/tmp/copperskiff-one-case-capture-20261020-001/argv.txt",
+      "environmentAllowlistFile": "/tmp/copperskiff-one-case-capture-20261020-001/environment-allowlist.txt",
+      "exitCodeFile": "/tmp/copperskiff-one-case-capture-20261020-001/exit-code.txt",
+      "captureDirectory": "/tmp/copperskiff-one-case-capture-20261020-001",
+      "allowlistedEnvironmentKeys": [
+        "PATH",
+        "GAME_BROWSER_PLAYWRIGHT",
+        "GAME_BROWSER_CHROME",
+        "GAME_BROWSER_ONE_CASE_PROBE"
+      ],
+      "nodeTestAddedEnvironmentKeys": [
+        "NODE_TEST_CONTEXT",
+        "__CF_USER_TEXT_ENCODING"
+      ]
+    },
+    "evidence": {
+      "sourceSession": {
+        "sha256": "ad74e40052ac76c14705f71e3c8fa8252cf76667e5e794c3538fdf0b72217246",
+        "byteLength": 39017,
+        "tick": 0,
+        "pendingCommand": "south Copperskiff deploy at tick 0, point (14500,14500), hand slot 2",
+        "units": []
+      },
+      "restore": {
+        "stagedSnapshotPreservedExactBytes": true,
+        "controllerRestorePreservedExactBytes": true,
+        "shippedRootSelectorFound": true
+      },
+      "after120Ticks": {
+        "controllerTick": 120,
+        "units": [
+          {
+            "id": 1,
+            "side": "south",
+            "kind": "copperskiff",
+            "alive": true,
+            "hitpoints": 505,
+            "position": {
+              "x": 14500,
+              "y": 17500
+            }
+          }
+        ],
+        "northUnitCount": 0,
+        "visibleMarkerCount": 1,
+        "matchedMarker": {
+          "selector": ".combat-marker[data-kind=\"copperskiff\"]",
+          "side": "south",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "artVisibility": "visible",
+          "width": 33.46875,
+          "height": 33.46875,
+          "left": 508.265625,
+          "top": 526.265625
+        },
+        "contactSides": [
+          "south"
+        ],
+        "poseSamples": [
+          {
+            "side": "south",
+            "direction": "north",
+            "action": "contact",
+            "tick": 103
+          },
+          {
+            "side": "south",
+            "direction": "north",
+            "action": "idle",
+            "tick": 120
+          }
+        ],
+        "pageErrors": [],
+        "consoleMessages": [],
+        "failedRequests": []
+      },
+      "report": {
+        "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/actual-game-one-case-probe.json",
+        "byteLength": 8636,
+        "sha256": "ec49cd82bcab2415b8d338202e9a1a5549b50d7a4cc35f84291711c60200923f"
+      },
+      "screenshot": {
+        "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/390x844-normal-horizontal.png",
+        "byteLength": 334750,
+        "sha256": "05f62e9399ebd0a4acb1852105c45a3ef911550d14d434539e30554244a48c66"
+      }
+    },
+    "remainingQuestion": "The corrected-owner witness records seed 3, both opening hands, accepted South admission, North and South deployment receipts, canonical owner units, and exact source/browser restore. Its 11,000-millitile horizontal gap allowed tower targeting, so the vertical contact headings do not test horizontal sprite mapping. A near-river mutual-target case now checks source target IDs and signed dominant axes before controller restore; that probe and the broader phone/desktop, reduced-motion, all-heading, checkpoint-restore, and restart matrix remain unverified."
+  },
+  "correctedRun": {
+    "mode": "GAME_BROWSER_ONE_CASE_PROBE=1",
+    "scenario": "phone / 390x844 / normal motion / horizontal headings",
+    "result": "the bounded Node test passed its one-case assertions, including at least two real Copperskiff DOM markers. This is diagnostic visibility evidence, not a full integration or visual PASS.",
+    "testHarnessSha256AtExecution": "8648b66deb16bb5eb0b420eb05b7a7b00d487d76372270974f47f76764281467",
+    "command": [
+      "/Users/me/.hermes/node/bin/node",
+      "--test",
+      "tests/copperskiff-live-sprite-game-browser.test.js"
+    ],
+    "workingDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1",
+    "runtime": {
+      "nodeVersion": "v22.22.3",
+      "playwrightVersion": "1.58.2",
+      "playwrightModuleSha256": "a0f5715ea22354f922791a9c53dc012d5d5c067ff9cc4cd35ffb7cd272071a9f",
+      "chromeVersion": "155.0.8059.85"
+    },
+    "capture": {
+      "directory": "/tmp/copperskiff-corrected-one-case-capture-20261020-002",
+      "pid": 40731,
+      "pidKind": "outer wrapper shell PID; the Node child PID was not separately persisted",
+      "exitCode": 0,
+      "tapSummary": "1 test passed, 0 failed; test duration 2927.384125 ms; total TAP duration 3283.363167 ms",
+      "stdout": {
+        "path": "/tmp/copperskiff-corrected-one-case-capture-20261020-002/stdout.txt",
+        "byteLength": 342,
+        "sha256": "af8360fd404007d8c29e7a6b7a15a9c8d0bc740c4f7c2a5592c328442a31e80c"
+      },
+      "stderr": {
+        "path": "/tmp/copperskiff-corrected-one-case-capture-20261020-002/stderr.txt",
+        "byteLength": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "pidFileSha256": "92ad632fecedf61dc2110b69714fe61701cb0b6580015d6d628a63fe9fed807a",
+      "argvFileSha256": "58ced03b324bfe5a3d174f20fffa91d49460870d623e06b5b39e261d166d6a5d",
+      "environmentAllowlistFileSha256": "70905210814b740a0119e21091f33ee18073c5c1b52421d6932c22cb567641aa",
+      "exitCodeFileSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "allowlistedEnvironment": {
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+        "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs",
+        "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "GAME_BROWSER_ONE_CASE_PROBE": "1"
+      },
+      "processClosure": "after completion, PID 40731 was absent and no matching test or headless Chrome process remained"
+    },
+    "sourceWitness": {
+      "seed": 3,
+      "openingHands": {
+        "north": [
+          "copperskiff",
+          "mossguard",
+          "brassbolt",
+          "briar-band"
+        ],
+        "south": [
+          "cinderlings",
+          "briar-band",
+          "reedsting",
+          "copperskiff"
+        ]
+      },
+      "admission": {
+        "accepted": true,
+        "commandId": 0,
+        "tick": 0,
+        "type": "player-command-admitted"
+      },
+      "tickAtSerialization": 1,
+      "deploymentReceipts": [
+        {
+          "cardId": "copperskiff",
+          "entityIds": [
+            1
+          ],
+          "point": {
+            "x": 14500,
+            "y": 14500
+          },
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "entityIds": [
+            2
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "side": "north",
+          "tick": 0
+        }
+      ],
+      "unitsBeforeBrowserRestore": [
+        {
+          "id": 1,
+          "side": "south",
+          "cardId": "copperskiff",
+          "kind": "copperskiff",
+          "alive": true,
+          "hitpoints": 614,
+          "position": {
+            "x": 14500,
+            "y": 14525
+          }
+        },
+        {
+          "id": 2,
+          "side": "north",
+          "cardId": "copperskiff",
+          "kind": "copperskiff",
+          "alive": true,
+          "hitpoints": 614,
+          "position": {
+            "x": 3500,
+            "y": 17475
+          }
+        }
+      ],
+      "sessionSha256": "dffc5dc279d7fba8295a025d359dc72f1370d5bf26ceee04e05525909bbb4495",
+      "sessionByteLength": 39033,
+      "stagedSnapshotPreservedExactBytes": true,
+      "controllerRestorePreservedExactBytes": true
+    },
+    "browserObservation": {
+      "sessionTick": 121,
+      "visibleMarkerCount": 2,
+      "spriteContactSidesRecordedByRun": [
+        "north",
+        "south"
+      ],
+      "contactPoseSamples": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "tick": 103
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "tick": 103
+        }
+      ],
+      "expectedHorizontalDirections": {
+        "north": "east",
+        "south": "west"
+      },
+      "observedExpectedDirections": false,
+      "contactCheckpointCaptured": false,
+      "canonicalAttackRecoilSidesRecordedByRun": false,
+      "bodyCssPixels": 13,
+      "frameScale": 0.51484375,
+      "markerComputedVisibility": "both markers had display:block, visibility:visible, opacity:1, and visible Copperskiff art",
+      "pageErrors": [],
+      "consoleMessages": [],
+      "failedRequests": []
+    },
+    "artifacts": {
+      "report": {
+        "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/actual-game-one-case-probe.json",
+        "byteLength": 18989,
+        "sha256": "183bbc0b010ec166e215000effae02aeb58f749aa45305dcedae58ef918e8db8"
+      },
+      "screenshot": {
+        "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/390x844-normal-horizontal.png",
+        "byteLength": 335325,
+        "sha256": "c9d19617dbf99f587955615631bc9ff773ea07cc129d1c251c859100f9efc110"
+      },
+      "replacedPriorFiles": {
+        "reportSha256": "ec49cd82bcab2415b8d338202e9a1a5549b50d7a4cc35f84291711c60200923f",
+        "screenshotSha256": "05f62e9399ebd0a4acb1852105c45a3ef911550d14d434539e30554244a48c66",
+        "rawPriorScreenshotBytesRetained": false
+      }
+    }
+  },
+  "postRunHarnessAudit": {
+    "currentHarnessSha256": "80c12ee8dc5af5ac355ae05f6e2227ff6ace89579da35f7e876c8f9eb40d319d",
+    "sourceFreezePath": "docs/art/copperskiff-source-freeze.json",
+    "sourceFreezeSha256": "c2dcdac2767c3a6e4ec446ce2a232c23dd42cb759fe5f91555bd95a600e03b50",
+    "preflight": {
+      "checkedFiles": 186,
+      "expectedAddedPaths": [
+        "public/assets/copperskiff-battle-sprite.png"
+      ],
+      "failures": [],
+      "mainCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+      "ok": true,
+      "ownedPaths": [
+        "public/assets/copperskiff-battle-sprite.png",
+        "src/content/visual-asset-manifest.js",
+        "src/ui/combat-art.js",
+        "src/ui/combat-motion.js",
+        "src/ui/combat-state.js"
+      ],
+      "pinnedUnownedFiles": 181
+    },
+    "finding": "The final browser run used the pinned main game-browser entry, after preserving and replacing the earlier dirty-root input. The horizontal witness used South (6000,14999) and North (10500,17001), with reciprocal canonical target IDs and X-dominant signed vectors. The vertical scene remained. Canonical contact and damage were recorded separately from sprite action; reduced motion does not require contact artwork.",
+    "executionStatus": "The corrected pinned-main full matrix and deterministic restart completed; the two byte-exact browser input bridge and audio continuation gates remain unverified."
+  },
+  "preparedNextProbe": {
+    "command": [
+      "python3",
+      "scripts/run-copperskiff-one-case-probe.py",
+      "--full-matrix"
+    ],
+    "scenario": "Eight actual-game browser scenarios at 390x844 and 1440x933, normal and reduced motion, horizontal and vertical mutual-target headings, plus deterministic terminal restart.",
+    "executionStatus": "executed as correctedPinnedMainRun below; do not treat this as evidence for byte-exact GameInputBridge or audio continuation restore."
+  },
+  "integrationVerdict": "The corrected pinned-main actual-game run records eight scenario cases and the terminal restart witness. It verifies initial witnessed GameSession restoration, reciprocal headings, both team markers, contact/damage, reduced-motion rendering and measured bounds in all cases. Live checkpoint screenshot equality is verified only for phone/390x844/normal/horizontal. Byte-exact browser input bridge/audio continuation restore and post-checkpoint continuation across all eight cases remain unverified; independent visual review remains outstanding. No whole-piece adoption or visual PASS is claimed.",
+  "sourceCorrection": {
+    "sourceCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+    "correctedFile": "src/ui/game-browser-entry.js",
+    "correctedFileSha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+    "correctedFileMatchesPinnedMain": true,
+    "priorCandidateSha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+    "cause": "A prior overlay copied the dirty physical root worktree entry instead of the pinned Git object; this removed sourceConfidencePolicy questionKey inclusion and Brackenwheel melee-area QUESTION notice handling.",
+    "preservedWrongInputPath": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/game-browser-entry-dirty-input.js",
+    "preservedWrongInputSha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+    "correctionReceiptPath": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/source-correction-receipt.json",
+    "priorActualGameRunsDisposition": "All earlier browser runs that used the dirty entry are retained as historical evidence and are not the corrected-main run."
+  },
+  "correctedPinnedMainRun": {
+    "attemptId": "20261020T202841708222Z-32c75aa0a588",
+    "sourceCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+    "sourceInputCorrection": {
+      "sourceCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+      "correctedFile": "src/ui/game-browser-entry.js",
+      "correctedFileSha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+      "correctedFileMatchesPinnedMain": true,
+      "priorCandidateSha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "cause": "A prior overlay copied the dirty physical root worktree entry instead of the pinned Git object; this removed sourceConfidencePolicy questionKey inclusion and Brackenwheel melee-area QUESTION notice handling.",
+      "preservedWrongInputPath": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/game-browser-entry-dirty-input.js",
+      "preservedWrongInputSha256": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "correctionReceiptPath": "artifacts/app-redesign-copper-001-builder/source-audit/attempt-20261020T202655436357Z-43ca83707e6a/source-correction-receipt.json",
+      "priorActualGameRunsDisposition": "All earlier browser runs that used the dirty entry are retained as historical evidence and are not the corrected-main run."
+    },
+    "command": [
+      "/Users/me/.hermes/node/bin/node",
+      "--test",
+      "tests/copperskiff-live-sprite-game-browser.test.js"
+    ],
+    "launcherCommand": [
+      "python3",
+      "run-copperskiff-one-case-probe.py",
+      "--full-matrix"
+    ],
+    "workingDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1",
+    "runtime": {
+      "node": "v22.22.3",
+      "playwrightVersion": "1.58.2",
+      "playwrightModuleSha256": "a0f5715ea22354f922791a9c53dc012d5d5c067ff9cc4cd35ffb7cd272071a9f",
+      "chromeVersion": "155.0.8059.85",
+      "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "playwrightModule": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs"
+    },
+    "outerProcess": {
+      "managerPid": 53662,
+      "testChildPid": 53663,
+      "exitCode": 0,
+      "testResult": "1 Node test passed, 0 failed; 8 scenario cases plus terminal restart witness completed.",
+      "stdoutByteLength": 366,
+      "stdoutSha256": "52aab3fa3e4a1ee894930c4c6cc80ce6341c5016f08976d155c0a4798772165f",
+      "stderrByteLength": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "processTreeClosed": true,
+      "closureEvidence": "Both recorded Node PIDs were absent from the post-run process check, and no matching test or headless Chrome process remained."
+    },
+    "environmentAllowlist": {
+      "GAME_BROWSER_ARTIFACTS_PREALLOCATED": "1",
+      "GAME_BROWSER_ARTIFACT_ATTEMPT_ID": "20261020T202841708222Z-32c75aa0a588",
+      "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "GAME_BROWSER_NODE": "/Users/me/.hermes/node/bin/node",
+      "GAME_BROWSER_ONE_CASE_PROBE": "0",
+      "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs",
+      "GAME_BROWSER_SINGLE_CASE_FULL_ASSERTIONS": "0",
+      "GAME_BROWSER_TEST_PID_FILE": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/copperskiff-20261020T202841708222Z-32c75aa0a588-capture-uvfs6d2_/test-child-pid.txt",
+      "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    "preflight": {
+      "passed": true,
+      "mainCommit": "f3ef1e6ca3b1026c0a288ca02cb2e019a7c691bc",
+      "checkedFiles": 186,
+      "pinnedUnownedFiles": 181,
+      "ownedPaths": [
+        "public/assets/copperskiff-battle-sprite.png",
+        "src/content/visual-asset-manifest.js",
+        "src/ui/combat-art.js",
+        "src/ui/combat-motion.js",
+        "src/ui/combat-state.js"
+      ],
+      "receiptFiles": {
+        "argv.json": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/argv.json",
+          "byteLength": 108,
+          "sha256": "e40d10f4e2fcd81fedbb4178c8812d18d0270d2b656f038828fb051405df94d4"
+        },
+        "artifact-directory.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/artifact-directory.txt",
+          "byteLength": 179,
+          "sha256": "bad58ecbb4c0be79d30158b90a8f57958a745f3b799c0906c9fe3f875bf6ea7a"
+        },
+        "environment-allowlist.json": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/environment-allowlist.json",
+          "byteLength": 772,
+          "sha256": "58a6f0213b720cb48b9a8d83b96de7ce47783cd24fe8d0b61901388f8d933ba4"
+        },
+        "exit-code.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/exit-code.txt",
+          "byteLength": 2,
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "launcher-argv.json": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/launcher-argv.json",
+          "byteLength": 74,
+          "sha256": "2fa26e1b793abcd20a4605f66be74dcba366a3bbfb79fa5c3a80edd7071154ab"
+        },
+        "manager-pid.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/manager-pid.txt",
+          "byteLength": 6,
+          "sha256": "010445058b570d131cb3e93a6c6f58e47ab0bd520a65c1be55df79c3990f61ee"
+        },
+        "mode.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/mode.txt",
+          "byteLength": 12,
+          "sha256": "76345fb1bd8105e65a9a187dd2dcc6d4010a535b3fd63d33adafc0a675c8c224"
+        },
+        "preflight-argv.json": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-argv.json",
+          "byteLength": 115,
+          "sha256": "e183510be3c3b042f29598bb522a4fab10685bef7d3f6538ab66ffc7123ead1a"
+        },
+        "preflight-exit-code.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-exit-code.txt",
+          "byteLength": 2,
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "preflight-stderr.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-stderr.txt",
+          "byteLength": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "preflight-stdout.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/preflight-stdout.txt",
+          "byteLength": 386,
+          "sha256": "afa7d1fca103c7e0697fe5bd7b0e42e50032a8faf84837e5faf3175ee333d2d9"
+        },
+        "stderr.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/stderr.txt",
+          "byteLength": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/stdout.txt",
+          "byteLength": 366,
+          "sha256": "52aab3fa3e4a1ee894930c4c6cc80ce6341c5016f08976d155c0a4798772165f"
+        },
+        "test-child-pid.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/test-child-pid.txt",
+          "byteLength": 6,
+          "sha256": "e8328a5847f373d1e56f4a52035c2909fab32e34bb1238f377079bbc37680d27"
+        },
+        "working-directory.txt": {
+          "path": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture/working-directory.txt",
+          "byteLength": 73,
+          "sha256": "9f96fc4fdae2a7cb6136648f8ffc58f63ff6c71572cf2834d8459a731b812cf7"
+        }
+      }
+    },
+    "result": {
+      "caseCount": 8,
+      "cases": [
+        {
+          "viewport": {
+            "name": "phone",
+            "width": 390,
+            "height": 844,
+            "bodyCssPixels": 13
+          },
+          "motion": "normal",
+          "orientation": "horizontal",
+          "expectedActorFacing": {
+            "north": "west",
+            "south": "east"
+          },
+          "expectedTargetAxis": "x",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            }
+          ],
+          "normalMotionSpriteContactSides": [
+            "north",
+            "south"
+          ],
+          "reducedMotionContactArtRequired": null,
+          "frameSamples": 12,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 6000,
+                "y": 14999
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 10500,
+                "y": 17001
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 4500,
+              "dy": 2002,
+              "dominantAxis": "x"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": -4500,
+              "dy": -2002,
+              "dominantAxis": "x"
+            }
+          ],
+          "checkpointRestore": {
+            "afterRestore": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/phone-horizontal-contact-after-restore.png",
+            "beforeRestore": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/phone-horizontal-contact-before-restore.png",
+            "equal": true
+          },
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 335815,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-normal-horizontal.png",
+            "sha256": "566a8ac4bc0434c7e9e81dfbdea617c1e30b24475e64d67585fe5dec252f9330"
+          }
+        },
+        {
+          "viewport": {
+            "name": "phone",
+            "width": 390,
+            "height": 844,
+            "bodyCssPixels": 13
+          },
+          "motion": "normal",
+          "orientation": "vertical",
+          "expectedActorFacing": {
+            "north": "south",
+            "south": "north"
+          },
+          "expectedTargetAxis": "y",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            }
+          ],
+          "normalMotionSpriteContactSides": [
+            "north",
+            "south"
+          ],
+          "reducedMotionContactArtRequired": null,
+          "frameSamples": 10,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 9000,
+                "y": 14500
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 9000,
+                "y": 17500
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 0,
+              "dy": 3000,
+              "dominantAxis": "y"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": 0,
+              "dy": -3000,
+              "dominantAxis": "y"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 335263,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-normal-vertical.png",
+            "sha256": "4868b5203ec666a57d4998aa0ca78edb64a35a832b5b4262f6f6d5a35205b115"
+          }
+        },
+        {
+          "viewport": {
+            "name": "phone",
+            "width": 390,
+            "height": 844,
+            "bodyCssPixels": 13
+          },
+          "motion": "reduced",
+          "orientation": "horizontal",
+          "expectedActorFacing": {
+            "north": "west",
+            "south": "east"
+          },
+          "expectedTargetAxis": "x",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            }
+          ],
+          "normalMotionSpriteContactSides": null,
+          "reducedMotionContactArtRequired": false,
+          "frameSamples": 12,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 6000,
+                "y": 14999
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 10500,
+                "y": 17001
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 4500,
+              "dy": 2002,
+              "dominantAxis": "x"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": -4500,
+              "dy": -2002,
+              "dominantAxis": "x"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 335817,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-reduced-horizontal.png",
+            "sha256": "6a8c818713790c0aae91c04f9e5ebf0fa529c2cd0b7459fac16f25da0dc588c2"
+          }
+        },
+        {
+          "viewport": {
+            "name": "phone",
+            "width": 390,
+            "height": 844,
+            "bodyCssPixels": 13
+          },
+          "motion": "reduced",
+          "orientation": "vertical",
+          "expectedActorFacing": {
+            "north": "south",
+            "south": "north"
+          },
+          "expectedTargetAxis": "y",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            }
+          ],
+          "normalMotionSpriteContactSides": null,
+          "reducedMotionContactArtRequired": false,
+          "frameSamples": 10,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 9000,
+                "y": 14500
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 9000,
+                "y": 17500
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 0,
+              "dy": 3000,
+              "dominantAxis": "y"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": 0,
+              "dy": -3000,
+              "dominantAxis": "y"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 335263,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/390x844-reduced-vertical.png",
+            "sha256": "5a990eb63ad06ff2926f8f1f3bab8313b889dddc12fd2349b0afa5ad6fca5d91"
+          }
+        },
+        {
+          "viewport": {
+            "name": "desktop",
+            "width": 1440,
+            "height": 933,
+            "bodyCssPixels": 26
+          },
+          "motion": "normal",
+          "orientation": "horizontal",
+          "expectedActorFacing": {
+            "north": "west",
+            "south": "east"
+          },
+          "expectedTargetAxis": "x",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            }
+          ],
+          "normalMotionSpriteContactSides": [
+            "north",
+            "south"
+          ],
+          "reducedMotionContactArtRequired": null,
+          "frameSamples": 12,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 6000,
+                "y": 14999
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 10500,
+                "y": 17001
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 4500,
+              "dy": 2002,
+              "dominantAxis": "x"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": -4500,
+              "dy": -2002,
+              "dominantAxis": "x"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 477228,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-normal-horizontal.png",
+            "sha256": "cdfea29510fd4f4da12cad17d92c2d7c891221f00699202bb438e242ebd2ad97"
+          }
+        },
+        {
+          "viewport": {
+            "name": "desktop",
+            "width": 1440,
+            "height": 933,
+            "bodyCssPixels": 26
+          },
+          "motion": "normal",
+          "orientation": "vertical",
+          "expectedActorFacing": {
+            "north": "south",
+            "south": "north"
+          },
+          "expectedTargetAxis": "y",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            }
+          ],
+          "normalMotionSpriteContactSides": [
+            "north",
+            "south"
+          ],
+          "reducedMotionContactArtRequired": null,
+          "frameSamples": 10,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 9000,
+                "y": 14500
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 9000,
+                "y": 17500
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 0,
+              "dy": 3000,
+              "dominantAxis": "y"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": 0,
+              "dy": -3000,
+              "dominantAxis": "y"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 476315,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-normal-vertical.png",
+            "sha256": "40709091e227716e9c79533fcf45c34cc2c2d6d3831f12370156dcd47f8a19f9"
+          }
+        },
+        {
+          "viewport": {
+            "name": "desktop",
+            "width": 1440,
+            "height": 933,
+            "bodyCssPixels": 26
+          },
+          "motion": "reduced",
+          "orientation": "horizontal",
+          "expectedActorFacing": {
+            "north": "west",
+            "south": "east"
+          },
+          "expectedTargetAxis": "x",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 163
+            }
+          ],
+          "normalMotionSpriteContactSides": null,
+          "reducedMotionContactArtRequired": false,
+          "frameSamples": 12,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 6000,
+                "y": 14999
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 10500,
+                "y": 17001
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 4500,
+              "dy": 2002,
+              "dominantAxis": "x"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": -4500,
+              "dy": -2002,
+              "dominantAxis": "x"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 477229,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-reduced-horizontal.png",
+            "sha256": "87cbd24be8437eb02e31db821ed9699edd822f7990161080c6f45645f75c4542"
+          }
+        },
+        {
+          "viewport": {
+            "name": "desktop",
+            "width": 1440,
+            "height": 933,
+            "bodyCssPixels": 26
+          },
+          "motion": "reduced",
+          "orientation": "vertical",
+          "expectedActorFacing": {
+            "north": "south",
+            "south": "north"
+          },
+          "expectedTargetAxis": "y",
+          "visibleUnits": 2,
+          "canonicalContactSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageSides": [
+            "north",
+            "south"
+          ],
+          "canonicalDamageEvidence": [
+            {
+              "side": "north",
+              "id": 2,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            },
+            {
+              "side": "south",
+              "id": 1,
+              "hitpoints": 443,
+              "initialHitpoints": 614,
+              "tick": 102
+            }
+          ],
+          "normalMotionSpriteContactSides": null,
+          "reducedMotionContactArtRequired": false,
+          "frameSamples": 10,
+          "sourceRestoreExact": true,
+          "deploymentReceipts": [
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                1
+              ],
+              "point": {
+                "x": 9000,
+                "y": 14500
+              },
+              "side": "south",
+              "tick": 0
+            },
+            {
+              "cardId": "copperskiff",
+              "entityIds": [
+                2
+              ],
+              "point": {
+                "x": 9000,
+                "y": 17500
+              },
+              "side": "north",
+              "tick": 0
+            }
+          ],
+          "reciprocalCanonicalTargets": [
+            {
+              "id": 1,
+              "side": "south",
+              "targetId": 2,
+              "targetSide": "north",
+              "dx": 0,
+              "dy": 3000,
+              "dominantAxis": "y"
+            },
+            {
+              "id": 2,
+              "side": "north",
+              "targetId": 1,
+              "targetSide": "south",
+              "dx": 0,
+              "dy": -3000,
+              "dominantAxis": "y"
+            }
+          ],
+          "checkpointRestore": null,
+          "pageErrors": [],
+          "consoleMessages": [],
+          "failedRequests": [],
+          "screenshot": {
+            "byteLength": 476315,
+            "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/1440x933-reduced-vertical.png",
+            "sha256": "2812e009edbf76747e583bb9c5948e1d6ee0a23ac475a16a348db14902cd4d76"
+          }
+        }
+      ],
+      "restart": {
+        "terminalTick": 1590,
+        "terminalReached": true,
+        "restartCount": 1,
+        "sessionTickAfterRestart": 0,
+        "deckPreserved": true,
+        "terminalScreenshotSha256": "5aa7c473374ea82f8c0b1d88696ff422f7c92096a6fb93f275c743f4cce15070",
+        "restartScreenshotSha256": "0740bb9ba382407575ee17b158d9c0f3f35220e10314acb4b26d14d06d161405",
+        "errors": [],
+        "consoleMessages": []
+      },
+      "actualInputAudioRestoreBoundary": {
+        "sessionCommandAdmissionCaptured": true,
+        "inputEvidence": "The witnessed south Copperskiff command was admitted through GameSession.submitPlayerCommand; the canonical deployment replay contains north and south Copperskiffs before browser restore. This harness compares exact session bytes through the staged snapshot and actual arena controller restore.",
+        "browserInputBridgeContinuationBytesCompared": false,
+        "audioContinuationBytesCompared": false,
+        "remainingGates": [
+          "compare the exact GameInputBridge bytes and audioContinuationBytes at initial actual-controller restore",
+          "for all eight viewport/motion/heading cases, capture and restore a live checkpoint, compare session/full browser/input bridge/audioContinuationBytes, then compare deterministic future continuation",
+          "include stable idle checkpoint behavior under reduced motion; the current harness must not require a contact atlas image in reduced mode",
+          "independent visual critique"
+        ],
+        "scope": "Do not infer either remaining gate from session-byte equality or screenshot equality.",
+        "existingCheckpointCoverage": "Only the phone / normal motion / horizontal heading case currently captures a live contact checkpoint and verifies before/after screenshot equality. The other seven cases do not yet restore and compare a full live checkpoint or its deterministic continuation."
+      },
+      "checkpointRestoreCoverage": {
+        "current": "Initial witnessed GameSession bytes are compared through each staged/browser-controller restore. A later live checkpoint is restored and screenshot-compared only for phone/390x844/normal/horizontal.",
+        "notCovered": [
+          "desktop live checkpoint restore",
+          "phone or desktop reduced-motion live checkpoint restore",
+          "vertical live checkpoint restore",
+          "full browser snapshot/input bridge/audio continuation byte equality at live checkpoints",
+          "deterministic future continuation after checkpoint restore across all eight cases"
+        ]
+      }
+    },
+    "artifactDirectory": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588",
+    "rawCaptureCopiedTo": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture",
+    "rawCaptureOriginalDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/outer-capture",
+    "reportPath": "artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020T202841708222Z-32c75aa0a588/actual-game-report.json",
+    "reportByteLength": 752972,
+    "reportSha256": "2a927be29705df6820f4b08c3d0b1cf41be26daa08fd479c4d9caf063cee8860",
+    "reportArchiveSha256": "52aab3fa3e4a1ee894930c4c6cc80ce6341c5016f08976d155c0a4798772165f",
+    "harnessSha256AtRun": "80c12ee8dc5af5ac355ae05f6e2227ff6ace89579da35f7e876c8f9eb40d319d",
+    "assetSha256AtRun": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+    "status": "Scoped actual-game browser evidence only; the full 8-case live-checkpoint/input/audio continuation gate and visual verdict remain open."
+  }
+}

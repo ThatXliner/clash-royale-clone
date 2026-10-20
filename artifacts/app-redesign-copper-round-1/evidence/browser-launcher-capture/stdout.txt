@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: Copperskiff renders through the shipped GameSession browser at phone and desktop size
+not ok 1 - Copperskiff renders through the shipped GameSession browser at phone and desktop size
+  ---
+  duration_ms: 16429.355417
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/tests/copperskiff-live-sprite-game-browser.test.js:1219:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    restored viewport PNG has exact pixel identity with zero tolerance
+    
+    234 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 234
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-copperskiff-live-sprite-r1/tests/copperskiff-live-sprite-game-browser.test.js:1616:18)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16757.295375
