@@ -9919,3 +9919,12 @@ EVIDENCE: Claude implemented public/index.html and src/ui/app-shell.js/.css in a
 BIGGEST GAP: None on this screen dimension. This does not qualify model sprites, battle motion, whole-engine extraction or full roster completion.
 
 DISPOSITION: Adopt only the reviewed three UI files and qualified test repair; retain original engine, catalog and assets.
+
+## Round 535 — ART-3D-COIL-001 Coilblade native model readability
+
+PIECE: ART-3D-COIL-001
+VERDICT: PASS — standalone Coilblade native art only
+
+EVIDENCE: Fresh saved-model renders from attempt-20261020T200122Z-42405 provide 32 native outputs per variant (24 color poses and 8 team masks) plus one portrait each. Variant A FAILS: its 13 px blade collapses to a short, nearly straight stroke. Selected variant B PASSES: its long, thin hooked saber reads in all four actor-facing headings and as a narrow pointed saber in the portrait. Recognizable Coilblade, the distinct idle/walk/contact poses, River/Ember team read, common 50° camera/8.025 orthographic scale/32,54 anchor and crop bounds pass. B remains editable in Blend and GLB at 1,696 triangles; preservation receipts retain all 34 non-blade meshes and the hilt, grip, body, pivots, poses, cameras and materials. The fresh render, portrait, model and preservation hashes match their receipts. R1 FAIL remains the short straight bar; R2 FAIL remains too short at native scale and broad-plate-like in the portrait. Fresh evidence and hashes: artifacts/astra-native-model-reviews/coil-round-3/.
+BIGGEST GAP: Variant A does not meet the saber identity bar; this PASS is limited to selected B and the standalone native-art criteria.
+DISPOSITION: Retain A, R1 and R2 failures. Adopt only B and the bounded evidence for standalone Coilblade readability. No live-game, full-cast, runtime-sprite or motion acceptance.
