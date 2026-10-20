@@ -1,0 +1,81 @@
+
+> moss-and-ember@0.0.0 test:shipping-isolation-release
+> node tests/shipping-isolation-release-runner.js shipping-isolation-release
+
+TAP version 13
+# Subtest: production release builds are byte-identical and pass emitted-byte isolation
+not ok 1 - production release builds are byte-identical and pass emitted-byte isolation
+  ---
+  duration_ms: 5121.787459
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/shipping-isolation-release.test.js:163:1'
+  failureType: 'testCodeFailure'
+  error: 'the release audit compared the repository reference corpus'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/shipping-isolation-release.test.js:180:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# ✗ Build failed in 8ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 7ms
+# ✗ Build failed in 8ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 7ms
+# Subtest: release builder rejects package imports and emitted protected/reference bytes
+ok 2 - release builder rejects package imports and emitted protected/reference bytes
+  ---
+  duration_ms: 3541.356875
+  type: 'test'
+  ...
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 10ms
+# Subtest: release builder rejects protected resolved source edges before tree shaking
+ok 3 - release builder rejects protected resolved source edges before tree shaking
+  ---
+  duration_ms: 119.99675
+  type: 'test'
+  ...
+# Subtest: Chrome serves only manifest paths and records CSP-blocked and failed requests
+not ok 4 - Chrome serves only manifest paths and records CSP-blocked and failed requests
+  ---
+  duration_ms: 1.1585
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/shipping-isolation-release.test.js:410:1'
+  failureType: 'testCodeFailure'
+  error: 'installed Playwright is required'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/shipping-isolation-release.test.js:413:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 2
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8930.04575

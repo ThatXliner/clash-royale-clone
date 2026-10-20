@@ -60,6 +60,30 @@ const unitQuestionFlagsByCardId = new Map(cards
     ]))];
   }));
 const emptyQuestionFlags = new Map();
+const KIND_LABELS = Object.freeze({ unit: "Troop", effect: "Spell", structure: "Building" });
+const KIND_COUNT_WORDS = Object.freeze({
+  unit: Object.freeze(["troop", "troops"]),
+  effect: Object.freeze(["spell", "spells"]),
+  structure: Object.freeze(["building", "buildings"]),
+});
+const RARITY_LABELS = Object.freeze({
+  standard: "Standard",
+  uncommon: "Uncommon",
+  special: "Special",
+  mythic: "Mythic",
+  heroic: "Heroic",
+});
+const CHIP_TARGETS = Object.freeze({
+  ground: "Hits ground",
+  air: "Hits air",
+  "ground-and-air": "Hits ground and air",
+  air_and_ground: "Hits ground and air",
+  structures: "Targets buildings",
+  none: "Does not attack",
+});
+// The last column collects every cost at or above its value.
+const CURVE_COSTS = Object.freeze([1, 2, 3, 4, 5, 6, 7]);
+const PHONE_LAYOUT_QUERY = "(max-width: 760px)";
 const root = document.querySelector(".app-shell");
 const views = new Map([...document.querySelectorAll("[data-app-view]")]
   .map((view) => [view.dataset.appView, view]));
@@ -67,6 +91,8 @@ const navButtons = [...document.querySelectorAll("[data-nav-to]")];
 const cardGrid = document.querySelector("[data-card-grid]");
 const deckCards = document.querySelector("[data-deck-cards]");
 const homeDeck = document.querySelector("[data-home-deck]");
+const heroCrew = document.querySelector("[data-hero-crew]");
+const deckCurve = document.querySelector("[data-deck-curve]");
 const cardDetails = document.querySelector("[data-card-detail]");
 const emptyCollection = document.querySelector("[data-card-empty]");
 const search = document.querySelector("[data-card-search]");
@@ -93,14 +119,49 @@ function html(value) {
     .replaceAll(String.fromCharCode(39), "&#39;");
 }
 
+function capitalize(text) {
+  return text.charAt(0).toLocaleUpperCase("en") + text.slice(1);
+}
+
 function countLabel(count) {
   return `${formatter.format(count)} ${count === 1 ? "unit" : "units"}`;
 }
 
 function cardCountLabel(card) {
   if (card.kind === "effect") return "one spell";
-  if (card.kind === "structure") return "one structure";
+  if (card.kind === "structure") return "one building";
   return countLabel(card.formation.totalCount);
+}
+
+function kindLabel(card) {
+  return KIND_LABELS[card.kind] ?? "Card";
+}
+
+function rarityKey(card) {
+  return Object.hasOwn(RARITY_LABELS, card.rarity) ? card.rarity : "standard";
+}
+
+function rarityLabel(card) {
+  return Object.hasOwn(RARITY_LABELS, card.rarity) ? RARITY_LABELS[card.rarity] : null;
+}
+
+function accessibleKind(card) {
+  return card.kind === "unit"
+    ? `troop, ${countLabel(card.formation.totalCount)}`
+    : kindLabel(card).toLocaleLowerCase("en");
+}
+
+function roleSummary(card) {
+  if (card.kind === "effect") {
+    return card.id === radiusSpellProfile.fact.cardId ? "Spell · area" : "Spell";
+  }
+  if (card.kind === "structure") {
+    const profileClass = card.buildingRuntime?.class;
+    if (profileClass === "resource") return "Building · makes elixir";
+    if (profileClass === "defensive") return "Building · defends";
+    return "Building";
+  }
+  return `Troop · ${countLabel(card.formation.totalCount)}`;
 }
 
 function pluralName(name, count) {
@@ -222,6 +283,71 @@ function descriptionFor(card) {
   return `Deploys ${deployed.join(" and ")} together. ${details.join("; ")}.`;
 }
 
+function chip(label, provisional = false) {
+  return { label, provisional };
+}
+
+// Plain role chips read only the projection and receipt data shown below them.
+// A chip backed by a provisional field is drawn dashed and announced as such.
+function roleChips(card) {
+  if (card.kind === "effect") {
+    if (card.id !== radiusSpellProfile.fact.cardId) return [chip("Spell")];
+    const { fact, policies } = radiusSpellProfile;
+    return [
+      chip("Spell"),
+      chip("Hits an area"),
+      chip(CHIP_TARGETS[fact.targetMode] ?? "Targets not available",
+        policies?.targetMode?.disposition === "question"),
+    ];
+  }
+  if (card.kind === "structure") {
+    const profile = card.buildingRuntime;
+    const chips = [chip("Building"), chip("Stays in place")];
+    if (profile?.class === "resource") {
+      return [...chips, chip("Makes elixir"), chip("Does not attack")];
+    }
+    if (profile?.class === "defensive") {
+      const policy = profile.policy ?? {};
+      const provisional = (field) => policy.disposition === "question" ||
+        policy[field]?.disposition === "question";
+      chips.push(chip(CHIP_TARGETS[profile.targetMode ?? card.targetMode] ?? "Defends",
+        provisional("targetMode")));
+      chips.push(chip(profile.areaDamageRadiusMillitiles === null ? "One target at a time" : "Splash",
+        provisional("areaDamageRadiusMillitiles")));
+    }
+    return chips;
+  }
+  const { entities } = card;
+  const layers = [...new Set(entities.map((entity) => entity.layer === "air" ? "flying" : "ground"))];
+  const deliveries = [...new Set(entities.map((entity) =>
+    entity.delivery === "projectile" ? "ranged" : "melee"))];
+  const chips = [
+    chip(capitalize(layers.join(" and ")),
+      entities.some((entity) => entity.layerPolicy?.kind === "question")),
+    chip(capitalize(deliveries.join(" and ")),
+      entities.some((entity) => entity.deliveryPolicy?.kind === "question")),
+  ];
+  if (entities.length === 1) {
+    const flags = unitQuestionFlagsByCardId.get(card.id)?.get(entities[0]);
+    chips.push(chip(CHIP_TARGETS[entities[0].targetMode] ?? "Targets not available",
+      flags?.get("targetMode") === true));
+  }
+  if (card.formation.totalCount > 1) chips.push(chip(countLabel(card.formation.totalCount)));
+  return chips;
+}
+
+function hasQuestionStat(card) {
+  if (card.kind === "effect") return false;
+  if (card.kind === "structure") {
+    const policy = card.buildingRuntime?.policy ?? {};
+    return policy.disposition === "question" ||
+      Object.values(policy).some((record) => record?.disposition === "question");
+  }
+  const flags = unitQuestionFlagsByCardId.get(card.id);
+  return flags !== undefined &&
+    [...flags.values()].some((fields) => [...fields.values()].some(Boolean));
+}
+
 function artMarkup(cardId) {
   const portrait = getCardPortrait(cardId);
   const imageMarkup = portrait === null ? "" : `<span class="card-art-window">
@@ -230,49 +356,65 @@ function artMarkup(cardId) {
   return `<span class="card-art" data-card-art="${html(cardId)}" aria-hidden="true">${imageMarkup}</span>`;
 }
 
+function kindBadge(card) {
+  return card.kind === "unit" ? "" : `<span class="kind-badge">${html(kindLabel(card))}</span>`;
+}
+
+// One framed card face: rarity material, painted portrait, copper cost tag.
+function cardFaceMarkup(card, { badges = "", info = "", tag = true } = {}) {
+  return `<span class="card-face" data-rarity="${rarityKey(card)}"><span class="face-window">${artMarkup(card.id)}${tag ? `<span class="seed-tag" aria-hidden="true">${card.cost}</span>` : ""}${badges === "" ? "" : `<span class="face-badges" aria-hidden="true">${badges}</span>`}<span class="rarity-glyph" aria-hidden="true"></span></span>${info}</span>`;
+}
+
 function compactCardMarkup(card) {
-  return `<button class="mini-card" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${cardCountLabel(card)}, ${card.cost} elixir">
-    <span class="mini-cost" aria-hidden="true">${card.cost}</span>${artMarkup(card.id)}<span class="mini-card-name">${html(card.displayName)}</span>
-  </button>`;
+  return `<button class="mini-card" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${cardCountLabel(card)}, ${card.cost} elixir">${cardFaceMarkup(card, {
+    badges: kindBadge(card),
+    info: `<span class="mini-card-name">${html(card.displayName)}</span>`,
+  })}</button>`;
 }
 
 function deckCardMarkup(card, index) {
   const selected = index === selectedSlotIndex;
   const recentlyReplaced = index === lastReplacedSlotIndex;
+  const confirmation = recentlyReplaced ? '<span class="deck-slot-confirmation">Updated</span>' : "";
   return `<article class="deck-slot${selected ? " is-selected" : ""}${recentlyReplaced ? " is-recently-replaced" : ""}" data-slot-index="${index}">
-    <button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${cardCountLabel(card)}, ${card.cost} elixir in slot ${index + 1}">
-      ${artMarkup(card.id)}<span class="deck-card-copy"><small>Slot ${index + 1}${recentlyReplaced ? '<span class="deck-slot-confirmation">Updated</span>' : ""}</small><strong>${html(card.displayName)}</strong><small>${cardCountLabel(card)} · ${card.cost} elixir</small></span>
-    </button>
-    <button class="deck-replace-button" type="button" data-replace-slot="${index}" aria-expanded="${selected}" aria-controls="deck-replacement-panel">Replace</button>
+    <button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${cardCountLabel(card)}, ${card.cost} elixir in slot ${index + 1}">${cardFaceMarkup(card, {
+      badges: `<span class="slot-number">${index + 1}</span>${kindBadge(card)}`,
+      info: `<span class="deck-card-copy"><strong>${html(card.displayName)}</strong><small>${html(roleSummary(card))}</small>${confirmation}</span>`,
+    })}</button>
+    <button class="deck-replace-button" type="button" data-replace-slot="${index}" aria-expanded="${selected}" aria-controls="deck-replacement-panel" aria-label="Replace ${html(card.displayName)} in slot ${index + 1}"><span class="swap-glyph" aria-hidden="true">⇄</span>Replace</button>
   </article>`;
 }
 
 function collectionCardMarkup(card) {
-  return `<button class="collection-card" type="button" data-card-id="${html(card.id)}" aria-pressed="${card.id === selectedCardId}" aria-label="${html(card.displayName)}, ${cardCountLabel(card)}, costs ${card.cost} elixir">
-    ${artMarkup(card.id)}<span class="collection-card-info"><strong>${html(card.displayName)}</strong><span class="elixir-token" aria-label="${card.cost} elixir">${card.cost}</span></span>
-  </button>`;
+  const inDeck = currentDeckIds.includes(card.id);
+  return `<button class="collection-card" type="button" data-card-id="${html(card.id)}" aria-pressed="${card.id === selectedCardId}" aria-label="${html(card.displayName)}, ${accessibleKind(card)}, costs ${card.cost} elixir${inDeck ? ", in your deck" : ""}">${cardFaceMarkup(card, {
+    badges: `${inDeck ? '<span class="deck-badge">In deck</span>' : ""}${kindBadge(card)}`,
+    info: `<span class="collection-card-info"><strong>${html(card.displayName)}</strong><small>${html(roleSummary(card))}</small></span>`,
+  })}</button>`;
 }
 
-function statCell(label, value) {
-  return `<div class="stat-cell"><span>${label}</span><strong>${html(value)}</strong></div>`;
+function statCell(label, value, flag = null) {
+  const marker = flag === null ? "" : ` <span class="stat-flag">(${flag})</span>`;
+  const state = flag === null ? "" : ` data-flag="${flag === "QUESTION" ? "question" : "estimate"}"`;
+  return `<div class="stat-cell"${state}><span>${label}</span><strong>${html(value)}${marker}</strong></div>`;
 }
 
-function radiusSpellProfileMarkup() {
+function radiusSpellProfileMarkup(card) {
   const { fact } = radiusSpellProfile;
   const radius = tileValue(fact.areaDamageRadiusMillitiles);
   const target = targetLabel(fact.targetMode);
   const impactDelay = formatter.format(fact.impactDelayTicks / 60);
   const crown = `${formatter.format(100 + fact.crownTowerDamagePercent)}% (${formatter.format(
     Math.floor((fact.damage * (100 + fact.crownTowerDamagePercent) + 50) / 100))} damage per cast)`;
-  return `<section class="unit-profile spell-profile" aria-label="Squall Orb spell profile">
+  return `<section class="unit-profile spell-profile" aria-label="${html(card.displayName)} spell profile">
     <h3>Center cast · estimated values</h3>
     <div class="stat-grid">${[
-      ["Area damage", `${formatter.format(fact.damage)} per target`],
-      ["Radius", `${radius} (estimate)`],
-      ["Targets", `${target} (estimate)`],
-      ["Crown towers", `${crown} (estimate)`],
-      ["Impact delay", `about ${impactDelay} seconds (estimate)`],
-    ].map(([label, value]) => statCell(label, value)).join("")}</div>
+      ["Area damage", `${formatter.format(fact.damage)} per target`, null],
+      ["Radius", radius, "estimate"],
+      ["Targets", target, "estimate"],
+      ["Crown towers", crown, "estimate"],
+      ["Impact delay", `about ${impactDelay} seconds`, "estimate"],
+    ].map(([label, value, flag]) => statCell(label, value, flag)).join("")}</div>
     <p>Radius, target coverage, tower damage, rounding and impact timing are estimates. Projectile flight and knockback are not simulated.</p>
   </section>`;
 }
@@ -282,27 +424,25 @@ function unitProfileMarkup(entity, questionFlags) {
     ? html(entity.displayName) : `${formatter.format(entity.count)} × ${html(entity.displayName)}`;
   const delivery = entity.delivery === "projectile" ? "Ranged" : "Melee";
   const layer = entity.layer === "air" ? "Flying" : "Ground";
-  const questionSuffix = (field) => questionFlags.get(field) !== true
-    ? "" : " (QUESTION)";
-  const questioned = (field, value) => `${value}${questionSuffix(field)}`;
+  const flag = (field) => questionFlags.get(field) === true ? "QUESTION" : null;
   const values = [
-    ["Count", questioned("count", formatter.format(entity.count))],
-    ["Health", questioned("hitpoints", entity.hitpoints === null
-      ? "Not available" : formatter.format(entity.hitpoints))],
-    ["Damage", questioned("damage", entity.damage === null
-      ? "Not available" : `${formatter.format(entity.damage)} per attack`)],
-    ["Hit speed", questioned("hitSpeedTicks", secondsValue(entity.hitSpeedTicks))],
-    ["Range", questioned("rangeMillitiles", tileValue(entity.rangeMillitiles))],
-    ["Targets", questioned("targetMode", targetLabel(entity.targetMode))],
-    ["Moves", questioned("movementMillitilesPerSecond",
-      speedValue(entity.movementMillitilesPerSecond))],
+    ["Count", formatter.format(entity.count), "count"],
+    ["Health", entity.hitpoints === null
+      ? "Not available" : formatter.format(entity.hitpoints), "hitpoints"],
+    ["Damage", entity.damage === null
+      ? "Not available" : `${formatter.format(entity.damage)} per attack`, "damage"],
+    ["Hit speed", secondsValue(entity.hitSpeedTicks), "hitSpeedTicks"],
+    ["Range", tileValue(entity.rangeMillitiles), "rangeMillitiles"],
+    ["Targets", targetLabel(entity.targetMode), "targetMode"],
+    ["Moves", speedValue(entity.movementMillitilesPerSecond), "movementMillitilesPerSecond"],
   ];
   const classification = classificationHasQuestion(entity)
     ? html(questionClassificationCopy(entity))
     : `${layer} · ${delivery} · Targets ${html(targetLabel(entity.targetMode))}`;
   return `<section class="unit-profile" aria-label="${heading} statistics">
     <h3>${heading}</h3><p>${classification}</p>
-    <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
+    <div class="stat-grid">${values.map(([label, value, field]) =>
+      statCell(label, value, flag(field))).join("")}</div>
   </section>`;
 }
 
@@ -313,45 +453,45 @@ function structureProfileMarkup(card) {
   if (profile.class === "resource") {
     const question = Object.values(policy).some((record) =>
       record?.disposition === "question");
-    const suffix = (field) => policy[field]?.disposition === "question"
-      ? " (QUESTION)" : "";
+    const flag = (field) => policy[field]?.disposition === "question" ? "QUESTION" : null;
     const values = [
-      ["Cost", `${formatter.format(card.cost)} elixir`],
-      ["Health", `${formatter.format(profile.hitpoints)}${suffix("hitpoints")}`],
-      ["Deploy", `${secondsValue(profile.deployTicks)}${suffix("deployTicks")}`],
-      ["Generation", `${formatter.format(profile.generationAmount)} elixir${suffix("generationAmount")}`],
-      ["Interval", `${secondsValue(profile.generationCadenceTicks)}${suffix("generationCadenceTicks")}`],
-      ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix("lifetimeTicks")}`],
-      ["Destroyed", `${formatter.format(profile.destructionAmount)} elixir${suffix("destructionAmount")}`],
-      ["Role", "Resource · does not attack"],
+      ["Cost", `${formatter.format(card.cost)} elixir`, null],
+      ["Health", formatter.format(profile.hitpoints), flag("hitpoints")],
+      ["Deploy", secondsValue(profile.deployTicks), flag("deployTicks")],
+      ["Generation", `${formatter.format(profile.generationAmount)} elixir`, flag("generationAmount")],
+      ["Interval", secondsValue(profile.generationCadenceTicks), flag("generationCadenceTicks")],
+      ["Lifetime", secondsValue(profile.lifetimeTicks), flag("lifetimeTicks")],
+      ["Destroyed", `${formatter.format(profile.destructionAmount)} elixir`, flag("destructionAmount")],
+      ["Role", "Resource · does not attack", null],
     ];
     return `<section class="unit-profile structure-profile" aria-label="${html(card.displayName)} statistics">
       <h3>Resource structure · ${question ? "QUESTION" : "current profile"}</h3>
       <p>${question
         ? "Some resource fields remain QUESTION; source-aligned values keep their existing status."
         : "Values are from the current shared structure profile."}</p>
-      <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
+      <div class="stat-grid">${values.map(([label, value, state]) =>
+        statCell(label, value, state)).join("")}</div>
     </section>`;
   }
   const broadQuestion = policy.disposition === "question";
   const question = broadQuestion || Object.values(policy).some((record) =>
     record?.disposition === "question");
-  const suffix = (field) => broadQuestion || policy[field]?.disposition === "question"
-    ? " (QUESTION)" : "";
+  const flag = (field) => broadQuestion || policy[field]?.disposition === "question"
+    ? "QUESTION" : null;
   const splashRadius = profile.class === "defensive" &&
     profile.areaDamageRadiusMillitiles === null
     ? "None" : tileValue(profile.areaDamageRadiusMillitiles);
   const values = [
-    ["Cost", `${formatter.format(card.cost)} elixir`],
-    ["Health", `${formatter.format(profile.hitpoints)}${suffix("hitpoints")}`],
-    ["Damage", `${formatter.format(profile.damage)} per attack${suffix("damage")}`],
-    ["Deploy", `${secondsValue(profile.deployTicks)}${suffix("deployTicks")}`],
-    ["First hit", `${secondsValue(profile.firstHitTicks)}${suffix("firstHitTicks")}`],
-    ["Hit speed", `${secondsValue(profile.hitSpeedTicks)}${suffix("hitSpeedTicks")}`],
-    ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix("lifetimeTicks")}`],
-    ["Range", `${tileValue(profile.maxRangeMillitiles)}${suffix("maxRangeMillitiles")}`],
-    ["Splash radius", `${splashRadius}${suffix("areaDamageRadiusMillitiles")}`],
-    ["Targets", `${targetLabel(profile.targetMode ?? card.targetMode)}${suffix("targetMode")}`],
+    ["Cost", `${formatter.format(card.cost)} elixir`, null],
+    ["Health", formatter.format(profile.hitpoints), flag("hitpoints")],
+    ["Damage", `${formatter.format(profile.damage)} per attack`, flag("damage")],
+    ["Deploy", secondsValue(profile.deployTicks), flag("deployTicks")],
+    ["First hit", secondsValue(profile.firstHitTicks), flag("firstHitTicks")],
+    ["Hit speed", secondsValue(profile.hitSpeedTicks), flag("hitSpeedTicks")],
+    ["Lifetime", secondsValue(profile.lifetimeTicks), flag("lifetimeTicks")],
+    ["Range", tileValue(profile.maxRangeMillitiles), flag("maxRangeMillitiles")],
+    ["Splash radius", splashRadius, flag("areaDamageRadiusMillitiles")],
+    ["Targets", targetLabel(profile.targetMode ?? card.targetMode), flag("targetMode")],
   ];
   const heading = profile.class === "resource" ? "Resource structure" : "Defensive structure";
   const confidence = question
@@ -362,31 +502,71 @@ function structureProfileMarkup(card) {
   return `<section class="unit-profile structure-profile" aria-label="${html(card.displayName)} statistics">
     <h3>${heading} · ${question ? "QUESTION" : "current profile"}</h3>
     <p>${confidence}</p>
-    <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
+    <div class="stat-grid">${values.map(([label, value, state]) =>
+      statCell(label, value, state)).join("")}</div>
   </section>`;
+}
+
+// A plain reading of the resource receipt: what the building makes, how long it
+// stands, and what it leaves when destroyed. QUESTION fields keep their label.
+function resourceCycleMarkup(card) {
+  const profile = card.buildingRuntime;
+  if (profile?.class !== "resource") return "";
+  const policy = profile.policy ?? {};
+  const flag = (field) => policy[field]?.disposition === "question"
+    ? ' <span class="stat-flag">(QUESTION)</span>' : "";
+  return `<ul class="resource-cycle" aria-label="How ${html(card.displayName)} works">
+      <li><b>While standing</b><span>Makes ${formatter.format(profile.generationAmount)} elixir${flag("generationAmount")} every ${secondsValue(profile.generationCadenceTicks)}${flag("generationCadenceTicks")}</span></li>
+      <li><b>Lifetime</b><span>Stands for ${secondsValue(profile.lifetimeTicks)}${flag("lifetimeTicks")}</span></li>
+      <li><b>When destroyed</b><span>Grants ${formatter.format(profile.destructionAmount)} elixir${flag("destructionAmount")}</span></li>
+    </ul>`;
+}
+
+function roleChipsMarkup(chips) {
+  return chips.map(({ label, provisional }) => `<li class="role-chip${provisional ? " is-provisional" : ""}">${html(label)}${provisional ? '<span class="visually-hidden"> (provisional)</span>' : ""}</li>`).join("");
 }
 
 function renderCardDetails(card) {
   const lore = getCardLore(card.id);
   const unitQuestionFlags = unitQuestionFlagsByCardId.get(card.id) ?? emptyQuestionFlags;
-  cardDetails.innerHTML = `<div class="detail-heading">
-      <div class="detail-portrait">${artMarkup(card.id)}</div>
-      <div class="detail-heading-copy">
-        <button type="button" class="detail-back" data-action="back-to-cards"><span aria-hidden="true">←</span> Cards</button>
-        <div><h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2><p>${cardCountLabel(card)} · ${card.cost} elixir</p></div>
-      </div>
-      <span class="detail-cost" aria-label="${card.cost} elixir">${card.cost}</span>
+  const deckIndex = currentDeckIds.indexOf(card.id);
+  const rarity = rarityLabel(card);
+  const chips = roleChips(card);
+  const provisional = chips.some((entry) => entry.provisional) || hasQuestionStat(card);
+  const legendMarks = card.kind === "effect" ? "estimate labels" : "QUESTION labels";
+  cardDetails.innerHTML = `<div class="detail-topbar">
+      <button type="button" class="detail-back" data-action="back-to-cards"><span aria-hidden="true">←</span> Cards</button>
+      <span class="detail-position">Card ${cards.indexOf(card) + 1} of ${cards.length}</span>
     </div>
-    <p class="detail-description">${html(descriptionFor(card))}</p>
+    <div class="detail-heading">
+      <div class="detail-portrait">${cardFaceMarkup(card, { tag: false })}</div>
+      <div class="detail-heading-copy">
+        <p class="detail-kicker"><span class="rarity-glyph" data-rarity="${rarityKey(card)}" aria-hidden="true"></span>${html(kindLabel(card))}${rarity === null ? "" : ` · ${html(rarity)}`}</p>
+        <h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2>
+        <p class="detail-meta">${html(capitalize(cardCountLabel(card)))}</p>
+        ${deckIndex < 0 ? "" : `<p class="detail-deck-note">In your deck · slot ${deckIndex + 1}</p>`}
+      </div>
+      <span class="detail-cost" role="img" aria-label="Costs ${card.cost} elixir">${card.cost}</span>
+    </div>
+    <ul class="role-chips" aria-label="At a glance">${roleChipsMarkup(chips)}</ul>
+    <section class="detail-section" aria-labelledby="selected-card-summary-title">
+      <h3 class="detail-label" id="selected-card-summary-title">What it does</h3>
+      <p class="detail-description">${html(descriptionFor(card))}</p>
+      ${resourceCycleMarkup(card)}
+    </section>
+    <section class="detail-section detail-stats" aria-labelledby="selected-card-stats-title">
+      <h3 class="detail-label" id="selected-card-stats-title">Stats</h3>
+      ${card.kind === "effect" ? radiusSpellProfileMarkup(card)
+        : card.kind === "structure" ? structureProfileMarkup(card)
+          : card.entities.map((entity) => unitProfileMarkup(entity,
+            unitQuestionFlags.get(entity) ?? emptyQuestionFlags)).join("")}
+      ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}
+      ${provisional ? `<p class="detail-legend"><span class="legend-swatch" aria-hidden="true"></span><span>Dashed outlines and ${legendMarks} mark provisional values. The game uses them, but they are not confirmed yet.</span></p>` : ""}
+    </section>
     ${lore === null ? "" : `<section class="card-lore" aria-labelledby="selected-card-lore-title">
-      <span class="card-lore-label">Story</span><h3 id="selected-card-lore-title">A field note</h3>
+      <h3 id="selected-card-lore-title">Field note</h3>
       <p>${html(lore)}</p>
-    </section>`}
-    ${card.kind === "effect" ? radiusSpellProfileMarkup()
-      : card.kind === "structure" ? structureProfileMarkup(card)
-        : card.entities.map((entity) => unitProfileMarkup(entity,
-          unitQuestionFlags.get(entity) ?? emptyQuestionFlags)).join("")}
-    ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}`;
+    </section>`}`;
   for (const button of cardGrid.querySelectorAll("[data-card-id]")) {
     button.setAttribute("aria-pressed", String(button.dataset.cardId === card.id));
   }
@@ -396,6 +576,7 @@ function renderCollection() {
   const query = search.value.trim().toLocaleLowerCase("en");
   const matches = cards.filter((card) => query === "" ||
     card.displayName.toLocaleLowerCase("en").includes(query) ||
+    kindLabel(card).toLocaleLowerCase("en").includes(query) ||
     card.entities.some((entity) => entity.displayName.toLocaleLowerCase("en").includes(query)));
   cardGrid.innerHTML = matches.map(collectionCardMarkup).join("");
   const isEmpty = matches.length === 0;
@@ -404,7 +585,7 @@ function renderCollection() {
   cardDetails.hidden = isEmpty;
   if (isEmpty) {
     views.get("cards").dataset.detailOpen = "false";
-    emptyCollection.innerHTML = `<p>“${html(search.value.trim())}” is not in the playable collection yet. Only cards supported by live decks are shown.</p><button class="search-clear" type="button" data-action="clear-search">Clear search</button>`;
+    emptyCollection.innerHTML = `<p>"${html(search.value.trim())}" is not in the playable collection yet. Only cards supported by live decks are shown.</p><button class="search-clear" type="button" data-action="clear-search">Clear search</button>`;
   }
   renderCardDetails(cardById.get(selectedCardId));
 }
@@ -412,6 +593,42 @@ function renderCollection() {
 function averageCost() {
   return currentDeckIds.reduce((total, id) => total + cardById.get(id).cost, 0) /
     currentDeckIds.length;
+}
+
+function renderHeroCrew() {
+  if (heroCrew === null) return;
+  heroCrew.innerHTML = currentDeckIds.slice(0, 3).map((id) => {
+    const card = cardById.get(id);
+    return `<span class="hero-crew-card">${cardFaceMarkup(card)}<span class="hero-crew-name">${html(card.displayName)}</span></span>`;
+  }).join("");
+}
+
+function renderDeckCurve() {
+  if (deckCurve === null) return;
+  const last = CURVE_COSTS.length - 1;
+  const counts = CURVE_COSTS.map((cost, index) => currentDeckIds.filter((id) => {
+    const value = cardById.get(id).cost;
+    return index === last ? value >= cost : value === cost;
+  }).length);
+  const tallest = Math.max(1, ...counts);
+  deckCurve.innerHTML = CURVE_COSTS.map((cost, index) => `<span class="curve-col"><span class="curve-count">${counts[index] === 0 ? "" : counts[index]}</span><span class="curve-track"><span class="curve-bar" style="--fill: ${counts[index] / tallest}"></span></span><span class="curve-cost">${index === last ? `${cost}+` : cost}</span></span>`).join("");
+  const described = CURVE_COSTS.flatMap((cost, index) => counts[index] === 0 ? [] : [
+    `${counts[index]} ${counts[index] === 1 ? "card costs" : "cards cost"} ${index === last ? `${cost} or more` : cost}`,
+  ]);
+  deckCurve.setAttribute("aria-label", `Elixir costs in your deck: ${described.join(", ")}`);
+}
+
+function deckMixText() {
+  const counts = new Map();
+  for (const id of currentDeckIds) {
+    const { kind } = cardById.get(id);
+    counts.set(kind, (counts.get(kind) ?? 0) + 1);
+  }
+  return Object.keys(KIND_COUNT_WORDS).filter((kind) => counts.has(kind)).map((kind) => {
+    const count = counts.get(kind);
+    const [one, many] = KIND_COUNT_WORDS[kind];
+    return `${count} ${count === 1 ? one : many}`;
+  }).join(" · ");
 }
 
 function renderDeckSummary() {
@@ -428,9 +645,12 @@ function renderDeckSummary() {
   for (const node of document.querySelectorAll("[data-deck-kind]")) {
     node.textContent = isStandard ? "STANDARD DECK" : "CUSTOM DECK";
   }
+  for (const node of document.querySelectorAll("[data-deck-mix]")) node.textContent = deckMixText();
   if (battleLabel !== null) {
     battleLabel.textContent = `${isStandard ? "STANDARD" : "CUSTOM"} DECK · LIVE MATCH`;
   }
+  renderHeroCrew();
+  renderDeckCurve();
   renderReplacementChoices();
 }
 
@@ -455,14 +675,18 @@ function renderReplacementChoices() {
   }
   if (!isOpen) return;
   const currentCard = cardById.get(currentDeckIds[selectedSlotIndex]);
+  const deckTotal = currentDeckIds.reduce((total, id) => total + cardById.get(id).cost, 0);
   const available = EDITABLE_MIXED_DECK_CARD_IDS
     .filter((id) => !currentDeckIds.includes(id))
     .map((id) => cardById.get(id));
   document.querySelector("[data-replacement-title]").textContent =
     `Replace slot ${selectedSlotIndex + 1} · ${currentCard.displayName}`;
-  replacementChoices.innerHTML = available.map((card) => `<button class="replacement-choice" type="button" data-replacement-card-id="${html(card.id)}" aria-label="Replace with ${html(card.displayName)}, costs ${card.cost} elixir">
-    ${artMarkup(card.id)}<span><strong>${html(card.displayName)}</strong><small>${card.cost} elixir</small></span>
-  </button>`).join("");
+  replacementChoices.innerHTML = available.map((card) => {
+    const nextAverage = ((deckTotal - currentCard.cost + card.cost) / currentDeckIds.length).toFixed(2);
+    return `<button class="replacement-choice" type="button" data-replacement-card-id="${html(card.id)}" aria-label="Replace with ${html(card.displayName)}, costs ${card.cost} elixir, new average ${nextAverage}">
+    ${cardFaceMarkup(card)}<span class="replacement-choice-copy"><strong>${html(card.displayName)}</strong><small>${html(roleSummary(card))}</small><small class="replacement-average">New average ${nextAverage}</small></span>
+  </button>`;
+  }).join("");
   if (available.length === 0) {
     replacementChoices.innerHTML = '<p class="replacement-empty">Every available card is already in your deck.</p>';
   }
@@ -579,31 +803,39 @@ function setView(name, { focus = true } = {}) {
   return true;
 }
 
+// On phones the card info replaces the grid, so it opens at the top like a new screen.
+function openPhoneDetail() {
+  views.get("cards").dataset.detailOpen = "true";
+  window.scrollTo({ top: 0, behavior: "instant" });
+  document.querySelector("#selected-card-title")?.focus({ preventScroll: true });
+}
+
 function chooseCard(cardId, fromDeck = false) {
   if (!cardById.has(cardId)) return;
   selectedCardId = cardId;
   renderCollection();
-  if (fromDeck) {
-    setView("cards", { focus: false });
-    if (window.matchMedia("(max-width: 760px)").matches) {
-      views.get("cards").dataset.detailOpen = "true";
-      document.querySelector("#selected-card-title")?.focus();
-    } else {
-      document.querySelector("#selected-card-title")?.focus();
-    }
-  } else if (window.matchMedia("(max-width: 760px)").matches) {
-    views.get("cards").dataset.detailOpen = "true";
+  if (fromDeck) setView("cards", { focus: false });
+  if (window.matchMedia(PHONE_LAYOUT_QUERY).matches) {
+    openPhoneDetail();
+  } else if (fromDeck) {
     document.querySelector("#selected-card-title")?.focus();
   }
 }
 
+for (const node of document.querySelectorAll("[data-collection-count]")) {
+  node.textContent = String(cards.length);
+}
 renderDeckSummary();
 renderCollection();
 for (const button of navButtons) {
   button.addEventListener("click", () => setView(button.dataset.navTo));
 }
-document.querySelector('[data-action="begin-battle"]').addEventListener("click", () => setView("battle"));
-document.querySelector('[data-action="browse-cards"]').addEventListener("click", () => setView("cards"));
+for (const button of document.querySelectorAll('[data-action="begin-battle"]')) {
+  button.addEventListener("click", () => setView("battle"));
+}
+for (const button of document.querySelectorAll('[data-action="browse-cards"]')) {
+  button.addEventListener("click", () => setView("cards"));
+}
 document.querySelector('[data-action="leave-battle"]').addEventListener("click", () => setView("home"));
 search.addEventListener("input", renderCollection);
 window.addEventListener("resize", layoutBattleFrame, { passive: true });

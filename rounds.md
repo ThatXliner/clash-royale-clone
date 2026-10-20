@@ -9847,3 +9847,15 @@ BIGGEST GAP: Per-root chain target selection admits friendly structures despite 
 DISPOSITION: Keepimplementation unadopted. BuilderR2 must apply source-side hostile eligibility and regression for units/buildings/crowns, noeligibleenemy, aftercasterdeath/restore/chunk continuation; preserveexact11QUESTIONpolicy and existingcaps/HPowners/tick. Earlier illegal-placement probe setups are executionerrors. The first post-settlement distance report is retained but superseded by reviewedprehop-originprobe; neither is an extra visual/mechanicround.
 
 Evidence: artifacts/game001htjc-round-1/critic containsactualrawcaptures, VERDICT, SOURCE-FENCE, originalprobe and rollback/defaultbyte helpers. Two portable patches reproduce the exactfactorybase from publica754b30 and the wholecandidate from publicd74c3d7c. Onlyprototypepatches/evidence/tracking arepublished; noengine/test/package/UI/runtime changes orfullsuite/browserqualification.
+
+## Round 529 — 2026-10-20
+
+PIECE: APP-REDESIGN-001C
+
+VERDICT: PASS — collection, deck builder and card-info scope only
+
+EVIDENCE: Claude implemented public/index.html and src/ui/app-shell.js/.css in an isolated accepted-source checkout. A separate critic ran six passing gates: real Chrome app-shell, app-polish R3, content-schema, release-build, shipping-isolation-release and actual rendered role/lore comparison for all23 cards. Phone/desktop screenshots were viewed; keyboard and trusted pointer replacement, eight-slot membership/order, confirmation, details/back focus, same-deck Play Again and reduced-motion behavior pass. Missing Vite/audit fixtures and stale count/order test failures were preserved; the test-only repair retained exact IDs, uniqueness, focus and feedback assertions, with its first faulty label selector corrected before the passing run. UI and lockfile hashes remained frozen throughout. Bounded evidence: artifacts/app-redesign-001c-round-1/.
+
+BIGGEST GAP: None on this screen dimension. This does not qualify model sprites, battle motion, whole-engine extraction or full roster completion.
+
+DISPOSITION: Adopt only the reviewed three UI files and qualified test repair; retain original engine, catalog and assets.

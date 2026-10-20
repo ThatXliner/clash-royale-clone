@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="color-scheme" content="light">
-    <meta name="theme-color" content="#15241f">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#101a22">
     <title>Moss &amp; Ember — Card battler</title>
     <link rel="stylesheet" href="../src/ui/app-shell.css">
     <script type="module" src="../src/ui/app-shell.js"></script>
@@ -13,97 +13,137 @@
     <div class="app-shell" data-view-active="home">
       <header class="app-header">
         <div class="brand-lockup">
-          <span class="brand-mark" aria-hidden="true"><i></i><b></b></span>
-          <span class="brand-copy"><strong>Moss &amp; Ember</strong><small>CARD BATTLES</small></span>
+          <svg class="brand-mark" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
+            <rect width="128" height="128" rx="30" fill="#101a22"/>
+            <circle cx="64" cy="64" r="48" fill="none" stroke="#9bbb76" stroke-opacity=".48" stroke-width="2"/>
+            <path d="M61 72C42 74 30 63 32 43c18-3 33 8 35 25-2 3-4 4-6 4Z" fill="#9bbb76"/>
+            <path d="M67 71c-1-19 9-31 29-34 2 18-7 31-25 36l-4-2Z" fill="#f2a25e"/>
+            <path d="M47 88c8-10 14-19 18-31 4 14 10 24 17 33" fill="none" stroke="#e9e2cd" stroke-linecap="round" stroke-width="4"/>
+            <path d="M64 62c-8 8-8 16 0 22 8-6 8-14 0-22Z" fill="#e9e2cd"/>
+            <circle cx="38" cy="83" r="2.5" fill="#f2a25e"/>
+            <circle cx="91" cy="83" r="2.5" fill="#9bbb76"/>
+          </svg>
+          <span class="brand-copy"><strong>Moss &amp; Ember</strong><small>Riverworks card battles</small></span>
         </div>
         <nav class="app-nav" aria-label="Main navigation">
-          <button type="button" data-nav-to="home" aria-controls="view-home" aria-current="page">Home</button>
-          <button type="button" data-nav-to="deck" aria-controls="view-deck">Deck</button>
-          <button type="button" data-nav-to="cards" aria-controls="view-cards">Cards</button>
-          <button type="button" data-nav-to="battle" aria-controls="view-battle" class="nav-battle">Battle <span aria-hidden="true">↗</span></button>
+          <button type="button" data-nav-to="home" aria-controls="view-home" aria-current="page"><span class="nav-icon nav-icon-home" aria-hidden="true"></span>Home</button>
+          <button type="button" data-nav-to="deck" aria-controls="view-deck"><span class="nav-icon nav-icon-deck" aria-hidden="true"></span>Deck</button>
+          <button type="button" data-nav-to="cards" aria-controls="view-cards"><span class="nav-icon nav-icon-cards" aria-hidden="true"></span>Cards</button>
+          <button type="button" data-nav-to="battle" aria-controls="view-battle" class="nav-battle"><span class="nav-icon nav-icon-battle" aria-hidden="true"></span>Battle</button>
         </nav>
       </header>
 
       <main class="app-main">
         <section class="app-view home-view" id="view-home" data-app-view="home" aria-labelledby="home-title">
           <div class="home-hero">
+            <div class="hero-art" aria-hidden="true">
+              <span class="hero-ridge hero-ridge-back"></span>
+              <span class="hero-ridge hero-ridge-front"></span>
+              <span class="hero-river"></span>
+              <span class="hero-bank"></span>
+              <span class="hero-bridge"></span>
+              <span class="hero-lantern hero-lantern-one"></span>
+              <span class="hero-lantern hero-lantern-two"></span>
+              <span class="hero-lantern hero-lantern-three"></span>
+              <span class="hero-lantern hero-lantern-four"></span>
+            </div>
             <div class="hero-copy">
-              <p class="eyebrow"><span></span> THE WILDLANDS ARE READY</p>
-              <h1 id="home-title" tabindex="-1">Meet your crew.<br><em>Enter the arena.</em></h1>
-              <p class="hero-description">Learn what each card does, review your battle deck, then take the same crew into a match.</p>
+              <p class="eyebrow eyebrow-dot">The river valley is ready</p>
+              <h1 id="home-title" tabindex="-1">Light the path.<br><em>Hold the bridge.</em></h1>
+              <p class="hero-description">Gather a crew of eight from the river workshops, learn what each card does, then take them into a live match.</p>
               <div class="hero-actions">
                 <button class="button-primary" type="button" data-action="begin-battle">Enter the arena <span aria-hidden="true">→</span></button>
-                <button class="button-quiet" type="button" data-action="browse-cards">View cards</button>
+                <button class="button-quiet" type="button" data-action="browse-cards">Browse the cards</button>
               </div>
+              <p class="hero-caption"><span data-deck-kind>STANDARD DECK</span><span aria-hidden="true">·</span><span><span data-deck-card-count>8</span> CARD ROTATION</span></p>
             </div>
-            <div class="hero-art" aria-hidden="true">
-              <span class="hero-sun"></span><span class="hero-moon"></span>
-              <span class="hero-hill hero-hill-back"></span><span class="hero-hill hero-hill-front"></span>
-              <span class="hero-river"></span><span class="hero-bridge"></span>
-              <span class="hero-tower hero-tower-left"></span><span class="hero-tower hero-tower-right"></span>
-              <span class="hero-spark hero-spark-one"></span><span class="hero-spark hero-spark-two"></span>
+            <div class="hero-stage" aria-hidden="true">
+              <span class="hero-plinth"></span>
+              <div class="hero-crew" data-hero-crew></div>
             </div>
-          <div class="hero-caption"><span data-deck-kind>STANDARD DECK</span><span><span data-deck-card-count>8</span> CARD ROTATION</span></div>
           </div>
 
           <div class="home-columns">
             <section class="home-panel deck-overview" aria-labelledby="home-deck-title">
-              <div class="panel-heading"><div><p class="eyebrow">READY LINEUP</p><h2 id="home-deck-title">Your deck</h2></div><button type="button" class="text-link" data-nav-to="deck">View deck <span aria-hidden="true">→</span></button></div>
-              <div class="home-deck-summary"><strong data-deck-size>8</strong><span>cards in rotation</span><i></i><strong data-average-cost>3.13</strong><span>average elixir</span></div>
-              <div class="home-card-peek" data-home-deck aria-label="Cards in your current deck"></div>
+              <div class="panel-heading">
+                <div><p class="eyebrow">Ready lineup</p><h2 id="home-deck-title">Your deck</h2></div>
+                <button type="button" class="text-link" data-nav-to="deck">Edit deck <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="home-deck-summary">
+                <span class="summary-pill"><strong data-deck-size>8</strong> cards in rotation</span>
+                <span class="summary-pill"><strong data-average-cost>3.13</strong> average elixir</span>
+              </div>
+              <div class="home-card-peek" data-home-deck role="group" aria-label="Cards in your current deck"></div>
             </section>
 
             <section class="home-panel how-to" aria-labelledby="how-to-title">
-              <div class="panel-heading"><div><p class="eyebrow">FIRST MATCH?</p><h2 id="how-to-title">How to play</h2></div><span class="guide-number" aria-hidden="true">✳</span></div>
+              <div class="panel-heading"><div><p class="eyebrow">First match?</p><h2 id="how-to-title">How to play</h2></div></div>
               <ol class="how-to-list">
-                <li><span>01</span><p><strong>Manage elixir.</strong> It refills during battle. Wait for the meter when you cannot afford a card.</p></li>
-                <li><span>02</span><p><strong>Pick, then place.</strong> Select a card and click or tap a legal spot on your half of the field.</p></li>
-                <li><span>03</span><p><strong>Cycle your deck.</strong> Eight cards rotate through a four-card hand; the next card is previewed.</p></li>
-                <li><span>04</span><p><strong>Take the towers.</strong> Bring down towers to earn crowns and win the match.</p></li>
+                <li>
+                  <span class="how-to-visual" aria-hidden="true"><span class="mini-deck"><i class="mini-tile"></i><i class="mini-tile mini-tile-wood mini-tile-picked"></i><i class="mini-tile"></i><i class="mini-tile mini-tile-wood"></i><i class="mini-tile mini-tile-teal"></i><i class="mini-tile mini-tile-wood"></i><i class="mini-tile"></i><i class="mini-tile mini-tile-wood"></i></span></span>
+                  <p><strong><span class="how-to-step">01</span> Build a deck of eight cards.</strong> Choose any eight from the collection. Open a card to see what it does.</p>
+                </li>
+                <li>
+                  <span class="how-to-visual" aria-hidden="true"><span class="mini-hand"><i class="mini-tile mini-tile-wood mini-tile-next"></i><i class="mini-tile"></i><i class="mini-tile mini-tile-wood mini-tile-up"></i><i class="mini-tile"></i><i class="mini-tile mini-tile-teal"></i></span></span>
+                  <p><strong><span class="how-to-step">02</span> Play from a four-card hand.</strong> Select a card, then click or tap a spot on your half of the field. The next card slides in.</p>
+                </li>
+                <li>
+                  <span class="how-to-visual" aria-hidden="true"><span class="mini-cost">3</span><span class="mini-rail"><i class="is-full"></i><i class="is-full"></i><i class="is-full"></i><i class="is-filling"></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+                  <p><strong><span class="how-to-step">03</span> Spend elixir.</strong> The copper tag on each card is its cost. Elixir refills on its own, up to 10.</p>
+                </li>
+                <li>
+                  <span class="how-to-visual" aria-hidden="true"><span class="mini-keeps"><i class="mini-keep"></i><i class="mini-keep mini-keep-centre"></i><i class="mini-keep"></i></span></span>
+                  <p><strong><span class="how-to-step">04</span> Take the towers.</strong> Knock down towers to earn crowns. More crowns after three minutes wins, and a tie goes to overtime.</p>
+                </li>
               </ol>
-              <button type="button" class="button-primary button-primary-small" data-action="begin-battle">Got it — battle <span aria-hidden="true">→</span></button>
+              <button type="button" class="button-primary button-primary-small" data-action="begin-battle">Start a match <span aria-hidden="true">→</span></button>
             </section>
           </div>
         </section>
 
         <section class="app-view deck-view" id="view-deck" data-app-view="deck" aria-labelledby="deck-title" hidden>
           <div class="page-intro">
-            <p class="eyebrow">YOUR CURRENT LINEUP</p>
+            <p class="eyebrow">Your current lineup</p>
             <h1 id="deck-title" tabindex="-1">Battle deck</h1>
-            <p>Eight unique cards travel together. Inspect a card or replace one from the available lineup.</p>
+            <p class="page-lede">Eight cards travel with you into every match. Open a card to read it, or swap it for one from the collection.</p>
           </div>
           <div class="deck-summary-card">
-            <span class="summary-icon" aria-hidden="true">✳</span>
-            <div><strong><span data-deck-size>8</span> cards</strong><small>Full rotation</small></div>
-            <i></i>
-            <div><strong><span data-average-cost>3.13</span></strong><small>Average elixir</small></div>
-            <span class="deck-fixed-note">Choose a slot, then replace it with a card outside your deck.</span>
+            <div class="deck-metric deck-metric-average"><span class="deck-metric-value" data-average-cost>3.13</span><span class="deck-metric-label">Average elixir</span></div>
+            <div class="deck-metric"><span class="deck-metric-value"><span data-deck-size>8</span><span class="deck-metric-of">/8</span></span><span class="deck-metric-label">Cards in deck</span></div>
+            <div class="deck-curve-block">
+              <span class="deck-metric-label">Elixir curve</span>
+              <div class="deck-curve" data-deck-curve role="img" aria-label="Elixir costs in your deck"></div>
+            </div>
+            <p class="deck-mix"><span class="deck-mix-kind" data-deck-kind>STANDARD DECK</span><span data-deck-mix></span></p>
           </div>
-          <section class="replacement-panel" id="deck-replacement-panel" data-replacement-panel aria-labelledby="replacement-heading" hidden>
-            <div><p class="eyebrow">AVAILABLE CHOICES</p><h2 id="replacement-heading" data-replacement-title>Replace a card</h2><p>Choose a card not already in your deck.</p></div>
-            <div class="replacement-choices" data-replacement-choices></div>
-            <button type="button" class="button-quiet replacement-cancel" data-action="cancel-replacement">Cancel</button>
-          </section>
+          <p class="deck-help">Choose Replace on any slot, then pick a card that is not in your deck yet.</p>
           <p class="deck-status" data-deck-status role="status" aria-live="polite"></p>
-          <div class="deck-card-grid" data-deck-cards aria-label="Eight cards in your current deck"></div>
-          <p class="availability-note">Nine cards are available for live decks. Each deck keeps eight unique cards in order.</p>
+          <div class="deck-card-grid" data-deck-cards role="group" aria-label="Eight cards in your current deck"></div>
+          <section class="replacement-panel" id="deck-replacement-panel" data-replacement-panel aria-labelledby="replacement-heading" hidden>
+            <div class="replacement-head">
+              <div><p class="eyebrow">Swap a card</p><h2 id="replacement-heading" data-replacement-title>Replace a card</h2><p class="replacement-hint">Choose a card that is not in your deck yet.</p></div>
+              <button type="button" class="button-quiet replacement-cancel" data-action="cancel-replacement">Cancel</button>
+            </div>
+            <div class="replacement-choices" data-replacement-choices></div>
+          </section>
+          <p class="availability-note"><span data-collection-count>23</span> cards can join a live deck. A deck holds eight different cards, kept in the order you set.</p>
         </section>
 
         <section class="app-view cards-view" id="view-cards" data-app-view="cards" aria-labelledby="cards-title" hidden>
           <div class="page-intro collection-intro">
-            <div><p class="eyebrow">THE PLAYABLE COLLECTION</p><h1 id="cards-title" tabindex="-1">Cards</h1><p>Explore the cards available to build a live battle deck.</p></div>
-            <label class="search-box"><span aria-hidden="true">⌕</span><span class="visually-hidden">Search playable cards</span><input type="search" data-card-search placeholder="Find a card" autocomplete="off" aria-describedby="card-availability-note"></label>
+            <div><p class="eyebrow">The playable collection</p><h1 id="cards-title" tabindex="-1">Cards</h1><p class="page-lede">Every card here works in live matches. Pick one to see its role, cost, and stats.</p></div>
+            <label class="search-box"><span class="search-glyph" aria-hidden="true"></span><span class="visually-hidden">Search playable cards</span><input type="search" data-card-search placeholder="Find a card" autocomplete="off" aria-describedby="card-availability-note"></label>
           </div>
-          <p class="availability-note" id="card-availability-note">Cards outside this collection are not available in live matches yet.</p>
+          <p class="availability-note" id="card-availability-note"><span data-collection-count>23</span> cards are playable now. Cards outside this collection are not available in live matches yet.</p>
           <div class="collection-layout">
-            <div class="card-grid" data-card-grid aria-label="Playable cards"></div>
+            <div class="card-grid" data-card-grid role="group" aria-label="Playable cards"></div>
             <div class="empty-collection" data-card-empty role="status" hidden></div>
             <aside class="card-detail" data-card-detail aria-live="polite" aria-atomic="true"></aside>
           </div>
         </section>
 
         <section class="app-view battle-view" id="view-battle" data-app-view="battle" aria-labelledby="battle-title" hidden>
-          <div class="battle-heading"><div><p class="eyebrow" data-battle-label>STANDARD DECK · LIVE MATCH</p><h1 id="battle-title" tabindex="-1">The arena</h1></div><button type="button" class="button-quiet leave-battle" data-action="leave-battle">Leave battle <span aria-hidden="true">↗</span></button></div>
+          <div class="battle-heading"><div><p class="eyebrow" data-battle-label>STANDARD DECK · LIVE MATCH</p><h1 id="battle-title" tabindex="-1">The arena</h1></div><button type="button" class="button-quiet leave-battle" data-action="leave-battle"><span aria-hidden="true">←</span> Leave battle</button></div>
           <div class="battle-frame-slot" data-battle-frame-slot></div>
         </section>
       </main>

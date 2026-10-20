@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "objective": "Independent qualification of Claude's three-file collection redesign delivery",
+  "verdict": "PASS",
+  "candidate": "/Users/me/.codex/clash-qualification/20261020-claude-collection-redesign",
+  "sourceBaseCommit": "4e9825e863c764cef37bd200e434d58eee42b201",
+  "gates": [
+    {
+      "name": "app-shell browser journey",
+      "status": "PASS",
+      "log": "critic/evidence/app-shell/run-02.log"
+    },
+    {
+      "name": "mobile app polish",
+      "status": "PASS",
+      "log": "critic/evidence/app-polish-r3.log",
+      "browserEvidence": "critic/evidence/app-polish-r3/browser-evidence.json"
+    },
+    {
+      "name": "content schema",
+      "status": "PASS",
+      "log": "critic/evidence/content-schema-fixtures.log"
+    },
+    {
+      "name": "release build",
+      "status": "PASS",
+      "log": "critic/evidence/release-build-fixtures.log"
+    },
+    {
+      "name": "shipping isolation release",
+      "status": "PASS",
+      "log": "critic/evidence/shipping-isolation-release-fixtures.log"
+    },
+    {
+      "name": "all 23 rendered roles and lore",
+      "status": "PASS",
+      "log": "critic/evidence/all23-role-lore/dom-run-r2.log",
+      "domChecks": "critic/evidence/all23-role-lore/all23-dom-checks.json",
+      "checkedCards": 23
+    }
+  ],
+  "sourceFence": {
+    "public/index.html": "59e29ae8a1c978c350de8ad1e52f4fb84b179c983effb2ac74e93bf8bcfa981d",
+    "src/ui/app-shell.js": "58daaef6ed0acb0eca671ac02aaf1aa36a1f56e7ae448adb078b7eb5a33ef750",
+    "src/ui/app-shell.css": "55398d234de91841918dcbe381f18d81dc3ae919c2fb4277e430368553ea7891",
+    "tests/app-polish.test.js": "0388c0947ca633c81f37125023707a9277b2ead99265a18f1c5259e5611bfd52",
+    "package-lock.json": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+    "uiFilesUnchangedFromFrozenClaudeDelivery": true,
+    "dependencyChanges": false
+  },
+  "toolPins": {
+    "node": "22.22.3",
+    "playwright": "1.58.2",
+    "playwrightModule": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs",
+    "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "vite": "8.3.2"
+  },
+  "runtimeClosure": {
+    "appPolishPid": 27753,
+    "all23DomProbePid": 27456,
+    "processesExited": true,
+    "browserClosed": true,
+    "viteServerClosed": true
+  },
+  "preservedSupersededFailures": [
+    "critic/evidence/app-shell/run.log",
+    "critic/evidence/app-polish/run-01.log",
+    "critic/evidence/app-polish-after-count-patch.log",
+    "critic/evidence/app-polish-r2.log",
+    "critic/evidence/content-schema.log",
+    "critic/evidence/release-build.log",
+    "critic/evidence/shipping-isolation-release.log",
+    "critic/evidence/shipping-isolation-release-playwright.log",
+    "critic/evidence/all23-role-lore/dom-run.log"
+  ]
+}

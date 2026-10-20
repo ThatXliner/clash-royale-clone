@@ -1,0 +1,57 @@
+
+> moss-and-ember@0.0.0 test:shipping-isolation-release
+> node tests/shipping-isolation-release-runner.js shipping-isolation-release
+
+TAP version 13
+# Subtest: production release builds are byte-identical and pass emitted-byte isolation
+ok 1 - production release builds are byte-identical and pass emitted-byte isolation
+  ---
+  duration_ms: 37706.096375
+  type: 'test'
+  ...
+# ✗ Build failed in 8ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 6ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 4ms
+# Subtest: release builder rejects package imports and emitted protected/reference bytes
+ok 2 - release builder rejects package imports and emitted protected/reference bytes
+  ---
+  duration_ms: 3557.91175
+  type: 'test'
+  ...
+# ✗ Build failed in 6ms
+# ✗ Build failed in 6ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 3ms
+# ✗ Build failed in 3ms
+# ✗ Build failed in 6ms
+# ✗ Build failed in 5ms
+# Subtest: release builder rejects protected resolved source edges before tree shaking
+ok 3 - release builder rejects protected resolved source edges before tree shaking
+  ---
+  duration_ms: 92.524125
+  type: 'test'
+  ...
+# Subtest: Chrome serves only manifest paths and records CSP-blocked and failed requests
+ok 4 - Chrome serves only manifest paths and records CSP-blocked and failed requests
+  ---
+  duration_ms: 27514.914167
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 69025.197542

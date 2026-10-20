@@ -1,0 +1,149 @@
+
+> moss-and-ember@0.0.0 test:content-schema
+> node tests/content-schema-runner.js content-schema
+
+TAP version 13
+# reference terminal gate: 48/48 query/fragment terminal injections detected
+# Subtest: content schema: original unit definitions retain native units and nulls
+ok 1 - content schema: original unit definitions retain native units and nulls
+  ---
+  duration_ms: 0.887666
+  type: 'test'
+  ...
+# Subtest: content schema: structures and effects use explicit zero/null semantics
+ok 2 - content schema: structures and effects use explicit zero/null semantics
+  ---
+  duration_ms: 0.26525
+  type: 'test'
+  ...
+# Subtest: content schema: mixed initial components expose one matching primary
+ok 3 - content schema: mixed initial components expose one matching primary
+  ---
+  duration_ms: 0.210917
+  type: 'test'
+  ...
+# Subtest: content schema: spawn-only effects need no fictional primary entity
+ok 4 - content schema: spawn-only effects need no fictional primary entity
+  ---
+  duration_ms: 0.1605
+  type: 'test'
+  ...
+# Subtest: content schema: mixed counts and primary semantics are strict
+ok 5 - content schema: mixed counts and primary semantics are strict
+  ---
+  duration_ms: 0.413375
+  type: 'test'
+  ...
+# Subtest: content schema: catalog order, identities, and returned values are isolated
+ok 6 - content schema: catalog order, identities, and returned values are isolated
+  ---
+  duration_ms: 0.51075
+  type: 'test'
+  ...
+# Subtest: content schema: component identities are unique within a definition
+ok 7 - content schema: component identities are unique within a definition
+  ---
+  duration_ms: 0.191875
+  type: 'test'
+  ...
+# Subtest: content schema: exact own-property shapes reject hostile objects safely
+ok 8 - content schema: exact own-property shapes reject hostile objects safely
+  ---
+  duration_ms: 0.164916
+  type: 'test'
+  ...
+# Subtest: content schema: arrays must be dense, ordinary, and property-free
+ok 9 - content schema: arrays must be dense, ordinary, and property-free
+  ---
+  duration_ms: 0.815917
+  type: 'test'
+  ...
+# Subtest: content schema: integers, enums, identities, and zero semantics are strict
+ok 10 - content schema: integers, enums, identities, and zero semantics are strict
+  ---
+  duration_ms: 0.644959
+  type: 'test'
+  ...
+# Subtest: content schema: kind-specific HP and movement semantics are enforced
+ok 11 - content schema: kind-specific HP and movement semantics are enforced
+  ---
+  duration_ms: 0.184458
+  type: 'test'
+  ...
+# Subtest: content schema: explicit conversion helpers reject inexact source values
+ok 12 - content schema: explicit conversion helpers reject inexact source values
+  ---
+  duration_ms: 0.190917
+  type: 'test'
+  ...
+# Subtest: content schema: seconds use a unique safe tick-count round trip
+ok 13 - content schema: seconds use a unique safe tick-count round trip
+  ---
+  duration_ms: 9.056417
+  type: 'test'
+  ...
+# Subtest: content schema: seconds conversion survives the 2^52 multiplication boundary
+ok 14 - content schema: seconds conversion survives the 2^52 multiplication boundary
+  ---
+  duration_ms: 4.608416
+  type: 'test'
+  ...
+# Subtest: content schema: seconds conversion agrees with a local quotient oracle
+ok 15 - content schema: seconds conversion agrees with a local quotient oracle
+  ---
+  duration_ms: 111.52375
+  type: 'test'
+  ...
+# Subtest: content schema: quotient collisions are rejected across the safe range
+ok 16 - content schema: quotient collisions are rejected across the safe range
+  ---
+  duration_ms: 0.486459
+  type: 'test'
+  ...
+# Subtest: content schema: shipped runtime is isolated from the benchmark corpus
+not ok 17 - content schema: shipped runtime is isolated from the benchmark corpus
+  ---
+  duration_ms: 0.267958
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/content-schema.test.js:714:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/reference/stats/cards.json'"
+  code: 'ENOENT'
+  stack: |-
+    readFileSync (node:fs:440:20)
+    benchmarkIdentityInputs (file:///Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/content-schema.test.js:667:32)
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-claude-collection-redesign/tests/content-schema.test.js:715:22)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: content schema: reference isolation gate decodes static path specifiers
+ok 18 - content schema: reference isolation gate decodes static path specifiers
+  ---
+  duration_ms: 0.871458
+  type: 'test'
+  ...
+# Subtest: content schema: reference isolation gate treats query and fragment as path terminators
+ok 19 - content schema: reference isolation gate treats query and fragment as path terminators
+  ---
+  duration_ms: 0.667042
+  type: 'test'
+  ...
+# Subtest: content schema: this registry piece makes no card/ability parity claim
+ok 20 - content schema: this registry piece makes no card/ability parity claim
+  ---
+  duration_ms: 0.886
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 19
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 241.104958
