@@ -1,0 +1,219 @@
+{
+  "independent_native_views": 64,
+  "selected_contact_pixel_differences": [
+    {
+      "team": "river",
+      "direction": "north",
+      "changed_visible_pixels_contact_vs_idle": 147,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      }
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "changed_visible_pixels_contact_vs_idle": 156,
+      "idle_alpha_bounds_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "changed_visible_pixels_contact_vs_idle": 154,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      }
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "changed_visible_pixels_contact_vs_idle": 158,
+      "idle_alpha_bounds_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "changed_visible_pixels_contact_vs_idle": 147,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "east",
+      "changed_visible_pixels_contact_vs_idle": 156,
+      "idle_alpha_bounds_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "changed_visible_pixels_contact_vs_idle": 154,
+      "idle_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "contact_alpha_bounds_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      }
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "changed_visible_pixels_contact_vs_idle": 158,
+      "idle_alpha_bounds_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "contact_alpha_bounds_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      }
+    }
+  ],
+  "candidate_choice_sheets": {
+    "candidate-choice-river-native.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "river",
+      "pose": "idle",
+      "presentation": "native",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    },
+    "candidate-choice-river-arena.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "river",
+      "pose": "idle",
+      "presentation": "arena",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    },
+    "candidate-choice-ember-native.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "ember",
+      "pose": "idle",
+      "presentation": "native",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    },
+    "candidate-choice-ember-arena.png": {
+      "row_order": [
+        "r2_control",
+        "umbrella_barge",
+        "exposed_deck",
+        "split_canvas"
+      ],
+      "columns": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "team": "ember",
+      "pose": "idle",
+      "presentation": "arena",
+      "native_cell_px": 64,
+      "inspection_enlargement": "4x nearest-neighbor; native sheet remains evidence"
+    }
+  }
+}

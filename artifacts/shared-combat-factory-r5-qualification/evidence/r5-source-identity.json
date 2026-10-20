@@ -1,0 +1,49 @@
+{
+  "candidate": "e35dda4c0225b88ddac91a56f15e81fee32c3c68",
+  "parent": "a754b30a18f4bc99af4617c0265b2a9055df74bc",
+  "ref": "refs/heads/codex/factory-r5-a754b30a",
+  "preservedR4": "ffdaab6299f34308776cd2568f1d9f34903ecf14",
+  "originalFactorySource": "a71f87d38eb423612474500cc0be60893ceb8eeb",
+  "fiveFactoryBlobsIdentical": [
+    {
+      "path": "src/sim/battle-combat-runtime.js",
+      "gitBlob": "9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6",
+      "sha256": "cdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8",
+      "bytes": 76417
+    },
+    {
+      "path": "src/sim/battle-continuation-kernel.js",
+      "gitBlob": "d1cbde61485f4f98d04fc02785085eccda97e261",
+      "sha256": "502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732",
+      "bytes": 447260
+    },
+    {
+      "path": "src/sim/opaque-continuation.js",
+      "gitBlob": "59b9af639bc189e894b15641eb1d68813819b10a",
+      "sha256": "c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e",
+      "bytes": 1474
+    },
+    {
+      "path": "tests/battle-combat-baseline-differential.test.js",
+      "gitBlob": "9477950f1ce9425ae74846cd3c67f5e0c84e0c83",
+      "sha256": "5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c",
+      "bytes": 17405
+    },
+    {
+      "path": "tests/nondeterminism-guard.test.js",
+      "gitBlob": "d5bd51193fd0db6418213f2456cc42f0c8b4ea12",
+      "sha256": "637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93",
+      "bytes": 24290
+    }
+  ],
+  "functionalChangesSinceOriginalFactory": [
+    "tests/game-battle.test.js",
+    "tests/game-opponent.test.js",
+    "tests/game-roster-troops-movement.test.js",
+    "tests/game-roster-troops-status.test.js",
+    "tests/game-session-endurance.test.js",
+    "tests/game-shared-runtime-integration.test.js",
+    "tests/game-troop-runtime.test.js"
+  ],
+  "status": "Unadopted. Full default npm, retained release qualification, and fresh factory critique still required."
+}

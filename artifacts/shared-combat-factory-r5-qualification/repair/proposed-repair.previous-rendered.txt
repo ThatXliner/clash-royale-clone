@@ -1,0 +1,10 @@
+src/ui/game-browser-entry.js --- JavaScript
+80 80       entity.layerPolicy, entity.damagePolicy]
+81 81       .filter((policy) => policy?.kind === "question")
+82 82       .map(({ questionKey }) => questionKey)
+.. 83       .concat((entity.sourceConfidencePolicy?.fields ?? [])
+.. 84         .map(({ questionKey }) => questionKey)))))].sort();
+83 85   const questionsByKey = new Map(createPlayableRosterQuestionRecords()
+84 86     .map((question) => [question.key, question]));
+85 87   const questions = questionKeys.map((key) => {
+

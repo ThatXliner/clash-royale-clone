@@ -1,0 +1,1490 @@
+{
+  "status": "Rendered comparison; independent decision pending",
+  "authorship": "Original procedural geometry by GPT-6 Astra; Riverworks Diorama direction by Claude",
+  "license": "AGPL-3.0-only",
+  "identity_source_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "source_files": [
+    {
+      "path": "build_comparison.py",
+      "bytes": 14306,
+      "sha256": "73b5836a48ca9146035ae4ae5de0d3db9759f02349f5f83a3b616fab5866a0cb"
+    },
+    {
+      "path": "copperskiff_model.py",
+      "bytes": 9127,
+      "sha256": "2cbdabd912dbcc26062f1e79bb04ea4d0d5ab7eaec0570ac79b88df873f47b32"
+    },
+    {
+      "path": "alternatives.json",
+      "bytes": 2659,
+      "sha256": "5ec06c26428a4d3e79d649b948d79428811e58bdc42426ded6df30cb921cac91"
+    },
+    {
+      "path": "round1_models.py",
+      "bytes": 65209,
+      "sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3"
+    },
+    {
+      "path": "round2_pipeline.py",
+      "bytes": 15883,
+      "sha256": "a544542f99b666739f75df6a2e3dc8d39bd19e957d5a193e84d8fa85f294bc89"
+    },
+    {
+      "path": "native_preview.py",
+      "bytes": 6700,
+      "sha256": "79fccc15728fbe7bd9fe4b75d4d4b948b6b52ec36140e8a61b9b5d4959735e57"
+    },
+    {
+      "path": "verify_saved_asset.py",
+      "bytes": 3488,
+      "sha256": "f3a981c4c9ed241aafdc850e17fd5453d36a772624052e698605dc9ade67150d"
+    },
+    {
+      "path": "palette.json",
+      "bytes": 1645,
+      "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+    },
+    {
+      "path": "run-comparison.sh",
+      "bytes": 4071,
+      "sha256": "5f2ed63350e7a408be1fe7da39c08da69d0cf404636971d502767457cbda2640"
+    },
+    {
+      "path": "design-notes.md",
+      "bytes": 7466,
+      "sha256": "30d60c521ad8499c2eab25168818c52d5a240c53ff6b7a0105a5fce6d6eeeab5"
+    }
+  ],
+  "provisional_selection": "exposed_deck",
+  "selection_is_visual_pass": false,
+  "fixed_camera": {
+    "elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "native_cell": 64,
+    "supersample": 4,
+    "ground_anchor_normalized": [
+      0.5,
+      0.84375
+    ],
+    "directions": [
+      [
+        "north",
+        180
+      ],
+      [
+        "east",
+        270
+      ],
+      [
+        "south",
+        0
+      ],
+      [
+        "west",
+        90
+      ]
+    ]
+  },
+  "no_per_view_or_variant_refit": true,
+  "other_characters_modified": false,
+  "external_geometry_or_textures": [],
+  "reference_assets_imported": false,
+  "blender_version": "5.1.2",
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "native_render_count": 32,
+  "portrait_render_count": 1,
+  "variants": [
+    {
+      "id": "umbrella_barge",
+      "settings": {
+        "hover_base": 0.55,
+        "hull_center_z": 0.22,
+        "hull_length": 1.45,
+        "hull_depth": 0.34,
+        "team_coaming_width": 0.2,
+        "contact_pitch_degrees": 7,
+        "contact_recoil": 0.04,
+        "contact_puff_radius": 0.21,
+        "id": "umbrella_barge",
+        "description": "Broad lateral canvas lens over a shallow, wide copper barge",
+        "hull_beam": 1.65,
+        "canopy": {
+          "mode": "single",
+          "radii": [
+            0.86,
+            0.32,
+            0.1
+          ],
+          "center_z": 0.64,
+          "offset_y": 0.07
+        },
+        "pixel_budget": {
+          "idle_height": [
+            12,
+            14
+          ],
+          "idle_width": [
+            12,
+            15
+          ],
+          "cream_height": [
+            3,
+            5
+          ],
+          "copper_hull_height": [
+            4,
+            5
+          ],
+          "team_area_min_pixels": 18,
+          "team_patch_min_size": [
+            3,
+            2
+          ],
+          "bow_projection_min_pixels": 2,
+          "stern_width_min_pixels": 4,
+          "contact_extra_extent_min_pixels": 2
+        },
+        "risk": "The wide canopy may still cover too much of the deck in east/west views."
+      },
+      "editable_mesh_objects": 25,
+      "base_mesh_triangles": 1240,
+      "evaluated_triangles": 1240,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "a21c16fd5d511e2210bdb53aaecc9a0b9f818d631d09faf5932e0c6413779ecc",
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 35,
+        "mesh_definitions": 25,
+        "animations": 8,
+        "animation_channels": 9,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 64372,
+        "sha256": "cf542c2a4b70ffe5760ba90c067d33ccb108eb34a9b8fd5278ecd225d3b7f9e2"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 693022,
+        "sha256": "edad3f955fe0b474505056dd607933e80ce86d3769fcea8529d33a75841cc22d"
+      },
+      "native_render_count": 8
+    },
+    {
+      "id": "exposed_deck",
+      "settings": {
+        "hover_base": 0.55,
+        "hull_center_z": 0.22,
+        "hull_length": 1.45,
+        "hull_depth": 0.34,
+        "team_coaming_width": 0.2,
+        "contact_pitch_degrees": 7,
+        "contact_recoil": 0.04,
+        "contact_puff_radius": 0.21,
+        "id": "exposed_deck",
+        "description": "Low kettle skiff with a smaller canvas awning and a broad visible TEAM deck",
+        "hull_beam": 1.58,
+        "canopy": {
+          "mode": "single",
+          "radii": [
+            0.63,
+            0.32,
+            0.11
+          ],
+          "center_z": 0.79,
+          "offset_y": 0.1
+        },
+        "pixel_budget": {
+          "idle_height": [
+            12,
+            14
+          ],
+          "idle_width": [
+            12,
+            15
+          ],
+          "cream_height": [
+            3,
+            4
+          ],
+          "copper_hull_height": [
+            4,
+            5
+          ],
+          "team_area_min_pixels": 22,
+          "team_patch_min_size": [
+            4,
+            2
+          ],
+          "bow_projection_min_pixels": 2,
+          "stern_width_min_pixels": 4,
+          "contact_extra_extent_min_pixels": 2
+        },
+        "risk": "The smaller canopy departs from the old envelope mass balance; identity needs independent judgment."
+      },
+      "editable_mesh_objects": 25,
+      "base_mesh_triangles": 1240,
+      "evaluated_triangles": 1240,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "0b641c338cea38ee1fba58f2ec1c7fabf589c907611a1f4ea5e3fbdf03c773ed",
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 35,
+        "mesh_definitions": 25,
+        "animations": 8,
+        "animation_channels": 9,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 64648,
+        "sha256": "c8c008bddb9147fe0d74e1547b0ef4799a658a7131689f7a39dbe356c7c6998d"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 699028,
+        "sha256": "299ec67386e6b2c8c8fb74d6e371f17f9e66b09fbb05385132ba46fc60fabd1c"
+      },
+      "native_render_count": 16
+    },
+    {
+      "id": "split_canvas",
+      "settings": {
+        "hover_base": 0.55,
+        "hull_center_z": 0.22,
+        "hull_length": 1.45,
+        "hull_depth": 0.34,
+        "team_coaming_width": 0.2,
+        "contact_pitch_degrees": 7,
+        "contact_recoil": 0.04,
+        "contact_puff_radius": 0.21,
+        "id": "split_canvas",
+        "description": "Two joined canvas lobes reveal a central deck channel over a low copper boat",
+        "hull_beam": 1.55,
+        "canopy": {
+          "mode": "split",
+          "radii": [
+            0.31,
+            0.34,
+            0.1
+          ],
+          "center_z": 0.78,
+          "offset_y": 0.09,
+          "lobe_offset_x": 0.43
+        },
+        "pixel_budget": {
+          "idle_height": [
+            12,
+            14
+          ],
+          "idle_width": [
+            12,
+            15
+          ],
+          "cream_height": [
+            3,
+            4
+          ],
+          "copper_hull_height": [
+            4,
+            5
+          ],
+          "team_area_min_pixels": 22,
+          "team_patch_min_size": [
+            3,
+            2
+          ],
+          "central_channel_min_pixels": 2,
+          "bow_projection_min_pixels": 2,
+          "stern_width_min_pixels": 4,
+          "contact_extra_extent_min_pixels": 2
+        },
+        "risk": "The divided sail may drift toward a winged craft; it is an explicit comparison, not the selected design."
+      },
+      "editable_mesh_objects": 28,
+      "base_mesh_triangles": 1768,
+      "evaluated_triangles": 1768,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "5869748c5388c77577e14cad9b744a9e801e614ccc195d7de6ba5209a67cc5f5",
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 38,
+        "mesh_definitions": 28,
+        "animations": 8,
+        "animation_channels": 9,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 73756,
+        "sha256": "5c943b62951060c4c010bada2b8153152aa2c9ecce6ef932700bc34f8de47633"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 727810,
+        "sha256": "b13f2440ab50d64bd3bf4a0eccfd895830081dfc245dead9e532aec5fa11bdfe"
+      },
+      "native_render_count": 8
+    }
+  ],
+  "native_image_receipts": [
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-river-north-idle.png",
+        "bytes": 22353,
+        "sha256": "b9e3ac0d2a844c7ef79f8e4c10c56e6102c4e81087c85ff096afc6d5aa202276"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 756,
+      "sha256": "23c0a93f39f60a607c30398f6020011acf96486dc8713ab3adf35edd38b170ef",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 42,
+        "width": 14,
+        "height": 13
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-river-east-idle.png",
+        "bytes": 22912,
+        "sha256": "129d8c8cc7ab9e088a7c343452978435a848e6443e5d245b908743585aaa2338"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 806,
+      "sha256": "2d9414ee762137dab0fb03265c3ae08220e5d8646686a693cedc708c66e39d9e",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 42,
+        "width": 17,
+        "height": 14
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-river-south-idle.png",
+        "bytes": 22591,
+        "sha256": "eb2b6601182f12be5e0e020e4562e11b5722f95839605a213ff441afe9213779"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 775,
+      "sha256": "cae01997251cc9b3c531e576caeb8bca208e189de8e55b5f0cf6fd5a8fd4a639",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-river-west-idle.png",
+        "bytes": 22886,
+        "sha256": "bdeffc917f8811fdaa7b5e28fa128076e0878c5ac077727a33c3b1e7b50764c6"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 802,
+      "sha256": "fd1df85f06fe3f782ecbd193c465afe60144282b0bd6972421e0ce18c5e2b793",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 42,
+        "width": 17,
+        "height": 14
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-ember-north-idle.png",
+        "bytes": 22300,
+        "sha256": "f674240bbefac19faaa0b58014129be138c732030d7210e5a128d5fca6482ed4"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 750,
+      "sha256": "6099cc04e71b80dd7ad3fc734f6b62c06d89daf2d0fc8fff93e6442fc9086a72",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 42,
+        "width": 14,
+        "height": 13
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-ember-east-idle.png",
+        "bytes": 22929,
+        "sha256": "c9950ba61d54ab886918832f987c528fe83211695b42a1344003e78015469187"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 813,
+      "sha256": "0b9fc14a4ea963cbf5d4dbc3810c51c21946cdc70d228eb03b5b32e8dc380020",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 42,
+        "width": 17,
+        "height": 14
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-ember-south-idle.png",
+        "bytes": 22544,
+        "sha256": "523c6f7f038e28dfbad45cad91e340bcdba990ba0ce75c6688983e3b14fbef6e"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 784,
+      "sha256": "cee2aef7670390f4ccba9171348b7764dd864d17d9928ac212ca433306a9eb6d",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      }
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "umbrella_barge-ember-west-idle.png",
+        "bytes": 22823,
+        "sha256": "a10b63a29a7757a286b6382b98871839bdbe01caa3a7152f0bbbe7c5bee2794a"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 806,
+      "sha256": "ccda1b1e86d0d78910638928548d11bbe42b96a8e434c1e6160f68edd4d896b0",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 42,
+        "width": 17,
+        "height": 14
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-river-north-idle.png",
+        "bytes": 22491,
+        "sha256": "28eef56d161c3d030ba19ab85de9fc5ccf5480850a26c36d0ee0a2bcba8d75b9"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 758,
+      "sha256": "678afce6c15830c8974f94fecd32de59b94bf007ab8c13c3233199ee396bf700",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-river-east-idle.png",
+        "bytes": 22670,
+        "sha256": "20d47901ad47932ae9e9663b0e5bcf855a2b07fcb2f83ec87b07d0eccc0a9c3c"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 793,
+      "sha256": "7bdd9b21bee56dfbc7127a92b7001c637f31b572a913ad35219ebc449173c7ff",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-river-south-idle.png",
+        "bytes": 22564,
+        "sha256": "2a2ccebd94615c0d121182d9862011ca943f0ab1eb8b7e3732ffe4db32ea6027"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 764,
+      "sha256": "d8c0ee7454b6979a60388a09afa4f06cca1ddcc378537aca3d1bd2989909698b",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-river-west-idle.png",
+        "bytes": 22751,
+        "sha256": "18c57f8f73dba72d6c24ef56b011a8eb6d01143d52da5b0610f958db5a487cc7"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 786,
+      "sha256": "55606631ccca3295faaf628225d40f177e1c9362e2c328e855e75af872df1914",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-ember-north-idle.png",
+        "bytes": 22426,
+        "sha256": "62de000cdabf053192748eac2272c60dad13ceb8e37bd7e6957bf36ee359d54f"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 760,
+      "sha256": "2ff5e9da9f488ee104a2d23c3031ef6019cbb5aded420958d373c944a877d716",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-ember-east-idle.png",
+        "bytes": 22773,
+        "sha256": "4516e8c48da02f209cfab67f22a3a6e575dd26ed2c849b78f2f8de0f61b0eca6"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 794,
+      "sha256": "cb9c4db691af5fa04a49ed5c659ddd7306f503fd872fefd0b1349dd4eb9d1f4a",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-ember-south-idle.png",
+        "bytes": 22547,
+        "sha256": "a0bb2cad3559eee25f6ea0525acfa8485f9ee4598e605738bb7843249d8e9d7e"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 769,
+      "sha256": "74f613c3f54f29c1be0d0d9d769bab38468a69bea0d831ca7be01f18282d94a8",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "exposed_deck-ember-west-idle.png",
+        "bytes": 22767,
+        "sha256": "e1425e6d3000c6567c10f0cb9ae7258feb7a57f2e7307ccf8ecb62268fa8f04e"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 790,
+      "sha256": "0fececd5c29aa82170962b359b43fd4c78643e4945a07db6169e49ed0c2b6ee0",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 43,
+        "width": 17,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-river-north-contact.png",
+        "bytes": 22940,
+        "sha256": "b60999fb3ee49c3c0ab8039788b70e313d94992a2eb9d282c6f9374daaa71daf"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-north-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 812,
+      "sha256": "9796af6ea7ff1ab7d7285171555d4185f6f35f8786c587f62678ec76aad676be",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-river-east-contact.png",
+        "bytes": 23147,
+        "sha256": "f285bed2ec947e6864138ad08834a105f464d7441807d17918bfa21ae78228b6"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-east-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 840,
+      "sha256": "2ee95e14555e5140086abda9ab47be3a9df35cb05f03fbfaeff7d4a0db50e77b",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-river-south-contact.png",
+        "bytes": 23219,
+        "sha256": "631c9a6236330714a1806f47dcfa77481357f56d1ed2d40e2a3a3fb3836c5c5e"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-south-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 823,
+      "sha256": "daf49327567a112fa04c687d3b09959fbc6f16b417433f64fccbea1cfd5fb80b",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-river-west-contact.png",
+        "bytes": 23379,
+        "sha256": "d31e3d02eca0131d89ed0d4214a7137fac2c5f895d672401f1b620de2dc6b52c"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-west-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 842,
+      "sha256": "a5e972eb73832b7913ce4223f2076390220b8a76aabd1a26675d498d558286f1",
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-ember-north-contact.png",
+        "bytes": 22773,
+        "sha256": "bccf5d55ca262bce3ebb7deb720cf3f89079b35734257e324813cc18917eea78"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-north-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 808,
+      "sha256": "7924f9bc4fc2dfb5b68fa6894841644cb708cdf18c8db81dbc4871b23ba90882",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 39,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 40,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-ember-east-contact.png",
+        "bytes": 23128,
+        "sha256": "2d876abbf4ed5dbfed611f12e5794a4cf1684203f6f6f9b1155029f0a0f190b2"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-east-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 837,
+      "sha256": "34472eeb374b42b80910b721ced06f9baa5baf4b5b7e11b6ede62413a798136e",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-ember-south-contact.png",
+        "bytes": 23169,
+        "sha256": "ad1bd18dc331b7ed9dca2b2be5716859d0b619d24807c673a880ca5e8d9fba05"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-south-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 817,
+      "sha256": "69e50008e329b65431e5abd4ab40b6d24896fac36c67f9e6a0135ef689196835",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 15
+      }
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "raw": {
+        "path": "exposed_deck-ember-west-contact.png",
+        "bytes": 23333,
+        "sha256": "b5550f4c024e0062383e1768fdeb126d3b6f0ebdc50cb48d89dd7561660ba9d1"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-west-contact.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 838,
+      "sha256": "9e21b5d57a17f35cac507daad302ee761f4ec4323a253baafee828e2e633c210",
+      "alpha_bounds_threshold_16": {
+        "left": 20,
+        "top": 43,
+        "width": 19,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 21,
+        "top": 43,
+        "width": 18,
+        "height": 12
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-river-north-idle.png",
+        "bytes": 22730,
+        "sha256": "fcb60607f593594d3b24423132e861357619b1b2f7c92ce2ffcdbe3b6a3ddcf1"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 758,
+      "sha256": "106d6e7e428c6c893dcd9c46775bc24b381b13c3b55eb573190f338292894248",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-river-east-idle.png",
+        "bytes": 23145,
+        "sha256": "2bea695150e2a38296d7fc19370327a15ca65e1eb6d3b4932e5d4efe9e63dea9"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 803,
+      "sha256": "359dbb8463b00769b6cd312d53a59ca9cce1c37d1be1286233998fd01c90955e",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 42,
+        "width": 17,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-river-south-idle.png",
+        "bytes": 22641,
+        "sha256": "6656334a48fa81e6174808b0795ae85b1f26aa1c9aef54a0ff6bb4415af1fedd"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 767,
+      "sha256": "59024663571d1acfbe9eae978d44acd374a9f10443e66e33c9fd5e4e26dcdcf9",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-river-west-idle.png",
+        "bytes": 23154,
+        "sha256": "a86269f62d3868bc12831bb6a2e7255f2028ee696f9f02275e2221e143fba776"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 799,
+      "sha256": "7b951dee0a5eceb1d3fa4a4065d640adfd7f65135e53073722e4128b1a6b1df8",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 42,
+        "width": 17,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-ember-north-idle.png",
+        "bytes": 22665,
+        "sha256": "c42ae666a35415ca2e915dc652b3faeea15ebb4c62a49c1f27090b03c50d95e6"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 760,
+      "sha256": "bce4f1f6f1761fcca255f5ec85c5923de172885809857edc2c2eb63f229e6518",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 42,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-ember-east-idle.png",
+        "bytes": 23109,
+        "sha256": "81bf5fbe717ebf89ed3a2308f95ef5365cbdf49ea813af28d7409809f384dc88"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 803,
+      "sha256": "10d582f0cdb909035251f94dfa8ae61c377712dcb74d583d01029f236794b927",
+      "alpha_bounds_threshold_16": {
+        "left": 24,
+        "top": 42,
+        "width": 17,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-ember-south-idle.png",
+        "bytes": 22594,
+        "sha256": "9d1cd7aaa9ab80544b570e86e21fdf7506c18467114954cb436c5db707760be0"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 777,
+      "sha256": "5e7fa9363b3444f4c05f2df7b33df966b863091e33860447e49701ed35496401",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 43,
+        "width": 14,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 26,
+        "top": 43,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "raw": {
+        "path": "split_canvas-ember-west-idle.png",
+        "bytes": 23109,
+        "sha256": "3d9de77a13d54064de75e42053f7dbaddde62651182c55cdf8695bae5fdb494a"
+      },
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 805,
+      "sha256": "598094ddcbd76f71364351ad4fb4d469fc7afd5f138966c8c63bcd9c8ca77e77",
+      "alpha_bounds_threshold_16": {
+        "left": 23,
+        "top": 42,
+        "width": 17,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 23,
+        "top": 43,
+        "width": 16,
+        "height": 12
+      }
+    }
+  ],
+  "sheets": {
+    "columns": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "massing_rows": [
+      "r2_control",
+      "umbrella_barge",
+      "exposed_deck",
+      "split_canvas",
+      "r2_control silhouette",
+      "umbrella_barge silhouette",
+      "exposed_deck silhouette",
+      "split_canvas silhouette"
+    ],
+    "team_comparison_rows": [
+      "r2_control river",
+      "r2_control ember",
+      "umbrella_barge river",
+      "umbrella_barge ember",
+      "exposed_deck river",
+      "exposed_deck ember",
+      "split_canvas river",
+      "split_canvas ember"
+    ],
+    "team_contact_rows": [
+      "river idle",
+      "ember idle",
+      "river contact",
+      "ember contact"
+    ],
+    "control": "Existing immutable R2 native PNGs, byte-read only; not newly rendered",
+    "control_files": [
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-river-north-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 562,
+        "sha256": "b65a4fcb3c7e70822e923ff4e1d25646e8d3ae637947044861f4304dabf67afa",
+        "alpha_bounds_threshold_16": {
+          "left": 28,
+          "top": 41,
+          "width": 8,
+          "height": 13
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 29,
+          "top": 41,
+          "width": 6,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-river-east-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 613,
+        "sha256": "f5f5e14b5f9a5dc78663a5442f0657d8497c3f56776387b31a8ff56415306c6e",
+        "alpha_bounds_threshold_16": {
+          "left": 27,
+          "top": 41,
+          "width": 11,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 28,
+          "top": 41,
+          "width": 9,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-river-south-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 578,
+        "sha256": "038474ba7af2268c12df6a0c1c3acdf6882838a38ca86be08737bf7171b1d60f",
+        "alpha_bounds_threshold_16": {
+          "left": 28,
+          "top": 41,
+          "width": 8,
+          "height": 13
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 29,
+          "top": 41,
+          "width": 6,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-river-west-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 614,
+        "sha256": "f894f37d927016eee66e4640f673dcbfb7896748643ec2dde2b2b788b4407d43",
+        "alpha_bounds_threshold_16": {
+          "left": 26,
+          "top": 41,
+          "width": 11,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 27,
+          "top": 41,
+          "width": 9,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-ember-north-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 563,
+        "sha256": "16bbb8e094e9b092045b988275614877fbaf4e876ec67bf0ed071591ab133b14",
+        "alpha_bounds_threshold_16": {
+          "left": 28,
+          "top": 41,
+          "width": 8,
+          "height": 13
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 29,
+          "top": 41,
+          "width": 6,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-ember-east-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 614,
+        "sha256": "85f3a9cd1ae8bd84f4a704ee977fca51a3d2249446a76de82aacb01e5b0bef43",
+        "alpha_bounds_threshold_16": {
+          "left": 27,
+          "top": 41,
+          "width": 11,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 28,
+          "top": 41,
+          "width": 9,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-ember-south-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 578,
+        "sha256": "fbdf49c1eafc1112fda344f115628878d508887740b05c5d95ce0c48f4cf41b9",
+        "alpha_bounds_threshold_16": {
+          "left": 28,
+          "top": 41,
+          "width": 8,
+          "height": 13
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 29,
+          "top": 41,
+          "width": 6,
+          "height": 12
+        }
+      },
+      {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/previews/native-64/copperskiff-ember-west-idle.png",
+        "width": 64,
+        "height": 64,
+        "bytes": 616,
+        "sha256": "076d65a922d55fbfbc87377d5a61f52738c2ec4fb0bd55b742e2d16ce48877d7",
+        "alpha_bounds_threshold_16": {
+          "left": 26,
+          "top": 41,
+          "width": 11,
+          "height": 12
+        },
+        "alpha_bounds_threshold_128": {
+          "left": 27,
+          "top": 41,
+          "width": 9,
+          "height": 12
+        }
+      }
+    ]
+  },
+  "remaining": [
+    "Independent native-size class/team/facing/contact judgment",
+    "Real arena context",
+    "Coilblade and Mossguard qualification",
+    "Complete motion and runtime integration"
+  ]
+}

@@ -1,0 +1,2396 @@
+{
+  "parent": "636b29d8b8e8576ba0fb6feab81c4ce01d6dde64",
+  "scope": "Original model sources/exports and independent failedvisualreview; no productionenginechange. R5qualification remainsincomplete.",
+  "files": [
+    {
+      "path": "artifacts/art3d001-round-3/critic/audit_saved_model.py",
+      "bytes": 8367,
+      "sha256": "cf3c927dc05e284aa89b8aa962db9d633ae403a0054b0238d43681f2836ec0d1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/postprocess-capture-fix.py",
+      "bytes": 9221,
+      "sha256": "7f5b549353784189e903adb6e2eea2342e5580a423318001024887fd609e08b3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/postprocess.py",
+      "bytes": 9211,
+      "sha256": "fdfe12b1fa3cb3506099c5aac78d5fd5d6fac0504b033ba8126575a7a2a42dad"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/blender-executable-path.txt",
+      "bytes": 49,
+      "sha256": "7796fbbe0e79fe6db339150bf3b482c1087ede3d8ee63bcc7ce7dd654b14a070"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/blender-executable-postrun.sha256",
+      "bytes": 115,
+      "sha256": "17b5f3c4501a3d17c956d799fc8ed1b7e9c285056bb46bb2f0365fc9c08e536a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/blender-executable-prelaunch.sha256",
+      "bytes": 115,
+      "sha256": "17b5f3c4501a3d17c956d799fc8ed1b7e9c285056bb46bb2f0365fc9c08e536a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-ember-arena-4x.png",
+      "bytes": 86276,
+      "sha256": "e3e34773d58df0f84e0cab9bccf14884a0959286ef525a48deed239235b2df28"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-ember-arena.png",
+      "bytes": 51577,
+      "sha256": "089f28b6af5a9762f96b7d870f0d0e63e69528a089c7217b02bf89957ce3c1c2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-ember-native-4x.png",
+      "bytes": 17835,
+      "sha256": "b0ccb89a893b7167cd0652af764f63a6008ddcfccad2698e121c33538deb3d60"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-ember-native.png",
+      "bytes": 8634,
+      "sha256": "365d204a107b8cbfee3caa17ab75a5d873ca85a45d034a6339778744c33a88a3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-river-arena-4x.png",
+      "bytes": 86340,
+      "sha256": "ab31bdc8407c35d57cb340c83e06be568cb0ba48213fcd60d6b75d16b1818877"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-river-arena.png",
+      "bytes": 51657,
+      "sha256": "77085b6345873b6c82d83e418f0b491515d37065b34426d1aa65199dfe3ceff8"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-river-native-4x.png",
+      "bytes": 17778,
+      "sha256": "7de2e396c2e60dc3ca49ea82d18fa1c49c2817104cf29448f5e95e063147fd5a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/candidate-choice-river-native.png",
+      "bytes": 8612,
+      "sha256": "12e2bfc8a300abb96ab4e7916c738c0ff6058f93f8c600c46208c16782d0a62c"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/argv.txt",
+      "bytes": 421,
+      "sha256": "7413c758569e6566dab49871c57e0035f1d88d43a91479b97a68fc541d4b0bdb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/audit-inputs.list",
+      "bytes": 512,
+      "sha256": "a0f977aca3a1295017cecd1c252cd6882ef81686c703ff80e5093a9e3e7c7147"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/correction.diff",
+      "bytes": 679,
+      "sha256": "45ca7ed05131f4e7b241934f6664cfe01fa138ce2d9ca5b2a2f86d7f5b3e5bf5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/correction.txt",
+      "bytes": 183,
+      "sha256": "a1b6fcaadefe8d148dd6d571ba18d52b2e7eb1931a1ffe3f5773522be87529ef"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/data-inputs-fence-result.txt",
+      "bytes": 10,
+      "sha256": "1cd263f1102656dd6b6cf1d626d1a96f9eba0406af3cb2a52560d473d4801052"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/data-inputs-postrun.sha256",
+      "bytes": 14984,
+      "sha256": "7f30094877de296ce6c103230102dc6f5c6ce0510c976262cb2fdb2d052a99f0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/data-inputs-prelaunch.sha256",
+      "bytes": 14984,
+      "sha256": "7f30094877de296ce6c103230102dc6f5c6ce0510c976262cb2fdb2d052a99f0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/data-inputs.list",
+      "bytes": 10496,
+      "sha256": "bbdfa1f46c7cc71feabbbd9f8accc6d0d3256e245cd1cf17b8e2fe6cd3c5720e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/end-utc.txt",
+      "bytes": 21,
+      "sha256": "ff4641e3918cfb96287e149428608d96ebe5fe08dfb488b882b714218c19fe7b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/environment.txt",
+      "bytes": 84,
+      "sha256": "d22ae5e3e0bd3b0924df1bbf997937efd755d57bab14a8e1b2897b1caa5256c9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/output-files.list",
+      "bytes": 22942,
+      "sha256": "1cd320e3ac3cba9a5062ab8765b63854f0e1dc248582ed5103be905c7fa214e0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/output-files.sha256",
+      "bytes": 33304,
+      "sha256": "a84726d7c488ba1d13d290ec985f7fbcbc93cccb5887920335826320f5be8e1d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/pid.txt",
+      "bytes": 6,
+      "sha256": "088a9956e4abb9f4b024b37e49b16338f5cdb8912f2e53ef9022166a8b09b295"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/processor-fence-result.txt",
+      "bytes": 10,
+      "sha256": "1cd263f1102656dd6b6cf1d626d1a96f9eba0406af3cb2a52560d473d4801052"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/processor-inputs-postrun.sha256",
+      "bytes": 861,
+      "sha256": "5554cc36c91af5ef810bc4675876953acf9df949c7a89d462f9c2f72df9c1480"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/processor-inputs-prelaunch.sha256",
+      "bytes": 861,
+      "sha256": "5554cc36c91af5ef810bc4675876953acf9df949c7a89d462f9c2f72df9c1480"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/python-executable-postrun.sha256",
+      "bytes": 92,
+      "sha256": "884d64f1cfe5a111e06b6d0c13277b211080315cbc5cbe8b9e690ca1d4e4bf9f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/python-executable-prelaunch.sha256",
+      "bytes": 92,
+      "sha256": "884d64f1cfe5a111e06b6d0c13277b211080315cbc5cbe8b9e690ca1d4e4bf9f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/raw-inputs.list",
+      "bytes": 9984,
+      "sha256": "0c961808a8336fcb297f269b39d1980facbcdfb637e751c535a80390d73ec67f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/start-utc.txt",
+      "bytes": 21,
+      "sha256": "4c5b7232ba2b347349853773eb34bfd47624a21f51f4142ca900aa93e93b07e6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/stderr.raw.txt",
+      "bytes": 856,
+      "sha256": "c4e52360cab88a8672cc2a8704ca03c7e70051a50e97112eda6dd5dc28f60198"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/capture-fix/stdout.raw.txt",
+      "bytes": 4846,
+      "sha256": "aa9dced6684f84c56d31df51064d8e049da298c6c7777ab11a3514eb057d45ba"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/critic-verdict.md",
+      "bytes": 2521,
+      "sha256": "3da329e4c75ae21e0734448fcf88a65c531e9bb5903fee5a02043172753ab7ec"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/environment-allowlist.txt",
+      "bytes": 97,
+      "sha256": "a883ae43526463ff8de02cec3ff05d9bd89061cb0e3931f19ed161b5d1b0984e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/argv.txt",
+      "bytes": 573,
+      "sha256": "316bd009039332cbf0fa10d5add56b82d7f3eee7a88df10c0e7e23c412ef5201"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/blender-pid.txt",
+      "bytes": 6,
+      "sha256": "663341bccb73dbb4f5a687781c0521e47663d761ea77acd35f20ca9fe2758003"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/blender-stderr.raw.txt",
+      "bytes": 217,
+      "sha256": "b4b04ab4c914b986be58c3ee34e9a0ace7b5db93d9d35dc4291a85c4933e18e0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/blender-stdout.raw.txt",
+      "bytes": 4243,
+      "sha256": "bd49e448306e314a0ba5d02982ae7f44dbb323c4e13c9027942fe0f1ca983015"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/direct-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/end-utc.txt",
+      "bytes": 21,
+      "sha256": "4fefac6a88d095a025a9b7ddb7add6c87fdf321746b2a63cc5f7dfc4565e1a0e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/environment.txt",
+      "bytes": 97,
+      "sha256": "a883ae43526463ff8de02cec3ff05d9bd89061cb0e3931f19ed161b5d1b0984e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/exposed_deck-blender-audit.json",
+      "bytes": 11773,
+      "sha256": "926ef2d1bbe9612f175fcefa9e65eae8ac4594dddca1518404019b2c4639d708"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-east-contact-256.png",
+      "bytes": 23309,
+      "sha256": "bb8ad1d19b2742e82b6dff3be603537d6b7c21f4138ea6d07738417dd714bd1d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-east-idle-256.png",
+      "bytes": 22954,
+      "sha256": "41e8cb8d2b63e3ed6f73df5b5f53b2ec7590b244b1536d3c31682f7aa6d1cdd3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-north-contact-256.png",
+      "bytes": 22954,
+      "sha256": "41dc067ae9ecde4bc9a173d7c061039ee189ff26fe52ed991a12d94e782b01fc"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-north-idle-256.png",
+      "bytes": 22607,
+      "sha256": "24996d5b9e20c65f9bd6b12ac08d09215304b08316ea264bc689412d6953ae33"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-south-contact-256.png",
+      "bytes": 23350,
+      "sha256": "eb9b83e7c8de3cf2f0d1aeb34967713de9b785f42f6a9e4e38a1632e2a179199"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-south-idle-256.png",
+      "bytes": 22728,
+      "sha256": "a351bbe72e7fa0ef9d96cfdbd9f7b9d56d7abc5753e93cd9d91f6da2e47495b2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-west-contact-256.png",
+      "bytes": 23514,
+      "sha256": "1fc3216c0ca33f722f81ff03cdfdbd5c49bafc9b4d6467e25aff61296c6925a6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-west-idle-256.png",
+      "bytes": 22948,
+      "sha256": "6fa7fed07d143a7c71b7e67c4e69b9b16e3614b4cd476f6235946c0b85eebc51"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-east-contact-256.png",
+      "bytes": 23328,
+      "sha256": "6505426e15abbcd0472e11b51fd4ec053a106335c8de7f0f9fafb0fd620b7c35"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-east-idle-256.png",
+      "bytes": 22851,
+      "sha256": "ea0db9ab37dc05af8dff33f9ea7973ab96fadfb040db4ae0a58ca76bc68e5110"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-north-contact-256.png",
+      "bytes": 23121,
+      "sha256": "f99c20c75e31d1d2b27d0f56c4ff9dacddee2de16da647dce65ddd1d734b13b4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-north-idle-256.png",
+      "bytes": 22672,
+      "sha256": "a10976c15e6037eb2b067188dd03692a58de88d6d211aba1c35786f89298b2c5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-south-contact-256.png",
+      "bytes": 23400,
+      "sha256": "fb15bff6ca823ecabff50da324e0d6185f60be0bc46f87ad8b06058a531c6cf9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-south-idle-256.png",
+      "bytes": 22745,
+      "sha256": "5f0a2ed3a7c1128a6b6753500c9220cf7b7fd333254a5103a444050ccec6f1a3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-west-contact-256.png",
+      "bytes": 23560,
+      "sha256": "0ccc90fd9258fb07a0d44de84c013e0ece557619a7c9cbb005ed013de488123d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-west-idle-256.png",
+      "bytes": 22932,
+      "sha256": "cf8d639033e09fb9bb289f97de663ab2c98c8e7fed25efd65163bb679cc9af1d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/exposed_deck/start-utc.txt",
+      "bytes": 21,
+      "sha256": "5bca8bffc6331bd05aff22543a1b2e3f0e0c7d24a3decb11955e8a15e54ddddf"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/finished-at-utc.txt",
+      "bytes": 21,
+      "sha256": "e4cb2a69425724b6f20b76b8a11a12885288b2b7ce3259c1340f207a49d56772"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-east-contact-64.png",
+      "bytes": 823,
+      "sha256": "ce314997c2c7c778b5b7295636e138a511d69b279ee74ca57bf237a8251ebc9a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-east-idle-64.png",
+      "bytes": 758,
+      "sha256": "4805e6399284532352af97572d59f989977f0da19c523b81513971cdf88f2678"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-north-contact-64.png",
+      "bytes": 772,
+      "sha256": "cfe2920e57f52a0cdca9ca896b3eb13ca506f1809aee0bce1ed4eaab52acca52"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-north-idle-64.png",
+      "bytes": 724,
+      "sha256": "ee86e1c68bca7dad5487554b7a2ba3f9836633f1cf4321ad946e4f67af1899a1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-south-contact-64.png",
+      "bytes": 799,
+      "sha256": "1a9fd0acf6cb4b10857d0b5ee2f8349b7d8afd1dd4c095f3fb85569611157363"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-south-idle-64.png",
+      "bytes": 739,
+      "sha256": "8e8504c024e1a365221cf93e1cf0e8a64f9b7b51ecb1dda2d813e56336013277"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-west-contact-64.png",
+      "bytes": 846,
+      "sha256": "a9dbe32fe95638d9d49c2af5273879ce7f05417dce7c7f4af5c261ab15146ee2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-ember-west-idle-64.png",
+      "bytes": 766,
+      "sha256": "2b697b38772ba569c7a8223beffcadb21eba7469b78ac40294b6b43e3cdf2d51"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-native-sheet-4x.png",
+      "bytes": 19124,
+      "sha256": "66706fb9c5d6712f93b69c461a78b7e241c3324dce35750d9f3f1b7649be9b10"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-native-sheet.png",
+      "bytes": 9574,
+      "sha256": "bb88023f80a13e3d6af79a3834434dbcd775f875ad919be90a6e5ad861a70de5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-east-contact-64.png",
+      "bytes": 827,
+      "sha256": "ab8a79565146be35c04568728c18ccc13c3b5fec19165c6271c920d9a4d89d2b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-east-idle-64.png",
+      "bytes": 764,
+      "sha256": "58142efe5e0aa6074923db21f0ab22a4476d7e24e0cacbb299541a98305786bb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-north-contact-64.png",
+      "bytes": 773,
+      "sha256": "ae4b8b8d82a0d4f2f324faddbae3b4f1f4fd252b9b8195caa4ce2df34d805f22"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-north-idle-64.png",
+      "bytes": 739,
+      "sha256": "282a0a559579cae91e916e0cf91e8b8d65373635844e16d4bd17e4fa9ce4306e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-south-contact-64.png",
+      "bytes": 816,
+      "sha256": "5ec651865236267918f2e95278d2a7f15e97703bdfc8ae50b96f2b12fd3d89de"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-south-idle-64.png",
+      "bytes": 744,
+      "sha256": "858038910c1e54a03572ec1baff40086e55f29a708a4257c5cd9dfe3d3e74a67"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-west-contact-64.png",
+      "bytes": 827,
+      "sha256": "0620a8f76612c1fe8e91b6028b3b85a489aea5aa4328ca12d6da08e778557ff8"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/exposed_deck/exposed_deck-river-west-idle-64.png",
+      "bytes": 775,
+      "sha256": "efa1b221932e72633ba749e3fec24af1e7326b5148f8d3cb79a6b6c2702b74d6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-east-contact-64.png",
+      "bytes": 646,
+      "sha256": "74b2c73d0b243b49c494520a0eb8bd459687c9f5130bff18fe8f611ae55f872d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-east-idle-64.png",
+      "bytes": 625,
+      "sha256": "1729759b389abbe5422617bf85bb142ac77a3ac2ae30d96028c3985667b1dc27"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-north-contact-64.png",
+      "bytes": 598,
+      "sha256": "4e32538e43a93429c9a5f5b19c044408f587cef51bab9e438a7cf63c04c27f0b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-north-idle-64.png",
+      "bytes": 559,
+      "sha256": "3bfd41a4482e26633a657c71d845c1e31830c73f756a87bdf623a5f8e60c3962"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-south-contact-64.png",
+      "bytes": 600,
+      "sha256": "31331a0c1a291e3da5e7f79cf7edc95b7b9a9664ab239814c8aed53746d33c0f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-south-idle-64.png",
+      "bytes": 583,
+      "sha256": "8ef7d5483394f612ba73ace5c3afebdb15073073ce36fb182bb25306c120297e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-west-contact-64.png",
+      "bytes": 660,
+      "sha256": "36f6fce0bc5e49f18ee36096c1305756aacabe393a94aeb47d137599eca5f732"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-ember-west-idle-64.png",
+      "bytes": 622,
+      "sha256": "d6c52cb0257ac86282127bee06f9b2e0db7c59bfd18a801b3377399797e5d84a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-native-sheet-4x.png",
+      "bytes": 15439,
+      "sha256": "186ab8efa26a0aafece1efbbe7c12cbff8a5ecac0a004a798793f66985375959"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-native-sheet.png",
+      "bytes": 6918,
+      "sha256": "311a65f3349ea2a93c6993b7b47b1dda5f0aeda025a3bde0831e891df2f9d7f4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-east-contact-64.png",
+      "bytes": 651,
+      "sha256": "50cae89407cdf0bab5fbc2fd9d8e075fc282004eb7f74bd7d059a35318f5cf33"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-east-idle-64.png",
+      "bytes": 631,
+      "sha256": "57e1cb0319b8f5302d5a7a6e2ab872009ae4fe5c7169ef12cce5c89660e8f356"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-north-contact-64.png",
+      "bytes": 597,
+      "sha256": "11bc5bff23768d0c8cf2eca9b429573eebd9bfd6edc398dda21a95942d6c1fbf"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-north-idle-64.png",
+      "bytes": 562,
+      "sha256": "60cf65aefb53679927cd4d97d0d735c8cb3a6af5b9e0154f11b4861a4c93587e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-south-contact-64.png",
+      "bytes": 600,
+      "sha256": "43cb2791d84c66451154ca7b2849ddc364550f1f06c489dd715e1a3cb692a5a1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-south-idle-64.png",
+      "bytes": 581,
+      "sha256": "9fb568573ef5287158d052bbae4e08c480ceb6c07730cfadb518eb100028d485"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-west-contact-64.png",
+      "bytes": 662,
+      "sha256": "dd737fbe72001997970a414a206399965a319fc95778c5b17ec23672aea3c4b1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/r2_control/r2_control-river-west-idle-64.png",
+      "bytes": 624,
+      "sha256": "80537743030d25a2fa4323648183350876867c78a6d582429fcf193787f2bd5d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-east-contact-64.png",
+      "bytes": 842,
+      "sha256": "94c325d115cc97c798defb843fc1c67af15cbd0f521ea7ba41966d14eb2afdd3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-east-idle-64.png",
+      "bytes": 778,
+      "sha256": "cd973b59abdddfd489d8e82c43c721ecdceedf729d8fe1ce2df3a505d60ef46b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-north-contact-64.png",
+      "bytes": 769,
+      "sha256": "af805e1bf427802210c4dd827130720d52cdddabf050f09c3b2abbf5a791a356"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-north-idle-64.png",
+      "bytes": 743,
+      "sha256": "d0532befdf1c5b25bc6a2b5c03218a99b2750dba6f5783c965c0af3bad543e78"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-south-contact-64.png",
+      "bytes": 835,
+      "sha256": "38becb2343de29d113836c129cb2a3b478c9eda051864c97164837dcf5261430"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-south-idle-64.png",
+      "bytes": 765,
+      "sha256": "6bdd0c881e57a1ae18f7935b8ba0a9c609447b338de837ae15499da4fcf88431"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-west-contact-64.png",
+      "bytes": 855,
+      "sha256": "60444ed207af0bcf00e710dc1a748b889667a10e70fae76d6084707bc255ef9f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-ember-west-idle-64.png",
+      "bytes": 780,
+      "sha256": "931948aef7ff7e500385836d1fb256049033513ed5d0705ee104ec7cc5f3e058"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-native-sheet-4x.png",
+      "bytes": 19496,
+      "sha256": "c2e6d72a017465a734eff2cd1ffba6c61d02276370da3e259d441733c294e1b4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-native-sheet.png",
+      "bytes": 9742,
+      "sha256": "3d9de0bc1c19c8772dce95d67c2e9dc19c7f74cb8fe98f1cbb5a19662e1ffdca"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-east-contact-64.png",
+      "bytes": 843,
+      "sha256": "e1400ba1515e6caec8a190a8f6dbba74614ee9481df1a66fee60cf3bdf432202"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-east-idle-64.png",
+      "bytes": 782,
+      "sha256": "60fc112ef3bf6e1a363e68fa4fedd4e37d2816545fb8eb301ab2e26e3adb162e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-north-contact-64.png",
+      "bytes": 781,
+      "sha256": "515e01f06e6bde913c1c14e0f8279b7bedfa38fdf3103ef8d695c3d4debf80ea"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-north-idle-64.png",
+      "bytes": 751,
+      "sha256": "f4c56990172018f0e8e6e19f72cc69b0d1fea8c2590e450bba2637f2789884cc"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-south-contact-64.png",
+      "bytes": 836,
+      "sha256": "57d04e27d9a2a8e996ed5127a6825bded2e4698c6485984943253799fa2f4410"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-south-idle-64.png",
+      "bytes": 766,
+      "sha256": "5109e03c8576f6e7d3ee5a65ed69cd6ac9cf85ff0406a5ab35ec8228e1d15484"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-west-contact-64.png",
+      "bytes": 872,
+      "sha256": "1a05167dca6dd4c39e8715c29f6417ed003aaed4f1ad33f48578841681bc9ecf"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/split_canvas/split_canvas-river-west-idle-64.png",
+      "bytes": 790,
+      "sha256": "1bc7e6d478629e2fc273cb83697e1ed6e3e1d353934d25c2dbb1c200d5d17f7b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-east-contact-64.png",
+      "bytes": 833,
+      "sha256": "0c0371c930c1a0ad043a713448636c79193697c9e020606070d7970f45a10a05"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-east-idle-64.png",
+      "bytes": 777,
+      "sha256": "bc8feac6f8bc99e497fe6b22ba3c74eee7ace512a2fa58e31e236af522d2e874"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-north-contact-64.png",
+      "bytes": 762,
+      "sha256": "0739836a7e966808a452c35d7c9a5ada814b8dc8fc15b4ddc1196c0f06f27b8c"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-north-idle-64.png",
+      "bytes": 726,
+      "sha256": "95dd00d941658cb67f151d5f5a11449ebb548d22fc1ac160b5de7d9a00ca6fe9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-south-contact-64.png",
+      "bytes": 830,
+      "sha256": "49ae7712d2e2895ad440305bd8a5a4d2b23214bbde7ebcff5a31765b1db7d43f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-south-idle-64.png",
+      "bytes": 751,
+      "sha256": "ebfae7422a12eb69979276f74d3dd3e51dfe1e9b85a9de8850d151eed788030c"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-west-contact-64.png",
+      "bytes": 859,
+      "sha256": "79bad3bc5937c1c3b2c239b46cc7a603f0d75fb7610cc5802e8763f12865cff7"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-ember-west-idle-64.png",
+      "bytes": 783,
+      "sha256": "d714ea3072a98ac928528bd1476b215a176adde03dbcc6c2bb38d6504c4961b5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-native-sheet-4x.png",
+      "bytes": 19378,
+      "sha256": "d45432a98ae3db665639ded3e310a532197ccb6d4c29ed6c6b178b0ffd8ecaef"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-native-sheet.png",
+      "bytes": 9821,
+      "sha256": "42700576c6c841f14d8a386e9f1861930c3908f089ae7f1cc70fdf6175f32e4a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-east-contact-64.png",
+      "bytes": 834,
+      "sha256": "686aab3379158877ef70205f7dcbc35be678c708e9e0a98f0c94a9ce842eefec"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-east-idle-64.png",
+      "bytes": 779,
+      "sha256": "a475bb3952472013e4a34ada62a0c668b714b1680f026c87e5b58e439c21d037"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-north-contact-64.png",
+      "bytes": 774,
+      "sha256": "9c1b477d7e345b74e8b6175e74a23ba262310e1ade699a74eb17fa486be2a8a9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-north-idle-64.png",
+      "bytes": 729,
+      "sha256": "09419af03211700fc8ea0794b81e598e74c747bffb0653690f416e022ab1e043"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-south-contact-64.png",
+      "bytes": 816,
+      "sha256": "6df7280ec5e313de9bc04f03154ddd80e72211111cd246b6af981d9ba2db986e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-south-idle-64.png",
+      "bytes": 747,
+      "sha256": "1c03c4db5524b8507c8722c11a9e077d0261397f422e073f0a5ffd293da2e6b9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-west-contact-64.png",
+      "bytes": 859,
+      "sha256": "f58e8ff121345f6b22a2e342410ba03cb84249d6e7343a7b1ec7436d0242283d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-64/umbrella_barge/umbrella_barge-river-west-idle-64.png",
+      "bytes": 783,
+      "sha256": "0f00be2b4419fe79e37c0d52e9fb9bdc8ef7150f51332b170d63bab078ace9d4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/native-bounds-and-context.json",
+      "bytes": 86327,
+      "sha256": "c5d2ae28a5ce9feccee0433e32bcbd0157fcfa14692d80a937640ee01b7b35f6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/postprocess-argv.txt",
+      "bytes": 309,
+      "sha256": "63af62fdc2ae8fd255092ec850893226b0f5f7ef6c7d893481f9955ca93daf10"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/postprocess-exit-code.txt",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/postprocess-pid.txt",
+      "bytes": 6,
+      "sha256": "e94fc8a4236d26b63f85ed3ca19d5e27db1acde600ee76050030f3e29bfbf2b1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/postprocess-stderr.raw.txt",
+      "bytes": 694,
+      "sha256": "b0d60d754149794c5b256d03d6d598a1e82adbb5f47e3b9662c745ace467db10"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/postprocess-stdout.raw.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/prelaunch-file-stat.txt",
+      "bytes": 1540,
+      "sha256": "ea24e7c047ea87f4bb3c04cf61f507a900a5507da752551410b2da28614c15da"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/argv.txt",
+      "bytes": 545,
+      "sha256": "ae4e8dd578784c07e5757f9a25d5b81f182f2d8e7bec44bb4211b56bcb62c945"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/blender-pid.txt",
+      "bytes": 6,
+      "sha256": "f11e98c3cbd7da439e5c523e4513f2d49888807da7263fc3c0b03a627221d0b9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/blender-stderr.raw.txt",
+      "bytes": 217,
+      "sha256": "b4b04ab4c914b986be58c3ee34e9a0ace7b5db93d9d35dc4291a85c4933e18e0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/blender-stdout.raw.txt",
+      "bytes": 4087,
+      "sha256": "5aa426764b7f5be07f3b88dd79cb8bc1704f13b85b98794cec870f20b6f2642f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/direct-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/end-utc.txt",
+      "bytes": 21,
+      "sha256": "39c0f60bf740f8c8d2327da55024bee28c599eaf64e405c1ebaba282adc47477"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/environment.txt",
+      "bytes": 97,
+      "sha256": "a883ae43526463ff8de02cec3ff05d9bd89061cb0e3931f19ed161b5d1b0984e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/r2_control-blender-audit.json",
+      "bytes": 11561,
+      "sha256": "cd1e1cbddef06f7b8912c5eb0345d82d71c5787998d022b131db568412c7f7c5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-east-contact-256.png",
+      "bytes": 22075,
+      "sha256": "4402ba9c7ea6fc29710a23dfd9fb43aa58c18b73529131d8ceb0ed42cb1dc7b6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-east-idle-256.png",
+      "bytes": 21698,
+      "sha256": "35e6676582c1665b291f17e092f5d17f5f8deaafb732ad1e463e65935b714fb2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-north-contact-256.png",
+      "bytes": 21487,
+      "sha256": "1995edf7f0c3a5cfee862a17f13665e88d8ebbd9da8c635c281550c588968ec7"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-north-idle-256.png",
+      "bytes": 21116,
+      "sha256": "68e5ae20ff8f94ffcd0214fabab2424cd21e44a45d51036ab7834b2211df1ecd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-south-contact-256.png",
+      "bytes": 21275,
+      "sha256": "1d6400303c77bb8fed38ae89de9a73fbba89327133766322ad868b8675157f27"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-south-idle-256.png",
+      "bytes": 21321,
+      "sha256": "d3d967693ad8d4ce25f9a00b6503208cfaf5a1d1132554225bb0d3a3bfc7f915"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-west-contact-256.png",
+      "bytes": 22102,
+      "sha256": "1eb9e43d0a06dbe05c11e104686bddee0cf490275e560d4d46acf9d9b10b975e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-west-idle-256.png",
+      "bytes": 21667,
+      "sha256": "584d23f19983cf252955ad0575ca1d6a8b712df2485f5f726f52a116169c0917"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-east-contact-256.png",
+      "bytes": 22066,
+      "sha256": "51149ce5e32f7308e1158caedde77eb2b7eea52bba22b2a4f23ec5b5d23779d9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-east-idle-256.png",
+      "bytes": 21714,
+      "sha256": "ff570b6ea44b2920d2a49188d9af5ff50956443d49386007439dfcb15203b0b7"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-north-contact-256.png",
+      "bytes": 21494,
+      "sha256": "2558827be22fb163868ba450b7f009c9430f447300a723a7b4def3044491ad3f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-north-idle-256.png",
+      "bytes": 21116,
+      "sha256": "8d7ad9608161872ffbc23f0f4dc729a4352412cd0575f423f785dd6ff21c55a3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-south-contact-256.png",
+      "bytes": 21242,
+      "sha256": "e4174730697f0e5dacf5cb498b52dc3ed9e9cb0141b1cdfd426e2bcee96d54cd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-south-idle-256.png",
+      "bytes": 21349,
+      "sha256": "3b64005df1a1b4bcc01aea267dc65c26ce57761a6a559b7c24f17da3d774c9ff"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-west-contact-256.png",
+      "bytes": 22118,
+      "sha256": "078ba2b3f61027e45a4edbc82f257f12de868408824cfea715615025ee4d141f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-west-idle-256.png",
+      "bytes": 21687,
+      "sha256": "f38174487a973ebd05bd80abc2e0e429ee4e4077933acb9e8a0e85cb0ca06bb2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/r2_control/start-utc.txt",
+      "bytes": 21,
+      "sha256": "dbf7921063b347ea556d85124fc103f1f8a649a5e219028ad7a11d2d30d0270f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/runner-exit-summary.txt",
+      "bytes": 106,
+      "sha256": "31422a5b4e3acf8633345e30b8d3fccc66db77898c562a154179363716b0d32c"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/runner-source-inputs-postrun.sha256",
+      "bytes": 1831,
+      "sha256": "0e5db64df6cbab96b0d2355c24eb19bad70fb5f741d5b557594ef0093b432cab"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/runner-source-inputs-prelaunch.sha256",
+      "bytes": 1831,
+      "sha256": "0e5db64df6cbab96b0d2355c24eb19bad70fb5f741d5b557594ef0093b432cab"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/selected-team-contact-arena-4x.png",
+      "bytes": 87403,
+      "sha256": "b3ec371b724840d121c7eedfc405fd05dfa815db866fe2556ea4726b9354e096"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/selected-team-contact-arena.png",
+      "bytes": 52477,
+      "sha256": "646cd859ce6d77ccd542a39103cbf9dde683ee6dd5ffde7f754079accc55a329"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/selected-team-contact-native-4x.png",
+      "bytes": 19124,
+      "sha256": "66706fb9c5d6712f93b69c461a78b7e241c3324dce35750d9f3f1b7649be9b10"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/selected-team-contact-native.png",
+      "bytes": 9574,
+      "sha256": "bb88023f80a13e3d6af79a3834434dbcd775f875ad919be90a6e5ad861a70de5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/argv.txt",
+      "bytes": 573,
+      "sha256": "2472a7184c65c1a457790429f63409da3a07037342cb6a95ee7c37942ec65ecb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/blender-pid.txt",
+      "bytes": 6,
+      "sha256": "1249818f222284ddc731b7376d415df6a318f07f09538ef353b0863e9065365b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/blender-stderr.raw.txt",
+      "bytes": 217,
+      "sha256": "b4b04ab4c914b986be58c3ee34e9a0ace7b5db93d9d35dc4291a85c4933e18e0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/blender-stdout.raw.txt",
+      "bytes": 4243,
+      "sha256": "ffc16ef0d6a6b0e40c8d6f122ceb5b8007acf7135953e606f05c07963f726ae0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/direct-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/end-utc.txt",
+      "bytes": 21,
+      "sha256": "8d0074186c2520df328ea05fc76e33a3a9e27d93dbe12950f600ce58fcacc72f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/environment.txt",
+      "bytes": 97,
+      "sha256": "a883ae43526463ff8de02cec3ff05d9bd89061cb0e3931f19ed161b5d1b0984e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-east-contact-256.png",
+      "bytes": 23750,
+      "sha256": "180e7e8e34c295f372059184aa7782cc64a5a2458de7e4f03813ef808bec9b21"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-east-idle-256.png",
+      "bytes": 23290,
+      "sha256": "613b3be640716a0fd47fc872b8d9e35d12e22cc72865e4c6e60c8e3178b75743"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-north-contact-256.png",
+      "bytes": 23359,
+      "sha256": "01f3c162b48588c44f7206bb2a86cc410ee9c5dd5ea2748960122e37f627887f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-north-idle-256.png",
+      "bytes": 22846,
+      "sha256": "abf1797dbffdf342b9986ddca240270dbc2d1f17940018bda2974a1fb211792e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-south-contact-256.png",
+      "bytes": 23526,
+      "sha256": "056de05481161285f643a1167caa535d149eaff8001f9aa15f38cd5ff696c72b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-south-idle-256.png",
+      "bytes": 22775,
+      "sha256": "50069b0610014d3c173aa84e8085d979a44c399df8594541654a08e65c944e39"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-west-contact-256.png",
+      "bytes": 23872,
+      "sha256": "92964491e57adfc75708057fd27f293428e22b0c433d09b98a7d8d4db5d9135a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-west-idle-256.png",
+      "bytes": 23290,
+      "sha256": "8293a23629936ed50b70a66c3ce20cdb53d9fc621ea7a1ce5a5902e7cfba1f28"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-east-contact-256.png",
+      "bytes": 23714,
+      "sha256": "ee12879e876f3dde4cc236ef5795fb07925581461bb5bab0adae5a6bb506129d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-east-idle-256.png",
+      "bytes": 23326,
+      "sha256": "f2523bd9eb0a2c28b602586e5f88559b72ebf9d607dd75ea20cfca903181b9ba"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-north-contact-256.png",
+      "bytes": 23485,
+      "sha256": "af737ea0a8ea1abaa5f8e7bcd2c51a51a20dbda7736333a2dc20e1d0cf6db9c1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-north-idle-256.png",
+      "bytes": 22911,
+      "sha256": "76bd271cc0aea87cb9fe1cf9c9bf3336907b7e79cd366d6812ea01d8c600f2b4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-south-contact-256.png",
+      "bytes": 23573,
+      "sha256": "4a41aa4e39e0e1e5adebf8600c3618658fa60f1b66ff4e5a542779ddc8c45b74"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-south-idle-256.png",
+      "bytes": 22822,
+      "sha256": "35cfd71eadf3fa1a908ba6157206ec6951edc8bb3b4877014d87f22b5cecabee"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-west-contact-256.png",
+      "bytes": 23880,
+      "sha256": "50ac5bb110b72731a90fac51c32b3958825c52e60e87a8ab921b0e9a6eba2822"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-west-idle-256.png",
+      "bytes": 23335,
+      "sha256": "c94807d9cab2bff39d9f3b5ac6f7b8a31ffed269fe0cf89ae5afcb41fed247a5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/split_canvas-blender-audit.json",
+      "bytes": 11771,
+      "sha256": "a1c371afe9d54112b58767bba8cc128014db52932c0ecf8b3fa4f10e816cf23e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/split_canvas/start-utc.txt",
+      "bytes": 21,
+      "sha256": "4fefac6a88d095a025a9b7ddb7add6c87fdf321746b2a63cc5f7dfc4565e1a0e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/started-at-utc.txt",
+      "bytes": 21,
+      "sha256": "dbf7921063b347ea556d85124fc103f1f8a649a5e219028ad7a11d2d30d0270f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-arena-sheet-4x.png",
+      "bytes": 87403,
+      "sha256": "b3ec371b724840d121c7eedfc405fd05dfa815db866fe2556ea4726b9354e096"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-arena-sheet.png",
+      "bytes": 52477,
+      "sha256": "646cd859ce6d77ccd542a39103cbf9dde683ee6dd5ffde7f754079accc55a329"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-east-contact-on-arena-64.png",
+      "bytes": 10606,
+      "sha256": "89614c3538e76be2acb2bdf33dac0aeddf8cacb26d8959fa8c705797e18582bd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-east-idle-on-arena-64.png",
+      "bytes": 10600,
+      "sha256": "0c3bc59390eaaf45835acd4f8b0f5ad04f905c1ab070471b139276d47b59b6a2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-north-contact-on-arena-64.png",
+      "bytes": 10602,
+      "sha256": "35b5b25220ebcc50f72cb511e2ce68335839143be0eff2d37d9e562ce481c2d9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-north-idle-on-arena-64.png",
+      "bytes": 10587,
+      "sha256": "36266de3178a70857528a128ab4bc08ef67b9391fd0d669cc8cbd5f05bb636d2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-south-contact-on-arena-64.png",
+      "bytes": 10604,
+      "sha256": "9a4fcab35c68c75628263ff420dd689764ab3ab79bbdcf2aa51a13a2281c9037"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-south-idle-on-arena-64.png",
+      "bytes": 10600,
+      "sha256": "d869ef95422a291db40e68ebe514b1e36ab16c512ba1de2cd5a97e46ea66c676"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-west-contact-on-arena-64.png",
+      "bytes": 10624,
+      "sha256": "840daf78d4e97b994f5b85b19d58ff90e185bd1186557077122c2e82b4bb8cb1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-ember-west-idle-on-arena-64.png",
+      "bytes": 10600,
+      "sha256": "3be2341f088cbd291438e9545ceb3315a4361aba336288dc9fe923cba77577a8"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-east-contact-on-arena-64.png",
+      "bytes": 10611,
+      "sha256": "f82598ee5f5ff374a13fdbd41d787d5d31a7e5a4981daf1e3388e872fabe0c2f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-east-idle-on-arena-64.png",
+      "bytes": 10612,
+      "sha256": "900e98c34afb586e2064bb04913cd4165c196ac06d342bac5f2cc292072a487d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-north-contact-on-arena-64.png",
+      "bytes": 10598,
+      "sha256": "17cf8197c0dd83118993a2ad01143cb0d9e43c8a55862e3bee6c8931a22daf4e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-north-idle-on-arena-64.png",
+      "bytes": 10585,
+      "sha256": "e905246c9f922b47c73414ed4ff5ae0aa3da670b29afe07f4b871097c29a6648"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-south-contact-on-arena-64.png",
+      "bytes": 10615,
+      "sha256": "e5bf3ee9c92ba503c1c5d23cd7d6d216fa73d92188f4b9d4aa52161ae6a8d8b6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-south-idle-on-arena-64.png",
+      "bytes": 10607,
+      "sha256": "982ffe5f7c76003c1b99181641b4cc384ae91db3192471be09523a6b5f36cada"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-west-contact-on-arena-64.png",
+      "bytes": 10638,
+      "sha256": "b10694c3afa9958cbd8377000c7bcfc237c5e5d35ad4cf633de549489e1c22e7"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/exposed_deck/exposed_deck-river-west-idle-on-arena-64.png",
+      "bytes": 10612,
+      "sha256": "256910b6de4201ec3acb04339f636c04f2b6d464b320f0b24a0dd4cccf6db47a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-arena-sheet-4x.png",
+      "bytes": 84705,
+      "sha256": "58f6797ab7c481e580be2f9e19d48be5743ceb9deffded5156415464d121b1c1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-arena-sheet.png",
+      "bytes": 50300,
+      "sha256": "df110b4f898ded565bb248514ab1791a40677ff04f2b60927434a22e46b1acf3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-east-contact-on-arena-64.png",
+      "bytes": 10602,
+      "sha256": "eee8a5d8f98bccdfc2ac41a69edc24d3c17d3b8ce03899177343a2efa0257769"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-east-idle-on-arena-64.png",
+      "bytes": 10599,
+      "sha256": "038c256e8c78d7b30a350b878329298d3d56d1b8f0b13cbf26f2da6002db687c"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-north-contact-on-arena-64.png",
+      "bytes": 10599,
+      "sha256": "3971ac1a666149d894077af2cb2f77dc1991e7f2c593b2e49ebc0209b54e5533"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-north-idle-on-arena-64.png",
+      "bytes": 10591,
+      "sha256": "4760827816bf4e056bebb0122701422ff4584d5995c8ebecf4f57ddc5df1f2bd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-south-contact-on-arena-64.png",
+      "bytes": 10603,
+      "sha256": "4d8e597d7a35334dbee5517b89af38b516d3099eb951fb59fb0505c4fd9d85c6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-south-idle-on-arena-64.png",
+      "bytes": 10600,
+      "sha256": "db6636c58240fb876c732a80e78a30b61a03495652593021500c5a839160b92d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-west-contact-on-arena-64.png",
+      "bytes": 10615,
+      "sha256": "f1604a38517820da8b7009a1490614506561184209339bc189771c644d35cf95"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-ember-west-idle-on-arena-64.png",
+      "bytes": 10598,
+      "sha256": "cb36c546e7de7f678670f950535aa64a0bdfb18f20c31010adbeea377ec104ab"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-east-contact-on-arena-64.png",
+      "bytes": 10608,
+      "sha256": "b56d1ad087987032a1acf0d8ade0b20425894fbc756bd246f89893fc4289a7bd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-east-idle-on-arena-64.png",
+      "bytes": 10606,
+      "sha256": "3168cb24054b13fa2e5992946a7bf90a045130bd05263a8b7895b8fa196c1a02"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-north-contact-on-arena-64.png",
+      "bytes": 10596,
+      "sha256": "6f98b90833d47c3a44708c9a37b27e9d6483c055537fae1b6ead4c9c1869d461"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-north-idle-on-arena-64.png",
+      "bytes": 10590,
+      "sha256": "0d04f20565b22f9d1fee1e67930c6e696f32a8044b90348bac27546863c10edb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-south-contact-on-arena-64.png",
+      "bytes": 10600,
+      "sha256": "6c22b12176b7a142ac4eabcc1863205dea39982d11801fccc5c622fc975cd3ec"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-south-idle-on-arena-64.png",
+      "bytes": 10594,
+      "sha256": "e554e394698eda60d9e765afd9aebbeb102185f38e5ddbc302919082a197fe3a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-west-contact-on-arena-64.png",
+      "bytes": 10617,
+      "sha256": "e1306bdd04e692abe4a37507cd4f07ee0d5d2a3174e5148f5643c6e070cb0457"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/r2_control/r2_control-river-west-idle-on-arena-64.png",
+      "bytes": 10601,
+      "sha256": "48ca5092150d2a6037a40ba28a6cefb629898b236e5e6a77d2bd7eafd30d2242"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-arena-sheet-4x.png",
+      "bytes": 87626,
+      "sha256": "1f2152fe16ecc821b0b0064ffc06af8ee6c6c4f188fd9b6b5734d96c9a9ffa63"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-arena-sheet.png",
+      "bytes": 52628,
+      "sha256": "909d0f35aa227c0055232fbda7e067f4c9c159126e3949be1626aa4bca24cf5e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-east-contact-on-arena-64.png",
+      "bytes": 10611,
+      "sha256": "66664b10d4b402652dc0e18a6d411a8d6a44711412773f5cba61a4b9a5b79367"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-east-idle-on-arena-64.png",
+      "bytes": 10613,
+      "sha256": "86a39f8b07d1d1a113c79c0e33fda16bbd1c30927d14bc3bc5b5a453503132d1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-north-contact-on-arena-64.png",
+      "bytes": 10623,
+      "sha256": "c0ae5300faa05ea0ad34c57b0f07462a5a8340261ce8d407f21c48efc7f09c94"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-north-idle-on-arena-64.png",
+      "bytes": 10605,
+      "sha256": "343cbba10439856e5830fd1a6c95c3ef332a000f906bc83d93209871edcda42d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-south-contact-on-arena-64.png",
+      "bytes": 10616,
+      "sha256": "7e5897b7aaaa3c656db9412766344bc61af468a242547f0c2ed6d3549f75eb0a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-south-idle-on-arena-64.png",
+      "bytes": 10615,
+      "sha256": "843ad07caed4914bc3953a46a6eb604a785b7e5fda34c9f60f2a6e89b3b22bfd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-west-contact-on-arena-64.png",
+      "bytes": 10627,
+      "sha256": "32cd2e8ef9398211b298997acdf03cf59213f469f796e07733415da94dc0e4b3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-ember-west-idle-on-arena-64.png",
+      "bytes": 10603,
+      "sha256": "bd1c9a4c10322fed0dab596c371196c093d8c0cfb467f49b65ad76f7d3166f2b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-east-contact-on-arena-64.png",
+      "bytes": 10616,
+      "sha256": "e1df2044b4439548eb9e470561733a0ec91b26f5124790b59f4c931cb823a71a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-east-idle-on-arena-64.png",
+      "bytes": 10621,
+      "sha256": "cacd2459337042270d9f08fbba5e95cc87f362bc76ced3742c2ca18e1a3a0da6"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-north-contact-on-arena-64.png",
+      "bytes": 10630,
+      "sha256": "e2efcb691a0f5a4f4bc99c8f0bbc4a01d5e21560eb73371e58cf3813d2bf3e17"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-north-idle-on-arena-64.png",
+      "bytes": 10609,
+      "sha256": "0db43c6455fb79ca8f892ce769e42ad6ec8a80ee8d8f62a66589d1868a323567"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-south-contact-on-arena-64.png",
+      "bytes": 10622,
+      "sha256": "472d8116cf3fb8e234525946c3eba16ce5634e89d728edb49e02f28862be280b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-south-idle-on-arena-64.png",
+      "bytes": 10627,
+      "sha256": "2b9c6105fcfed69dc80db03429df905a4d4c5a7946e30e9bea1213c4040a0d7d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-west-contact-on-arena-64.png",
+      "bytes": 10638,
+      "sha256": "a5a85bdad0f152b3a64b2600c1392a4e8eeabe54d3709098c0f04e08235989dd"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/split_canvas/split_canvas-river-west-idle-on-arena-64.png",
+      "bytes": 10620,
+      "sha256": "8473fd4db2dd28ef1558c71f91df974710b423697e13d6195f4b21b0b52ee527"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-arena-sheet-4x.png",
+      "bytes": 87573,
+      "sha256": "2a9fc1f43a5b4fe08ec082aec74267d4aa0a109242b21832e293f908dcad9fdb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-arena-sheet.png",
+      "bytes": 52596,
+      "sha256": "c95c6a8e6577195721eed5da59380eb237bd96f566125300789931a4625b585a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-east-contact-on-arena-64.png",
+      "bytes": 10604,
+      "sha256": "a6f791d7312634ff3c4507bcf7f752299a48487253146a030bf59cf020fc3483"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-east-idle-on-arena-64.png",
+      "bytes": 10591,
+      "sha256": "0455747749d873711949bfba499e3dfe8e8febe49862cf1f9ab7baa9547137fb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-north-contact-on-arena-64.png",
+      "bytes": 10595,
+      "sha256": "a543e42a32ab56a07c8e9b1a0f1a5fe831c2a1cd80ae3d6af5effcd091e1e233"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-north-idle-on-arena-64.png",
+      "bytes": 10587,
+      "sha256": "586f151979ec1e70040bdfc52ccfcafd85c3b18408630423499136089778c398"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-south-contact-on-arena-64.png",
+      "bytes": 10594,
+      "sha256": "657cdeac11a241f36efd46d279542676c252822f66f8c5535abc76fb910ed0bb"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-south-idle-on-arena-64.png",
+      "bytes": 10599,
+      "sha256": "eccedda47a109ce3da4786bc5bd3fb27f19dd70f5ea7c898689b8ebd98e9f165"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-west-contact-on-arena-64.png",
+      "bytes": 10620,
+      "sha256": "27cd1c8d66676f119040101a53d7e4f466772df22a763496fcbbcdc3f31ed7e7"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-ember-west-idle-on-arena-64.png",
+      "bytes": 10599,
+      "sha256": "f9b17d60f19a1a2f50470a0920a596575f40757eaaa3c9e201db61c4f23908c4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-east-contact-on-arena-64.png",
+      "bytes": 10615,
+      "sha256": "fc3390672f874b67d3be1e54535cf1fbbfa445e949be346856f732776e049cab"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-east-idle-on-arena-64.png",
+      "bytes": 10601,
+      "sha256": "b45f31ead7030f4bb225969132c779256864621f068ce31e9e5e0f109591f07b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-north-contact-on-arena-64.png",
+      "bytes": 10604,
+      "sha256": "d71683dcd7dda9adc39aef13e2fb1ef307958bf2d4925c343a366cb6da070421"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-north-idle-on-arena-64.png",
+      "bytes": 10589,
+      "sha256": "9b6d25e4898bc197881d50255d1cc5f02a1792baa13822a87dd345f04a826ead"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-south-contact-on-arena-64.png",
+      "bytes": 10616,
+      "sha256": "7737ab27bee1b7b0ae6b362320c55eed42461188b77877d2ce2b539c0a54a653"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-south-idle-on-arena-64.png",
+      "bytes": 10609,
+      "sha256": "f200e5f58f31705406dc72fb878496acf6b3491b3a74d30f2fae0a21dbac89d4"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-west-contact-on-arena-64.png",
+      "bytes": 10631,
+      "sha256": "b6488d2f1ca7fb54232d171b792b1d39f41631a7f48fa1b086f6342e68cc00d5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/tile-context/umbrella_barge/umbrella_barge-river-west-idle-on-arena-64.png",
+      "bytes": 10615,
+      "sha256": "506089a53cd3222820a1ef6c7755898c16d626119a092e57dc263ea0ce6d3c1d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/argv.txt",
+      "bytes": 579,
+      "sha256": "d430de2ce8a41dabc15bc088525a3385b91ea250e54b9c9d46791a90cf36d9a5"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/blender-pid.txt",
+      "bytes": 6,
+      "sha256": "600c22b28d358181186015ae8219a55e1861d1f2159bbef77d241bc5615e660a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/blender-stderr.raw.txt",
+      "bytes": 217,
+      "sha256": "b4b04ab4c914b986be58c3ee34e9a0ace7b5db93d9d35dc4291a85c4933e18e0"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/blender-stdout.raw.txt",
+      "bytes": 4377,
+      "sha256": "08718a627a16b23fbaea0c2c9cf3684db52dfee6aa9a97b8ba06c50b34419ae1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/direct-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/end-utc.txt",
+      "bytes": 21,
+      "sha256": "5bca8bffc6331bd05aff22543a1b2e3f0e0c7d24a3decb11955e8a15e54ddddf"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/environment.txt",
+      "bytes": 97,
+      "sha256": "a883ae43526463ff8de02cec3ff05d9bd89061cb0e3931f19ed161b5d1b0984e"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-east-contact-256.png",
+      "bytes": 23445,
+      "sha256": "f46028e3a94f58abcf9cd57f045d530250b54f333ae306cb3b392b7f30ae97e1"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-east-idle-256.png",
+      "bytes": 23112,
+      "sha256": "b81305cba82a0b863c15ac5d1fb208a3ab0032fff1b40d9594b1f241a71a5e8f"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-north-contact-256.png",
+      "bytes": 22909,
+      "sha256": "da6d7f7cb38a1a33edfee481eba47635d4fc6831be693d1d88bb3e9a94001397"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-north-idle-256.png",
+      "bytes": 22483,
+      "sha256": "67166f0ed84571642bc6d20ea5bb23563d58dc2c30fe162bf14b3b5c39aa9335"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-south-contact-256.png",
+      "bytes": 23351,
+      "sha256": "e17667915ad7699e5ca4ee64846fd2724dc3ddae377dd688a1b4cf0e7a0e4d8d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-south-idle-256.png",
+      "bytes": 22727,
+      "sha256": "0930eabe5a0b106d4ac5be89f75b759ad5a42834851a243bff77083fb0fd3fb3"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-west-contact-256.png",
+      "bytes": 23617,
+      "sha256": "28d49f6b56fbd95ce9ec349f8a1cbd52bf5ee3d07c2e0f8fa2f369bd84b91897"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-west-idle-256.png",
+      "bytes": 23006,
+      "sha256": "1c1d372a6218f2099fc42e2fadc5f6f65da12126c9e88401236bba7f82691611"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-east-contact-256.png",
+      "bytes": 23511,
+      "sha256": "50d4da5f9a1f22e128a91a69b66af1e05ddeb1a446c65d3707cb8016f06a2199"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-east-idle-256.png",
+      "bytes": 23095,
+      "sha256": "c6f6d3589d208cf522e17ab61d82b5e735363e2bf24ead82dbd5c3479089b3ab"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-north-contact-256.png",
+      "bytes": 22997,
+      "sha256": "18d6a327d2b4aaacd1038b8ac5cff3b581aa62f7d4f7e631a76679c4987261c7"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-north-idle-256.png",
+      "bytes": 22536,
+      "sha256": "1bcb0b7a06952cc10e2b49ddb8a837f6338e17ebe9884f6d6d184b166725eef2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-south-contact-256.png",
+      "bytes": 23398,
+      "sha256": "22e716950aad88004bf92bf339631f22255db74a846ed60e6929c333bdf4ff74"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-south-idle-256.png",
+      "bytes": 22774,
+      "sha256": "b1eee8e91db324fd414f2b03c26114cb01d1fd7462986ffcbd4a481f67ca5a4a"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-west-contact-256.png",
+      "bytes": 23652,
+      "sha256": "3e76f4166541cd70121367b1b595a81f5071de3e3a77bd8c1cc48fe1a3af4e36"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-west-idle-256.png",
+      "bytes": 23069,
+      "sha256": "7063216563526e9b4dfbc116f79d1d56370c959467a8ac34d059b53e33bcff38"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/start-utc.txt",
+      "bytes": 21,
+      "sha256": "39c0f60bf740f8c8d2327da55024bee28c599eaf64e405c1ebaba282adc47477"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/umbrella_barge/umbrella_barge-blender-audit.json",
+      "bytes": 11913,
+      "sha256": "390adb4d7112ccb99837521d80e41257f7e479125600d7ae71e45f7c62ee18e9"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-20261020T170642Z/wrapper-pid.txt",
+      "bytes": 6,
+      "sha256": "62eee39f7d3280149dea76709d25100713ad8d817f31d4c8207bb456c8c10111"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run-capture-fix.sh",
+      "bytes": 3719,
+      "sha256": "9d337696a619ada73d90dfa504cba2bc796224a87efa7bb8efa99a0ceb64c5d2"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/critic/run.sh",
+      "bytes": 5123,
+      "sha256": "c270795a792285d12e4fd475b769b758e7b2abe184d645b9a747d8096ae86051"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/command.txt",
+      "bytes": 386,
+      "sha256": "fe759b1811763ebf6dd578cd188cbf7ffe2c136c1a36d6ada8d31d8200e920a8"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/exit-code.txt",
+      "bytes": 4,
+      "sha256": "e726b440cc164001999e718b51780d80314709efe06e7857282377be9111127b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/finished-at-utc.txt",
+      "bytes": 21,
+      "sha256": "467821801a8b63b1946e55bc09920677e92f8e2a1cc029bb0c66f16ea82f8500"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/generation-exit-code.txt",
+      "bytes": 4,
+      "sha256": "e726b440cc164001999e718b51780d80314709efe06e7857282377be9111127b"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/native-crash-receipt.json",
+      "bytes": 2493,
+      "sha256": "69b7f878be7fe5ecea750258ce31a2c6e5a8ad0be3655c91babc0d77de03b22d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/source-sha256-after.txt",
+      "bytes": 842,
+      "sha256": "92f3215b84e79e715c69300861b2dcab3315a1396fd4f3adeb505197cafbac9d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/source-sha256-before.txt",
+      "bytes": 842,
+      "sha256": "92f3215b84e79e715c69300861b2dcab3315a1396fd4f3adeb505197cafbac9d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/source-stability.txt",
+      "bytes": 10,
+      "sha256": "1cd263f1102656dd6b6cf1d626d1a96f9eba0406af3cb2a52560d473d4801052"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/started-at-utc.txt",
+      "bytes": 21,
+      "sha256": "cc66dc102e27cbe4b6a89708ff5da3733f2241f63cdac6ec083675b15495d06d"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/stderr.txt",
+      "bytes": 95,
+      "sha256": "ce1900fa4bc94f4dd8a3bcfc4f9588ae9cbc7640de9414312a5ca70dd0352016"
+    },
+    {
+      "path": "artifacts/art3d001-round-3/generator-first-failure/stdout.txt",
+      "bytes": 60,
+      "sha256": "4a1d154e15744301856554678273a9d54864297b40dea6025900b770dc156578"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/SHA256SUMS",
+      "bytes": 3966,
+      "sha256": "d24f5dce6186a3e279c666947ebf25b95e5d4a22b513cbecf130a09f7847d7db"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/diagnosis.md",
+      "bytes": 6799,
+      "sha256": "51f40ad3d9a7c7d683ac31933862ea1943f8d929634a094909cbb9a774bdc239"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/00-chrome-version.stdout",
+      "bytes": 29,
+      "sha256": "413c08f8a697a7cbbece717cd320ee9aaef0b2c45f0cd6446f200c04ce0b3b01"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/00-node-version.stdout",
+      "bytes": 9,
+      "sha256": "28d5d468fcfe77594f84d719d1550610e3ff0904f1601e7d0e93325244965451"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/00-npm-version.stdout",
+      "bytes": 7,
+      "sha256": "7eeb2f42ee0d10d4e00355252af2e7468bbff992af43b511355feb76da5c7cfb"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/00-playwright-version.stdout",
+      "bytes": 7,
+      "sha256": "fa69129a158d5058c97aea44a45eee865f15e006633b8b7918686cd424501aff"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.argv.txt",
+      "bytes": 1550,
+      "sha256": "4b5779d304ce120581343bf1350a9877ba856a414207c416bfe803d05f4ce7e1"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.cwd.txt",
+      "bytes": 133,
+      "sha256": "b54f3337b9d53049615b590c4987cb1c864630ff61fabb43f02eef5e7a8639c8"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.env.tsv",
+      "bytes": 1498,
+      "sha256": "20e55664e1823c6db17992c9ec6d741a872e73edaa05dbcda50812d3ed6a0a96"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.exit-code",
+      "bytes": 4,
+      "sha256": "f5bde7eb9f6c71611dc5726e8aca3eb4eba3e386da49e0a4ed5c295a90a73a0d"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.pid",
+      "bytes": 6,
+      "sha256": "fd4cd594af36f61bc983327da34472cdd93e76a569a3c78f27ddddce9f7658d3"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.process-closure.tsv",
+      "bytes": 107,
+      "sha256": "87a7438484d7fe0f0b9256b4ac1b31fe070bcc2f214aa6fa887c066398b63067"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.process-snapshot-live.txt",
+      "bytes": 11015,
+      "sha256": "d7af321134dc9c48aef97581d582bc41ef904472a77bfb14efb2e89d1d76c5c4"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.process-snapshot-start.txt",
+      "bytes": 36,
+      "sha256": "a0cf982852c8f475197f32c46cdd95c9535010f90b7f426071eda43912be86bb"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.process-snapshot-stop.txt",
+      "bytes": 958,
+      "sha256": "88d1ec1f691f7212acb8407c88d914216fa7fe268b2de1de1c89bf4976cd5cae"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.source-fences.tsv",
+      "bytes": 1558,
+      "sha256": "f311fa83e9d38190cc22f5884c73aaadfe2e093efc8e1b5bbbde4f8fc5e9c885"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.stdout",
+      "bytes": 149761,
+      "sha256": "e84834ce25e65981a69112cb387173e7e5fb081829f4de4f61d32199b5c646f5"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/default-npm/01-repository-default-npm-test.toolchain-files.tsv",
+      "bytes": 333,
+      "sha256": "f4b5ae52d0b954fda66f6bca4035ed2a9538ef3c34f9ba8cacdb6f39f5afe467"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/full-browser/default-eight-active.png",
+      "bytes": 958370,
+      "sha256": "e91b3fff3ebc2a7e794e4b5f98f4d6e177584f05c24790988b5207d851f13814"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/full-browser/default-eight-full-18k-endurance-result.json",
+      "bytes": 2753746,
+      "sha256": "26c9d394e010f2270cb18c68c3a493ed1fcf7f6e745c9569ebf73a0f975d2b69"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/evidence/r5-source-identity.json",
+      "bytes": 1972,
+      "sha256": "2d7efa9ab15d81a9850dd7181b73890328234f0baf7d0b86285868864ad0a7fe"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/repair/game-browser-entry.proposed.js",
+      "bytes": 46768,
+      "sha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/repair/patch-application-check-20261020T171107Z/src/ui/game-browser-entry.js",
+      "bytes": 46768,
+      "sha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/repair/proposed-repair.patch",
+      "bytes": 827,
+      "sha256": "e5e7af7bcd13aa8edbe0349dfdba946cab03c11c9e8a3638725064339a54eeec"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/repair/proposed-repair.previous-rendered.txt",
+      "bytes": 530,
+      "sha256": "e77d2c67a0ba724454469c5ee3d082a4c0ace5f3f25d6e9324e41a52e03f9d0b"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/repair-identity.json",
+      "bytes": 4163,
+      "sha256": "50c617f527766273b1721ea97706308d6ecd5218afce4b8dca9c52fc9797b1c9"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/root-browser-endurance-observation.json",
+      "bytes": 1334,
+      "sha256": "67a645dfa074a58c47153f7064ffad9cd18949429b325df89e8aa03dfb564ae1"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/root-node-endurance-observation.json",
+      "bytes": 383,
+      "sha256": "2472d5dfc329e2e26da0b6035b6df9696c57ac78a715516ae4279d9205a64593"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/editable-deck.e35.js",
+      "bytes": 6121,
+      "sha256": "4ef893cd673419381e2ff32928ff3b095c91971b4bc1be53fab7d4dc88d638fc"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/game-browser-building-choice.e35.test.js",
+      "bytes": 32752,
+      "sha256": "10ef953d33d4ac4e4af49aeb5a29b8271badf4c77a2847321c0348d26430e485"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/game-browser-entry.e35.js",
+      "bytes": 46660,
+      "sha256": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/package.e35.json",
+      "bytes": 13905,
+      "sha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/playable-roster.e35.js",
+      "bytes": 11989,
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/session-troop-roster.e35.js",
+      "bytes": 22716,
+      "sha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca"
+    },
+    {
+      "path": "artifacts/shared-combat-factory-r5-qualification/source-excerpts/source-confidence-authority.e35.js",
+      "bytes": 15190,
+      "sha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/DELIVERY.md",
+      "bytes": 6278,
+      "sha256": "99bff05b3012d12490c6cf2ec1c7df8bb76388f1214cf5c9872c4379f07337f8"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/alternatives.json",
+      "bytes": 2659,
+      "sha256": "5ec06c26428a4d3e79d649b948d79428811e58bdc42426ded6df30cb921cac91"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/build_comparison.py",
+      "bytes": 14306,
+      "sha256": "73b5836a48ca9146035ae4ae5de0d3db9759f02349f5f83a3b616fab5866a0cb"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/copperskiff_model.py",
+      "bytes": 9127,
+      "sha256": "2cbdabd912dbcc26062f1e79bb04ea4d0d5ab7eaec0570ac79b88df873f47b32"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/design-notes.md",
+      "bytes": 7466,
+      "sha256": "30d60c521ad8499c2eab25168818c52d5a240c53ff6b7a0105a5fce6d6eeeab5"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/blender-pid.txt",
+      "bytes": 6,
+      "sha256": "1710ed0e1700b2df8ead3bd54db3ed36396279d50052dd8d8458521768a4b6a6"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/blender-version.txt",
+      "bytes": 1471,
+      "sha256": "4b0dd76e8a77077d0f2e89213efed2ea126662027b8d1b1359361ea5fb44a273"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/command.txt",
+      "bytes": 444,
+      "sha256": "8386995aa1043586d4e9d8f4950a8456197d9be5863246399fa047f3c3f4950b"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/copperskiff.blend",
+      "bytes": 699028,
+      "sha256": "299ec67386e6b2c8c8fb74d6e371f17f9e66b09fbb05385132ba46fc60fabd1c"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/copperskiff.glb",
+      "bytes": 64648,
+      "sha256": "c8c008bddb9147fe0d74e1547b0ef4799a658a7131689f7a39dbe356c7c6998d"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-east-contact.png",
+      "bytes": 837,
+      "sha256": "34472eeb374b42b80910b721ced06f9baa5baf4b5b7e11b6ede62413a798136e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-east-idle.png",
+      "bytes": 794,
+      "sha256": "cb9c4db691af5fa04a49ed5c659ddd7306f503fd872fefd0b1349dd4eb9d1f4a"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-north-contact.png",
+      "bytes": 808,
+      "sha256": "7924f9bc4fc2dfb5b68fa6894841644cb708cdf18c8db81dbc4871b23ba90882"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-north-idle.png",
+      "bytes": 760,
+      "sha256": "2ff5e9da9f488ee104a2d23c3031ef6019cbb5aded420958d373c944a877d716"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-south-contact.png",
+      "bytes": 817,
+      "sha256": "69e50008e329b65431e5abd4ab40b6d24896fac36c67f9e6a0135ef689196835"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-south-idle.png",
+      "bytes": 769,
+      "sha256": "74f613c3f54f29c1be0d0d9d769bab38468a69bea0d831ca7be01f18282d94a8"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-west-contact.png",
+      "bytes": 838,
+      "sha256": "9e21b5d57a17f35cac507daad302ee761f4ec4323a253baafee828e2e633c210"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-ember-west-idle.png",
+      "bytes": 790,
+      "sha256": "0fececd5c29aa82170962b359b43fd4c78643e4945a07db6169e49ed0c2b6ee0"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-east-contact.png",
+      "bytes": 840,
+      "sha256": "2ee95e14555e5140086abda9ab47be3a9df35cb05f03fbfaeff7d4a0db50e77b"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-east-idle.png",
+      "bytes": 793,
+      "sha256": "7bdd9b21bee56dfbc7127a92b7001c637f31b572a913ad35219ebc449173c7ff"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-north-contact.png",
+      "bytes": 812,
+      "sha256": "9796af6ea7ff1ab7d7285171555d4185f6f35f8786c587f62678ec76aad676be"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-north-idle.png",
+      "bytes": 758,
+      "sha256": "678afce6c15830c8974f94fecd32de59b94bf007ab8c13c3233199ee396bf700"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-south-contact.png",
+      "bytes": 823,
+      "sha256": "daf49327567a112fa04c687d3b09959fbc6f16b417433f64fccbea1cfd5fb80b"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-south-idle.png",
+      "bytes": 764,
+      "sha256": "d8c0ee7454b6979a60388a09afa4f06cca1ddcc378537aca3d1bd2989909698b"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-west-contact.png",
+      "bytes": 842,
+      "sha256": "a5e972eb73832b7913ce4223f2076390220b8a76aabd1a26675d498d558286f1"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/native-64/exposed_deck-river-west-idle.png",
+      "bytes": 786,
+      "sha256": "55606631ccca3295faaf628225d40f177e1c9362e2c328e855e75af872df1914"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-east-contact.png",
+      "bytes": 23128,
+      "sha256": "2d876abbf4ed5dbfed611f12e5794a4cf1684203f6f6f9b1155029f0a0f190b2"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-east-idle.png",
+      "bytes": 22773,
+      "sha256": "4516e8c48da02f209cfab67f22a3a6e575dd26ed2c849b78f2f8de0f61b0eca6"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-north-contact.png",
+      "bytes": 22773,
+      "sha256": "bccf5d55ca262bce3ebb7deb720cf3f89079b35734257e324813cc18917eea78"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-north-idle.png",
+      "bytes": 22426,
+      "sha256": "62de000cdabf053192748eac2272c60dad13ceb8e37bd7e6957bf36ee359d54f"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-south-contact.png",
+      "bytes": 23169,
+      "sha256": "ad1bd18dc331b7ed9dca2b2be5716859d0b619d24807c673a880ca5e8d9fba05"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-south-idle.png",
+      "bytes": 22547,
+      "sha256": "a0bb2cad3559eee25f6ea0525acfa8485f9ee4598e605738bb7843249d8e9d7e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-west-contact.png",
+      "bytes": 23333,
+      "sha256": "b5550f4c024e0062383e1768fdeb126d3b6f0ebdc50cb48d89dd7561660ba9d1"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-ember-west-idle.png",
+      "bytes": 22767,
+      "sha256": "e1425e6d3000c6567c10f0cb9ae7258feb7a57f2e7307ccf8ecb62268fa8f04e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-east-contact.png",
+      "bytes": 23147,
+      "sha256": "f285bed2ec947e6864138ad08834a105f464d7441807d17918bfa21ae78228b6"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-east-idle.png",
+      "bytes": 22670,
+      "sha256": "20d47901ad47932ae9e9663b0e5bcf855a2b07fcb2f83ec87b07d0eccc0a9c3c"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-north-contact.png",
+      "bytes": 22940,
+      "sha256": "b60999fb3ee49c3c0ab8039788b70e313d94992a2eb9d282c6f9374daaa71daf"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-north-idle.png",
+      "bytes": 22491,
+      "sha256": "28eef56d161c3d030ba19ab85de9fc5ccf5480850a26c36d0ee0a2bcba8d75b9"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-south-contact.png",
+      "bytes": 23219,
+      "sha256": "631c9a6236330714a1806f47dcfa77481357f56d1ed2d40e2a3a3fb3836c5c5e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-south-idle.png",
+      "bytes": 22564,
+      "sha256": "2a2ccebd94615c0d121182d9862011ca943f0ab1eb8b7e3732ffe4db32ea6027"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-west-contact.png",
+      "bytes": 23379,
+      "sha256": "d31e3d02eca0131d89ed0d4214a7137fac2c5f895d672401f1b620de2dc6b52c"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/raw-256/exposed_deck-river-west-idle.png",
+      "bytes": 22751,
+      "sha256": "18c57f8f73dba72d6c24ef56b011a8eb6d01143d52da5b0610f958db5a487cc7"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/saved-asset-inspection.json",
+      "bytes": 2244,
+      "sha256": "410ae4d17783b063b76ad57d963740689a62d37ca102df626128057e94f6900d"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/sprite-projection.json",
+      "bytes": 17378,
+      "sha256": "0f11c69644f6b3141d9146c3867eb2464400b89afdd8f1aa8c425cd3cb4f2769"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/three-quarter.png",
+      "bytes": 36772,
+      "sha256": "c7754bcd0413172cb70486994e6bb8fdc4d854c72bf38d10b205505d4e26c8ab"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/manifest.json",
+      "bytes": 46747,
+      "sha256": "842ceef926bfadb032923075cc82a59bc73ed8914d3b160b2ab72863b35a255a"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/massing-comparison-4x.png",
+      "bytes": 27754,
+      "sha256": "1734f4951e2a4c4ab770689a2a9a5e32c102ef6ba9af7ea047b5ec2d9f17ccf8"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/massing-comparison-native.png",
+      "bytes": 12982,
+      "sha256": "12511f4134e3a26f5a5c2c6d771d8e602d817cdcbeed3804683c2b11fb40e572"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/selected-team-contact-4x.png",
+      "bytes": 17742,
+      "sha256": "3fc8e8394479e4b00300ff33ce3aff48809007ef08aacdeab818d01386f5b05a"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/selected-team-contact-native.png",
+      "bytes": 9594,
+      "sha256": "407d792fb93b7b35253ea34d4b396bd0c52590b8116076da66d97503127d4bbd"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/copperskiff.blend",
+      "bytes": 727810,
+      "sha256": "b13f2440ab50d64bd3bf4a0eccfd895830081dfc245dead9e532aec5fa11bdfe"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/copperskiff.glb",
+      "bytes": 73756,
+      "sha256": "5c943b62951060c4c010bada2b8153152aa2c9ecce6ef932700bc34f8de47633"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-east-idle.png",
+      "bytes": 803,
+      "sha256": "10d582f0cdb909035251f94dfa8ae61c377712dcb74d583d01029f236794b927"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-north-idle.png",
+      "bytes": 760,
+      "sha256": "bce4f1f6f1761fcca255f5ec85c5923de172885809857edc2c2eb63f229e6518"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-south-idle.png",
+      "bytes": 777,
+      "sha256": "5e7fa9363b3444f4c05f2df7b33df966b863091e33860447e49701ed35496401"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-ember-west-idle.png",
+      "bytes": 805,
+      "sha256": "598094ddcbd76f71364351ad4fb4d469fc7afd5f138966c8c63bcd9c8ca77e77"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-east-idle.png",
+      "bytes": 803,
+      "sha256": "359dbb8463b00769b6cd312d53a59ca9cce1c37d1be1286233998fd01c90955e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-north-idle.png",
+      "bytes": 758,
+      "sha256": "106d6e7e428c6c893dcd9c46775bc24b381b13c3b55eb573190f338292894248"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-south-idle.png",
+      "bytes": 767,
+      "sha256": "59024663571d1acfbe9eae978d44acd374a9f10443e66e33c9fd5e4e26dcdcf9"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/native-64/split_canvas-river-west-idle.png",
+      "bytes": 799,
+      "sha256": "7b951dee0a5eceb1d3fa4a4065d640adfd7f65135e53073722e4128b1a6b1df8"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-ember-east-idle.png",
+      "bytes": 23109,
+      "sha256": "81bf5fbe717ebf89ed3a2308f95ef5365cbdf49ea813af28d7409809f384dc88"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-ember-north-idle.png",
+      "bytes": 22665,
+      "sha256": "c42ae666a35415ca2e915dc652b3faeea15ebb4c62a49c1f27090b03c50d95e6"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-ember-south-idle.png",
+      "bytes": 22594,
+      "sha256": "9d1cd7aaa9ab80544b570e86e21fdf7506c18467114954cb436c5db707760be0"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-ember-west-idle.png",
+      "bytes": 23109,
+      "sha256": "3d9de77a13d54064de75e42053f7dbaddde62651182c55cdf8695bae5fdb494a"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-river-east-idle.png",
+      "bytes": 23145,
+      "sha256": "2bea695150e2a38296d7fc19370327a15ca65e1eb6d3b4932e5d4efe9e63dea9"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-river-north-idle.png",
+      "bytes": 22730,
+      "sha256": "fcb60607f593594d3b24423132e861357619b1b2f7c92ce2ffcdbe3b6a3ddcf1"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-river-south-idle.png",
+      "bytes": 22641,
+      "sha256": "6656334a48fa81e6174808b0795ae85b1f26aa1c9aef54a0ff6bb4415af1fedd"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/raw-256/split_canvas-river-west-idle.png",
+      "bytes": 23154,
+      "sha256": "a86269f62d3868bc12831bb6a2e7255f2028ee696f9f02275e2221e143fba776"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/sprite-projection.json",
+      "bytes": 17388,
+      "sha256": "e8b481b59151c80e79404f4e6ae7ef5bd22096f32264be6fcf25117ef5e3adef"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/team-comparison-4x.png",
+      "bytes": 32587,
+      "sha256": "284b96f25ba5d199fd20072cb5494ff8053905d3868fa3dfb12bf6e9f06d5dcc"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/team-comparison-native.png",
+      "bytes": 17095,
+      "sha256": "becb04d284376ebebccd32b36feac16c0743c5b4ad49a778c9faee2e5c99f491"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/copperskiff.blend",
+      "bytes": 693022,
+      "sha256": "edad3f955fe0b474505056dd607933e80ce86d3769fcea8529d33a75841cc22d"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/copperskiff.glb",
+      "bytes": 64372,
+      "sha256": "cf542c2a4b70ffe5760ba90c067d33ccb108eb34a9b8fd5278ecd225d3b7f9e2"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-east-idle.png",
+      "bytes": 813,
+      "sha256": "0b9fc14a4ea963cbf5d4dbc3810c51c21946cdc70d228eb03b5b32e8dc380020"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-north-idle.png",
+      "bytes": 750,
+      "sha256": "6099cc04e71b80dd7ad3fc734f6b62c06d89daf2d0fc8fff93e6442fc9086a72"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-south-idle.png",
+      "bytes": 784,
+      "sha256": "cee2aef7670390f4ccba9171348b7764dd864d17d9928ac212ca433306a9eb6d"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-ember-west-idle.png",
+      "bytes": 806,
+      "sha256": "ccda1b1e86d0d78910638928548d11bbe42b96a8e434c1e6160f68edd4d896b0"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-east-idle.png",
+      "bytes": 806,
+      "sha256": "2d9414ee762137dab0fb03265c3ae08220e5d8646686a693cedc708c66e39d9e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-north-idle.png",
+      "bytes": 756,
+      "sha256": "23c0a93f39f60a607c30398f6020011acf96486dc8713ab3adf35edd38b170ef"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-south-idle.png",
+      "bytes": 775,
+      "sha256": "cae01997251cc9b3c531e576caeb8bca208e189de8e55b5f0cf6fd5a8fd4a639"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/native-64/umbrella_barge-river-west-idle.png",
+      "bytes": 802,
+      "sha256": "fd1df85f06fe3f782ecbd193c465afe60144282b0bd6972421e0ce18c5e2b793"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-ember-east-idle.png",
+      "bytes": 22929,
+      "sha256": "c9950ba61d54ab886918832f987c528fe83211695b42a1344003e78015469187"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-ember-north-idle.png",
+      "bytes": 22300,
+      "sha256": "f674240bbefac19faaa0b58014129be138c732030d7210e5a128d5fca6482ed4"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-ember-south-idle.png",
+      "bytes": 22544,
+      "sha256": "523c6f7f038e28dfbad45cad91e340bcdba990ba0ce75c6688983e3b14fbef6e"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-ember-west-idle.png",
+      "bytes": 22823,
+      "sha256": "a10b63a29a7757a286b6382b98871839bdbe01caa3a7152f0bbbe7c5bee2794a"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-river-east-idle.png",
+      "bytes": 22912,
+      "sha256": "129d8c8cc7ab9e088a7c343452978435a848e6443e5d245b908743585aaa2338"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-river-north-idle.png",
+      "bytes": 22353,
+      "sha256": "b9e3ac0d2a844c7ef79f8e4c10c56e6102c4e81087c85ff096afc6d5aa202276"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-river-south-idle.png",
+      "bytes": 22591,
+      "sha256": "eb2b6601182f12be5e0e020e4562e11b5722f95839605a213ff441afe9213779"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/raw-256/umbrella_barge-river-west-idle.png",
+      "bytes": 22886,
+      "sha256": "bdeffc917f8811fdaa7b5e28fa128076e0878c5ac077727a33c3b1e7b50764c6"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/sprite-projection.json",
+      "bytes": 17410,
+      "sha256": "ce9227c7319b2c3c6e0a7329aac73727f7f89e6f82e68919d01681f988d97824"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/environment.txt",
+      "bytes": 278,
+      "sha256": "092f58bef65981f90ed678ec65b1cebb73a99e666a79166eae53b57f92287895"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/finished-at-utc.txt",
+      "bytes": 21,
+      "sha256": "083229bf40f614d1add3de9391224388a92913ba5db022d3d5f7c57ba5fdc4ff"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/frozen-sha256.txt",
+      "bytes": 11438,
+      "sha256": "59f729eb8c33108cfdbb3648002f334769f8a58c90d230782238ba06e71d9602"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/generation-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/inspection-command.txt",
+      "bytes": 651,
+      "sha256": "2ae10dbacc1576612e747df120bf7f40602ccb5940cee3cda619c59f7e9ac59a"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/inspection-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/inspection-pid.txt",
+      "bytes": 6,
+      "sha256": "7e52576c8ffff7cc1462f3458f5d40df01cc6a7e2c065a8c2b08a9c68cd78e28"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/inspection-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/inspection-stdout.txt",
+      "bytes": 2585,
+      "sha256": "41f8474f00257a9df3f787e5a0f4449522b4f0d3d6a2fcb34c3a7a8e9a284212"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/runner-pid.txt",
+      "bytes": 6,
+      "sha256": "5edce11fd97e9ff4b6c304002a968d23e06667d537cc9d90cd2c24f7e52a37f2"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/alternatives.json",
+      "bytes": 2659,
+      "sha256": "5ec06c26428a4d3e79d649b948d79428811e58bdc42426ded6df30cb921cac91"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/build_comparison.py",
+      "bytes": 14306,
+      "sha256": "73b5836a48ca9146035ae4ae5de0d3db9759f02349f5f83a3b616fab5866a0cb"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/copperskiff_model.py",
+      "bytes": 9127,
+      "sha256": "2cbdabd912dbcc26062f1e79bb04ea4d0d5ab7eaec0570ac79b88df873f47b32"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/design-notes.md",
+      "bytes": 7466,
+      "sha256": "30d60c521ad8499c2eab25168818c52d5a240c53ff6b7a0105a5fce6d6eeeab5"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/native_preview.py",
+      "bytes": 6700,
+      "sha256": "79fccc15728fbe7bd9fe4b75d4d4b948b6b52ec36140e8a61b9b5d4959735e57"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/palette.json",
+      "bytes": 1645,
+      "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/round1_models.py",
+      "bytes": 65209,
+      "sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/round2_pipeline.py",
+      "bytes": 15883,
+      "sha256": "a544542f99b666739f75df6a2e3dc8d39bd19e957d5a193e84d8fa85f294bc89"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/run-comparison.sh",
+      "bytes": 4071,
+      "sha256": "5f2ed63350e7a408be1fe7da39c08da69d0cf404636971d502767457cbda2640"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source/verify_saved_asset.py",
+      "bytes": 3488,
+      "sha256": "f3a981c4c9ed241aafdc850e17fd5453d36a772624052e698605dc9ade67150d"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source-sha256-after.txt",
+      "bytes": 842,
+      "sha256": "687fc2c0eb42ca5262368eb22296ca92149a579525c70fa5bf1ebee36c13e9be"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source-sha256-before.txt",
+      "bytes": 842,
+      "sha256": "687fc2c0eb42ca5262368eb22296ca92149a579525c70fa5bf1ebee36c13e9be"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/source-stability.txt",
+      "bytes": 10,
+      "sha256": "1cd263f1102656dd6b6cf1d626d1a96f9eba0406af3cb2a52560d473d4801052"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/started-at-utc.txt",
+      "bytes": 21,
+      "sha256": "bb2e9ace94a043d04e08a627928d287aaa99779bd616a4f58174f6782f52f40c"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/stdout.txt",
+      "bytes": 18667,
+      "sha256": "9521dd0e9f5f76f79d771069a853aba89deb60bb0e2528cd30ea8d8fc3d96f95"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/syntax-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/syntax-python-version.txt",
+      "bytes": 13,
+      "sha256": "fd0fd4290ad100adc37e4a82e45f821faeacbecae70f4d3eba08e85be138c632"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/syntax-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/syntax-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/naming-repair.diff",
+      "bytes": 1620,
+      "sha256": "8ce06d176a7c9f4c61d8fb808dd352874366bca7b4b9cc570695a6e5944ab2eb"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/native_preview.py",
+      "bytes": 6700,
+      "sha256": "79fccc15728fbe7bd9fe4b75d4d4b948b6b52ec36140e8a61b9b5d4959735e57"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/palette.json",
+      "bytes": 1645,
+      "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/prepared-source-sha256.txt",
+      "bytes": 842,
+      "sha256": "687fc2c0eb42ca5262368eb22296ca92149a579525c70fa5bf1ebee36c13e9be"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/round1_models.py",
+      "bytes": 65209,
+      "sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/round2_pipeline.py",
+      "bytes": 15883,
+      "sha256": "a544542f99b666739f75df6a2e3dc8d39bd19e957d5a193e84d8fa85f294bc89"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/run-comparison.sh",
+      "bytes": 4071,
+      "sha256": "5f2ed63350e7a408be1fe7da39c08da69d0cf404636971d502767457cbda2640"
+    },
+    {
+      "path": "design/20261020-redesign/astra-round-3-repair/verify_saved_asset.py",
+      "bytes": 3488,
+      "sha256": "f3a981c4c9ed241aafdc850e17fd5453d36a772624052e698605dc9ade67150d"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/postprocess.py", line 191, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/postprocess.py", line 77, in main
+    image = reduce_alpha_weighted(Image.open(raw), 4)
+                                  ~~~~~~~~~~^^^^^
+  File "/opt/homebrew/lib/python3.14/site-packages/PIL/Image.py", line 3639, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/raw-256/r2_control/r2_control-river-north-idle-256.png'

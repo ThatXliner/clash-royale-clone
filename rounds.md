@@ -9792,3 +9792,12 @@ EVIDENCE: Independent exactdf86/current accepted src01d869 focused npm run test:
 
 Builder734 focused gate separately passes8/8; initial recorder preflight failed because npm user/global config shared a file. Distinct empty files repair only the recorder, preserved before/after and raw failure; no test/source change. Full critic report, raw, manifests, argv, allowlisted environment and captures retained in artifacts/game001asc-round-1.
 BIGGEST GAP: None within this contract-audit scope. The project does not implement source-vintage migration or promise behavioral compatibility merely because checkpoint envelope versions match. RL wrapper v1 remains rejected. This is no new engine mechanic, full-suite qualification, or general historical compatibility claim.
+
+## Round 524 — ART-3D-001 native heading distinction
+
+PIECE: ART-3D-001
+VERDICT: FAIL
+EVIDENCE: Fresh independent Blender5.1.2 reopens R2 control and all3 R3 alternatives and writes64frames, four processes exit0. Exactcamera49.999994deg/ortho8.0249996/anchor32,54 and model/runner fences preserved. Supplemental postprocessor fixes only capturedrawpath, exits0, fixed4x alpha-weighted reduction to64cells withoutfit/crop. Exposeddeck has N14x15/E17x12/S14x13/W17x12 idle bounds; contact plume/recoil extends2px. Critic identifies improvedboat/team/contact readability, strongest exposeddeck alternative; north/south andeast/west oppositeheadings stillcollapse to pairedsilhouettes withtinyendpointdifferences. Fullnative/context/rawframes and report artifacts/art3d001-round-3/critic.
+BIGGEST GAP: Native opposite headings need a clear macro bow/stern cue. Coilblade/Mossguard unchanged and unqualified, not fresh judged failures in this boundedrun. No livearena/atlas/shippedasset acceptance.
+
+Astra generator first attempted exactR3 and aborted134 in Blender name-suffix stoi parsing beforeimages. Separate naming-only repair usesstableenumeration and preserves geometry/camera/palette. Actual repairedgeneration71953/reopen72037 exit0,33previews and3editableexports retained in design/20261020-redesign/astra-round-3-repair. Independentwrapper initiallyexit1 onlyfrompostprocessorrawpath; preservedoriginal andsupplementalcorrector useexisting64renders, noBlenderrepeat. These tooling failures are not additional visualrounds. R1 namedboat/team/posegap; explicitheadinggap survivesR2andR3(twoactualrounds), so no same-gapthree-roundstop is inferred. Astra nextrevision addresses macro asymmetry only.

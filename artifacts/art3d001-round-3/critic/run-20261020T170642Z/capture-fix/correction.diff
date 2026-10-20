@@ -1,0 +1,11 @@
+--- /Users/me/.codex/clash-qualification/20261020-model-r3-critic/postprocess.py	2026-10-20 10:05:59
++++ /Users/me/.codex/clash-qualification/20261020-model-r3-critic/postprocess-capture-fix.py	2026-10-20 10:08:27
+@@ -73,7 +73,7 @@
+         for team, pose in GROUPS:
+             for direction in DIRECTIONS:
+                 stem = f"{variant}-{team}-{direction}-{pose}"
+-                raw = RUN / "raw-256" / variant / f"{stem}-256.png"
++                raw = RUN / variant / "raw-256" / variant / f"{stem}-256.png"
+                 image = reduce_alpha_weighted(Image.open(raw), 4)
+                 native = native_dir / f"{stem}-64.png"
+                 image.save(native)

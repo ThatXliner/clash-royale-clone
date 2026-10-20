@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:06:49Z",
+  "finished_utc": "2026-10-20T17:06:54Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 74402,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/copperskiff.blend",
+    "--variant",
+    "r2_control",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/copperskiff.blend",
+  "blend_sha256_before": "95f12a699e8dbcc9d782a20e5245267b69a54e3c541276a4eb0c1eb26e16d72f",
+  "blend_sha256_after": "95f12a699e8dbcc9d782a20e5245267b69a54e3c541276a4eb0c1eb26e16d72f",
+  "scene": "ME_20261020_copperskiff_editable_round_2",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_sprite_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.4999999701976776,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 127.99999237060547,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.44267910718917847,
+        "right": 0.5573208928108215,
+        "bottom": 0.16805163025856018,
+        "top": 0.35404178500175476
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_sprite_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4271027147769928,
+        "right": 0.5813341736793518,
+        "bottom": 0.17005608975887299,
+        "top": 0.35668736696243286
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_sprite_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.44267913699150085,
+        "right": 0.5573208928108215,
+        "bottom": 0.1601511538028717,
+        "top": 0.36325958371162415
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_sprite_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.15624992549419403,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00001907348633
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.41866573691368103,
+        "right": 0.57289719581604,
+        "bottom": 0.17005617916584015,
+        "top": 0.3566874563694
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 32,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-north-idle-256.png",
+      "bytes": 21116,
+      "sha256": "8d7ad9608161872ffbc23f0f4dc729a4352412cd0575f423f785dd6ff21c55a3"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-east-idle-256.png",
+      "bytes": 21714,
+      "sha256": "ff570b6ea44b2920d2a49188d9af5ff50956443d49386007439dfcb15203b0b7"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-south-idle-256.png",
+      "bytes": 21349,
+      "sha256": "3b64005df1a1b4bcc01aea267dc65c26ce57761a6a559b7c24f17da3d774c9ff"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-west-idle-256.png",
+      "bytes": 21687,
+      "sha256": "f38174487a973ebd05bd80abc2e0e429ee4e4077933acb9e8a0e85cb0ca06bb2"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-north-contact-256.png",
+      "bytes": 21494,
+      "sha256": "2558827be22fb163868ba450b7f009c9430f447300a723a7b4def3044491ad3f"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-east-contact-256.png",
+      "bytes": 22066,
+      "sha256": "51149ce5e32f7308e1158caedde77eb2b7eea52bba22b2a4f23ec5b5d23779d9"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-south-contact-256.png",
+      "bytes": 21242,
+      "sha256": "e4174730697f0e5dacf5cb498b52dc3ed9e9cb0141b1cdfd426e2bcee96d54cd"
+    },
+    {
+      "variant": "r2_control",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-river-west-contact-256.png",
+      "bytes": 22118,
+      "sha256": "078ba2b3f61027e45a4edbc82f257f12de868408824cfea715615025ee4d141f"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-north-idle-256.png",
+      "bytes": 21116,
+      "sha256": "68e5ae20ff8f94ffcd0214fabab2424cd21e44a45d51036ab7834b2211df1ecd"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-east-idle-256.png",
+      "bytes": 21698,
+      "sha256": "35e6676582c1665b291f17e092f5d17f5f8deaafb732ad1e463e65935b714fb2"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-south-idle-256.png",
+      "bytes": 21321,
+      "sha256": "d3d967693ad8d4ce25f9a00b6503208cfaf5a1d1132554225bb0d3a3bfc7f915"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-west-idle-256.png",
+      "bytes": 21667,
+      "sha256": "584d23f19983cf252955ad0575ca1d6a8b712df2485f5f726f52a116169c0917"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-north-contact-256.png",
+      "bytes": 21487,
+      "sha256": "1995edf7f0c3a5cfee862a17f13665e88d8ebbd9da8c635c281550c588968ec7"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-east-contact-256.png",
+      "bytes": 22075,
+      "sha256": "4402ba9c7ea6fc29710a23dfd9fb43aa58c18b73529131d8ceb0ed42cb1dc7b6"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-south-contact-256.png",
+      "bytes": 21275,
+      "sha256": "1d6400303c77bb8fed38ae89de9a73fbba89327133766322ad868b8675157f27"
+    },
+    {
+      "variant": "r2_control",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/r2_control/raw-256/r2_control/r2_control-ember-west-contact-256.png",
+      "bytes": 22102,
+      "sha256": "1eb9e43d0a06dbe05c11e104686bddee0cf490275e560d4d46acf9d9b10b975e"
+    }
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:06:55Z",
+  "finished_utc": "2026-10-20T17:07:01Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 74463,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/copperskiff.blend",
+    "--variant",
+    "umbrella_barge",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/umbrella_barge/copperskiff.blend",
+  "blend_sha256_before": "edad3f955fe0b474505056dd607933e80ce86d3769fcea8529d33a75841cc22d",
+  "blend_sha256_after": "edad3f955fe0b474505056dd607933e80ce86d3769fcea8529d33a75841cc22d",
+  "scene": "ME_20261020_copperskiff_round_3_umbrella_barge",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_umbrella_barge_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3928349018096924,
+        "right": 0.6071651577949524,
+        "bottom": 0.13546088337898254,
+        "top": 0.36282357573509216
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_umbrella_barge_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3890341818332672,
+        "right": 0.6473178863525391,
+        "bottom": 0.1371707320213318,
+        "top": 0.3336598575115204
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_umbrella_barge_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.39283487200737,
+        "right": 0.6071650981903076,
+        "bottom": 0.12475935369729996,
+        "top": 0.32441964745521545
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_umbrella_barge_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5000000596046448,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 128.00001525878906,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3526821434497833,
+        "right": 0.6109657883644104,
+        "bottom": 0.1371707320213318,
+        "top": 0.3336598575115204
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 25,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-north-idle-256.png",
+      "bytes": 22536,
+      "sha256": "1bcb0b7a06952cc10e2b49ddb8a837f6338e17ebe9884f6d6d184b166725eef2"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-east-idle-256.png",
+      "bytes": 23095,
+      "sha256": "c6f6d3589d208cf522e17ab61d82b5e735363e2bf24ead82dbd5c3479089b3ab"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-south-idle-256.png",
+      "bytes": 22774,
+      "sha256": "b1eee8e91db324fd414f2b03c26114cb01d1fd7462986ffcbd4a481f67ca5a4a"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-west-idle-256.png",
+      "bytes": 23069,
+      "sha256": "7063216563526e9b4dfbc116f79d1d56370c959467a8ac34d059b53e33bcff38"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-north-contact-256.png",
+      "bytes": 22997,
+      "sha256": "18d6a327d2b4aaacd1038b8ac5cff3b581aa62f7d4f7e631a76679c4987261c7"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-east-contact-256.png",
+      "bytes": 23511,
+      "sha256": "50d4da5f9a1f22e128a91a69b66af1e05ddeb1a446c65d3707cb8016f06a2199"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-south-contact-256.png",
+      "bytes": 23398,
+      "sha256": "22e716950aad88004bf92bf339631f22255db74a846ed60e6929c333bdf4ff74"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-river-west-contact-256.png",
+      "bytes": 23652,
+      "sha256": "3e76f4166541cd70121367b1b595a81f5071de3e3a77bd8c1cc48fe1a3af4e36"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-north-idle-256.png",
+      "bytes": 22483,
+      "sha256": "67166f0ed84571642bc6d20ea5bb23563d58dc2c30fe162bf14b3b5c39aa9335"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-east-idle-256.png",
+      "bytes": 23112,
+      "sha256": "b81305cba82a0b863c15ac5d1fb208a3ab0032fff1b40d9594b1f241a71a5e8f"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-south-idle-256.png",
+      "bytes": 22727,
+      "sha256": "0930eabe5a0b106d4ac5be89f75b759ad5a42834851a243bff77083fb0fd3fb3"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-west-idle-256.png",
+      "bytes": 23006,
+      "sha256": "1c1d372a6218f2099fc42e2fadc5f6f65da12126c9e88401236bba7f82691611"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-north-contact-256.png",
+      "bytes": 22909,
+      "sha256": "da6d7f7cb38a1a33edfee481eba47635d4fc6831be693d1d88bb3e9a94001397"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-east-contact-256.png",
+      "bytes": 23445,
+      "sha256": "f46028e3a94f58abcf9cd57f045d530250b54f333ae306cb3b392b7f30ae97e1"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-south-contact-256.png",
+      "bytes": 23351,
+      "sha256": "e17667915ad7699e5ca4ee64846fd2724dc3ddae377dd688a1b4cf0e7a0e4d8d"
+    },
+    {
+      "variant": "umbrella_barge",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/umbrella_barge/raw-256/umbrella_barge/umbrella_barge-ember-west-contact-256.png",
+      "bytes": 23617,
+      "sha256": "28d49f6b56fbd95ce9ec349f8a1cbd52bf5ee3d07c2e0f8fa2f369bd84b91897"
+    }
+  ]
+}

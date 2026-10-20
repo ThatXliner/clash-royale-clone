@@ -1,0 +1,101 @@
+{
+  "candidateCommit": "e35dda4c0225b88ddac91a56f15e81fee32c3c68",
+  "candidateParent": "a754b30a18f4bc99af4617c0265b2a9055df74bc",
+  "differentialBaseline": "7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+  "qualification": {
+    "defaultNpmTest": {
+      "command": "npm test",
+      "scope": "unfiltered default suite",
+      "directPid": 39268,
+      "exitCode": 130,
+      "stopRequested": true,
+      "firstFailure": "game browser building choice: Bulwark Needle deploys and defends through the shared session",
+      "retainedReleaseBuild": "not reached"
+    },
+    "runtime": {
+      "node": "v22.22.3",
+      "npm": "10.9.8",
+      "playwright": "1.58.2",
+      "chrome": "155.0.8059.85",
+      "tickOverridePresent": false,
+      "scenarioOverridePresent": false
+    }
+  },
+  "failure": {
+    "output": "roster[7].entities[0] source confidence field lacks a QUESTION record",
+    "card": "briar-band",
+    "entity": "briar-runner",
+    "firstMissingQuestionKey": "briar-runner.count",
+    "rejectingFunction": "assertSessionTroopSourceConfidenceQuestions",
+    "fixLocation": "src/ui/game-browser-entry.js:createBulwarkNeedleSessionWitness questionKeys inventory",
+    "cause": "custom Bulwark witness collector omits sourceConfidencePolicy.fields keys"
+  },
+  "sourceComparison": {
+    "acceptedParentAndCandidateSameBlobs": [
+      [
+        "src/ui/game-browser-entry.js",
+        "62ab029a51445cd06767656454f28338d2f88698"
+      ],
+      [
+        "tests/game-browser-building-choice.test.js",
+        "1040a1b688d1caff8d51c4de9c416d1534d0930d"
+      ],
+      [
+        "src/content/playable-roster.js",
+        "9ce4c06226f2a4c2b54da3893849a85759fa00f5"
+      ],
+      [
+        "src/content/session-troop-roster.js",
+        "75fb7af5675c25e418bb06483bcf84d67eda1a4d"
+      ],
+      [
+        "src/shared/session-troop-source-confidence-authority.js",
+        "874b41447edbfed08350f0fb963f0bde70700839"
+      ],
+      [
+        "src/content/editable-deck.js",
+        "cdfb7f081400b8a4f797f0cf577a6923c6004347"
+      ]
+    ],
+    "continuationKernel": {
+      "parent": "3426d73673cd532418eadcbe4cd704cd0f4c3614",
+      "candidate": "d1cbde61485f4f98d04fc02785085eccda97e261"
+    },
+    "inference": "The witness omission predates the factory extraction in these source files; accepted-parent execution was not run."
+  },
+  "repair": {
+    "path": "src/ui/game-browser-entry.js",
+    "baseBlob": "62ab029a51445cd06767656454f28338d2f88698",
+    "proposedBlob": "42cdefd5e5fc192d555d6748f421df72b95ec778",
+    "patch": "repair/proposed-repair.patch",
+    "patchSha256": "e5e7af7bcd13aa8edbe0349dfdba946cab03c11c9e8a3638725064339a54eeec",
+    "previousRenderedDiagnosticSha256": "e77d2c67a0ba724454469c5ee3d082a4c0ace5f3f25d6e9324e41a52e03f9d0b",
+    "sourceCopyPath": "repair/patch-application-check-20261020T171107Z/src/ui/game-browser-entry.js",
+    "sourceCopySha256": "3d66373279344dd0fc26e8cc0ca6414122e81a2c37d042a8d968dd7fa09f0aa3",
+    "sourceCopyBlob": "42cdefd5e5fc192d555d6748f421df72b95ec778",
+    "validation": "standard patch applied cleanly to a fresh e35 source copy; output blob matches proposal; git diff --check passed; runtime tests not run"
+  },
+  "fullBrowserEvidence": {
+    "path": "evidence/full-browser/default-eight-full-18k-endurance-result.json",
+    "sha256": "26c9d394e010f2270cb18c68c3a493ed1fcf7f6e745c9569ebf73a0f975d2b69",
+    "screenshotPath": "evidence/full-browser/default-eight-active.png",
+    "screenshotSha256": "e91b3fff3ebc2a7e794e4b5f98f4d6e177584f05c24790988b5207d851f13814",
+    "qualificationMode": "default-eight-full-18k",
+    "segments": 67,
+    "terminalTick": 18000,
+    "restoreCutTick": 300,
+    "restoreCutSnapshotBytes": 54012,
+    "restartCount": 1,
+    "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+    "naturalOutcome": "South wins 2-1 by lowest HP",
+    "serverExited": true,
+    "maxLongTaskMilliseconds": 206
+  },
+  "adoption": {
+    "candidate": "unadopted",
+    "factoryQualification": "failed at first default npm TAP failure",
+    "freshCritic": "required after repair",
+    "retainedReleaseBuild": "not run",
+    "cards022q": "not qualified"
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:07:01Z",
+  "finished_utc": "2026-10-20T17:07:07Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 74519,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/copperskiff.blend",
+    "--variant",
+    "exposed_deck",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/exposed_deck/copperskiff.blend",
+  "blend_sha256_before": "299ec67386e6b2c8c8fb74d6e371f17f9e66b09fbb05385132ba46fc60fabd1c",
+  "blend_sha256_after": "299ec67386e6b2c8c8fb74d6e371f17f9e66b09fbb05385132ba46fc60fabd1c",
+  "scene": "ME_20261020_copperskiff_round_3_exposed_deck",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_exposed_deck_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654389858246,
+        "right": 0.5989345908164978,
+        "bottom": 0.13546088337898254,
+        "top": 0.36282357573509216
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_exposed_deck_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3890341818332672,
+        "right": 0.6473178863525391,
+        "bottom": 0.14051173627376556,
+        "top": 0.32371944189071655
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_exposed_deck_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4010654091835022,
+        "right": 0.5989345908164978,
+        "bottom": 0.12475935369729996,
+        "top": 0.32441964745521545
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_exposed_deck_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5000000596046448,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 128.00001525878906,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3526821434497833,
+        "right": 0.6109657883644104,
+        "bottom": 0.14051173627376556,
+        "top": 0.32371944189071655
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 25,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-north-idle-256.png",
+      "bytes": 22672,
+      "sha256": "a10976c15e6037eb2b067188dd03692a58de88d6d211aba1c35786f89298b2c5"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-east-idle-256.png",
+      "bytes": 22851,
+      "sha256": "ea0db9ab37dc05af8dff33f9ea7973ab96fadfb040db4ae0a58ca76bc68e5110"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-south-idle-256.png",
+      "bytes": 22745,
+      "sha256": "5f0a2ed3a7c1128a6b6753500c9220cf7b7fd333254a5103a444050ccec6f1a3"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-west-idle-256.png",
+      "bytes": 22932,
+      "sha256": "cf8d639033e09fb9bb289f97de663ab2c98c8e7fed25efd65163bb679cc9af1d"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-north-contact-256.png",
+      "bytes": 23121,
+      "sha256": "f99c20c75e31d1d2b27d0f56c4ff9dacddee2de16da647dce65ddd1d734b13b4"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-east-contact-256.png",
+      "bytes": 23328,
+      "sha256": "6505426e15abbcd0472e11b51fd4ec053a106335c8de7f0f9fafb0fd620b7c35"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-south-contact-256.png",
+      "bytes": 23400,
+      "sha256": "fb15bff6ca823ecabff50da324e0d6185f60be0bc46f87ad8b06058a531c6cf9"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-river-west-contact-256.png",
+      "bytes": 23560,
+      "sha256": "0ccc90fd9258fb07a0d44de84c013e0ece557619a7c9cbb005ed013de488123d"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-north-idle-256.png",
+      "bytes": 22607,
+      "sha256": "24996d5b9e20c65f9bd6b12ac08d09215304b08316ea264bc689412d6953ae33"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-east-idle-256.png",
+      "bytes": 22954,
+      "sha256": "41e8cb8d2b63e3ed6f73df5b5f53b2ec7590b244b1536d3c31682f7aa6d1cdd3"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-south-idle-256.png",
+      "bytes": 22728,
+      "sha256": "a351bbe72e7fa0ef9d96cfdbd9f7b9d56d7abc5753e93cd9d91f6da2e47495b2"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-west-idle-256.png",
+      "bytes": 22948,
+      "sha256": "6fa7fed07d143a7c71b7e67c4e69b9b16e3614b4cd476f6235946c0b85eebc51"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-north-contact-256.png",
+      "bytes": 22954,
+      "sha256": "41dc067ae9ecde4bc9a173d7c061039ee189ff26fe52ed991a12d94e782b01fc"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-east-contact-256.png",
+      "bytes": 23309,
+      "sha256": "bb8ad1d19b2742e82b6dff3be603537d6b7c21f4138ea6d07738417dd714bd1d"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-south-contact-256.png",
+      "bytes": 23350,
+      "sha256": "eb9b83e7c8de3cf2f0d1aeb34967713de9b785f42f6a9e4e38a1632e2a179199"
+    },
+    {
+      "variant": "exposed_deck",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/exposed_deck/raw-256/exposed_deck/exposed_deck-ember-west-contact-256.png",
+      "bytes": 23514,
+      "sha256": "1fc3216c0ca33f722f81ff03cdfdbd5c49bafc9b4d6467e25aff61296c6925a6"
+    }
+  ]
+}

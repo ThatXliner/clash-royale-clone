@@ -1,0 +1,322 @@
+{
+  "status": "independent saved-blend reopen/render audit; no visual verdict",
+  "started_utc": "2026-10-20T17:07:08Z",
+  "finished_utc": "2026-10-20T17:07:14Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 74541,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/audit_saved_model.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/copperskiff.blend",
+    "--variant",
+    "split_canvas",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas",
+    "--native-size",
+    "64",
+    "--supersample",
+    "4"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-3-repair/generated/attempt-20261020T165935Z-71930/comparison/split_canvas/copperskiff.blend",
+  "blend_sha256_before": "b13f2440ab50d64bd3bf4a0eccfd895830081dfc245dead9e532aec5fa11bdfe",
+  "blend_sha256_after": "b13f2440ab50d64bd3bf4a0eccfd895830081dfc245dead9e532aec5fa11bdfe",
+  "scene": "ME_20261020_copperskiff_round_3_split_canvas",
+  "render_engine_saved": "BLENDER_EEVEE",
+  "view_transform_saved": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "supersample": 4,
+  "native_size": 64,
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_split_canvas_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4029439389705658,
+        "right": 0.5970560908317566,
+        "bottom": 0.13546088337898254,
+        "top": 0.36282357573509216
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_split_canvas_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3890341818332672,
+        "right": 0.6473178863525391,
+        "bottom": 0.14194358885288239,
+        "top": 0.3344455659389496
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_split_canvas_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4029439091682434,
+        "right": 0.5970560908317566,
+        "bottom": 0.12475935369729996,
+        "top": 0.32441964745521545
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_split_canvas_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5000000596046448,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 128.00001525878906,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.3526821434497833,
+        "right": 0.6109657883644104,
+        "bottom": 0.14194358885288239,
+        "top": 0.3344455659389496
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 28,
+  "team_materials": [
+    "TEAM"
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "renders": [
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-north-idle-256.png",
+      "bytes": 22911,
+      "sha256": "76bd271cc0aea87cb9fe1cf9c9bf3336907b7e79cd366d6812ea01d8c600f2b4"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-east-idle-256.png",
+      "bytes": 23326,
+      "sha256": "f2523bd9eb0a2c28b602586e5f88559b72ebf9d607dd75ea20cfca903181b9ba"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-south-idle-256.png",
+      "bytes": 22822,
+      "sha256": "35cfd71eadf3fa1a908ba6157206ec6951edc8bb3b4877014d87f22b5cecabee"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-west-idle-256.png",
+      "bytes": 23335,
+      "sha256": "c94807d9cab2bff39d9f3b5ac6f7b8a31ffed269fe0cf89ae5afcb41fed247a5"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-north-contact-256.png",
+      "bytes": 23485,
+      "sha256": "af737ea0a8ea1abaa5f8e7bcd2c51a51a20dbda7736333a2dc20e1d0cf6db9c1"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-east-contact-256.png",
+      "bytes": 23714,
+      "sha256": "ee12879e876f3dde4cc236ef5795fb07925581461bb5bab0adae5a6bb506129d"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-south-contact-256.png",
+      "bytes": 23573,
+      "sha256": "4a41aa4e39e0e1e5adebf8600c3618658fa60f1b66ff4e5a542779ddc8c45b74"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-river-west-contact-256.png",
+      "bytes": 23880,
+      "sha256": "50ac5bb110b72731a90fac51c32b3958825c52e60e87a8ab921b0e9a6eba2822"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-north-idle-256.png",
+      "bytes": 22846,
+      "sha256": "abf1797dbffdf342b9986ddca240270dbc2d1f17940018bda2974a1fb211792e"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-east-idle-256.png",
+      "bytes": 23290,
+      "sha256": "613b3be640716a0fd47fc872b8d9e35d12e22cc72865e4c6e60c8e3178b75743"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-south-idle-256.png",
+      "bytes": 22775,
+      "sha256": "50069b0610014d3c173aa84e8085d979a44c399df8594541654a08e65c944e39"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-west-idle-256.png",
+      "bytes": 23290,
+      "sha256": "8293a23629936ed50b70a66c3ce20cdb53d9fc621ea7a1ce5a5902e7cfba1f28"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-north-contact-256.png",
+      "bytes": 23359,
+      "sha256": "01f3c162b48588c44f7206bb2a86cc410ee9c5dd5ea2748960122e37f627887f"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-east-contact-256.png",
+      "bytes": 23750,
+      "sha256": "180e7e8e34c295f372059184aa7782cc64a5a2458de7e4f03813ef808bec9b21"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-south-contact-256.png",
+      "bytes": 23526,
+      "sha256": "056de05481161285f643a1167caa535d149eaff8001f9aa15f38cd5ff696c72b"
+    },
+    {
+      "variant": "split_canvas",
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r3-critic/run-20261020T170642Z/split_canvas/raw-256/split_canvas/split_canvas-ember-west-contact-256.png",
+      "bytes": 23872,
+      "sha256": "92964491e57adfc75708057fd27f293428e22b0c433d09b98a7d8d4db5d9135a"
+    }
+  ]
+}

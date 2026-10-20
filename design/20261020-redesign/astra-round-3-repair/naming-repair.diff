@@ -1,0 +1,24 @@
+--- ../astra-round-3/copperskiff_model.py	2026-10-20 09:04:31
++++ copperskiff_model.py	2026-10-20 09:59:02
+@@ -107,17 +107,17 @@
+         for polygon in lens.data.polygons:
+             if polygon.center.x < -.15 and polygon.center.y > .1:
+                 polygon.material_index = 1
+-        for seam_y in (-ry * .45, ry * .45):
++        for binding_index, seam_y in enumerate((-ry * .45, ry * .45)):
+             cross_section = math.sqrt(1 - (seam_y / ry) ** 2)
+             points = [(x + rx * cross_section * math.cos(math.pi * step / 10),
+                        seam_y, rz * cross_section * math.sin(math.pi * step / 10) + .01)
+                       for step in range(11)]
+-            model.tube(collection, "copperskiff_copper_canvas_binding_" + str(index) + "_" + str(seam_y),
++            model.tube(collection, "copperskiff_copper_canvas_binding_" + str(index) + "_" + str(binding_index),
+                        points, .016, "copper_dark", balloon, sides=4)
+     support_x = min(settings["hull_beam"] * .35, rx * .80 + (abs(centers[0]) if len(centers) > 1 else 0))
+     for side in (-1, 1):
+-        for y in (-.19, .25):
+-            model.tube(collection, "copperskiff_canvas_support_" + str(side) + "_" + str(y),
++        for support_index, y in enumerate((-.19, .25)):
++            model.tube(collection, "copperskiff_canvas_support_" + str(side) + "_" + str(support_index),
+                        ((side * support_x, y, settings["hull_center_z"] + depth * .48),
+                         (side * support_x, y, canopy["center_z"] - rz * .4)),
+                        .025, "wood_dark", body, sides=4)
