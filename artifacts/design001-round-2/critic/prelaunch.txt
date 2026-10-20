@@ -1,0 +1,37 @@
+captured_at_utc: 2026-10-20T15:38:25Z
+repo_root: /Users/me/.codex/worktrees/9456/clash-royale-clone
+git_head: a754b30a18f4bc99af4617c0265b2a9055df74bc
+candidate_expected_sha256: 329af7bdcad3b13d35d074d5c26393ccf0267ebbdaf3a5429581cae6e13d5604
+candidate_copy_sha256: 329af7bdcad3b13d35d074d5c26393ccf0267ebbdaf3a5429581cae6e13d5604
+node_binary: /Users/me/.hermes/node/bin/node
+node_version: v22.22.3
+playwright_package: /Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/playwright/index.mjs
+playwright_version: 1.58.2
+chrome_binary: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+runner_path: /Users/me/.codex/clash-qualification/20261020-design-r2-critic/capture.mjs
+runner_sha256: a09bbc3676308400ce6b9f42e5824f1b430d2f27504341842136dd481588aa9d
+
+Candidate and runner source hashes before launch:
+329af7bdcad3b13d35d074d5c26393ccf0267ebbdaf3a5429581cae6e13d5604  /Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude-round-2/design-board.html
+421ab8cd3b873a45be2aeccecd8af6c6e75c3cc23d224416158c83f3acb4fdee  /Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude-round-2/art-direction.md
+ab3c012ac44e4772b70b4ac0f8f26103321d162ef9a48d7eafb63c240bb8e0a2  /Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude-round-2/character-to-3D-handoff.md
+6b5cf5213cc47ab2a439979b9d589b557dc6dbedee61ecdb81457004096a54f1  /Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude-round-2/motion-direction.md
+a09bbc3676308400ce6b9f42e5824f1b430d2f27504341842136dd481588aa9d  /Users/me/.codex/clash-qualification/20261020-design-r2-critic/capture.mjs
+718c91812946dcfbb4b724cfa0084ee3be205c571df09094f218bc4571f43c2b  /Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/playwright/package.json
+16a25dbd7368a87af8b58a45c6216b9cec5a91a72cf704533344701997ebde22  /Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/playwright-core/package.json
+
+Authoritative HEAD source blob IDs before launch:
+src/content/cards/basic-melee.js 380857b92489b4086615e689a06c686e2c3c931c
+src/content/cards/basic-flying.js db76c543c24cf0439a92da2cb36f4c84ad4f217a
+src/content/cards/basic-ranged.js d80208caa7edbdd6169a1fa9cac3dd4c69a54795
+src/content/cards/swarms.js 3262791442227989d5294296cd2d1e2b19d6ec24
+src/content/cards/structure-seeker.js 8ab8882539882f4699fc4a9afb0850e41da18cce
+src/content/cards/ordinary-projectile-squads.js ffaa243a599e7466e47c32c281af04a1def8e9bb
+src/sim/deck.js 3c6dbd8a19d8d6558ce12ad8465202b3be56d069
+src/sim/battle-continuation-kernel.js 3426d73673cd532418eadcbe4cd704cd0f4c3614
+src/ui/card-lore.js 305c769759c327c18c831a3cbc8257fc9dbe4640
+
+Selected working-tree source status:
+M  src/content/cards/basic-melee.js
+MM src/sim/battle-continuation-kernel.js
+MM src/ui/card-lore.js
