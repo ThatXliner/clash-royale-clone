@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "candidate": "RELEASE-001B",
+  "sourceCommit": "eebdb8f",
+  "toolchain": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "buildOnlyDependency": true,
+    "shippedRuntimeDependencies": []
+  },
+  "sourceLinks": {
+    "repository": "ThatXliner/clash-royale-clone",
+    "ref": "eebdb8f"
+  },
+  "artifact": {
+    "root": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/release-001b-art005a-r2-pages-NYYycR/site",
+    "staticFileCount": 48,
+    "totalBytes": 5708176,
+    "releaseManifestPath": "game/release-manifest.json",
+    "releaseManifestSha256": "be5959cfcb8798cfffcaf27190a842a3c26eff167a2ebec7601d0067aabbab51",
+    "releaseFileCount": 38,
+    "releaseBytes": 5541603,
+    "standaloneModules": [
+      "src/rl/environment.js",
+      "src/ui/arena-shell-entry.js"
+    ],
+    "selectedFiles": [
+      {
+        "path": "assets/card-portraits-painted-u4w5pfNY.webp",
+        "size": 320516,
+        "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f"
+      },
+      {
+        "path": "assets/moss-ember-arena-painted-DDcPh-4V.webp",
+        "size": 390962,
+        "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e"
+      },
+      {
+        "path": "assets/stonehauler-painted-CDreniUN.webp",
+        "size": 308508,
+        "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357"
+      },
+      {
+        "path": "public/assets/card-portraits-painted.webp",
+        "size": 320516,
+        "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f"
+      },
+      {
+        "path": "public/assets/moss-ember-arena-painted.webp",
+        "size": 390962,
+        "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e"
+      },
+      {
+        "path": "public/assets/stonehauler-painted.webp",
+        "size": 308508,
+        "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357"
+      },
+      {
+        "path": "src/rl/environment.js",
+        "size": 11693,
+        "sha256": "9d043f79b4e3fb4c8a0a411c29df7450108ffa2294cf0f9d18956e61c9fec2b5"
+      },
+      {
+        "path": "src/ui/app-shell.js",
+        "size": 102,
+        "sha256": "cc35edf49ebf0786b627e957392848c7e2ba8fb19b683aed77357e87095f37ed"
+      },
+      {
+        "path": "src/ui/arena-shell-bootstrap.js",
+        "size": 572,
+        "sha256": "111c01b4feaf04fbcc5730c0b9a656b922d140a562d0412db243cd48194149ea"
+      },
+      {
+        "path": "src/ui/arena-shell-entry.js",
+        "size": 472,
+        "sha256": "1ef7b7a23ffe8c729f1d7c7e41bf884eb520b91efecf9c0f62f74f637cdb888d"
+      }
+    ]
+  },
+  "qualification": {
+    "status": "PASS",
+    "serverMode": "pages",
+    "origin": "127.0.0.1 (ephemeral local qualification host)",
+    "projectPrefix": "/clash-royale-clone",
+    "mountedPath": "game",
+    "flows": [
+      {
+        "kind": "landing",
+        "path": "index.html"
+      },
+      {
+        "kind": "pages-cta",
+        "path": "game/public/index.html"
+      },
+      {
+        "kind": "battle",
+        "path": "game/public/index.html"
+      }
+    ],
+    "modules": [
+      {
+        "path": "src/rl/environment.js",
+        "imported": true,
+        "initialTick": 0,
+        "resetTick": 0,
+        "stepTick": 1,
+        "restoredTick": 1,
+        "restoredMatches": true,
+        "stepStatus": "running",
+        "terminated": false,
+        "truncated": false,
+        "serializedBytes": 31321
+      },
+      {
+        "path": "src/ui/arena-shell-entry.js",
+        "imported": true,
+        "exports": [
+          "arenaHudController",
+          "createArenaHudController",
+          "createArenaSessionInjectionCapability",
+          "createInitialArenaHudSystems",
+          "mountArenaShellWithHud"
+        ],
+        "controllerPresent": true,
+        "attachedArena": true,
+        "sessionActive": true,
+        "sessionTick": 34,
+        "hasControllerApi": true
+      }
+    ],
+    "requestCount": 52,
+    "requestPolicy": {
+      "sameOriginOnly": true,
+      "manifestOrPagesFileOnly": true,
+      "allResponsesHttp200": true,
+      "runtimeErrors": [],
+      "serviceWorkers": "blocked"
+    },
+    "requestedProofPaths": [
+      "index.html",
+      "game/public/index.html",
+      "public/ui-arena-shell.html",
+      "src/ui/arena-shell-bootstrap.js",
+      "src/ui/arena-shell-entry.js",
+      "src/rl/environment.js",
+      "assets/card-portraits-painted-u4w5pfNY.webp",
+      "assets/moss-ember-arena-painted-DDcPh-4V.webp",
+      "assets/stonehauler-painted-CDreniUN.webp",
+      "public/assets/card-portraits-painted.webp",
+      "public/assets/moss-ember-arena-painted.webp",
+      "public/assets/stonehauler-painted.webp"
+    ]
+  },
+  "preview": {
+    "command": "node scripts/preview-pages.js --root /var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/release-001b-art005a-r2-pages-NYYycR/site --port 4174 --base-path /clash-royale-clone/",
+    "landing": "/clash-royale-clone/",
+    "game": "/clash-royale-clone/game/public/index.html"
+  }
+}

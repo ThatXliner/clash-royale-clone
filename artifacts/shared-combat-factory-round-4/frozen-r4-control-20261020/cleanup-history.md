@@ -1,0 +1,3 @@
+# Cleanup scope recorded for this qualification
+
+At 2026-10-20T14:27:11.655432Z, the recorded Python cleanup removed only six created paths (see `accepted-control/attempt-root-files/cleanup-receipt.json`): the R4 candidate and baseline checkouts, their npm cache and temporary directories, and the outer recorder HOME/TMP directories. The guard recorded that every target was a non-symlink descendant of the durable qualification root. An earlier shell `rm -rf` attempt was rejected before execution and removed nothing. No cleanup was performed while freezing this packet. The accepted control checkout remains outside the packet; neither it nor any other surviving checkout or cache is copied here.

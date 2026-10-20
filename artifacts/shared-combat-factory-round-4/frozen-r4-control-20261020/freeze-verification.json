@@ -1,0 +1,93 @@
+{
+  "packet_state": "frozen_file_only_evidence",
+  "created_at_utc": "2026-10-20T14:43:39.058648+00:00",
+  "r4_candidate": {
+    "commit": "ffdaab6299f34308776cd2568f1d9f34903ecf14",
+    "parent": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+    "paths": [
+      "src/sim/battle-combat-runtime.js",
+      "src/sim/battle-continuation-kernel.js",
+      "src/sim/opaque-continuation.js",
+      "tests/battle-combat-baseline-differential.test.js",
+      "tests/nondeterminism-guard.test.js"
+    ]
+  },
+  "r4_baseline": "7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+  "r4_first_failure": {
+    "tap": "not ok 1 - game session endurance: active seed-zero match is bounded across chunks and restore cuts",
+    "file": "tests/game-session-endurance.test.js",
+    "test_line": 121,
+    "assertion_line": 99,
+    "expected": "false (match remains active until the tick 18000 check)",
+    "actual": "true (match ended early)",
+    "actual_end_tick": 13351,
+    "reason": "overtime_sudden_death",
+    "winner": "north",
+    "crowns": {
+      "north": 2,
+      "south": 1
+    },
+    "error_code": "ERR_ASSERTION"
+  },
+  "r4_gate_direct_pid_exit": [
+    8787,
+    130
+  ],
+  "r4_outer_recorder_pid_exit": [
+    8399,
+    "130"
+  ],
+  "r4_release_build": "not reached after first nonzero test gate",
+  "r4_toolchain": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "playwright": "1.58.2",
+    "chrome": "155.0.8059.85",
+    "npm_ci_exit": "0",
+    "lock_sha256_before": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+    "lock_sha256_after": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+  },
+  "r4_factory_fences_passed_pre_and_post": 5,
+  "r4_pre_post_source_manifests_identical": true,
+  "accepted_control_head": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "accepted_control_direct_pid_exit": [
+    21296,
+    1
+  ],
+  "accepted_control_failure": "match ended before tick 18000 at tick 13351; overtime_sudden_death; north won 2-1",
+  "accepted_control_source_clean": true,
+  "accepted_control_pre_post_sources_identical": true,
+  "accepted_candidate_endurance_test_and_helper_byte_equal": true,
+  "fixture_node_modules_paths_retained_as_tracked_test_source": 14,
+  "fixture_blob_ids_equal_at_candidate_and_accepted_commits": true,
+  "old_oct15_result": "unknown; original raw/PID files unavailable; no inference",
+  "r4_artifact_restoration_checks_exit_zero": [
+    "release-001b-diff",
+    "release-001w-diff",
+    "shipping-isolation-cmp"
+  ],
+  "cleanup_receipt_at_utc": "2026-10-20T14:27:11.655432+00:00",
+  "cleanup_removed_only_paths": [
+    "/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14",
+    "/Users/me/.codex/clash-qualification/20261020-factory/baseline-7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/npm-ci-cache",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/npm-ci-tmp",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/outer-home",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/outer-tmp"
+  ],
+  "previous_rejected_rm_attempt": "rejected before execution; no removal",
+  "excluded": [
+    ".git",
+    "source clone directories",
+    "installed checkout node_modules",
+    "npm caches",
+    "HOME/TMP runtime directories",
+    "duplicate postrun source copies",
+    "full old report payloads"
+  ],
+  "tracked_test_fixture_node_modules_retained": true,
+  "postrun_source_policy": "retain complete checksum manifests and fences; omit duplicate copied trees because manifests match prelaunch",
+  "copied_file_count_before_index": 1575,
+  "copy_verification": "every copied file SHA-256 and byte size matched its source before manifest generation",
+  "scope_note": "same single test failure on accepted source; no global behavior parity claim or fresh critic verdict"
+}

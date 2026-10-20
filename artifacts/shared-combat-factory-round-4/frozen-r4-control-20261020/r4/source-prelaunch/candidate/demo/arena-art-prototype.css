@@ -1,0 +1,42 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #111820;
+}
+
+body[data-arena-art-host] {
+  display: block;
+}
+
+#arena-preview {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 720px;
+  height: 1280px;
+  border: 0;
+  background: #111820;
+  transform: translate(-50%, -50%) scale(var(--preview-scale, 1));
+  transform-origin: center;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+body[data-arena-art-preview="true"] .arena {
+  background-color: #556c3b !important;
+  background-image: url("./assets/moss-ember-arena-painted.png") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+}

@@ -1,0 +1,64 @@
+Processes: 1134 total, 4 running, 1130 sleeping, 7991 threads 
+2026/10/20 06:57:42
+Load Avg: 12.85, 10.35, 6.65 
+CPU usage: 17.14% user, 13.27% sys, 69.57% idle 
+SharedLibs: 1129M resident, 173M data, 147M linkedit.
+MemRegions: 518059 total, 14G resident, 552M private, 12G shared.
+PhysMem: 56G used (4478M wired, 12G compressor), 6023M unused.
+VM: 492T vsize, 6144M framework vsize, 6754(0) swapins, 37456(0) swapouts.
+Networks: packets: 65366246/134G in, 57548111/124G out.
+Disks: 52949874/1050G read, 185449800/1921G written.
+
+PID    COMMAND    %CPU
+99847  node       0.0 
+99784  python3.14 0.0 
+99783  node_repl  0.0 
+99744  node       0.0 
+99723  node       0.0 
+99716  node       0.0 
+99712  uv         0.0 
+99708  node       0.0 
+99706  node_repl  0.0 
+99704  node       0.0 
+99638  codex      0.0 
+99637  node       0.0 
+99636  node       0.0 
+99189  node       0.0 
+99117  python3.14 0.0 
+99083  node_repl  0.0 
+99044  node       0.0 
+99029  node       0.0 
+99028  uv         0.0 
+99026  node       0.0 
+Processes: 1134 total, 2 running, 1132 sleeping, 7987 threads 
+2026/10/20 06:57:43
+Load Avg: 12.85, 10.35, 6.65 
+CPU usage: 12.58% user, 3.58% sys, 83.82% idle 
+SharedLibs: 1129M resident, 173M data, 147M linkedit.
+MemRegions: 0 total, 0B resident, 552M private, 12G shared.
+PhysMem: 56G used (4493M wired, 12G compressor), 5995M unused.
+VM: 492T vsize, 6144M framework vsize, 6754(0) swapins, 37456(0) swapouts.
+Networks: packets: 65366307/134G in, 57548173/124G out.
+Disks: 52949876/1050G read, 185449874/1921G written.
+
+PID    COMMAND          %CPU
+48514  OrbStack Helper  53.9
+77354  Codex (Renderer) 21.3
+38058  Codex (Renderer) 19.0
+408    WindowServer     18.4
+7660   top              8.8 
+0      kernel_task      8.2 
+37978  Codex (Service)  7.9 
+418    coreaudiod       4.9 
+38038  codex            1.2 
+88694  plugin-container 1.2 
+565    com.apple.Driver 1.0 
+88670  zen              1.0 
+5096   Codex (Renderer) 0.7 
+37911  ChatGPT          0.4 
+24026  claude           0.4 
+952    python3.11       0.3 
+655    ControlCenter    0.3 
+659    Finder           0.2 
+889    cliproxyapi      0.2 
+337    fseventsd        0.1 

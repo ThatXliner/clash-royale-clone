@@ -1,0 +1,15 @@
+RUN	00-node-version
+START	00-node-version	direct_pid=8541	cwd=/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14
+EXIT	00-node-version	direct_exit=0
+RUN	00-npm-version
+START	00-npm-version	direct_pid=8605	cwd=/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14
+EXIT	00-npm-version	direct_exit=0
+RUN	00-playwright-version
+START	00-playwright-version	direct_pid=8667	cwd=/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14
+EXIT	00-playwright-version	direct_exit=0
+RUN	00-chrome-version
+START	00-chrome-version	direct_pid=8727	cwd=/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14
+EXIT	00-chrome-version	direct_exit=0
+RUN	01-repository-default-npm-test
+START	01-repository-default-npm-test	direct_pid=8787	cwd=/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14
+EXIT	01-repository-default-npm-test	direct_exit=130

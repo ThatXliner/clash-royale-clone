@@ -1,0 +1,3076 @@
+
+> moss-and-ember@0.0.0 test
+> node scripts/test-portable.js -- node tests/content-schema-runner.js
+
+TAP version 13
+# Subtest: fixed-step-kernel: commands resolve only at exact integer ticks
+ok 1 - fixed-step-kernel: commands resolve only at exact integer ticks
+  ---
+  duration_ms: 1.678208
+  type: 'test'
+  ...
+# Subtest: fixed-step-kernel: fresh runs are byte-identical
+ok 2 - fixed-step-kernel: fresh runs are byte-identical
+  ---
+  duration_ms: 0.527958
+  type: 'test'
+  ...
+# Subtest: fixed-step-kernel: serialize/restore is byte-identical
+ok 3 - fixed-step-kernel: serialize/restore is byte-identical
+  ---
+  duration_ms: 0.309958
+  type: 'test'
+  ...
+# Subtest: fixed-step-kernel: JSON inputs and snapshots are isolated
+ok 4 - fixed-step-kernel: JSON inputs and snapshots are isolated
+  ---
+  duration_ms: 0.290583
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55.819458
+TAP version 13
+# Subtest: rng: algorithm and seed vectors are pinned for replay compatibility
+ok 1 - rng: algorithm and seed vectors are pinned for replay compatibility
+  ---
+  duration_ms: 1.787791
+  type: 'test'
+  ...
+# Subtest: rng: bounded integers stay in range and use pinned selections
+ok 2 - rng: bounded integers stay in range and use pinned selections
+  ---
+  duration_ms: 15.732666
+  type: 'test'
+  ...
+# Subtest: rng: named child streams ignore draws and fork call order
+ok 3 - rng: named child streams ignore draws and fork call order
+  ---
+  duration_ms: 0.508833
+  type: 'test'
+  ...
+# Subtest: rng: JSON round-trip restores every stream and fork state
+ok 4 - rng: JSON round-trip restores every stream and fork state
+  ---
+  duration_ms: 0.30175
+  type: 'test'
+  ...
+# Subtest: rng: 10,000 fresh runs reproduce draws, bounds, forks, and snapshots
+ok 5 - rng: 10,000 fresh runs reproduce draws, bounds, forks, and snapshots
+  ---
+  duration_ms: 308.477834
+  type: 'test'
+  ...
+# Subtest: rng: invalid implicit seeds, bounds, names, and snapshots fail closed
+ok 6 - rng: invalid implicit seeds, bounds, names, and snapshots fail closed
+  ---
+  duration_ms: 0.697667
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 379.331875
+TAP version 13
+# Subtest: entities: IDs are explicit, monotonic, and never reused
+ok 1 - entities: IDs are explicit, monotonic, and never reused
+  ---
+  duration_ms: 1.021375
+  type: 'test'
+  ...
+# Subtest: entities: same-tick batches resolve strictly in array order
+ok 2 - entities: same-tick batches resolve strictly in array order
+  ---
+  duration_ms: 0.431583
+  type: 'test'
+  ...
+# Subtest: entities: inputs and every returned state are isolated JSON values
+ok 3 - entities: inputs and every returned state are isolated JSON values
+  ---
+  duration_ms: 0.401292
+  type: 'test'
+  ...
+# Subtest: entities: restore preserves order and byte-identical continuation
+ok 4 - entities: restore preserves order and byte-identical continuation
+  ---
+  duration_ms: 0.328167
+  type: 'test'
+  ...
+# Subtest: entities: malformed snapshots are rejected
+ok 5 - entities: malformed snapshots are rejected
+  ---
+  duration_ms: 0.469666
+  type: 'test'
+  ...
+# Subtest: entities: invalid IDs and operations have explicit errors
+ok 6 - entities: invalid IDs and operations have explicit errors
+  ---
+  duration_ms: 0.139
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55.802333
+TAP version 13
+# Subtest: damage: health values and stable numeric IDs are strictly validated
+ok 1 - damage: health values and stable numeric IDs are strictly validated
+  ---
+  duration_ms: 1.77925
+  type: 'test'
+  ...
+# Subtest: damage: sequential armor-free damage clamps overkill and dies once
+ok 2 - damage: sequential armor-free damage clamps overkill and dies once
+  ---
+  duration_ms: 0.606417
+  type: 'test'
+  ...
+# Subtest: damage: sequential hits resolve in caller input order
+ok 3 - damage: sequential hits resolve in caller input order
+  ---
+  duration_ms: 0.201708
+  type: 'test'
+  ...
+# Subtest: damage: simultaneous lethal hits trade from pre-batch alive state
+ok 4 - damage: simultaneous lethal hits trade from pre-batch alive state
+  ---
+  duration_ms: 0.120875
+  type: 'test'
+  ...
+# Subtest: damage: simultaneous multiple hits aggregate deterministically
+ok 5 - damage: simultaneous multiple hits aggregate deterministically
+  ---
+  duration_ms: 0.193583
+  type: 'test'
+  ...
+# Subtest: damage: invalid batches are atomic, including unsafe aggregation
+ok 6 - damage: invalid batches are atomic, including unsafe aggregation
+  ---
+  duration_ms: 0.225833
+  type: 'test'
+  ...
+# Subtest: damage: returned values are isolated JSON
+ok 7 - damage: returned values are isolated JSON
+  ---
+  duration_ms: 0.135209
+  type: 'test'
+  ...
+# Subtest: damage: restore continues byte-identically
+ok 8 - damage: restore continues byte-identically
+  ---
+  duration_ms: 0.175417
+  type: 'test'
+  ...
+# Subtest: damage: malformed snapshots are rejected
+ok 9 - damage: malformed snapshots are rejected
+  ---
+  duration_ms: 0.360833
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 57.106666
+TAP version 13
+# Subtest: spatial: tile conversion uses exact integer millitiles
+ok 1 - spatial: tile conversion uses exact integer millitiles
+  ---
+  duration_ms: 1.128083
+  type: 'test'
+  ...
+# Subtest: spatial: positions, radii, and layers have isolated JSON shapes
+ok 2 - spatial: positions, radii, and layers have isolated JSON shapes
+  ---
+  duration_ms: 1.349792
+  type: 'test'
+  ...
+# Subtest: spatial: squared center distance is exact and needs no square root
+ok 3 - spatial: squared center distance is exact and needs no square root
+  ---
+  duration_ms: 0.405458
+  type: 'test'
+  ...
+# Subtest: spatial: circle contact is inclusively or strictly selectable
+ok 4 - spatial: circle contact is inclusively or strictly selectable
+  ---
+  duration_ms: 0.296042
+  type: 'test'
+  ...
+# Subtest: spatial: nearest query is stable by ID across candidate order
+ok 5 - spatial: nearest query is stable by ID across candidate order
+  ---
+  duration_ms: 0.483
+  type: 'test'
+  ...
+# Subtest: spatial: ground, air, and both layer queries are explicit
+ok 6 - spatial: ground, air, and both layer queries are explicit
+  ---
+  duration_ms: 0.224208
+  type: 'test'
+  ...
+# Subtest: spatial: optional edge range has a documented boundary
+ok 7 - spatial: optional edge range has a documented boundary
+  ---
+  duration_ms: 0.573666
+  type: 'test'
+  ...
+# Subtest: spatial: nearest results are isolated from inputs and later callers
+ok 8 - spatial: nearest results are isolated from inputs and later callers
+  ---
+  duration_ms: 0.092
+  type: 'test'
+  ...
+# Subtest: spatial: malformed and unsafe query values are rejected before use
+ok 9 - spatial: malformed and unsafe query values are rejected before use
+  ---
+  duration_ms: 0.544916
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 60.132125
+TAP version 13
+# Subtest: targeting: attack modes have explicit layer and structure semantics
+ok 1 - targeting: attack modes have explicit layer and structure semantics
+  ---
+  duration_ms: 3.350417
+  type: 'test'
+  ...
+# Subtest: targeting: dead and untargetable candidates are never eligible
+ok 2 - targeting: dead and untargetable candidates are never eligible
+  ---
+  duration_ms: 0.26225
+  type: 'test'
+  ...
+# Subtest: targeting: sight is inclusive circle-edge range from spatial
+ok 3 - targeting: sight is inclusive circle-edge range from spatial
+  ---
+  duration_ms: 0.186083
+  type: 'test'
+  ...
+# Subtest: targeting: nearest acquisition ties use ascending ID in any order
+ok 4 - targeting: nearest acquisition ties use ascending ID in any order
+  ---
+  duration_ms: 0.25
+  type: 'test'
+  ...
+# Subtest: targeting: a valid current target is retained over a nearer target
+ok 5 - targeting: a valid current target is retained over a nearer target
+  ---
+  duration_ms: 0.415458
+  type: 'test'
+  ...
+# Subtest: targeting: invalid current targets deterministically reacquire
+ok 6 - targeting: invalid current targets deterministically reacquire
+  ---
+  duration_ms: 0.460041
+  type: 'test'
+  ...
+# Subtest: targeting: candidates and returned values are isolated
+ok 7 - targeting: candidates and returned values are isolated
+  ---
+  duration_ms: 0.210875
+  type: 'test'
+  ...
+# Subtest: targeting: malformed, duplicate, and accessor inputs are rejected
+ok 8 - targeting: malformed, duplicate, and accessor inputs are rejected
+  ---
+  duration_ms: 0.814583
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 56.823209
+TAP version 13
+# Subtest: movement: reference speeds cover exact pinned seconds and minutes
+ok 1 - movement: reference speeds cover exact pinned seconds and minutes
+  ---
+  duration_ms: 1.66075
+  type: 'test'
+  ...
+# Subtest: movement: intermediate rounding is deterministic and documented
+ok 2 - movement: intermediate rounding is deterministic and documented
+  ---
+  duration_ms: 0.930458
+  type: 'test'
+  ...
+# Subtest: movement: positive and negative axes are exactly symmetric
+ok 3 - movement: positive and negative axes are exactly symmetric
+  ---
+  duration_ms: 1.075
+  type: 'test'
+  ...
+# Subtest: movement: chunking preserves position and fractional phase
+ok 4 - movement: chunking preserves position and fractional phase
+  ---
+  duration_ms: 12.922875
+  type: 'test'
+  ...
+# Subtest: movement: stop is explicit and clears fractional phase
+ok 5 - movement: stop is explicit and clears fractional phase
+  ---
+  duration_ms: 0.199625
+  type: 'test'
+  ...
+# Subtest: movement: serialize/restore preserves phase and continuation bytes
+ok 6 - movement: serialize/restore preserves phase and continuation bytes
+  ---
+  duration_ms: 0.226
+  type: 'test'
+  ...
+# Subtest: movement: invalid tick, speed, direction, state, and overflow reject atomically
+ok 7 - movement: invalid tick, speed, direction, state, and overflow reject atomically
+  ---
+  duration_ms: 0.629958
+  type: 'test'
+  ...
+# Subtest: movement: malformed snapshots reject without producing partial state
+ok 8 - movement: malformed snapshots reject without producing partial state
+  ---
+  duration_ms: 0.118958
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 69.7165
+TAP version 13
+# Subtest: battle movement: ground delegates a stable bridge-constrained route
+ok 1 - battle movement: ground delegates a stable bridge-constrained route
+  ---
+  duration_ms: 7.624292
+  type: 'test'
+  ...
+# Subtest: battle movement: air follows arbitrary signed direct 2D segments
+ok 2 - battle movement: air follows arbitrary signed direct 2D segments
+  ---
+  duration_ms: 3.933584
+  type: 'test'
+  ...
+# Subtest: battle movement: rational 60 Hz phase is exact and never overshoots
+ok 3 - battle movement: rational 60 Hz phase is exact and never overshoots
+  ---
+  duration_ms: 3.345459
+  type: 'test'
+  ...
+# Subtest: battle movement: retargeting is canonical and an in-bar command stops
+ok 4 - battle movement: retargeting is canonical and an in-bar command stops
+  ---
+  duration_ms: 17.327667
+  type: 'test'
+  ...
+# Subtest: battle movement: radius-inset arena bounds reject before exposure
+ok 5 - battle movement: radius-inset arena bounds reject before exposure
+  ---
+  duration_ms: 1.586125
+  type: 'test'
+  ...
+# Subtest: battle movement: chunking and restore cuts are byte-identical
+ok 6 - battle movement: chunking and restore cuts are byte-identical
+  ---
+  duration_ms: 1579.703625
+  type: 'test'
+  ...
+# Subtest: battle movement: public snapshots retain full command history
+ok 7 - battle movement: public snapshots retain full command history
+  ---
+  duration_ms: 1.658333
+  type: 'test'
+  ...
+# Subtest: battle movement: isolated state/events are deeply frozen fresh data
+ok 8 - battle movement: isolated state/events are deeply frozen fresh data
+  ---
+  duration_ms: 0.165291
+  type: 'test'
+  ...
+# Subtest: battle movement: hostile snapshots and oversized steps reject atomically
+ok 9 - battle movement: hostile snapshots and oversized steps reject atomically
+  ---
+  duration_ms: 44.574292
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1742.595417
+TAP version 13
+# Subtest: battle movement kernel: radius-safe ground routes cross the river only through a bridge
+ok 1 - battle movement kernel: radius-safe ground routes cross the river only through a bridge
+  ---
+  duration_ms: 19.373292
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: rational speed has exact signed displacement and no drift
+ok 2 - battle movement kernel: rational speed has exact signed displacement and no drift
+  ---
+  duration_ms: 10.303959
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: every live ground cut restores identical continuation events/state/bytes
+ok 3 - battle movement kernel: every live ground cut restores identical continuation events/state/bytes
+  ---
+  duration_ms: 7895.416125
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: every live air cut restores arbitrary-angle stop/retarget continuation
+ok 4 - battle movement kernel: every live air cut restores arbitrary-angle stop/retarget continuation
+  ---
+  duration_ms: 94.388625
+  type: 'test'
+  ...
+# Subtest: battle movement kernel: live radius and total-tick bounds reject without mutation
+ok 5 - battle movement kernel: live radius and total-tick bounds reject without mutation
+  ---
+  duration_ms: 2.011125
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8104.760584
+TAP version 13
+# Subtest: battle movement history: ground arrival frontier replays the exact Cinderlings trace
+ok 1 - battle movement history: ground arrival frontier replays the exact Cinderlings trace
+  ---
+  duration_ms: 103.501209
+  type: 'test'
+  ...
+# Subtest: battle movement history: arrival-boundary matrix preserves signed, routed, and air controls
+ok 2 - battle movement history: arrival-boundary matrix preserves signed, routed, and air controls
+  ---
+  duration_ms: 101.369125
+  type: 'test'
+  ...
+# Subtest: battle movement history: critic cross-tick case is rejected and live serialization is canonical
+ok 3 - battle movement history: critic cross-tick case is rejected and live serialization is canonical
+  ---
+  duration_ms: 0.929
+  type: 'test'
+  ...
+# Subtest: battle movement history: round-three 27-command trace crosses the exact frontier
+ok 4 - battle movement history: round-three 27-command trace crosses the exact frontier
+  ---
+  duration_ms: 7253.952209
+  type: 'test'
+  ...
+# Subtest: battle movement history: compact frontier size matrix is byte and continuation idempotent
+ok 5 - battle movement history: compact frontier size matrix is byte and continuation idempotent
+  ---
+  duration_ms: 30267.88575
+  type: 'test'
+  ...
+# Subtest: battle movement history: padded joint redundancy crosses exact windows
+ok 6 - battle movement history: padded joint redundancy crosses exact windows
+  ---
+  duration_ms: 18983.013917
+  type: 'test'
+  ...
+# Subtest: battle movement history: changing-position redundancy covers signed air and bridge ground paths
+ok 7 - battle movement history: changing-position redundancy covers signed air and bridge ground paths
+  ---
+  duration_ms: 257.181792
+  type: 'test'
+  ...
+# Subtest: battle movement history: arrival and A-to-B-to-A reductions preserve the final continuation
+ok 8 - battle movement history: arrival and A-to-B-to-A reductions preserve the final continuation
+  ---
+  duration_ms: 7.849417
+  type: 'test'
+  ...
+# Subtest: battle movement history: joint redundancy reaches one shortest lexicographic fixed point
+ok 9 - battle movement history: joint redundancy reaches one shortest lexicographic fixed point
+  ---
+  duration_ms: 14.146792
+  type: 'test'
+  ...
+# Subtest: battle movement history: seeded exhaustive subsequences choose the independent shortest representative
+ok 10 - battle movement history: seeded exhaustive subsequences choose the independent shortest representative
+  ---
+  duration_ms: 2417.296792
+  type: 'test'
+  ...
+# Subtest: battle movement history: semantic admission has no guessed-position canonicalization gate
+ok 11 - battle movement history: semantic admission has no guessed-position canonicalization gate
+  ---
+  duration_ms: 1.088709
+  type: 'test'
+  ...
+# Subtest: battle movement history: same-tick overrides and duplicate stop/target forms are not admitted
+ok 12 - battle movement history: same-tick overrides and duplicate stop/target forms are not admitted
+  ---
+  duration_ms: 0.572625
+  type: 'test'
+  ...
+# Subtest: battle movement history: later target/stop commands are removed only when full authoritative omission is equal
+ok 13 - battle movement history: later target/stop commands are removed only when full authoritative omission is equal
+  ---
+  duration_ms: 0.290959
+  type: 'test'
+  ...
+# Subtest: battle movement history: same-target retarget after movement preserves route/remainder causality
+ok 14 - battle movement history: same-target retarget after movement preserves route/remainder causality
+  ---
+  duration_ms: 36.838167
+  type: 'test'
+  ...
+# Subtest: battle movement history: omitted, altered, forged, duplicated, and reordered histories fail atomically
+ok 15 - battle movement history: omitted, altered, forged, duplicated, and reordered histories fail atomically
+  ---
+  duration_ms: 1.5155
+  type: 'test'
+  ...
+# Subtest: battle movement history: ground bridge provenance and signed air movement restore as one authority
+ok 16 - battle movement history: ground bridge provenance and signed air movement restore as one authority
+  ---
+  duration_ms: 24.423875
+  type: 'test'
+  ...
+# Subtest: battle movement history: idle, active, arrived, in-bar, speed-zero, and stop/restart states are canonical
+ok 17 - battle movement history: idle, active, arrived, in-bar, speed-zero, and stop/restart states are canonical
+  ---
+  duration_ms: 36.863083
+  type: 'test'
+  ...
+# Subtest: battle movement history: every representative live cut restores bytes and continuation events
+ok 18 - battle movement history: every representative live cut restores bytes and continuation events
+  ---
+  duration_ms: 2160.002834
+  type: 'test'
+  ...
+# Subtest: battle movement history: direct air replay keeps pre-arrival and arrival bytes exact
+ok 19 - battle movement history: direct air replay keeps pre-arrival and arrival bytes exact
+  ---
+  duration_ms: 0.3255
+  type: 'test'
+  ...
+# Subtest: battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and complexity scaling remain fixed
+ok 20 - battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and complexity scaling remain fixed
+  ---
+  duration_ms: 9453.0115
+  type: 'test'
+  ...
+# Subtest: battle movement history: hostile depth, shape, accessors, callables, and revoked proxies never execute callbacks
+ok 21 - battle movement history: hostile depth, shape, accessors, callables, and revoked proxies never execute callbacks
+  ---
+  duration_ms: 0.797375
+  type: 'test'
+  ...
+# Subtest: battle movement history: canonical JSON, fresh frozen state, and deterministic runs are stable
+ok 22 - battle movement history: canonical JSON, fresh frozen state, and deterministic runs are stable
+  ---
+  duration_ms: 5.29675
+  type: 'test'
+  ...
+# Subtest: battle movement history: serialize never mutates live commands and matches a never-serialized twin
+ok 23 - battle movement history: serialize never mutates live commands and matches a never-serialized twin
+  ---
+  duration_ms: 241.149042
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71521.180208
+TAP version 13
+# Subtest: battle combat: dynamic units acquire by distance/ID, retain targets, and obey explicit positions
+ok 1 - battle combat: dynamic units acquire by distance/ID, retain targets, and obey explicit positions
+  ---
+  duration_ms: 6.069333
+  type: 'test'
+  ...
+# Subtest: battle combat: deployment, first-hit, cadence, and mutual lethal damage share exact windows
+ok 2 - battle combat: deployment, first-hit, cadence, and mutual lethal damage share exact windows
+  ---
+  duration_ms: 3.651834
+  type: 'test'
+  ...
+# Subtest: battle combat: projectile launch geometry is integer and dead targets fizzle in flight
+ok 3 - battle combat: projectile launch geometry is integer and dead targets fizzle in flight
+  ---
+  duration_ms: 3.249333
+  type: 'test'
+  ...
+# Subtest: battle combat: same-tick projectile contacts and melee attacks resolve simultaneously
+ok 4 - battle combat: same-tick projectile contacts and melee attacks resolve simultaneously
+  ---
+  duration_ms: 1.517125
+  type: 'test'
+  ...
+# Subtest: battle combat: scheduled post-zero spawns, chunking, replay, and every restore cut are identical
+ok 5 - battle combat: scheduled post-zero spawns, chunking, replay, and every restore cut are identical
+  ---
+  duration_ms: 4511.856667
+  type: 'test'
+  ...
+# Subtest: battle combat: hostile commands and snapshots reject atomically without invoking accessors
+ok 6 - battle combat: hostile commands and snapshots reject atomically without invoking accessors
+  ---
+  duration_ms: 2.479291
+  type: 'test'
+  ...
+# Subtest: battle combat: parsed snapshots are iteratively bounded before canonicalization
+ok 7 - battle combat: parsed snapshots are iteratively bounded before canonicalization
+  ---
+  duration_ms: 83.694833
+  type: 'test'
+  ...
+# Subtest: battle combat: invalid target modes and delivery combinations fail closed
+ok 8 - battle combat: invalid target modes and delivery combinations fail closed
+  ---
+  duration_ms: 0.655458
+  type: 'test'
+  ...
+# Subtest: battle combat: an over-capacity deferred spawn boundary rejects without partial activation
+ok 9 - battle combat: an over-capacity deferred spawn boundary rejects without partial activation
+  ---
+  duration_ms: 65.961416
+  type: 'test'
+  ...
+# Subtest: battle combat: mixed invalid schedules and adjacent deferred capacity failures are atomic
+ok 10 - battle combat: mixed invalid schedules and adjacent deferred capacity failures are atomic
+  ---
+  duration_ms: 161.584958
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4926.060625
+TAP version 13
+# Subtest: battle combat external: building-only units attack external structures with canonical contacts
+ok 1 - battle combat external: building-only units attack external structures with canonical contacts
+  ---
+  duration_ms: 4.382625
+  type: 'test'
+  ...
+# Subtest: battle combat external: projectile contacts use launch geometry and current boundary liveness
+ok 2 - battle combat external: projectile contacts use launch geometry and current boundary liveness
+  ---
+  duration_ms: 8.380042
+  type: 'test'
+  ...
+# Subtest: battle combat external: ingress shares the internal simultaneous damage/death window
+ok 3 - battle combat external: ingress shares the internal simultaneous damage/death window
+  ---
+  duration_ms: 1.9445
+  type: 'test'
+  ...
+# Subtest: battle combat external: duplicate ingress provenance rejects but distinct sources trade
+ok 4 - battle combat external: duplicate ingress provenance rejects but distinct sources trade
+  ---
+  duration_ms: 0.835417
+  type: 'test'
+  ...
+# Subtest: battle combat external: structure side identity is immutable through projectile flight and restore
+ok 5 - battle combat external: structure side identity is immutable through projectile flight and restore
+  ---
+  duration_ms: 2.631292
+  type: 'test'
+  ...
+# Subtest: battle combat external: observed structure IDs remain reserved after omission and restore
+ok 6 - battle combat external: observed structure IDs remain reserved after omission and restore
+  ---
+  duration_ms: 1.236667
+  type: 'test'
+  ...
+# Subtest: battle combat external: live and scheduled unit IDs permanently exclude structures
+ok 7 - battle combat external: live and scheduled unit IDs permanently exclude structures
+  ---
+  duration_ms: 0.848583
+  type: 'test'
+  ...
+# Subtest: battle combat external: canonical sorting, replay, and restore continuation are identical
+ok 8 - battle combat external: canonical sorting, replay, and restore continuation are identical
+  ---
+  duration_ms: 2.177875
+  type: 'test'
+  ...
+# Subtest: battle combat external: hostile boundaries and duplicate projectile ingress reject atomically
+ok 9 - battle combat external: hostile boundaries and duplicate projectile ingress reject atomically
+  ---
+  duration_ms: 1.580416
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102.910917
+TAP version 13
+# Subtest: projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage
+ok 1 - projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage
+  ---
+  duration_ms: 7.325584
+  type: 'test'
+  ...
+# Subtest: projectile history: unit-to-tower launch, contact, and structure ingress retain identity
+ok 2 - projectile history: unit-to-tower launch, contact, and structure ingress retain identity
+  ---
+  duration_ms: 3.686458
+  type: 'test'
+  ...
+# Subtest: projectile history: tower shot authority and projected tower damage share the allocated identity
+ok 3 - projectile history: tower shot authority and projected tower damage share the allocated identity
+  ---
+  duration_ms: 8.050083
+  type: 'test'
+  ...
+# Subtest: projectile history: simultaneous unit and tower namespaces may both allocate projectile ID one
+ok 4 - projectile history: simultaneous unit and tower namespaces may both allocate projectile ID one
+  ---
+  duration_ms: 5.399625
+  type: 'test'
+  ...
+# Subtest: projectile history: a dead in-flight target keeps terminal identity without false damage
+ok 5 - projectile history: a dead in-flight target keeps terminal identity without false damage
+  ---
+  duration_ms: 1.452625
+  type: 'test'
+  ...
+# Subtest: projectile history: fresh, chunks, and every restore cut preserve identity events and bytes
+ok 6 - projectile history: fresh, chunks, and every restore cut preserve identity events and bytes
+  ---
+  duration_ms: 393.027333
+  type: 'test'
+  ...
+# Subtest: projectile history: delayed impact and damage use their own current identity
+ok 7 - projectile history: delayed impact and damage use their own current identity
+  ---
+  duration_ms: 12.635208
+  type: 'test'
+  ...
+# Subtest: projectile history: unit-to-tower contact forwards its current identity into tower damage
+ok 8 - projectile history: unit-to-tower contact forwards its current identity into tower damage
+  ---
+  duration_ms: 2.510458
+  type: 'test'
+  ...
+# Subtest: projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins
+ok 9 - projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins
+  ---
+  duration_ms: 6.275792
+  type: 'test'
+  ...
+# Subtest: projectile history: current raw identity and mirrors reject atomically without prior-launch repair
+ok 10 - projectile history: current raw identity and mirrors reject atomically without prior-launch repair
+  ---
+  duration_ms: 1.567667
+  type: 'test'
+  ...
+# Subtest: projectile history: legacy ingress normalizes once to current nested identity
+ok 11 - projectile history: legacy ingress normalizes once to current nested identity
+  ---
+  duration_ms: 0.847333
+  type: 'test'
+  ...
+# Subtest: projectile history: every nested identity and scalar mirror rejects atomically
+ok 12 - projectile history: every nested identity and scalar mirror rejects atomically
+  ---
+  duration_ms: 0.963542
+  type: 'test'
+  ...
+# Subtest: projectile history: structure projectile source and scope mirrors reject atomically
+ok 13 - projectile history: structure projectile source and scope mirrors reject atomically
+  ---
+  duration_ms: 0.433833
+  type: 'test'
+  ...
+# Subtest: projectile history: missing, swapped, duplicate, and wrong ingress identities reject byte-atomically
+ok 14 - projectile history: missing, swapped, duplicate, and wrong ingress identities reject byte-atomically
+  ---
+  duration_ms: 6.190834
+  type: 'test'
+  ...
+# Subtest: projectile history: preview capability admission is trap-zero and atomic
+ok 15 - projectile history: preview capability admission is trap-zero and atomic
+  ---
+  duration_ms: 2.94275
+  type: 'test'
+  ...
+# Subtest: projectile history: preview receipts bind owner, generation, and retry rule
+ok 16 - projectile history: preview receipts bind owner, generation, and retry rule
+  ---
+  duration_ms: 3.742708
+  type: 'test'
+  ...
+# Subtest: projectile history: no adjacent-event lookup remains in the provenance authority
+ok 17 - projectile history: no adjacent-event lookup remains in the provenance authority
+  ---
+  duration_ms: 1.520958
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 542.265583
+TAP version 13
+# Subtest: battle towers: one boundary joins structure contact, tower shot, and authoritative unit damage
+ok 1 - battle towers: one boundary joins structure contact, tower shot, and authoritative unit damage
+  ---
+  duration_ms: 14.091417
+  type: 'test'
+  ...
+# Subtest: battle towers: a same-boundary lethal structure hit suppresses that tower's shot
+ok 2 - battle towers: a same-boundary lethal structure hit suppresses that tower's shot
+  ---
+  duration_ms: 4.018625
+  type: 'test'
+  ...
+# Subtest: battle towers: central direct damage activates once before legal shooting
+ok 3 - battle towers: central direct damage activates once before legal shooting
+  ---
+  duration_ms: 86.212125
+  type: 'test'
+  ...
+# Subtest: battle towers: unit projectiles use the arena tower footprint for contact travel
+ok 4 - battle towers: unit projectiles use the arena tower footprint for contact travel
+  ---
+  duration_ms: 5.434
+  type: 'test'
+  ...
+# Subtest: battle towers: public forks retain pending unit projectile provenance
+ok 5 - battle towers: public forks retain pending unit projectile provenance
+  ---
+  duration_ms: 17.494791
+  type: 'test'
+  ...
+# Subtest: battle towers: scheduled boundary units participate and chunking/restore cuts are byte-identical
+ok 6 - battle towers: scheduled boundary units participate and chunking/restore cuts are byte-identical
+  ---
+  duration_ms: 1114.474833
+  type: 'test'
+  ...
+# Subtest: battle towers: strict legacy combat and tower witnesses restore, continue, and upgrade
+ok 7 - battle towers: strict legacy combat and tower witnesses restore, continue, and upgrade
+  ---
+  duration_ms: 358.251667
+  type: 'test'
+  ...
+# Subtest: battle towers: legacy admission preserves hidden structure and projectile identity reservations
+ok 8 - battle towers: legacy admission preserves hidden structure and projectile identity reservations
+  ---
+  duration_ms: 15.734417
+  type: 'test'
+  ...
+# Subtest: battle towers: amplified valid legacy continuation compares without a proof-string cap
+ok 9 - battle towers: amplified valid legacy continuation compares without a proof-string cap
+  ---
+  duration_ms: 123722.145208
+  type: 'test'
+  ...
+# Subtest: battle towers: hostile commands, upstream witnesses, histories, and bounds reject atomically
+ok 10 - battle towers: hostile commands, upstream witnesses, histories, and bounds reject atomically
+  ---
+  duration_ms: 2.334792
+  type: 'test'
+  ...
+# Subtest: battle towers: simultaneous opposing units and towers retain stable event/projectile identities
+ok 11 - battle towers: simultaneous opposing units and towers retain stable event/projectile identities
+  ---
+  duration_ms: 2.713625
+  type: 'test'
+  ...
+# Subtest: battle towers: simultaneous unit-origin and tower-origin projectile ID 1 remain exactly namespaced
+ok 12 - battle towers: simultaneous unit-origin and tower-origin projectile ID 1 remain exactly namespaced
+  ---
+  duration_ms: 8.749542
+  type: 'test'
+  ...
+# Subtest: battle towers: every tower candidate ID is rejected for initial, spawned, and scheduled units
+ok 13 - battle towers: every tower candidate ID is rejected for initial, spawned, and scheduled units
+  ---
+  duration_ms: 0.592542
+  type: 'test'
+  ...
+# Subtest: battle towers: every projectile-bearing causal event has one complete scoped identity
+ok 14 - battle towers: every projectile-bearing causal event has one complete scoped identity
+  ---
+  duration_ms: 6.902959
+  type: 'test'
+  ...
+# Subtest: battle towers: missing, divergent, and reordered serialized identity links reject
+ok 15 - battle towers: missing, divergent, and reordered serialized identity links reject
+  ---
+  duration_ms: 8.715042
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 125463.79425
+TAP version 13
+# Subtest: battle tower kernel: one state owns exact bidirectional HP and preview work never leaks
+ok 1 - battle tower kernel: one state owns exact bidirectional HP and preview work never leaks
+  ---
+  duration_ms: 13.7475
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: hostile layer targeting and friendly filtering are side-correct
+ok 2 - battle tower kernel: hostile layer targeting and friendly filtering are side-correct
+  ---
+  duration_ms: 7.480792
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: lane death activates central, suppresses the dead lane, and shoots legally
+ok 3 - battle tower kernel: lane death activates central, suppresses the dead lane, and shoots legally
+  ---
+  duration_ms: 4.806417
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: direct central activation and simultaneous lethal windows are exact
+ok 4 - battle tower kernel: direct central activation and simultaneous lethal windows are exact
+  ---
+  duration_ms: 9.567208
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: a due scheduled unit attacks and is targetable on its first boundary
+ok 5 - battle tower kernel: a due scheduled unit attacks and is targetable on its first boundary
+  ---
+  duration_ms: 7.376084
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: sequential, chunked, and every live restore cut match events/state/bytes
+ok 6 - battle tower kernel: sequential, chunked, and every live restore cut match events/state/bytes
+  ---
+  duration_ms: 795.615125
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: structurally valid bounds and invalid commands reject atomically
+ok 7 - battle tower kernel: structurally valid bounds and invalid commands reject atomically
+  ---
+  duration_ms: 0.923042
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 919.728333
+TAP version 13
+# Subtest: game battle: all eight starter cards materialize stable singles and squad counts
+ok 1 - game battle: all eight starter cards materialize stable singles and squad counts
+  ---
+  duration_ms: 461.439917
+  type: 'test'
+  ...
+# Subtest: game battle: public forks preserve causal state and transcripts
+ok 2 - game battle: public forks preserve causal state and transcripts
+  ---
+  duration_ms: 86.9155
+  type: 'test'
+  ...
+# Subtest: game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+ok 3 - game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+  ---
+  duration_ms: 20429.922125
+  type: 'test'
+  ...
+# Subtest: game battle: symmetric opposing troops die in one simultaneous trade window
+ok 4 - game battle: symmetric opposing troops die in one simultaneous trade window
+  ---
+  duration_ms: 567.573833
+  type: 'test'
+  ...
+# Subtest: game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+ok 5 - game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+  ---
+  duration_ms: 129.054458
+  type: 'test'
+  ...
+# Subtest: game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+ok 6 - game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+  ---
+  duration_ms: 323.1825
+  type: 'test'
+  ...
+# Subtest: game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+ok 7 - game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+  ---
+  duration_ms: 18.930708
+  type: 'test'
+  ...
+# Subtest: game battle: injected identity graph and QUESTION inventory are canonically closed
+ok 8 - game battle: injected identity graph and QUESTION inventory are canonically closed
+  ---
+  duration_ms: 123.146917
+  type: 'test'
+  ...
+# Subtest: game battle: untrusted executable setup graphs reject without running traps
+ok 9 - game battle: untrusted executable setup graphs reject without running traps
+  ---
+  duration_ms: 62.25475
+  type: 'test'
+  ...
+# Subtest: game battle: restore preflights hostile parsed graphs before recursive canonicalization
+ok 10 - game battle: restore preflights hostile parsed graphs before recursive canonicalization
+  ---
+  duration_ms: 115.09725
+  type: 'test'
+  ...
+# Subtest: game battle: an over-capacity due boundary rejects before any mutation
+ok 11 - game battle: an over-capacity due boundary rejects before any mutation
+  ---
+  duration_ms: 27.585458
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22440.196125
+TAP version 13
+# Subtest: game history cap: BattleCombat and empty LiveBattle cross tick 874 and full match
+ok 1 - game history cap: BattleCombat and empty LiveBattle cross tick 874 and full match
+  ---
+  duration_ms: 33515.437875
+  type: 'test'
+  ...
+# Subtest: game history cap: cuts around structural run boundaries restore and continue exactly
+ok 2 - game history cap: cuts around structural run boundaries restore and continue exactly
+  ---
+  duration_ms: 8776.606834
+  type: 'test'
+  ...
+# Subtest: game history cap: eight active units complete, chunk, and restore a bounded full match
+ok 3 - game history cap: eight active units complete, chunk, and restore a bounded full match
+  ---
+  duration_ms: 68952.440791
+  type: 'test'
+  ...
+# Subtest: game history cap: malformed compact runs and oversized tails reject
+ok 4 - game history cap: malformed compact runs and oversized tails reject
+  ---
+  duration_ms: 300.942209
+  type: 'test'
+  ...
+# Subtest: game history cap: genuine nested Live, tower, and combat v1 witnesses upgrade
+ok 5 - game history cap: genuine nested Live, tower, and combat v1 witnesses upgrade
+  ---
+  duration_ms: 44.740458
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 111692.299875
+TAP version 13
+# Subtest: game opponent: all eight cards and squad counts transact on both legal north lanes
+ok 1 - game opponent: all eight cards and squad counts transact on both legal north lanes
+  ---
+  duration_ms: 982.025917
+  type: 'test'
+  ...
+# Subtest: game opponent: pending Briar members preserve chunks and every restore cut
+ok 2 - game opponent: pending Briar members preserve chunks and every restore cut
+  ---
+  duration_ms: 2461.39875
+  type: 'test'
+  ...
+# Subtest: game opponent: exact tick order waits for generated elixir then autonomously spends once
+ok 3 - game opponent: exact tick order waits for generated elixir then autonomously spends once
+  ---
+  duration_ms: 419.25225
+  type: 'test'
+  ...
+# Subtest: game opponent: repeated autonomous plays produce combat and south tower damage
+ok 4 - game opponent: repeated autonomous plays produce combat and south tower damage
+  ---
+  duration_ms: 1741.933792
+  type: 'test'
+  ...
+# Subtest: game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+ok 5 - game opponent: alternate chunks and restore cuts preserve bytes, events, replay, and state
+  ---
+  duration_ms: 7041.707125
+  type: 'test'
+  ...
+# Subtest: game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+ok 6 - game opponent: rejected calls and hostile snapshot witnesses are byte-atomic
+  ---
+  duration_ms: 40.224042
+  type: 'test'
+  ...
+# Subtest: game opponent: legal and batch bounds fail atomically
+ok 7 - game opponent: legal and batch bounds fail atomically
+  ---
+  duration_ms: 20.41175
+  type: 'test'
+  ...
+# Subtest: game opponent: resolved shared history supports a full terminal match
+ok 8 - game opponent: resolved shared history supports a full terminal match # SKIP GAME-001HC owns the open tick-874 shared transcript cap; set GAME_001HC_RESOLVED=1 after its fix
+  ---
+  duration_ms: 0.054
+  type: 'test'
+  ...
+# Subtest: game opponent: canonical text admission invokes no caller callbacks
+ok 9 - game opponent: canonical text admission invokes no caller callbacks
+  ---
+  duration_ms: 11.008291
+  type: 'test'
+  ...
+# Subtest: game opponent: admitted roster is the only deck and cost authority
+ok 10 - game opponent: admitted roster is the only deck and cost authority
+  ---
+  duration_ms: 147.079833
+  type: 'test'
+  ...
+# Subtest: game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+ok 11 - game opponent: setup graph byte/depth/node/container/array/key/string/integer bounds are exact
+  ---
+  duration_ms: 124.417917
+  type: 'test'
+  ...
+# Subtest: game opponent: object key string-length bounds are exact at every admission layer
+ok 12 - game opponent: object key string-length bounds are exact at every admission layer
+  ---
+  duration_ms: 1216.425542
+  type: 'test'
+  ...
+# Subtest: game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+ok 13 - game opponent: Unicode scalar, canonical-key, and duplicate-key admission is collision-free
+  ---
+  duration_ms: 100.68525
+  type: 'test'
+  ...
+# Subtest: game opponent: nested setup witnesses and restore history preflight before recursion
+ok 14 - game opponent: nested setup witnesses and restore history preflight before recursion
+  ---
+  duration_ms: 97.204917
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 14506.104083
+TAP version 13
+# Subtest: game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+ok 1 - game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+  ---
+  duration_ms: 3597.045083
+  type: 'test'
+  ...
+# Subtest: game roster admission: every admitted ID has one exact legal eight-card witness
+ok 2 - game roster admission: every admitted ID has one exact legal eight-card witness
+  ---
+  duration_ms: 6.35025
+  type: 'test'
+  ...
+# Subtest: game roster admission: runtime routes each admitted kind once and restores canonical history
+ok 3 - game roster admission: runtime routes each admitted kind once and restores canonical history
+  ---
+  duration_ms: 2.530167
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit battle cards admit but can never materialize placeholders
+ok 4 - game roster admission: non-unit battle cards admit but can never materialize placeholders
+  ---
+  duration_ms: 39.853875
+  type: 'test'
+  ...
+# Subtest: game roster admission: GameSession spends, cycles, and records one typed route per play
+ok 5 - game roster admission: GameSession spends, cycles, and records one typed route per play
+  ---
+  duration_ms: 111.540542
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit session history is chunk- and restore-exact
+ok 6 - game roster admission: non-unit session history is chunk- and restore-exact
+  ---
+  duration_ms: 1057.92
+  type: 'test'
+  ...
+# Subtest: game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+ok 7 - game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+  ---
+  duration_ms: 13.934541
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4962.127125
+TAP version 13
+# Subtest: game roster spell occurrences: exact effect occurrence pairs and IDs derive from the session manifest
+ok 1 - game roster spell occurrences: exact effect occurrence pairs and IDs derive from the session manifest
+  ---
+  duration_ms: 1.196041
+  type: 'test'
+  ...
+# Subtest: game roster spell occurrences: admission counts and card execution status stay explicit
+ok 2 - game roster spell occurrences: admission counts and card execution status stay explicit
+  ---
+  duration_ms: 0.241834
+  type: 'test'
+  ...
+# Subtest: game roster spell occurrences: Squall catalogs reuse one record while composition remains QUESTION
+ok 3 - game roster spell occurrences: Squall catalogs reuse one record while composition remains QUESTION
+  ---
+  duration_ms: 0.393333
+  type: 'test'
+  ...
+# Subtest: game roster spell occurrences: fresh audit results are recursively frozen and receipt bytes stay unchanged
+ok 4 - game roster spell occurrences: fresh audit results are recursively frozen and receipt bytes stay unchanged
+  ---
+  duration_ms: 0.5835
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 120.8
+TAP version 13
+# Subtest: game roster troop profiles: exact 45 occurrence pairs and 43 identity IDs
+ok 1 - game roster troop profiles: exact 45 occurrence pairs and 43 identity IDs
+  ---
+  duration_ms: 1.176709
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: exact admitted/question counts and derived session slice
+ok 2 - game roster troop profiles: exact admitted/question counts and derived session slice
+  ---
+  duration_ms: 0.516167
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: admitted profiles are complete, source-backed, sorted, frozen, and detached
+ok 3 - game roster troop profiles: admitted profiles are complete, source-backed, sorted, frozen, and detached
+  ---
+  duration_ms: 2.742042
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: QUESTION identities reject without an invented profile
+ok 4 - game roster troop profiles: QUESTION identities reject without an invented profile
+  ---
+  duration_ms: 0.514125
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: duplicated IDs have one honest shared composition each
+ok 5 - game roster troop profiles: duplicated IDs have one honest shared composition each
+  ---
+  duration_ms: 0.357042
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: composition execution facts remain explicit QUESTIONs
+ok 6 - game roster troop profiles: composition execution facts remain explicit QUESTIONs
+  ---
+  duration_ms: 0.243542
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: every occurrence maps once to a profile/question and duplicate membership is bijective
+ok 7 - game roster troop profiles: every occurrence maps once to a profile/question and duplicate membership is bijective
+  ---
+  duration_ms: 0.457833
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: canonical serialization is repeatable and immutable-only
+ok 8 - game roster troop profiles: canonical serialization is repeatable and immutable-only
+  ---
+  duration_ms: 1.447375
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: primitive-only lookup rejects hostile values without callbacks
+ok 9 - game roster troop profiles: primitive-only lookup rejects hostile values without callbacks
+  ---
+  duration_ms: 1.369917
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: hostile clone mutation cannot affect future calls
+ok 10 - game roster troop profiles: hostile clone mutation cannot affect future calls
+  ---
+  duration_ms: 0.598583
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: shipped module is deterministic and isolated
+ok 11 - game roster troop profiles: shipped module is deterministic and isolated
+  ---
+  duration_ms: 0.460917
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 136.255875
+TAP version 13
+# Subtest: movement profile contract: exact HTP-derived 9 occurrence pairs and 8 IDs
+ok 1 - movement profile contract: exact HTP-derived 9 occurrence pairs and 8 IDs
+  ---
+  duration_ms: 3.020792
+  type: 'test'
+  ...
+# Subtest: movement profile contract: one profile per ID and one Emberlance profile with two memberships
+ok 2 - movement profile contract: one profile per ID and one Emberlance profile with two memberships
+  ---
+  duration_ms: 1.254167
+  type: 'test'
+  ...
+# Subtest: movement profile contract: every claim joins its actual source record and duplicate Emberlance bytes agree
+ok 3 - movement profile contract: every claim joins its actual source record and duplicate Emberlance bytes agree
+  ---
+  duration_ms: 2.117167
+  type: 'test'
+  ...
+# Subtest: movement profile contract: all six question factories are represented exactly and remain non-authoritative
+ok 4 - movement profile contract: all six question factories are represented exactly and remain non-authoritative
+  ---
+  duration_ms: 6.900667
+  type: 'test'
+  ...
+# Subtest: movement profile contract: complete QUESTION factory witnesses pin six domains and raw bytes
+ok 5 - movement profile contract: complete QUESTION factory witnesses pin six domains and raw bytes
+  ---
+  duration_ms: 9.686334
+  type: 'test'
+  ...
+# Subtest: movement profile contract: Railward is unresolved-only with no fabricated form policy
+ok 6 - movement profile contract: Railward is unresolved-only with no fabricated form policy
+  ---
+  duration_ms: 1.191667
+  type: 'test'
+  ...
+# Subtest: movement profile contract: champion, ordinary-targeter, status, and projectile-only occurrences do not leak
+ok 7 - movement profile contract: champion, ordinary-targeter, status, and projectile-only occurrences do not leak
+  ---
+  duration_ms: 1.109834
+  type: 'test'
+  ...
+# Subtest: movement profile contract: Emberlance composition ordering and execution remain HTC QUESTIONS
+ok 8 - movement profile contract: Emberlance composition ordering and execution remain HTC QUESTIONS
+  ---
+  duration_ms: 1.426375
+  type: 'test'
+  ...
+# Subtest: movement profile contract: outputs are detached, deeply frozen, and canonically repeatable
+ok 9 - movement profile contract: outputs are detached, deeply frozen, and canonically repeatable
+  ---
+  duration_ms: 26.920917
+  type: 'test'
+  ...
+# Subtest: movement profile contract: primitive hostile lookup rejects without invoking traps
+ok 10 - movement profile contract: primitive hostile lookup rejects without invoking traps
+  ---
+  duration_ms: 1.592584
+  type: 'test'
+  ...
+# Subtest: movement profile contract: module has no comparison-path, identity, clock, RNG, dynamic-loader, or float literal
+ok 11 - movement profile contract: module has no comparison-path, identity, clock, RNG, dynamic-loader, or float literal
+  ---
+  duration_ms: 0.850167
+  type: 'test'
+  ...
+# Subtest: movement profile contract: pinned witness map has the exact nine pair domain
+ok 12 - movement profile contract: pinned witness map has the exact nine pair domain
+  ---
+  duration_ms: 0.3265
+  type: 'test'
+  ...
+# Subtest: movement profile contract: complete source witnesses reject the adversarial drift matrix
+ok 13 - movement profile contract: complete source witnesses reject the adversarial drift matrix
+  ---
+  duration_ms: 3980.156083
+  type: 'test'
+  ...
+# Subtest: movement profile contract: source catalog rows and component arrays reject every Proxy alias before reflection
+ok 14 - movement profile contract: source catalog rows and component arrays reject every Proxy alias before reflection
+  ---
+  duration_ms: 1268.455583
+  type: 'test'
+  ...
+# Subtest: movement profile contract: every pinned null numeric path rejects non-finite and non-integer drift
+ok 15 - movement profile contract: every pinned null numeric path rejects non-finite and non-integer drift
+  ---
+  duration_ms: 5308.314917
+  type: 'test'
+  ...
+# Subtest: movement profile contract: QUESTION factories reject aliased Proxy roots and nested values before reflection
+ok 16 - movement profile contract: QUESTION factories reject aliased Proxy roots and nested values before reflection
+  ---
+  duration_ms: 3258.4785
+  type: 'test'
+  ...
+# Subtest: movement profile contract: QUESTION factory dispatch rejects transformed bindings before apply
+ok 17 - movement profile contract: QUESTION factory dispatch rejects transformed bindings before apply
+  ---
+  duration_ms: 10047.666167
+  type: 'test'
+  ...
+# Subtest: movement profile contract: independent QUESTION authority ignores source lookalikes and duplicate identities
+ok 18 - movement profile contract: independent QUESTION authority ignores source lookalikes and duplicate identities
+  ---
+  duration_ms: 3772.859958
+  type: 'test'
+  ...
+# Subtest: movement profile contract: fresh authority imports ignore mutable URL and helper capabilities
+ok 19 - movement profile contract: fresh authority imports ignore mutable URL and helper capabilities
+  ---
+  duration_ms: 1890.386125
+  type: 'test'
+  ...
+# Subtest: movement profile contract: primitive URL preamble rejects nested encoded delimiters
+ok 20 - movement profile contract: primitive URL preamble rejects nested encoded delimiters
+  ---
+  duration_ms: 2094.088292
+  type: 'test'
+  ...
+# Subtest: movement profile contract: real preserve-symlinks aliases fail before duplicate authority graphs
+ok 21 - movement profile contract: real preserve-symlinks aliases fail before duplicate authority graphs
+  ---
+  duration_ms: 573.69
+  type: 'test'
+  ...
+# Subtest: movement profile contract: canonicalization fails closed for non-JSON values without traps
+ok 22 - movement profile contract: canonicalization fails closed for non-JSON values without traps
+  ---
+  duration_ms: 3846.328958
+  type: 'test'
+  ...
+# Subtest: movement profile contract: every canonical admission helper rejects aliased Proxy roots before reflection
+ok 23 - movement profile contract: every canonical admission helper rejects aliased Proxy roots before reflection
+  ---
+  duration_ms: 4401.934291
+  type: 'test'
+  ...
+# Subtest: movement profile contract: complete QUESTION witnesses reject content, shape, metadata, and read drift
+ok 24 - movement profile contract: complete QUESTION witnesses reject content, shape, metadata, and read drift
+  ---
+  duration_ms: 13766.331625
+  type: 'test'
+  ...
+# Subtest: movement profile contract: builder-owned runner accepts only its exact selector
+ok 25 - movement profile contract: builder-owned runner accepts only its exact selector
+  ---
+  duration_ms: 35.641042
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 54453.134833
+TAP version 13
+# Subtest: troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces
+ok 1 - troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces
+  ---
+  duration_ms: 9.205875
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical
+ok 2 - troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical
+  ---
+  duration_ms: 49.533042
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier
+ok 3 - troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier
+  ---
+  duration_ms: 86249.501916
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path
+ok 4 - troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path
+  ---
+  duration_ms: 287.388667
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks
+ok 5 - troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks
+  ---
+  duration_ms: 16941.586417
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer
+ok 6 - troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer
+  ---
+  duration_ms: 26.816542
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: both admitted flyers reject diagonal paths atomically
+ok 7 - troop movement runtime: both admitted flyers reject diagonal paths atomically
+  ---
+  duration_ms: 30.023833
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary
+ok 8 - troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary
+  ---
+  duration_ms: 171.87775
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history
+ok 9 - troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history
+  ---
+  duration_ms: 310.880708
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: GameSession restore cuts retain the v4 shared flying battle
+ok 10 - troop movement runtime: GameSession restore cuts retain the v4 shared flying battle
+  ---
+  duration_ms: 573.031042
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: two flying IDs share host movement and restore byte identity
+ok 11 - troop movement runtime: two flying IDs share host movement and restore byte identity
+  ---
+  duration_ms: 167.128541
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: v4 movement coexists with status/projectile snapshots
+ok 12 - troop movement runtime: v4 movement coexists with status/projectile snapshots
+  ---
+  duration_ms: 141.074125
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: every unsourced movement/form family is a frozen QUESTION before host mutation
+ok 13 - troop movement runtime: every unsourced movement/form family is a frozen QUESTION before host mutation
+  ---
+  duration_ms: 151.793958
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: forged receipts, roster drift, stale commands, and hostile boundaries reject atomically
+ok 14 - troop movement runtime: forged receipts, roster drift, stale commands, and hostile boundaries reject atomically
+  ---
+  duration_ms: 53.379708
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: sourced flight shares ordinary combat/death and target retargeting without changing the control host
+ok 15 - troop movement runtime: sourced flight shares ordinary combat/death and target retargeting without changing the control host
+  ---
+  duration_ms: 917.809042
+  type: 'test'
+  ...
+# Subtest: troop movement runtime: intermediate serialization is observationally pure across schedules and cuts
+ok 16 - troop movement runtime: intermediate serialization is observationally pure across schedules and cuts
+  ---
+  duration_ms: 105036.123833
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 211330.032334
+TAP version 13
+# Subtest: ordinary troop projection domain is exactly the admitted profile surface
+ok 1 - ordinary troop projection domain is exactly the admitted profile surface
+  ---
+  duration_ms: 1.338459
+  type: 'test'
+  ...
+# Subtest: every projection is complete, source-agreeing, ordinary-only, and component-stable
+ok 2 - every projection is complete, source-agreeing, ordinary-only, and component-stable
+  ---
+  duration_ms: 4.598292
+  type: 'test'
+  ...
+# Subtest: every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+ok 3 - every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+  ---
+  duration_ms: 87.297917
+  type: 'test'
+  ...
+# Subtest: ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims
+ok 4 - ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims
+  ---
+  duration_ms: 60.118
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper source questions and splash profile reject forged setup and pending snapshots
+ok 5 - Kilnkeeper source questions and splash profile reject forged setup and pending snapshots
+  ---
+  duration_ms: 2044.689208
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper follows moving ground and air targets through shared-host restore and fork
+ok 6 - Kilnkeeper follows moving ground and air targets through shared-host restore and fork
+  ---
+  duration_ms: 1506.823625
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper's pending homing projectile fizzles once when its locked target dies
+ok 7 - Kilnkeeper's pending homing projectile fizzles once when its locked target dies
+  ---
+  duration_ms: 2082.31775
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper's launched homing projectile continues after its source dies and restores exactly
+ok 8 - Kilnkeeper's launched homing projectile continues after its source dies and restores exactly
+  ---
+  duration_ms: 940.048167
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper follows its locked target after it leaves the launch-origin range
+ok 9 - Kilnkeeper follows its locked target after it leaves the launch-origin range
+  ---
+  duration_ms: 4230.548416
+  type: 'test'
+  ...
+# Subtest: ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary
+ok 10 - ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary
+  ---
+  duration_ms: 0.702292
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight
+ok 11 - Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight
+  ---
+  duration_ms: 1467.319792
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact
+ok 12 - Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact
+  ---
+  duration_ms: 2645.6065
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact
+ok 13 - Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact
+  ---
+  duration_ms: 801.828833
+  type: 'test'
+  ...
+# Subtest: Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+ok 14 - Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+  ---
+  duration_ms: 1979.336542
+  type: 'test'
+  ...
+# Subtest: legacy HTO projections are detached exact playable cards plus ordinary policies
+ok 15 - legacy HTO projections are detached exact playable cards plus ordinary policies
+  ---
+  duration_ms: 3.50975
+  type: 'test'
+  ...
+# Subtest: all official witnesses use uniform HTO policies with exact projection counts
+ok 16 - all official witnesses use uniform HTO policies with exact projection counts
+  ---
+  duration_ms: 8.370417
+  type: 'test'
+  ...
+# Subtest: playable roster preserves its estimates and records Briar Band's sourced member interval
+ok 17 - playable roster preserves its estimates and records Briar Band's sourced member interval
+  ---
+  duration_ms: 13.157875
+  type: 'test'
+  ...
+# Subtest: legacy delivery/layer policy and QUESTION tampering rejects atomically
+ok 18 - legacy delivery/layer policy and QUESTION tampering rejects atomically
+  ---
+  duration_ms: 87.350875
+  type: 'test'
+  ...
+# Subtest: paired ordinary-policy omission rejects every one of the 38 entity projections
+ok 19 - paired ordinary-policy omission rejects every one of the 38 entity projections
+  ---
+  duration_ms: 251.015667
+  type: 'test'
+  ...
+# Subtest: removing all ordinary policies from one card rejects a partially downgraded roster
+ok 20 - removing all ordinary policies from one card rejects a partially downgraded roster
+  ---
+  duration_ms: 46.26325
+  type: 'test'
+  ...
+# Subtest: a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+ok 21 - a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+  ---
+  duration_ms: 5.540458
+  type: 'test'
+  ...
+# Subtest: all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+ok 22 - all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+  ---
+  duration_ms: 1508.254541
+  type: 'test'
+  ...
+# Subtest: fully HTO LiveBattle setup deploys, restores, and forks exactly
+ok 23 - fully HTO LiveBattle setup deploys, restores, and forks exactly
+  ---
+  duration_ms: 18.591417
+  type: 'test'
+  ...
+# Subtest: representative ordinary projection is chunk, fork, and restore exact
+ok 24 - representative ordinary projection is chunk, fork, and restore exact
+  ---
+  duration_ms: 3387.8245
+  type: 'test'
+  ...
+# Subtest: projection APIs reject hostile identities before callbacks and return detached frozen values
+ok 25 - projection APIs reject hostile identities before callbacks and return detached frozen values
+  ---
+  duration_ms: 1.325417
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23358.305208
+TAP version 13
+# Subtest: projectile support is the exact HTP/HTO/HTJP receipt join
+ok 1 - projectile support is the exact HTP/HTO/HTJP receipt join
+  ---
+  duration_ms: 45.032667
+  type: 'test'
+  ...
+# Subtest: each sourced projectile occurrence uses shared host identity, health, tick, and history
+ok 2 - each sourced projectile occurrence uses shared host identity, health, tick, and history
+  ---
+  duration_ms: 6783.901083
+  type: 'test'
+  ...
+# Subtest: QUESTION-only ranged identities and special continuations reject atomically
+ok 3 - QUESTION-only ranged identities and special continuations reject atomically
+  ---
+  duration_ms: 193.83625
+  type: 'test'
+  ...
+# Subtest: projectile runtime restore, fork, replay, and terminal retention are byte-identical
+ok 4 - projectile runtime restore, fork, replay, and terminal retention are byte-identical
+  ---
+  duration_ms: 21663.953667
+  type: 'test'
+  ...
+# Subtest: closed receipt admission rejects forged plans and roster TOCTOU
+ok 5 - closed receipt admission rejects forged plans and roster TOCTOU
+  ---
+  duration_ms: 13.910625
+  type: 'test'
+  ...
+# Subtest: closed projectile authority has no public registrar and survives fresh-process preemption routes
+ok 6 - closed projectile authority has no public registrar and survives fresh-process preemption routes
+  ---
+  duration_ms: 4521.591584
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 33402.237959
+TAP version 13
+# Subtest: projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+ok 1 - projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+  ---
+  duration_ms: 2.357209
+  type: 'test'
+  ...
+# Subtest: projectile profiles: the complete witness map covers exactly the ten source export sets
+ok 2 - projectile profiles: the complete witness map covers exactly the ten source export sets
+  ---
+  duration_ms: 0.7395
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every bound row rejects same-ID scalar drift
+ok 3 - projectile profiles: every bound row rejects same-ID scalar drift
+  ---
+  duration_ms: 1808.155708
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded cost drift rejects before every shared consumer
+ok 4 - projectile source admission: rebranded cost drift rejects before every shared consumer
+  ---
+  duration_ms: 4017.996625
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded canonical key order stays usable in every shared consumer
+ok 5 - projectile source admission: rebranded canonical key order stays usable in every shared consumer
+  ---
+  duration_ms: 6256.791125
+  type: 'test'
+  ...
+# Subtest: projectile source admission: every scalar source field rejects rebranding through every shared consumer
+ok 6 - projectile source admission: every scalar source field rejects rebranding through every shared consumer
+  ---
+  duration_ms: 69184.685709
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+ok 7 - projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+  ---
+  duration_ms: 3938.120375
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded source shape and nested drift fail before output
+ok 8 - projectile source admission: rebranded source shape and nested drift fail before output
+  ---
+  duration_ms: 2510.438209
+  type: 'test'
+  ...
+# Subtest: projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+ok 9 - projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+  ---
+  duration_ms: 2485.813083
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source reads, HTP, and HTO drift reject before exposure
+ok 10 - projectile profiles: source reads, HTP, and HTO drift reject before exposure
+  ---
+  duration_ms: 612.393584
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+ok 11 - projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+  ---
+  duration_ms: 2541.018916
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every source binding is admitted before first-read hostile access
+ok 12 - projectile profiles: every source binding is admitted before first-read hostile access
+  ---
+  duration_ms: 8601.979291
+  type: 'test'
+  ...
+# Subtest: projectile profiles: a normal admitted catalog remains usable by the shared runtime
+ok 13 - projectile profiles: a normal admitted catalog remains usable by the shared runtime
+  ---
+  duration_ms: 21.446708
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every claimed source join is exact and profiles are one-per-ID
+ok 14 - projectile profiles: every claimed source join is exact and profiles are one-per-ID
+  ---
+  duration_ms: 0.974542
+  type: 'test'
+  ...
+# Subtest: projectile profiles: components stay owned by their card and duplicated compositions do not double count
+ok 15 - projectile profiles: components stay owned by their card and duplicated compositions do not double count
+  ---
+  duration_ms: 0.571042
+  type: 'test'
+  ...
+# Subtest: projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+ok 16 - projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+  ---
+  duration_ms: 1.110583
+  type: 'test'
+  ...
+# Subtest: projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+ok 17 - projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+  ---
+  duration_ms: 2.007417
+  type: 'test'
+  ...
+# Subtest: projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+ok 18 - projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+  ---
+  duration_ms: 0.717375
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+ok 19 - projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+  ---
+  duration_ms: 7.153625
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic flying launch evidence cannot admit Copperskiff
+ok 20 - projectile profiles: generic flying launch evidence cannot admit Copperskiff
+  ---
+  duration_ms: 6.965333
+  type: 'test'
+  ...
+# Subtest: projectile profiles: Aegis composition remains pending for GAME-001HTC
+ok 21 - projectile profiles: Aegis composition remains pending for GAME-001HTC
+  ---
+  duration_ms: 0.678417
+  type: 'test'
+  ...
+# Subtest: projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+ok 22 - projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+  ---
+  duration_ms: 0.525458
+  type: 'test'
+  ...
+# Subtest: projectile profiles: no encounter/private simulator execution or coverage is claimed
+ok 23 - projectile profiles: no encounter/private simulator execution or coverage is claimed
+  ---
+  duration_ms: 1.062125
+  type: 'test'
+  ...
+# Subtest: projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+ok 24 - projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+  ---
+  duration_ms: 2.9295
+  type: 'test'
+  ...
+# Subtest: projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+ok 25 - projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+  ---
+  duration_ms: 0.753917
+  type: 'test'
+  ...
+# Subtest: projectile profiles: static isolation and source-change bounds are explicit
+ok 26 - projectile profiles: static isolation and source-change bounds are explicit
+  ---
+  duration_ms: 1.417
+  type: 'test'
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102187.018833
+TAP version 13
+# Subtest: game roster troop status profiles: exact 8 HTP occurrence pairs and 8 IDs
+ok 1 - game roster troop status profiles: exact 8 HTP occurrence pairs and 8 IDs
+  ---
+  duration_ms: 2.434666
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: exact counts and one profile per ID
+ok 2 - game roster troop status profiles: exact counts and one profile per ID
+  ---
+  duration_ms: 0.960542
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: valid catalog cache is pinned at 8/240 and canonical bytes
+ok 3 - game roster troop status profiles: valid catalog cache is pinned at 8/240 and canonical bytes
+  ---
+  duration_ms: 1.631958
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: every source catalog mutation fails closed independently
+ok 4 - game roster troop status profiles: every source catalog mutation fails closed independently
+  ---
+  duration_ms: 511.862583
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: every source export joins one complete witness
+ok 5 - game roster troop status profiles: every source export joins one complete witness
+  ---
+  duration_ms: 1.5975
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: exact six question factories are represented freshly and canonically
+ok 6 - game roster troop status profiles: exact six question factories are represented freshly and canonically
+  ---
+  duration_ms: 3.535417
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: every raw question field and metadata survives normalization
+ok 7 - game roster troop status profiles: every raw question field and metadata survives normalization
+  ---
+  duration_ms: 1.221541
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: Railward is unresolved-only with no fabricated special policy
+ok 8 - game roster troop status profiles: Railward is unresolved-only with no fabricated special policy
+  ---
+  duration_ms: 0.868542
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: Aegis reflection is membership-only with all composition questions pending
+ok 9 - game roster troop status profiles: Aegis reflection is membership-only with all composition questions pending
+  ---
+  duration_ms: 0.83875
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: no ramp, spell, champion, or projectile-only leakage
+ok 10 - game roster troop status profiles: no ramp, spell, champion, or projectile-only leakage
+  ---
+  duration_ms: 1.100417
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: no private encounter or shared-session claim is present
+ok 11 - game roster troop status profiles: no private encounter or shared-session claim is present
+  ---
+  duration_ms: 1.24975
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: full graph is fresh, detached, deeply frozen, and repeatable
+ok 12 - game roster troop status profiles: full graph is fresh, detached, deeply frozen, and repeatable
+  ---
+  duration_ms: 4.654125
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: primitive hostile lookup and arity matrix is trap-zero
+ok 13 - game roster troop status profiles: primitive hostile lookup and arity matrix is trap-zero
+  ---
+  duration_ms: 0.793125
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: factory and source static isolation guards
+ok 14 - game roster troop status profiles: factory and source static isolation guards
+  ---
+  duration_ms: 0.428709
+  type: 'test'
+  ...
+# Subtest: game roster troop status profiles: owned runner accepts only its exact selector
+ok 15 - game roster troop status profiles: owned runner accepts only its exact selector
+  ---
+  duration_ms: 0.099833
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 675.715
+TAP version 13
+# Subtest: game roster troop status: the exact eight identities and sourced executable facts are admitted
+ok 1 - game roster troop status: the exact eight identities and sourced executable facts are admitted
+  ---
+  duration_ms: 22.06325
+  type: 'test'
+  ...
+# Subtest: game roster troop status: setup receipt mutations reject atomically before a session is exposed
+ok 2 - game roster troop status: setup receipt mutations reject atomically before a session is exposed
+  ---
+  duration_ms: 50.957584
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pinned live source fields reject before setup exposure
+ok 3 - game roster troop status: pinned live source fields reject before setup exposure
+  ---
+  duration_ms: 3928.80275
+  type: 'test'
+  ...
+# Subtest: game roster troop status: coupled QUESTION projection mutations fail closed
+ok 4 - game roster troop status: coupled QUESTION projection mutations fail closed
+  ---
+  duration_ms: 413.057833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight
+ok 5 - game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight
+  ---
+  duration_ms: 102.642084
+  type: 'test'
+  ...
+# Subtest: game roster troop status: source binding reads hostile wrappers once and never invokes accessors
+ok 6 - game roster troop status: source binding reads hostile wrappers once and never invokes accessors
+  ---
+  duration_ms: 25.900833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+ok 7 - game roster troop status: heal changes shared authoritative health once, caps, and restores exactly
+  ---
+  duration_ms: 2050.765
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender applies its shared heal boundary
+ok 8 - game roster troop status: dawnmender applies its shared heal boundary
+  ---
+  duration_ms: 197.460916
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry applies its shared stun boundary
+ok 9 - game roster troop status: pulse-sentry applies its shared stun boundary
+  ---
+  duration_ms: 191.242167
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept applies its shared slow boundary
+ok 10 - game roster troop status: rime-adept applies its shared slow boundary
+  ---
+  duration_ms: 194.064875
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider applies its shared snare boundary
+ok 11 - game roster troop status: tether-rider applies its shared snare boundary
+  ---
+  duration_ms: 193.361666
+  type: 'test'
+  ...
+# Subtest: game roster troop status: veil-prowler applies its shared hide boundary
+ok 12 - game roster troop status: veil-prowler applies its shared hide boundary
+  ---
+  duration_ms: 207.354958
+  type: 'test'
+  ...
+# Subtest: game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+ok 13 - game roster troop status: invisibility reveal is command-first and preserves the hide receipt
+  ---
+  duration_ms: 81.977875
+  type: 'test'
+  ...
+# Subtest: game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+ok 14 - game roster troop status: aegis-sage rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 56.816
+  type: 'test'
+  ...
+# Subtest: game roster troop status: railward rejects its visible QUESTION with zero mutation
+ok 15 - game roster troop status: railward rejects its visible QUESTION with zero mutation
+  ---
+  duration_ms: 55.813
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects missing and wrong-side targets atomically
+ok 16 - game roster troop status: bloom-wisp rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 226.03975
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects missing and wrong-side targets atomically
+ok 17 - game roster troop status: dawnmender rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 226.303417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects missing and wrong-side targets atomically
+ok 18 - game roster troop status: pulse-sentry rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 223.40025
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects missing and wrong-side targets atomically
+ok 19 - game roster troop status: rime-adept rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 221.772166
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects missing and wrong-side targets atomically
+ok 20 - game roster troop status: tether-rider rejects missing and wrong-side targets atomically
+  ---
+  duration_ms: 229.870708
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects a structure target atomically
+ok 21 - game roster troop status: bloom-wisp rejects a structure target atomically
+  ---
+  duration_ms: 56.323542
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects a structure target atomically
+ok 22 - game roster troop status: dawnmender rejects a structure target atomically
+  ---
+  duration_ms: 52.46125
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects a structure target atomically
+ok 23 - game roster troop status: pulse-sentry rejects a structure target atomically
+  ---
+  duration_ms: 51.040042
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects a structure target atomically
+ok 24 - game roster troop status: rime-adept rejects a structure target atomically
+  ---
+  duration_ms: 50.918958
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects a structure target atomically
+ok 25 - game roster troop status: tether-rider rejects a structure target atomically
+  ---
+  duration_ms: 50.833833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: bloom-wisp rejects a dead target at the scheduling boundary
+ok 26 - game roster troop status: bloom-wisp rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2828.074291
+  type: 'test'
+  ...
+# Subtest: game roster troop status: dawnmender rejects a dead target at the scheduling boundary
+ok 27 - game roster troop status: dawnmender rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2793.7545
+  type: 'test'
+  ...
+# Subtest: game roster troop status: pulse-sentry rejects a dead target at the scheduling boundary
+ok 28 - game roster troop status: pulse-sentry rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2785.188833
+  type: 'test'
+  ...
+# Subtest: game roster troop status: rime-adept rejects a dead target at the scheduling boundary
+ok 29 - game roster troop status: rime-adept rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2777.407583
+  type: 'test'
+  ...
+# Subtest: game roster troop status: tether-rider rejects a dead target at the scheduling boundary
+ok 30 - game roster troop status: tether-rider rejects a dead target at the scheduling boundary
+  ---
+  duration_ms: 2767.342791
+  type: 'test'
+  ...
+# Subtest: game roster troop status: status admission receipts are frozen and carry resolved host facts
+ok 31 - game roster troop status: status admission receipts are frozen and carry resolved host facts
+  ---
+  duration_ms: 20.330417
+  type: 'test'
+  ...
+# Subtest: game roster troop status: deterministic session continuation hashes stay stable
+ok 32 - game roster troop status: deterministic session continuation hashes stay stable
+  ---
+  duration_ms: 543.739709
+  type: 'test'
+  ...
+# Subtest: game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12
+ok 33 - game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12
+  ---
+  duration_ms: 7216.647125
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 31080.763542
+TAP version 13
+# Subtest: game building runtime: pure reducer has no independent session authority and QUESTION identities remain excluded
+ok 1 - game building runtime: pure reducer has no independent session authority and QUESTION identities remain excluded
+  ---
+  duration_ms: 19.735
+  type: 'test'
+  ...
+# Subtest: game building runtime: every fresh entry point accepts only exact catalog profile receipts
+ok 2 - game building runtime: every fresh entry point accepts only exact catalog profile receipts
+  ---
+  duration_ms: 153.226584
+  type: 'test'
+  ...
+# Subtest: game building runtime: Bulwark provenance reaches the live structure and cannot be stripped
+ok 3 - game building runtime: Bulwark provenance reaches the live structure and cannot be stripped
+  ---
+  duration_ms: 53.216833
+  type: 'test'
+  ...
+# Subtest: game building runtime: fresh admission pins every profile leaf, shape, and card identity
+ok 4 - game building runtime: fresh admission pins every profile leaf, shape, and card identity
+  ---
+  duration_ms: 8988.564083
+  type: 'test'
+  ...
+# Subtest: game building runtime: hostile fresh inputs are non-observing at all three boundaries
+ok 5 - game building runtime: hostile fresh inputs are non-observing at all three boundaries
+  ---
+  duration_ms: 0.78
+  type: 'test'
+  ...
+# Subtest: game building runtime: versioned restore keeps any present profile pinned
+ok 6 - game building runtime: versioned restore keeps any present profile pinned
+  ---
+  duration_ms: 23.279541
+  type: 'test'
+  ...
+# Subtest: game building runtime: real GameSession typed route materializes bulwark once under the shared global ID authority
+ok 7 - game building runtime: real GameSession typed route materializes bulwark once under the shared global ID authority
+  ---
+  duration_ms: 20.05425
+  type: 'test'
+  ...
+# Subtest: game building runtime: v2 route-only structures restore through the legacy capability but fresh setup rejects
+ok 8 - game building runtime: v2 route-only structures restore through the legacy capability but fresh setup rejects
+  ---
+  duration_ms: 45.783708
+  type: 'test'
+  ...
+# Subtest: game building runtime: structures and ordinary units share one non-colliding host entity allocator
+ok 9 - game building runtime: structures and ordinary units share one non-colliding host entity allocator
+  ---
+  duration_ms: 18.174708
+  type: 'test'
+  ...
+# Subtest: game building runtime: a host-owned defensive lifetime expires on its shared boundary
+ok 10 - game building runtime: a host-owned defensive lifetime expires on its shared boundary
+  ---
+  duration_ms: 3420.596958
+  type: 'test'
+  ...
+# Subtest: game building runtime: admitted building-origin tower contact changes authoritative GameSession tower HP in order
+ok 11 - game building runtime: admitted building-origin tower contact changes authoritative GameSession tower HP in order
+  ---
+  duration_ms: 1610.198
+  type: 'test'
+  ...
+# Subtest: game building runtime: resource proposals enter GameSession ElixirMatch and chunk/restore exactly
+ok 12 - game building runtime: resource proposals enter GameSession ElixirMatch and chunk/restore exactly
+  ---
+  duration_ms: 5134.739042
+  type: 'test'
+  ...
+# Subtest: game building runtime: expiry issues one source-aligned death grant, even when Elixir is capped
+ok 13 - game building runtime: expiry issues one source-aligned death grant, even when Elixir is capped
+  ---
+  duration_ms: 22052.40675
+  type: 'test'
+  ...
+# Subtest: game building runtime: travel state is host-serialized while its unsourced child remains visibly QUESTION
+ok 14 - game building runtime: travel state is host-serialized while its unsourced child remains visibly QUESTION
+  ---
+  duration_ms: 815.663667
+  type: 'test'
+  ...
+# Subtest: game building runtime: live host applies unit contact, cinder death effect, and building state serialization in one authority graph
+ok 15 - game building runtime: live host applies unit contact, cinder death effect, and building state serialization in one authority graph
+  ---
+  duration_ms: 1578.140791
+  type: 'test'
+  ...
+# Subtest: game building runtime: hostile structure routes fail atomically before host authority commit
+ok 16 - game building runtime: hostile structure routes fail atomically before host authority commit
+  ---
+  duration_ms: 21.547625
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 44083.90825
+TAP version 13
+# Subtest: game building policy: shared-host resource v2 pins corroborated values and keeps consumer choices QUESTION
+ok 1 - game building policy: shared-host resource v2 pins corroborated values and keeps consumer choices QUESTION
+  ---
+  duration_ms: 5.350834
+  type: 'test'
+  ...
+# Subtest: game building policy: v2 resource receipts reject missing, forged, stale, and extra fields before admission
+ok 2 - game building policy: v2 resource receipts reject missing, forged, stale, and extra fields before admission
+  ---
+  duration_ms: 161.060125
+  type: 'test'
+  ...
+# Subtest: game building policy: legacy v1 and default-eight session snapshots remain byte-exact
+ok 3 - game building policy: legacy v1 and default-eight session snapshots remain byte-exact
+  ---
+  duration_ms: 2553.593875
+  type: 'test'
+  ...
+# Subtest: game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+ok 4 - game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+  ---
+  duration_ms: 9.478416
+  type: 'test'
+  ...
+# Subtest: game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+ok 5 - game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+  ---
+  duration_ms: 175.707792
+  type: 'test'
+  ...
+# Subtest: game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+ok 6 - game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+  ---
+  duration_ms: 392.593916
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3518.11625
+TAP version 13
+# Subtest: game roster buildings: bulwark uses one real GameSession route, spend, cycle, materialization, and shared unit ingress
+ok 1 - game roster buildings: bulwark uses one real GameSession route, spend, cycle, materialization, and shared unit ingress
+  ---
+  duration_ms: 313.06225
+  type: 'test'
+  ...
+# Subtest: game roster buildings: the exact HA/INTEGRATION building occurrence subset is bijective and keeps global shared IDs explicit
+ok 2 - game roster buildings: the exact HA/INTEGRATION building occurrence subset is bijective and keeps global shared IDs explicit
+  ---
+  duration_ms: 0.915583
+  type: 'test'
+  ...
+# Subtest: game roster buildings: every admitted identity uses exactly one kind-correct GameSession placement with no placeholder unit
+ok 3 - game roster buildings: every admitted identity uses exactly one kind-correct GameSession placement with no placeholder unit
+  ---
+  duration_ms: 236.888833
+  type: 'test'
+  ...
+# Subtest: game roster buildings: identity-only spawner claims reject visibly and leave the real session unchanged
+ok 4 - game roster buildings: identity-only spawner claims reject visibly and leave the real session unchanged
+  ---
+  duration_ms: 45.453083
+  type: 'test'
+  ...
+# Subtest: game roster buildings: defensive QUESTION estimates reach shared attacks, concealment, ramp, and siege phases
+ok 5 - game roster buildings: defensive QUESTION estimates reach shared attacks, concealment, ramp, and siege phases
+  ---
+  duration_ms: 3114.173167
+  type: 'test'
+  ...
+# Subtest: game roster buildings: Ember Basin splash contacts every authoritative same-circle target in stable ID order
+ok 6 - game roster buildings: Ember Basin splash contacts every authoritative same-circle target in stable ID order
+  ---
+  duration_ms: 557.392625
+  type: 'test'
+  ...
+# Subtest: game roster buildings: defensive lifetime reaches canonical terminal state in a bounded 1,800-tick real session
+ok 7 - game roster buildings: defensive lifetime reaches canonical terminal state in a bounded 1,800-tick real session
+  ---
+  duration_ms: 4700.071334
+  type: 'test'
+  ...
+# Subtest: game roster buildings: simultaneous two-owner Aether grants enter ElixirMatch once and preserve chunk/restore bytes
+ok 8 - game roster buildings: simultaneous two-owner Aether grants enter ElixirMatch once and preserve chunk/restore bytes
+  ---
+  duration_ms: 6322.008375
+  type: 'test'
+  ...
+# Subtest: game roster buildings: an actual opposing unit destroys Aether and its shared-host payout is once-only
+ok 9 - game roster buildings: an actual opposing unit destroys Aether and its shared-host payout is once-only
+  ---
+  duration_ms: 7202.873416
+  type: 'test'
+  ...
+# Subtest: game roster buildings: Burrow Rig travels through the shared path state and freezes its unsourced child as QUESTION
+ok 10 - game roster buildings: Burrow Rig travels through the shared path state and freezes its unsourced child as QUESTION
+  ---
+  duration_ms: 1494.827333
+  type: 'test'
+  ...
+# Subtest: game roster buildings: Cinder Reliquary dies from authoritative unit contact and triggers its death effect once
+ok 11 - game roster buildings: Cinder Reliquary dies from authoritative unit contact and triggers its death effect once
+  ---
+  duration_ms: 6584.55
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 30696.090084
+TAP version 13
+# Subtest: game troop runtime: current v3 is exactly one structural CONTENT-002 live-contact profile and a pure reducer
+ok 1 - game troop runtime: current v3 is exactly one structural CONTENT-002 live-contact profile and a pure reducer
+  ---
+  duration_ms: 8.221083
+  type: 'test'
+  ...
+# Subtest: game troop runtime: source deployment gate rejects an early v5 witness and mints one host contact at the real tick
+ok 2 - game troop runtime: source deployment gate rejects an early v5 witness and mints one host contact at the real tick
+  ---
+  duration_ms: 444.19075
+  type: 'test'
+  ...
+# Subtest: game troop runtime: current raw deploy/action boundaries reject Proxy and accessor input before observation
+ok 3 - game troop runtime: current raw deploy/action boundaries reject Proxy and accessor input before observation
+  ---
+  duration_ms: 10.20275
+  type: 'test'
+  ...
+# Subtest: game troop runtime: current v5 hostile witnesses, chunks, forks, and empty v2 bytes remain causal
+ok 4 - game troop runtime: current v5 hostile witnesses, chunks, forks, and empty v2 bytes remain causal
+  ---
+  duration_ms: 1079.393042
+  type: 'test'
+  ...
+# Subtest: game troop runtime: legacy v1/v3 and v2/v4 action snapshots remain causal and preserve atomic rejections
+ok 5 - game troop runtime: legacy v1/v3 and v2/v4 action snapshots remain causal and preserve atomic rejections
+  ---
+  duration_ms: 1036.136125
+  type: 'test'
+  ...
+# Subtest: game troop runtime: thirteen profiled live Mossguards use one v3 profile with no source cap or dummy profile
+ok 6 - game troop runtime: thirteen profiled live Mossguards use one v3 profile with no source cap or dummy profile
+  ---
+  duration_ms: 46.897625
+  type: 'test'
+  ...
+# Subtest: game troop runtime: real GameSession profile/no-profile control has one sourced 202 hit and no duplicate seam effect
+ok 7 - game troop runtime: real GameSession profile/no-profile control has one sourced 202 hit and no duplicate seam effect
+  ---
+  duration_ms: 905.830417
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3653.42775
+TAP version 13
+# Subtest: game session: one boundary commits south ingress and north proposal into one battle
+ok 1 - game session: one boundary commits south ingress and north proposal into one battle
+  ---
+  duration_ms: 59.928167
+  type: 'test'
+  ...
+# Subtest: game session: both sides materialize the default deck at exact boundaries and combat
+ok 2 - game session: both sides materialize the default deck at exact boundaries and combat
+  ---
+  duration_ms: 1458.949667
+  type: 'test'
+  ...
+# Subtest: game session: pause, resume, restart, chunks, and restore cuts preserve exact bytes
+ok 3 - game session: pause, resume, restart, chunks, and restore cuts preserve exact bytes
+  ---
+  duration_ms: 4013.4855
+  type: 'test'
+  ...
+# Subtest: game session: append-only transcript witness stays canonical across isolated ticks
+ok 4 - game session: append-only transcript witness stays canonical across isolated ticks
+  ---
+  duration_ms: 553.068542
+  type: 'test'
+  ...
+# Subtest: game session: full regulation/overtime/tiebreak reaches one frozen terminal result
+ok 5 - game session: full regulation/overtime/tiebreak reaches one frozen terminal result
+  ---
+  duration_ms: 34049.5605
+  type: 'test'
+  ...
+# Subtest: game session: illegal, insufficient, stale, duplicate, and hostile inputs are atomic
+ok 6 - game session: illegal, insufficient, stale, duplicate, and hostile inputs are atomic
+  ---
+  duration_ms: 31.634041
+  type: 'test'
+  ...
+# Subtest: game session: setup admission is scalar-safe, byte-exact, bounded, and non-observing
+ok 7 - game session: setup admission is scalar-safe, byte-exact, bounded, and non-observing
+  ---
+  duration_ms: 50.110459
+  type: 'test'
+  ...
+# Subtest: game session: transcript admission and causal replay reject all supplied witnesses
+ok 8 - game session: transcript admission and causal replay reject all supplied witnesses
+  ---
+  duration_ms: 330.694667
+  type: 'test'
+  ...
+# Subtest: game session: live simultaneous tower deaths and central terminal stop every authority exactly
+ok 9 - game session: live simultaneous tower deaths and central terminal stop every authority exactly
+  ---
+  duration_ms: 36526.507042
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 77178.685541
+TAP version 13
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 1 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 81.763875
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 2 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 220.243833
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 3 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 26.851416
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 4 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 49.47375
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy sourced projectile cards with exact deck restore
+ok 5 - RL reset and legal mask deploy sourced projectile cards with exact deck restore
+  ---
+  duration_ms: 344.474791
+  type: 'test'
+  ...
+# Subtest: RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+ok 6 - RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+  ---
+  duration_ms: 2532.468667
+  type: 'test'
+  ...
+# Subtest: RL admits Aether Well with source-aligned resource observation and exact restore
+ok 7 - RL admits Aether Well with source-aligned resource observation and exact restore
+  ---
+  duration_ms: 100.05125
+  type: 'test'
+  ...
+# Subtest: RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+ok 8 - RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+  ---
+  duration_ms: 56.710833
+  type: 'test'
+  ...
+# Subtest: RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state
+ok 9 - RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state
+  ---
+  duration_ms: 1329.2695
+  type: 'test'
+  ...
+# Subtest: RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary
+ok 10 - RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary
+  ---
+  duration_ms: 26663.444
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 11 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 78.470292
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 12 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 63.872042
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 13 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 10.810667
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 14 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 14.700667
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 15 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 51009.911709
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 16 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 45304.377667
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 128078.956
+TAP version 13
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 1 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 9759.565
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 56.861292
+  type: 'test'
+  ...
+# Subtest: editable mixed witnesses retain troop questions and exact non-unit profile receipts
+ok 3 - editable mixed witnesses retain troop questions and exact non-unit profile receipts
+  ---
+  duration_ms: 55.1605
+  type: 'test'
+  ...
+# Subtest: editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+ok 4 - editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+  ---
+  duration_ms: 10.243
+  type: 'test'
+  ...
+# Subtest: editable mixed spell and Ember Basin replay spends and cycles each card once
+ok 5 - editable mixed spell and Ember Basin replay spends and cycles each card once
+  ---
+  duration_ms: 554.818834
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 6 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 31.025125
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 7 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 11.946083
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 8 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4700.493875
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 9 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 590.641458
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 10 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2548.337875
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 11 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 1548.073458
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 12 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 4.703834
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 20103.732291
+TAP version 13
+# Subtest: game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+ok 1 - game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+  ---
+  duration_ms: 72.539917
+  type: 'test'
+  ...
+# Subtest: game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+ok 2 - game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+  ---
+  duration_ms: 58.399
+  type: 'test'
+  ...
+# Subtest: game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+ok 3 - game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+  ---
+  duration_ms: 51.67275
+  type: 'test'
+  ...
+# Subtest: game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+ok 4 - game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+  ---
+  duration_ms: 13.751667
+  type: 'test'
+  ...
+# Subtest: game spell runtime: circle tangency is included and one millitile beyond is excluded
+ok 5 - game spell runtime: circle tangency is included and one millitile beyond is excluded
+  ---
+  duration_ms: 25.679375
+  type: 'test'
+  ...
+# Subtest: game spell runtime: radius center cast damages an enemy building through shared structure health
+ok 6 - game spell runtime: radius center cast damages an enemy building through shared structure health
+  ---
+  duration_ms: 25.226875
+  type: 'test'
+  ...
+# Subtest: game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+ok 7 - game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+  ---
+  duration_ms: 0.666667
+  type: 'test'
+  ...
+# Subtest: game spell runtime: every admitted effect without the exact profile rejects before routing
+ok 8 - game spell runtime: every admitted effect without the exact profile rejects before routing
+  ---
+  duration_ms: 217.2985
+  type: 'test'
+  ...
+# Subtest: game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+ok 9 - game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+  ---
+  duration_ms: 25.637916
+  type: 'test'
+  ...
+# Subtest: game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+ok 10 - game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+  ---
+  duration_ms: 43.404458
+  type: 'test'
+  ...
+# Subtest: game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+ok 11 - game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+  ---
+  duration_ms: 15.910167
+  type: 'test'
+  ...
+# Subtest: game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+ok 12 - game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+  ---
+  duration_ms: 25.48525
+  type: 'test'
+  ...
+# Subtest: game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+ok 13 - game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+  ---
+  duration_ms: 1870.636208
+  type: 'test'
+  ...
+# Subtest: game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+ok 14 - game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+  ---
+  duration_ms: 24.146167
+  type: 'test'
+  ...
+# Subtest: game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+ok 15 - game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+  ---
+  duration_ms: 89.53875
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2682.277
+TAP version 13
+# Subtest: game shared runtime integration: referenced source-confidence QUESTION receipts remain required
+ok 1 - game shared runtime integration: referenced source-confidence QUESTION receipts remain required
+  ---
+  duration_ms: 8.773417
+  type: 'test'
+  ...
+# Subtest: game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations
+ok 2 - game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations
+  ---
+  duration_ms: 10909.750708
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11086.985709
+TAP version 13
+# \# endurance-segment {"elapsedMs":824,"snapshotBytes":44478,"tick":300}
+# \# endurance-segment {"elapsedMs":1023,"snapshotBytes":49409,"tick":600}
+# \# endurance-segment {"elapsedMs":1244,"snapshotBytes":54339,"tick":900}
+# \# endurance-segment {"elapsedMs":924,"snapshotBytes":59267,"tick":1200}
+# \# endurance-segment {"elapsedMs":1202,"snapshotBytes":64067,"tick":1500}
+# \# endurance-segment {"elapsedMs":1326,"snapshotBytes":68998,"tick":1800}
+# \# endurance-segment {"elapsedMs":1220,"snapshotBytes":73798,"tick":2100}
+# \# endurance-segment {"elapsedMs":985,"snapshotBytes":78598,"tick":2400}
+# \# endurance-segment {"elapsedMs":1042,"snapshotBytes":83528,"tick":2700}
+# \# endurance-segment {"elapsedMs":1369,"snapshotBytes":88458,"tick":3000}
+# \# endurance-segment {"elapsedMs":1358,"snapshotBytes":93389,"tick":3300}
+# \# endurance-segment {"elapsedMs":1559,"snapshotBytes":98189,"tick":3600}
+# \# endurance-segment {"elapsedMs":1520,"snapshotBytes":103123,"tick":3900}
+# \# endurance-segment {"elapsedMs":1417,"snapshotBytes":107923,"tick":4200}
+# \# endurance-segment {"elapsedMs":1279,"snapshotBytes":112723,"tick":4500}
+# \# endurance-segment {"elapsedMs":1740,"snapshotBytes":117655,"tick":4800}
+# \# endurance-segment {"elapsedMs":2034,"snapshotBytes":122585,"tick":5100}
+# \# endurance-segment {"elapsedMs":1696,"snapshotBytes":127385,"tick":5400}
+# \# endurance-segment {"elapsedMs":1790,"snapshotBytes":132185,"tick":5700}
+# \# endurance-segment {"elapsedMs":1741,"snapshotBytes":137116,"tick":6000}
+# \# endurance-segment {"elapsedMs":1488,"snapshotBytes":141916,"tick":6300}
+# \# endurance-segment {"elapsedMs":1478,"snapshotBytes":146716,"tick":6600}
+# \# endurance-segment {"elapsedMs":1581,"snapshotBytes":151647,"tick":6900}
+# \# endurance-segment {"elapsedMs":1552,"snapshotBytes":156447,"tick":7200}
+# \# endurance-segment {"elapsedMs":1835,"snapshotBytes":161247,"tick":7500}
+# \# endurance-segment {"elapsedMs":2042,"snapshotBytes":166179,"tick":7800}
+# \# endurance-segment {"elapsedMs":1812,"snapshotBytes":170979,"tick":8100}
+# \# endurance-segment {"elapsedMs":1927,"snapshotBytes":175779,"tick":8400}
+# \# endurance-segment {"elapsedMs":2060,"snapshotBytes":180711,"tick":8700}
+# \# endurance-segment {"elapsedMs":2561,"snapshotBytes":185643,"tick":9000}
+# \# endurance-segment {"elapsedMs":2343,"snapshotBytes":190443,"tick":9300}
+# \# endurance-segment {"elapsedMs":2665,"snapshotBytes":195375,"tick":9600}
+# \# endurance-segment {"elapsedMs":3006,"snapshotBytes":200305,"tick":9900}
+# \# endurance-segment {"elapsedMs":2506,"snapshotBytes":205237,"tick":10200}
+# \# endurance-segment {"elapsedMs":2364,"snapshotBytes":210037,"tick":10500}
+# \# endurance-segment {"elapsedMs":2770,"snapshotBytes":214971,"tick":10800}
+# \# endurance-segment {"elapsedMs":3685,"snapshotBytes":219905,"tick":11100}
+# \# endurance-segment {"elapsedMs":2864,"snapshotBytes":224705,"tick":11400}
+# \# endurance-segment {"elapsedMs":2857,"snapshotBytes":229505,"tick":11700}
+# \# endurance-segment {"elapsedMs":3048,"snapshotBytes":234437,"tick":12000}
+# \# endurance-segment {"elapsedMs":2597,"snapshotBytes":239237,"tick":12300}
+# \# endurance-segment {"elapsedMs":2622,"snapshotBytes":244037,"tick":12600}
+# \# endurance-segment {"elapsedMs":2989,"snapshotBytes":248967,"tick":12900}
+# \# endurance-segment {"elapsedMs":3688,"snapshotBytes":253899,"tick":13200}
+# Subtest: game session endurance: active seed-zero match is bounded across chunks and restore cuts
+not ok 1 - game session endurance: active seed-zero match is bounded across chunks and restore cuts
+  ---
+  duration_ms: 92030.964292
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14/tests/game-session-endurance.test.js:121:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    match ended before tick 18000: {"result":{"crowns":{"north":2,"south":1},"endedAtTick":13351,"kind":"win","reason":"overtime_sudden_death","winner":"north"},"towers":[{"hitpoints":1182,"id":"north:central"},{"hitpoints":0,"id":"north:lane:left"},{"hitpoints":348,"id":"north:lane:right"},{"hitpoints":4824,"id":"south:central"},{"hitpoints":0,"id":"south:lane:left"},{"hitpoints":0,"id":"south:lane:right"}]}
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    continueMatch (file:///Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14/tests/game-session-endurance.test.js:99:12)
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14/tests/game-session-endurance.test.js:123:18)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 92128.150166
+TAP version 13

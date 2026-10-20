@@ -1,0 +1,9 @@
+# Accepted-source endurance control: result and fixture diagnosis
+
+The exact accepted checkout `4a6e9f6171ae1042a03f7c8268863df9a97920e7` fails the sole requested test after 91.4 seconds. The raw TAP in `run-r4-accepted-control/stdout.raw` reports the match ending at tick 13,351 by `overtime_sudden_death`, north 2–1, before the expected tick 18,000. The direct Node process exited 1. The source prelaunch and postrun manifests are byte-identical; the checkout stayed clean.
+
+The failure is present on the accepted source, so it does not demonstrate a regression from the factory candidate. The candidate R4 prelaunch test and helper are byte-for-byte identical to the accepted control: `tests/game-session-endurance.test.js` SHA-256 `bff601b39831e47625df031995078236ea169beb0e30ac4376b2b70a30860522`; `tests/helpers/endurance-workload.js` SHA-256 `226d4f723de6312da5d4b26f76ee8e92b8e6ba3cd316893790519c2df7c0944f`.
+
+The test defines its own `deploySouth` at `tests/game-session-endurance.test.js:46` and uses it from `continueMatch`; the test imports no endurance helper or policy. In the idle refresh branch, that local copy selects `candidates[0]` (`:59–60`) and returns without deploying if that card is unaffordable (`:68`). The accepted shared helper `plannedSouthAttempt` instead finds the first affordable candidate (`tests/helpers/endurance-workload.js:159–168`). The helper also provides `createEnduranceWorkloadPolicy`, which adds aggregate overtime defense at reaction boundaries (`:325–405`, `:406–455`); the failing test does not call that policy, and its local loop decides only once per 300-tick segment.
+
+This points to an outdated standalone endurance fixture that bypasses the accepted workload policy. It plausibly explains the failure, but the exact causal sequence for the tick-13,351 tower loss is not proven without a separate diagnostic replay. No source or test was changed and no additional runtime was started.

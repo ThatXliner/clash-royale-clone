@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8">
+  <title>RL environment browser smoke test</title>
+  <pre id="result">loading</pre>
+  <script type="module">
+    const moduleUrl = new URLSearchParams(location.search).get("module") ??
+      "../src/rl/environment.js";
+    const { createRLEnvironment, RLEnvironment } = await import(moduleUrl);
+    const env = createRLEnvironment({
+      seed: "browser-check",
+      strideTicks: 2,
+      horizonTicks: 6,
+    });
+    const initial = env.reset();
+    const first = env.step(0);
+    const restored = RLEnvironment.restore(env.serialize());
+    const left = env.step(0);
+    const right = restored.step(0);
+    const result = {
+      actionCount: env.actionSpace().actionCount,
+      initialTick: initial.tick,
+      firstTick: first.observation.tick,
+      resumedSuffixMatches: JSON.stringify(left) === JSON.stringify(right),
+      status: left.observation.status,
+      tick: left.observation.tick,
+    };
+    document.querySelector("#result").textContent = JSON.stringify(result);
+  </script>
+</html>

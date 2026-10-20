@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-fixture="aether-well-battle-art">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Aether Well Battle Art Fixture</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        background: #111820;
+        font-family: system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        background: #111820;
+      }
+
+      .battle-shell {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 720px;
+        height: 1280px;
+        overflow: hidden;
+        transform-origin: top left;
+        background: #111820;
+      }
+
+      .arena {
+        position: absolute;
+        box-sizing: content-box;
+        left: 86px;
+        top: 104px;
+        width: 540px;
+        height: 960px;
+        overflow: hidden;
+        border: 4px solid #687d67;
+        border-radius: 12px;
+        background: #425e43;
+        box-shadow: inset 0 0 46px #172f25aa, 0 8px 18px #0008;
+      }
+
+      .arena::before,
+      .arena::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        pointer-events: none;
+      }
+
+      .arena::before {
+        z-index: 0;
+        background-image:
+          linear-gradient(#ffffff0b 1px, transparent 1px),
+          linear-gradient(90deg, #ffffff0b 1px, transparent 1px),
+          url("../public/assets/moss-ember-arena-painted.webp");
+        background-position: center, center, center;
+        background-repeat: repeat, repeat, no-repeat;
+        background-size: 30px 30px, 30px 30px, 100% 100%;
+      }
+
+      .arena[data-tone="light"]::before {
+        background-image:
+          linear-gradient(#e8f1d40c, #e8f1d40c),
+          linear-gradient(#ffffff0b 1px, transparent 1px),
+          linear-gradient(90deg, #ffffff0b 1px, transparent 1px),
+          url("../public/assets/moss-ember-arena-painted.webp");
+        background-repeat: no-repeat, repeat, repeat, no-repeat;
+        background-size: 100% 100%, 30px 30px, 30px 30px, 100% 100%;
+      }
+
+      .arena[data-tone="dark"]::before {
+        background-image:
+          linear-gradient(#08141bb8, #08141bb8),
+          linear-gradient(#ffffff0b 1px, transparent 1px),
+          linear-gradient(90deg, #ffffff0b 1px, transparent 1px),
+          url("../public/assets/moss-ember-arena-painted.webp");
+        background-repeat: no-repeat, repeat, repeat, no-repeat;
+        background-size: 100% 100%, 30px 30px, 30px 30px, 100% 100%;
+      }
+
+      .arena::after {
+        z-index: 4;
+        box-shadow: inset 0 0 0 2px #d9e8a526, inset 0 0 70px #172c23a0;
+      }
+
+      .arena-unit {
+        position: absolute;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="battle-shell" aria-label="540 by 960 Aether Well battle art preview">
+      <section class="arena" data-art-host data-arena-width="540" data-arena-height="960" aria-label="Arena art preview"></section>
+    </main>
+    <script type="module" src="./aether-well-battle-art.js"></script>
+  </body>
+</html>

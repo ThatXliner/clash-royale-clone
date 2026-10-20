@@ -1,0 +1,18 @@
+{
+  "candidate": "20815453f94d405963952a974a979179b7808c65",
+  "parent": "aea303091a18baeacd1b7805c415732d7a1c1417",
+  "factory_source": "a71f87d38eb423612474500cc0be60893ceb8eeb",
+  "preserved_r2": "591512ba77ee4c6f34b9ba1996630c516d09a856",
+  "owned_paths": [
+    "src/sim/battle-combat-runtime.js",
+    "src/sim/battle-continuation-kernel.js",
+    "src/sim/opaque-continuation.js",
+    "tests/battle-combat-baseline-differential.test.js",
+    "tests/nondeterminism-guard.test.js"
+  ],
+  "source_scope_difference_from_a71": [
+    "tests/game-battle.test.js",
+    "tests/game-opponent.test.js",
+    "tests/game-shared-runtime-integration.test.js"
+  ]
+}

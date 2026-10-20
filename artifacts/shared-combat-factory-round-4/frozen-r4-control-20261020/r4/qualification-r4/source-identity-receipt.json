@@ -1,0 +1,19 @@
+{
+  "candidate": "ffdaab6299f34308776cd2568f1d9f34903ecf14",
+  "parent": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "factory_source": "a71f87d38eb423612474500cc0be60893ceb8eeb",
+  "owned_paths": [
+    "src/sim/battle-combat-runtime.js",
+    "src/sim/battle-continuation-kernel.js",
+    "src/sim/opaque-continuation.js",
+    "tests/battle-combat-baseline-differential.test.js",
+    "tests/nondeterminism-guard.test.js"
+  ],
+  "toolchain_observed": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "playwright": "1.58.2",
+    "chrome": "155.0.8059.85",
+    "comparison_note": "Chrome 155.0.8059.85 was observed for this run; the prior 155.0.8059.40 pin is not comparable evidence."
+  }
+}

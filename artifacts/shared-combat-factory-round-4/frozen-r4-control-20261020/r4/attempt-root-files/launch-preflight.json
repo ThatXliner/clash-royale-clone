@@ -1,0 +1,62 @@
+{
+  "recorded_at_utc": "2026-10-20T14:02:16.393361+00:00",
+  "candidate_root": "/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14",
+  "baseline_root": "/Users/me/.codex/clash-qualification/20261020-factory/baseline-7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+  "recorder": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/recorder/run-builder-qualification-r4.sh",
+  "recorder_sha256": "0db6f493e23ba616b5c824db692f9d92d1ce7c1af5447880a600b995cbc07273",
+  "candidate_record_root": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4",
+  "outer_capture_root": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/outer-recorder-r4",
+  "outer_capture_script": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/capture-subprocess.py",
+  "launch_argv": [
+    "/usr/bin/python3",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/capture-subprocess.py",
+    "--output-dir",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/outer-recorder-r4",
+    "--cwd",
+    "/Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14",
+    "--env-json",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-env.json",
+    "--",
+    "/bin/sh",
+    "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/recorder/run-builder-qualification-r4.sh"
+  ],
+  "candidate_head": "ffdaab6299f34308776cd2568f1d9f34903ecf14",
+  "candidate_parent": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "baseline_head": "7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+  "candidate_changed_paths": [
+    "src/sim/battle-combat-runtime.js",
+    "src/sim/battle-continuation-kernel.js",
+    "src/sim/opaque-continuation.js",
+    "tests/battle-combat-baseline-differential.test.js",
+    "tests/nondeterminism-guard.test.js"
+  ],
+  "candidate_status": "",
+  "baseline_status": "",
+  "node_version": "v22.22.3",
+  "npm_version": "10.9.8",
+  "playwright_version": "1.58.2",
+  "chrome_version": "Google Chrome 155.0.8059.85",
+  "npm_ci_exit": "0",
+  "package_lock_sha256_before_ci": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "package_lock_sha256_after_ci": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "package_lock_sha256_current": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "source_git_fence": "candidate_parent_path_set\tPASS",
+  "factory_source_fences": [
+    "path\texpected_blob\tactual_blob\texpected_sha256\tactual_sha256\tresult",
+    "src/sim/battle-combat-runtime.js\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tPASS",
+    "src/sim/battle-continuation-kernel.js\td1cbde61485f4f98d04fc02785085eccda97e261\td1cbde61485f4f98d04fc02785085eccda97e261\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\tPASS",
+    "src/sim/opaque-continuation.js\t59b9af639bc189e894b15641eb1d68813819b10a\t59b9af639bc189e894b15641eb1d68813819b10a\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tPASS",
+    "tests/battle-combat-baseline-differential.test.js\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\tPASS",
+    "tests/nondeterminism-guard.test.js\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\tPASS"
+  ],
+  "source_identity_receipt_sha256": "93be40f6654f27095a9097370244762a134144b4ed20278b7c5a398130225173",
+  "source_fence_manifest_sha256": "c8031bd32d54a3045397b9e8b31c42311b0754142c325d4c471ae18276f25875",
+  "blender_liveness": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "current_uptime": "7:02  up 8 days,  1:02, 3 users, load averages: 7.72 8.88 6.90",
+  "current_top_receipt": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/current-load-check.top.txt",
+  "current_top_sha256": "3acfd79911e76b7a7e721a435c45e7b7a6aa311f2956e46868364313f796a5af"
+}

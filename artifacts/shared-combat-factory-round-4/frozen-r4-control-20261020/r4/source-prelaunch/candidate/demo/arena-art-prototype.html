@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Moss &amp; Ember — Painted Arena Prototype</title>
+    <link rel="stylesheet" href="./arena-art-prototype.css">
+  </head>
+  <body data-arena-art-host>
+    <iframe
+      id="arena-preview"
+      title="Playable Moss &amp; Ember arena with painted woodland terrain"
+      src="../public/ui-arena-shell.html?app-frame=1"
+      allow="autoplay"
+    ></iframe>
+    <p id="preview-status" class="visually-hidden" role="status" aria-live="polite">
+      Loading the painted arena preview.
+    </p>
+    <script type="module">
+      const frame = document.querySelector("#arena-preview");
+      const status = document.querySelector("#preview-status");
+
+      function fitArenaShell() {
+        const scale = Math.min(window.innerWidth / 720, window.innerHeight / 1280);
+        document.documentElement.style.setProperty("--preview-scale", String(scale));
+      }
+
+      fitArenaShell();
+      window.addEventListener("resize", fitArenaShell, { passive: true });
+
+      function showFailure(message) {
+        status.classList.remove("visually-hidden");
+        status.textContent = `Arena preview failed to start: ${message}`;
+      }
+
+      window.addEventListener("message", (event) => {
+        if (event.origin !== window.location.origin || event.source !== frame.contentWindow ||
+            event.data?.type !== "arena-art-preview-ready") return;
+        document.documentElement.dataset.previewReady = "true";
+        status.textContent = "Painted arena preview ready.";
+      });
+
+      frame.addEventListener("load", async () => {
+        try {
+          const previewDocument = frame.contentDocument;
+          if (!previewDocument?.head || !previewDocument.body) {
+            throw new Error("the arena document is unavailable");
+          }
+
+          previewDocument.body.dataset.arenaArtPreview = "true";
+          await new Promise((resolve, reject) => {
+            const link = previewDocument.createElement("link");
+            link.rel = "stylesheet";
+            link.href = new URL("./arena-art-prototype.css", window.location.href).href;
+            link.onload = resolve;
+            link.onerror = () => reject(new Error("the prototype stylesheet did not load"));
+            previewDocument.head.append(link);
+          });
+
+          // Keep the real shell, units, HUD, river, bridges, and towers. Only
+          // replace the arena's terrain layer in this isolated preview.
+          const bootstrap = previewDocument.createElement("script");
+          bootstrap.type = "module";
+          bootstrap.textContent = `
+            import { arenaHudController } from "/src/ui/arena-shell-entry.js";
+            arenaHudController.resume();
+            arenaHudController.start();
+            arenaHudController.enterManualStepMode();
+            window.parent.postMessage(
+              { type: "arena-art-preview-ready" }, window.location.origin,
+            );
+          `;
+          previewDocument.body.append(bootstrap);
+        } catch (error) {
+          showFailure(error instanceof Error ? error.message : String(error));
+        }
+      }, { once: true });
+    </script>
+  </body>
+</html>

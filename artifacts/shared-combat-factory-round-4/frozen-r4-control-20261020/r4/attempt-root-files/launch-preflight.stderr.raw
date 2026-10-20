@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/launch-preflight.py", line 66, in <module>
+    insist(identity_sha == '93be40f6654f27095a9097370242782a134144b4ed20278b7c5a398130225173', 'identity receipt digest mismatch')
+  File "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/launch-preflight.py", line 24, in insist
+    raise RuntimeError(message)
+RuntimeError: identity receipt digest mismatch

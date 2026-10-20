@@ -1,0 +1,31 @@
+{
+  "state": "prelaunch_fence_pass",
+  "captured_at_utc": "2026-10-20T14:32:19.847793+00:00",
+  "head": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "expected_head": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "parent": "002e7bd4a659c1b19b5956649228db3f2b73aa63",
+  "status_porcelain_v1": "",
+  "source_file_count": 531,
+  "source_manifest_sha256": "ab81042b79811529deffd14f7a7b7dd43f9eccdc2518218f5e63dc5c06dc3235",
+  "snapshot_manifest_sha256": "ab81042b79811529deffd14f7a7b7dd43f9eccdc2518218f5e63dc5c06dc3235",
+  "node_executable": "/Users/me/.hermes/node/bin/node",
+  "node_executable_sha256": "5d9d3872911e2340a43b707962e68143de8a4e8d54628845c0c4f2de1fb7cd5c",
+  "argv": [
+    "/Users/me/.hermes/node/bin/node",
+    "--test",
+    "--test-name-pattern=game session endurance: active seed-zero match is bounded across chunks and restore cuts",
+    "tests/game-session-endurance.test.js"
+  ],
+  "env_keys": [
+    "CI",
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "NO_COLOR",
+    "PATH",
+    "TMPDIR"
+  ],
+  "endurance_override_present": false,
+  "cwd": "/Users/me/.codex/clash-qualification/20261020-factory/accepted-control-attempt-20261020T142621Z/accepted-4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "run_output_dir_absent": true
+}

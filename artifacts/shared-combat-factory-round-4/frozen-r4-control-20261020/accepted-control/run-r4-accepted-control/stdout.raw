@@ -1,0 +1,79 @@
+TAP version 13
+# \# endurance-segment {"elapsedMs":812,"snapshotBytes":44478,"tick":300}
+# \# endurance-segment {"elapsedMs":1020,"snapshotBytes":49409,"tick":600}
+# \# endurance-segment {"elapsedMs":1234,"snapshotBytes":54339,"tick":900}
+# \# endurance-segment {"elapsedMs":907,"snapshotBytes":59267,"tick":1200}
+# \# endurance-segment {"elapsedMs":1221,"snapshotBytes":64067,"tick":1500}
+# \# endurance-segment {"elapsedMs":1330,"snapshotBytes":68998,"tick":1800}
+# \# endurance-segment {"elapsedMs":1211,"snapshotBytes":73798,"tick":2100}
+# \# endurance-segment {"elapsedMs":1005,"snapshotBytes":78598,"tick":2400}
+# \# endurance-segment {"elapsedMs":1033,"snapshotBytes":83528,"tick":2700}
+# \# endurance-segment {"elapsedMs":1326,"snapshotBytes":88458,"tick":3000}
+# \# endurance-segment {"elapsedMs":1343,"snapshotBytes":93389,"tick":3300}
+# \# endurance-segment {"elapsedMs":1529,"snapshotBytes":98189,"tick":3600}
+# \# endurance-segment {"elapsedMs":1548,"snapshotBytes":103123,"tick":3900}
+# \# endurance-segment {"elapsedMs":1420,"snapshotBytes":107923,"tick":4200}
+# \# endurance-segment {"elapsedMs":1281,"snapshotBytes":112723,"tick":4500}
+# \# endurance-segment {"elapsedMs":1733,"snapshotBytes":117655,"tick":4800}
+# \# endurance-segment {"elapsedMs":2009,"snapshotBytes":122585,"tick":5100}
+# \# endurance-segment {"elapsedMs":1709,"snapshotBytes":127385,"tick":5400}
+# \# endurance-segment {"elapsedMs":1826,"snapshotBytes":132185,"tick":5700}
+# \# endurance-segment {"elapsedMs":1797,"snapshotBytes":137116,"tick":6000}
+# \# endurance-segment {"elapsedMs":1499,"snapshotBytes":141916,"tick":6300}
+# \# endurance-segment {"elapsedMs":1464,"snapshotBytes":146716,"tick":6600}
+# \# endurance-segment {"elapsedMs":1548,"snapshotBytes":151647,"tick":6900}
+# \# endurance-segment {"elapsedMs":1555,"snapshotBytes":156447,"tick":7200}
+# \# endurance-segment {"elapsedMs":1834,"snapshotBytes":161247,"tick":7500}
+# \# endurance-segment {"elapsedMs":2039,"snapshotBytes":166179,"tick":7800}
+# \# endurance-segment {"elapsedMs":1812,"snapshotBytes":170979,"tick":8100}
+# \# endurance-segment {"elapsedMs":1870,"snapshotBytes":175779,"tick":8400}
+# \# endurance-segment {"elapsedMs":2088,"snapshotBytes":180711,"tick":8700}
+# \# endurance-segment {"elapsedMs":2578,"snapshotBytes":185643,"tick":9000}
+# \# endurance-segment {"elapsedMs":2353,"snapshotBytes":190443,"tick":9300}
+# \# endurance-segment {"elapsedMs":2644,"snapshotBytes":195375,"tick":9600}
+# \# endurance-segment {"elapsedMs":2777,"snapshotBytes":200305,"tick":9900}
+# \# endurance-segment {"elapsedMs":2493,"snapshotBytes":205237,"tick":10200}
+# \# endurance-segment {"elapsedMs":2356,"snapshotBytes":210037,"tick":10500}
+# \# endurance-segment {"elapsedMs":2686,"snapshotBytes":214971,"tick":10800}
+# \# endurance-segment {"elapsedMs":3682,"snapshotBytes":219905,"tick":11100}
+# \# endurance-segment {"elapsedMs":2846,"snapshotBytes":224705,"tick":11400}
+# \# endurance-segment {"elapsedMs":2783,"snapshotBytes":229505,"tick":11700}
+# \# endurance-segment {"elapsedMs":2986,"snapshotBytes":234437,"tick":12000}
+# \# endurance-segment {"elapsedMs":2591,"snapshotBytes":239237,"tick":12300}
+# \# endurance-segment {"elapsedMs":2630,"snapshotBytes":244037,"tick":12600}
+# \# endurance-segment {"elapsedMs":2927,"snapshotBytes":248967,"tick":12900}
+# \# endurance-segment {"elapsedMs":3652,"snapshotBytes":253899,"tick":13200}
+# Subtest: game session endurance: active seed-zero match is bounded across chunks and restore cuts
+not ok 1 - game session endurance: active seed-zero match is bounded across chunks and restore cuts
+  ---
+  duration_ms: 91326.649
+  type: 'test'
+  location: '/Users/me/.codex/clash-qualification/20261020-factory/accepted-control-attempt-20261020T142621Z/accepted-4a6e9f6171ae1042a03f7c8268863df9a97920e7/tests/game-session-endurance.test.js:121:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    match ended before tick 18000: {"result":{"crowns":{"north":2,"south":1},"endedAtTick":13351,"kind":"win","reason":"overtime_sudden_death","winner":"north"},"towers":[{"hitpoints":1182,"id":"north:central"},{"hitpoints":0,"id":"north:lane:left"},{"hitpoints":348,"id":"north:lane:right"},{"hitpoints":4824,"id":"south:central"},{"hitpoints":0,"id":"south:lane:left"},{"hitpoints":0,"id":"south:lane:right"}]}
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    continueMatch (file:///Users/me/.codex/clash-qualification/20261020-factory/accepted-control-attempt-20261020T142621Z/accepted-4a6e9f6171ae1042a03f7c8268863df9a97920e7/tests/game-session-endurance.test.js:99:12)
+    TestContext.<anonymous> (file:///Users/me/.codex/clash-qualification/20261020-factory/accepted-control-attempt-20261020T142621Z/accepted-4a6e9f6171ae1042a03f7c8268863df9a97920e7/tests/game-session-endurance.test.js:123:18)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91424.363583

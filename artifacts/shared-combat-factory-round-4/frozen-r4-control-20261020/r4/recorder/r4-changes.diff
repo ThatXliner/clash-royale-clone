@@ -1,0 +1,85 @@
+--- /Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/recorder/r3-recorder-corrected.sh	2026-10-20 06:57:42
++++ /Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/recorder/run-builder-qualification-r4.sh	2026-10-20 06:55:51
+@@ -1,14 +1,14 @@
+ #!/bin/sh
+ set -u
+-PATH=/usr/bin:/bin:/usr/sbin:/sbin
++PATH=/bin:/usr/bin:/usr/sbin:/sbin
+ export PATH
+ 
+ EXPECTED_BASELINE=7f41167c2429eec637dbb7c5f838fa3b404ab4d2
+-BASELINE_ROOT=/private/tmp/game-001htjx-baseline
++BASELINE_ROOT=/Users/me/.codex/clash-qualification/20261020-factory/baseline-7f41167c2429eec637dbb7c5f838fa3b404ab4d2
+ EXPECTED_FACTORY_SOURCE=a71f87d38eb423612474500cc0be60893ceb8eeb
+-PINNED_CANDIDATE=20815453f94d405963952a974a979179b7808c65
+-PINNED_PARENT=aea303091a18baeacd1b7805c415732d7a1c1417
+-EXPECTED_IDENTITY_RECEIPT_SHA=91fc1a3896ab00cc4f62aeda24c12bc73b2dfd6819b6983d847e2665464f11a4
++PINNED_CANDIDATE=ffdaab6299f34308776cd2568f1d9f34903ecf14
++PINNED_PARENT=4a6e9f6171ae1042a03f7c8268863df9a97920e7
++EXPECTED_IDENTITY_RECEIPT_SHA=93be40f6654f27095a9097370244762a134144b4ed20278b7c5a398130225173
+ EXPECTED_FENCE_MANIFEST_SHA=c8031bd32d54a3045397b9e8b31c42311b0754142c325d4c471ae18276f25875
+ EXPECTED_FENCE_COUNT=5
+ NODE_BIN_DIR=/Users/me/.hermes/node/bin
+@@ -17,9 +17,9 @@
+ EXPECTED_NPM_VERSION=10.9.8
+ CHROME_BINARY='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+ CHROME_INFO_PLIST='/Applications/Google Chrome.app/Contents/Info.plist'
+-EXPECTED_CHROME_VERSION=155.0.8059.40
++EXPECTED_CHROME_VERSION=155.0.8059.85
+ EXPECTED_PLAYWRIGHT_VERSION=1.58.2
+-SYSTEM_PATH=/usr/bin:/bin:/usr/sbin:/sbin
++SYSTEM_PATH=/bin:/usr/bin:/usr/sbin:/sbin
+ ENV_BIN=/usr/bin/env
+ RELEASE_FENCE_ENV=GAME001HTJX_RUNTIME_RELEASE
+ 
+@@ -29,7 +29,7 @@
+ RECORD_ROOT=${FACTORY_RECORD_ROOT:-}
+ record_root=
+ 
+-SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" 2>/dev/null && pwd -P) || exit 2
++SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" 2>/dev/null && /bin/pwd -P) || exit 2
+ SOURCE_FENCE_MANIFEST=$SCRIPT_DIR/source-fences-a71.tsv
+ SOURCE_IDENTITY_RECEIPT=$SCRIPT_DIR/source-identity-receipt.json
+ 
+@@ -53,11 +53,11 @@
+ case "$CANDIDATE_ROOT" in /*) ;; *) fail "candidate root must be an absolute path" ;; esac
+ case "$RECORD_ROOT" in /*) ;; *) fail "record root must be an absolute path" ;; esac
+ [ ! -e "$RECORD_ROOT" ] || fail "refusing to overwrite record root $RECORD_ROOT"
+-mkdir -p "$RECORD_ROOT" || fail "cannot create record root $RECORD_ROOT"
++/bin/mkdir -p "$RECORD_ROOT" || fail "cannot create record root $RECORD_ROOT"
+ record_root=$RECORD_ROOT
+ 
+-candidate_root=$(CDPATH= cd "$CANDIDATE_ROOT" 2>/dev/null && pwd -P) || fail "candidate root unavailable: $CANDIDATE_ROOT"
+-baseline_root=$(CDPATH= cd "$BASELINE_ROOT" 2>/dev/null && pwd -P) || fail "baseline root unavailable: $BASELINE_ROOT"
++candidate_root=$(CDPATH= cd "$CANDIDATE_ROOT" 2>/dev/null && /bin/pwd -P) || fail "candidate root unavailable: $CANDIDATE_ROOT"
++baseline_root=$(CDPATH= cd "$BASELINE_ROOT" 2>/dev/null && /bin/pwd -P) || fail "baseline root unavailable: $BASELINE_ROOT"
+ [ "$candidate_root" = "$CANDIDATE_ROOT" ] || fail "candidate path mismatch: $candidate_root"
+ [ "$baseline_root" = "$BASELINE_ROOT" ] || fail "baseline path mismatch: $baseline_root"
+ case "$record_root/" in "$candidate_root/"*) fail "record root must be outside candidate checkout" ;; esac
+@@ -100,7 +100,7 @@
+ PLAYWRIGHT_CORE_SHA=$(/usr/bin/shasum -a 256 "$candidate_root/node_modules/playwright-core/package.json" | /usr/bin/awk '{print $1}') || fail "cannot hash private Playwright core package"
+ VITE_PACKAGE_SHA=$(/usr/bin/shasum -a 256 "$candidate_root/node_modules/vite/package.json" | /usr/bin/awk '{print $1}') || fail "cannot hash private Vite package"
+ 
+-mkdir -p "$record_root/home" "$record_root/tmp" "$record_root/npm-cache" "$record_root/playwright-browsers" "$record_root/preexisting-generated-reports/npm-default" "$record_root/new-generated-reports/npm-default"
++/bin/mkdir -p "$record_root/home" "$record_root/tmp" "$record_root/npm-cache" "$record_root/playwright-browsers" "$record_root/preexisting-generated-reports/npm-default" "$record_root/new-generated-reports/npm-default"
+ /bin/cp -p "$SOURCE_FENCE_MANIFEST" "$record_root/source-fences-a71.tsv" || fail "cannot preserve source fence manifest"
+ /bin/cp -p "$SOURCE_IDENTITY_RECEIPT" "$record_root/source-identity-receipt.json" || fail "cannot preserve source identity receipt"
+ recorder_source=$SCRIPT_DIR/$(/usr/bin/basename "$0")
+@@ -410,14 +410,14 @@
+ cd "$candidate_root" || fail "cannot enter candidate checkout"
+ 
+ # Preserve the known fixed report roots; the pinned clean candidate commit holds all other originals.
+-mkdir -p "$record_root/preexisting-generated-reports/artifacts"
++/bin/mkdir -p "$record_root/preexisting-generated-reports/artifacts"
+ for generated_root in $GENERATED_ROOTS; do
+   [ -d "$candidate_root/$generated_root" ] || fail "expected generated-report root unavailable: $generated_root"
+-  mkdir -p "$record_root/preexisting-generated-reports/$generated_root"
++  /bin/mkdir -p "$record_root/preexisting-generated-reports/$generated_root"
+   /usr/bin/ditto "$candidate_root/$generated_root" "$record_root/preexisting-generated-reports/$generated_root" || fail "cannot preserve $generated_root"
+ done
+ [ -f "$candidate_root/$REPORT_PATH" ] || fail "pre-existing shipping-isolation report unavailable"
+-mkdir -p "$record_root/preexisting-generated-reports/artifacts/guard-002r-round-1"
++/bin/mkdir -p "$record_root/preexisting-generated-reports/artifacts/guard-002r-round-1"
+ /bin/cp -p "$candidate_root/$REPORT_PATH" "$record_root/preexisting-generated-reports/$REPORT_PATH" || fail "cannot preserve $REPORT_PATH"
+ /usr/bin/find "$record_root/preexisting-generated-reports/artifacts" -type f -print | sort > "$record_root/preexisting-generated-reports/files.txt"
+ /usr/bin/find "$record_root/preexisting-generated-reports/artifacts" -type f -exec /usr/bin/shasum -a 256 {} \; > "$record_root/preexisting-generated-reports/sha256.txt"

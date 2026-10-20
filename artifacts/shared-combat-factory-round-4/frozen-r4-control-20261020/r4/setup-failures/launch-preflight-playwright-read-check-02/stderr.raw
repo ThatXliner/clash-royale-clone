@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/launch-preflight.py", line 72, in <module>
+    insist(path.is_file() and os.access(str(path), os.X_OK if path.name != 'package.json' else os.R_OK), 'toolchain file unavailable: ' + str(path))
+  File "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/launch-preflight.py", line 24, in insist
+    raise RuntimeError(message)
+RuntimeError: toolchain file unavailable: /Users/me/.codex/clash-qualification/20261020-factory/candidate-ffdaab6299f34308776cd2568f1d9f34903ecf14/node_modules/playwright/index.mjs

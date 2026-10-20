@@ -1,0 +1,120 @@
+{
+  "status": "first TAP failure; default npm test stopped by recorder monitor",
+  "recorded_at_utc": "2026-10-20T14:26:04.344389+00:00",
+  "candidate": {
+    "commit": "ffdaab6299f34308776cd2568f1d9f34903ecf14",
+    "parent": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+    "paths": [
+      "src/sim/battle-combat-runtime.js",
+      "src/sim/battle-continuation-kernel.js",
+      "src/sim/opaque-continuation.js",
+      "tests/battle-combat-baseline-differential.test.js",
+      "tests/nondeterminism-guard.test.js"
+    ]
+  },
+  "baseline_commit": "7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+  "toolchain": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "playwright": "1.58.2",
+    "chrome": "155.0.8059.85",
+    "npm_ci_exit": "0",
+    "lock_sha256_before": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+    "lock_sha256_after": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+  },
+  "gate": {
+    "name": "01-repository-default-npm-test",
+    "direct_pid": 8787,
+    "direct_exit": 130,
+    "outer_capture_pid": 8399,
+    "outer_capture_exit": "130",
+    "release_build": "not reached after first nonzero test gate"
+  },
+  "failure": {
+    "tap": "not ok 1 - game session endurance: active seed-zero match is bounded across chunks and restore cuts",
+    "file": "tests/game-session-endurance.test.js",
+    "test_line": 121,
+    "assertion_line": 99,
+    "expected": "false (match remains active until the tick 18000 check)",
+    "actual": "true (match ended early)",
+    "actual_end_tick": 13351,
+    "reason": "overtime_sudden_death",
+    "winner": "north",
+    "crowns": {
+      "north": 2,
+      "south": 1
+    },
+    "error_code": "ERR_ASSERTION"
+  },
+  "stop_receipt": {
+    "path": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4/01-repository-default-npm-test.stop.txt",
+    "text": "SIGINT\treason=first TAP failure marker observed; stop the default dispatcher\npid_tree\t8787 8804 8814 19075 19076 19077\n",
+    "meaning": "monitor sent SIGINT after copying the first-failure stdout/stderr prefix; gate exit 130 is the intentional stopped-dispatcher exit"
+  },
+  "source_postrun": {
+    "prelaunch_copy": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/source-prelaunch",
+    "postrun_copy": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/source-postrun",
+    "checksum_manifests_byte_identical": true,
+    "input_checksum_lines": 757,
+    "fences": {
+      "prelaunch": {
+        "path": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/source-prelaunch/factory-source-fences.tsv",
+        "sha256": "24c4f11680dfb2a95584c040eaf6d295075c0686336de32550bc8abfaaedd74a",
+        "rows": [
+          "path\texpected_blob\tactual_blob\texpected_sha256\tactual_sha256\tresult",
+          "src/sim/battle-combat-runtime.js\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tPASS",
+          "src/sim/battle-continuation-kernel.js\td1cbde61485f4f98d04fc02785085eccda97e261\td1cbde61485f4f98d04fc02785085eccda97e261\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\tPASS",
+          "src/sim/opaque-continuation.js\t59b9af639bc189e894b15641eb1d68813819b10a\t59b9af639bc189e894b15641eb1d68813819b10a\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tPASS",
+          "tests/battle-combat-baseline-differential.test.js\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\tPASS",
+          "tests/nondeterminism-guard.test.js\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\tPASS"
+        ]
+      },
+      "gate_before_test": {
+        "path": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4/01-repository-default-npm-test.source-fences.tsv",
+        "sha256": "8d05cd4db7a28c9072b0e0f9dced1ac8447c69559a8354072c2829ddf15bb386",
+        "rows": [
+          "candidate_head\tffdaab6299f34308776cd2568f1d9f34903ecf14",
+          "candidate_parent\t4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+          "baseline_head\t7f41167c2429eec637dbb7c5f838fa3b404ab4d2",
+          "manifest_sha256\tc8031bd32d54a3045397b9e8b31c42311b0754142c325d4c471ae18276f25875",
+          "path\texpected_blob\tactual_blob\texpected_sha256\tactual_sha256",
+          "src/sim/battle-combat-runtime.js\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8",
+          "src/sim/battle-continuation-kernel.js\td1cbde61485f4f98d04fc02785085eccda97e261\td1cbde61485f4f98d04fc02785085eccda97e261\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732",
+          "src/sim/opaque-continuation.js\t59b9af639bc189e894b15641eb1d68813819b10a\t59b9af639bc189e894b15641eb1d68813819b10a\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e",
+          "tests/battle-combat-baseline-differential.test.js\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c",
+          "tests/nondeterminism-guard.test.js\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93"
+        ]
+      },
+      "postrun": {
+        "path": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/source-postrun/factory-source-fences.tsv",
+        "sha256": "24c4f11680dfb2a95584c040eaf6d295075c0686336de32550bc8abfaaedd74a",
+        "rows": [
+          "path\texpected_blob\tactual_blob\texpected_sha256\tactual_sha256\tresult",
+          "src/sim/battle-combat-runtime.js\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\t9254a3ed9bbf27aa8fac9ec72d473f1d7cfc15b6\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tcdb0e1405ddd0a768e1f79de9266dcf4da764f7c063f61d8bc05e8935b84e1f8\tPASS",
+          "src/sim/battle-continuation-kernel.js\td1cbde61485f4f98d04fc02785085eccda97e261\td1cbde61485f4f98d04fc02785085eccda97e261\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\t502d46024ce38d6a655025a25bdc831687b98921d31c1c90ecaf9d41b0ebe732\tPASS",
+          "src/sim/opaque-continuation.js\t59b9af639bc189e894b15641eb1d68813819b10a\t59b9af639bc189e894b15641eb1d68813819b10a\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tc1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e\tPASS",
+          "tests/battle-combat-baseline-differential.test.js\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t9477950f1ce9425ae74846cd3c67f5e0c84e0c83\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\t5599d8a04aa0926a6b2cfd66cfd5752648b0dc2286fc9195f70b07b09e1ca62c\tPASS",
+          "tests/nondeterminism-guard.test.js\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\td5bd51193fd0db6418213f2456cc42f0c8b4ea12\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\t637be08373a2de24409b35d9dc8d95d193f0fcfef2ac38571729a5800bc99a93\tPASS"
+        ]
+      }
+    },
+    "prelaunch_candidate_git_status": "## HEAD (no branch)\n",
+    "postrun_candidate_git_status": "## HEAD (no branch)\n",
+    "candidate_porcelain_after_restore": "",
+    "baseline_porcelain_after_run": ""
+  },
+  "artifact_restoration": [
+    "artifact\tverification",
+    "release-001b-diff-exit\t0",
+    "release-001w-diff-exit\t0",
+    "shipping-isolation-cmp-exit\t0"
+  ],
+  "raw": {
+    "stdout": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4/01-repository-default-npm-test.stdout",
+    "stderr": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4/01-repository-default-npm-test.stderr",
+    "first_failure_prefix": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4/01-repository-default-npm-test.first-failure-raw-prefix.txt",
+    "first_failure_prefix_sha256": "f7153ddbb4af08b605d01ccb103af6f40cb3b80c57560b94bc6d1408ccfe0e0a",
+    "outer_capture": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/outer-recorder-r4",
+    "process_closure": "/Users/me/.codex/clash-qualification/20261020-factory/attempt-20261020T134946Z/qualification-r4/process-closure-after-first-failure.json"
+  }
+}

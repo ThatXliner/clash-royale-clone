@@ -1,0 +1,22 @@
+{
+  "checkout_head": "4a6e9f6171ae1042a03f7c8268863df9a97920e7",
+  "checkout_clean": true,
+  "prepost_source_bytes_identical": true,
+  "test_name": "game session endurance: active seed-zero match is bounded across chunks and restore cuts",
+  "direct_pid": 21296,
+  "direct_exit": 1,
+  "test_count": 1,
+  "pass": 0,
+  "fail": 1,
+  "skip": 0,
+  "failure": "match ended before tick 18000 at tick 13351; overtime_sudden_death; north won 2-1",
+  "test_duration_ms": 91424.363583,
+  "run_duration_ms": 91326.649,
+  "raw_stdout": "run-r4-accepted-control/stdout.raw",
+  "raw_stderr": "run-r4-accepted-control/stderr.raw",
+  "raw_stdout_sha256": "3a0e07d682ea13b807b4375f42957e956777f294620181b7a026fd093c2fc0fc",
+  "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "full_test_scope_preserved": true,
+  "GAME_SESSION_ENDURANCE_TICKS_override_present": false,
+  "notes": "Accepted-source baseline control only; result does not by itself attribute cause to the factory candidate."
+}

@@ -1,0 +1,20 @@
+--- /private/tmp/game-001htjx-r3-recorder-prepared/run-builder-qualification-r3.sh	2026-10-15 17:48:01
++++ /private/tmp/game-001htjx-r3-recorder-corrected/run-builder-qualification-r3-portable.sh	2026-10-15 18:00:13
+@@ -324,7 +324,7 @@
+     source_path=$candidate_root/$relative
+     if [ -e "$source_path" ] || [ -L "$source_path" ]; then
+       destination=$destination_root/$relative
+-      /usr/bin/mkdir -p "$(/usr/bin/dirname "$destination")" || { capture_problem "cannot create evidence directory for $relative"; continue; }
++      /bin/mkdir -p "$(/usr/bin/dirname "$destination")" || { capture_problem "cannot create evidence directory for $relative"; continue; }
+       /usr/bin/ditto "$source_path" "$destination" || capture_problem "cannot preserve changed worktree file $relative"
+     fi
+   done < "$paths_file"
+@@ -334,7 +334,7 @@
+   stage=$1
+   capture_fatal=$2
+   stage_root=$record_root/worktree-changes/$stage
+-  /usr/bin/mkdir -p "$stage_root/tracked-after" "$stage_root/untracked-after" || { capture_problem "cannot create worktree-change evidence directory for $stage"; return; }
++  /bin/mkdir -p "$stage_root/tracked-after" "$stage_root/untracked-after" || { capture_problem "cannot create worktree-change evidence directory for $stage"; return; }
+   /usr/bin/git -C "$candidate_root" status --porcelain --untracked-files=all > "$stage_root/status-before-restore.txt" 2> "$stage_root/status.stderr" || capture_problem "cannot read status before $stage artifact restoration"
+   /usr/bin/git -C "$candidate_root" diff --binary "$EXPECTED_CANDIDATE" -- > "$stage_root/tracked-worktree-diff.patch" 2> "$stage_root/tracked-worktree-diff.stderr" || capture_problem "cannot capture tracked diff for $stage"
+   /usr/bin/git -C "$candidate_root" diff --name-only "$EXPECTED_CANDIDATE" -- > "$stage_root/tracked-paths.txt" 2> "$stage_root/tracked-paths.stderr" || capture_problem "cannot list tracked changes for $stage"
