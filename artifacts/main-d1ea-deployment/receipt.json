@@ -1,0 +1,53 @@
+{
+  "commit": "d1ea5a1ef110447741737c64efefb6c2f0919486",
+  "pages_run": "39490469884",
+  "workflow": "success",
+  "scope": "HTTP artifact delivery only; no new browser interaction proof",
+  "checks": [
+    {
+      "path": "./index.html",
+      "url": "https://bryanhu.com/clash-royale-clone/index.html",
+      "http_status": "200",
+      "curl_exit": 0,
+      "expected_sha256": "66432f1eb0acaea670b2ddbe99741ad31b7c7f86552aefc2d071aa277eb893f4",
+      "actual_sha256": "66432f1eb0acaea670b2ddbe99741ad31b7c7f86552aefc2d071aa277eb893f4",
+      "exact_match": true,
+      "expected_bytes": 7455,
+      "actual_bytes": 7455
+    },
+    {
+      "path": "./game/public/index.html",
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "http_status": "200",
+      "curl_exit": 0,
+      "expected_sha256": "575d2241579a501d52efa6a49cda19f003b0033582c6bfa79315965c3a5d2052",
+      "actual_sha256": "575d2241579a501d52efa6a49cda19f003b0033582c6bfa79315965c3a5d2052",
+      "exact_match": true,
+      "expected_bytes": 14867,
+      "actual_bytes": 14867
+    },
+    {
+      "path": "./game/src/ui/app-shell.js",
+      "url": "https://bryanhu.com/clash-royale-clone/game/src/ui/app-shell.js",
+      "http_status": "200",
+      "curl_exit": 0,
+      "expected_sha256": "4e900ee98ba5f14481643cc4fe4645e6dbc5f775118aa61d0d7b378b16d8ad86",
+      "actual_sha256": "4e900ee98ba5f14481643cc4fe4645e6dbc5f775118aa61d0d7b378b16d8ad86",
+      "exact_match": true,
+      "expected_bytes": 102,
+      "actual_bytes": 102
+    },
+    {
+      "path": "./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CSeKzmss.js",
+      "url": "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CSeKzmss.js",
+      "http_status": "200",
+      "curl_exit": 0,
+      "expected_sha256": "99d3b2afa68e251babd43b47311df4688ba24947aa6d2672905c0a4f9c0de0cc",
+      "actual_sha256": "99d3b2afa68e251babd43b47311df4688ba24947aa6d2672905c0a4f9c0de0cc",
+      "exact_match": true,
+      "expected_bytes": 474883,
+      "actual_bytes": 474883
+    }
+  ],
+  "current_main_runtime_identical_to_deployment": "68d1aa2e629283607f0766fc1faac160348a2550"
+}
