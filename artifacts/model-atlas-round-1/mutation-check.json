@@ -1,0 +1,8 @@
+{
+  "test": "Append one byte to a copied source PNG; the original delivered source tree remains unchanged.",
+  "mutated_input": "inputs/raw-256/mossguard-r1/mossguard-river-east-idle.png",
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "error: /Users/me/.codex/clash-qualification/20261020-moss-coil-atlas-critic/atlas-mutation-kgxvznr8/payload/inputs/raw-256/mossguard-r1/mossguard-river-east-idle.png: source sha256 changed (ab2c08d3e68c3fe86a9da2bd0370b19af792ab6e808af8f12d1777fd2e3bbead)",
+  "rejected_for_sha256_mismatch": true
+}

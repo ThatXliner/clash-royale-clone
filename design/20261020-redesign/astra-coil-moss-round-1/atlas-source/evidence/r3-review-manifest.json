@@ -1,0 +1,151 @@
+{
+  "review": "Coilblade R3 native art critique",
+  "reviewed_at": "2026-10-20",
+  "attempt_id": "attempt-20261020T200122Z-42405",
+  "attempt_root": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405",
+  "scope": "Standalone native-scale saber identity, portrait read, rendered headings and poses, team masks, crop and anchor, editable source and preservation. No live-game, full-cast, or motion acceptance.",
+  "verdicts": {
+    "A": {
+      "status": "FAIL",
+      "native_saber_read": "fail: at a 13 px body, the exposed blade often collapses to a short, nearly straight stroke",
+      "portrait_saber_read": "reads as a curved crescent, but does not make up for the native-scale failure"
+    },
+    "B": {
+      "status": "PASS",
+      "native_saber_read": "pass: the long hooked crescent remains visible in all four actor-facing headings",
+      "portrait_saber_read": "pass: pointed, narrow curved saber; the body stays readable",
+      "selected": true
+    }
+  },
+  "selection_rationale": "B is the only variant that clears both the native 13 px and portrait saber-read criteria. A shows a stronger rising arc in its portrait but loses the weapon profile at native size.",
+  "review_checks": {
+    "recognizable_character": "pass: bronze bell, single eye, moss scarf, copper limbs, and teal tabard remain legible",
+    "actor_facing_headings": "pass: saved camera contract derives headings from projected actor-forward local -Y; actual output columns are north/east/south/west and east/west do not mirror",
+    "distinct_poses": "pass with subtle idle/walk separation; contact clearly extends the arm and saber",
+    "team_read": "pass: river teal and ember coral rings remain distinct in native color renders",
+    "team_masks_and_restoration": "pass: native team masks render and restoration_exact is true",
+    "framing": "pass: common 50 degree elevation, orthographic scale 8.025, ground anchor [0.5, 0.84375] = pixel (32, 54)",
+    "crop": "pass: 64 px native outputs have at least 2 px bottom alpha margin; saved-blade margins are 2.4837 px for A and 2.8185 px for B",
+    "source_and_frozen_inputs_unchanged": true,
+    "reference_imported": false,
+    "mossguard_rendered_or_changed": false
+  },
+  "fresh_render_evidence": {
+    "runtime": {
+      "wrapper_exit_code": 0,
+      "measurement_and_generation_exit_code": 0,
+      "saved_model_render_exit_code": 0,
+      "started_at": "2026-10-20T20:01:22.641346+00:00",
+      "finished_at": "2026-10-20T20:01:58.675343+00:00"
+    },
+    "per_variant": {
+      "A": {
+        "fresh_native_count": 32,
+        "candidate_color_count": 24,
+        "team_mask_count": 8,
+        "fresh_portrait_count": 1,
+        "directions": ["north", "east", "south", "west"],
+        "teams": ["river", "ember"],
+        "poses": ["idle", "walk", "contact"],
+        "native_png_hashes_verified": true,
+        "portrait_hash_verified": true,
+        "render_receipt": {
+          "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/renders/A/render-receipt.json",
+          "sha256": "7b0069a2c5b9d97c368dbcde813b08c28e9e413f6630c9be660fefd6d4de232d"
+        }
+      },
+      "B": {
+        "fresh_native_count": 32,
+        "candidate_color_count": 24,
+        "team_mask_count": 8,
+        "fresh_portrait_count": 1,
+        "directions": ["north", "east", "south", "west"],
+        "teams": ["river", "ember"],
+        "poses": ["idle", "walk", "contact"],
+        "native_png_hashes_verified": true,
+        "portrait_hash_verified": true,
+        "render_receipt": {
+          "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/renders/B/render-receipt.json",
+          "sha256": "79ac2bc3e696dbc2d5cafaf7b51ed18e3810505a2de1b6b7237944da088c8df1"
+        }
+      }
+    },
+    "attempt_receipt": {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/run-receipt.json",
+      "sha256": "a0f1fafc8a824b8bba9750bb9027cce0d01f14279d97ee0fbadf0152d8dd0f08",
+      "source_and_frozen_inputs_unchanged": true
+    }
+  },
+  "model_integrity": {
+    "A": {
+      "triangle_count": 1696,
+      "mesh_count": 34,
+      "changed_meshes": ["ME_CM_R1_coilblade_sunrise_crescent"],
+      "unchanged_non_blade_meshes": 34,
+      "preservation_before_after_equal": true,
+      "post_export_before_after_equal": true,
+      "preservation_state_sha256": "efce3d2e0d97cc39a3d41636b9b071b5906d543391e2467572ec6c56b247d6db",
+      "preservation_proof_sha256": "a3c9e7f03bbecf45910e388cc250fcf98cd6c9a8cf8def56eab3cd3410f62bd6",
+      "preservation_proof_hash_verified": true,
+      "blend": {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/models/A/coilblade.blend",
+        "sha256": "1abeb520cc5140d7eae23e6c7bd124afa0bd5619a112a0d9e6a83a65cbb4ca78",
+        "hash_verified": true
+      },
+      "glb": {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/models/A/coilblade.glb",
+        "sha256": "8ae061698018c9c5d62bde9fc7518df3c390f40255aabace9f4f157119a7cbdc",
+        "hash_verified": true
+      },
+      "manifest": {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/models/A/manifest.json",
+        "sha256": "2bab204bdd836d4a829b58e9318ce12760ff695de403f93fec1b01884f65b5c5"
+      }
+    },
+    "B": {
+      "triangle_count": 1696,
+      "mesh_count": 34,
+      "changed_meshes": ["ME_CM_R1_coilblade_sunrise_crescent"],
+      "unchanged_non_blade_meshes": 34,
+      "preservation_before_after_equal": true,
+      "post_export_before_after_equal": true,
+      "preservation_state_sha256": "efce3d2e0d97cc39a3d41636b9b071b5906d543391e2467572ec6c56b247d6db",
+      "preservation_proof_sha256": "a3c9e7f03bbecf45910e388cc250fcf98cd6c9a8cf8def56eab3cd3410f62bd6",
+      "preservation_proof_hash_verified": true,
+      "blend": {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/models/B/coilblade.blend",
+        "sha256": "30d50242de985dbd65650d09375c67c9df3b44a006a426a5bb6abd62adde43c5",
+        "hash_verified": true
+      },
+      "glb": {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/models/B/coilblade.glb",
+        "sha256": "6fc9667f95634c6f18adb0bebeda27b41716bfa112c99eb41ee20566169b95d9",
+        "hash_verified": true
+      },
+      "manifest": {
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-coil-moss-round-1/revisions/coilblade-round-3/generated/attempt-20261020T200122Z-42405/models/B/manifest.json",
+        "sha256": "6f2409e54d35a398774324199a717b35ff2f7383892ffab309d53cabf5ffcecd"
+      }
+    }
+  },
+  "history": {
+    "R1": "FAIL retained: native saber became a short straight bar",
+    "R2": "FAIL retained: improved curve but native too short and portrait read as broad plate",
+    "R3": "B passes the standalone native/portrait bar; A fails its native-scale saber read"
+  },
+  "evidence_files": [
+    {"path": "evidence/A-native-color-4x.png", "origin": "fresh R3 render", "sha256": "e89cc076ad78d8289bba1e414c1369183a9f00c9c0e1516a7142b7b955b272bc"},
+    {"path": "evidence/A-native-silhouette-4x.png", "origin": "fresh R3 render", "sha256": "b3d760cec98087516d3658fcd72cda06a7d3634b01517ca22f351086d247c40d"},
+    {"path": "evidence/A-portrait.png", "origin": "fresh R3 render", "sha256": "727234ffbdb651427a3c3128c59cdd653d5c90d647bc4bdf8745637267a474b8"},
+    {"path": "evidence/B-native-color-4x.png", "origin": "fresh R3 render", "sha256": "8cf546378c1b2d4f7b852ba17be53495aa956deb3e1ea36af41532748f5e9b85"},
+    {"path": "evidence/B-native-silhouette-4x.png", "origin": "fresh R3 render", "sha256": "705b5e0ec628b29d32d043edacddc85459b9bb414dfbf8ca1cc61ccbaa7960cc"},
+    {"path": "evidence/B-portrait.png", "origin": "fresh R3 render", "sha256": "30ad3cb0920ececbe2860067e67792b534298ec79864d7dfe28a2b49c5d33cdd"},
+    {"path": "evidence/B-team-masks-4x.png", "origin": "fresh R3 render", "sha256": "11a27a241b2af5d29b6468e535996e0c435b334c5bc959cf17832c0201d492c7"},
+    {"path": "evidence/R3-A-B-native-color-4x.png", "origin": "fresh R3 render", "sha256": "6774a9f97c740d9ab129197f0ae99b538a0a6a87e53ae5054b117851301ca0a3"},
+    {"path": "evidence/canonical-portrait-atlas.webp", "origin": "carried original comparison target; not model approval", "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f"},
+    {"path": "evidence/carried-R1-native-color-4x.png", "origin": "carried prior review control", "sha256": "22a9baff1efaf2b592ecb2acf1efa250c0b4efb170653b7df8cab32423912e06"},
+    {"path": "evidence/carried-R1-portrait.png", "origin": "carried prior review control", "sha256": "ecb297261d421c62fe61f35fee3153aed218525c9334585f0edac8d669211191"},
+    {"path": "evidence/carried-R2-native-color-4x.png", "origin": "carried R2 baseline in R3 attempt", "sha256": "23c1eee49065e39c31e703943b5c2f0246b15f5a57d2dca8f3eb734c8c1c10d6"},
+    {"path": "evidence/carried-R2-portrait.png", "origin": "carried R2 baseline in R3 attempt", "sha256": "af014967324976ebd0d9f28244a4007c3b613bf3dfd93b8b2c92ae07f74a902b"}
+  ]
+}

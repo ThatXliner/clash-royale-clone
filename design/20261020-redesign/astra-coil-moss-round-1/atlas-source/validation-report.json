@@ -1,0 +1,45 @@
+{
+  "approved_native64_hashes_checked": 48,
+  "assets": [
+    {
+      "asset": "coilblade",
+      "atlas_cells_pixel_exact": true,
+      "bytes": 16474,
+      "frames": 24,
+      "native64_pixel_exact": true,
+      "output_sha256": "e9246a50ed3c6255854a08b20f6b5b523f14b0448a4ca20c9e98d505bc69a224"
+    },
+    {
+      "asset": "mossguard",
+      "atlas_cells_pixel_exact": true,
+      "bytes": 15994,
+      "frames": 24,
+      "native64_pixel_exact": true,
+      "output_sha256": "b00f1c819fd25b03684a9f3b426776aa57fe6383860ffa154f082a5469137d35"
+    }
+  ],
+  "atlas_output_size_cap_bytes": 1048576,
+  "pixel_exact_reduction_matches": 48,
+  "reproducibility": [
+    {
+      "bytes": 15994,
+      "file": "mossguard-battle-sprite.png",
+      "sha256": "b00f1c819fd25b03684a9f3b426776aa57fe6383860ffa154f082a5469137d35",
+      "two_temp_builds_byte_identical": true
+    },
+    {
+      "bytes": 16474,
+      "file": "coilblade-battle-sprite.png",
+      "sha256": "e9246a50ed3c6255854a08b20f6b5b523f14b0448a4ca20c9e98d505bc69a224",
+      "two_temp_builds_byte_identical": true
+    },
+    {
+      "bytes": 72721,
+      "file": "provenance.json",
+      "sha256": "27bb47104b5b1ff12a82b0b46e327ac6b2ee4d8ab74f9659c475961759e1165a",
+      "two_temp_builds_byte_identical": true
+    }
+  ],
+  "source_hashes_checked": 48,
+  "validation": "PASS"
+}

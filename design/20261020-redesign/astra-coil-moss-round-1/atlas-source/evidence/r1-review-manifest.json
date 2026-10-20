@@ -1,0 +1,66 @@
+{
+  "review": "Astra Coilblade / Mossguard native art critique, round 1",
+  "scope": "standalone editable models and actual native-scale rendered art/poses; no live integration claim",
+  "evidence_directory": "/Users/me/.codex/clash-qualification/20261020-coil-moss-native-r1-critic",
+  "render_attempt": "design/20261020-redesign/astra-coil-moss-round-1/repairs/enum-readback-3/generated/attempt-20261020T190149Z-17845",
+  "brief_commit": "4cd2911ff851d663fe115002428902b2f80749aa",
+  "counts": {
+    "native_outputs_total": 80,
+    "native_outputs_hash_verified": 80,
+    "portrait_outputs": 2,
+    "coilblade_native_total": 40,
+    "coilblade_native_fresh": 16,
+    "coilblade_native_carried": 24,
+    "mossguard_native_total": 40,
+    "mossguard_native_fresh": 40,
+    "frozen_inputs_unchanged": 112,
+    "source_manifest_entries_unchanged": 27,
+    "diagnostic_entries_unchanged": 4
+  },
+  "model_checks": {
+    "camera_elevation_deg": 50,
+    "orthographic_scale": 8.025,
+    "ground_anchor_normalized": [
+      0.5,
+      0.84375
+    ],
+    "ground_anchor_native_px": [
+      32,
+      54
+    ],
+    "coilblade": {
+      "verdict": "FAIL",
+      "triangles": 1672,
+      "editable_meshes": 35,
+      "foreign_meshes": 0,
+      "crop_clear_margins_ltrb_px": [
+        18,
+        40,
+        18,
+        2
+      ],
+      "gap": "Curved crescent saber reads as a short straight horizontal bar at native 13 px; portrait also loses the clear sweep."
+    },
+    "mossguard": {
+      "verdict": "PASS",
+      "triangles": 1224,
+      "editable_meshes": 40,
+      "foreign_meshes": 0,
+      "crop_clear_margins_ltrb_px": [
+        21,
+        39,
+        21,
+        4
+      ],
+      "gap": null
+    }
+  },
+  "brief_provenance": "Source headers identify the cited handoff/art/motion documents as Round 2 copy/proposal with model quality or motion pending/unreviewed; treated as guidance, not prior acceptance.",
+  "source_import_findings": {
+    "reference_imported": false,
+    "external_images_in_models": [],
+    "identity_changes": [],
+    "runtime_integration": false
+  },
+  "runtime": "No runtime launched for critique; previously completed wrapper and Blender processes had exited."
+}
