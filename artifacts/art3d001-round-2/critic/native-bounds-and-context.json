@@ -1,0 +1,387 @@
+{
+  "context_source": "/Users/me/.codex/worktrees/9456/clash-royale-clone/public/assets/moss-ember-arena-painted.webp",
+  "context_crop_source_pixels": [
+    396,
+    900,
+    541,
+    1045
+  ],
+  "context_downscale": "145x145 source crop to 64x64 using Lanczos",
+  "native_reduction": "alpha-weighted 4x4 box from 256 to 64, no crop or per-view rescale",
+  "row_order": [
+    "river idle",
+    "ember idle",
+    "river contact",
+    "ember contact"
+  ],
+  "column_order": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "render_bounds": [
+    {
+      "team": "river",
+      "direction": "north",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-north-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-north-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "visible_pixels": 84
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-east-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-east-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "visible_pixels": 87
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-south-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-south-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "visible_pixels": 82
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-west-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-west-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 26,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 27,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "visible_pixels": 87
+    },
+    {
+      "team": "river",
+      "direction": "north",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-north-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-north-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 40,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "visible_pixels": 88
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-east-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-east-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 12,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "visible_pixels": 95
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-south-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-south-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 42,
+        "width": 8,
+        "height": 13
+      },
+      "visible_pixels": 82
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-river-west-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-river-west-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 12,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "visible_pixels": 97
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-north-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-north-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "visible_pixels": 84
+    },
+    {
+      "team": "ember",
+      "direction": "east",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-east-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-east-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "visible_pixels": 87
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-south-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-south-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "visible_pixels": 82
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "pose": "idle",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-west-idle-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-west-idle-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 26,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 27,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "visible_pixels": 87
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-north-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-north-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 40,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "visible_pixels": 88
+    },
+    {
+      "team": "ember",
+      "direction": "east",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-east-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-east-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 12,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "visible_pixels": 95
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-south-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-south-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 42,
+        "width": 8,
+        "height": 13
+      },
+      "visible_pixels": 82
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "pose": "contact",
+      "native_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/native-64/copperskiff-ember-west-contact-64.png",
+      "tile_context_path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/tile-context/copperskiff-ember-west-contact-on-arena-tile-64.png",
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 12,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "visible_pixels": 97
+    }
+  ],
+  "contact_pixel_differences": [
+    {
+      "team": "river",
+      "direction": "north",
+      "changed_visible_pixels_contact_vs_idle": 92
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "changed_visible_pixels_contact_vs_idle": 92
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "changed_visible_pixels_contact_vs_idle": 102
+    },
+    {
+      "team": "ember",
+      "direction": "east",
+      "changed_visible_pixels_contact_vs_idle": 102
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "changed_visible_pixels_contact_vs_idle": 88
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "changed_visible_pixels_contact_vs_idle": 88
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "changed_visible_pixels_contact_vs_idle": 104
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "changed_visible_pixels_contact_vs_idle": 104
+    }
+  ]
+}

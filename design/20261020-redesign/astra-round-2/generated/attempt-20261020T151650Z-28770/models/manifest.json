@@ -1,0 +1,296 @@
+{
+  "schema": 2,
+  "status": "generated revision; independent visual critique pending",
+  "revision_scope": "Copperskiff silhouette, contact cue, and saved sprite cameras",
+  "identity_source_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "authorship": "Original procedural meshes by GPT-6 Astra; Claude Riverworks Diorama direction",
+  "license": "AGPL-3.0-only",
+  "source_files": [
+    {
+      "path": "build_models.py",
+      "bytes": 15883,
+      "sha256": "a544542f99b666739f75df6a2e3dc8d39bd19e957d5a193e84d8fa85f294bc89"
+    },
+    {
+      "path": "copperskiff_model.py",
+      "bytes": 10245,
+      "sha256": "d63e33089901011f68b3e274010bfafb56cf42f1b8745d04ecb58a3128ea9c8a"
+    },
+    {
+      "path": "copperskiff-parameters.json",
+      "bytes": 837,
+      "sha256": "d800d5b904a07d9ab7669c0c47e9c31b2e08600ca5ce736c3812cbd1773697ca"
+    },
+    {
+      "path": "native_preview.py",
+      "bytes": 6700,
+      "sha256": "79fccc15728fbe7bd9fe4b75d4d4b948b6b52ec36140e8a61b9b5d4959735e57"
+    },
+    {
+      "path": "verify_saved_asset.py",
+      "bytes": 3488,
+      "sha256": "f3a981c4c9ed241aafdc850e17fd5453d36a772624052e698605dc9ade67150d"
+    },
+    {
+      "path": "round1_models.py",
+      "bytes": 65209,
+      "sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3"
+    },
+    {
+      "path": "palette.json",
+      "bytes": 1645,
+      "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+    }
+  ],
+  "parameters": {
+    "schema": 1,
+    "revision": "ART-3D-001 round two",
+    "frozen_parent_generator_sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3",
+    "hover_base": 0.55,
+    "hull_center_z": 0.18,
+    "hull_beam_scale": 1.0,
+    "hull_length_scale": 1.0,
+    "hull_depth_scale": 1.0,
+    "envelope_center_z": 1.4,
+    "envelope_radii": [
+      0.46,
+      0.43,
+      0.12
+    ],
+    "envelope_segments": 12,
+    "envelope_rings": 8,
+    "rigging_radius": 0.026,
+    "team_band_height": 0.15,
+    "contact_recoil": 0.04,
+    "contact_pitch_degrees": 9,
+    "contact_lid_open_degrees": 58,
+    "contact_puff_scale": 1.0,
+    "sprite_camera": {
+      "elevation_degrees": 50,
+      "native_cell": 64,
+      "supersample": 4,
+      "idle_body_height_px": 13,
+      "ground_anchor_normalized": [
+        0.5,
+        0.84375
+      ],
+      "directions": [
+        [
+          "north",
+          180
+        ],
+        [
+          "east",
+          270
+        ],
+        [
+          "south",
+          0
+        ],
+        [
+          "west",
+          90
+        ]
+      ]
+    }
+  },
+  "blender_version": "5.1.2",
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "reference_assets_imported": false,
+  "external_geometry_or_textures": [],
+  "unchanged_characters": {
+    "coilblade": {
+      "editable_mesh_objects": 64,
+      "base_mesh_triangles": 8604,
+      "evaluated_triangles": 9668,
+      "material_slots_used": [
+        "ME_20261020_blade_edge",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_forest",
+        "ME_20261020_iron",
+        "ME_20261020_verdigris",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "1a0b753a302effb27733f0325064bd369858e4a2e1c8fbcff93fda7cc3c09b4d",
+      "copied_unchanged_files": [
+        {
+          "path": "coilblade.blend",
+          "bytes": 1155702,
+          "sha256": "13266e98b20b84b9b175cf58a13fcf5bb85604fae80dda58174b8233bad066f3"
+        },
+        {
+          "path": "coilblade.glb",
+          "bytes": 259100,
+          "sha256": "4c44ff59323ccbc83bfa70155f5d8cdae6cd66f284caaacff4037417517dc9d5"
+        }
+      ]
+    },
+    "mossguard": {
+      "editable_mesh_objects": 70,
+      "base_mesh_triangles": 5192,
+      "evaluated_triangles": 5904,
+      "material_slots_used": [
+        "ME_20261020_copper",
+        "ME_20261020_iron",
+        "ME_20261020_leaf_light",
+        "ME_20261020_moss",
+        "ME_20261020_wood",
+        "ME_20261020_wood_dark",
+        "ME_20261020_wood_light",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "af5eb4494ae9aae818f99668ddcb97c2e02633c843ca9aab59634da7172b5f54",
+      "copied_unchanged_files": [
+        {
+          "path": "mossguard.blend",
+          "bytes": 1072070,
+          "sha256": "8e52a446a284b184f2c2f4cd75093b4368aa8f22f97725513f2579149f0e9402"
+        },
+        {
+          "path": "mossguard.glb",
+          "bytes": 214032,
+          "sha256": "96a42a032718ad6f8d94e147167dbd5c625e57f5d73897e523a7a968826daa02"
+        }
+      ]
+    }
+  },
+  "copperskiff": {
+    "editable_mesh_objects": 32,
+    "base_mesh_triangles": 1812,
+    "evaluated_triangles": 1812,
+    "material_slots_used": [
+      "ME_20261020_canvas",
+      "ME_20261020_canvas_shade",
+      "ME_20261020_copper",
+      "ME_20261020_copper_dark",
+      "ME_20261020_ember",
+      "ME_20261020_iron",
+      "ME_20261020_wood_dark",
+      "TEAM"
+    ],
+    "explicit_geometry_sha256": "0ed7fdf61ffa78a8aaff13ce5c9acfe00aa91e55bd095d16f6682ceaf9cadb21",
+    "glb_validation": {
+      "container": "glTF 2.0 binary",
+      "scenes": 1,
+      "nodes": 44,
+      "mesh_definitions": 32,
+      "animations": 11,
+      "animation_channels": 12,
+      "unexpected_objects": [],
+      "external_images": []
+    },
+    "blend": {
+      "path": "copperskiff.blend",
+      "bytes": 762917,
+      "sha256": "95f12a699e8dbcc9d782a20e5245267b69a54e3c541276a4eb0c1eb26e16d72f"
+    },
+    "glb": {
+      "path": "copperskiff.glb",
+      "bytes": 84132,
+      "sha256": "69e428411ca8ef26f1d11f79bdf60e59ebbbf5f53aab49402f80483920549e26"
+    },
+    "triangle_target": [
+      1500,
+      3000
+    ],
+    "triangle_target_met": true
+  },
+  "combined_blend": {
+    "path": "moss-and-ember-characters.blend",
+    "bytes": 2549130,
+    "sha256": "2f41a3b010e389c84f99b903083eb2506fdbcb40d7879308da91d5da9ec552b9"
+  },
+  "sprite_camera": {
+    "elevation_degrees": 50,
+    "native_cell": 64,
+    "supersample": 4,
+    "idle_body_height_px": 13,
+    "ground_anchor_normalized": [
+      0.5,
+      0.84375
+    ],
+    "directions": [
+      [
+        "north",
+        180
+      ],
+      [
+        "east",
+        270
+      ],
+      [
+        "south",
+        0
+      ],
+      [
+        "west",
+        90
+      ]
+    ],
+    "orthographic_scale": 8.025,
+    "camera_target_height": 4.291610025503216,
+    "calibration": "Largest projected idle silhouette across four directions; one scale for every pose",
+    "calibration_measurements": [
+      {
+        "direction": "north",
+        "bounds_at_scale_one": {
+          "left": 0.04000040888786316,
+          "right": 0.9600004255771637,
+          "top": -1.087279200553894,
+          "bottom": 0.4052917808294296
+        },
+        "height": 1.4925709813833237
+      },
+      {
+        "direction": "east",
+        "bounds_at_scale_one": {
+          "left": -0.08500039577484131,
+          "right": 1.1527070999145508,
+          "top": -1.1085104942321777,
+          "bottom": 0.3892055079340935
+        },
+        "height": 1.4977160021662712
+      },
+      {
+        "direction": "south",
+        "bounds_at_scale_one": {
+          "left": 0.03999999165534973,
+          "right": 0.9600000083446503,
+          "top": -1.1612521409988403,
+          "bottom": 0.468692883849144
+        },
+        "height": 1.6299450248479843
+      },
+      {
+        "direction": "west",
+        "bounds_at_scale_one": {
+          "left": -0.152707040309906,
+          "right": 1.085000455379486,
+          "top": -1.1085110902786255,
+          "bottom": 0.3892049938440323
+        },
+        "height": 1.4977160841226578
+      }
+    ],
+    "camera_names": {
+      "north": "ME_20261020_copperskiff_sprite_north",
+      "east": "ME_20261020_copperskiff_sprite_east",
+      "south": "ME_20261020_copperskiff_sprite_south",
+      "west": "ME_20261020_copperskiff_sprite_west"
+    }
+  },
+  "native_preview_render_count": 12,
+  "portrait_preview_render_count": 1,
+  "full_atlas_rendered": false,
+  "live_runtime_integration": false,
+  "known_open_items": [
+    "Fresh independent critique",
+    "Actual arena and grayscale team qualification",
+    "Coilblade and Mossguard round-one visual failures remain outside this revision",
+    "No merged named game clips or complete motion suite",
+    "No final outline or team ring integration"
+  ]
+}

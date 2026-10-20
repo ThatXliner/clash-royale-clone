@@ -1,0 +1,412 @@
+{
+  "status": "independent native render and saved-camera audit",
+  "started_utc": "2026-10-20T15:51:47Z",
+  "finished_utc": "2026-10-20T15:51:53Z",
+  "blender_version": "5.1.2",
+  "blender_pid": 36167,
+  "argv": [
+    "/Applications/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--threads",
+    "4",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/copper_audit_render.py",
+    "--",
+    "--blend",
+    "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/copperskiff.blend",
+    "--out",
+    "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z",
+    "--idle-frame",
+    "1",
+    "--contact-frame",
+    "100",
+    "--resolution",
+    "256"
+  ],
+  "environment_allowlist": {
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/Users/me",
+    "TMPDIR": "/tmp"
+  },
+  "blend": "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra-round-2/generated/attempt-20261020T151650Z-28770/models/copperskiff.blend",
+  "blend_sha256_before": "95f12a699e8dbcc9d782a20e5245267b69a54e3c541276a4eb0c1eb26e16d72f",
+  "blend_sha256_after": "95f12a699e8dbcc9d782a20e5245267b69a54e3c541276a4eb0c1eb26e16d72f",
+  "scene": "ME_20261020_copperskiff_editable_round_2",
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "render_resolution": [
+    256,
+    256
+  ],
+  "camera_records": [
+    {
+      "direction": "north",
+      "name": "ME_20261020_copperskiff_sprite_north",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.4999999701976776,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 127.99999237060547,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.44267910718917847,
+        "right": 0.5573208928108215,
+        "bottom": 0.16805163025856018,
+        "top": 0.35404178500175476
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "east",
+      "name": "ME_20261020_copperskiff_sprite_east",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.49999991059303284,
+        "y": 0.15624983608722687,
+        "z": 11.287564277648926,
+        "pixel_x": 127.9999771118164,
+        "pixel_y_top": 216.00004196166992
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.4271027147769928,
+        "right": 0.5813341736793518,
+        "bottom": 0.17005608975887299,
+        "top": 0.35668736696243286
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "south",
+      "name": "ME_20261020_copperskiff_sprite_south",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.1562499850988388,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00000381469727
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.44267913699150085,
+        "right": 0.5573208928108215,
+        "bottom": 0.1601511538028717,
+        "top": 0.36325958371162415
+      },
+      "crop_safe": true
+    },
+    {
+      "direction": "west",
+      "name": "ME_20261020_copperskiff_sprite_west",
+      "type": "ORTHO",
+      "elevation_degrees_from_horizontal": 49.99999422054368,
+      "orthographic_scale": 8.024999618530273,
+      "origin_ground_anchor": {
+        "x": 0.5,
+        "y": 0.15624992549419403,
+        "z": 11.287564277648926,
+        "pixel_x": 128.0,
+        "pixel_y_top": 216.00001907348633
+      },
+      "projected_mesh_bounds_ndc": {
+        "left": 0.41866573691368103,
+        "right": 0.57289719581604,
+        "bottom": 0.17005617916584015,
+        "top": 0.3566874563694
+      },
+      "crop_safe": true
+    }
+  ],
+  "mesh_object_count": 32,
+  "mesh_objects": [
+    "ME_20261020_copperskiff_copper_kettle_shell",
+    "ME_20261020_copperskiff_team_hull_belt",
+    "ME_20261020_copperskiff_copper_gunwale",
+    "ME_20261020_copperskiff_dark_open_deck",
+    "ME_20261020_copperskiff_port_porthole_rim",
+    "ME_20261020_copperskiff_port_porthole_glass",
+    "ME_20261020_copperskiff_starboard_porthole_rim",
+    "ME_20261020_copperskiff_starboard_porthole_glass",
+    "ME_20261020_copperskiff_curved_kettle_spout",
+    "ME_20261020_copperskiff_spout_opening",
+    "ME_20261020_copperskiff_kettle_lid",
+    "ME_20261020_copperskiff_lid_knob",
+    "ME_20261020_copperskiff_kettle_handle",
+    "ME_20261020_copperskiff_sewn_canvas_envelope",
+    "ME_20261020_copperskiff_copper_sail_strap_0",
+    "ME_20261020_copperskiff_copper_sail_strap_1",
+    "ME_20261020_copperskiff_copper_longitudinal_strap_0",
+    "ME_20261020_copperskiff_copper_longitudinal_strap_1",
+    "ME_20261020_copperskiff_port_suspension_0",
+    "ME_20261020_copperskiff_port_suspension_1",
+    "ME_20261020_copperskiff_starboard_suspension_0",
+    "ME_20261020_copperskiff_starboard_suspension_1",
+    "ME_20261020_copperskiff_flag_mast",
+    "ME_20261020_copperskiff_team_leaf_pennant",
+    "ME_20261020_copperskiff_tail_fin_-1",
+    "ME_20261020_copperskiff_tail_fin_1",
+    "ME_20261020_copperskiff_pusher_propeller_shaft",
+    "ME_20261020_copperskiff_pusher_disc",
+    "ME_20261020_copperskiff_pusher_hub",
+    "ME_20261020_copperskiff_contact_puff_lobe_0",
+    "ME_20261020_copperskiff_contact_puff_lobe_1",
+    "ME_20261020_copperskiff_contact_puff_lobe_2"
+  ],
+  "team_materials": [
+    {
+      "name": "TEAM",
+      "diffuse_color_linear": [
+        0.5647115111351013,
+        0.05951123684644699,
+        0.027320891618728638,
+        1.0
+      ]
+    }
+  ],
+  "team_material_usage": [
+    {
+      "object": "ME_20261020_copperskiff_team_hull_belt",
+      "slot": 0,
+      "material": "TEAM"
+    },
+    {
+      "object": "ME_20261020_copperskiff_team_leaf_pennant",
+      "slot": 0,
+      "material": "TEAM"
+    }
+  ],
+  "team_colors_used": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  },
+  "actions": [
+    {
+      "name": "ME_20261020_copperskiff_bodyAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_bow_kettle_spoutAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_canvas_lensAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_contact_ember_puffAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_hinged_kettle_lidAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_kettle_hullAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_leaf_flagAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_pusher_propellerAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    },
+    {
+      "name": "ME_20261020_copperskiff_stern_canvas_rudderAction",
+      "frame_range": [
+        1.0,
+        106.0
+      ]
+    }
+  ],
+  "frame_start_end_current": [
+    1,
+    106,
+    100
+  ],
+  "renders": [
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-north-idle-256.png",
+      "sha256": "bd54705fb417b82ddd724d4768b657314c17de0d8ace1822532d442e4add7889"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-east-idle-256.png",
+      "sha256": "fd381189aa0837763c765c528654bb3d47bd8a71308dededa84369cf19417921"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-south-idle-256.png",
+      "sha256": "253663cf3083436a80dbcff535bbcd609d2378d9796031354585c8e66b95eae7"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-west-idle-256.png",
+      "sha256": "965b48f3ed547d98167eb42e5a4b685b34ee95f7e2bbf103c3c358855bc34262"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-north-contact-256.png",
+      "sha256": "26090d0e81414ae52e57a56972cdbb3aad70aa98277884b69ca94afd8935ee24"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-east-contact-256.png",
+      "sha256": "dd07995187b7be7838a0fb132979004f9649f2a3917512b1082c8273d5e8f51e"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-south-contact-256.png",
+      "sha256": "a2c90f6e0f0e90b4075da524c23dfa92503753fc1ffe8d0ad941ff32fe8bbff4"
+    },
+    {
+      "team": "river",
+      "team_srgb_hex": "#2E7F86",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-river-west-contact-256.png",
+      "sha256": "581c778a191b9bf93c41ecd5d9d7ce603553960e821c23ee49812a63816aa669"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-north-idle-256.png",
+      "sha256": "3abc609b7ef474b9ca782474b9ba4c27920837448b1ce5399bb94bc2440c2a88"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-east-idle-256.png",
+      "sha256": "de9534b3e306ec34e20cb4ceaf868549cb67095326a07fdfb231813c9da88238"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-south-idle-256.png",
+      "sha256": "a3a54539d2923ac6ee651d3f9e9b15c537217f9198dad5b337ca713303d24cfb"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "idle",
+      "frame": 1,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-west-idle-256.png",
+      "sha256": "0e15cbcfa47d80824242ad0da2361eb35b8e6851024070dbd90c46ade9cb1c9b"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "north",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-north-contact-256.png",
+      "sha256": "61afc4e4b25fa3e5d1dc628a2a3aaa9176fdccd7ed656926c00d1ea9d2b5629d"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "east",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-east-contact-256.png",
+      "sha256": "a3112c394824fac3b6e1e7a48f90fb5995caa11b4f5623c22d6cab0252ab2754"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "south",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-south-contact-256.png",
+      "sha256": "16edf4cc7cd658bd89b09d5d4f313fc3a3cbf5356c8f152685d6c6c7a5236ee8"
+    },
+    {
+      "team": "ember",
+      "team_srgb_hex": "#C6452E",
+      "direction": "west",
+      "pose": "contact",
+      "frame": 100,
+      "path": "/Users/me/.codex/clash-qualification/20261020-model-r2-critic/run-20261020T155005Z/raw-256/copperskiff-ember-west-contact-256.png",
+      "sha256": "216d27eff6a9c594857db2a2a2f59bc547cb618cce53e6110ad341792769129f"
+    }
+  ]
+}

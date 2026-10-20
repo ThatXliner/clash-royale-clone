@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "revision": "ART-3D-001 round two",
+  "frozen_parent_generator_sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3",
+  "hover_base": 0.55,
+  "hull_center_z": 0.18,
+  "hull_beam_scale": 1.0,
+  "hull_length_scale": 1.0,
+  "hull_depth_scale": 1.0,
+  "envelope_center_z": 1.4,
+  "envelope_radii": [0.46, 0.43, 0.12],
+  "envelope_segments": 12,
+  "envelope_rings": 8,
+  "rigging_radius": 0.026,
+  "team_band_height": 0.15,
+  "contact_recoil": 0.04,
+  "contact_pitch_degrees": 9,
+  "contact_lid_open_degrees": 58,
+  "contact_puff_scale": 1.0,
+  "sprite_camera": {
+    "elevation_degrees": 50,
+    "native_cell": 64,
+    "supersample": 4,
+    "idle_body_height_px": 13,
+    "ground_anchor_normalized": [0.5, 0.84375],
+    "directions": [["north", 180], ["east", 270], ["south", 0], ["west", 90]]
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "status": "Rendered artifact measurements; no independent visual verdict",
+  "reduction": "4:1 alpha-weighted box, no crop or per-view resizing",
+  "sheet_columns": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "sheet_rows": [
+    "river idle",
+    "ember idle",
+    "river contact frame 100",
+    "river idle black silhouette"
+  ],
+  "images": [
+    {
+      "team": "river",
+      "direction": "north",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-river-north-idle.png",
+      "native_path": "native-64/copperskiff-river-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "bytes": 562,
+      "sha256": "b65a4fcb3c7e70822e923ff4e1d25646e8d3ae637947044861f4304dabf67afa"
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-river-east-idle.png",
+      "native_path": "native-64/copperskiff-river-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "bytes": 613,
+      "sha256": "f5f5e14b5f9a5dc78663a5442f0657d8497c3f56776387b31a8ff56415306c6e"
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-river-south-idle.png",
+      "native_path": "native-64/copperskiff-river-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "bytes": 578,
+      "sha256": "038474ba7af2268c12df6a0c1c3acdf6882838a38ca86be08737bf7171b1d60f"
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-river-west-idle.png",
+      "native_path": "native-64/copperskiff-river-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 26,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 27,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "bytes": 614,
+      "sha256": "f894f37d927016eee66e4640f673dcbfb7896748643ec2dde2b2b788b4407d43"
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-ember-north-idle.png",
+      "native_path": "native-64/copperskiff-ember-north-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "bytes": 563,
+      "sha256": "16bbb8e094e9b092045b988275614877fbaf4e876ec67bf0ed071591ab133b14"
+    },
+    {
+      "team": "ember",
+      "direction": "east",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-ember-east-idle.png",
+      "native_path": "native-64/copperskiff-ember-east-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "bytes": 614,
+      "sha256": "85f3a9cd1ae8bd84f4a704ee977fca51a3d2249446a76de82aacb01e5b0bef43"
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-ember-south-idle.png",
+      "native_path": "native-64/copperskiff-ember-south-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "bytes": 578,
+      "sha256": "fbdf49c1eafc1112fda344f115628878d508887740b05c5d95ce0c48f4cf41b9"
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "frame": 1,
+      "pose": "idle",
+      "raw_path": "raw-256/copperskiff-ember-west-idle.png",
+      "native_path": "native-64/copperskiff-ember-west-idle.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 26,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 27,
+        "top": 41,
+        "width": 9,
+        "height": 12
+      },
+      "bytes": 616,
+      "sha256": "076d65a922d55fbfbc87377d5a61f52738c2ec4fb0bd55b742e2d16ce48877d7"
+    },
+    {
+      "team": "river",
+      "direction": "north",
+      "frame": 100,
+      "pose": "contact",
+      "raw_path": "raw-256/copperskiff-river-north-contact.png",
+      "native_path": "native-64/copperskiff-river-north-contact.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 40,
+        "width": 8,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 29,
+        "top": 41,
+        "width": 6,
+        "height": 12
+      },
+      "bytes": 583,
+      "sha256": "3850c7472e2751421e15dd1e97bd9a679e7b80690981c9067ed133fdaecd7d80"
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "frame": 100,
+      "pose": "contact",
+      "raw_path": "raw-256/copperskiff-river-east-contact.png",
+      "native_path": "native-64/copperskiff-river-east-contact.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 27,
+        "top": 41,
+        "width": 12,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "bytes": 639,
+      "sha256": "86a7916c33a2fac62b728454b489b96e9cb60f2fe698fcfbf91f20b62e51190e"
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "frame": 100,
+      "pose": "contact",
+      "raw_path": "raw-256/copperskiff-river-south-contact.png",
+      "native_path": "native-64/copperskiff-river-south-contact.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 28,
+        "top": 41,
+        "width": 8,
+        "height": 15
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 28,
+        "top": 42,
+        "width": 8,
+        "height": 13
+      },
+      "bytes": 582,
+      "sha256": "006e749b30da8451d2e68e68bde6d770aff7b27a3e2827b457a09bc761c37b48"
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "frame": 100,
+      "pose": "contact",
+      "raw_path": "raw-256/copperskiff-river-west-contact.png",
+      "native_path": "native-64/copperskiff-river-west-contact.png",
+      "width": 64,
+      "height": 64,
+      "alpha_bounds_threshold_16": {
+        "left": 25,
+        "top": 41,
+        "width": 12,
+        "height": 13
+      },
+      "alpha_bounds_threshold_128": {
+        "left": 25,
+        "top": 41,
+        "width": 11,
+        "height": 12
+      },
+      "bytes": 640,
+      "sha256": "28bf6ef213588fe0c4c043a11c727f8199cfcb90a4590790df79c70ced5fb40d"
+    }
+  ]
+}
