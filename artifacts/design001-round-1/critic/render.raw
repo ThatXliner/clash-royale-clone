@@ -1,0 +1,12 @@
+renderer_pid=25046
+renderer_ppid=25044
+node=/Users/me/.hermes/node/bin/node v22.22.3
+playwright=1.58.2
+browser_version=145.0.7632.6
+browser_pid=25052
+browser_executable=/Users/me/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing
+board_url=file:///Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude/design-board.html
+screenshot_method=locator.scrollIntoViewIfNeeded + page.screenshot(clip=measured CSS box); no scaling, no CSS/style injection
+page_metrics={"title":"Moss & Ember: Riverworks Diorama design board (UNRENDERED)","url":"file:///Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude/design-board.html","dpr":1,"fontStatus":"loaded","fontFaces":[],"externalResourceElements":[]}
+Error: f-phone-landing PNG is 390x843; expected 390x844
+    at main (file:///Users/me/.codex/clash-qualification/20261020-design-critic/render-board.mjs:112:13)

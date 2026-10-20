@@ -9722,3 +9722,14 @@ Capture caveats: initialruntime wrapper used readonly zsh status after child fin
 R4 candidate ffdaab62 retains the unchanged five a71 factory blobs over accepted4a6. The Oct15 temporary result files are unavailable, so that run has no recovered verdict. New durable qualification uses Node22.22.3/npm10.9.8/Playwright1.58.2/Chrome155.0.8059.85; npm PID8787 runs20m37 then exits130 because monitor sees first failing TAP assertion. The Node active seed-zero endurance fixture ends at13351 (North2-1,overtime_sudden_death) against required18000. Source/input/factory fences remain unchanged; browser and retained release artifact gates do not run. Accepted4a6 focused control is pending before assigning cause. This is not a new independent factory critic verdict or source-parity claim.
 
 User requested Claude for UI/character/site/motion design and Astra for3D models. Separate draft folders preserve original names/lore/art and engine invariants; actual renders and separate criticism remain pending. No model/UI proposal is adopted by tracking this work.
+
+## Round 517 — DESIGN-001 original visual proposal
+
+PIECE: DESIGN-001
+VERDICT: FAIL
+EVIDENCE: Independent Chromium renders at DPR1 show the phone landing's explanation cards overflow its measured390x844 CSS frame. Step2 is truncated and step3 is hidden. The fixed200px cards and gaps require620px. Two actual screenshots,390x845 and390x843, retain the same visible defect. Both capture helpers exit1 on fractional-boundary dimension checks. The remaining five proposal frames are unreviewed. This is a static proposal review, not live-app qualification.
+BIGGEST GAP: The phone introduction hides two of the three steps needed to understand a match.
+
+The critic used Node22.22.3, Playwright1.58.2 and bundled Chromium145.0.7632.6. Raw scripts, logs, exits, source hashes and inspected PNGs are retained under artifacts/design001-round-1/critic. The API's default executable path differs from the observed headless-shell process; the root receipt records that distinction. Original draft bytes remain unchanged. Claude jobf159ef9f0b revises a separate folder. No shipped UI, model, motion, game logic, or asset is adopted in this round.
+
+Qualification recovery continues independently. Accepted4a6 control PID21296 exits1 on the same tick13351 natural result as extracted R4. Root verified1580 payload hashes and28 committed fixture copies before preserving the packet. This proves the specific failure predates extraction. It does not qualify the factory. First EWC builder PID22788 exits1 on the unchanged30s processing cap at11100. Its measured segment includes the browser scheduler's duplicate preview simulation; failed-segment elapsed was not printed and is not reconstructed. The next revision uses direct15tick shared-policy decisions and logs each actual metric before asserting the unchanged cap. No new critic round is assigned to builder failures.

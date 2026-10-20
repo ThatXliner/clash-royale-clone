@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Moss &amp; Ember: Riverworks Diorama design board (UNRENDERED)</title>
+<!--
+  Design board: proposal only. UNRENDERED: this file was written with text tools
+  during a no-browser window and has never been opened or screenshotted.
+  Self-contained: no scripts, no external fonts/images/requests. All art is
+  original inline SVG/CSS. Nothing from reference/ was used.
+  Source pin: c693d0cc0b36a3f1f179bbb93cb23998b68012b8.
+  Frames are addressable for later element screenshots:
+    #f-phone-landing #f-phone-deck #f-phone-battle   (390×844)
+    #f-desk-landing  #f-desk-deck  #f-desk-battle    (1440×933)
+-->
+<style>
+:root{
+  --ink:#101a22;--ink-2:#16232c;--ink-3:#1e2e38;--ink-c:#191D22;
+  --paper:#e9e2cd;--paper-dim:#b9b3a1;--bone:#F4EBD6;
+  --jade:#9bbb76;--leaf:#5C8A46;--moss-deep:#2F4A2E;
+  --ember:#f2a25e;--copper:#E9A83A;--copper-deep:#B8672E;--verdigris:#6FB3A2;--seed:#FFD27A;
+  --wood:#4A332A;--wood-mid:#7A5236;--heart:#C79A63;--stone:#9BA5A2;--river:#35565B;
+  --you:#2E7F86;--rival:#C6452E;
+  --f-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --f-ui:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,-apple-system,sans-serif;
+  --chamfer:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:#0a1117;color:var(--paper);font:400 15px/1.5 var(--f-ui);padding:40px 48px 80px;min-width:1560px}
+.sprite-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- board chrome ---------- */
+.board-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;border-bottom:1px solid #22323c;padding-bottom:28px;margin-bottom:40px}
+.board-head h1{font:700 40px/1.05 var(--f-display);margin:0 0 10px;letter-spacing:-.01em}
+.board-head p{margin:0 0 6px;max-width:72ch;color:var(--paper-dim)}
+.board-head code{font:600 13px/1 ui-monospace,Menlo,monospace;color:var(--paper)}
+.stamp{display:inline-block;padding:10px 16px;border:3px solid var(--rival);color:#ffb39f;font:900 22px/1 var(--f-ui);letter-spacing:.12em;transform:rotate(-3deg);border-radius:6px;text-align:center}
+.stamp small{display:block;font:700 11px/1.3 var(--f-ui);letter-spacing:.06em;margin-top:6px}
+.board-sec{margin:0 0 72px}
+.board-sec>h2{font:700 26px/1.1 var(--f-display);margin:0 0 6px}
+.board-sec>p.note{margin:0 0 24px;color:var(--paper-dim);max-width:90ch}
+.row{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap}
+.frame-cap{font:700 12px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--paper-dim);margin:0 0 10px;display:flex;gap:10px;align-items:center}
+.frame-cap b{color:#ffb39f;border:1px solid #c6452e88;padding:2px 6px;border-radius:4px;letter-spacing:.1em}
+.frame{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--f-ui);flex:none;outline:1px solid #2a3a44;box-shadow:0 30px 60px -20px #000c}
+.frame--phone{width:390px;height:844px}
+.frame--desk{width:1440px;height:933px}
+
+/* tokens */
+.swatches{display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
+.sw{border-radius:10px;overflow:hidden;background:var(--ink-2);box-shadow:inset 0 0 0 1px #2a3a44}
+.sw i{display:block;height:64px}
+.sw span{display:block;padding:8px 10px;font:600 12px/1.35 var(--f-ui)}
+.sw span small{display:block;color:var(--paper-dim);font:500 11px/1.3 ui-monospace,Menlo,monospace}
+.type-spec{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px;margin-top:24px}
+.type-spec div{background:var(--ink-2);border-radius:12px;padding:18px 20px;box-shadow:inset 0 0 0 1px #2a3a44}
+.type-spec .lbl{font:700 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-dim);margin:0 0 10px}
+
+/* cast */
+.cast{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cast-card{background:linear-gradient(#17242c,#111b22);border-radius:16px;padding:20px;box-shadow:inset 0 0 0 1px #2a3a44}
+.cast-card h3{font:700 26px/1 var(--f-display);margin:0 0 4px}
+.cast-card .read{font:700 12px/1.3 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--ember);margin:0 0 12px}
+.cast-stage{position:relative;height:240px;border-radius:12px;background:radial-gradient(90% 70% at 50% 85%,#3b5a33,#1a2a22 70%,#121c20);overflow:hidden}
+.cast-stage svg.hero{position:absolute;left:50%;bottom:8px;width:220px;height:220px;transform:translateX(-50%)}
+.cast-stage .shadow{position:absolute;left:50%;bottom:16px;width:150px;height:22px;transform:translateX(-50%);border-radius:50%;background:#0008}
+.lore{margin:14px 0 0;font:italic 400 15px/1.5 var(--f-display);color:var(--paper)}
+.scale-strip{margin-top:16px;display:flex;align-items:flex-end;gap:14px;padding:12px 14px;border-radius:10px;background:#5a8638}
+.scale-strip figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.scale-strip figcaption{font:700 10px/1 var(--f-ui);color:#101a22;letter-spacing:.04em}
+.unit13{position:relative;display:block}
+.unit13 svg{display:block}
+.mono{filter:grayscale(1)}
+.sil{filter:brightness(0)}
+.cast-notes{margin:12px 0 0;padding:0 0 0 18px;color:var(--paper-dim);font-size:13px}
+
+/* ---------- shared product components ---------- */
+.display{font-family:var(--f-display);font-weight:700;letter-spacing:-.015em;margin:0}
+.display em{font-style:italic;color:var(--ember)}
+.eyebrow{display:flex;align-items:center;gap:8px;margin:0;font:800 12px/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--jade)}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--seed);box-shadow:0 0 0 3px #ffd27a33}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border:0;border-radius:12px;font:800 16px/1 var(--f-ui);text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn--ember{background:linear-gradient(#f6b878,#f2a25e 50%,#e08a45);color:#101a22;box-shadow:0 3px 0 #9b5a2a,inset 0 1px 0 #ffffff66}
+.btn--ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1.5px #e9e2cd66}
+.btn--sm{height:38px;padding:0 14px;font-size:14px;border-radius:10px}
+.btn--block{width:100%}
+.link{color:var(--paper);font:700 15px/1 var(--f-ui);text-decoration:underline;text-decoration-color:#f2a25e;text-underline-offset:4px;text-decoration-thickness:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:13px;background:var(--ink-3);color:var(--paper);font:700 12px/1 var(--f-ui);box-shadow:inset 0 0 0 1px #33505a;white-space:nowrap}
+.chip svg{width:12px;height:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--paper);text-decoration:none}
+.brand svg{width:34px;height:34px;flex:none}
+.brand span{font:700 19px/1 var(--f-display);letter-spacing:-.01em}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--ink-3);color:var(--paper);font:700 20px/1 var(--f-ui);box-shadow:inset 0 0 0 1px #33505a}
+
+/* card tile */
+.ct-wrap{position:relative;width:var(--w,84px);flex:none}
+.ct-wrap.is-sel{transform:translateY(-8px)}
+.ct-wrap.is-sel::before{content:"";position:absolute;inset:-3px;background:var(--copper);clip-path:var(--chamfer)}
+.ct-wrap.is-sel::after{content:"";position:absolute;left:50%;bottom:-12px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--seed);box-shadow:0 0 0 3px #ffd27a44}
+.ct{position:relative;display:flex;flex-direction:column;width:100%;aspect-ratio:84/104;padding:4px;background:var(--frame,#7A5236);clip-path:var(--chamfer)}
+.ct--standard{--frame:linear-gradient(160deg,#a1714a,#7A5236 55%,#5b3d2b)}
+.ct--uncommon{--frame:linear-gradient(160deg,#F3C063,#E9A83A 35%,#B8672E 75%,#8c4a20)}
+.ct--special{--frame:linear-gradient(160deg,#b5e0d3,#6FB3A2 45%,#3e7a6c)}
+.ct--pending{--frame:repeating-linear-gradient(135deg,#2a3a44 0 6px,#1e2e38 6px 12px)}
+.ct__art{position:relative;flex:1;min-height:0;background:radial-gradient(120% 90% at 50% 30%,#40603b,#1a271f 75%);clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 5px,100% 100%,0 100%,0 5px)}
+.ct__art svg{position:absolute;left:4%;top:8%;width:92%;height:92%}
+.ct__name{display:block;font:700 12px/1 var(--f-ui);letter-spacing:-.02em;color:var(--paper);background:var(--ink);text-align:center;padding:5px 2px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{position:absolute;top:6px;right:6px;z-index:1;width:22px;height:27px;display:grid;place-items:center;padding-top:6px;font:800 13px/1 var(--f-ui);font-variant-numeric:tabular-nums;color:#191D22;background:linear-gradient(160deg,#F3C063,#E9A83A 55%,#B8672E);clip-path:polygon(50% 0,100% 24%,100% 100%,0 100%,0 24%)}
+.tag::before{content:"";position:absolute;top:4px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#191D22}
+.tag--lg{position:relative;top:auto;right:auto;width:38px;height:46px;font-size:22px;padding-top:10px}
+.tag--lg::before{top:6px;width:6px;height:6px;margin-left:-3px}
+.ct-wrap[data-afford="false"] .ct__art svg{filter:grayscale(.75) brightness(.6)}
+.ct-wrap[data-afford="false"] .tag{background:#3b2a20;color:var(--paper)}
+.ct-wrap[data-afford="false"] .tag::after{content:"";position:absolute;left:3px;right:3px;bottom:3px;height:3px;background:linear-gradient(90deg,#E9A83A var(--p,0%),#0000 var(--p,0%))}
+.ct__art svg.rg{position:absolute;left:5px;top:auto;bottom:5px;width:13px;height:13px}
+.pending-note{position:absolute;inset:auto 4px 4px;font:700 9px/1.1 var(--f-ui);color:var(--paper-dim);text-align:center;letter-spacing:.04em;text-transform:uppercase}
+
+/* stats + specimen */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0}
+.stats div{background:var(--ink-3);border-radius:10px;padding:8px 10px;box-shadow:inset 0 0 0 1px #2b434d}
+.stats dt{font:800 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--paper-dim)}
+.stats dd{margin:3px 0 0;font:800 17px/1.1 var(--f-ui);font-variant-numeric:tabular-nums;color:var(--paper)}
+.stats dd small{font:700 12px/1 var(--f-ui);color:var(--paper-dim)}
+.specimen{position:relative;margin:0;padding:11px 14px 10px 30px;background:#e9e2cd;color:#191D22;clip-path:polygon(16px 0,100% 0,100% 100%,16px 100%,0 50%)}
+.specimen::before{content:"";position:absolute;left:11px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:#191D22}
+.specimen blockquote{margin:0;font:italic 400 14px/1.45 var(--f-display)}
+.specimen figcaption{margin-top:6px;font:800 10.5px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:#5a4a3a}
+
+/* ember rail (binds to existing data-ui="elixir-rail" / .elixir-fill hooks) */
+.rail{display:flex;align-items:center;gap:8px}
+.rail__badge{position:relative;width:44px;height:44px;flex:none;display:grid;place-items:center}
+.rail__badge svg{position:absolute;inset:0;width:100%;height:100%}
+.rail__badge b{position:relative;margin-top:9px;font:900 17px/1 var(--f-ui);font-variant-numeric:tabular-nums;color:#191D22}
+.rail__track{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:6px 7px;background:linear-gradient(#5e402e,#3b281f);border-radius:12px;box-shadow:inset 0 0 0 1.5px #191D22,inset 0 2px 0 #ffffff1a,inset 0 -2px 0 #0007}
+.sock{height:22px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:linear-gradient(to top,#E9A83A 0 var(--p,0%),#21160f var(--p,0%));box-shadow:inset 0 0 0 1.5px #191D22}
+.sock--full{background:radial-gradient(circle at 50% 62%,#FFD27A 0 28%,#E9A83A 62%,#B8672E);box-shadow:inset 0 0 0 1.5px #191D22,0 0 6px #ffd27a55}
+.rail__label{font:800 11px/1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--paper-dim)}
+
+/* ---------- PHONE LANDING ---------- */
+.pl-nav{position:absolute;top:0;left:0;right:0;z-index:3;height:60px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#101a22ee,#101a2200)}
+.pl-art{position:relative;height:350px;overflow:hidden}
+.pl-art .valley{position:absolute;inset:0;width:100%;height:100%}
+.diorama{position:absolute;left:50%;transform:translateX(-50%)}
+.diorama svg{position:absolute}
+.pl-art .diorama{bottom:0;width:360px;height:250px}
+.pl-copy{padding:14px 20px 0;display:flex;flex-direction:column;gap:12px}
+.pl-copy h1{font-size:40px;line-height:1.02}
+.pl-copy .lede{margin:0;font:500 15px/1.5 var(--f-ui);color:var(--paper)}
+.pl-copy .sub{display:flex;justify-content:center}
+.pl-steps{position:absolute;left:0;right:0;bottom:0;height:96px;padding:12px 0 14px 20px;display:flex;gap:10px;overflow:hidden;background:linear-gradient(#101a2200,#16232c 30%)}
+.step{flex:none;width:200px;display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--ink-3);box-shadow:inset 0 0 0 1px #2b434d}
+.step svg{width:44px;height:44px}
+.step b{display:block;font:800 11px/1 var(--f-ui);letter-spacing:.1em;color:var(--ember);margin-bottom:4px}
+.step span{font:700 14px/1.25 var(--f-ui)}
+
+/* ---------- DESKTOP LANDING ---------- */
+.dl-nav{position:absolute;top:0;left:0;right:0;z-index:3;height:76px;padding:0 64px;display:flex;align-items:center;gap:40px}
+.dl-nav nav{display:flex;gap:28px;margin-left:24px}
+.dl-nav nav a{color:var(--paper);text-decoration:none;font:700 15px/1 var(--f-ui)}
+.dl-nav .btn{margin-left:auto}
+.dl-hero{position:absolute;left:0;right:0;top:0;height:720px;overflow:hidden}
+.dl-hero .valley{position:absolute;inset:0;width:100%;height:100%}
+.dl-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#101a22 0,#101a22f2 30%,#101a2299 46%,#101a2200 62%),linear-gradient(#101a2200 75%,#101a22 100%)}
+.dl-copy{position:absolute;z-index:2;left:96px;top:170px;width:600px;display:flex;flex-direction:column;gap:20px}
+.dl-copy h1{font-size:76px;line-height:.98}
+.dl-copy .lede{margin:0;font:500 19px/1.55 var(--f-ui);max-width:30em}
+.dl-copy .actions{display:flex;gap:16px;align-items:center;margin-top:4px}
+.dl-copy .actions .btn{height:56px;padding:0 26px;font-size:17px}
+.trust{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.dl-hero .diorama{z-index:1;left:auto;right:90px;transform:none;bottom:40px;width:640px;height:440px}
+.dl-steps{position:absolute;left:96px;right:96px;bottom:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.dl-steps .step{width:auto;grid-template-columns:64px 1fr;padding:18px 20px;border-radius:16px}
+.dl-steps .step svg{width:64px;height:64px}
+.dl-steps .step span{font-size:17px}
+.dl-steps .step p{margin:4px 0 0;color:var(--paper-dim);font:500 14px/1.4 var(--f-ui)}
+
+/* ---------- PHONE DECK / CARD INFO ---------- */
+.app-bar{height:60px;padding:0 12px;display:flex;align-items:center;gap:12px}
+.app-bar h2{flex:1;font:700 24px/1 var(--f-display);margin:0}
+.avg{display:flex;align-items:center;gap:6px;height:36px;padding:0 12px 0 8px;border-radius:18px;background:var(--ink-3);font:800 15px/1 var(--f-ui);font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 1px #33505a}
+.avg svg{width:20px;height:20px}
+.avg small{font:700 11px/1 var(--f-ui);color:var(--paper-dim);letter-spacing:.06em;text-transform:uppercase}
+.seg{margin:0 16px;height:44px;padding:4px;border-radius:12px;background:var(--ink-2);display:grid;grid-template-columns:1fr 1fr;box-shadow:inset 0 0 0 1px #2b434d}
+.seg button{border:0;border-radius:9px;background:transparent;color:var(--paper-dim);font:800 14px/1 var(--f-ui)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.deck-grid{margin:18px 15px 0;display:grid;grid-template-columns:repeat(4,84px);gap:8px 8px;justify-content:space-between}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:486px;padding:8px 16px 14px;background:linear-gradient(#1a2831,#121c24);border-radius:22px 22px 0 0;box-shadow:0 -14px 32px #000a,inset 0 1px 0 #ffffff1a;display:flex;flex-direction:column;gap:10px}
+.sheet__grip{align-self:center;width:44px;height:5px;border-radius:3px;background:#e9e2cd55}
+.ci-head{display:grid;grid-template-columns:84px 1fr auto;gap:12px;align-items:start}
+.ci-portrait{position:relative;width:84px;height:84px;background:linear-gradient(160deg,#F3C063,#B8672E);clip-path:var(--chamfer);padding:4px}
+.ci-portrait div{position:relative;width:100%;height:100%;background:radial-gradient(120% 90% at 50% 30%,#4a6a40,#1a271f 75%);clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 5px,100% calc(100% - 5px),calc(100% - 5px) 100%,5px 100%,0 calc(100% - 5px),0 5px)}
+.ci-portrait svg{position:absolute;inset:4px}
+.ci-head h3{font:700 28px/1 var(--f-display);margin:2px 0 6px}
+.rar{display:inline-flex;align-items:center;gap:5px;font:800 12px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--copper);margin:0 0 8px}
+.rar svg{width:13px;height:13px}
+.rar--standard{color:#d8b48c}
+.sheet__actions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:auto}
+.conf{font:600 11.5px/1.35 var(--f-ui);color:var(--paper-dim);margin:-4px 0 0}
+
+/* ---------- DESKTOP DECK ---------- */
+.dd{display:grid;grid-template-columns:96px 1fr 452px;height:100%}
+.navrail{background:#0c151b;display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 0;box-shadow:inset -1px 0 0 #22323c}
+.navrail .brand svg{width:40px;height:40px}
+.navrail a.nav-i{width:76px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-radius:12px;color:var(--paper-dim);text-decoration:none;font:800 11px/1 var(--f-ui);letter-spacing:.04em}
+.navrail a.nav-i i{width:22px;height:22px;border-radius:6px;box-shadow:inset 0 0 0 2px currentColor}
+.navrail a.nav-i[aria-current="page"]{background:var(--ink-3);color:var(--paper)}
+.navrail a.nav-i[aria-current="page"] i{background:var(--ember);box-shadow:none}
+.navrail .spacer{height:18px}
+.dd-main{padding:32px 40px;overflow:hidden}
+.dd-head{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.dd-head h2{font:700 34px/1 var(--f-display);margin:0}
+.dd-head .avg{margin-left:auto}
+.dd-sub{font:800 12px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-dim);margin:0 0 12px;display:flex;align-items:center;gap:12px}
+.dd-deck{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;padding:16px;border-radius:16px;background:linear-gradient(#2a1d16,#20160f);box-shadow:inset 0 0 0 1.5px #4A332A,inset 0 2px 0 #ffffff12;margin-bottom:28px}
+.dd-deck .ct-wrap{--w:100%}
+.filters{display:flex;gap:8px;margin-left:auto}
+.filters .chip[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:none}
+.dd-coll{display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+.dd-coll .ct-wrap{--w:100%}
+.in-deck{position:absolute;left:6px;top:6px;z-index:1;height:18px;padding:0 6px;border-radius:9px;background:var(--jade);color:#101a22;font:900 9.5px/18px var(--f-ui);letter-spacing:.06em;text-transform:uppercase}
+.dd-panel{background:linear-gradient(#17242c,#111b22);box-shadow:inset 1px 0 0 #22323c;padding:28px 32px;display:flex;flex-direction:column;gap:14px}
+.dd-portrait{position:relative;height:300px;border-radius:16px;overflow:hidden;background:radial-gradient(80% 70% at 50% 80%,#3b5a33,#1a2a22 70%,#121c20)}
+.dd-portrait .valley{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.dd-portrait .tag{top:14px;right:14px}
+.dd-panel h3{font:700 36px/1 var(--f-display);margin:0}
+.dd-panel .actions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:auto}
+
+/* ---------- BATTLE ---------- */
+.bt{display:flex;flex-direction:column;align-items:center;padding:0 0 8px;background:radial-gradient(120% 60% at 50% 40%,#1b2a22,#0e171d 70%)}
+.bt-top{width:100%;height:52px;flex:none;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 10px}
+.side{display:flex;align-items:center;gap:6px}
+.side--you{justify-content:flex-end}
+.who{display:flex;flex-direction:column;font:800 13px/1.1 var(--f-ui)}
+.who small{font:700 10.5px/1.1 var(--f-ui);color:var(--paper-dim);letter-spacing:.04em}
+.who .team-dot{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+.team-dot--rival{background:var(--rival);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.team-dot--you{background:var(--you);border-radius:50%;box-shadow:0 0 0 1.5px var(--bone)}
+.lamps{display:flex;gap:2px}
+.lamps svg{width:14px;height:18px}
+.timer{display:flex;flex-direction:column;align-items:center;padding:4px 14px;border-radius:12px;background:var(--ink-2);box-shadow:inset 0 0 0 1px #2b434d}
+.timer small{font:800 9.5px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-dim)}
+.timer b{font:800 20px/1.1 var(--f-ui);font-variant-numeric:tabular-nums}
+.arena-frame{flex:none;padding:5px;border-radius:10px;background:linear-gradient(#7A5236,#4A332A);box-shadow:inset 0 0 0 1.5px #191D22,0 10px 24px #0009}
+.arena-frame svg{display:block;border-radius:6px}
+.bt-sel{height:22px;margin-top:4px;flex:none;display:flex;align-items:center;gap:8px;font:700 12.5px/1 var(--f-ui);color:var(--paper)}
+.bt-sel b{color:var(--seed)}
+.bt-hand{width:100%;height:104px;flex:none;display:flex;align-items:flex-end;gap:8px;padding:0 8px 4px}
+.bt-hand .ct__name{display:none}
+.bt-hand .ct{aspect-ratio:70/88}
+.bt-next{display:flex;flex-direction:column;align-items:center;gap:4px;margin-right:2px}
+.bt-next .rail__label{font-size:10px}
+.bt .rail{width:100%;padding:0 8px;flex:none;height:44px}
+
+/* desktop battle */
+.db{display:grid;grid-template-columns:1fr 520px 1fr;height:100%;background:radial-gradient(70% 70% at 50% 50%,#1b2a22,#0b1318 75%)}
+.db-left,.db-right{padding:24px 36px;display:flex;flex-direction:column;gap:16px}
+.db-center{display:flex;align-items:center;justify-content:center}
+.panel{background:linear-gradient(#18252e,#121c24);border-radius:16px;padding:16px 18px;box-shadow:inset 0 0 0 1px #2b434d}
+.panel h4{margin:0 0 10px;font:800 11px/1 var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-dim)}
+.score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.score .lamps svg{width:20px;height:26px}
+.score .timer b{font-size:34px}
+.score .timer{padding:8px 16px}
+.legend{display:grid;gap:10px}
+.legend div{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;font:600 13.5px/1.35 var(--f-ui)}
+.legend svg{width:44px;height:18px}
+.keys{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;font:600 13.5px/1.3 var(--f-ui)}
+kbd{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 6px;border-radius:7px;background:var(--paper);color:var(--ink);font:800 13px/1 var(--f-ui);box-shadow:0 2px 0 #8d8676}
+.db-hand{display:grid;grid-template-columns:1fr 1fr;gap:14px 14px;justify-items:center}
+.db-hand .ct-wrap{--w:150px}
+.db-hand .ct__name{font-size:14px;padding:6px 2px 5px}
+.db-hand .tag{width:28px;height:34px;font-size:16px;padding-top:8px}
+.db-next{display:flex;align-items:center;gap:12px}
+.db-next .ct-wrap{--w:64px}
+.db-next .ct__name{display:none}
+.db-right .rail__badge{width:56px;height:56px}
+.db-right .rail__badge b{font-size:21px;margin-top:11px}
+.db-right .sock{height:28px}
+.phase{display:inline-flex;align-items:center;gap:6px;font:800 12px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--seed)}
+
+/* motion strip */
+.keys-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.kf{background:#5a8638;border-radius:12px;padding:10px 8px 8px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.kf .pose{width:96px;height:96px;transform-origin:50% 85%}
+.kf b{font:800 11px/1.2 var(--f-ui);color:#101a22;text-align:center}
+.kf small{font:700 10px/1.2 ui-monospace,Menlo,monospace;color:#101a22cc;text-align:center}
+.kf--rm{background:#4c6e33}
+.kf--rm .pose{filter:drop-shadow(1px 0 0 #E9A83A) drop-shadow(-1px 0 0 #E9A83A) drop-shadow(0 1px 0 #E9A83A) drop-shadow(0 -1px 0 #E9A83A)}
+.board-foot{border-top:1px solid #22323c;padding-top:24px;color:var(--paper-dim);font-size:13px;max-width:110ch}
+.board-foot li{margin:0 0 6px}
+</style>
+</head>
+<body>
+
+<!-- ======================= SVG LIBRARY (hidden, not display:none so gradients resolve) ======================= -->
+<svg class="sprite-defs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0f1a22"/><stop offset=".42" stop-color="#1d3036"/>
+    <stop offset=".66" stop-color="#4f3f36"/><stop offset=".82" stop-color="#b8714a"/>
+    <stop offset="1" stop-color="#f2a25e"/>
+  </linearGradient>
+  <radialGradient id="g-glow"><stop offset="0" stop-color="#FFD27A"/><stop offset=".35" stop-color="#f2a25e" stop-opacity=".55"/><stop offset="1" stop-color="#f2a25e" stop-opacity="0"/></radialGradient>
+  <linearGradient id="g-copper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6C86E"/><stop offset=".45" stop-color="#E9A83A"/><stop offset="1" stop-color="#B8672E"/></linearGradient>
+  <radialGradient id="g-canvas" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#FBF4E2"/><stop offset=".6" stop-color="#E7DCC0"/><stop offset="1" stop-color="#C9BA96"/></radialGradient>
+  <radialGradient id="g-plinth" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#e0b57c"/><stop offset="1" stop-color="#a97a4a"/></radialGradient>
+  <linearGradient id="g-river" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#456d70"/><stop offset="1" stop-color="#2c4a4f"/></linearGradient>
+  <pattern id="p-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.6" height="5" fill="#191D22"/></pattern>
+
+  <!-- brand mark (in-repo docs/brand/logo.svg geometry, own asset) -->
+  <symbol id="sym-mark" viewBox="0 0 128 128">
+    <rect width="128" height="128" rx="30" fill="#101a22"/>
+    <circle cx="64" cy="64" r="48" fill="none" stroke="#9bbb76" stroke-opacity=".48" stroke-width="2"/>
+    <path d="M61 72C42 74 30 63 32 43c18-3 33 8 35 25-2 3-4 4-6 4Z" fill="#9bbb76"/>
+    <path d="M67 71c-1-19 9-31 29-34 2 18-7 31-25 36l-4-2Z" fill="#f2a25e"/>
+    <path d="M47 88c8-10 14-19 18-31 4 14 10 24 17 33" fill="none" stroke="#e9e2cd" stroke-linecap="round" stroke-width="4"/>
+    <path d="M64 62c-8 8-8 16 0 22 8-6 8-14 0-22Z" fill="#e9e2cd"/>
+  </symbol>
+
+  <!-- emberseed (resource) -->
+  <symbol id="sym-seed" viewBox="0 0 24 24">
+    <path d="M12 1.5C17 7 19.5 11.5 18.6 15.6 17.8 19.6 15 22.5 12 22.5S6.2 19.6 5.4 15.6C4.5 11.5 7 7 12 1.5Z" fill="#B8672E" stroke="#191D22" stroke-width="1.2"/>
+    <path d="M12 4.6C15.6 8.6 17 12 16.3 15.2 15.7 18.2 14 20.3 12 20.3S8.3 18.2 7.7 15.2C7 12 8.4 8.6 12 4.6Z" fill="#E9A83A"/>
+    <path d="M12 10.5c2 2.3 2.6 4.3 2 6-.4 1.3-1.1 2-2 2s-1.6-.7-2-2c-.6-1.7 0-3.7 2-6Z" fill="#FFD27A"/>
+  </symbol>
+
+  <!-- rarity glyphs: shape carries rarity, not hue alone -->
+  <symbol id="g-leaf" viewBox="0 0 12 12"><path d="M1.5 10.5C1.5 4.5 5.5 1.5 10.5 1.5 10.5 6.5 7.5 10.5 1.5 10.5Z" fill="#d8b48c" stroke="#191D22" stroke-width="1"/><path d="M2.5 9.5 8 4" stroke="#191D22" stroke-width=".8"/></symbol>
+  <symbol id="g-cog" viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.2" fill="none" stroke="#191D22" stroke-width="3.4"/><circle cx="6" cy="6" r="4.2" fill="none" stroke="#E9A83A" stroke-width="2.2" stroke-dasharray="1.7 1.1"/><circle cx="6" cy="6" r="1.5" fill="#E9A83A" stroke="#191D22" stroke-width=".8"/></symbol>
+  <symbol id="g-gem" viewBox="0 0 12 12"><path d="M6 1 11 6 6 11 1 6Z" fill="#6FB3A2" stroke="#191D22" stroke-width="1"/><path d="M6 1 6 11M1 6h10" stroke="#191D22" stroke-width=".6" opacity=".6"/></symbol>
+
+  <!-- ===== COILBLADE: lean clockwork fencer, bell-dome head with one round eye, moss scarf, long curved saber ===== -->
+  <symbol id="sym-coilblade" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M23 21C15 22 9 28 4 35 10 33.5 14.5 32.5 18.5 31 14.5 36.5 12.5 40.5 11.5 45 17.5 40 21.5 35 25 28Z" fill="#2F4A2E"/>
+      <path d="M27.5 40 20.5 50.5 15 57 22 59 25.5 54 31.5 43Z" fill="#B8672E"/>
+      <path d="M33 40 41 47 40 57 47.5 59 46.5 55 45.5 46 37.5 38Z" fill="url(#g-copper)"/>
+      <rect x="27" y="34.5" width="10" height="7" rx="2" fill="#191D22"/>
+      <path d="M27.5 36h9M27.5 38.2h9M27.5 40.4h9" stroke="#E9A83A" stroke-width="1.2"/>
+      <path d="M28 40.5 36 40.5 37 47 32 49 27 47Z" style="fill:var(--team,#2E7F86)"/>
+      <path d="M24 22Q32 19 40 22L38 35 26 35Z" fill="url(#g-copper)"/>
+      <path d="M28 26.5h8M28.5 30h7" stroke="#B8672E" stroke-width="1.1"/>
+      <path d="M25 24 18 21.5 13 17.5 11.8 20.8 17 26 24 28Z" fill="#B8672E"/>
+      <path d="M37 24 44 31 45 37.5 41 38.5 40 33 35 28Z" fill="url(#g-copper)"/>
+      <path d="M43 36Q54 37.5 62.5 47 55 43 44 40Z" fill="#F4EBD6"/>
+      <path d="M46 37.8Q55 40 61.5 46.3" fill="none" stroke="#FFD27A" stroke-width=".9"/>
+      <circle cx="43.6" cy="37.6" r="2.5" fill="#E9A83A"/>
+      <path d="M24 19Q32 23 40 19L40.5 23Q32 27.5 23.5 23Z" fill="#2F4A2E"/>
+      <path d="M26 22.5Q32 25 38 22.5" fill="none" stroke="#5C8A46" stroke-width="1"/>
+      <path d="M24.5 13.5h-4" fill="none"/>
+      <path d="M20.5 13.5c-1.5-3.6-5.6-3-5.2-.1.4 1.4 2.4 1.1 5.2.1-2.8-1-4.8-1.3-5.2.1-.4 2.9 3.7 3.5 5.2-.1Z" fill="#E9A83A" stroke-width="1.2"/>
+      <path d="M25 19C24 9 28 4.2 32 4.2S40 9 39 19Z" fill="url(#g-copper)"/>
+      <path d="M22.8 19.4Q32 22.6 41.2 19.4L41 17.6Q32 20.4 23 17.6Z" fill="#B8672E"/>
+      <path d="M30 4.6a2 2 0 1 1 4 0" fill="none" stroke-width="1.4"/>
+      <path d="M30.6 5.6 29 9 30.4 11.6 28 16" fill="none" stroke="#FFD27A" stroke-width=".9"/>
+      <circle cx="36" cy="12.6" r="2.7" fill="#FFD27A"/>
+      <circle cx="36.6" cy="12.1" r="1" fill="#FFF6D8" stroke="none"/>
+    </g>
+  </symbol>
+
+  <!-- ===== MOSSGUARD: leaf-mantled grove keeper, carved mask, tall shield with pressed leaf (team rim) ===== -->
+  <symbol id="sym-mossguard" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M19 46 17 58 28 58 29 47Z" fill="#4A332A"/>
+      <path d="M32 47 32 58 42 58 40.5 46Z" fill="#4A332A"/>
+      <path d="M16 58l-3 2.4M28 58l2.4 2M31.5 58l-2.2 2.2M42 58l3 2" fill="none" stroke="#4A332A" stroke-width="2"/>
+      <path d="M15 30Q29 24 43 30L43 48Q29 53 15 48Z" fill="#7A5236"/>
+      <path d="M21 34v12M28 33v15M36 34v12" fill="none" stroke="#4A332A" stroke-width="1.3"/>
+      <path d="M15 32 10 41 12 47 17.5 46 18.5 37Z" fill="#7A5236"/>
+      <circle cx="13.5" cy="47" r="3.6" fill="#7A5236"/>
+      <path d="M8.5 32C6.5 26 9.5 21 14 20 14 15 19 12 23.5 14 25.5 9 33 8 36 12 40 10 46 13 46 18 50.5 19.5 52 25 49 29.5 45 32.5 39.5 30.5 35.5 32.5 31 30.5 26 33.5 21 31.5 16.5 33.5 11 34 8.5 32Z" fill="#5C8A46"/>
+      <path d="M15 24l5 5M24 16.5l2 7M41 18l-3 6.5M47 23l-5 4" fill="none" stroke="#2F4A2E" stroke-width="1.2"/>
+      <path d="M26 7.5Q31 4.5 36 7.5L37 19Q31 23 25 19Z" fill="#C79A63"/>
+      <circle cx="29" cy="12" r="1.5" fill="#191D22" stroke="none"/>
+      <circle cx="34" cy="12" r="1.5" fill="#191D22" stroke="none"/>
+      <path d="M28 16Q31 18.6 34 16" fill="none" stroke-width="1.1"/>
+      <path d="M31 6C30 3 27 1.6 24.6 2.4 26.4 4.6 28.6 5.6 31 6Z" fill="#9bbb76" stroke-width="1.1"/>
+      <path d="M31.4 6C33 3 36 2 38.2 3 36.2 5 34 6 31.4 6Z" fill="#9bbb76" stroke-width="1.1"/>
+      <path d="M35.5 25H57Q58 45 46.2 58 34.5 45 35.5 25Z" style="fill:var(--team,#2E7F86)"/>
+      <path d="M38.6 28H54Q54.6 43.5 46.2 54 37.8 43.5 38.6 28Z" fill="#C79A63"/>
+      <path d="M46.2 30.5C52.5 35.5 52.5 44.5 46.2 51.5 40 44.5 40 35.5 46.2 30.5Z" fill="#9bbb76" stroke-width="1.1"/>
+      <path d="M46.2 31.5V50.5M46.2 36.5l3-2M46.2 36.5l-3-2M46.2 41.5l4-2.5M46.2 41.5l-4-2.5M46.2 46.5l3-2M46.2 46.5l-3-2" fill="none" stroke="#5C8A46" stroke-width=".9"/>
+    </g>
+  </symbol>
+
+  <!-- ===== COPPERSKIFF: canvas envelope + copper strap cage, kettle-hull gondola, leaf pennant, stern prop ===== -->
+  <symbol id="sym-copperskiff" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M33.5 9V3" fill="none"/>
+      <path d="M33.5 2.6C37.5.6 42.5 1.4 45 4 42 5.6 37 5.8 33.5 4.6Z" style="fill:var(--flag,var(--team,#2E7F86))" stroke-width="1.1"/>
+      <path d="M8 16 2 10 5 19Z" fill="#CDBF9C"/>
+      <path d="M8 26 2 32 5 23Z" fill="#CDBF9C"/>
+      <path d="M6 21C6 11 20 7.5 34 7.5 50 7.5 60 13 60 21 60 29 50 34 34 34 20 34 6 31 6 21Z" fill="url(#g-canvas)"/>
+      <path d="M7 21C20 18 46 18 59.5 21M10 14C24 11 46 11 57 15M10 28C24 31 46 31 57 27" fill="none" stroke="#B8672E" stroke-width="1.2"/>
+      <path d="M18 9.5C16 16 16 27 18 33M30 7.6C28 15 28 27 30 34M42 7.8C44 15 44 27 42 33.6M52 10.5C54 16 54 26 52 31.5" fill="none" stroke="#B8672E" stroke-width="1.2"/>
+      <path d="M12.5 21.5l5.5-1 1 4.6-5.5 1Z" fill="#CDBF9C" stroke-width=".9" stroke-dasharray="1 .8"/>
+      <path d="M17 32.5 21 40M50 31 46 40M28 34v6M40 34v6" fill="none" stroke="#B79A6A" stroke-width="1"/>
+      <path d="M12.5 46.5 9 41.5M12.5 46.5 8 49.5M12.5 46.5 13.6 51.4" fill="none" stroke="#E9A83A" stroke-width="2.4"/>
+      <circle cx="12.5" cy="46.5" r="1.6" fill="#B8672E" stroke-width="1"/>
+      <path d="M14 42Q14 40 17 40H49Q52 40 52 42 52 54 34 56 16 54 14 42Z" fill="url(#g-copper)"/>
+      <path d="M14.6 45H51.4Q51 48 50 49.6H16Q15 48 14.6 45Z" style="fill:var(--team,#2E7F86)" stroke-width="1.1"/>
+      <circle cx="23.5" cy="42.6" r="1.6" fill="#2B3B40" stroke="#B8672E" stroke-width=".9"/>
+      <circle cx="32" cy="42.6" r="1.6" fill="#2B3B40" stroke="#B8672E" stroke-width=".9"/>
+      <path d="M33 52.5h6" fill="none" stroke="#B8672E" stroke-width="1"/>
+      <path d="M26 40Q32 36.5 38 40Z" fill="#B8672E" stroke-width="1.1"/>
+      <circle cx="32" cy="37.4" r="1.3" fill="#E9A83A" stroke-width="1"/>
+      <path d="M51 43Q57 41 60 36L62.6 37.6Q60 45 51 48Z" fill="#B8672E"/>
+      <circle cx="61.4" cy="36.6" r="1.4" fill="#FFD27A" stroke="none"/>
+    </g>
+  </symbol>
+
+  <!-- ===== other deck emblems (simplified stand-ins; the real cards use the painted atlas) ===== -->
+  <symbol id="sym-skymaul" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M24 6 36 3.5 42.5 11.5 38.5 20H26L21 13Z" fill="#7d8784"/>
+      <path d="M23 21h18v4H23Z" fill="#E9A83A"/>
+      <path d="M20 28 32 24 44 28 45 42 32 48 19 42Z" fill="#9BA5A2"/>
+      <circle cx="32" cy="35.5" r="5" fill="#FFD27A"/>
+      <path d="M5.5 30 16 26 19 36 14 44 5 41Z" fill="#7d8784"/>
+      <path d="M58.5 30 48 26 45 36 50 44 59 41Z" fill="#7d8784"/>
+      <path d="M7 34.5l10.5-3.5M46.5 31l10.5 3.5" fill="none" stroke="#E9A83A" stroke-width="3"/>
+      <path d="M26 52 32 50 37 54 33 60.5 27 58.5Z" fill="#7d8784"/>
+    </g>
+  </symbol>
+  <symbol id="sym-brassbolt" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M19 56 21 31H43L46 56Z" fill="#4A332A"/>
+      <path d="M20 31Q18 12 32 8 46 12 44 31Z" fill="#3f5a2c"/>
+      <path d="M21.5 15 17.5 4.5 27 10.5ZM42.5 15 46.5 4.5 37 10.5Z" fill="#3f5a2c"/>
+      <path d="M25 18Q32 14 39 18L38 28Q32 32 26 28Z" fill="#a86b3c"/>
+      <circle cx="29" cy="22" r="1.3" fill="#191D22" stroke="none"/><circle cx="35" cy="22" r="1.3" fill="#191D22" stroke="none"/>
+      <path d="M12 40H55V44H12Z" fill="#B8672E"/>
+      <path d="M49 31Q59 42 49 53" fill="none" stroke="#E9A83A" stroke-width="3.2"/>
+      <path d="M49 31Q59 42 49 53" fill="none" stroke="#191D22" stroke-width=".8" stroke-dasharray="0"/>
+      <path d="M50 32 46 42 50 52" fill="none" stroke="#F4EBD6" stroke-width=".9"/>
+    </g>
+  </symbol>
+  <symbol id="sym-reedsting" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M17 58 21.5 29Q32 21 42.5 29L47 58 41 53 36 58 32 52 27 58 23 53Z" fill="#5C8A46"/>
+      <path d="M22 31Q19.5 12 32 7 44.5 12 42 31 32 25 22 31Z" fill="#8aa84a"/>
+      <path d="M26 24Q32 20 38 24L36.5 30.5Q32 32.5 27.5 30.5Z" fill="#191D22"/>
+      <circle cx="29.5" cy="26" r="1.2" fill="#FFD27A" stroke="none"/><circle cx="34.5" cy="26" r="1.2" fill="#FFD27A" stroke="none"/>
+      <path d="M51 5Q63 32 51 59" fill="none" stroke="#7A5236" stroke-width="3"/>
+      <path d="M51 5V59" fill="none" stroke="#F4EBD6" stroke-width=".8"/>
+      <path d="M28 35H60" fill="none" stroke="#F4EBD6" stroke-width="1.4"/>
+      <path d="M60 33 63 35 60 37Z" fill="#E9A83A" stroke-width="1"/>
+    </g>
+  </symbol>
+  <symbol id="sym-briar" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M3 18 13 60" fill="none" stroke="#7A5236" stroke-width="2.4"/>
+      <path d="M1.5 13 5.5 10 6 17Z" fill="#F4EBD6" stroke-width="1"/>
+      <path d="M6 59 10 37Q17 31 24 37L28 59Z" fill="#4A332A"/>
+      <path d="M10 27Q17 19 24 27L22.5 37Q17 40.5 11.5 37Z" fill="#ECE1C5"/>
+      <circle cx="14.5" cy="30" r="1.6" fill="#191D22" stroke="none"/><circle cx="19.5" cy="30" r="1.6" fill="#191D22" stroke="none"/>
+      <path d="M11 24Q15 6 25 20Z" fill="#5C8A46"/>
+      <path d="M33 59 36 32Q45 25 54 32L58 59Z" fill="#5a3f2f"/>
+      <path d="M37 21Q45 12 53 21L51.5 32Q45 36 38.5 32Z" fill="#ECE1C5"/>
+      <circle cx="42" cy="25" r="1.7" fill="#191D22" stroke="none"/><circle cx="48" cy="25" r="1.7" fill="#191D22" stroke="none"/>
+      <path d="M42 17Q47 2 55 14Z" fill="#7a9a3c"/>
+      <path d="M33 38 24 33 26 40Z" fill="#5C8A46"/>
+    </g>
+  </symbol>
+  <symbol id="sym-cinder" viewBox="0 0 64 64">
+    <g stroke="#191D22" stroke-width="1.5" stroke-linejoin="round">
+      <g transform="translate(15 46)"><path d="M0-6C-5-13-3-21 3-25 1.5-18 7-14 5-6Z" fill="#f2a25e"/><circle r="8.5" fill="#8a5a36"/><circle cx="-3" cy="-1" r="2" fill="#FFD27A" stroke="none"/><circle cx="3" cy="-1" r="2" fill="#FFD27A" stroke="none"/></g>
+      <g transform="translate(32 34)"><path d="M0-7C-6-15-3-24 4-28 2.5-20 8.5-16 6-7Z" fill="#FFB25C"/><circle r="9.5" fill="#9a6640"/><circle cx="-3.3" cy="-1" r="2.2" fill="#FFD27A" stroke="none"/><circle cx="3.3" cy="-1" r="2.2" fill="#FFD27A" stroke="none"/></g>
+      <g transform="translate(49 47)"><path d="M0-6C-5-13-2-20 4-24 2-17 7-14 5-6Z" fill="#f2a25e"/><circle r="8" fill="#8a5a36"/><circle cx="-2.8" cy="-1" r="1.9" fill="#FFD27A" stroke="none"/><circle cx="2.8" cy="-1" r="1.9" fill="#FFD27A" stroke="none"/></g>
+    </g>
+  </symbol>
+
+  <!-- ===== keeps, lanterns, rings ===== -->
+  <symbol id="keep-body" viewBox="0 0 64 80">
+    <ellipse cx="32" cy="72" rx="23" ry="6" fill="#191D22" opacity=".35"/>
+    <path d="M14 70V38Q32 32 50 38V70Q32 76 14 70Z" fill="#9BA5A2" stroke="#191D22" stroke-width="1.6"/>
+    <path d="M14 50Q32 55 50 50M14 60Q32 65 50 60M24 41v9M40 41v9M31 52v9M21 62v9M43 62v9" stroke="#65716F" stroke-width="1.2" fill="none"/>
+    <path d="M27 72V64Q32 58 37 64V72Z" fill="#4A332A" stroke="#191D22" stroke-width="1.2"/>
+    <path d="M9 38 32 15 55 38Q32 45 9 38Z" fill="url(#g-copper)" stroke="#191D22" stroke-width="1.6"/>
+    <path d="M19 35 30 24M45 35 36 27" stroke="#6FB3A2" stroke-width="1.6" opacity=".8"/>
+    <circle cx="32" cy="12" r="11" fill="url(#g-glow)"/>
+    <rect x="28" y="7" width="8" height="10" rx="2" style="fill:var(--lamp,#FFD27A)" stroke="#191D22" stroke-width="1.2"/>
+    <path d="M27 7h10l-2-3h-6Z" fill="#B8672E" stroke="#191D22" stroke-width="1"/>
+  </symbol>
+  <symbol id="keep-you" viewBox="0 0 64 80">
+    <use href="#keep-body"/>
+    <path d="M51 38V19" stroke="#191D22" stroke-width="1.6"/>
+    <path d="M51 19 63 20.5 58.5 24.5 63 28.5 51 30Z" fill="#2E7F86" stroke="#F4EBD6" stroke-width="1.2" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="keep-rival" viewBox="0 0 64 80">
+    <use href="#keep-body"/>
+    <path d="M51 38V19" stroke="#191D22" stroke-width="1.6"/>
+    <path d="M51 19H62V31L59.2 28.4 56.5 31 53.8 28.4 51 31Z" fill="#C6452E" stroke="#191D22" stroke-width="1.2" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="sym-lantern" viewBox="0 0 16 20">
+    <path d="M5 3h6l-1-2H6Z" fill="#B8672E" stroke="#191D22" stroke-width=".8"/>
+    <rect x="3.5" y="3" width="9" height="12" rx="2.5" style="fill:var(--lamp,#FFD27A)" stroke="#191D22" stroke-width="1.2"/>
+    <path d="M3.5 7h9M3.5 11h9" stroke="#B8672E" stroke-width="1"/>
+    <path d="M5 15h6v2.5H5Z" fill="#B8672E" stroke="#191D22" stroke-width="1"/>
+  </symbol>
+  <symbol id="ring-you" viewBox="-8 -3 16 6">
+    <ellipse rx="6.6" ry="2.3" fill="none" stroke="#F4EBD6" stroke-width="2.4"/>
+    <ellipse rx="6.6" ry="2.3" fill="none" stroke="#2E7F86" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="ring-rival" viewBox="-8 -3 16 6">
+    <ellipse rx="6.6" ry="2.3" fill="none" stroke="#191D22" stroke-width="2.4"/>
+    <ellipse rx="6.6" ry="2.3" fill="none" stroke="#C6452E" stroke-width="1.6" stroke-dasharray="2.6 1.2"/>
+  </symbol>
+
+  <!-- step icons -->
+  <symbol id="ico-deck" viewBox="0 0 48 48">
+    <g stroke="#191D22" stroke-width="1.5" stroke-linejoin="round">
+      <rect x="8" y="10" width="20" height="26" rx="3" fill="#7A5236" transform="rotate(-12 18 23)"/>
+      <rect x="15" y="9" width="20" height="26" rx="3" fill="#B8672E" transform="rotate(4 25 22)"/>
+      <rect x="21" y="12" width="20" height="26" rx="3" fill="#E9A83A" transform="rotate(16 31 25)"/>
+    </g>
+    <text x="24" y="46" text-anchor="middle" font-family="ui-rounded,system-ui,sans-serif" font-weight="900" font-size="9" fill="#e9e2cd">×8</text>
+  </symbol>
+
+  <!-- ===== landing valley (dusk diorama backdrop) ===== -->
+  <symbol id="sym-valley" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax slice">
+    <rect width="800" height="500" fill="url(#g-sky)"/>
+    <ellipse cx="560" cy="330" rx="330" ry="120" fill="url(#g-glow)" opacity=".5"/>
+    <path d="M0 300 70 252 140 280 220 226 300 268 370 236 450 270 540 222 620 262 700 238 800 270V500H0Z" fill="#1b2b31"/>
+    <path d="M0 338Q25 300 55 322 80 292 112 318 140 290 172 320 200 296 228 324 258 300 290 328 320 306 350 332 380 312 410 336V500H0Z" fill="#172520"/>
+    <path d="M380 344Q420 318 452 340 490 316 520 342 560 320 600 344 640 322 680 346 720 326 760 348 785 336 800 344V500H380Z" fill="#192822"/>
+    <g>
+      <circle cx="636" cy="290" r="14" fill="#9fb7b5" opacity=".12"/><circle cx="646" cy="270" r="18" fill="#9fb7b5" opacity=".09"/>
+      <rect x="626" y="300" width="9" height="22" fill="#241a16"/>
+      <rect x="566" y="330" width="72" height="48" fill="#2a1f1a"/>
+      <path d="M556 333 601 299 646 333Z" fill="#B8672E"/>
+      <path d="M556 333 601 299 606 303 562 336Z" fill="#E9A83A"/>
+      <path d="M580 312 590 305M620 318 628 324" stroke="#6FB3A2" stroke-width="2" opacity=".7"/>
+      <rect x="578" y="345" width="10" height="12" fill="#FFD27A"/>
+      <rect x="610" y="345" width="10" height="12" fill="#FFD27A" opacity=".85"/>
+      <rect x="648" y="344" width="58" height="36" fill="#241a16"/>
+      <path d="M642 346 677 320 712 346Z" fill="#B8672E"/>
+      <path d="M642 346 677 320 681 323 647 348Z" fill="#E9A83A"/>
+      <rect x="670" y="354" width="9" height="11" fill="#FFD27A"/>
+      <circle cx="548" cy="384" r="23" fill="none" stroke="#7A5236" stroke-width="5"/>
+      <path d="M548 361V407M525 384H571M532 368 564 400M564 368 532 400" stroke="#7A5236" stroke-width="2.5"/>
+      <circle cx="548" cy="384" r="4" fill="#B8672E"/>
+    </g>
+    <path d="M0 412C140 398 260 424 400 408 540 392 660 418 800 402V440C660 456 540 430 400 446 260 462 140 436 0 452Z" fill="url(#g-river)"/>
+    <path d="M60 424h40M210 433h30M470 418h50M640 426h36M330 440h28" stroke="#b5e0d3" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+    <path d="M168 440C200 388 270 388 302 436" fill="none" stroke="#4A332A" stroke-width="13" stroke-linecap="round"/>
+    <path d="M168 440C200 388 270 388 302 436" fill="none" stroke="#7A5236" stroke-width="6" stroke-linecap="round"/>
+    <path d="M176 430c-6 6-14 8-20 6M296 428c6 6 14 9 22 7M186 418c-8 2-14 0-18-4" stroke="#4A332A" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <g>
+      <circle cx="70" cy="392" r="12" fill="url(#g-glow)"/><circle cx="70" cy="392" r="2.6" fill="#FFD27A"/>
+      <circle cx="128" cy="372" r="12" fill="url(#g-glow)"/><circle cx="128" cy="372" r="2.6" fill="#FFD27A"/>
+      <circle cx="235" cy="380" r="14" fill="url(#g-glow)"/><circle cx="235" cy="380" r="3" fill="#FFD27A"/>
+      <circle cx="338" cy="352" r="12" fill="url(#g-glow)"/><circle cx="338" cy="352" r="2.6" fill="#FFD27A"/>
+      <circle cx="420" cy="338" r="12" fill="url(#g-glow)"/><circle cx="420" cy="338" r="2.4" fill="#FFD27A"/>
+      <circle cx="498" cy="330" r="10" fill="url(#g-glow)"/><circle cx="498" cy="330" r="2.2" fill="#FFD27A"/>
+    </g>
+    <path d="M0 452C180 436 420 446 800 428V500H0Z" fill="#1f3322"/>
+    <path d="M0 472C200 460 520 472 800 458V500H0Z" fill="#162619"/>
+  </symbol>
+
+  <!-- tree-ring plinth (the diorama base) -->
+  <symbol id="sym-plinth" viewBox="0 0 360 90">
+    <path d="M8 34V54A172 30 0 0 0 352 54V34Z" fill="#6a4630" stroke="#191D22" stroke-width="2"/>
+    <path d="M30 60v8M80 66v10M140 70v10M210 70v10M270 66v10M325 60v8" stroke="#4A332A" stroke-width="3"/>
+    <ellipse cx="180" cy="34" rx="172" ry="30" fill="url(#g-plinth)" stroke="#191D22" stroke-width="2"/>
+    <ellipse cx="180" cy="34" rx="130" ry="22" fill="none" stroke="#a0703f" stroke-width="2"/>
+    <ellipse cx="180" cy="34" rx="88" ry="15" fill="none" stroke="#a0703f" stroke-width="2"/>
+    <ellipse cx="180" cy="34" rx="44" ry="7.5" fill="none" stroke="#a0703f" stroke-width="2"/>
+    <path d="M180 34 222 20" stroke="#8a5a30" stroke-width="1.6"/>
+    <path d="M14 36c10-10 24-10 32-2M300 52c8-8 22-10 34-4M120 58c6-5 14-6 20-2" fill="#5C8A46" stroke="#2F4A2E" stroke-width="1.5"/>
+  </symbol>
+
+  <!-- ===== ARENA (one source used by both battle frames; 180×320 = 18×32 tiles ×10) ===== -->
+  <symbol id="sym-arena" viewBox="0 0 180 320">
+    <rect width="180" height="320" fill="#5a8638"/>
+    <g opacity=".5">
+      <ellipse cx="60" cy="40" rx="30" ry="14" fill="#6c9a45"/><ellipse cx="120" cy="110" rx="34" ry="16" fill="#6c9a45"/>
+      <ellipse cx="80" cy="220" rx="36" ry="15" fill="#6c9a45"/><ellipse cx="110" cy="285" rx="28" ry="12" fill="#6c9a45"/>
+      <ellipse cx="95" cy="80" rx="22" ry="10" fill="#4d7731"/><ellipse cx="70" cy="250" rx="24" ry="10" fill="#4d7731"/>
+    </g>
+    <rect x="27" y="4" width="16" height="312" rx="7" fill="#b89d72" opacity=".55"/>
+    <rect x="137" y="4" width="16" height="312" rx="7" fill="#b89d72" opacity=".55"/>
+    <g fill="#9BA5A2" opacity=".7"><ellipse cx="90" cy="60" rx="3" ry="2"/><ellipse cx="84" cy="64" rx="2" ry="1.4"/><ellipse cx="100" cy="258" rx="3" ry="2"/><ellipse cx="62" cy="120" rx="2.4" ry="1.6"/><ellipse cx="118" cy="200" rx="2.4" ry="1.6"/></g>
+    <rect x="0" y="0" width="7" height="320" fill="#2d4a26"/><rect x="173" y="0" width="7" height="320" fill="#2d4a26"/>
+    <g fill="#7d8a86" stroke="#191D22" stroke-width=".6"><circle cx="5" cy="30" r="3"/><circle cx="4" cy="96" r="2.6"/><circle cx="6" cy="210" r="3"/><circle cx="5" cy="290" r="2.4"/><circle cx="175" cy="60" r="2.6"/><circle cx="176" cy="140" r="3"/><circle cx="174" cy="236" r="2.6"/><circle cx="175" cy="300" r="3"/></g>
+    <!-- placement guidance while a card is selected: own half tinted, rival half hatched -->
+    <rect x="7" y="172" width="166" height="148" fill="#9bbb76" opacity=".12"/>
+    <rect x="7" y="0" width="166" height="148" fill="url(#p-hatch)" opacity=".16"/>
+    <!-- river + root bridges (DOM overlays in the app; drawn here for the mock) -->
+    <rect x="0" y="148" width="180" height="24" fill="#35565B"/>
+    <path d="M0 148H180M0 172H180" stroke="#4A332A" stroke-width="1.6"/>
+    <path d="M14 155h10M60 163h14M98 156h12M156 164h12" stroke="#b5e0d3" stroke-opacity=".4" stroke-width="1" stroke-linecap="round"/>
+    <g stroke="#191D22" stroke-width=".9">
+      <rect x="26" y="144" width="18" height="32" rx="3" fill="#7A5236"/>
+      <rect x="136" y="144" width="18" height="32" rx="3" fill="#7A5236"/>
+      <path d="M26 150h18M26 156h18M26 162h18M26 168h18M136 150h18M136 156h18M136 162h18M136 168h18" stroke="#4A332A" stroke-width=".8"/>
+      <path d="M26 146c-3-2-6-1-7 2M44 174c3 2 6 1 7-2M136 146c-3-2-6-1-7 2M154 174c3 2 6 1 7-2" fill="none" stroke="#4A332A" stroke-width="1.6"/>
+    </g>
+    <!-- keeps -->
+    <use href="#keep-rival" x="77" y="6" width="26" height="32.5"/>
+    <use href="#keep-rival" x="25" y="40" width="20" height="25"/>
+    <use href="#keep-rival" x="135" y="40" width="20" height="25" style="--lamp:#c9a05a"/>
+    <use href="#keep-you" x="77" y="281" width="26" height="32.5"/>
+    <use href="#keep-you" x="25" y="252" width="20" height="25"/>
+    <use href="#keep-you" x="135" y="252" width="20" height="25"/>
+    <!-- keep health bars -->
+    <g stroke="#191D22" stroke-width=".5">
+      <rect x="80" y="3" width="20" height="2.4" fill="#191D22"/><rect x="80.4" y="3.4" width="19.2" height="1.6" fill="#E9A83A"/>
+      <rect x="25" y="37" width="20" height="2.4" fill="#191D22"/><rect x="25.4" y="37.4" width="19.2" height="1.6" fill="#E9A83A"/>
+      <rect x="135" y="37" width="20" height="2.4" fill="#191D22"/><rect x="135.4" y="37.4" width="8.8" height="1.6" fill="#E9A83A"/>
+      <rect x="80" y="278" width="20" height="2.4" fill="#191D22"/><rect x="80.4" y="278.4" width="19.2" height="1.6" fill="#DCEDE9"/>
+      <rect x="25" y="249" width="20" height="2.4" fill="#191D22"/><rect x="25.4" y="249.4" width="15.6" height="1.6" fill="#DCEDE9"/>
+      <rect x="135" y="249" width="20" height="2.4" fill="#191D22"/><rect x="135.4" y="249.4" width="19.2" height="1.6" fill="#DCEDE9"/>
+    </g>
+    <!-- west bridge clash: your Coilblade (south, facing north-east) vs rival Mossguard (north) -->
+    <g transform="translate(34 173)">
+      <use href="#ring-you" x="-8" y="-3" width="16" height="6"/>
+      <use href="#sym-coilblade" x="-3.6" y="-7" width="7.2" height="7.2" style="--team:#2E7F86"/>
+      <rect x="-3.5" y="-9.4" width="7" height="1.4" fill="#191D22"/><rect x="-3.2" y="-9.1" width="5.2" height=".8" fill="#DCEDE9"/>
+    </g>
+    <g transform="translate(36 157)">
+      <use href="#ring-rival" x="-8" y="-3" width="16" height="6"/>
+      <g transform="scale(-1 1)"><use href="#sym-mossguard" x="-4.2" y="-8" width="8.4" height="8.4" style="--team:#C6452E"/></g>
+      <rect x="-3.8" y="-10.4" width="7.6" height="1.4" fill="#191D22"/><rect x="-3.5" y="-10.1" width="3.4" height=".8" fill="#E9A83A"/>
+    </g>
+    <path transform="translate(1 -6)" d="M35 163 36.2 166 39.4 165.4 37.2 167.6 39 170.4 35.8 169.4 34.4 172.4 33.8 169.2 30.6 169.6 32.8 167.4 31 164.6 34.2 165.6Z" fill="#F4EBD6" stroke="#E9A83A" stroke-width=".4"/>
+    <!-- your Copperskiff (air) heading north on east side; rival Copperskiff over their lane -->
+    <ellipse cx="120" cy="214" rx="4.2" ry="1.4" fill="#191D22" opacity=".35"/>
+    <g transform="translate(120 202)">
+      <use href="#ring-you" x="-6" y="9.4" width="12" height="4.5"/>
+      <use href="#sym-copperskiff" x="-3.8" y="-4" width="7.6" height="7.6" style="--team:#2E7F86"/>
+      <rect x="-3.5" y="-6" width="7" height="1.4" fill="#191D22"/><rect x="-3.2" y="-5.7" width="6.4" height=".8" fill="#DCEDE9"/>
+    </g>
+    <ellipse cx="146" cy="104" rx="4.2" ry="1.4" fill="#191D22" opacity=".35"/>
+    <g transform="translate(146 92)">
+      <use href="#ring-rival" x="-6" y="9.4" width="12" height="4.5"/>
+      <g transform="scale(-1 1)"><use href="#sym-copperskiff" x="-3.8" y="-4" width="7.6" height="7.6" style="--team:#C6452E"/></g>
+      <rect x="-3.5" y="-6" width="7" height="1.4" fill="#191D22"/><rect x="-3.2" y="-5.7" width="4.4" height=".8" fill="#E9A83A"/>
+    </g>
+    <circle cx="141" cy="66" r="2.6" fill="url(#g-glow)"/><circle cx="141" cy="66" r=".9" fill="#FFD27A"/>
+    <!-- placement ghost for the selected card (Mossguard) -->
+    <g transform="translate(96 238)">
+      <circle r="6.5" fill="#9bbb76" fill-opacity=".18" stroke="#9bbb76" stroke-width=".8" stroke-dasharray="1.6 1.1"/>
+      <use href="#ring-you" x="-8" y="-3" width="16" height="6" opacity=".7"/>
+      <use href="#sym-mossguard" x="-4.2" y="-8" width="8.4" height="8.4" opacity=".55" style="--team:#2E7F86"/>
+    </g>
+  </symbol>
+</defs>
+</svg>
+
+<!-- ======================= BOARD ======================= -->
+<header class="board-head">
+  <div>
+    <h1>Moss &amp; Ember: “Riverworks Diorama” design board</h1>
+    <p>Selected direction from <code>art-direction.md</code>: a tactile woodland, river-workshop, copper and emberseed diorama. It shows the public landing page, the deck/collection/card-info screen and the battle HUD at <b>390×844</b> and <b>1440×933</b>, plus the cast's silhouettes at 13 px and static motion keys.</p>
+    <p>All art is original inline SVG/CSS; nothing from <code>reference/</code> was used. Lore is quoted verbatim from <code>src/ui/card-lore.js</code>. Stat values are the existing HEAD catalog values, not new numbers. Display words <b>ember</b> and <b>lanterns</b> are a copy proposal pending an owner decision; code identifiers are unchanged. Source pin <code>c693d0cc</code>.</p>
+  </div>
+  <div class="stamp">UNRENDERED<small>never opened in a browser.<br>Render at actual size before judging.</small></div>
+</header>
+
+<main>
+
+<!-- 01 tokens -->
+<section class="board-sec" id="s-tokens" aria-labelledby="h-tokens">
+  <h2 id="h-tokens">01 · Palette &amp; type</h2>
+  <p class="note">The existing brand and combat tokens are kept unchanged; new tokens fill the gaps. The river is deliberately desaturated so it never reads as the teal team.</p>
+  <div class="swatches">
+    <div class="sw"><i style="background:#101a22;box-shadow:inset 0 0 0 1px #2a3a44"></i><span>Ink<small>#101a22</small></span></div>
+    <div class="sw"><i style="background:#e9e2cd"></i><span>Paper<small>#e9e2cd</small></span></div>
+    <div class="sw"><i style="background:#9bbb76"></i><span>Jade<small>#9bbb76</small></span></div>
+    <div class="sw"><i style="background:#f2a25e"></i><span>Ember<small>#f2a25e</small></span></div>
+    <div class="sw"><i style="background:#E9A83A"></i><span>Copper<small>#E9A83A</small></span></div>
+    <div class="sw"><i style="background:#6FB3A2"></i><span>Verdigris (new)<small>#6FB3A2</small></span></div>
+    <div class="sw"><i style="background:#FFD27A"></i><span>Seed core (new)<small>#FFD27A</small></span></div>
+    <div class="sw"><i style="background:#7A5236"></i><span>Rootwood (new)<small>#7A5236</small></span></div>
+    <div class="sw"><i style="background:#2E7F86;box-shadow:inset 0 0 0 3px #F4EBD6"></i><span>You · round<small>#2E7F86</small></span></div>
+    <div class="sw"><i style="background:#C6452E;clip-path:polygon(0 0,100% 0,100% 100%,83% 82%,66% 100%,50% 82%,33% 100%,17% 82%,0 100%)"></i><span>Rival · notched<small>#C6452E</small></span></div>
+  </div>
+  <div class="type-spec">
+    <div><p class="lbl">Display · system serif 700</p><p class="display" style="font-size:44px;line-height:1">Light the path. <em>Hold the bridge.</em></p></div>
+    <div><p class="lbl">UI · rounded system sans</p><p style="margin:0;font:600 17px/1.45 var(--f-ui)">Spend ember to play a card. Knock out the rival’s keeps before time runs out.</p></div>
+    <div><p class="lbl">Numbers · tabular 800</p><p style="margin:0;font:800 40px/1 var(--f-ui);font-variant-numeric:tabular-nums">2:47 · 1,361 · 3.1</p></div>
+  </div>
+</section>
+
+<!-- 02 cast -->
+<section class="board-sec" id="s-cast" aria-labelledby="h-cast">
+  <h2 id="h-cast">02 · Cast: identity, dominant read, 13 px test</h2>
+  <p class="note">The vector stand-ins follow the existing painted portraits (atlas cells 0–2) and the lore. Astra's low-poly renders replace them; see <code>character-to-3D-handoff.md</code>. The green strip shows each unit at its phone arena size of about 13 px for both teams, in grayscale and as a black silhouette. That's the test the final sprites must pass on the real arena surface.</p>
+  <div class="cast">
+    <article class="cast-card">
+      <h3>Coilblade</h3><p class="read">Thin upright fencer + long bright crescent blade</p>
+      <div class="cast-stage"><span class="shadow"></span><svg class="hero" viewBox="0 0 64 64" role="img" aria-label="Coilblade concept: copper clockwork fencer with bell-dome head, single round eye, moss scarf, curved saber"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg></div>
+      <p class="lore">A clockwork duelist was assembled from a cracked kiln bell and copper from the old riverworks. At dusk, its blade catches the forge light like a thin line of sunrise.</p>
+      <div class="scale-strip" aria-label="Coilblade at 13 pixels">
+        <figure><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>you</figcaption></figure>
+        <figure><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64" style="transform:scaleX(-1)"><use href="#sym-coilblade" style="--team:#C6452E"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>rival</figcaption></figure>
+        <figure class="mono"><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>gray you</figcaption></figure>
+        <figure class="mono"><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64" style="transform:scaleX(-1)"><use href="#sym-coilblade" style="--team:#C6452E"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>gray rival</figcaption></figure>
+        <figure><span class="unit13 sil"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-coilblade"/></svg></span><figcaption>silhouette</figcaption></figure>
+        <figure><svg width="64" height="64" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><figcaption>64 px</figcaption></figure>
+      </div>
+      <ul class="cast-notes"><li>Kept from portrait: lean copper limbs, dome head with one round eye, green scarf, long curved saber.</li><li>Additions: exposed waist coil and a small wind key (lore/name-derived, optional).</li></ul>
+    </article>
+    <article class="cast-card">
+      <h3>Mossguard</h3><p class="read">Round leaf dome on top + tall shield leading</p>
+      <div class="cast-stage"><span class="shadow"></span><svg class="hero" viewBox="0 0 64 64" role="img" aria-label="Mossguard concept: leaf-mantled wooden grove keeper with carved mask and tall shield bearing a pressed leaf"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg></div>
+      <p class="lore">This grove keeper wears a shield cut from an old bough, with leaves pressed into the grain. Each leaf marks a trail the woodland guides promised to keep clear.</p>
+      <div class="scale-strip" aria-label="Mossguard at 13 pixels">
+        <figure><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>you</figcaption></figure>
+        <figure><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64" style="transform:scaleX(-1)"><use href="#sym-mossguard" style="--team:#C6452E"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>rival</figcaption></figure>
+        <figure class="mono"><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>gray you</figcaption></figure>
+        <figure class="mono"><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64" style="transform:scaleX(-1)"><use href="#sym-mossguard" style="--team:#C6452E"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:-4px"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>gray rival</figcaption></figure>
+        <figure><span class="unit13 sil"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-mossguard"/></svg></span><figcaption>silhouette</figcaption></figure>
+        <figure><svg width="64" height="64" viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg><figcaption>64 px</figcaption></figure>
+      </div>
+      <ul class="cast-notes"><li>Kept from portrait: leaf mantle, carved smiling mask with sprout, tall wooden shield with a large leaf relief, no weapon.</li><li>Team color lives on the shield rim (existing team zone = shield).</li></ul>
+    </article>
+    <article class="cast-card">
+      <h3>Copperskiff</h3><p class="read">Pale canvas lens floating over a small copper boat</p>
+      <div class="cast-stage"><span class="shadow" style="width:110px;bottom:12px;opacity:.6"></span><svg class="hero" viewBox="0 0 64 64" style="bottom:36px" role="img" aria-label="Copperskiff concept: canvas airship envelope in a copper strap cage over a kettle-hull gondola with a leaf pennant"><use href="#sym-copperskiff" style="--team:#2E7F86;--flag:#9bbb76"/></svg></div>
+      <p class="lore">The little airship began as a copper kettle patched into a hull beside the mill. Its canvas sail still carries the scent of river rain.</p>
+      <div class="scale-strip" aria-label="Copperskiff at 13 pixels">
+        <figure><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:1px"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>you</figcaption></figure>
+        <figure><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64" style="transform:scaleX(-1)"><use href="#sym-copperskiff" style="--team:#C6452E"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:1px"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>rival</figcaption></figure>
+        <figure class="mono"><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:1px"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>gray you</figcaption></figure>
+        <figure class="mono"><span class="unit13"><svg width="15" height="15" viewBox="0 0 64 64" style="transform:scaleX(-1)"><use href="#sym-copperskiff" style="--team:#C6452E"/></svg><svg width="15" height="6" viewBox="-8 -3 16 6" style="margin-top:1px"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg></span><figcaption>gray rival</figcaption></figure>
+        <figure><span class="unit13 sil"><svg width="15" height="15" viewBox="0 0 64 64"><use href="#sym-copperskiff"/></svg></span><figcaption>silhouette</figcaption></figure>
+        <figure><svg width="64" height="64" viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86;--flag:#9bbb76"/></svg><figcaption>64 px</figcaption></figure>
+      </div>
+      <ul class="cast-notes"><li>Kept from portrait: cream envelope, copper strap cage, leaf flag, porthole gondola, stern prop (no pilot, no top rotor).</li><li>Addition: short kettle-spout prow where the ember shot leaves (lore-derived, optional).</li></ul>
+    </article>
+  </div>
+</section>
+
+<!-- 03 phone frames -->
+<section class="board-sec" id="s-phone" aria-labelledby="h-phone">
+  <h2 id="h-phone">03 · Phone, 390×844</h2>
+  <p class="note">Landing hero, deck with the card-info sheet open, and the battle HUD with a card selected. The battle arena is shown at its phone size: about 338×600, which puts units at roughly 13 px.</p>
+  <div class="row">
+
+    <!-- PHONE LANDING -->
+    <div>
+      <p class="frame-cap"><b>UNRENDERED</b> Landing · 390×844</p>
+      <div class="frame frame--phone" id="f-phone-landing" data-status="unrendered" role="region" aria-label="Phone landing page mock">
+        <div class="pl-nav">
+          <a class="brand" href="#f-phone-landing"><svg viewBox="0 0 128 128" aria-hidden="true"><use href="#sym-mark"/></svg><span>Moss &amp; Ember</span></a>
+          <a class="btn btn--ember btn--sm" href="#f-phone-battle">Play</a>
+        </div>
+        <div class="pl-art">
+          <svg class="valley" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#sym-valley"/></svg>
+          <div class="diorama" aria-hidden="true">
+            <svg viewBox="0 0 360 90" style="left:0;bottom:0;width:360px;height:90px"><use href="#sym-plinth"/></svg>
+            <svg viewBox="0 0 64 64" style="left:18px;bottom:36px;width:128px;height:128px"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg>
+            <svg viewBox="0 0 64 64" style="left:112px;bottom:40px;width:150px;height:150px"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg>
+            <svg viewBox="0 0 64 64" style="right:4px;top:6px;width:126px;height:126px"><use href="#sym-copperskiff" style="--team:#2E7F86;--flag:#9bbb76"/></svg>
+            <span style="position:absolute;right:42px;bottom:60px;width:62px;height:10px;border-radius:50%;background:#0006"></span>
+          </div>
+        </div>
+        <div class="pl-copy">
+          <p class="eyebrow">Free real-time card battles</p>
+          <h1 class="display">Light the path.<br><em>Hold the bridge.</em></h1>
+          <p class="lede">Pick eight cards, play them onto a river valley, and knock out your rival’s keeps before time runs out.</p>
+          <a class="btn btn--ember btn--block" href="#f-phone-battle">Play now, no download</a>
+          <p class="sub" style="margin:0"><a class="link" href="#s-motion">How a match works</a></p>
+        </div>
+        <div class="pl-steps" aria-label="How it works">
+          <div class="step"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ico-deck"/></svg><div><b>01</b><span>Build a deck of eight</span></div></div>
+          <div class="step"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sym-seed"/></svg><div><b>02</b><span>Spend ember to play cards</span></div></div>
+          <div class="step"><svg viewBox="0 0 64 80" aria-hidden="true"><use href="#keep-rival"/></svg><div><b>03</b><span>Knock out the keeps</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE DECK + CARD INFO -->
+    <div>
+      <p class="frame-cap"><b>UNRENDERED</b> Deck · card info sheet · 390×844</p>
+      <div class="frame frame--phone" id="f-phone-deck" data-status="unrendered" role="region" aria-label="Phone deck builder with card details mock">
+        <header class="app-bar">
+          <button class="icon-btn" aria-label="Back">‹</button>
+          <h2>Your deck</h2>
+          <span class="avg" aria-label="Average cost 3.1 ember"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sym-seed"/></svg>3.1<small>avg</small></span>
+        </header>
+        <div class="seg" role="group" aria-label="View"><button aria-pressed="true">Deck</button><button aria-pressed="false">Collection</button></div>
+        <div class="deck-grid">
+          <div class="ct-wrap is-sel"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Coilblade</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Mossguard</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Copperskiff</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-skymaul"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Skymaul</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-brassbolt"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Brassbolt</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-reedsting"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Reedsting</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-briar"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Briar Band</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">1</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-cinder"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Cinderlings</span></div></div>
+        </div>
+        <section class="sheet" aria-label="Card details: Coilblade">
+          <span class="sheet__grip" aria-hidden="true"></span>
+          <div class="ci-head">
+            <div class="ci-portrait"><div><svg viewBox="0 0 64 64" width="68" height="68" aria-hidden="true"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg></div></div>
+            <div>
+              <h3 class="display">Coilblade</h3>
+              <p class="rar"><svg viewBox="0 0 12 12" aria-hidden="true"><use href="#g-cog"/></svg>Uncommon</p>
+            </div>
+            <span class="tag tag--lg" aria-label="Costs 4 ember">4</span>
+          </div>
+          <div class="chips"><span class="chip">Ground</span><span class="chip">Melee</span><span class="chip">One target</span></div>
+          <dl class="stats">
+            <div><dt>Hitpoints</dt><dd>1,361</dd></div>
+            <div><dt>Damage</dt><dd>720</dd></div>
+            <div><dt>Hit speed</dt><dd>1.6 <small>s</small></dd></div>
+            <div><dt>Range</dt><dd>0.8 <small>tiles</small></dd></div>
+            <div><dt>Move</dt><dd>1.5 <small>tiles/s</small></dd></div>
+            <div><dt>Deploy</dt><dd>1.0 <small>s</small></dd></div>
+          </dl>
+          <p class="conf">Live catalog values; estimates keep their QUESTION mark.</p>
+          <figure class="specimen"><blockquote>A clockwork duelist was assembled from a cracked kiln bell and copper from the old riverworks. At dusk, its blade catches the forge light like a thin line of sunrise.</blockquote><figcaption>From the valley ledger</figcaption></figure>
+          <div class="sheet__actions"><button class="btn btn--ember">Choose a replacement</button><button class="btn btn--ghost">Close</button></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- PHONE BATTLE -->
+    <div>
+      <p class="frame-cap"><b>UNRENDERED</b> Battle HUD · 390×844</p>
+      <div class="frame frame--phone bt" id="f-phone-battle" data-status="unrendered" role="region" aria-label="Phone battle HUD mock">
+        <header class="bt-top">
+          <div class="side side--rival">
+            <span class="who"><span><i class="team-dot team-dot--rival" aria-hidden="true"></i>Rival</span><small>Practice AI</small></span>
+            <span class="lamps" aria-label="Rival keeps standing: 3 of 3"><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg></span>
+          </div>
+          <div class="timer" aria-label="Time left 2 minutes 47 seconds"><small>Time left</small><b>2:47</b></div>
+          <div class="side side--you">
+            <span class="lamps" aria-label="Your keeps standing: 3 of 3"><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg></span>
+            <span class="who" style="text-align:right"><span>You<i class="team-dot team-dot--you" aria-hidden="true" style="margin:0 0 0 5px"></i></span><small>Rivermark</small></span>
+          </div>
+        </header>
+        <div class="arena-frame"><svg viewBox="0 0 180 320" width="338" height="600" role="img" aria-label="Arena: your Coilblade fights a rival Mossguard on the west root bridge; your Copperskiff flies up the east side; a Mossguard placement preview is shown on your half"><use href="#sym-arena"/></svg></div>
+        <p class="bt-sel"><b>Mossguard</b> · Ground · Melee · tap your side to place</p>
+        <div class="bt-hand" role="group" aria-label="Your hand">
+          <div class="bt-next"><span class="rail__label">Next</span><div class="ct-wrap" style="--w:46px"><div class="ct ct--standard"><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-cinder"/></svg></div></div></div></div>
+          <div class="ct-wrap" style="--w:70px" data-afford="false"><div class="ct ct--uncommon"><span class="tag" style="--p:90%">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg></div><span class="ct__name">Coilblade</span></div></div>
+          <div class="ct-wrap is-sel" style="--w:70px"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg></div><span class="ct__name">Mossguard</span></div></div>
+          <div class="ct-wrap" style="--w:70px" data-afford="false"><div class="ct ct--uncommon"><span class="tag" style="--p:90%">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg></div><span class="ct__name">Copperskiff</span></div></div>
+          <div class="ct-wrap" style="--w:70px"><div class="ct ct--uncommon"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-skymaul"/></svg></div><span class="ct__name">Skymaul</span></div></div>
+        </div>
+        <div class="rail" data-ui="elixir-rail" aria-label="Ember 3 of 10, next point 62 percent">
+          <span class="rail__badge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sym-seed"/></svg><b>3</b></span>
+          <div class="rail__track"><i class="sock sock--full"></i><i class="sock sock--full"></i><i class="sock sock--full"></i><i class="sock" style="--p:62%"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 04 desktop frames -->
+<section class="board-sec" id="s-desktop" aria-labelledby="h-desktop">
+  <h2 id="h-desktop">04 · Desktop, 1440×933</h2>
+  <p class="note">The same components, re-laid out for the wide frame. Battle keeps the arena full height in the centre; the hand moves to the right, and the left side holds match state, the team legend and keyboard hints for first-time players.</p>
+
+  <p class="frame-cap"><b>UNRENDERED</b> Landing · 1440×933</p>
+  <div class="frame frame--desk" id="f-desk-landing" data-status="unrendered" role="region" aria-label="Desktop landing page mock" style="margin-bottom:48px">
+    <div class="dl-hero">
+      <svg class="valley" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#sym-valley"/></svg>
+      <div class="diorama" aria-hidden="true">
+        <svg viewBox="0 0 360 90" style="left:0;bottom:0;width:640px;height:160px"><use href="#sym-plinth"/></svg>
+        <svg viewBox="0 0 64 64" style="left:40px;bottom:64px;width:230px;height:230px"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg>
+        <svg viewBox="0 0 64 64" style="left:206px;bottom:72px;width:270px;height:270px"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg>
+        <svg viewBox="0 0 64 64" style="right:0;top:0;width:230px;height:230px"><use href="#sym-copperskiff" style="--team:#2E7F86;--flag:#9bbb76"/></svg>
+        <span style="position:absolute;right:70px;bottom:104px;width:110px;height:18px;border-radius:50%;background:#0006"></span>
+      </div>
+    </div>
+    <div class="dl-nav">
+      <a class="brand" href="#f-desk-landing"><svg viewBox="0 0 128 128" aria-hidden="true" style="width:40px;height:40px"><use href="#sym-mark"/></svg><span style="font-size:22px">Moss &amp; Ember</span></a>
+      <nav aria-label="Main"><a href="#s-motion">How to play</a><a href="#s-cast">The cast</a><a href="#s-tokens">Open source</a></nav>
+      <a class="btn btn--ember btn--sm" href="#f-desk-battle">Play now</a>
+    </div>
+    <div class="dl-copy">
+      <p class="eyebrow">Real-time card battles · free in your browser</p>
+      <h1 class="display">Light the path.<br><em>Hold the bridge.</em></h1>
+      <p class="lede">Pick eight cards, then play them onto a river valley one at a time. Spend ember wisely, defend your side of the bridge, and knock out your rival’s keeps before time runs out.</p>
+      <div class="actions"><a class="btn btn--ember" href="#f-desk-battle">Play free in your browser</a><a class="btn btn--ghost" href="#s-motion">How a match works</a></div>
+      <div class="trust"><span class="chip">Original cast &amp; art</span><span class="chip">Open source · AGPL-3.0</span><span class="chip">Same seed, same match</span></div>
+    </div>
+    <div class="dl-steps" aria-label="How it works">
+      <div class="step"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ico-deck"/></svg><div><b>01</b><span>Build a deck of eight</span><p>Mix fighters, flyers and defenders. You hold four cards at a time.</p></div></div>
+      <div class="step"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sym-seed"/></svg><div><b>02</b><span>Spend ember to play</span><p>Ember refills on its own. Every card costs some, so pick your moment.</p></div></div>
+      <div class="step"><svg viewBox="0 0 64 80" aria-hidden="true"><use href="#keep-rival"/></svg><div><b>03</b><span>Knock out the keeps</span><p>Take more of the rival’s keeps than they take of yours to win.</p></div></div>
+    </div>
+  </div>
+
+  <p class="frame-cap"><b>UNRENDERED</b> Deck builder · card info · 1440×933</p>
+  <div class="frame frame--desk" id="f-desk-deck" data-status="unrendered" role="region" aria-label="Desktop deck builder mock" style="margin-bottom:48px">
+    <div class="dd">
+      <nav class="navrail" aria-label="App">
+        <a class="brand" href="#f-desk-deck" aria-label="Moss and Ember home"><svg viewBox="0 0 128 128"><use href="#sym-mark"/></svg></a>
+        <span class="spacer"></span>
+        <a class="nav-i" href="#f-desk-battle"><i></i>Play</a>
+        <a class="nav-i" href="#f-desk-deck" aria-current="page"><i></i>Deck</a>
+        <a class="nav-i" href="#f-desk-deck"><i></i>Cards</a>
+        <a class="nav-i" href="#s-motion"><i></i>Learn</a>
+        <a class="nav-i" href="#f-desk-deck"><i></i>Settings</a>
+      </nav>
+      <div class="dd-main">
+        <div class="dd-head"><h2>Deck builder</h2><span class="chip">Deck 1</span><span class="avg" aria-label="Average cost 3.1 ember"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sym-seed"/></svg>3.1<small>avg ember</small></span></div>
+        <p class="dd-sub">Your eight · click a card to inspect, then choose a replacement</p>
+        <div class="dd-deck">
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Coilblade</span></div></div>
+          <div class="ct-wrap is-sel"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Mossguard</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Copperskiff</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-skymaul"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Skymaul</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-brassbolt"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Brassbolt</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-reedsting"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Reedsting</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-briar"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Briar Band</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">1</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-cinder"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Cinderlings</span></div></div>
+        </div>
+        <p class="dd-sub">Collection <span class="filters" role="group" aria-label="Filter"><span class="chip" aria-pressed="true">All</span><span class="chip">Ground</span><span class="chip">Air</span><span class="chip">Buildings</span><span class="chip">By cost</span></span></p>
+        <div class="dd-coll">
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><span class="in-deck">In deck</span><svg viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Coilblade</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><span class="in-deck">In deck</span><svg viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg></div><span class="ct__name">Mossguard</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><span class="in-deck">In deck</span><svg viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg></div><span class="ct__name">Copperskiff</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">4</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-cog"/></svg><span class="pending-note">portrait binds</span></div><span class="ct__name">Brackenwheel</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--special"><span class="tag">7</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-gem"/></svg><span class="pending-note">portrait binds</span></div><span class="ct__name">Ironroot</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">2</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg><span class="pending-note">portrait binds</span></div><span class="ct__name">Thornscouts</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">5</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg><span class="pending-note">portrait binds</span></div><span class="ct__name">Forgeguard</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--special"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-gem"/></svg><span class="pending-note">portrait binds</span></div><span class="ct__name">Cinder Host</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--standard"><span class="tag">2</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><svg class="rg" viewBox="0 0 12 12"><use href="#g-leaf"/></svg><span class="pending-note">portrait binds</span></div><span class="ct__name">Gloamwing Cluster</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--pending"><span class="tag">5</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><span class="pending-note">rarity + portrait bind</span></div><span class="ct__name">Stonehauler</span></div></div>
+          <div class="ct-wrap"><div class="ct ct--pending"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 24 24"><use href="#sym-seed"/></svg><span class="pending-note">rarity + portrait bind</span></div><span class="ct__name">Sunthread Pair</span></div></div>
+        </div>
+      </div>
+      <aside class="dd-panel" aria-label="Card details: Mossguard">
+        <div class="dd-portrait">
+          <svg class="valley" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#sym-valley"/></svg>
+          <svg viewBox="0 0 360 90" aria-hidden="true" style="position:absolute;left:50%;bottom:6px;width:320px;height:80px;transform:translateX(-50%)"><use href="#sym-plinth"/></svg>
+          <svg viewBox="0 0 64 64" aria-hidden="true" style="position:absolute;left:50%;bottom:28px;width:250px;height:250px;transform:translateX(-50%)"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg>
+          <span class="tag tag--lg" style="position:absolute" aria-label="Costs 3 ember">3</span>
+        </div>
+        <div><h3 class="display">Mossguard</h3></div>
+        <p class="rar rar--standard" style="margin:-6px 0 0"><svg viewBox="0 0 12 12" aria-hidden="true"><use href="#g-leaf"/></svg>Standard</p>
+        <div class="chips"><span class="chip">Ground</span><span class="chip">Melee</span><span class="chip">One target</span></div>
+        <dl class="stats">
+          <div><dt>Hitpoints</dt><dd>1,766</dd></div>
+          <div><dt>Damage</dt><dd>202</dd></div>
+          <div><dt>Hit speed</dt><dd>1.2 <small>s</small></dd></div>
+          <div><dt>Range</dt><dd>1.2 <small>tiles</small></dd></div>
+          <div><dt>Move</dt><dd>1.0 <small>tiles/s</small></dd></div>
+          <div><dt>Deploy</dt><dd>1.0 <small>s</small></dd></div>
+        </dl>
+        <figure class="specimen"><blockquote>This grove keeper wears a shield cut from an old bough, with leaves pressed into the grain. Each leaf marks a trail the woodland guides promised to keep clear.</blockquote><figcaption>From the valley ledger</figcaption></figure>
+        <div class="actions"><button class="btn btn--ember">Choose a replacement</button><button class="btn btn--ghost">Close</button></div>
+      </aside>
+    </div>
+  </div>
+
+  <p class="frame-cap"><b>UNRENDERED</b> Battle HUD · 1440×933</p>
+  <div class="frame frame--desk" id="f-desk-battle" data-status="unrendered" role="region" aria-label="Desktop battle HUD mock">
+    <div class="db">
+      <div class="db-left">
+        <div class="panel">
+          <h4>Match</h4>
+          <div class="score">
+            <div class="who"><span><i class="team-dot team-dot--rival" aria-hidden="true"></i>Rival</span><small>Practice AI</small><span class="lamps" style="margin-top:6px" aria-label="Rival keeps standing: 3 of 3"><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg></span></div>
+            <div class="timer"><small>Time left</small><b>2:47</b></div>
+            <div class="who" style="align-items:flex-end;text-align:right"><span>You<i class="team-dot team-dot--you" aria-hidden="true" style="margin:0 0 0 5px"></i></span><small>Rivermark</small><span class="lamps" style="margin-top:6px" aria-label="Your keeps standing: 3 of 3"><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg><svg viewBox="0 0 16 20"><use href="#sym-lantern"/></svg></span></div>
+          </div>
+          <p class="phase" style="margin:12px 0 0"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><use href="#sym-seed"/></svg>Ember ×1 · normal refill</p>
+        </div>
+        <div class="panel">
+          <h4>Who’s who</h4>
+          <div class="legend">
+            <div><svg viewBox="-8 -3 16 6" aria-hidden="true"><use href="#ring-you" x="-8" y="-3" width="16" height="6"/></svg><span><b>Your side:</b> teal, solid round ring, swallowtail flags. Health bars are pale.</span></div>
+            <div><svg viewBox="-8 -3 16 6" aria-hidden="true"><use href="#ring-rival" x="-8" y="-3" width="16" height="6"/></svg><span><b>Rival:</b> ember red, notched ring, square banners. Health bars are copper.</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h4>Controls</h4>
+          <div class="keys">
+            <span><kbd>1</kbd>–<kbd>4</kbd></span><span>Pick a card from your hand</span>
+            <span><kbd>Click</kbd></span><span>Place it on the green half</span>
+            <span><kbd>Esc</kbd></span><span>Cancel the selection</span>
+          </div>
+        </div>
+      </div>
+      <div class="db-center">
+        <div class="arena-frame" style="padding:6px"><svg viewBox="0 0 180 320" width="486" height="864" role="img" aria-label="Arena: your Coilblade fights a rival Mossguard on the west root bridge; your Copperskiff flies up the east side; a Mossguard placement preview is shown on your half"><use href="#sym-arena"/></svg></div>
+      </div>
+      <div class="db-right">
+        <div class="panel">
+          <h4>Your hand</h4>
+          <div class="db-hand" role="group" aria-label="Your hand">
+            <div class="ct-wrap" data-afford="false"><div class="ct ct--uncommon"><span class="tag" style="--p:90%">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg></div><span class="ct__name">1 · Coilblade</span></div></div>
+            <div class="ct-wrap is-sel"><div class="ct ct--standard"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-mossguard" style="--team:#2E7F86"/></svg></div><span class="ct__name">2 · Mossguard</span></div></div>
+            <div class="ct-wrap" data-afford="false"><div class="ct ct--uncommon"><span class="tag" style="--p:90%">4</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-copperskiff" style="--team:#2E7F86"/></svg></div><span class="ct__name">3 · Copperskiff</span></div></div>
+            <div class="ct-wrap"><div class="ct ct--uncommon"><span class="tag">3</span><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-skymaul"/></svg></div><span class="ct__name">4 · Skymaul</span></div></div>
+          </div>
+        </div>
+        <div class="panel db-next"><div class="ct-wrap"><div class="ct ct--standard"><div class="ct__art"><svg viewBox="0 0 64 64"><use href="#sym-cinder"/></svg></div></div></div><div><h4 style="margin:0 0 4px">Next up</h4><span style="font:700 14px/1.3 var(--f-ui)">Cinderlings · 1 ember</span></div></div>
+        <div class="panel">
+          <h4>Ember</h4>
+          <div class="rail" data-ui="elixir-rail" aria-label="Ember 3 of 10, next point 62 percent">
+            <span class="rail__badge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sym-seed"/></svg><b>3</b></span>
+            <div class="rail__track"><i class="sock sock--full"></i><i class="sock sock--full"></i><i class="sock sock--full"></i><i class="sock" style="--p:62%"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i><i class="sock"></i></div>
+          </div>
+          <p style="margin:10px 0 0;font:600 13px/1.4 var(--f-ui);color:var(--paper-dim)">Coilblade and Copperskiff unlock at 4. The bar under each tag shows how close they are.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 motion keys -->
+<section class="board-sec" id="s-motion" aria-labelledby="h-motion">
+  <h2 id="h-motion">05 · Motion keys (static): Coilblade attack, tick-driven</h2>
+  <p class="note">Static poses at the simulation ticks named in <code>motion-direction.md</code>. Tilts use the existing <code>combat-motion.js</code> formulas: anticipate <code>−dir·14°</code>, strike <code>dir·(28 − 3s)°</code>, recoil <code>−dir·(8 − s)·2°</code>. The bottom row shows the reduced-motion equivalents: no rotation or offset, and state shown by frame choice plus a copper outline. Nothing on this board animates.</p>
+  <div class="keys-strip">
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>walk key 0</b><small>stride key 0</small></div>
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64" style="transform:rotate(-14deg)"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>anticipate</b><small>a = 10…5 · −14°</small></div>
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64" style="transform:rotate(-14deg) scaleY(.94)"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>coil compress</b><small>a = 4…1 · −14°</small></div>
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64" style="transform:translateX(5px) rotate(28deg)"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>strike + glint</b><small>s = 0 · +28° · +3px</small></div>
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64" style="transform:translateX(3px) rotate(22deg)"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>follow</b><small>s = 2 · +22°</small></div>
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64" style="transform:rotate(-8deg)"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>recoil</b><small>s = 4 · −8°</small></div>
+    <div class="kf"><svg class="pose" viewBox="0 0 64 64" style="transform:rotate(-4deg)"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>settle</b><small>s = 6 · −4°</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM walk</b><small>key 0, no lift</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM anticipate</b><small>ant1 frame + outline</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM anticipate</b><small>same frame, a = 4…1</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM strike</b><small>strike frame s = 0–3</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM strike</b><small>held, glint static</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM idle</b><small>s = 4–7</small></div>
+    <div class="kf kf--rm"><svg class="pose" viewBox="0 0 64 64"><use href="#sym-coilblade" style="--team:#2E7F86"/></svg><b>RM idle</b><small>s = 4–7</small></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="board-foot">
+  <ul>
+    <li><b>Status:</b> UNRENDERED proposal. Before anyone judges it, a later runtime window must render each <code>#f-*</code> frame at 1× device pixels at its stated size. The real app must also be rendered at 390×844 and 1440×933 for side-by-side comparison.</li>
+    <li><b>Stand-ins:</b> the character vectors are intent sketches for silhouette and palette, not ship art. Shipped sprites come from Astra's Blender renders per <code>character-to-3D-handoff.md</code>, and existing painted portraits keep their atlas cells.</li>
+    <li><b>Unchanged:</b> mechanics, stats, card data, data hooks (<code>data-ui="elixir-rail"</code> etc.), lore text, source policy. Shown stat values are the HEAD catalog values for Coilblade and Mossguard.</li>
+    <li><b>Open owner decisions:</b> the display words “ember”/“lanterns” in place of the current UI vocabulary, the notched rival ring and banner shapes, and the optional lore-derived additions (wind key, waist coil, kettle spout).</li>
+  </ul>
+</footer>
+</body>
+</html>

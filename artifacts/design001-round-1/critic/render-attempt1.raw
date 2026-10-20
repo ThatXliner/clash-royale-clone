@@ -1,0 +1,11 @@
+renderer_pid=24523
+renderer_ppid=24520
+node=/Users/me/.hermes/node/bin/node v22.22.3
+playwright=1.58.2
+browser_executable=/Users/me/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing
+board_url=file:///Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude/design-board.html
+browser_launch=headless viewport=1800x1200 deviceScaleFactor=1 reducedMotion=no-preference
+browser_pid=unavailable
+document_metrics={"title":"Moss & Ember: Riverworks Diorama design board (UNRENDERED)","url":"file:///Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude/design-board.html","viewport":{"width":1800,"height":1200,"devicePixelRatio":1},"fontsStatus":"loaded","fontFaces":[],"externalResourceElements":[]}
+Error: f-phone-landing screenshot is 390x845; expected 390x844
+    at main (file:///Users/me/.codex/clash-qualification/20261020-design-critic/render-board.mjs:107:13)
