@@ -1,0 +1,48 @@
+{
+  "status": "UNRENDERED proposals; selection is a design hypothesis",
+  "provisional_selection": "exposed_deck",
+  "camera": {
+    "elevation_degrees": 50,
+    "orthographic_scale": 8.025,
+    "native_cell": 64,
+    "supersample": 4,
+    "ground_anchor_normalized": [0.5, 0.84375],
+    "directions": [["north", 180], ["east", 270], ["south", 0], ["west", 90]]
+  },
+  "common": {
+    "hover_base": 0.55,
+    "hull_center_z": 0.22,
+    "hull_length": 1.45,
+    "hull_depth": 0.34,
+    "team_coaming_width": 0.20,
+    "contact_pitch_degrees": 7,
+    "contact_recoil": 0.04,
+    "contact_puff_radius": 0.21
+  },
+  "alternatives": [
+    {
+      "id": "umbrella_barge",
+      "description": "Broad lateral canvas lens over a shallow, wide copper barge",
+      "hull_beam": 1.65,
+      "canopy": {"mode": "single", "radii": [0.86, 0.32, 0.10], "center_z": 0.64, "offset_y": 0.07},
+      "pixel_budget": {"idle_height": [12, 14], "idle_width": [12, 15], "cream_height": [3, 5], "copper_hull_height": [4, 5], "team_area_min_pixels": 18, "team_patch_min_size": [3, 2], "bow_projection_min_pixels": 2, "stern_width_min_pixels": 4, "contact_extra_extent_min_pixels": 2},
+      "risk": "The wide canopy may still cover too much of the deck in east/west views."
+    },
+    {
+      "id": "exposed_deck",
+      "description": "Low kettle skiff with a smaller canvas awning and a broad visible TEAM deck",
+      "hull_beam": 1.58,
+      "canopy": {"mode": "single", "radii": [0.63, 0.32, 0.11], "center_z": 0.79, "offset_y": 0.10},
+      "pixel_budget": {"idle_height": [12, 14], "idle_width": [12, 15], "cream_height": [3, 4], "copper_hull_height": [4, 5], "team_area_min_pixels": 22, "team_patch_min_size": [4, 2], "bow_projection_min_pixels": 2, "stern_width_min_pixels": 4, "contact_extra_extent_min_pixels": 2},
+      "risk": "The smaller canopy departs from the old envelope mass balance; identity needs independent judgment."
+    },
+    {
+      "id": "split_canvas",
+      "description": "Two joined canvas lobes reveal a central deck channel over a low copper boat",
+      "hull_beam": 1.55,
+      "canopy": {"mode": "split", "radii": [0.31, 0.34, 0.10], "center_z": 0.78, "offset_y": 0.09, "lobe_offset_x": 0.43},
+      "pixel_budget": {"idle_height": [12, 14], "idle_width": [12, 15], "cream_height": [3, 4], "copper_hull_height": [4, 5], "team_area_min_pixels": 22, "team_patch_min_size": [3, 2], "central_channel_min_pixels": 2, "bow_projection_min_pixels": 2, "stern_width_min_pixels": 4, "contact_extra_extent_min_pixels": 2},
+      "risk": "The divided sail may drift toward a winged craft; it is an explicit comparison, not the selected design."
+    }
+  ]
+}
