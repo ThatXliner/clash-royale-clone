@@ -1,0 +1,10 @@
+--- original-assertions-body.txt	2026-10-20 16:06:47
++++ patched-assertions-body.txt	2026-10-20 16:06:47
+@@ -10,6 +10,7 @@
+   assert.deepEqual(repeated.starts, []);
+   assert.equal(runtime.state.transactionCount, transactionCount);
+   assert.equal(runtime.state.cursor, getGameSessionAudioReplay(session).length);
++  assert.ok(stationaryCardId, "the starting hand contains a card with stationary fixture movement");
+   assert.ok(stationary.replay.some(({ type }) => type === "session-deployed"));
+   assert.equal(getGameSessionAudioReplay(stationary).some(
+   assert.equal(stationaryRuntime.renderFrame().cues.some(

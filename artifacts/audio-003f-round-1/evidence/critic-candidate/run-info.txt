@@ -1,0 +1,12 @@
+Candidate commit: 57baa0e6df0ea646abae3c155c05002e97336072
+Archive method: git archive --format=tar <candidate commit> | tar -xf - into source/
+Patch: /Users/me/.codex/clash-qualification/20261020-game-audio-fixture-repair/proposed.patch
+Patch application: git apply in source/ succeeded
+Changed-tree check: before/after SHA-256 manifests show only source/tests/game-audio-runtime.test.js changed
+Node version: v22.22.3
+Runner command: node tests/game-audio-runtime-runner.js game-audio-runtime
+Runner exit: 0
+Runner PID: 2162
+Process closure: wait completed; kill -0 after wait returned false; process-after.txt is empty
+Raw TAP result: 11 tests, 11 pass, 0 fail
+Scope: no source checkout, HEAD, index, Chrome, or other test command was used

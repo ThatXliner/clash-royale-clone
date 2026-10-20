@@ -9995,3 +9995,15 @@ BIGGEST GAP: This qualifies only fixed-frame standalone packing. Public registra
 
 DISPOSITION: Adopt the portable source pack, canonical atlas outputs and bounded round evidence only. Preserve the existing native-art rounds and all other piece states. Do not add public/assets outputs. No runtime, simulation, dependency or test changes.
 
+
+## Round 542 — 2026-10-20
+
+PIECE: AUDIO-003F — Confidence-safe audio runtime test fixtures
+
+VERDICT: PASS — focused audio fixture/admission contract only
+
+EVIDENCE: The original `game-audio-runtime` module has eleven tests covering cue ordering/exact-once rendering, movement suppression and restore, accelerated/rebase behavior, terminal cues/cleanup, restart, gain/mute, and hostile admission. The unchanged fixture failed five setup/admission cases on both the exact engine candidate `57baa0e6df0ea646abae3c155c05002e97336072` and accepted main `59d9fda9093b058cd3025a804835629b0552eeef`. The fixture changed source-confidence-bound estimates while deriving QUESTION records from the canonical unmodified roster; stationary setup also set a positive-integer tracked movement estimate to zero. The one-file correction leaves policy-bearing Briar estimates canonical, applies synthetic acceleration only to untracked cards, and makes the stationary scenario select and verify a policy-free card in the deterministic starting hand while delaying the North AI decision past the observation window. No production runtime, authority, or admission guard changed. The builder’s corrected candidate run and the independent critic’s corrected candidate and accepted-main runs each pass all 11 tests. The critic’s assertion diff confirms every prior assertion remains; it adds only the stationary-card presence assertion. All five runner processes were waited/reaped. Exact source/test/patch/log hashes, concise raw TAP, failure TAP, process closures, and an assertion diff are retained in the bounded external packet. Full-tree source archives and their full hash manifests are not duplicated; their entry counts, digests, and original external locations are recorded in the packet. No full `npm test` suite was run.
+
+BIGGEST GAP: This is a focused test-fixture/admission contract only. The full suite and broader engine/audio qualification remain outside this round.
+
+DISPOSITION: Record AUDIO-003F PASS 1/1, round 1, for the corrected fixture on exact candidate and accepted main. Prepare the test-only patch for root review; do not infer production runtime changes, or alter the shared-factory, chain, or full-engine piece states. No repository adoption or source checkout mutation is part of this external packet.

@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: game audio runtime: ordered session events render once across repeated frames
+ok 1 - game audio runtime: ordered session events render once across repeated frames
+  ---
+  duration_ms: 152.896084
+  type: 'test'
+  ...
+# Subtest: game audio runtime: locomotion starts require real displacement and restore exactly
+ok 2 - game audio runtime: locomotion starts require real displacement and restore exactly
+  ---
+  duration_ms: 1326.52
+  type: 'test'
+  ...
+# Subtest: game audio runtime: restore retains prefix without replay and continues once
+ok 3 - game audio runtime: restore retains prefix without replay and continues once
+  ---
+  duration_ms: 44.7705
+  type: 'test'
+  ...
+# Subtest: game audio runtime: accelerated batches are bounded and rebase is silent
+ok 4 - game audio runtime: accelerated batches are bounded and rebase is silent
+  ---
+  duration_ms: 1271.746416
+  type: 'test'
+  ...
+# Subtest: game audio runtime: version one snapshots restore as version two
+ok 5 - game audio runtime: version one snapshots restore as version two
+  ---
+  duration_ms: 39.116917
+  type: 'test'
+  ...
+# Subtest: game audio runtime: rebase rejects unseen authority atomically
+ok 6 - game audio runtime: rebase rejects unseen authority atomically
+  ---
+  duration_ms: 165.412833
+  type: 'test'
+  ...
+# Subtest: game audio runtime: session restart creates a fresh dedupe generation
+ok 7 - game audio runtime: session restart creates a fresh dedupe generation
+  ---
+  duration_ms: 59.211875
+  type: 'test'
+  ...
+# Subtest: game audio runtime: mute, gain, and cleanup are deterministic
+ok 8 - game audio runtime: mute, gain, and cleanup are deterministic
+  ---
+  duration_ms: 22.503667
+  type: 'test'
+  ...
+# Subtest: game audio runtime: terminal tower, crown, and end cues clean up once
+ok 9 - game audio runtime: terminal tower, crown, and end cues clean up once
+  ---
+  duration_ms: 1315.010042
+  type: 'test'
+  ...
+# Subtest: game audio runtime: hostile admission and divergent restore are atomic
+ok 10 - game audio runtime: hostile admission and divergent restore are atomic
+  ---
+  duration_ms: 43.058625
+  type: 'test'
+  ...
+# Subtest: game audio runtime: hostile deep and oversized JSON rejects iteratively
+ok 11 - game audio runtime: hostile deep and oversized JSON rejects iteratively
+  ---
+  duration_ms: 12.716708
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4598.656583

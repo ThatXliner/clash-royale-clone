@@ -1,0 +1,66 @@
+--- accepted-main/PLAN.md
++++ packet/PLAN.md
+@@ -157,6 +157,7 @@
+ | VIS-003E | Deterministic animation and interaction polish | `npm test -- visual-motion-polish` plus captured browser timelines: simulation ticks (plus bounded serialized presentation ticks after terminal) drive spawn, locomotion, anticipation, attack, recoil, hit reaction, projectile, death, tower destruction, crown, card-cycle, elixir, terminal, and restart motion; chunk/restore produces identical key frames, reduced-motion is supported, and no wall clock or ambient randomness enters simulation | VIS-003B, VIS-003C, VIS-003D, GAME-001E1 | PASS | 6/6 | 2 | Fresh Chrome verifies normal RAF terminal tail, exact restored ages0/6/12/24, frozen simulation, reduced motion and restart; historical footage remains unavailable |
+ | VIS-003SH | Structure-origin damage feedback | Each admitted structure-origin unit contact produces deterministic tick-based visible damage feedback from authenticated contact state; live health/audio agree, exact restore and reduced motion preserved, no raw replay parsing or stats changes | CARDS-021I, VIS-003E, GAME-001GFB | PASS | 36/36 | 1 | Round478 independentPASS finalc4bf: 18protocol+17UI/session+1native. Authenticateddirectcontact, exactlyone postcursorresidual/grounddamage reaction, actuallethalairclamp/death/originalaudioonce;65PNGs/28pairs exact, natural6645/customseed0restart. Kernel523788 below524288;537trackedsourcefiles unchanged. Intermediatetwo-markerPASS andmissing-effectKeyFAIL retained; finalnative330s qualifiescorrectedsource. Historicalstructure-hitframeparity unproved; fullmatchingendurance reopened. |
+ | AUDIO-002 | Authored original soundscape and mix polish | `npm test -- audio-production-assets` plus an audible browser capture: original deploy, movement, attack, projectile, impact, death, tower, crown, match, card, and UI sounds have provenance and stable event mappings; concurrent cues remain intelligible, gain/mute/restart work, silence and clipping budgets pass, and no benchmark-game audio is shipped | AUDIO-001A, AUDIO-001B, GAME-001F2, VIS-003A | PASS | 5/5 | 2 | Round 2 passed: four real-displacement movement cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, and direct/chunk/restore plus evidence hashes reproduced |
++| AUDIO-003F | Confidence-safe audio runtime test fixtures | `npm test -- game-audio-runtime`: the original 11 audio/runtime/admission cases pass on corrected exact-main and engine-candidate source; source-confidence estimates and QUESTION records remain consistent, stationary movement is tested through an eligible hand card, and every original assertion remains | AUDIO-001A, AUDIO-001B, GAME-001F1 | PASS | 1/1 | 1 | Round 1 retained all original audio and hostile-admission assertions; fixture-only correction passes 11/11 on candidate and accepted main. No production guard or runtime source changes; no whole-suite claim. Evidence: external AUDIO-003F fixture-adoption packet |
+ | VIS-003G | Integrated production-polish browser journey | `npm test -- game-presentation-journey`: real Chrome at 720×1280 captures initial, selection, deployment, bridge combat, spell/effect, tower destruction, terminal, and restart states using only final original assets; a blind critic finds no placeholder/debug artifact, overlap, unreadable state, missing cue, console error, or visual discontinuity, while GAME-001GP performance and deterministic restart/prefix bars remain green | VIS-003B, VIS-003C, VIS-003D, VIS-003E, AUDIO-002, GAME-001GP, GAME-001GS | PASS | 1/1 | 1 | Fresh visual critic passes twelve states without blocking defects; full18000-tick endurance round6 now also passes |
+ | AUDIO-001 | Original audio event system (superseded) | Original combined bar coupled deterministic event-to-cue projection with authored sound rendering and provenance | INTEGRATION-001 | QUESTION | 0/0 | 0 | Wrong-shaped during readiness audit; split into AUDIO-001A/B |
+ | AUDIO-001A | Deterministic audio cue projection | `npm test -- audio-events`: canonical deploy/attack/launch/hit/death/tower/crown/match events map to stable ordered cue records; chunking and restore produce byte-identical cue streams | INTEGRATION-001R | PASS | 12/12 | 2 | Round 2 passed: causal tower credit, real death mapping, exact capacity, ordering, atomicity, and restore |
+--- accepted-main/rounds.md
++++ packet/rounds.md
+@@ -9995,3 +9995,15 @@
+ 
+ DISPOSITION: Adopt the portable source pack, canonical atlas outputs and bounded round evidence only. Preserve the existing native-art rounds and all other piece states. Do not add public/assets outputs. No runtime, simulation, dependency or test changes.
+ 
++
++## Round 542 — 2026-10-20
++
++PIECE: AUDIO-003F — Confidence-safe audio runtime test fixtures
++
++VERDICT: PASS — focused audio fixture/admission contract only
++
++EVIDENCE: The original `game-audio-runtime` module has eleven tests covering cue ordering/exact-once rendering, movement suppression and restore, accelerated/rebase behavior, terminal cues/cleanup, restart, gain/mute, and hostile admission. The unchanged fixture failed five setup/admission cases on both the exact engine candidate `57baa0e6df0ea646abae3c155c05002e97336072` and accepted main `59d9fda9093b058cd3025a804835629b0552eeef`. The fixture changed source-confidence-bound estimates while deriving QUESTION records from the canonical unmodified roster; stationary setup also set a positive-integer tracked movement estimate to zero. The one-file correction leaves policy-bearing Briar estimates canonical, applies synthetic acceleration only to untracked cards, and makes the stationary scenario select and verify a policy-free card in the deterministic starting hand while delaying the North AI decision past the observation window. No production runtime, authority, or admission guard changed. The builder’s corrected candidate run and the independent critic’s corrected candidate and accepted-main runs each pass all 11 tests. The critic’s assertion diff confirms every prior assertion remains; it adds only the stationary-card presence assertion. All five runner processes were waited/reaped. Exact source/test/patch/log hashes, concise raw TAP, failure TAP, process closures, and an assertion diff are retained in the bounded external packet. Full-tree source archives and their full hash manifests are not duplicated; their entry counts, digests, and original external locations are recorded in the packet. No full `npm test` suite was run.
++
++BIGGEST GAP: This is a focused test-fixture/admission contract only. The full suite and broader engine/audio qualification remain outside this round.
++
++DISPOSITION: Record AUDIO-003F PASS 1/1, round 1, for the corrected fixture on exact candidate and accepted main. Prepare the test-only patch for root review; do not infer production runtime changes, or alter the shared-factory, chain, or full-engine piece states. No repository adoption or source checkout mutation is part of this external packet.
+--- accepted-main/progress.html
++++ packet/progress.html
+@@ -26,9 +26,9 @@
+   <h1>Gauntlet progress</h1>
+   <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+   <div class="cards">
+-    <div class="card"><div class="num">311</div><div class="label">tracked pieces</div></div>
+-    <div class="card"><div class="num">251</div><div class="label">passed</div></div>
+-    <div class="card"><div class="num">541</div><div class="label">completed rounds</div></div>
++    <div class="card"><div class="num">312</div><div class="label">tracked pieces</div></div>
++    <div class="card"><div class="num">252</div><div class="label">passed</div></div>
++    <div class="card"><div class="num">542</div><div class="label">completed rounds</div></div>
+     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
+   </div>
+   <p class="note">Active target: <strong>GAME-001HTJX — Extract existing shared combat factory</strong>.</p>
+@@ -934,6 +934,14 @@
+         <td>Round 2 passed: four real-displacement movement cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, and direct/chunk/restore plus evidence hashes reproduced</td>
+       </tr>
+       <tr>
++        <td><code>AUDIO-003F</code></td>
++        <td>Confidence-safe audio runtime test fixtures</td>
++        <td class="state-pass">PASS</td>
++        <td>1/1</td>
++        <td>1</td>
++        <td>Round 1 retains all 11 original audio/admission cases and passes 11/11 on exact candidate and accepted main; only the test fixture changes. No production guard/runtime change or full-suite claim.</td>
++      </tr>
++      <tr>
+         <td><code>VIS-003G</code></td>
+         <td>Integrated production-polish browser journey</td>
+         <td class="state-pass">PASS</td>
+@@ -2530,6 +2538,7 @@
+   </div>
+   <h2>Round trajectory</h2>
+   <ol>
++      <li><strong>R542 PASS — confidence-safe audio runtime test fixtures</strong> · AUDIO-003F<br>The original 11-case focused audio/admission module passes on corrected exact candidate and accepted main; all original assertions remain, with one new stationary-hand guard. Only tests/game-audio-runtime.test.js changes; no production guard, runtime, factory, chain, or full-engine state change. Full npm suite not run. Evidence: external AUDIO-003F fixture-adoption packet.</li>
+       <li><strong>R541 PASS — Skymaul, Brassbolt and Reedsting fixed-frame atlas packing only</strong> · APP-REDESIGN-ATLAS-002<br>All72 cells match approved native64 RGBA exactly; two fresh builds produce identical PNGs and provenance; copied-source SHA mutation is rejected. Three 256×384 atlases are each under 1 MiB. No public registration, live integration, runtime motion, full-cast or foundation acceptance. Evidence: artifacts/next-three-atlas-round-1/ and design/20261020-redesign/astra-next-three-round-1/atlas-source/.</li>
+       <li><strong>R540 PASS — Reedsting standalone native art only</strong> · ART-3D-REED-001<br>Fresh independent review of the saved editable Blend, standalone GLB, original portrait and actual reopened-scene renders. The wooden mask, reed hood and slender bow retain the original character read; four actor-facing headings, idle/walk/contact poses, both team treatments, common camera/anchor, crop safety and evaluated geometry pass. 1,258 evaluated triangles/45 editable meshes; body height N/E/S/W is 13.25/11.73/12.55/13.72 px. All37 fresh PNG hashes match render receipts. Exact numerical preservation has the signed-zero caveat: 107 Euler-Y tokens are serialized -0.0 instead of +0.0. Independent reconstruction reproduces every recorded after digest; no nonzero numeric value changed or was rounded. Saved-state SHA differs, so bitwise identity is not claimed; full post-export/post-save JSON was not retained. This is standalone native art only, with no runtime/live integration, motion or full-cast acceptance. Bounded report and evidence: artifacts/next-three-native-round-1/.</li>
+       <li><strong>R539 PASS — Brassbolt standalone native art only</strong> · ART-3D-BRASS-001<br>Fresh independent review of the saved editable Blend, standalone GLB, original portrait and actual reopened-scene renders. The hooded animal face, ears, brass crossbow and amber bolt retain the original character read; four actor-facing headings, idle/walk/contact poses, both team treatments, common camera/anchor, crop safety and evaluated geometry pass. 1,248 evaluated triangles/39 editable meshes; body height N/E/S/W is 13.49/12.59/12.47/12.29 px. All37 fresh PNG hashes match render receipts. Exact numerical preservation has the signed-zero caveat: 642 Euler-Y tokens are serialized -0.0 instead of +0.0. Independent reconstruction reproduces every recorded after digest; no nonzero numeric value changed or was rounded. Saved-state SHA differs, so bitwise identity is not claimed; full post-export/post-save JSON was not retained. This is standalone native art only, with no runtime/live integration, motion or full-cast acceptance. Bounded report and evidence: artifacts/next-three-native-round-1/.</li>

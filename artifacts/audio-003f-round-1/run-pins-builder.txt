@@ -1,0 +1,37 @@
+Builder-side focused diagnostic pins
+
+Immutable source pins
+- Candidate: 57baa0e6df0ea646abae3c155c05002e97336072
+- Accepted origin/main: 59d9fda9093b058cd3025a804835629b0552eeef
+- Node: v22.22.3
+- Exact command in each archive: node tests/game-audio-runtime-runner.js game-audio-runtime
+- No source checkout, root HEAD, or index edits; archives are under this external qualification directory.
+
+Results
+- unmodified candidate: exit 1; 11 tests, 6 pass, 5 fail; runner PID 1301 absent after wait.
+- accepted origin/main: exit 1; same five setup/admission failures; runner PID 1570 absent after wait.
+- corrected candidate external copy: exit 0; all 11 tests pass; runner PID 1482 absent after wait.
+- Process absence records: unmodified-focused.process, main-focused.process, corrected-focused.process.
+- Exit records: unmodified-focused.exit, main-focused.exit, corrected-focused.exit.
+- No full npm suite or browser run by this builder task.
+
+SHA-256
+- original full qualification log: 1023e85ad7965b914cf7a47de88f7c897bfe99e145e20d9dba86d4966274f2cd
+- unmodified-focused.log: 17dd686a6f2eb7c50e27f27e10eac1a3bfe455936613c3e6a33469df069fa120
+- main-focused.log: 28b8f34a56d4b5c93371d184a0d7cdfacea97abafc2d536b0764a65c9e1d3fa4
+- corrected-focused.log: 1cb79103e614ae6f3b098dbe79c3080fe258c7e0b3449a9265f5522eef35f9d0
+- proposed.patch: 011fbd9c9ac3fe5ea50417cfa7accec55893592cc90ce257452d57986d92e999
+- original test file (candidate and main): f61ca9c9047130469b9e85f8c50be591c4ae54ba9555aa70a81f258828c3123a
+- corrected test file: 83f5f8f6e056f1b36252f6b608b3cfb99696095c09e8da1e148fde5397cefbde
+- candidate/main playable-roster.js: 61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052
+- candidate/main session-troop-source-confidence-authority.js: e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd
+
+Scope check
+- diff -qr unmodified-candidate corrected-candidate: only tests/game-audio-runtime.test.js differs.
+- patch --dry-run -p1 succeeded against a fresh archive.
+- The corrected test retains all 11 cases and every original assertion; no authority/admission code changed.
+
+Independent critic runs
+- Fresh corrected candidate archive: 57baa0e6df0ea646abae3c155c05002e97336072; 11/11 pass, exit 0; Node v22.22.3; PID 2162 reaped; only test file changed. Evidence directory: audio-fixture-critic-independent/.
+- Fresh corrected accepted-main archive: 59d9fda9093b058cd3025a804835629b0552eeef; 11/11 pass, exit 0; Node v22.22.3; PID 2729 reaped; only test file changed. Assertion diff confirms all original assertions remain and only the new stationary-card guard was added. Evidence directory: audio-fixture-critic-main-independent/.
+- Both critic runs used `node tests/game-audio-runtime-runner.js game-audio-runtime` serially. These are focused runs only; no full-suite claim.

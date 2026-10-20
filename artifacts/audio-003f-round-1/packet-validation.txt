@@ -1,0 +1,9 @@
+Static packet validation (no Node/browser/runtime command executed during assembly)
+- Base commit: 59d9fda9093b058cd3025a804835629b0552eeef.
+- PLAN.md equals exact base bytes with exactly one AUDIO-003F row inserted; prior rows/states are byte-identical.
+- rounds.md begins with exact base rounds.md bytes; exactly one appended Round 542 heading; total round headings 542.
+- progress.html reverses byte-for-byte to exact base when its AUDIO-003F row and R542 trajectory item are removed and the displayed totals are restored; it adds only those items and totals.
+- Piece accounting: 312 rows, 252 PASS states, 31 QUESTION states.
+- Corrected test SHA-256: 83f5f8f6e056f1b36252f6b608b3cfb99696095c09e8da1e148fde5397cefbde.
+- Patch SHA-256: 011fbd9c9ac3fe5ea50417cfa7accec55893592cc90ce257452d57986d92e999.
+- No full source archive directory was copied into this packet.

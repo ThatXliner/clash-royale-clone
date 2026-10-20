@@ -1,0 +1,115 @@
+--- /Users/me/.codex/clash-qualification/20261020-game-audio-fixture-repair/audio-fixture-critic-main-independent/original-game-audio-runtime.test.js	2026-10-20 16:06:14
++++ /Users/me/.codex/clash-qualification/20261020-game-audio-fixture-repair/audio-fixture-critic-main-independent/source/tests/game-audio-runtime.test.js	2026-10-20 16:06:25
+@@ -23,19 +23,17 @@
+   return JSON.stringify(value);
+ }
+ 
++function hasSourceConfidenceField(entity, field) {
++  return entity.sourceConfidencePolicy?.fields.some((entry) =>
++    entry.field === field) ?? false;
++}
++
+ function acceleratedRoster() {
+-  return createPlayableRoster().map((card) => ({
+-    ...card,
+-    damage: 100,
+-    deployTimeTicks: 0,
+-    firstHitTicks: 0,
+-    hitSpeedTicks: 1,
+-    hitpoints: 100,
+-    movementMillitilesPerSecond: 60_000,
+-    rangeMillitiles: 32_000,
+-    sightRangeMillitiles: 32_000,
+-    entities: card.entities.map((entity) => ({
+-      ...entity,
++  return createPlayableRoster().map((card) => {
++    if (card.entities.some(({ sourceConfidencePolicy }) =>
++      sourceConfidencePolicy !== undefined)) return card;
++    return {
++      ...card,
+       damage: 100,
+       deployTimeTicks: 0,
+       firstHitTicks: 0,
+@@ -44,21 +42,40 @@
+       movementMillitilesPerSecond: 60_000,
+       rangeMillitiles: 32_000,
+       sightRangeMillitiles: 32_000,
+-    })),
+-  }));
++      entities: card.entities.map((entity) => ({
++        ...entity,
++        damage: 100,
++        deployTimeTicks: 0,
++        firstHitTicks: 0,
++        hitSpeedTicks: 1,
++        hitpoints: 100,
++        movementMillitilesPerSecond: 60_000,
++        rangeMillitiles: 32_000,
++        sightRangeMillitiles: 32_000,
++      })),
++    };
++  });
+ }
+ 
+ function sessionSetup({ accelerated = false, stationary = false } = {}) {
+   let roster = accelerated ? acceleratedRoster() : createPlayableRoster();
+   if (stationary) {
+-    roster = roster.map((card) => ({
+-      ...card,
+-      movementMillitilesPerSecond: 0,
+-      entities: card.entities.map((entity) => ({
+-        ...entity,
+-        movementMillitilesPerSecond: 0,
+-      })),
+-    }));
++    roster = roster.map((card) => {
++      const hasTrackedMovement = card.entities.some((entity) =>
++        hasSourceConfidenceField(entity, "movementMillitilesPerSecond"));
++      return {
++        ...card,
++        movementMillitilesPerSecond: hasTrackedMovement
++          ? card.movementMillitilesPerSecond
++          : 0,
++        entities: card.entities.map((entity) => ({
++          ...entity,
++          movementMillitilesPerSecond: hasSourceConfidenceField(
++            entity, "movementMillitilesPerSecond",
++          ) ? entity.movementMillitilesPerSecond : 0,
++        })),
++      };
++    });
+   }
+   const questions = createPlayableRosterQuestionRecords();
+   const battleSetup = canonical({
+@@ -77,8 +94,8 @@
+     rosterWitness: canonical({ questions, roster }),
+     seed: "game-audio-runtime",
+     startingElixir: { north: 10, south: 10 },
+-    thinkIntervalTicks: 60,
+-    thinkOffsetTicks: 0,
++    thinkIntervalTicks: stationary ? 3_600 : 60,
++    thinkOffsetTicks: stationary ? 3_599 : 0,
+   });
+ }
+ 
+@@ -153,9 +170,18 @@
+ });
+ 
+ test("game audio runtime: locomotion starts require real displacement and restore exactly", () => {
+-  const stationary = new GameSession(sessionSetup({ stationary: true }));
++  const stationarySetup = sessionSetup({ stationary: true });
++  const stationary = new GameSession(stationarySetup);
+   const stationaryRuntime = new GameAudioRuntime(stationary);
+-  submitPlayable(stationary);
++  const stationaryRoster = JSON.parse(JSON.parse(stationarySetup).battleSetup).roster;
++  const stationaryCardIds = new Set(stationaryRoster
++    .filter(({ entities }) => entities.every((entity) =>
++      !hasSourceConfidenceField(entity, "movementMillitilesPerSecond")))
++    .map(({ id }) => id));
++  const stationaryCardId = stationary.state.decks.south.hand.find((cardId) =>
++    stationaryCardIds.has(cardId));
++  assert.ok(stationaryCardId, "the starting hand contains a card with stationary fixture movement");
++  submitPlayable(stationary, 1, stationaryCardId);
+   stationary.stepMany(120);
+   assert.ok(stationary.replay.some(({ type }) => type === "session-deployed"));
+   assert.equal(getGameSessionAudioReplay(stationary).some(
