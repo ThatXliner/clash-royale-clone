@@ -1,0 +1,31 @@
+Review target: /Users/me/.codex/clash-qualification/20261020-next-three-atlas-builder
+Canonical repo state: commit f8f6cfe35f8b7756f169225eea57b20ed25720a9, read with `git show` / `git cat-file` only.
+Python: 3.14.6 (stdlib only). No Node, npm, Chrome, or Blender commands were run.
+
+Initial repo identity was captured before clean builds. See pre-state.json and post-state.json.
+
+1) Fresh build A, working directory /Users/me/.codex/clash-qualification/20261020-next-three-atlas-builder
+python3 scripts/build-next-three-atlases.py --output-dir /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/build-a
+Actual stdout: logs/build-a.txt
+
+2) Fresh build B, same working directory, distinct empty output directory
+python3 scripts/build-next-three-atlases.py --output-dir /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/build-b
+Actual stdout: logs/build-b.txt
+
+3) Validator. The unmodified submitted validator writes comparison sheets under its package root, so it was run from the byte-checked review-sandbox copy created before testing. Fresh A/B output directories were copied into that sandbox under builds/review-a and builds/review-b.
+Working directory: /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/review-sandbox
+python3 scripts/validate-next-three-atlases.py --build-a builds/review-a --build-b builds/review-b --output /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/validation.json
+Actual stdout: logs/validator.txt
+
+4) Independent stdlib PNG decoder, raw/native copy checks, canonical Git blob checks, provenance checks, and fresh-output comparisons
+python3 /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/audit.py
+Actual stdout: logs/audit.txt
+
+5) Independent copied-source SHA mutation check. A copied raw frame was byte-mutated; the copied generator was run in the isolated mutation case. It exited 1 with the expected hash error and created zero output files.
+python3 /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/mutation_audit.py
+Actual stdout: logs/mutation-audit.txt
+Generator stdout/stderr: logs/mutation.txt
+
+6) Before/after source and repository identity checks
+python3 /Users/me/.codex/clash-qualification/20261020-next-three-atlas-critic/capture_state.py
+Source snapshot comparison: source-snapshot-compare.json; 160 input/source/metadata files match between the pre-run sandbox copy and submitted package after review.

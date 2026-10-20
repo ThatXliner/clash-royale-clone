@@ -9982,3 +9982,16 @@ EVIDENCE: Fresh independent review of the saved editable Blend, standalone GLB, 
 BIGGEST GAP: The signed-zero representation change means serialized state hashes differ even though every reconstructed numeric value matches; the complete after-state JSON was not captured.
 
 DISPOSITION: Record this PASS only for the named standalone native model. Keep ART-3D-001 at PASS 3/3 for Coilblade, Mossguard and Copperskiff; APP-REDESIGN-001 remains PENDING. No live runtime, motion, full-cast or foundation acceptance.
+
+## Round 541 — 2026-10-20
+
+PIECE: APP-REDESIGN-ATLAS-002 — Skymaul, Brassbolt and Reedsting fixed-frame atlas pack
+
+VERDICT: PASS — portable fixed-frame atlas packing only
+
+EVIDENCE: The independent critic verified all 72 decoded 64×64 RGBA cells pixel-for-pixel against the approved native64 renders, using east/north/south/west columns, River idle/walk/contact then Ember idle/walk/contact rows, with pivot (32,54). Two fresh builds produced byte-identical PNGs and provenance; each atlas is below the 1 MiB cap. Skymaul is 21,223 bytes (SHA-256 adff736da56f4cf2925b105ff0a8b8a340b2389c8315e2bc03d9e5a051f33649), Brassbolt 20,634 bytes (SHA-256 c628afe371a4a876038dc712998f7df25836863b47d1724ef06f96cfda83b48d), Reedsting 20,399 bytes (SHA-256 675d54c55c3431ce2813a973d45d62eb1a88a1363f5a10ce262c22aeda5e2481), and provenance 123,417 bytes (SHA-256 412b1612650a70a61de9eee6caf787f0713de5e34506433ce9e90fc4d626472c). All 72 copied raw sources and 72 native64 references match their pinned originals. A one-byte copied-source mutation was rejected with exit 1 and zero atlas output files. The curated source pack retains exact inputs, source map, generator, validator, upstream receipts/license/provenance and one canonical clean-a atlas set; the independent critic report, both fresh build outputs, audit, mutation receipt, logs and comparison sheets are in artifacts/next-three-atlas-round-1/. No portable rebuild was run during packaging.
+
+BIGGEST GAP: This qualifies only fixed-frame standalone packing. Public registration, live renderer integration, runtime motion, all-cast coverage and APP-REDESIGN-001 foundation remain unqualified.
+
+DISPOSITION: Adopt the portable source pack, canonical atlas outputs and bounded round evidence only. Preserve the existing native-art rounds and all other piece states. Do not add public/assets outputs. No runtime, simulation, dependency or test changes.
+
