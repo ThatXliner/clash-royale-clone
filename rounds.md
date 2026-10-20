@@ -9775,3 +9775,11 @@ EVIDENCE: Fresh independent Blender5.1.2 factory-startup PID36167 exits0 after16
 BIGGEST GAP: Macro form and team zone at native size. Coilblade/Mossguard are unchanged, above proposed triangle target and not independently rendered in this bounded R2 run; they remain unqualified rather than being assigned fresh visual failures from absent images.
 
 Root verifies pre/post runner-input manifests agree, rehashes their non-Blender-executable files, exact saved blend identity and all16 raw render hashes. The binary hash is retained from critic capture but not independently rehashed during the exclusive factory run. Source/export/prototype evidence remains original and separate; no runtime asset, engine/stat/API/policy change or atlas acceptance. Astra has the actual critique for a file-only R3 preparation. The same Copperskiff gap has failed two actual visual rounds; no third-round stop applies yet.
+
+## Round 522 — DESIGN-001 complete collection reachability
+
+PIECE: DESIGN-001
+VERDICT: FAIL
+EVIDENCE: Fresh independent Chrome155/Node22.22.3/Playwright1.58.2 capture exits0, six exact native390x844/1440x933 DPR1 frames, no external/font requests or page errors. All23 unique card IDs/names/costs/types/rarities match committed source. Landing and battle frames remain byte-identical to R2. Focusable collection has518px client height and670px scroll height, but PageDown and End both record scrollTop0/atBottomfalse. Retained bottom audit still clips final card-name strips. Node70747 and Chrome70760 are confirmed closed. Exact source42778806 and full independent report/raw frames/capture/input/fences retained in artifacts/design001-round-3/critic.
+BIGGEST GAP: Keyboard access to the full collection is not demonstrated. Mouse-wheel behavior was not tested. R4 must diagnose source versus capture timing/focus before correction; DOM presence alone is insufficient.
+DISPOSITION: Proposal only; no shipped UI/mechanics change. Three rounds found different gaps (phone overflow, incomplete roster, now collection access), so no same-gap three-round stop is inferred.

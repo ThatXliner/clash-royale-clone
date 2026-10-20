@@ -1,0 +1,39 @@
+captured_at_utc: 2026-10-20T16:54:58Z
+repo_root: /Users/me/.codex/worktrees/9456/clash-royale-clone
+git_head: 12278c27c9fa728653353b768b9c62d0f504404f
+candidate_path: /Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/claude-round-3/design-board.html
+candidate_sha256: 427788064b231af280b8c67a271c63bf0daeb8ce86879f41a361a6587218d2e4
+candidate_copy_path: /Users/me/.codex/clash-qualification/20261020-design-r3-critic/input/design-board.html
+candidate_copy_sha256: 427788064b231af280b8c67a271c63bf0daeb8ce86879f41a361a6587218d2e4
+runner_path: /Users/me/.codex/clash-qualification/20261020-design-r3-critic/capture.mjs
+runner_sha256: 14c6a55ed0e8b1b11ebedd0a8ab9e84fb2074379dde8fa6db2ffeb877d74d0cf
+node_binary_path: /Users/me/.hermes/node/bin/node
+playwright_module_path: /Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/playwright/index.mjs
+chrome_binary_path: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+Authoritative Git HEAD source blob IDs:
+src/content/playable-roster.js 9ce4c06226f2a4c2b54da3893849a85759fa00f5
+src/content/session-troop-roster.js 75fb7af5675c25e418bb06483bcf84d67eda1a4d
+src/content/editable-deck.js cdfb7f081400b8a4f797f0cf577a6923c6004347
+src/content/cards/basic-flying.js db76c543c24cf0439a92da2cb36f4c84ad4f217a
+src/content/cards/basic-melee.js 380857b92489b4086615e689a06c686e2c3c931c
+src/content/cards/basic-ranged.js d80208caa7edbdd6169a1fa9cac3dd4c69a54795
+src/content/cards/ordinary-projectile-squads.js ffaa243a599e7466e47c32c281af04a1def8e9bb
+src/content/cards/ordinary-projectile-splash.js b0eb9b1a2454dd5b49792bf8a404bf2ba549d67e
+src/content/cards/swarms.js 3262791442227989d5294296cd2d1e2b19d6ec24
+src/content/cards/structure-seeker.js 8ab8882539882f4699fc4a9afb0850e41da18cce
+src/content/cards/special-movement-knockback.js 1bc4ede449d5de5b99851c6cea73c3b00996a3f2
+src/content/cards/buildings-defensive.js 253a2008584e95b1d42e852a3f5cafe2e20b8622
+src/content/cards/buildings-resource.js 0a09201295c073c1194245c94334e31b7b8c2daf
+
+Selected working-tree source status:
+M  src/content/cards/basic-melee.js
+M  src/content/cards/buildings-resource.js
+D  src/content/cards/ordinary-projectile-splash.js
+MM src/content/editable-deck.js
+MM src/content/session-troop-roster.js
+?? src/content/cards/ordinary-projectile-splash.js
+
+Selected dependency package versions:
+playwright=1.58.2
+playwright-core=1.58.2
