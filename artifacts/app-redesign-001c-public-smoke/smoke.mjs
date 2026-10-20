@@ -1,0 +1,18 @@
+import { chromium } from '/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs';
+import assert from 'node:assert/strict';
+import { writeFileSync } from 'node:fs';
+const root = new URL('./', import.meta.url);
+const r = {scope:'Public phone landing/catalog/battle boot only; no endurance or restore qualification',startedAt:new Date().toISOString(),pid:process.pid,requests:[],consoleErrors:[],pageErrors:[]};
+const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
+try {
+ r.browserVersion=browser.version();const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1});const page=await context.newPage();
+ page.on('request',q=>{const u=new URL(q.url());if(/^https?:$/.test(u.protocol))r.requests.push(u.origin+u.pathname);});
+ page.on('console',m=>{if(m.type()==='error')r.consoleErrors.push(m.text().slice(0,1200));});page.on('pageerror',e=>r.pageErrors.push(String(e).slice(0,1200)));
+ const landing=await page.goto('https://bryanhu.com/clash-royale-clone/?release=7af62ecf',{waitUntil:'load',timeout:30000});assert.equal(landing.status(),200);
+ r.landing={status:landing.status(),title:await page.title(),heading:await page.locator('h1').innerText(),overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)};assert.equal(r.landing.overflow,false);await page.screenshot({path:new URL('landing-phone.png',root).pathname});
+ const demo=await page.goto('https://bryanhu.com/clash-royale-clone/game/public/index.html?release=7af62ecf',{waitUntil:'load',timeout:30000});assert.equal(demo.status(),200);await page.locator('[data-nav-to="cards"]').click();await page.locator('.collection-card').first().waitFor();r.catalogCount=await page.locator('.collection-card').count();assert.equal(r.catalogCount,23);assert.equal(await page.locator('.collection-card-info small').count(),23);assert.equal((await page.locator('.brand-copy small').textContent()).trim(),'Riverworks card battles');r.redesignedUI=true;
+ await page.locator('.collection-card[data-card-id="aether-well"]').click();r.cardDetail=(await page.locator('[data-card-detail]').innerText()).slice(0,1600);assert.ok(!/NaN|undefined/.test(r.cardDetail));r.gameOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);assert.equal(r.gameOverflow,false);await page.screenshot({path:new URL('aether-card-phone.png',root).pathname});
+ await page.locator('[data-nav-to="battle"]').click();await page.frameLocator('[data-battle-frame-slot] iframe').locator('[data-ui="arena"]').waitFor({state:'attached',timeout:15000});const frame=page.frames().find(f=>f.url().includes('/public/ui-arena-shell.html'));assert.ok(frame);const entry=new URL('../src/ui/arena-shell-entry.js',frame.url()).href;
+ r.battle=await frame.evaluate(async url=>{const {arenaHudController:c}=await import(url);return {tick:c.state.sessionTick,arenaPresent:!!document.querySelector('[data-ui="arena"]')};},entry);assert.ok(Number.isSafeInteger(r.battle.tick));assert.ok(r.battle.arenaPresent);await page.screenshot({path:new URL('battle-phone.png',root).pathname});r.status='PASS';
+} catch(e){r.status='FAIL';r.error=String(e);throw e;} finally {r.finishedAt=new Date().toISOString();writeFileSync(new URL('receipt.json',root),JSON.stringify(r,null,2)+'\n');await browser.close();}
+console.log(JSON.stringify({status:r.status,catalogCount:r.catalogCount,battle:r.battle,consoleErrors:r.consoleErrors.length,pageErrors:r.pageErrors.length}));

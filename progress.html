@@ -24,11 +24,11 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-10-14 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">305</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">242</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">529</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">243</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">532</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001HTJX — Extract existing shared combat factory</strong>.</p>
@@ -2409,25 +2409,25 @@
         <td><code>ART-3D-001</code></td>
         <td>Original editable character model pipeline</td>
         <td class="state-building">BUILDING</td>
-        <td>1/3</td>
-        <td>4</td>
-        <td>Round527 qualifies only Copperskiff R4 native model after fresh16views, exact126frozen fences and savedscene heading probe. Original east/west camera-side objection disproved by evaluated actor-facing projection; historical report preserved. Coilblade/Mossguard remain unqualified under separate child gates. No runtime sprite/atlas/app/motion adoption. artifacts/art3d001-round-4.</td>
+        <td>2/3</td>
+        <td>6</td>
+        <td>Standalone native-art gates qualify Copperskiff and Mossguard only. Coilblade has two actual saber-identity/readability failures and needs revision; tool-only render/readback errors were not counted as visual rounds. Editable versions and independent evidence retained. No all-cast, runtime sprite or motion acceptance.</td>
       </tr>
       <tr>
         <td><code>ART-3D-COIL-001</code></td>
         <td>Coilblade native model readability</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Original R1 fine cues weaken at native size and mesh exceeds proposed triangle budget. Astra owns isolated revision; no runtime integration or fresh quality PASS.</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/1</td>
+        <td>2</td>
+        <td>Rounds531/532 FAIL on saber identity/readability: R1 becomes a short straight bar; R2 curved variant remains too short at native13px and reads as a broad plate/shield in the portrait. R2 has32fresh native views plus portrait; preserved body/pivot/team/cameras and geometry below3000triangles. Independent reports and exact editable versions retained. Astra preparing two narrow long-saber variants for third review; no runtime integration. artifacts/astra-native-model-reviews/.</td>
       </tr>
       <tr>
         <td><code>ART-3D-MOSS-001</code></td>
         <td>Mossguard native model readability</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Original R1 team shape is not robust at native size and mesh exceeds proposed triangle budget. Astra owns isolated revision; no runtime integration or fresh quality PASS.</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>1</td>
+        <td>Round530 scopedPASS: independent native-art review of original editable1224-triangle/40-mesh Mossguard. Leaf mantle, wooden mask, relief shield, team ring shapes, all four actor-facing headings and idle/walk/contact survive native13px; common50deg/ortho8.025/anchor32,54 and bounds pass. Actual80-view joint bundle includes40fresh Mossguard views; all112 inputs unchanged. Exact native Blend/GLB and bounded evidence committed; no live sprite integration claim. artifacts/astra-native-model-reviews/round-1/.</td>
       </tr>
       <tr>
         <td><code>ART-3D-COPPER-001</code></td>
@@ -2451,7 +2451,7 @@
         <td class="state-pass">PASS</td>
         <td>6/6</td>
         <td>1</td>
-        <td>Round529 scopedPASS: actual Claude three-file screen redesign; independent real Chrome app-shell, polish, content-schema, release-build, shipping-isolation and all23 rendered role/lore checks pass. Native phone/desktop renders, keyboard/pointer replacement, same-deck restart and reduced motion verified. Stale 20-card/order test assumptions corrected with exact collection/deck membership checks; one introduced test-selector bug repaired and all failed runs preserved. No simulation, catalog, dependency or new character-sprite changes. artifacts/app-redesign-001c-round-1/.</td>
+        <td>Round529 scopedPASS: actual Claude three-file screen redesign; independent real Chrome app-shell, polish, content-schema, release-build, shipping-isolation and all23 rendered role/lore checks pass. Native phone/desktop renders, keyboard/pointer replacement, same-deck restart and reduced motion verified. Stale 20-card/order test assumptions corrected with exact collection/deck membership checks; one introduced test-selector bug repaired and all failed runs preserved. No simulation, catalog, dependency or new character-sprite changes. artifacts/app-redesign-001c-round-1/. Deployed7af62ecf via successful Pages run39483029801; public Chrome phone smoke verified redesigned UI,23 cards,Aether detail and battle boot, no page exceptions. Two host-added analytics scripts blocked by existing game CSP; no zero-console or public full-play claim. artifacts/app-redesign-001c-public-smoke/.</td>
       </tr>
       <tr>
         <td><code>APP-REDESIGN-COPPER-001</code></td>
@@ -2482,6 +2482,9 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R532 FAIL — second weapon revision</strong> · ART-3D-COIL-001<br>Need a long thin curved sword silhouette at native and portrait scales; Astra preparing two competing narrow variants before third actual review.</li>
+      <li><strong>R531 FAIL — native weapon identity</strong> · ART-3D-COIL-001<br>Signature saber silhouette does not survive native13px or the portrait view.</li>
+      <li><strong>R530 PASS — standalone native art only</strong> · ART-3D-MOSS-001<br>None on this standalone model dimension; live-game integration remains unqualified.</li>
       <li><strong>R466 PASS — bounded-history scope only</strong> · GAME-001GFB<br>Matching accepted source still requires full strict browser default18000 and separate Kilnkeeper terminal/restart qualification.</li>
       <li><strong>R465 PASS</strong> · OPS-001<br>None on progress-rendering bar; source-dataaccuracy remains the responsibility of each recorded round.</li>
       <li><strong>R464 PASS — asset-stage only</strong> · ART-021P causal fixture recheck<br>Actualcard/arena teamidentity andrestore/restart still requireCARDS021I; historicalmechanics remainQUESTION.</li>

@@ -1,5 +1,41 @@
 # Gauntlet Rounds
 
+## Round 532 — 2026-10-20
+
+PIECE: ART-3D-COIL-001
+
+VERDICT: FAIL — second weapon revision
+
+EVIDENCE: Coil-only R2 edit/export/reopen/render completed0; independent fresh critic verified all32 fresh native output hashes and portrait hash. R1 comparisons were carried controls. Hook improves in side views but remains too short at native scale; portrait becomes a broad crescent plate/shield. Other body geometry, pivots, poses, teams and cameras retained. Reports: artifacts/astra-native-model-reviews/.
+
+BIGGEST GAP: Need a long thin curved sword silhouette at native and portrait scales; Astra preparing two competing narrow variants before third actual review.
+
+DISPOSITION: Preserve immutable evidence and independent verdict; no runtime asset adoption.
+
+## Round 531 — 2026-10-20
+
+PIECE: ART-3D-COIL-001
+
+VERDICT: FAIL — native weapon identity
+
+EVIDENCE: Same successful joint render and unchanged inputs as Round530. Independent actual native and portrait review finds the crescent saber reads as a short straight pale bar, despite correct heading, poses, framing and1672-triangle geometry. Tool-only setup errors are not review failures. Reports: artifacts/astra-native-model-reviews/.
+
+BIGGEST GAP: Signature saber silhouette does not survive native13px or the portrait view.
+
+DISPOSITION: Preserve immutable evidence and independent verdict; no runtime asset adoption.
+
+## Round 530 — 2026-10-20
+
+PIECE: ART-3D-MOSS-001
+
+VERDICT: PASS — standalone native art only
+
+EVIDENCE: Actual joint render continuation exited0:80 native views plus2 portraits, with24 Coilblade views explicitly carried and56 fresh outputs. Mossguard40 views are fresh. Independent critic viewed native color/grayscale/silhouette/team masks, original portrait and arena context; 1224 triangles/40 editable meshes, four correct headings, distinct poses, crop and team read pass. 112 frozen inputs unchanged. Exact editable Blend/GLB and native evidence retained. Reports: artifacts/astra-native-model-reviews/.
+
+BIGGEST GAP: None on this standalone model dimension; live-game integration remains unqualified.
+
+DISPOSITION: Preserve immutable evidence and independent verdict; no runtime asset adoption.
+
 ## Round 466 — 2026-10-14
 
 PIECE: GAME-001GFB
