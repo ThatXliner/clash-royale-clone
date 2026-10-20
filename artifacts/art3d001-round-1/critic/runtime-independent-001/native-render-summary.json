@@ -1,0 +1,948 @@
+{
+  "note": "Independent post-processing of the 30 raw Blender renders. 256x256 transparent outputs were alpha-premultiplied, BOX-downsampled 4:1 to 64x64 sprite cells, yielding ~13px intended character height. Arena images place six sprites at native tile size with no model/material additions.",
+  "raw_source": "raw-256/",
+  "native_tiles": "native-64/",
+  "raw_render_count": 30,
+  "render_dimensions": [
+    256,
+    256
+  ],
+  "native_tile_dimensions": [
+    64,
+    64
+  ],
+  "downsample": "RGBA premultiplied, 4:1 BOX resampling",
+  "arena_background": "public/assets/moss-ember-arena-painted.webp resized to 540x960 with LANCZOS",
+  "assets": [
+    {
+      "file": "coilblade-ember-east-idle-f001.png",
+      "card": "coilblade",
+      "team": "ember",
+      "direction": "east",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        26,
+        44,
+        43,
+        56
+      ],
+      "alpha_bbox_ge128": [
+        28,
+        45,
+        42,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        31,
+        46,
+        34,
+        55
+      ],
+      "nonzero_alpha_pixels": 75,
+      "alpha_ge128_pixels": 42
+    },
+    {
+      "file": "coilblade-ember-north-idle-f001.png",
+      "card": "coilblade",
+      "team": "ember",
+      "direction": "north",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        27,
+        40,
+        36,
+        56
+      ],
+      "alpha_bbox_ge128": [
+        28,
+        41,
+        35,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        46,
+        34,
+        52
+      ],
+      "nonzero_alpha_pixels": 75,
+      "alpha_ge128_pixels": 45
+    },
+    {
+      "file": "coilblade-ember-south-idle-f001.png",
+      "card": "coilblade",
+      "team": "ember",
+      "direction": "south",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        43,
+        37,
+        57
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        45,
+        36,
+        56
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        46,
+        34,
+        54
+      ],
+      "nonzero_alpha_pixels": 71,
+      "alpha_ge128_pixels": 46
+    },
+    {
+      "file": "coilblade-ember-west-idle-f001.png",
+      "card": "coilblade",
+      "team": "ember",
+      "direction": "west",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        21,
+        44,
+        38,
+        56
+      ],
+      "alpha_bbox_ge128": [
+        22,
+        45,
+        37,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        30,
+        46,
+        33,
+        55
+      ],
+      "nonzero_alpha_pixels": 83,
+      "alpha_ge128_pixels": 47
+    },
+    {
+      "file": "coilblade-river-east-idle-f001.png",
+      "card": "coilblade",
+      "team": "river",
+      "direction": "east",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        26,
+        44,
+        43,
+        56
+      ],
+      "alpha_bbox_ge128": [
+        28,
+        45,
+        42,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        31,
+        46,
+        34,
+        55
+      ],
+      "nonzero_alpha_pixels": 75,
+      "alpha_ge128_pixels": 42
+    },
+    {
+      "file": "coilblade-river-north-idle-f001.png",
+      "card": "coilblade",
+      "team": "river",
+      "direction": "north",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        27,
+        40,
+        36,
+        56
+      ],
+      "alpha_bbox_ge128": [
+        28,
+        41,
+        35,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        46,
+        34,
+        52
+      ],
+      "nonzero_alpha_pixels": 75,
+      "alpha_ge128_pixels": 45
+    },
+    {
+      "file": "coilblade-river-south-attack-contact-f100.png",
+      "card": "coilblade",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "attack-contact-f100",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        27,
+        46,
+        39,
+        61
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        48,
+        37,
+        60
+      ],
+      "alpha_bbox_ge250": [
+        30,
+        49,
+        35,
+        57
+      ],
+      "nonzero_alpha_pixels": 83,
+      "alpha_ge128_pixels": 38
+    },
+    {
+      "file": "coilblade-river-south-idle-f001.png",
+      "card": "coilblade",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        43,
+        37,
+        57
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        45,
+        36,
+        56
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        46,
+        34,
+        54
+      ],
+      "nonzero_alpha_pixels": 71,
+      "alpha_ge128_pixels": 46
+    },
+    {
+      "file": "coilblade-river-south-walk-f051.png",
+      "card": "coilblade",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "walk-f051",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        43,
+        37,
+        59
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        45,
+        36,
+        58
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        47,
+        35,
+        55
+      ],
+      "nonzero_alpha_pixels": 72,
+      "alpha_ge128_pixels": 41
+    },
+    {
+      "file": "coilblade-river-west-idle-f001.png",
+      "card": "coilblade",
+      "team": "river",
+      "direction": "west",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        21,
+        44,
+        38,
+        56
+      ],
+      "alpha_bbox_ge128": [
+        22,
+        45,
+        37,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        30,
+        46,
+        33,
+        55
+      ],
+      "nonzero_alpha_pixels": 83,
+      "alpha_ge128_pixels": 47
+    },
+    {
+      "file": "copperskiff-ember-east-idle-f001.png",
+      "card": "copperskiff",
+      "team": "ember",
+      "direction": "east",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        24,
+        43,
+        39,
+        53
+      ],
+      "alpha_bbox_ge128": [
+        25,
+        44,
+        38,
+        52
+      ],
+      "alpha_bbox_ge250": [
+        27,
+        45,
+        37,
+        51
+      ],
+      "nonzero_alpha_pixels": 105,
+      "alpha_ge128_pixels": 77
+    },
+    {
+      "file": "copperskiff-ember-north-idle-f001.png",
+      "card": "copperskiff",
+      "team": "ember",
+      "direction": "north",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        42,
+        36,
+        55
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        35,
+        53
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        43,
+        35,
+        53
+      ],
+      "nonzero_alpha_pixels": 79,
+      "alpha_ge128_pixels": 52
+    },
+    {
+      "file": "copperskiff-ember-south-idle-f001.png",
+      "card": "copperskiff",
+      "team": "ember",
+      "direction": "south",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        40,
+        36,
+        54
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        35,
+        54
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        43,
+        35,
+        53
+      ],
+      "nonzero_alpha_pixels": 82,
+      "alpha_ge128_pixels": 56
+    },
+    {
+      "file": "copperskiff-ember-west-idle-f001.png",
+      "card": "copperskiff",
+      "team": "ember",
+      "direction": "west",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        25,
+        43,
+        40,
+        53
+      ],
+      "alpha_bbox_ge128": [
+        26,
+        44,
+        39,
+        52
+      ],
+      "alpha_bbox_ge250": [
+        27,
+        45,
+        37,
+        51
+      ],
+      "nonzero_alpha_pixels": 105,
+      "alpha_ge128_pixels": 77
+    },
+    {
+      "file": "copperskiff-river-east-idle-f001.png",
+      "card": "copperskiff",
+      "team": "river",
+      "direction": "east",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        24,
+        43,
+        39,
+        53
+      ],
+      "alpha_bbox_ge128": [
+        25,
+        44,
+        38,
+        52
+      ],
+      "alpha_bbox_ge250": [
+        27,
+        45,
+        37,
+        51
+      ],
+      "nonzero_alpha_pixels": 105,
+      "alpha_ge128_pixels": 77
+    },
+    {
+      "file": "copperskiff-river-north-idle-f001.png",
+      "card": "copperskiff",
+      "team": "river",
+      "direction": "north",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        42,
+        36,
+        55
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        35,
+        53
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        43,
+        35,
+        53
+      ],
+      "nonzero_alpha_pixels": 79,
+      "alpha_ge128_pixels": 52
+    },
+    {
+      "file": "copperskiff-river-south-attack-contact-f100.png",
+      "card": "copperskiff",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "attack-contact-f100",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        41,
+        36,
+        55
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        35,
+        54
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        43,
+        35,
+        53
+      ],
+      "nonzero_alpha_pixels": 78,
+      "alpha_ge128_pixels": 56
+    },
+    {
+      "file": "copperskiff-river-south-idle-f001.png",
+      "card": "copperskiff",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        40,
+        36,
+        54
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        35,
+        54
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        43,
+        35,
+        53
+      ],
+      "nonzero_alpha_pixels": 82,
+      "alpha_ge128_pixels": 56
+    },
+    {
+      "file": "copperskiff-river-south-walk-f051.png",
+      "card": "copperskiff",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "walk-f051",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        29,
+        40,
+        36,
+        54
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        41,
+        36,
+        53
+      ],
+      "alpha_bbox_ge250": [
+        30,
+        42,
+        35,
+        53
+      ],
+      "nonzero_alpha_pixels": 77,
+      "alpha_ge128_pixels": 58
+    },
+    {
+      "file": "copperskiff-river-west-idle-f001.png",
+      "card": "copperskiff",
+      "team": "river",
+      "direction": "west",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        25,
+        43,
+        40,
+        53
+      ],
+      "alpha_bbox_ge128": [
+        26,
+        44,
+        39,
+        52
+      ],
+      "alpha_bbox_ge250": [
+        27,
+        45,
+        37,
+        51
+      ],
+      "nonzero_alpha_pixels": 105,
+      "alpha_ge128_pixels": 77
+    },
+    {
+      "file": "mossguard-ember-east-idle-f001.png",
+      "card": "mossguard",
+      "team": "ember",
+      "direction": "east",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        41,
+        39,
+        58
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        38,
+        57
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        44,
+        37,
+        56
+      ],
+      "nonzero_alpha_pixels": 118,
+      "alpha_ge128_pixels": 88
+    },
+    {
+      "file": "mossguard-ember-north-idle-f001.png",
+      "card": "mossguard",
+      "team": "ember",
+      "direction": "north",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        25,
+        43,
+        43,
+        55
+      ],
+      "alpha_bbox_ge128": [
+        25,
+        43,
+        42,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        26,
+        44,
+        42,
+        54
+      ],
+      "nonzero_alpha_pixels": 149,
+      "alpha_ge128_pixels": 114
+    },
+    {
+      "file": "mossguard-ember-south-idle-f001.png",
+      "card": "mossguard",
+      "team": "ember",
+      "direction": "south",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        21,
+        43,
+        39,
+        57
+      ],
+      "alpha_bbox_ge128": [
+        22,
+        43,
+        39,
+        56
+      ],
+      "alpha_bbox_ge250": [
+        22,
+        44,
+        38,
+        56
+      ],
+      "nonzero_alpha_pixels": 193,
+      "alpha_ge128_pixels": 153
+    },
+    {
+      "file": "mossguard-ember-west-idle-f001.png",
+      "card": "mossguard",
+      "team": "ember",
+      "direction": "west",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        25,
+        39,
+        36,
+        58
+      ],
+      "alpha_bbox_ge128": [
+        26,
+        40,
+        35,
+        57
+      ],
+      "alpha_bbox_ge250": [
+        27,
+        40,
+        35,
+        56
+      ],
+      "nonzero_alpha_pixels": 134,
+      "alpha_ge128_pixels": 106
+    },
+    {
+      "file": "mossguard-river-east-idle-f001.png",
+      "card": "mossguard",
+      "team": "river",
+      "direction": "east",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        28,
+        41,
+        39,
+        58
+      ],
+      "alpha_bbox_ge128": [
+        29,
+        42,
+        38,
+        57
+      ],
+      "alpha_bbox_ge250": [
+        29,
+        44,
+        37,
+        56
+      ],
+      "nonzero_alpha_pixels": 118,
+      "alpha_ge128_pixels": 88
+    },
+    {
+      "file": "mossguard-river-north-idle-f001.png",
+      "card": "mossguard",
+      "team": "river",
+      "direction": "north",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        25,
+        43,
+        43,
+        55
+      ],
+      "alpha_bbox_ge128": [
+        25,
+        43,
+        42,
+        55
+      ],
+      "alpha_bbox_ge250": [
+        26,
+        44,
+        42,
+        54
+      ],
+      "nonzero_alpha_pixels": 149,
+      "alpha_ge128_pixels": 114
+    },
+    {
+      "file": "mossguard-river-south-attack-contact-f100.png",
+      "card": "mossguard",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "attack-contact-f100",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        20,
+        46,
+        39,
+        59
+      ],
+      "alpha_bbox_ge128": [
+        21,
+        47,
+        38,
+        58
+      ],
+      "alpha_bbox_ge250": [
+        21,
+        47,
+        37,
+        57
+      ],
+      "nonzero_alpha_pixels": 188,
+      "alpha_ge128_pixels": 143
+    },
+    {
+      "file": "mossguard-river-south-idle-f001.png",
+      "card": "mossguard",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        21,
+        43,
+        39,
+        57
+      ],
+      "alpha_bbox_ge128": [
+        22,
+        43,
+        39,
+        56
+      ],
+      "alpha_bbox_ge250": [
+        22,
+        44,
+        38,
+        56
+      ],
+      "nonzero_alpha_pixels": 193,
+      "alpha_ge128_pixels": 153
+    },
+    {
+      "file": "mossguard-river-south-walk-f051.png",
+      "card": "mossguard",
+      "team": "river",
+      "direction": "south",
+      "pose_frame": "walk-f051",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        21,
+        43,
+        39,
+        57
+      ],
+      "alpha_bbox_ge128": [
+        22,
+        44,
+        39,
+        56
+      ],
+      "alpha_bbox_ge250": [
+        22,
+        45,
+        38,
+        56
+      ],
+      "nonzero_alpha_pixels": 190,
+      "alpha_ge128_pixels": 146
+    },
+    {
+      "file": "mossguard-river-west-idle-f001.png",
+      "card": "mossguard",
+      "team": "river",
+      "direction": "west",
+      "pose_frame": "idle-f001",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_bbox_ge1": [
+        25,
+        39,
+        36,
+        58
+      ],
+      "alpha_bbox_ge128": [
+        26,
+        40,
+        35,
+        57
+      ],
+      "alpha_bbox_ge250": [
+        27,
+        40,
+        35,
+        56
+      ],
+      "nonzero_alpha_pixels": 134,
+      "alpha_ge128_pixels": 106
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "status": "generated; independent visual critique and live integration pending",
+  "authorship": "Original procedural geometry and materials by GPT-6 Astra for Moss & Ember",
+  "license": "AGPL-3.0-only",
+  "identity_source_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "generator_source": {
+    "path": "build_models.py",
+    "bytes": 65209,
+    "sha256": "d243516258802c67925455a7980661d4dd1c7bb54a8c443c2381308dd5b6f5b3"
+  },
+  "palette_source": {
+    "path": "palette.json",
+    "bytes": 1645,
+    "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+  },
+  "identity_sources": [
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "public/assets/card-portraits-painted.webp",
+    "src/content/cards/basic-melee.js",
+    "src/content/cards/basic-flying.js"
+  ],
+  "external_geometry_or_textures": [],
+  "reference_assets_imported": false,
+  "randomness": "None; explicit coordinates. Cycles render seed is fixed to zero.",
+  "blender_version": "5.1.2",
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "view_look": "None",
+  "exposure": 0.3499999940395355,
+  "team_variant": "river",
+  "coordinates": {
+    "up": "+Z",
+    "forward": "-Y",
+    "ground_anchor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "animation_frames": {
+    "idle": [
+      1,
+      11,
+      21,
+      31
+    ],
+    "walk": [
+      41,
+      51,
+      61,
+      71
+    ],
+    "attack": [
+      90,
+      96,
+      100,
+      106
+    ]
+  },
+  "attack_contact_frame": 100,
+  "rendered_previews": true,
+  "preview_set": "quick",
+  "preview_size": 256,
+  "rendered_sprite_sources": false,
+  "characters": [
+    {
+      "card_id": "coilblade",
+      "role": "Existing single-target ground melee duelist",
+      "glb": {
+        "path": "coilblade.glb",
+        "bytes": 259100,
+        "sha256": "4c44ff59323ccbc83bfa70155f5d8cdae6cd66f284caaacff4037417517dc9d5"
+      },
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 80,
+        "mesh_definitions": 64,
+        "animations": 12,
+        "animation_channels": 13,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "blend": {
+        "path": "coilblade.blend",
+        "bytes": 1155702,
+        "sha256": "13266e98b20b84b9b175cf58a13fcf5bb85604fae80dda58174b8233bad066f3"
+      },
+      "editable_mesh_objects": 64,
+      "base_mesh_triangles": 8604,
+      "evaluated_triangles": 9668,
+      "material_slots_used": [
+        "ME_20261020_blade_edge",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_forest",
+        "ME_20261020_iron",
+        "ME_20261020_verdigris",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "1a0b753a302effb27733f0325064bd369858e4a2e1c8fbcff93fda7cc3c09b4d"
+    },
+    {
+      "card_id": "mossguard",
+      "role": "Existing single-target ground melee grove keeper",
+      "glb": {
+        "path": "mossguard.glb",
+        "bytes": 214032,
+        "sha256": "96a42a032718ad6f8d94e147167dbd5c625e57f5d73897e523a7a968826daa02"
+      },
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 85,
+        "mesh_definitions": 70,
+        "animations": 11,
+        "animation_channels": 12,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "blend": {
+        "path": "mossguard.blend",
+        "bytes": 1072070,
+        "sha256": "8e52a446a284b184f2c2f4cd75093b4368aa8f22f97725513f2579149f0e9402"
+      },
+      "editable_mesh_objects": 70,
+      "base_mesh_triangles": 5192,
+      "evaluated_triangles": 5904,
+      "material_slots_used": [
+        "ME_20261020_copper",
+        "ME_20261020_iron",
+        "ME_20261020_leaf_light",
+        "ME_20261020_moss",
+        "ME_20261020_wood",
+        "ME_20261020_wood_dark",
+        "ME_20261020_wood_light",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "af5eb4494ae9aae818f99668ddcb97c2e02633c843ca9aab59634da7172b5f54"
+    },
+    {
+      "card_id": "copperskiff",
+      "role": "Existing flying ranged unit targeting ground and air",
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 184852,
+        "sha256": "4b710ade831f652dc74cfb4838ee071a3cf3948dbafdbf0b138344b9a6b5b350"
+      },
+      "glb_validation": {
+        "container": "glTF 2.0 binary",
+        "scenes": 1,
+        "nodes": 65,
+        "mesh_definitions": 52,
+        "animations": 6,
+        "animation_channels": 7,
+        "unexpected_objects": [],
+        "external_images": []
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 1008222,
+        "sha256": "889c27f915505e1b1dceae0e416a9f47b74cc2829048d658d5003cf16432aff0"
+      },
+      "editable_mesh_objects": 52,
+      "base_mesh_triangles": 8356,
+      "evaluated_triangles": 8356,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "d381b355accc3c4026555c7ce1316bb075e0bf840f50229aeb239181ee9885aa"
+    }
+  ],
+  "blend": {
+    "path": "moss-and-ember-characters.blend",
+    "bytes": 2790018,
+    "sha256": "02fb1cfe2c64a8296b7290fd71a45acf450d309aced552a439cdb64d9219484c"
+  }
+}

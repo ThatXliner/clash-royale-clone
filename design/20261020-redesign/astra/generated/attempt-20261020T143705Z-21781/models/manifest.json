@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "status": "generated; independent visual critique and live integration pending",
+  "authorship": "Original procedural geometry and materials by GPT-6 Astra for Moss & Ember",
+  "license": "AGPL-3.0-only",
+  "identity_source_commit": "c693d0cc0b36a3f1f179bbb93cb23998b68012b8",
+  "generator_source": {
+    "path": "build_models.py",
+    "bytes": 63186,
+    "sha256": "98522302b50cfe6c2bd24eea9f1d3ce44c689dbd7ae510132967021a5d46adf6"
+  },
+  "palette_source": {
+    "path": "palette.json",
+    "bytes": 1645,
+    "sha256": "44c93283d6dee1e6e43d0c204ef77c4d10f65e25845ad87a7cfa31a4bae9d58c"
+  },
+  "identity_sources": [
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "public/assets/card-portraits-painted.webp",
+    "src/content/cards/basic-melee.js",
+    "src/content/cards/basic-flying.js"
+  ],
+  "external_geometry_or_textures": [],
+  "reference_assets_imported": false,
+  "randomness": "None; explicit coordinates. Cycles render seed is fixed to zero.",
+  "blender_version": "5.1.2",
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "view_look": "None",
+  "exposure": 0.3499999940395355,
+  "team_variant": "river",
+  "coordinates": {
+    "up": "+Z",
+    "forward": "-Y",
+    "ground_anchor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "animation_frames": {
+    "idle": [
+      1,
+      11,
+      21,
+      31
+    ],
+    "walk": [
+      41,
+      51,
+      61,
+      71
+    ],
+    "attack": [
+      90,
+      96,
+      100,
+      106
+    ]
+  },
+  "attack_contact_frame": 100,
+  "rendered_previews": true,
+  "preview_set": "quick",
+  "preview_size": 256,
+  "rendered_sprite_sources": false,
+  "characters": [
+    {
+      "card_id": "coilblade",
+      "role": "Existing single-target ground melee duelist",
+      "glb": {
+        "path": "coilblade.glb",
+        "bytes": 260856,
+        "sha256": "393d7c0c4aa6f1db082b6ca4bf524985eabb9c422ec764cdaff3f35ab4e6b236"
+      },
+      "blend": {
+        "path": "coilblade.blend",
+        "bytes": 1155702,
+        "sha256": "2b403d31e5f17e64826d6122cf9c1a5b700098acb3e18056c6373aa969978c41"
+      },
+      "editable_mesh_objects": 64,
+      "base_mesh_triangles": 8604,
+      "evaluated_triangles": 9668,
+      "material_slots_used": [
+        "ME_20261020_blade_edge",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_forest",
+        "ME_20261020_iron",
+        "ME_20261020_verdigris",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "1a0b753a302effb27733f0325064bd369858e4a2e1c8fbcff93fda7cc3c09b4d"
+    },
+    {
+      "card_id": "mossguard",
+      "role": "Existing single-target ground melee grove keeper",
+      "glb": {
+        "path": "mossguard.glb",
+        "bytes": 215788,
+        "sha256": "806e6e8d9728bb8981080fa4e806bc078f96e46bd4baa5cc5c20b6b86df48a12"
+      },
+      "blend": {
+        "path": "mossguard.blend",
+        "bytes": 1072070,
+        "sha256": "c78f1dc4d631ebda6c2ded8750e58dca3501c5657694efe3fa15886d646fb116"
+      },
+      "editable_mesh_objects": 70,
+      "base_mesh_triangles": 5192,
+      "evaluated_triangles": 5904,
+      "material_slots_used": [
+        "ME_20261020_copper",
+        "ME_20261020_iron",
+        "ME_20261020_leaf_light",
+        "ME_20261020_moss",
+        "ME_20261020_wood",
+        "ME_20261020_wood_dark",
+        "ME_20261020_wood_light",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "af5eb4494ae9aae818f99668ddcb97c2e02633c843ca9aab59634da7172b5f54"
+    },
+    {
+      "card_id": "copperskiff",
+      "role": "Existing flying ranged unit targeting ground and air",
+      "glb": {
+        "path": "copperskiff.glb",
+        "bytes": 186608,
+        "sha256": "084cf967652069c8d4266900a7c3f6667222b80f5948c920792e7ca2f68a9c9a"
+      },
+      "blend": {
+        "path": "copperskiff.blend",
+        "bytes": 1008222,
+        "sha256": "f7274197b451d041a741f6e878d67699a532968197fd495ff9ad664ed4cbc229"
+      },
+      "editable_mesh_objects": 52,
+      "base_mesh_triangles": 8356,
+      "evaluated_triangles": 8356,
+      "material_slots_used": [
+        "ME_20261020_canvas",
+        "ME_20261020_canvas_shade",
+        "ME_20261020_copper",
+        "ME_20261020_copper_dark",
+        "ME_20261020_ember",
+        "ME_20261020_iron",
+        "ME_20261020_wood_dark",
+        "TEAM"
+      ],
+      "explicit_geometry_sha256": "d381b355accc3c4026555c7ce1316bb075e0bf840f50229aeb239181ee9885aa"
+    }
+  ],
+  "blend": {
+    "path": "moss-and-ember-characters.blend",
+    "bytes": 2790018,
+    "sha256": "3c2de96c443604bcd875b28179cbfc17f057916f38fba0438ff880c2b5bc3ebe"
+  }
+}

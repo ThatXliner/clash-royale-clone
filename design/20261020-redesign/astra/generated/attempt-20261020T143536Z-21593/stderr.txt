@@ -1,0 +1,16 @@
+/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py:100: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py:819: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes = True
+Traceback (most recent call last):
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1269, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1245, in main
+    glb_export(scene, char, path)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1010, in glb_export
+    raise RuntimeError("This Blender glTF exporter does not support GLB")
+RuntimeError: This Blender glTF exporter does not support GLB
+
+Error: script failed, file: '/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py', exiting.

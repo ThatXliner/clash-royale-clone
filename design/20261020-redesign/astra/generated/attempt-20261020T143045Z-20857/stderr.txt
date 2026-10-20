@@ -1,0 +1,19 @@
+/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py:97: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py:816: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes = True
+Traceback (most recent call last):
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1246, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1187, in main
+    studio, stage, camera = build_studio(scene, args.engine, args.samples)
+                            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 869, in build_studio
+    enum(scene.view_settings, "view_transform", ("AgX", "Filmic", "Standard"))
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 74, in enum
+    raise RuntimeError(f"No supported {property_name}: {sorted(available)}")
+RuntimeError: No supported view_transform: ['NONE']
+
+Error: script failed, file: '/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py', exiting.

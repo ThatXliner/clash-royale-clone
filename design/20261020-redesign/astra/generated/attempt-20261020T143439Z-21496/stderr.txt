@@ -1,0 +1,15 @@
+/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py:100: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py:819: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes = True
+Traceback (most recent call last):
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1264, in <module>
+    main()
+    ~~~~^^
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 1207, in main
+    projection = sprite_projection_receipt(scene, characters)
+  File "/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py", line 977, in sprite_projection_receipt
+    raise RuntimeError(f"Sprite anchors drift across characters or directions: {sorted(anchors)}")
+RuntimeError: Sprite anchors drift across characters or directions: [(0.49999958, 0.65414909), (0.49999961, 0.65414906), (0.49999967, 0.65414912), (0.49999982, 0.65414912), (0.49999982, 0.6541492), (0.49999985, 0.65414909), (0.49999994, 0.65414903), (0.49999994, 0.6541492), (0.5, 0.65414903), (0.5, 0.65414909), (0.5, 0.65414914), (0.50000006, 0.6541492), (0.50000012, 0.65414909), (0.50000018, 0.65414912), (0.50000018, 0.6541492), (0.5000003, 0.65414912), (0.50000042, 0.65414906), (0.50000042, 0.65414909)]
+
+Error: script failed, file: '/Users/me/.codex/worktrees/9456/clash-royale-clone/design/20261020-redesign/astra/build_models.py', exiting.

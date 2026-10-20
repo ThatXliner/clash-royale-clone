@@ -1,0 +1,24 @@
+{
+  "round": 518,
+  "verdict": "FAIL",
+  "candidateInputHashesVerified": 10,
+  "rawRenderPngCount": 30,
+  "renderDirectPid": 25737,
+  "renderDirectExit": 1,
+  "runnerCaptureCaveat": "independent_review.py is retained as a post-run file copy. No prelaunch runner hash exists in the candidate input fence. Do not call it a prelaunch fenced runner capture.",
+  "environmentCaveat": "Actual command starts a new headless Blender process but omits --factory-startup. User preferences/defaults are not pinned. No user scene was edited.",
+  "auditCaveat": "All thirty raw PNGs exist. Final JSON serialization failed on IDPropertyArray. Saved-camera and pivot measurements remain unverified.",
+  "triangleCounts": {
+    "base": [
+      8604,
+      5192,
+      8356
+    ],
+    "evaluated": [
+      9668,
+      5904,
+      8356
+    ]
+  },
+  "scope": "Native13px visual counterexample for original prototype models. No live-game, full animation, camera/pivot audit, or quality PASS."
+}

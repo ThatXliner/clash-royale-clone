@@ -1,0 +1,29 @@
+{
+  "direction": "Riverworks Diorama",
+  "status": "aligned to Claude's unrendered handoff; visual review pending",
+  "materials": {
+    "copper": {"hex": "#E9A83A", "roughness": 0.40, "metallic": 0.70},
+    "copper_light": {"hex": "#E9A83A", "roughness": 0.40, "metallic": 0.70, "alias": "copper"},
+    "copper_dark": {"hex": "#B8672E", "roughness": 0.55, "metallic": 0.70},
+    "verdigris": {"hex": "#6FB3A2", "roughness": 0.80, "metallic": 0.20},
+    "iron": {"hex": "#191D22", "roughness": 0.60, "metallic": 0.40},
+    "wood": {"hex": "#7A5236", "roughness": 0.85, "metallic": 0.0},
+    "wood_light": {"hex": "#C79A63", "roughness": 0.70, "metallic": 0.0},
+    "wood_dark": {"hex": "#4A332A", "roughness": 0.90, "metallic": 0.0},
+    "forest": {"hex": "#2F4A2E", "roughness": 0.90, "metallic": 0.0},
+    "moss": {"hex": "#5C8A46", "roughness": 0.80, "metallic": 0.0},
+    "leaf_light": {"hex": "#9BBB76", "roughness": 0.75, "metallic": 0.0},
+    "canvas": {"hex": "#E7DCC0", "roughness": 0.95, "metallic": 0.0},
+    "canvas_shade": {"hex": "#CDBF9C", "roughness": 0.95, "metallic": 0.0},
+    "blade_edge": {"hex": "#F4EBD6", "roughness": 0.20, "metallic": 0.90},
+    "ember": {"hex": "#FFD27A", "roughness": 0.32, "metallic": 0.0, "emission": 1.5},
+    "socket": {"hex": "#191D22", "roughness": 0.60, "metallic": 0.40, "alias": "iron"},
+    "team": {"hex": "#2E7F86", "roughness": 0.80, "metallic": 0.0},
+    "stage": {"hex": "#101A22", "roughness": 0.90, "metallic": 0.0},
+    "plinth": {"hex": "#2F4A2E", "roughness": 0.90, "metallic": 0.0, "alias": "forest"}
+  },
+  "team_variants": {
+    "river": "#2E7F86",
+    "ember": "#C6452E"
+  }
+}
