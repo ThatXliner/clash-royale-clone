@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101a22">
+    <meta name="description" content="An open-source browser prototype. Build an eight-card deck, play from a four-card hand, spend elixir as it refills, and battle a computer opponent to destroy the opposing towers.">
+    <title>Moss &amp; Ember — Real-time card battles</title>
+    <link rel="icon" type="image/svg+xml" href="./brand/logo.svg">
+    <link rel="stylesheet" href="./assets/site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="#top" aria-label="Moss &amp; Ember home">
+          <img src="./brand/logo.svg" width="40" height="40" alt="">
+          <span class="brand__words">
+            <strong>Moss &amp; Ember</strong>
+            <span>Riverworks card battles</span>
+          </span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="#how">How to play</a>
+          <a href="https://github.com/ThatXliner/clash-royale-clone/blob/9f4f02d35c937e67a33abe5629ea4c24d5bea08f/docs/rl-api.md">RL environment</a>
+          <a class="primary-nav__play" href="./game/public/index.html">
+            Play the demo <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow"><span aria-hidden="true"></span> Active prototype</p>
+          <h1 id="hero-title">Light the path.<br><em>Hold the bridge.</em></h1>
+          <p class="hero__lede">
+            Build an eight-card deck. Play from a four-card hand, spend elixir as it
+            refills, and battle a computer rival to destroy its towers.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--ember" href="./game/public/index.html">
+              Play the demo <span aria-hidden="true">↗</span>
+            </a>
+            <a class="text-link" href="#how">See how a match works <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="hero__note">Original world and art · Open source under AGPL-3.0-only</p>
+        </div>
+
+        <figure class="match-card">
+          <div class="match-card__topline">
+            <span>Current browser build</span>
+            <span>Phone match</span>
+          </div>
+          <div class="match-card__screen">
+            <img
+              src="./brand/gameplay.png"
+              width="390"
+              height="844"
+              alt="A real phone capture of the Moss &amp; Ember prototype, showing its river arena, towers, cards, and resource meter."
+            >
+          </div>
+          <figcaption>
+            <span>Phone prototype</span>
+            <span aria-hidden="true">M&amp;E / 01</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="how" id="how" aria-labelledby="how-title">
+        <div class="how__heading">
+          <p class="eyebrow">The first ten seconds</p>
+          <h2 id="how-title">How a match works</h2>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="mini-deck">
+                <i class="mini-card"></i><i class="mini-card mini-card--selected"></i>
+                <i class="mini-card"></i><i class="mini-card"></i>
+                <i class="mini-card mini-card--teal"></i><i class="mini-card"></i>
+                <i class="mini-card"></i><i class="mini-card mini-card--wood"></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>01</span> Choose 8 from 23</h3>
+              <p>Build a deck from the cards you can play now.</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="mini-hand">
+                <i class="mini-card mini-card--next"></i>
+                <i class="mini-card"></i><i class="mini-card mini-card--raised"></i>
+                <i class="mini-card"></i><i class="mini-card mini-card--teal"></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>02</span> Hold 4 cards in hand</h3>
+              <p>Use one card. The next one joins your hand.</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="ember-cost">3</span>
+              <span class="ember-rail">
+                <i class="is-full"></i><i class="is-full"></i><i class="is-full"></i>
+                <i class="is-filling"></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>03</span> Spend elixir</h3>
+              <p>Cards have a cost. Elixir refills to 10.</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step__visual" aria-hidden="true">
+              <span class="mini-keeps">
+                <i class="mini-keep"></i><i class="mini-keep mini-keep--centre"></i>
+                <i class="mini-keep"></i>
+              </span>
+            </div>
+            <div class="step__copy">
+              <h3><span>04</span> Take the towers</h3>
+              <p>Destroy more towers by 3 minutes. Ties go to sudden death, then a tower-health tiebreak at 5 minutes. Take the centre tower to win immediately.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="project-links" aria-labelledby="project-title">
+        <div class="project-links__copy">
+          <p class="eyebrow">For builders</p>
+          <h2 id="project-title">Follow the game into its source.</h2>
+          <p>The battle is deterministic. Read how code observes and controls a match in the RL environment guide.</p>
+        </div>
+        <div class="project-links__actions">
+          <a href="https://github.com/ThatXliner/clash-royale-clone/blob/9f4f02d35c937e67a33abe5629ea4c24d5bea08f/docs/rl-api.md">Read the RL API notes <span aria-hidden="true">↗</span></a>
+          <a href="https://github.com/ThatXliner/clash-royale-clone/blob/9f4f02d35c937e67a33abe5629ea4c24d5bea08f/src/rl/environment.js">Explore the environment source <span aria-hidden="true">↗</span></a>
+          <a href="https://github.com/ThatXliner/clash-royale-clone">View the GitHub repository <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="footer-brand" href="#top">Moss &amp; Ember</a>
+      <p>An original card-battler prototype.</p>
+      <nav aria-label="Project and legal links">
+        <a href="https://github.com/ThatXliner/clash-royale-clone">GitHub source</a>
+        <a href="https://github.com/ThatXliner/clash-royale-clone/blob/9f4f02d35c937e67a33abe5629ea4c24d5bea08f/docs/rl-api.md">RL API</a>
+        <a href="./LICENSE">AGPL-3.0-only</a>
+        <a href="./NOTICE">Notice</a>
+      </nav>
+      <span class="site-footer__stamp">Original art and sound</span>
+    </footer>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"bfcfc19b95624b36a2d3ba141c03f666","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
