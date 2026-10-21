@@ -1,0 +1,210 @@
+{
+  "runner": {
+    "argv": [
+      "/Users/me/.hermes/node/bin/node",
+      "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/tests/copperskiff-live-sprite-game-browser.test.js"
+    ],
+    "browser": {
+      "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "playwrightModule": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs"
+    },
+    "environment": {
+      "allowlist": [
+        "GAME_BROWSER_ARTIFACT_ATTEMPT_ID",
+        "GAME_BROWSER_ARTIFACTS_PREALLOCATED",
+        "GAME_BROWSER_CHROME",
+        "GAME_BROWSER_NODE",
+        "GAME_BROWSER_PLAYWRIGHT",
+        "GAME_BROWSER_TEST_PID_FILE",
+        "GAME_BROWSER_ONE_CASE_PROBE",
+        "GAME_BROWSER_SINGLE_CASE_FULL_ASSERTIONS",
+        "GAME_BROWSER_VISUAL_DOM_DIAGNOSTICS",
+        "PATH"
+      ],
+      "values": {
+        "GAME_BROWSER_ARTIFACT_ATTEMPT_ID": "20261020-copper-r2-critic-fresh",
+        "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "GAME_BROWSER_NODE": "/Users/me/.hermes/node/bin/node",
+        "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules/playwright/index.mjs",
+        "GAME_BROWSER_TEST_PID_FILE": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2-critic/browser-test.pid",
+        "PATH": "/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      }
+    },
+    "node": "v22.22.3",
+    "oneCaseProbe": false,
+    "singleCaseFullAssertions": false,
+    "artifactAttemptId": "20261020-copper-r2-critic-fresh",
+    "artifactDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh",
+    "testProcessPid": 54743
+  },
+  "cases": [
+    {
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      },
+      "motion": "normal",
+      "scenario": "horizontal",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      },
+      "motion": "normal",
+      "scenario": "vertical",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      },
+      "motion": "reduced",
+      "scenario": "horizontal",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      },
+      "motion": "reduced",
+      "scenario": "vertical",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      },
+      "motion": "normal",
+      "scenario": "horizontal",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      },
+      "motion": "normal",
+      "scenario": "vertical",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      },
+      "motion": "reduced",
+      "scenario": "horizontal",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    },
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      },
+      "motion": "reduced",
+      "scenario": "vertical",
+      "captured": null,
+      "assertions": null,
+      "restore": null,
+      "imageDiffs": null,
+      "error": null
+    }
+  ],
+  "restarted": {
+    "terminal": {
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 1590,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 1590,
+      "terminal": true,
+      "restartCount": 0
+    },
+    "terminalScreenshot": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/restart-terminal.png",
+    "terminalScreenshotByteLength": 324901,
+    "terminalScreenshotSha256": "768e08798b0f47942556972c1a15401ac99f66b62cd08867a841cc2e8d5fca40",
+    "restartErrors": [],
+    "restartConsoleMessages": [],
+    "afterRestart": {
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "restartCount": 1,
+      "sessionTick": 0,
+      "screenshot": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/restart-after-click.png",
+      "screenshotSha256": "5d881484098847c6ec1f8770b3a9acb5cfbbc338a7119f6be3ec744d32cc622e"
+    }
+  }
+}

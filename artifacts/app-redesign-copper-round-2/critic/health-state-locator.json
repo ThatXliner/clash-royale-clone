@@ -1,0 +1,126 @@
+{
+  "state": {
+    "controllerState": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 163,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 163,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "sessionTick": 163,
+    "units": [
+      {
+        "alive": true,
+        "archetypeId": "copperskiff",
+        "cardId": "copperskiff",
+        "hitpoints": 443,
+        "id": 1,
+        "position": {
+          "x": 6000,
+          "y": 14999
+        },
+        "side": "south",
+        "targetId": 2
+      },
+      {
+        "alive": true,
+        "archetypeId": "copperskiff",
+        "cardId": "copperskiff",
+        "hitpoints": 443,
+        "id": 2,
+        "position": {
+          "x": 10500,
+          "y": 17001
+        },
+        "side": "north",
+        "targetId": 1
+      }
+    ],
+    "markers": [
+      {
+        "artDirection": "east",
+        "artFrame": "copperskiff-river-east-contact",
+        "artVisibility": "visible",
+        "display": "block",
+        "height": 33.46875,
+        "kind": "copperskiff",
+        "opacity": "1",
+        "side": "south",
+        "top": 601.28125,
+        "visibility": "visible",
+        "width": 33.46875,
+        "left": 253.265625
+      },
+      {
+        "artDirection": "west",
+        "artFrame": "copperskiff-ember-west-contact",
+        "artVisibility": "visible",
+        "display": "block",
+        "height": 33.46875,
+        "kind": "copperskiff",
+        "opacity": "1",
+        "side": "north",
+        "top": 541.234375,
+        "visibility": "visible",
+        "width": 33.46875,
+        "left": 388.265625
+      }
+    ]
+  },
+  "mountAuditKeys": [
+    "browserSnapshotSessionMatchesSource",
+    "controllerState",
+    "markerSelector",
+    "markerSummary",
+    "restoredSessionMatchesSource",
+    "restoredSummary",
+    "rootSelectorFound",
+    "sourceSessionBytes",
+    "sourceSummary",
+    "stagedControllerState",
+    "units"
+  ],
+  "mountAudit": {
+    "markerSummary": [
+      {
+        "artFound": true,
+        "artVisibility": "visible",
+        "display": "block",
+        "height": 33.46875,
+        "kind": "copperskiff",
+        "left": 253.265625,
+        "opacity": "1",
+        "side": "south",
+        "top": 601.28125,
+        "visibility": "visible",
+        "width": 33.46875
+      },
+      {
+        "artFound": true,
+        "artVisibility": "visible",
+        "display": "block",
+        "height": 33.46875,
+        "kind": "copperskiff",
+        "left": 388.265625,
+        "opacity": "1",
+        "side": "north",
+        "top": 541.234375,
+        "visibility": "visible",
+        "width": 33.46875
+      }
+    ],
+    "iframe": null,
+    "frame": null,
+    "scale": null,
+    "innerViewport": null,
+    "viewport": null
+  }
+}

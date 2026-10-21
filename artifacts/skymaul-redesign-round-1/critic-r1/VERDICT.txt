@@ -1,0 +1,10 @@
+PIECE: ART-3D-SKY-002 round 1
+VERDICT: FAIL
+
+FRESH RUN: Blender 5.1.2 exited 0 after rendering 384 images, 336 semantic masks and the portrait. Fresh render receipt confirms the saved Blend byte record is unchanged. The metric run exited 0 and measured 286 nondiagnostic gate instances: 164 pass, 122 fail. Every-frame projection: 848 rows, 0 failures, minimum geometric crop margin 4.1662750244140625 px. Native raster crop minimum: 4 px. Contact geometry/facing gates pass 16/16; team grayscale separation passes 12/12. Candidate build receipt reports 1,424 total evaluated scene triangles, 1,136 actor triangles, 26 editable meshes and 8 materials; GLB has 1,136 triangles and no external buffers or images.
+
+BIGGEST GAP: Lower stones touch or overlap the presentation ring in all 24 team/heading/pose cells (Chebyshev separation 1, no alpha-clear witness; north idle has 10 overlapping support pixels), so the required floating clearance is absent throughout the native sheet.
+
+OTHER MATERIAL FAILURES: Core bright-2x2 fails 18/18 side-view cells; core median fails all 18, with median luminance 0.713–0.848 against >=0.85 and often only one bright pixel. Copper median fails 16 cells. Actor height fails 6 cells, N/S width fails 8, fists fail 12, head/chest gaps fail 12, and isolated hammer block fails 2 (west walk has 5 outside pixels against >=6). Numeric contact gates pass, but walk remains visually subtle in the native sheet. Core appears ivory rather than warm amber against the original painted portrait.
+
+PRESERVATION: Numeric exact equality passes at post-export, post-save, fresh-load, mask-restoration and final-render stages; serialized byte equality fails at each stage with 428 equal-number token differences, consistent with signed-zero representation changes. No rounding or epsilon comparison was used. Candidate Blend bytes before and after the fresh render match.

@@ -1,0 +1,3 @@
+# ART-3D-SKY-002 round1 — FAIL
+
+Independentfresh savedBlend renders384captures/336semanticmasks,164/286hardgate instancespass,122fail. All848geometrycropchecks passminimum4.166275px. Requiredlower/ringclearance fails24cells:14distance1,10supportmissing, notliteralcontacteverycell. Corebrightness/coverage,bodyenvelope andothergaps alsofail. Complete unroundedstage JSON/model/source files remain externalunder20261020-skymaul-redesign-round-1/candidate; fullstateproofshows428signedzero tokensfromcanonicaltoexport, zerononzero numericdifferences, allsubsequentafterstatesbyteidentical. No standaloneart/model/atlas/runtimeacceptance fromthisfailure record. Nextsourceproposal is advisoryonly.

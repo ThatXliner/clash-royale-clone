@@ -1,0 +1,1821 @@
+{
+  "cases": [
+    {
+      "viewport": "phone",
+      "motion": "normal",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 2,
+            "position": {
+              "x": 10500,
+              "y": 17001
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 1,
+            "position": {
+              "x": 6000,
+              "y": 14999
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "phone",
+      "motion": "normal",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 15.998367309570314,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 15.998367309570314,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 2,
+            "position": {
+              "x": 9000,
+              "y": 17500
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 1,
+            "position": {
+              "x": 9000,
+              "y": 14500
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "phone",
+      "motion": "reduced",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 18.998061180114746,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 16.998265266418457,
+          "renderedBodyHeightPixels": 11.998775482177736,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 2,
+            "position": {
+              "x": 10500,
+              "y": 17001
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 1,
+            "position": {
+              "x": 6000,
+              "y": 14999
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "phone",
+      "motion": "reduced",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 12.99867343902588,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 15.998367309570314,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 15.998367309570314,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 13.998571395874025,
+          "renderedBodyHeightPixels": 14.99846935272217,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 2,
+            "position": {
+              "x": 9000,
+              "y": 17500
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 1,
+            "position": {
+              "x": 9000,
+              "y": 14500
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "normal",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 2,
+            "position": {
+              "x": 10500,
+              "y": 17001
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 1,
+            "position": {
+              "x": 6000,
+              "y": 14999
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "normal",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 31.99778594970703,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 31.99778594970703,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "false",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 2,
+            "position": {
+              "x": 9000,
+              "y": 17500
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 1,
+            "position": {
+              "x": 9000,
+              "y": 14500
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "reduced",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-west-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "west",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-west-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-east-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 37.997370815277094,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "east",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-east-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 33.99764757156372,
+          "renderedBodyHeightPixels": 23.99833946228027,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 2,
+            "position": {
+              "x": 10500,
+              "y": 17001
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 101,
+            "id": 1,
+            "position": {
+              "x": 6000,
+              "y": 14999
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "reduced",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "frames": [
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-ember-south-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "north",
+          "direction": "south",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-ember-south-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 25.998201084136962,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "attack",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 31.99778594970703,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "contact",
+          "canonicalPose": "recoil",
+          "frame": "copperskiff-river-north-contact",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 31.99778594970703,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "deploy",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "idle",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        },
+        {
+          "side": "south",
+          "direction": "north",
+          "action": "idle",
+          "canonicalPose": "anticipate",
+          "frame": "copperskiff-river-north-idle",
+          "reducedMotion": "true",
+          "renderedBodyWidthPixels": 27.99806270599365,
+          "renderedBodyHeightPixels": 29.99792432785034,
+          "pivotErrorX": 0,
+          "pivotErrorY": 0
+        }
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222,
+        "continuationUnits": [
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 2,
+            "position": {
+              "x": 9000,
+              "y": 17500
+            },
+            "side": "north",
+            "targetId": 1
+          },
+          {
+            "alive": true,
+            "hitpoints": 272,
+            "id": 1,
+            "position": {
+              "x": 9000,
+              "y": 14500
+            },
+            "side": "south",
+            "targetId": 2
+          }
+        ]
+      }
+    }
+  ],
+  "runner": {
+    "node": "v22.22.3",
+    "pid": 54743,
+    "attempt": "20261020-copper-r2-critic-fresh",
+    "flags": {
+      "oneCaseProbe": false,
+      "singleCaseFullAssertions": false
+    }
+  }
+}

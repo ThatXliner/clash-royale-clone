@@ -1,0 +1,1328 @@
+{
+  "screenshot": {
+    "byteLength": 336567,
+    "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/390x844-normal-horizontal.png",
+    "sha256": "e0898646cb3f013c035eea73c1442f9f90c3220740bf376d5a7f29ee720c835d"
+  },
+  "checkpointRestore": {
+    "afterRestore": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/390x844-normal-horizontal-checkpoint-after-restore.png",
+    "afterRestoreSha256": "e0898646cb3f013c035eea73c1442f9f90c3220740bf376d5a7f29ee720c835d",
+    "beforeRestore": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/390x844-normal-horizontal-checkpoint-before-restore.png",
+    "beforeRestoreSha256": "e0898646cb3f013c035eea73c1442f9f90c3220740bf376d5a7f29ee720c835d",
+    "checkpoint": {
+      "audioContinuationBytesSha256": "7ad1391b81f5e630f541402b5d404b93730cbca179d88fbca7371796d202a59b",
+      "audioEvidence": {
+        "actualScheduledPcmCount": 2,
+        "cursor": 14,
+        "eventCount": 14,
+        "sessionTick": 163,
+        "uiSequence": 2
+      },
+      "bridgeBytesSha256": "d342aab0d16cc7bec79ed071e52f9eb683becff33438965a5b5a9d9da7896a94",
+      "bridgeDeliveryCount": 1,
+      "browserBytesSha256": "4fe0fa21cc94c96f0d0b53ee0390a46064657a33665db6520427874de1a26699",
+      "sessionAdmissions": [
+        {
+          "cardId": "copperskiff",
+          "commandId": 0,
+          "point": {
+            "x": 6000,
+            "y": 14999
+          },
+          "slot": 3,
+          "tick": 0,
+          "type": "deploy"
+        },
+        {
+          "cardId": "cinderlings",
+          "commandId": 1,
+          "point": {
+            "x": 1500,
+            "y": 1000
+          },
+          "slot": 0,
+          "tick": 163,
+          "type": "deploy"
+        }
+      ],
+      "sessionBytesSha256": "6c3abb9d800ba7c98fdbd502fec1adc8b25096336e0d03b2d716694025d14dc0",
+      "sessionTick": 163,
+      "nativeDelivery": {
+        "admission": {
+          "accepted": true,
+          "commandId": 1,
+          "tick": 163,
+          "type": "player-command-admitted"
+        },
+        "command": {
+          "cardId": "cinderlings",
+          "commandId": 1,
+          "point": {
+            "x": 1500,
+            "y": 1000
+          },
+          "slot": 0,
+          "tick": 163,
+          "type": "deploy"
+        }
+      },
+      "nativeInputObservation": {
+        "afterCardClickSelectedCardId": "cinderlings",
+        "afterPlacementSelectedCardId": null,
+        "arenaGeometry": {
+          "bounds": {
+            "height": 968,
+            "left": 86,
+            "top": 104,
+            "width": 548
+          },
+          "client": {
+            "height": 960,
+            "left": 4,
+            "top": 4,
+            "width": 540
+          },
+          "expectedClientPoint": {
+            "x": 135,
+            "y": 1038
+          },
+          "locatorOffset": {
+            "x": 49,
+            "y": 934
+          },
+          "innerViewport": {
+            "height": 1280,
+            "width": 720
+          }
+        },
+        "bridgeDeliveriesAfter": 1,
+        "bridgeDeliveriesBefore": 0,
+        "frameDom": {
+          "activeElement": {
+            "ariaHidden": null,
+            "className": null,
+            "dataUi": null,
+            "height": 1280,
+            "hidden": false,
+            "id": null,
+            "inert": false,
+            "pointerEvents": "auto",
+            "tagName": "BODY",
+            "top": 0,
+            "visibility": "visible",
+            "width": 720,
+            "left": 0
+          },
+          "arena": {
+            "ariaHidden": null,
+            "className": "arena",
+            "dataUi": "arena",
+            "height": 968,
+            "hidden": false,
+            "id": null,
+            "inert": false,
+            "pointerEvents": "auto",
+            "tagName": "SECTION",
+            "top": 104,
+            "visibility": "visible",
+            "width": 548,
+            "left": 86,
+            "ariaModal": null,
+            "connected": true,
+            "outerHtml": "<section class=\"arena\" data-ui=\"arena\" aria-label=\"Arena\">\n    <div class=\"arena-half arena-half--north\" aria-hidden=\"true\"></div>\n    <div class=\"arena-half arena-half--south\" aria-hidden=\"true\"></div>\n    <div class=\"lane lane--west\" data-lane=\"west\" aria-hidden=\"true\"></div>\n    <div class=\"lane lane--east\" data-lane=\"east\" aria-hidden=\"true\"></div>\n    <div class=\"river\" data-ui=\"river\" aria-hidden=\"true\"></div>\n    <div class=\"bridge bridge--west\" data-ui=\"bridge\" data-lane=\"west\" aria-hidd"
+          },
+          "documentVisibility": "visible",
+          "expectedClientPoint": {
+            "x": 135,
+            "y": 1038
+          },
+          "hitStack": [
+            {
+              "ariaHidden": "true",
+              "className": "lane lane--west",
+              "dataUi": null,
+              "height": 960,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 108,
+              "visibility": "visible",
+              "width": 120,
+              "left": 135
+            },
+            {
+              "ariaHidden": "true",
+              "className": "arena-half arena-half--south",
+              "dataUi": null,
+              "height": 450,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 618,
+              "visibility": "visible",
+              "width": 540,
+              "left": 90
+            },
+            {
+              "ariaHidden": null,
+              "className": "arena",
+              "dataUi": "arena",
+              "height": 968,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "SECTION",
+              "top": 104,
+              "visibility": "visible",
+              "width": 548,
+              "left": 86
+            },
+            {
+              "ariaHidden": null,
+              "className": "battle-shell",
+              "dataUi": "arena-shell",
+              "height": 1280,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "MAIN",
+              "top": 0,
+              "visibility": "visible",
+              "width": 720,
+              "left": 0
+            },
+            {
+              "ariaHidden": null,
+              "className": null,
+              "dataUi": null,
+              "height": 1280,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 0,
+              "visibility": "visible",
+              "width": 720,
+              "left": 0
+            },
+            {
+              "ariaHidden": null,
+              "className": null,
+              "dataUi": null,
+              "height": 1280,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "BODY",
+              "top": 0,
+              "visibility": "visible",
+              "width": 720,
+              "left": 0
+            },
+            {
+              "ariaHidden": null,
+              "className": null,
+              "dataUi": null,
+              "height": 1280,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "HTML",
+              "top": 0,
+              "visibility": "visible",
+              "width": 720,
+              "left": 0
+            }
+          ],
+          "overlays": [
+            {
+              "ariaHidden": null,
+              "className": "deck-choice",
+              "dataUi": "deck-choice",
+              "height": 0,
+              "hidden": true,
+              "id": "deck-choice",
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "SECTION",
+              "top": 0,
+              "visibility": "visible",
+              "width": 0,
+              "left": 0
+            }
+          ]
+        },
+        "framePointerEvents": [
+          {
+            "clientX": 135,
+            "clientY": 1038,
+            "composedPath": [
+              {
+                "ariaHidden": "true",
+                "className": "lane lane--west",
+                "dataUi": null,
+                "height": 960,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 108,
+                "visibility": "visible",
+                "width": 120,
+                "left": 135
+              },
+              {
+                "ariaHidden": null,
+                "className": "arena",
+                "dataUi": "arena",
+                "height": 968,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "SECTION",
+                "top": 104,
+                "visibility": "visible",
+                "width": 548,
+                "left": 86
+              },
+              {
+                "ariaHidden": null,
+                "className": "battle-shell",
+                "dataUi": "arena-shell",
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "MAIN",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "BODY",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "HTML",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "nodeName": "#document"
+              },
+              {
+                "nodeName": null
+              }
+            ],
+            "isTrusted": true,
+            "pointerType": "mouse",
+            "target": {
+              "ariaHidden": "true",
+              "className": "lane lane--west",
+              "dataUi": null,
+              "height": 960,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 108,
+              "visibility": "visible",
+              "width": 120,
+              "left": 135
+            },
+            "type": "pointerdown"
+          },
+          {
+            "clientX": 135,
+            "clientY": 1038,
+            "composedPath": [
+              {
+                "ariaHidden": "true",
+                "className": "lane lane--west",
+                "dataUi": null,
+                "height": 960,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 108,
+                "visibility": "visible",
+                "width": 120,
+                "left": 135
+              },
+              {
+                "ariaHidden": null,
+                "className": "arena",
+                "dataUi": "arena",
+                "height": 968,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "SECTION",
+                "top": 104,
+                "visibility": "visible",
+                "width": 548,
+                "left": 86
+              },
+              {
+                "ariaHidden": null,
+                "className": "battle-shell",
+                "dataUi": "arena-shell",
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "MAIN",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "BODY",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "HTML",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "nodeName": "#document"
+              },
+              {
+                "nodeName": null
+              }
+            ],
+            "isTrusted": true,
+            "pointerType": null,
+            "target": {
+              "ariaHidden": "true",
+              "className": "lane lane--west",
+              "dataUi": null,
+              "height": 960,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 108,
+              "visibility": "visible",
+              "width": 120,
+              "left": 135
+            },
+            "type": "mousedown"
+          },
+          {
+            "clientX": 135,
+            "clientY": 1038,
+            "composedPath": [
+              {
+                "ariaHidden": "true",
+                "className": "lane lane--west",
+                "dataUi": null,
+                "height": 960,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 108,
+                "visibility": "visible",
+                "width": 120,
+                "left": 135
+              },
+              {
+                "ariaHidden": null,
+                "className": "arena",
+                "dataUi": "arena",
+                "height": 968,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "SECTION",
+                "top": 104,
+                "visibility": "visible",
+                "width": 548,
+                "left": 86
+              },
+              {
+                "ariaHidden": null,
+                "className": "battle-shell",
+                "dataUi": "arena-shell",
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "MAIN",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "BODY",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "HTML",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "nodeName": "#document"
+              },
+              {
+                "nodeName": null
+              }
+            ],
+            "isTrusted": true,
+            "pointerType": "mouse",
+            "target": {
+              "ariaHidden": "true",
+              "className": "lane lane--west",
+              "dataUi": null,
+              "height": 960,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 108,
+              "visibility": "visible",
+              "width": 120,
+              "left": 135
+            },
+            "type": "pointerup"
+          },
+          {
+            "clientX": 135,
+            "clientY": 1038,
+            "composedPath": [
+              {
+                "ariaHidden": "true",
+                "className": "lane lane--west",
+                "dataUi": null,
+                "height": 960,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 108,
+                "visibility": "visible",
+                "width": 120,
+                "left": 135
+              },
+              {
+                "ariaHidden": null,
+                "className": "arena",
+                "dataUi": "arena",
+                "height": 968,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "SECTION",
+                "top": 104,
+                "visibility": "visible",
+                "width": 548,
+                "left": 86
+              },
+              {
+                "ariaHidden": null,
+                "className": "battle-shell",
+                "dataUi": "arena-shell",
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "MAIN",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "BODY",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "HTML",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "nodeName": "#document"
+              },
+              {
+                "nodeName": null
+              }
+            ],
+            "isTrusted": true,
+            "pointerType": null,
+            "target": {
+              "ariaHidden": "true",
+              "className": "lane lane--west",
+              "dataUi": null,
+              "height": 960,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 108,
+              "visibility": "visible",
+              "width": 120,
+              "left": 135
+            },
+            "type": "mouseup"
+          },
+          {
+            "clientX": 135,
+            "clientY": 1038,
+            "composedPath": [
+              {
+                "ariaHidden": "true",
+                "className": "lane lane--west",
+                "dataUi": null,
+                "height": 960,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 108,
+                "visibility": "visible",
+                "width": 120,
+                "left": 135
+              },
+              {
+                "ariaHidden": null,
+                "className": "arena",
+                "dataUi": "arena",
+                "height": 968,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "SECTION",
+                "top": 104,
+                "visibility": "visible",
+                "width": 548,
+                "left": 86
+              },
+              {
+                "ariaHidden": null,
+                "className": "battle-shell",
+                "dataUi": "arena-shell",
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "MAIN",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "DIV",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "BODY",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "ariaHidden": null,
+                "className": null,
+                "dataUi": null,
+                "height": 1280,
+                "hidden": false,
+                "id": null,
+                "inert": false,
+                "pointerEvents": "auto",
+                "tagName": "HTML",
+                "top": 0,
+                "visibility": "visible",
+                "width": 720,
+                "left": 0
+              },
+              {
+                "nodeName": "#document"
+              },
+              {
+                "nodeName": null
+              }
+            ],
+            "isTrusted": true,
+            "pointerType": "mouse",
+            "target": {
+              "ariaHidden": "true",
+              "className": "lane lane--west",
+              "dataUi": null,
+              "height": 960,
+              "hidden": false,
+              "id": null,
+              "inert": false,
+              "pointerEvents": "auto",
+              "tagName": "DIV",
+              "top": 108,
+              "visibility": "visible",
+              "width": 120,
+              "left": 135
+            },
+            "type": "click"
+          }
+        ],
+        "handAfterCardClick": [
+          "cinderlings",
+          "briar-band",
+          "reedsting",
+          "brassbolt"
+        ],
+        "outerDom": {
+          "activeElement": {
+            "className": "battle-frame",
+            "height": 659,
+            "left": 9.65625,
+            "pointerEvents": "auto",
+            "src": "http://127.0.0.1:59741/public/ui-arena-shell.html?app-frame=1",
+            "tagName": "IFRAME",
+            "top": 117,
+            "width": 370.6875
+          },
+          "frame": {
+            "className": "battle-frame",
+            "height": 659,
+            "left": 9.65625,
+            "pointerEvents": "auto",
+            "src": "http://127.0.0.1:59741/public/ui-arena-shell.html?app-frame=1",
+            "tagName": "IFRAME",
+            "top": 117,
+            "width": 370.6875,
+            "clientHeight": 1280,
+            "clientLeft": 0,
+            "clientTop": 0,
+            "clientWidth": 720,
+            "contentDocumentReady": "complete",
+            "heightAttribute": null,
+            "isConnected": true,
+            "offsetHeight": 1280,
+            "offsetWidth": 720,
+            "widthAttribute": null
+          },
+          "innerViewport": {
+            "height": 844,
+            "width": 390
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "visibility": "visible",
+          "transformChain": [
+            {
+              "className": "battle-frame",
+              "height": 659,
+              "left": 9.65625,
+              "offsetHeight": 1280,
+              "offsetWidth": 720,
+              "tagName": "IFRAME",
+              "top": 117,
+              "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+              "width": 370.6875,
+              "zoom": "1"
+            },
+            {
+              "className": "battle-frame-slot",
+              "height": 659,
+              "left": 0,
+              "offsetHeight": 659,
+              "offsetWidth": 390,
+              "tagName": "DIV",
+              "top": 117,
+              "transform": "none",
+              "width": 390,
+              "zoom": "1"
+            },
+            {
+              "className": "app-view battle-view",
+              "height": 710,
+              "left": 0,
+              "offsetHeight": 710,
+              "offsetWidth": 390,
+              "tagName": "SECTION",
+              "top": 66,
+              "transform": "none",
+              "width": 390,
+              "zoom": "1"
+            },
+            {
+              "className": "app-main",
+              "height": 778,
+              "left": 0,
+              "offsetHeight": 778,
+              "offsetWidth": 390,
+              "tagName": "MAIN",
+              "top": 66,
+              "transform": "none",
+              "width": 390,
+              "zoom": "1"
+            },
+            {
+              "className": "app-shell",
+              "height": 844,
+              "left": 0,
+              "offsetHeight": 844,
+              "offsetWidth": 390,
+              "tagName": "DIV",
+              "top": 0,
+              "transform": "none",
+              "width": 390,
+              "zoom": "1"
+            },
+            {
+              "className": null,
+              "height": 844,
+              "left": 0,
+              "offsetHeight": 844,
+              "offsetWidth": 390,
+              "tagName": "BODY",
+              "top": 0,
+              "transform": "none",
+              "width": 390,
+              "zoom": "1"
+            },
+            {
+              "className": null,
+              "height": 844,
+              "left": 0,
+              "offsetHeight": 844,
+              "offsetWidth": 390,
+              "tagName": "HTML",
+              "top": 0,
+              "transform": "none",
+              "width": 390,
+              "zoom": "1"
+            }
+          ]
+        },
+        "outerMousePoint": {
+          "x": 79.16015625,
+          "y": 651.4078125000001
+        },
+        "iframeScale": {
+          "x": 0.51484375,
+          "y": 0.51484375
+        },
+        "outerPointerEvents": [],
+        "plan": {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "point": {
+            "x": 1500,
+            "y": 1000
+          },
+          "slot": 0,
+          "tick": 163,
+          "type": "deploy"
+        }
+      },
+      "nativePlacement": {
+        "cardId": "cinderlings",
+        "cost": 1,
+        "point": {
+          "x": 1500,
+          "y": 1000
+        },
+        "slot": 0,
+        "tick": 163,
+        "type": "deploy"
+      },
+      "pointerBridgeDeliveryCountBefore": 0,
+      "sourceAdmissionProvenance": "GameSession.submitPlayerCommand setup witness; no browser gesture is claimed",
+      "nativeDeliveryProvenance": "Playwright clicked the actual card slot and root-page mouse point mapped through the measured shipped iframe transform"
+    },
+    "checkpointContinuationArtifact": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/390x844-normal-horizontal-checkpoint-continuation.json",
+    "encodedPngBytesEqual": true,
+    "equal": true,
+    "pixelComparison": {
+      "changedPixelBounds": null,
+      "changedPixels": 0,
+      "equal": true,
+      "height": 844,
+      "pixelChannelsDifferent": 0,
+      "width": 390
+    },
+    "futureContinuation": {
+      "actualAudioEvidence": {
+        "reference": {
+          "actualScheduledPcmCount": 18,
+          "cursor": 30,
+          "eventCount": 30,
+          "sessionTick": 283,
+          "uiSequence": 2
+        },
+        "restoredReplay": {
+          "actualScheduledPcmCount": 34,
+          "cursor": 30,
+          "eventCount": 30,
+          "sessionTick": 283,
+          "uiSequence": 2
+        }
+      },
+      "copperskiffUnits": [
+        {
+          "alive": true,
+          "hitpoints": 101,
+          "id": 2,
+          "position": {
+            "x": 10500,
+            "y": 17001
+          },
+          "side": "north",
+          "targetId": 1
+        },
+        {
+          "alive": true,
+          "hitpoints": 101,
+          "id": 1,
+          "position": {
+            "x": 6000,
+            "y": 14999
+          },
+          "side": "south",
+          "targetId": 2
+        }
+      ],
+      "futureReceipt": "/Users/me/.codex/clash-qualification/20261020-copperskiff-desktop-restore-paint-r2/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/390x844-normal-horizontal-future-continuation.json",
+      "matches": {
+        "audioContinuationBytes": true,
+        "bridgeBytes": true,
+        "browserBytes": true,
+        "sessionBytes": true
+      },
+      "replayedCopperskiffUnits": [
+        {
+          "alive": true,
+          "hitpoints": 101,
+          "id": 2,
+          "position": {
+            "x": 10500,
+            "y": 17001
+          },
+          "side": "north",
+          "targetId": 1
+        },
+        {
+          "alive": true,
+          "hitpoints": 101,
+          "id": 1,
+          "position": {
+            "x": 6000,
+            "y": 14999
+          },
+          "side": "south",
+          "targetId": 2
+        }
+      ],
+      "replayedSessionTick": 283,
+      "referenceSessionTick": 283,
+      "ticks": 120
+    },
+    "restoreMatches": {
+      "audioContinuationBytes": true,
+      "bridgeBytes": true,
+      "browserBytes": true,
+      "sessionBytes": true
+    },
+    "visualDomDiagnostics": null
+  },
+  "observedKeys": [
+    "bodyCssPixels",
+    "canonicalContactSides",
+    "canonicalDamageEvidence",
+    "canonicalDamageSides",
+    "contactCheckpoint",
+    "finalState",
+    "frameScale",
+    "frames",
+    "initialState",
+    "sessionTick",
+    "spriteContactSides",
+    "targetVectors",
+    "visibleUnits"
+  ],
+  "observedUnits": null,
+  "observedContacts": [
+    "north",
+    "south"
+  ],
+  "observedDamage": [
+    {
+      "side": "north",
+      "id": 2,
+      "hitpoints": 443,
+      "initialHitpoints": 614,
+      "tick": 163
+    },
+    {
+      "side": "south",
+      "id": 1,
+      "hitpoints": 443,
+      "initialHitpoints": 614,
+      "tick": 163
+    }
+  ],
+  "observedSpriteContactSides": [
+    "north",
+    "south"
+  ],
+  "observedFrames": [
+    {
+      "side": "north",
+      "direction": "south",
+      "action": "idle",
+      "canonicalPose": "deploy",
+      "frame": "copperskiff-ember-south-idle",
+      "tick": 59,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 13.998571395874025,
+      "renderedBodyHeightPixels": 12.99867343902588
+    },
+    {
+      "side": "north",
+      "direction": "south",
+      "action": "idle",
+      "canonicalPose": "idle",
+      "frame": "copperskiff-ember-south-idle",
+      "tick": 60,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 13.998571395874025,
+      "renderedBodyHeightPixels": 12.99867343902588
+    },
+    {
+      "side": "north",
+      "direction": "west",
+      "action": "contact",
+      "canonicalPose": "attack",
+      "frame": "copperskiff-ember-west-contact",
+      "tick": 163,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 18.998061180114746,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "north",
+      "direction": "west",
+      "action": "contact",
+      "canonicalPose": "recoil",
+      "frame": "copperskiff-ember-west-contact",
+      "tick": 103,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 18.998061180114746,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "north",
+      "direction": "west",
+      "action": "idle",
+      "canonicalPose": "idle",
+      "frame": "copperskiff-ember-west-idle",
+      "tick": 162,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 16.998265266418457,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "north",
+      "direction": "west",
+      "action": "idle",
+      "canonicalPose": "anticipate",
+      "frame": "copperskiff-ember-west-idle",
+      "tick": 96,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 16.998265266418457,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "south",
+      "direction": "east",
+      "action": "contact",
+      "canonicalPose": "attack",
+      "frame": "copperskiff-river-east-contact",
+      "tick": 163,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 18.998061180114746,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "south",
+      "direction": "east",
+      "action": "contact",
+      "canonicalPose": "recoil",
+      "frame": "copperskiff-river-east-contact",
+      "tick": 103,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 18.998061180114746,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "south",
+      "direction": "east",
+      "action": "idle",
+      "canonicalPose": "idle",
+      "frame": "copperskiff-river-east-idle",
+      "tick": 162,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 16.998265266418457,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "south",
+      "direction": "east",
+      "action": "idle",
+      "canonicalPose": "anticipate",
+      "frame": "copperskiff-river-east-idle",
+      "tick": 96,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 16.998265266418457,
+      "renderedBodyHeightPixels": 11.998775482177736
+    },
+    {
+      "side": "south",
+      "direction": "north",
+      "action": "idle",
+      "canonicalPose": "deploy",
+      "frame": "copperskiff-river-north-idle",
+      "tick": 59,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 13.998571395874025,
+      "renderedBodyHeightPixels": 14.99846935272217
+    },
+    {
+      "side": "south",
+      "direction": "north",
+      "action": "idle",
+      "canonicalPose": "idle",
+      "frame": "copperskiff-river-north-idle",
+      "tick": 60,
+      "reducedMotion": "false",
+      "pivotErrorX": 0,
+      "pivotErrorY": 0,
+      "renderedBodyWidthPixels": 13.998571395874025,
+      "renderedBodyHeightPixels": 14.99846935272217
+    }
+  ]
+}

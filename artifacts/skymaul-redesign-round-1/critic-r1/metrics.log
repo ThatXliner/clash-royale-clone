@@ -1,0 +1,67 @@
+/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-1/candidate/source-package/scripts/skymaul_metrics.py:23: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  return list(image.getdata())
+{
+  "failure_count": 122,
+  "failure_counts_by_gate": {
+    "left_fist-support": 6,
+    "right_fist-support": 6,
+    "front-back-width": 8,
+    "lower-ring-gap": 24,
+    "copper-value": 16,
+    "core-value": 18,
+    "core-bright-2x2": 18,
+    "actor-height": 6,
+    "gap-head-chest": 12,
+    "gap-left_fist-chest": 2,
+    "gap-right_fist-chest": 2,
+    "hammer-isolated-block": 2,
+    "core-brightest-region": 2
+  },
+  "preservation": [
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-1/critic-r1/attempt/model/preservation/post-export-proof.json",
+      "label": "post-export",
+      "numeric_exact_equal": true,
+      "byte_identical": false,
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 428
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-1/critic-r1/attempt/model/preservation/post-save-proof.json",
+      "label": "post-save",
+      "numeric_exact_equal": true,
+      "byte_identical": false,
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 428
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-1/critic-r1/attempt/renders/preservation/final-render-proof.json",
+      "label": "final-render",
+      "numeric_exact_equal": true,
+      "byte_identical": false,
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 428
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-1/critic-r1/attempt/renders/preservation/fresh-load-proof.json",
+      "label": "fresh-load",
+      "numeric_exact_equal": true,
+      "byte_identical": false,
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 428
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-1/critic-r1/attempt/renders/preservation/mask-restoration-proof.json",
+      "label": "mask-restoration",
+      "numeric_exact_equal": true,
+      "byte_identical": false,
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 428
+    }
+  ],
+  "every_frame_crop": {
+    "rows": 848,
+    "failures": 0,
+    "minimum_px": 4.1662750244140625
+  }
+}

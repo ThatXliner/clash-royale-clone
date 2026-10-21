@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: Copperskiff atlas covers both teams, two fixed poses, and four actor-facing directions
+ok 1 - Copperskiff atlas covers both teams, two fixed poses, and four actor-facing directions
+  ---
+  duration_ms: 1.025209
+  type: 'test'
+  ...
+# Subtest: Copperskiff facing uses combat screen axes, including the accepted positive-y-up mapping
+ok 2 - Copperskiff facing uses combat screen axes, including the accepted positive-y-up mapping
+  ---
+  duration_ms: 0.147625
+  type: 'test'
+  ...
+# Subtest: canonical attack/recoil ticks select the static contact cell and preserve reduced-motion information
+ok 3 - canonical attack/recoil ticks select the static contact cell and preserve reduced-motion information
+  ---
+  duration_ms: 0.078834
+  type: 'test'
+  ...
+# Subtest: live markers keep their canonical health-bar footprint while the 64px sprite scales once
+ok 4 - live markers keep their canonical health-bar footprint while the 64px sprite scales once
+  ---
+  duration_ms: 9.048375
+  type: 'test'
+  ...
+# Subtest: reduced-motion render keeps static actor-facing and pose cells
+ok 5 - reduced-motion render keeps static actor-facing and pose cells
+  ---
+  duration_ms: 0.350666
+  type: 'test'
+  ...
+# Subtest: direct sprite factory rejects missing actor-facing state instead of guessing a camera label
+ok 6 - direct sprite factory rejects missing actor-facing state instead of guessing a camera label
+  ---
+  duration_ms: 0.324708
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 90.927917

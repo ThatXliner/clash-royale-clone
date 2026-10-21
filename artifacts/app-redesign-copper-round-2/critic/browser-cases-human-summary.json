@@ -1,0 +1,557 @@
+{
+  "cases": [
+    {
+      "viewport": "phone",
+      "motion": "normal",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283
+      }
+    },
+    {
+      "viewport": "phone",
+      "motion": "normal",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222
+      }
+    },
+    {
+      "viewport": "phone",
+      "motion": "reduced",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283
+      }
+    },
+    {
+      "viewport": "phone",
+      "motion": "reduced",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "normal",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "normal",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "reduced",
+      "scenario": "horizontal",
+      "expected": {
+        "north": "west",
+        "south": "east"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 4500,
+          "dy": 2002,
+          "dominantAxis": "x"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": -4500,
+          "dy": -2002,
+          "dominantAxis": "x"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 163
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 283,
+        "replayTick": 283
+      }
+    },
+    {
+      "viewport": "desktop",
+      "motion": "reduced",
+      "scenario": "vertical",
+      "expected": {
+        "north": "south",
+        "south": "north"
+      },
+      "targets": [
+        {
+          "side": "south",
+          "targetSide": "north",
+          "dx": 0,
+          "dy": 3000,
+          "dominantAxis": "y"
+        },
+        {
+          "side": "north",
+          "targetSide": "south",
+          "dx": 0,
+          "dy": -3000,
+          "dominantAxis": "y"
+        }
+      ],
+      "contacts": [
+        "north",
+        "south"
+      ],
+      "damage": [
+        {
+          "side": "north",
+          "id": 2,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        },
+        {
+          "side": "south",
+          "id": 1,
+          "hitpoints": 443,
+          "initialHitpoints": 614,
+          "tick": 102
+        }
+      ],
+      "spriteContacts": [
+        "north",
+        "south"
+      ],
+      "checkpoint": {
+        "pngEqual": true,
+        "changedPixels": 0,
+        "pixelChannelsDifferent": 0,
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "referenceTick": 222,
+        "replayTick": 222
+      }
+    }
+  ],
+  "runner": {
+    "node": "v22.22.3",
+    "pid": 54743,
+    "attempt": "20261020-copper-r2-critic-fresh",
+    "flags": {
+      "oneCaseProbe": false,
+      "singleCaseFullAssertions": false
+    }
+  }
+}

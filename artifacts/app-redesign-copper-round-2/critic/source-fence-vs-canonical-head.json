@@ -1,0 +1,70 @@
+{
+  "comparison": "candidate byte contents vs canonical Git HEAD 16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+  "trackedChanged": [
+    {
+      "path": "public/ui-arena-shell.html",
+      "head_blob": "ffe0bcf64711813d421331eab0d1a652f395ca30",
+      "candidate_blob": "1edf088bc8284bc32fb3eb4a31eacf1efdcd8184",
+      "sha256": "c5ba0470bb4fbfba717e079c78a2da4cda351fa33458b2826e9efdd38eb14eb4"
+    },
+    {
+      "path": "src/content/visual-asset-manifest.js",
+      "head_blob": "47b9ea1beefeea3e7cca4156a9253e14f1c0bd94",
+      "candidate_blob": "6ccda359fe6730ea12a99ecb4e30cfa6ad3fe853",
+      "sha256": "55728175441d54bb8e3cb7811afc0c70cfd7952e15782c2d6792045a0a7a7f98"
+    },
+    {
+      "path": "src/ui/combat-art.js",
+      "head_blob": "291dee5254abc98c70783967503fb26f9122e964",
+      "candidate_blob": "89da0084596bd8cc46a7d99559e7616ef944b5e5",
+      "sha256": "076e8439aafcdb8c22b840cd98ef80e12cdb45b4662b2652988e9566e0bf2ae2"
+    },
+    {
+      "path": "src/ui/combat-motion.js",
+      "head_blob": "fa31b6a9d5b79a1f21fb4890b920c15e529691f6",
+      "candidate_blob": "7161b329cc80d07dcd742691db341dd16888d718",
+      "sha256": "8ad48480ec3e5911ee03d89051a7a6a9a20cfeb74575d2b12ae85e100bdd6ea0"
+    },
+    {
+      "path": "src/ui/combat-state.js",
+      "head_blob": "e37ffa15ad40a6c0b06a05c8700dca0bd4524d1c",
+      "candidate_blob": "ae7fc3ccb962cd5784b1e4458287e197eb41d361",
+      "sha256": "3061fb77a78e21d39ff4d6c0c3ba32bde8645c8f61d8c2dc51d8174222057aa1"
+    },
+    {
+      "path": "tests/app-polish.test.js",
+      "head_blob": "c29b40f7a5cff870026802d1c1cebf7e536e3345",
+      "candidate_blob": "09ca6bb0e12458daac5e07f4bfc8034b8a0c32ab",
+      "sha256": "976221beb32a264f7944cf8a590522c0d7c088c15d63413c425ad83b44bcc3d1"
+    },
+    {
+      "path": "tests/game-audio-runtime.test.js",
+      "head_blob": "bff2c608ce86488273f667bb33989bc75e66ef00",
+      "candidate_blob": "b150ec7c3e0f2865aba67729a5e5fbb7f0df4c64",
+      "sha256": "f61ca9c9047130469b9e85f8c50be591c4ae54ba9555aa70a81f258828c3123a"
+    },
+    {
+      "path": "tests/ui-combat-state.test.js",
+      "head_blob": "183c8ca5b8e1fcf49854f73e86964330e7e533cc",
+      "candidate_blob": "c72d8eb3a374d745f69e221ba184c19f1fae649e",
+      "sha256": "bd3fc2c49d0aa7d3e45a3205fc788933615db53dbb86f1240caa22bfa681cc0e"
+    }
+  ],
+  "candidateAdded": [
+    "docs/art/copperskiff-actual-game-browser-attempt-receipt.json",
+    "docs/art/copperskiff-battle-sprite-provenance.json",
+    "docs/art/copperskiff-source-freeze.json",
+    "docs/art/copperskiff-sprite-ownership-manifest.json",
+    "public/assets/copperskiff-battle-sprite.png",
+    "scripts/build-copperskiff-atlas.py",
+    "scripts/check-copperskiff-source-freeze.py",
+    "scripts/run-copperskiff-one-case-probe.py",
+    "tests/copperskiff-live-sprite-browser-fixture.html",
+    "tests/copperskiff-live-sprite-browser-fixture.js",
+    "tests/copperskiff-live-sprite-browser.test.js",
+    "tests/copperskiff-live-sprite-game-browser.test.js",
+    "tests/copperskiff-live-sprite.test.js",
+    "tests/restore-paint-diagnostic.test.js"
+  ],
+  "candidateMissing": []
+}

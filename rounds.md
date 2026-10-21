@@ -10007,3 +10007,29 @@ EVIDENCE: The original `game-audio-runtime` module has eleven tests covering cue
 BIGGEST GAP: This is a focused test-fixture/admission contract only. The full suite and broader engine/audio qualification remain outside this round.
 
 DISPOSITION: Record AUDIO-003F PASS 1/1, round 1, for the corrected fixture on exact candidate and accepted main. Prepare the test-only patch for root review; do not infer production runtime changes, or alter the shared-factory, chain, or full-engine piece states. No repository adoption or source checkout mutation is part of this external packet.
+
+
+## Round 543 — 2026-10-20
+
+PIECE: ART-3D-SKY-002 — Claude-directed Skymaul native character revision
+
+VERDICT: FAIL
+
+EVIDENCE: A separate critic freshly rendered the selected saved Blend in Blender5.1.2, exit0,384 captures and336 semantic masks. The native measurement command exits0 and reports164/286 gates passing,122 failing; a successful evidence command does not mean the art passes. All848 projected frame crop rows pass, minimum4.1662750244140625px; native crop at least4px. Contact16/16 and grayscale team12/12 pass. Every24 lower-stone/ring clearance fails; bright2x2 core18/18 fails, core median0.713–0.848 below0.85. Other failures include carry envelope, fist support, head/chest gaps and copper values. Complete unrounded states show exact numeric equality and428 signed-zero token differences from canonical to export; all five after-state JSONs are byteidentical, so sequential save/load/mask/render introduces no further state change. Saved Blend bytes remain unchanged. Native baseline/portrait comparison and actual raw commands/logs are retained externally under20261020-skymaul-redesign-round-1/critic-r1. Builder setup/correction attempts are not additional critic rounds.
+
+BIGGEST GAP: Required lower-stone/ring clearance is not demonstrated in any of the24 sampled cells; some lateral cells have no visible lower-stone support, so literal contact is not established in every cell.
+
+DISPOSITION: Keep accepted R1 art unchanged. Record one actual independent failure; no three-round stop. New candidate, atlases, live sprites and redesign release remain unaccepted. Claude actual sketches resumed after usage reset; future geometry correction must preserve bar or explicitly split scope before building.
+
+
+## Round 544 — 2026-10-20
+
+PIECE: APP-REDESIGN-COPPER-001 — Live model-derived Copperskiff, round2
+
+VERDICT: FAIL — native contextual readability
+
+EVIDENCE: Fresh independent unchanged browser gate SHA df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b exits0, all8phone/desktop normal/reduced H/V cases0PNGdiff with exactbrowser/session/bridge/audio restore and120futureticks, same8/seedrestart. Sprite6/6, assetmanifest6/6, shippingguard13/13, releasebuild24/24 pass. UIcombat18pass1comparison skip (clean5edroot unavailable); visual-combat-assets notrunbycritic, builderobservedinvalidfixturecoordinate separately. No wholesuitegreenclaim. Nativecriticfails weakpale silhouettes/colorededges onmottledgrassandwater. Measuredbody18.998x11.999phone and37.997x23.998desktop, zeroanchorerror; full64/128cellmargins intentional, notcrop/viewboxbug. Stable card-art andtowerhealthsurfacerules resolve old234pixel gap while preservingoriginalshadow andfractionalHP. Source/inputfences held, all runners closed. Rawreport/commands/envallowlists/exits/nativeframes and explicitlyunadopted recoveryoverlay in artifacts/app-redesign-copper-round-2/.
+
+BIGGEST GAP: Low-contrast soft boat silhouette is hard to identify over grass and reflective water at actual native viewport size.
+
+DISPOSITION: Record one actual visualFAIL; restore correctness passes but the wholelive-artpiece does not. RetainRound537failure. No failedsprite/runtime/testfixture adopted. Prepare crisp sampling and originalinkoutline comparisons underunchanged 13/26inputs/zeroPNG/mechanic gates. Three-round samegap stopdoesnotapply: firstroundfailedrestore, secondreadability.

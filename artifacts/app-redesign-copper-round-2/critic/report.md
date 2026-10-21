@@ -1,0 +1,30 @@
+# Critic report — APP-REDESIGN-COPPER-001, round 2
+
+**Verdict: FAIL on native-size sprite readability.** The behavioral and exact-restore gates passed. The sprites render in every required case, but at the captured phone size they read as tiny, soft colored flecks over the bridge. At desktop size the game remains in a narrow portrait canvas and the sprites are still hard to identify. The full captures are `390x844-normal-horizontal-checkpoint-before-restore.png` and `1440x933-normal-horizontal-checkpoint-before-restore.png` under the candidate's `artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261020-copper-r2-critic-fresh/` directory. The atlas itself also shows each pose occupying only a small part of its cell. This misses the requested “look good native” bar even though sprite presence and state selection are correct.
+
+The required live-browser run used the untouched test source with SHA-256 `df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b`. It exited 0: all eight phone/desktop × normal/reduced-motion × horizontal/vertical cases reached contact, used the expected cardinal directions, and damaged both Copperskiffs. At each of the eight restore checkpoints the screenshot matched exactly (0 changed pixels and 0 differing channels), as did restored and future `audioContinuationBytes`, `bridgeBytes`, `browserBytes`, and `sessionBytes`. Future 120-tick continuation matched, terminal/restart checks passed, and restart restored the same eight-card default deck. The captured browser run had no browser errors or console messages.
+
+Health rendering is visible and proportional in the actual browser capture. The browser reported 614/614 HP at mount and 443/614 after contact (tick 163 horizontally, tick 102 vertically). That ratio is 0.7215; the CSS scales the 80%-width fill by the HP fraction, predicting about 9.9 device pixels in the phone capture. Pixel inspection found a 10-pixel visible fill on both sides. The state suite covers zero-health terminal restore; I did not claim a separate browser-pixel capture at zero HP.
+
+Additional validation passed: visual-asset manifest 6/6, shipping-isolation guard 13/13, release build 24/24, pure live-sprite contract 6/6, and UI combat state 18 passed with 1 comparison test skipped. That skip requires the exact clean `5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146` comparison root, which was unavailable in this candidate setup. `visual-combat-assets` was not run and remains unqualified. No whole-suite-green claim is made.
+
+## Candidate-owned path inventory
+
+The candidate differs from canonical HEAD `16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9` in six production runtime paths:
+
+- `public/ui-arena-shell.html`
+- `public/assets/copperskiff-battle-sprite.png` (new)
+- `src/content/visual-asset-manifest.js`
+- `src/ui/combat-art.js`
+- `src/ui/combat-motion.js`
+- `src/ui/combat-state.js`
+
+Other candidate changes are three existing tests (`tests/app-polish.test.js`, `tests/game-audio-runtime.test.js`, and `tests/ui-combat-state.test.js`); six added test/fixture files (`tests/copperskiff-live-sprite-browser-fixture.html`, `tests/copperskiff-live-sprite-browser-fixture.js`, `tests/copperskiff-live-sprite-browser.test.js`, `tests/copperskiff-live-sprite-game-browser.test.js`, `tests/copperskiff-live-sprite.test.js`, and `tests/restore-paint-diagnostic.test.js`); three added scripts (`scripts/build-copperskiff-atlas.py`, `scripts/check-copperskiff-source-freeze.py`, and `scripts/run-copperskiff-one-case-probe.py`); and four added `docs/art/` provenance/freeze/ownership/receipt files. The receipt file was not inspected. The source-fence comparison found 8 changed tracked files, 14 added files, and no missing files. I did not run or recommend adopting the `tests/game-audio-runtime.test.js` fixture change; audio continuation equality is covered by the live browser restore assertions above.
+
+All `src/`, `public/`, `scripts/`, and `tests/` file hashes plus `package.json` and `package-lock.json` matched the pre-run inventory after testing. The immutable browser-test SHA still matches its pin. The temporary `node_modules` symlink to the matching R5 dependencies was removed. All recorded test commands exited, and no recorded direct runner process remained. Raw commands, environment allowlists, PIDs, exits, output, summaries, and screenshot crops are saved in this report directory.
+
+## Quantitative visual clarification (appendix; verdict unchanged)
+
+The small transparent margins in the atlas are intentional for its fixed camera and ground pivot; they do not indicate a bad crop or viewbox that should be auto-trimmed. I independently checked the fresh `actual-game-report.json`: it reports 64×64 rendered full cells and 19×12px contact silhouettes on phone for `copperskiff-ember-west-contact` and `copperskiff-river-east-contact`, with pivot errors of 0px. At the desktop target it reports 128×128 full cells and 38×24px contact silhouettes, also with 0px pivot error. The contact alpha bounds in the 64px cells are x=20..38/y=43..54 for Ember and x=25..43/y=43..54 for River; both silhouettes sit on the intended y=54 ground anchor. All eight real-window cases passed the contact checks. The full cell and anchor should remain intact.
+
+For a native-context reference, [phone-actors-context-1x.png](phone-actors-context-1x.png) is an unresampled 284×84 crop at original screenshot pixels `(53,378)-(337,462)` from the 390×844 browser capture. The remaining failure is visual separation: the Ember shape's pale center and light edges let its contour dissolve into the mottled grass, while the River shape uses a similarly pale center against the reflective blue bridge and exposes only a thin teal outline. Their team colors are present, but at this crop scale they read as glints before they read as two distinct skiff silhouettes. R3 should improve edge definition and color contrast against both grass and water while preserving the measured 64px cell/pivot relationship and ground anchor; enlarging/cropping the atlas to fix nonexistent viewbox geometry would be the wrong correction.
