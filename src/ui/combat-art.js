@@ -33,6 +33,20 @@ const KILNKEEPER_BATTLE_IMAGE = new URL(
   import.meta.url,
 ).href;
 const SPRITE_DIRECTIONS = Object.freeze(['north', 'east', 'south', 'west']);
+const COPPERSKIFF_FACING_DIRECTIONS = Object.freeze(['east', 'north', 'south', 'west']);
+const COPPERSKIFF_ACTIONS = Object.freeze(['idle', 'contact']);
+const COPPERSKIFF_ATLAS = Object.freeze({
+  cellSize: 64,
+  columns: Object.freeze({ east: 0, north: 1, south: 2, west: 3 }),
+  height: 256,
+  image: new URL("../../public/assets/copperskiff-battle-sprite.png", import.meta.url).href,
+  rows: Object.freeze({
+    ember: Object.freeze({ idle: 0, contact: 1 }),
+    river: Object.freeze({ idle: 2, contact: 3 }),
+  }),
+  width: 256,
+  pivot: Object.freeze({ x: 32, y: 54 }),
+});
 const shapes = {
   coilblade: [
     ['M20 43 18 57 27 57 31 43M36 43 38 57 47 57 44 42', WOOD],
@@ -259,6 +273,136 @@ export function createBriarRunnerPaintedArt(document, {
   return svg;
 }
 
+/** Resolve one fixed 64px atlas window from canonical pose state. */
+export function getCopperskiffBattleFrame({
+  action, direction, reducedMotion = false, side, tick,
+} = {}) {
+  if (!COPPERSKIFF_ACTIONS.includes(action)) {
+    throw new RangeError('Copperskiff action must be idle or contact');
+  }
+  if (!COPPERSKIFF_FACING_DIRECTIONS.includes(direction)) {
+    throw new RangeError('Copperskiff direction must be actor-facing cardinal');
+  }
+  if (side !== 'north' && side !== 'south') {
+    throw new RangeError('Copperskiff side must be north or south');
+  }
+  if (!Number.isSafeInteger(tick) || tick < 0) {
+    throw new RangeError('Copperskiff tick must be a non-negative safe integer');
+  }
+  if (typeof reducedMotion !== 'boolean') {
+    throw new TypeError('Copperskiff reducedMotion must be a boolean');
+  }
+
+  // Frozen model frames are already static poses; reduced motion preserves the
+  // state cue and merely avoids any CSS displacement or frame cycling.
+  const team = side === 'north' ? 'ember' : 'river';
+  const row = COPPERSKIFF_ATLAS.rows[team][action];
+  const column = COPPERSKIFF_ATLAS.columns[direction];
+  const x = column * COPPERSKIFF_ATLAS.cellSize;
+  const y = row * COPPERSKIFF_ATLAS.cellSize;
+  return Object.freeze({
+    action,
+    column,
+    direction,
+    id: `copperskiff-${team}-${direction}-${action}`,
+    reducedMotion,
+    row,
+    side,
+    source: Object.freeze({
+      height: COPPERSKIFF_ATLAS.cellSize,
+      width: COPPERSKIFF_ATLAS.cellSize,
+      x,
+      y,
+    }),
+    team,
+    tick,
+    viewBox: `${x} ${y} ${COPPERSKIFF_ATLAS.cellSize} ${COPPERSKIFF_ATLAS.cellSize}`,
+  });
+}
+
+/** Create a sprite window whose common pivot stays on the canonical marker. */
+export function createCopperskiffBattleArt(document, {
+  action = 'idle',
+  bodyCssPixels = 13,
+  direction,
+  frameScale = 1,
+  reducedMotion = false,
+  side,
+  tick,
+} = {}) {
+  if (typeof document?.createElementNS !== 'function' || typeof document?.createElement !== 'function') {
+    throw new TypeError('Copperskiff battle art requires a DOM document');
+  }
+  if ((bodyCssPixels !== 13 && bodyCssPixels !== 26) ||
+      !Number.isFinite(frameScale) || frameScale <= 0 || frameScale > 8) {
+    throw new TypeError('Copperskiff presentation context is invalid');
+  }
+  const frame = getCopperskiffBattleFrame({
+    action, direction, reducedMotion, side, tick,
+  });
+  const create = (tag) => document.createElementNS('http://www.w3.org/2000/svg', tag);
+  const svg = create('svg');
+  svg.setAttribute('viewBox', frame.viewBox);
+  svg.setAttribute('class', 'combat-art combat-art--copperskiff');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.dataset.artId = 'copperskiff';
+  svg.dataset.spriteAction = frame.action;
+  svg.dataset.spriteDirection = frame.direction;
+  svg.dataset.spriteFrame = frame.id;
+  svg.dataset.spriteSide = frame.side;
+  svg.dataset.spriteTeam = frame.team;
+  svg.dataset.simulationTick = String(frame.tick);
+  svg.dataset.reducedMotion = String(frame.reducedMotion);
+  svg.dataset.pivot = `${COPPERSKIFF_ATLAS.pivot.x}:${COPPERSKIFF_ATLAS.pivot.y}`;
+  svg.dataset.bodyCssPixels = String(bodyCssPixels);
+
+  const image = create('image');
+  image.dataset.part = 'atlas';
+  image.setAttribute('href', COPPERSKIFF_ATLAS.image);
+  image.setAttribute('x', '0');
+  image.setAttribute('y', '0');
+  image.setAttribute('width', String(COPPERSKIFF_ATLAS.width));
+  image.setAttribute('height', String(COPPERSKIFF_ATLAS.height));
+  image.setAttribute('preserveAspectRatio', 'none');
+  svg.appendChild(image);
+
+  // This is the same one-time iframe compensation used by the other battle
+  // sprites. The outer canonical marker (and its health bar) keeps its size.
+  const frameCssPixels = COPPERSKIFF_ATLAS.cellSize * bodyCssPixels / 13 / frameScale;
+  svg.style.position = 'absolute';
+  svg.style.left = '50%';
+  svg.style.top = '50%';
+  svg.style.translate = '-50% -84.375%';
+  svg.style.pointerEvents = 'none';
+  svg.style.width = `${frameCssPixels}px`;
+  svg.style.height = `${frameCssPixels}px`;
+  return svg;
+}
+
+/** Move the fixed atlas window without changing its pixel or anchor mapping. */
+export function updateCopperskiffBattleArt(art, {
+  action, direction, reducedMotion = false, side, tick,
+} = {}) {
+  if (!art || art.dataset?.artId !== 'copperskiff' ||
+      typeof art.setAttribute !== 'function') {
+    throw new TypeError('Copperskiff battle art node is invalid');
+  }
+  const frame = getCopperskiffBattleFrame({
+    action, direction, reducedMotion, side, tick,
+  });
+  art.setAttribute('viewBox', frame.viewBox);
+  art.dataset.spriteAction = frame.action;
+  art.dataset.spriteDirection = frame.direction;
+  art.dataset.spriteFrame = frame.id;
+  art.dataset.spriteSide = frame.side;
+  art.dataset.spriteTeam = frame.team;
+  art.dataset.simulationTick = String(frame.tick);
+  art.dataset.reducedMotion = String(frame.reducedMotion);
+  return frame;
+}
+
 export function createCombatArt(document, kind, side, layer, hidden = false) {
   if (typeof hidden !== 'boolean' || (kind !== "buried-coil" && hidden)) {
     throw new TypeError("combat art hidden state must be a Buried Coil boolean");
@@ -365,4 +509,4 @@ export function createCombatArt(document, kind, side, layer, hidden = false) {
   return svg;
 }
 
-export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="buried-coil"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;border-radius:0;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
+export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="buried-coil"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;border-radius:0;box-shadow:0 0 0 1px #191D22;transform:translateZ(0) scaleX(calc(var(--combat-health)/var(--combat-health-max)))}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;

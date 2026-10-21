@@ -413,6 +413,17 @@ const REGISTERED_ASSETS = [
   },
   {
     authorship: "in-repo-authored",
+    byteLength: 12094,
+    dimensions: { height: 256, width: 256 },
+    format: "png",
+    id: "copperskiff-battle-sprite",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/copperskiff-battle-sprite.png",
+    sha256: "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a",
+  },
+  {
+    authorship: "in-repo-authored",
     byteLength: 70090,
     dimensions: { height: 512, width: 512 },
     format: "webp",

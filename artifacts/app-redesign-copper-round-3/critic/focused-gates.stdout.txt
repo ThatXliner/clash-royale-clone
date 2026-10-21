@@ -1,0 +1,88 @@
+sprite-contract-6: exit 0
+shipping-isolation-13: exit 0
+release-build-24: exit 0
+manifest-6-after-release: exit 0
+{
+  "allPassed": true,
+  "attemptId": "20261021T063727603689Z-2a778727b413",
+  "candidate": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate",
+  "comparisonReference": {
+    "candidateSymlinkRemoved": true,
+    "copiedOrBundled": false,
+    "source": "/Users/me/.codex/worktrees/9456/clash-royale-clone/reference"
+  },
+  "node": "/Users/me/.hermes/node/bin/node",
+  "nodeVersion": "v22.22.3",
+  "releaseEvidenceAfterQualification": {
+    "exists": true,
+    "privateCandidateCopy": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/release-001b-round-2/evidence.json",
+    "sha256": "51181432bd0d2821394b86783471676aca5aa0e5f056530915082e4dc4c90cc1"
+  },
+  "releaseEvidenceSeed": {
+    "byteLength": 29087,
+    "commitBytesIdentical": true,
+    "commits": {
+      "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9": {
+        "blob": "a8a36f49cae7977f6c001ba64a40fa8bed215f75"
+      },
+      "81d181e2e28fed4ad8216cf8b826e6c39c4b68d5": {
+        "blob": "a8a36f49cae7977f6c001ba64a40fa8bed215f75"
+      }
+    },
+    "gitBlob": "a8a36f49cae7977f6c001ba64a40fa8bed215f75",
+    "gitRepository": "/Users/me/.codex/worktrees/9456/clash-royale-clone",
+    "path": "artifacts/release-001b-round-2/evidence.json",
+    "privateCandidateCopy": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/release-001b-round-2/evidence.json",
+    "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+    "sourceKind": "canonical_git_blob",
+    "usedPhysicalWorktreeFile": false
+  },
+  "results": [
+    {
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "--test",
+        "tests/copperskiff-live-sprite.test.js"
+      ],
+      "exitCode": 0,
+      "name": "sprite-contract-6",
+      "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/sprite-contract-6/stderr.txt",
+      "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/sprite-contract-6/stdout.txt"
+    },
+    {
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "tests/shipping-isolation-guard-runner.js",
+        "shipping-isolation-guard"
+      ],
+      "exitCode": 0,
+      "name": "shipping-isolation-13",
+      "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/shipping-isolation-13/stderr.txt",
+      "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/shipping-isolation-13/stdout.txt"
+    },
+    {
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "tests/release-build-runner.js",
+        "release-build"
+      ],
+      "exitCode": 0,
+      "name": "release-build-24",
+      "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/release-build-24/stderr.txt",
+      "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/release-build-24/stdout.txt"
+    },
+    {
+      "argv": [
+        "/Users/me/.hermes/node/bin/node",
+        "tests/visual-asset-manifest-runner.js",
+        "visual-asset-manifest"
+      ],
+      "exitCode": 0,
+      "name": "manifest-6-after-release",
+      "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/manifest-6-after-release/stderr.txt",
+      "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/manifest-6-after-release/stdout.txt"
+    }
+  ],
+  "temporaryDependencies": "/Users/me/.codex/clash-qualification/20261020-factory-r5/attempt-20261020T155551Z/candidate-e35dda4c0225b88ddac91a56f15e81fee32c3c68/node_modules",
+  "temporaryNodeModulesSymlinkRemoved": true
+}

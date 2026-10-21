@@ -1,0 +1,746 @@
+{
+  "candidateHashFence": {
+    "afterFocusedGatesSha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a",
+    "beforeFocusedGatesSha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a",
+    "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/public/assets/copperskiff-battle-sprite.png",
+    "sourceFreezeAfterFocusedGates": {
+      "checkedFiles": 189,
+      "expectedAddedPaths": [
+        "public/assets/copperskiff-battle-sprite.png"
+      ],
+      "failures": [],
+      "immutableFiles": {
+        "tests/copperskiff-live-sprite-game-browser.test.js": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b"
+      },
+      "mainCommit": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+      "ok": true,
+      "ownedPaths": [
+        "public/assets/copperskiff-battle-sprite.png",
+        "public/ui-arena-shell.html",
+        "src/content/visual-asset-manifest.js",
+        "src/ui/combat-art.js",
+        "src/ui/combat-motion.js",
+        "src/ui/combat-state.js"
+      ],
+      "pinnedUnownedFiles": 183
+    },
+    "sourceFreezeAfterFullMatrix": {
+      "checkedFiles": 189,
+      "expectedAddedPaths": [
+        "public/assets/copperskiff-battle-sprite.png"
+      ],
+      "failures": [],
+      "immutableFiles": {
+        "tests/copperskiff-live-sprite-game-browser.test.js": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b"
+      },
+      "mainCommit": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+      "ok": true,
+      "ownedPaths": [
+        "public/assets/copperskiff-battle-sprite.png",
+        "public/ui-arena-shell.html",
+        "src/content/visual-asset-manifest.js",
+        "src/ui/combat-art.js",
+        "src/ui/combat-motion.js",
+        "src/ui/combat-state.js"
+      ],
+      "pinnedUnownedFiles": 183
+    },
+    "sourceFreezeBeforeFocusedGates": {
+      "checkedFiles": 189,
+      "expectedAddedPaths": [
+        "public/assets/copperskiff-battle-sprite.png"
+      ],
+      "failures": [],
+      "immutableFiles": {
+        "tests/copperskiff-live-sprite-game-browser.test.js": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b"
+      },
+      "mainCommit": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+      "ok": true,
+      "ownedPaths": [
+        "public/assets/copperskiff-battle-sprite.png",
+        "public/ui-arena-shell.html",
+        "src/content/visual-asset-manifest.js",
+        "src/ui/combat-art.js",
+        "src/ui/combat-motion.js",
+        "src/ui/combat-state.js"
+      ],
+      "pinnedUnownedFiles": 183
+    },
+    "sourceFreezeBeforeFullMatrix": {
+      "checkedFiles": 189,
+      "expectedAddedPaths": [
+        "public/assets/copperskiff-battle-sprite.png"
+      ],
+      "failures": [],
+      "immutableFiles": {
+        "tests/copperskiff-live-sprite-game-browser.test.js": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b"
+      },
+      "mainCommit": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+      "ok": true,
+      "ownedPaths": [
+        "public/assets/copperskiff-battle-sprite.png",
+        "public/ui-arena-shell.html",
+        "src/content/visual-asset-manifest.js",
+        "src/ui/combat-art.js",
+        "src/ui/combat-motion.js",
+        "src/ui/combat-state.js"
+      ],
+      "pinnedUnownedFiles": 183
+    },
+    "unchanged": true
+  },
+  "focusedGates": {
+    "allPassed": true,
+    "attemptId": "20261021T063727603689Z-2a778727b413",
+    "candidateReferenceSymlinkRemoved": true,
+    "priorFixturePreserved": {
+      "evidence-seed.sha256": {
+        "bytes": 243,
+        "originalPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/release-001b-round-2/evidence-seed.sha256",
+        "preservedPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/pre-focused-release-fixture/evidence-seed.sha256",
+        "sha256": "b95a992cef51660593b659643e0c13537973bacdc76a3d837ae7b0ce09990efb"
+      },
+      "evidence.json": {
+        "bytes": 34254,
+        "originalPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/release-001b-round-2/evidence.json",
+        "preservedPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/pre-focused-release-fixture/evidence.json",
+        "sha256": "9c45259fe107ca2e6c14093564b2f3ceb619f5d495c3c444dd6fc93cb3a7be2f"
+      }
+    },
+    "releaseEvidenceAfterQualification": {
+      "exists": true,
+      "privateCandidateCopy": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/release-001b-round-2/evidence.json",
+      "sha256": "51181432bd0d2821394b86783471676aca5aa0e5f056530915082e4dc4c90cc1"
+    },
+    "releaseEvidenceSeed": {
+      "byteLength": 29087,
+      "commitBytesIdentical": true,
+      "commits": {
+        "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9": {
+          "blob": "a8a36f49cae7977f6c001ba64a40fa8bed215f75"
+        },
+        "81d181e2e28fed4ad8216cf8b826e6c39c4b68d5": {
+          "blob": "a8a36f49cae7977f6c001ba64a40fa8bed215f75"
+        }
+      },
+      "gitBlob": "a8a36f49cae7977f6c001ba64a40fa8bed215f75",
+      "gitRepository": "/Users/me/.codex/worktrees/9456/clash-royale-clone",
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "privateCandidateCopy": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/release-001b-round-2/evidence.json",
+      "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "sourceKind": "canonical_git_blob",
+      "usedPhysicalWorktreeFile": false
+    },
+    "results": [
+      {
+        "exitCode": 0,
+        "name": "sprite-contract-6",
+        "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/sprite-contract-6/stderr.txt",
+        "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/sprite-contract-6/stdout.txt"
+      },
+      {
+        "exitCode": 0,
+        "name": "shipping-isolation-13",
+        "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/shipping-isolation-13/stderr.txt",
+        "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/shipping-isolation-13/stdout.txt"
+      },
+      {
+        "exitCode": 0,
+        "name": "release-build-24",
+        "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/release-build-24/stderr.txt",
+        "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/release-build-24/stdout.txt"
+      },
+      {
+        "exitCode": 0,
+        "name": "manifest-6-after-release",
+        "stderrPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/manifest-6-after-release/stderr.txt",
+        "stdoutPath": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/focused-gates/attempt-20261021T063727603689Z-2a778727b413/manifest-6-after-release/stdout.txt"
+      }
+    ],
+    "temporaryNodeModulesSymlinkRemoved": true
+  },
+  "freshNativeABCRun": {
+    "candidateCAssetBytesMatchPrototype": true,
+    "exitCode": 0,
+    "missingPaths": [],
+    "records": [
+      {
+        "bodyCssPixels": 13,
+        "browserErrors": [],
+        "contactTick": 163,
+        "screenshot": {
+          "byteLength": 336567,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/A-phone-390x844.png",
+          "sha256": "e0898646cb3f013c035eea73c1442f9f90c3220740bf376d5a7f29ee720c835d"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "variant": "A",
+        "variantSha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 26,
+        "browserErrors": [],
+        "contactTick": 163,
+        "screenshot": {
+          "byteLength": 477992,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/A-desktop-1440x933.png",
+          "sha256": "a5d2420bd28bc62b7f3af41a633284592c8f7622cd24d494ad5303e15b127fc8"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "variant": "A",
+        "variantSha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8",
+        "viewport": "desktop"
+      },
+      {
+        "bodyCssPixels": 13,
+        "browserErrors": [],
+        "contactTick": 163,
+        "screenshot": {
+          "byteLength": 336575,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/B-phone-390x844.png",
+          "sha256": "734801379494bb08b266c0d7ffa0d35a706b7ba17e1128674226c80fc584046e"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "variant": "B",
+        "variantSha256": "9c818184aa439f58ca34ea733fcae546230b7613edfb812058eed46f1ef3f6c4",
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 26,
+        "browserErrors": [],
+        "contactTick": 163,
+        "screenshot": {
+          "byteLength": 477917,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/B-desktop-1440x933.png",
+          "sha256": "c7c014bcb040b7ca3bc5f74692c338351451833aeff669dc20bc03e431395a0b"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "variant": "B",
+        "variantSha256": "9c818184aa439f58ca34ea733fcae546230b7613edfb812058eed46f1ef3f6c4",
+        "viewport": "desktop"
+      },
+      {
+        "bodyCssPixels": 13,
+        "browserErrors": [],
+        "contactTick": 163,
+        "screenshot": {
+          "byteLength": 336756,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/C-phone-390x844.png",
+          "sha256": "11e225a483cb6364833c2b8cf71f318d42308cea2792947f9f08a78be4b3e7a6"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "variant": "C",
+        "variantSha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a",
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 26,
+        "browserErrors": [],
+        "contactTick": 163,
+        "screenshot": {
+          "byteLength": 478599,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/C-desktop-1440x933.png",
+          "sha256": "ee73da2c630970577a7b80a2fd1b2f15c3d3a6b017c7769b57835dac28c31fa9"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "variant": "C",
+        "variantSha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a",
+        "viewport": "desktop"
+      }
+    ],
+    "reportFile": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/capture-report.json",
+    "session": {
+      "scenario": "horizontal",
+      "seed": 3,
+      "serializedBytes": 39033
+    }
+  },
+  "fullEightCaseRun": {
+    "actualGameReportFile": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/full-eight-case-report.json",
+    "allConsoleErrors": 0,
+    "artifactDirectory": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f",
+    "attemptId": "20261021T063402966289Z-109bb017e17f",
+    "captureDirectory": "/tmp/copperskiff-20261021T063402966289Z-109bb017e17f-capture-wwmbb29y",
+    "caseCount": 8,
+    "cases": [
+      {
+        "bodyCssPixels": 13,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 283,
+        "futureTickReplay": 283,
+        "futureTicks": 120,
+        "motion": "normal",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "horizontal",
+        "screenshot": {
+          "byteLength": 336756,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/390x844-normal-horizontal.png",
+          "sha256": "11e225a483cb6364833c2b8cf71f318d42308cea2792947f9f08a78be4b3e7a6"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "stateEqual": true,
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 13,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 222,
+        "futureTickReplay": 222,
+        "futureTicks": 120,
+        "motion": "normal",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "vertical",
+        "screenshot": {
+          "byteLength": 336154,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/390x844-normal-vertical.png",
+          "sha256": "f79765adae0743bf463c67d70e52418e89d28b5749de1d4aca069c11c34a21f1"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "stateEqual": true,
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 13,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 283,
+        "futureTickReplay": 283,
+        "futureTicks": 120,
+        "motion": "reduced",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "horizontal",
+        "screenshot": {
+          "byteLength": 336755,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/390x844-reduced-horizontal.png",
+          "sha256": "4e8c8e390825ca5622120bd6d33ab69417fe01b98512d20d03ee5a89524bf650"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "stateEqual": true,
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 13,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 222,
+        "futureTickReplay": 222,
+        "futureTicks": 120,
+        "motion": "reduced",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "vertical",
+        "screenshot": {
+          "byteLength": 336152,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/390x844-reduced-vertical.png",
+          "sha256": "a6231108e059bcccc6f60110c3749a2209daca85427e6698cfd6bc4c0ab4ac51"
+        },
+        "size": [
+          390,
+          844
+        ],
+        "stateEqual": true,
+        "viewport": "phone"
+      },
+      {
+        "bodyCssPixels": 26,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 283,
+        "futureTickReplay": 283,
+        "futureTicks": 120,
+        "motion": "normal",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "horizontal",
+        "screenshot": {
+          "byteLength": 478599,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/1440x933-normal-horizontal.png",
+          "sha256": "ee73da2c630970577a7b80a2fd1b2f15c3d3a6b017c7769b57835dac28c31fa9"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "stateEqual": true,
+        "viewport": "desktop"
+      },
+      {
+        "bodyCssPixels": 26,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 222,
+        "futureTickReplay": 222,
+        "futureTicks": 120,
+        "motion": "normal",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "vertical",
+        "screenshot": {
+          "byteLength": 477489,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/1440x933-normal-vertical.png",
+          "sha256": "98a7ffb83e6f76df7718ed7b9971f9ce5f71d009c59d0367025cca42f7898a97"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "stateEqual": true,
+        "viewport": "desktop"
+      },
+      {
+        "bodyCssPixels": 26,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 283,
+        "futureTickReplay": 283,
+        "futureTicks": 120,
+        "motion": "reduced",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "horizontal",
+        "screenshot": {
+          "byteLength": 478574,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/1440x933-reduced-horizontal.png",
+          "sha256": "adbe0e642090889ff2d28ec7a2cb1cc8b343fe6a6bbae9b6fe033cf72aa899ca"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "stateEqual": true,
+        "viewport": "desktop"
+      },
+      {
+        "bodyCssPixels": 26,
+        "changedPixels": 0,
+        "encodedPngBytesEqual": true,
+        "errors": {
+          "console": [],
+          "failedRequests": [],
+          "mount": null,
+          "observation": null,
+          "open": null,
+          "page": []
+        },
+        "futureContinuationMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "futureTickReference": 222,
+        "futureTickReplay": 222,
+        "futureTicks": 120,
+        "motion": "reduced",
+        "restoreMatches": {
+          "audioContinuationBytes": true,
+          "bridgeBytes": true,
+          "browserBytes": true,
+          "sessionBytes": true
+        },
+        "scenario": "vertical",
+        "screenshot": {
+          "byteLength": 477479,
+          "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/1440x933-reduced-vertical.png",
+          "sha256": "028014b5003863e08e5507a272701a777bea04cdcd2ec84812fc284cb0d0dd3d"
+        },
+        "size": [
+          1440,
+          933
+        ],
+        "stateEqual": true,
+        "viewport": "desktop"
+      }
+    ],
+    "exitCode": 0,
+    "managerPid": 75364,
+    "mode": "full-matrix",
+    "preflightPassed": true,
+    "restart": {
+      "afterRestart": {
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "skymaul",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "restartCount": 1,
+        "screenshot": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/restart-after-click.png",
+        "screenshotSha256": "5d881484098847c6ec1f8770b3a9acb5cfbbc338a7119f6be3ec744d32cc622e",
+        "sessionTick": 0
+      },
+      "restartConsoleMessages": [],
+      "restartErrors": [],
+      "terminal": {
+        "active": true,
+        "backlogTicks": 0,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "skymaul",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "domTick": 1590,
+        "enduranceActive": false,
+        "paused": false,
+        "restartCount": 0,
+        "running": false,
+        "scheduled": false,
+        "selectedCardId": null,
+        "sessionTick": 1590,
+        "terminal": true,
+        "terminalPresentationRunning": false,
+        "terminalPresentationTick": 0
+      },
+      "terminalScreenshot": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-20261021T063402966289Z-109bb017e17f/restart-terminal.png",
+      "terminalScreenshotByteLength": 324901,
+      "terminalScreenshotSha256": "768e08798b0f47942556972c1a15401ac99f66b62cd08867a841cc2e8d5fca40"
+    },
+    "tapFile": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/full-eight-case-tap.txt",
+    "testChildPid": 75365,
+    "testChildPidPath": "/tmp/copperskiff-20261021T063402966289Z-109bb017e17f-capture-wwmbb29y/test-child-pid.txt",
+    "testChildPidRecorded": true
+  },
+  "immutableBrowserTestSha256": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b",
+  "logFiles": {
+    "focused-gates.stdout.txt": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/focused-gates.stdout.txt",
+      "sha256": "9ae4892ab71fe9b8618f643d8c2b66333b55607ad917150f34db146c419ca2f1"
+    },
+    "full-eight-case-report.json": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/full-eight-case-report.json",
+      "sha256": "0eab1d40ff3dabfbb0f1456271059a43ce7b6a70471ad566d7537575283b0dda"
+    },
+    "full-eight-case-tap.txt": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/full-eight-case-tap.txt",
+      "sha256": "3c562253b4e8fe64f9674de81b11f8e514926683ce0e605237438d1b5d263f8e"
+    },
+    "full-eight-case.stdout.txt": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/full-eight-case.stdout.txt",
+      "sha256": "8497a4e44807b9bf40330ce112a9949576f6fc4ea47f58cda47f9a0272b0338c"
+    },
+    "native-context-ab.stdout.txt": {
+      "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab.stdout.txt",
+      "sha256": "17f1bb954591a606f45a0f8507dade136e23b9468c094f5d50b8a7f7f8db79e7"
+    }
+  },
+  "piece": "APP-REDESIGN-COPPER-001 round3",
+  "selectedAsset": {
+    "bytes": 12094,
+    "dimensions": [
+      256,
+      256
+    ],
+    "path": "candidate/public/assets/copperskiff-battle-sprite.png",
+    "sha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a"
+  },
+  "sourceFreezeAfter": {
+    "checkedFiles": 189,
+    "expectedAddedPaths": [
+      "public/assets/copperskiff-battle-sprite.png"
+    ],
+    "failures": [],
+    "immutableFiles": {
+      "tests/copperskiff-live-sprite-game-browser.test.js": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b"
+    },
+    "mainCommit": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+    "ok": true,
+    "ownedPaths": [
+      "public/assets/copperskiff-battle-sprite.png",
+      "public/ui-arena-shell.html",
+      "src/content/visual-asset-manifest.js",
+      "src/ui/combat-art.js",
+      "src/ui/combat-motion.js",
+      "src/ui/combat-state.js"
+    ],
+    "pinnedUnownedFiles": 183
+  },
+  "sourceFreezeBefore": {
+    "checkedFiles": 189,
+    "expectedAddedPaths": [
+      "public/assets/copperskiff-battle-sprite.png"
+    ],
+    "failures": [],
+    "immutableFiles": {
+      "tests/copperskiff-live-sprite-game-browser.test.js": "df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b"
+    },
+    "mainCommit": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9",
+    "ok": true,
+    "ownedPaths": [
+      "public/assets/copperskiff-battle-sprite.png",
+      "public/ui-arena-shell.html",
+      "src/content/visual-asset-manifest.js",
+      "src/ui/combat-art.js",
+      "src/ui/combat-motion.js",
+      "src/ui/combat-state.js"
+    ],
+    "pinnedUnownedFiles": 183
+  }
+}

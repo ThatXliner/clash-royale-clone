@@ -1,0 +1,11 @@
+# APP-REDESIGN-COPPER-001 round3 — native contrast/readability
+
+R537FAIL exactrestoregap; R544FAIL actualnativecontextreadability despiteall8behavioral/restorecasesPASS. Preservebothhistories, noSTOP3samegap.
+
+Sameimmutableoriginal8casebrowsergate SHA df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b: 390x844/1440x933 normal/reduced H/V, original13/26physicalpresentationinputs, fixed64pxcell/pivot32/54, correctteam/cardinal/contact/anchor,0PNG/exactstate/input/audio+120future+same8seedrestart. No per-viewcrop/scale/camera/fit or changingtestresolution/tolerances/delays. Keep all23editablechoices andallmechanics/stats unchanged. StableHUDartpseudo/towerhealthZfix fromR2 retained.
+
+Concretegap: nativeboat silhouettes are soft/weak overbusygrass. First bounded candidatecomparisonA=currentR2, B=crisperimage sampling alone, C=consistent1nativepixel inkoutline usingoriginalM&E #191D22 pluscrispersampling. Do not change bodyCssPixels13/26 or zoomtest to hidegap. UsefixedoriginalsourceR4renders/pivot, no newgeometry, no newmodelrendering. Newpixel-outlinepostprocessing must be explicit in provenance, preserveoriginalcolorinterior andcells, no newartcopy/referenceassets. Per-cell alpha remains at least2px clear ofboundary, fullatlas256x256RGBA8<=1MiB; all16frameinputs pinned. Expectedassetmetadatahash/size updatedforintentionalnewart, withoutweakeningidentityvalidation. Don'toverruleR2FAILorclaimbaselinepixelidentity.
+
+Judge actual1xrealphone/desktop game captures and samephysicalcrop forrecognizableboat/bowstern/team/pose, notonlylargeatlas. A separatefreshcritic mustjudge builtselectedcandidate andexecuteoriginalfullgate. Mechanicstate/HPfraction/renderstability muststayexact, source/assetmanifest/shipping/release checks unchanged. FixonlyoriginalCoppPNG/build/provenance/registry/style sampling asneeded; no sky/moss/coil/newHUDlayout orvisual-combatfixture repair inthispiece. Rootmaymergeotheracceptedpieceslaterexplicitly.
+
+Builder separatesprototypes/sourcepreponlyuntilruntimegrant. SourceR2immutable; newcandidateexternal. Sourcecopy208MiBallowedONLYwhileheavyownerfreebeforeAstra starts, otherwiseboundedoverlayonly/deferbulkcopy. Node/Chrome/Blender singleheavyowner. Noperformanceclaimfromthesepresentationchecks.

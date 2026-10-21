@@ -1,0 +1,837 @@
+{
+  "fixedPresentation": {
+    "atlas": [
+      256,
+      256
+    ],
+    "bodyCssPixels": [
+      13,
+      26
+    ],
+    "cell": [
+      64,
+      64
+    ],
+    "cellWindowsPreserved": true,
+    "columnsActorFacing": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "perCellMinimumAlphaMargin": 2,
+    "pivot": [
+      32,
+      54
+    ],
+    "rows": [
+      "ember-idle",
+      "ember-contact",
+      "river-idle",
+      "river-contact"
+    ]
+  },
+  "identity": {
+    "prototypeBuilderSha256": "330f783957f6d3d4c73ae95844968a9ecb9482049372e2987dba2fad68b27940",
+    "sourceBuilderSha256": "292d2d85cc8b3fd39c40eb46d8313c2cc2f8da3f76050107dbfe3483e011f937",
+    "sourceFrames": [
+      {
+        "action": "idle",
+        "direction": "east",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-east-idle.png",
+        "sha256": "beb44ca1bc5d22d4faf9da819a1b7c967613f152467df23e03c51ed5f1a74458",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "direction": "north",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-north-idle.png",
+        "sha256": "bfb46eacfc73d889a0ab2b839dca30ef8c9cdd8e343bc969cd8087609f02c945",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "direction": "south",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-south-idle.png",
+        "sha256": "3e46117f6201219af3b02cfc0265edfe6af757005abfe45dc09cc4eea1748a9a",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "direction": "west",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-west-idle.png",
+        "sha256": "ad4418dca9330ba21a7f451e1be24b62b32880dd72f946f93b1f947d55b14e09",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "direction": "east",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-east-contact.png",
+        "sha256": "6d8fea7381bc660f64da7c04f376811b389ea4a2e4567987817a06c7eb3b9079",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "direction": "north",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-north-contact.png",
+        "sha256": "bf703b2ef3b408a28709fffb7fdc3f6275163bd7c08a5be306344fb27090bd78",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "direction": "south",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-south-contact.png",
+        "sha256": "741bbb53ca0b7c57e0a098062a70a75530f35eac3b8269c0ff49fcfb8031d623",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "direction": "west",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-ember-west-contact.png",
+        "sha256": "4d6ac5997bff2f631964e20c136998fda885a66d56ee62b623ae0b9de02518b2",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "direction": "east",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-east-idle.png",
+        "sha256": "1cf09795fb3731b4efa1332d233c2f43ebf1f0ae99f7ab478622ca646dd035ed",
+        "team": "river"
+      },
+      {
+        "action": "idle",
+        "direction": "north",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-north-idle.png",
+        "sha256": "5619e62b2ddb50ea5c0d5de37d05f7231864026eb6045c4e76beecef1e44e9a2",
+        "team": "river"
+      },
+      {
+        "action": "idle",
+        "direction": "south",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-south-idle.png",
+        "sha256": "c95340de9dfd3deaba6cff30d6ef01907841c189170b2b9a5dbdcfd5dca9f562",
+        "team": "river"
+      },
+      {
+        "action": "idle",
+        "direction": "west",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-west-idle.png",
+        "sha256": "40e289bc0eac869beb7a4558730a5a3256c51b09f7ddd6e4ab84f03771912460",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "direction": "east",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-east-contact.png",
+        "sha256": "bf5cb4020fe9c798b23e0d2dfd56ed39f10e1f7f011816045ba7a3c2c3607f22",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "direction": "north",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-north-contact.png",
+        "sha256": "103a840a25c587b4eef31c2b96b6e3c010c4a33795c6ed0483419fbb9610d0b1",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "direction": "south",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-south-contact.png",
+        "sha256": "f20ef79c350e216e59338b459b6e8c592f07137c853f2c5b547ae4971d844a47",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "direction": "west",
+        "path": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/raw-256/tapered_canopy-river-west-contact.png",
+        "sha256": "639ba38cff6fc06944c27db7daa029da78fabccc96a1ecebcf39aae498430118",
+        "team": "river"
+      }
+    ],
+    "sourceFramesAreUnmodified": true,
+    "sourceModel": "design/20261020-redesign/astra-round-4/generated/attempt-20261020T172856Z-81044/comparison/tapered_canopy/copperskiff.blend",
+    "sourceModelSha256": "3c4b0fe72fac569a575e02ac142d8d838b74a734a95f0ba2e5f2a9fd343cffac",
+    "sourceProvenanceSha256": "db9f50475e8a74d4d68b2d26cc397f5ad9b2620e76ef62e0cf4a085b19e83ba0"
+  },
+  "maxVariantBytes": 1048576,
+  "postprocessChecks": {
+    "cAddedPixelsAreOnlyOnePixelContour": 1012,
+    "cInteriorColorAndAlphaPixelsPreservedAgainstB": 1940,
+    "interiorPixelsChanged": 0,
+    "outlineColor": "#191D22",
+    "outlineConnectedness": 8,
+    "outlinePixelsByCell": [
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 62,
+        "direction": "east",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 58,
+        "direction": "north",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 57,
+        "direction": "south",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 62,
+        "direction": "west",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 68,
+        "direction": "east",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 66,
+        "direction": "north",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 62,
+        "direction": "south",
+        "team": "ember"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 71,
+        "direction": "west",
+        "team": "ember"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 62,
+        "direction": "east",
+        "team": "river"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 58,
+        "direction": "north",
+        "team": "river"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 57,
+        "direction": "south",
+        "team": "river"
+      },
+      {
+        "action": "idle",
+        "addedOpaqueInkPixels": 62,
+        "direction": "west",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 68,
+        "direction": "east",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 66,
+        "direction": "north",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 62,
+        "direction": "south",
+        "team": "river"
+      },
+      {
+        "action": "contact",
+        "addedOpaqueInkPixels": 71,
+        "direction": "west",
+        "team": "river"
+      }
+    ],
+    "simulationOrInputChanged": false
+  },
+  "purpose": "R3 native-context readability prototype; no product asset adopted",
+  "schemaVersion": 1,
+  "variants": [
+    {
+      "byteLength": 9990,
+      "cells": [
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 41,
+            "top": 43
+          },
+          "direction": "east",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 25,
+            "right": 38,
+            "top": 41
+          },
+          "direction": "north",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 56,
+            "left": 25,
+            "right": 38,
+            "top": 43
+          },
+          "direction": "south",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 22,
+            "right": 39,
+            "top": 43
+          },
+          "direction": "west",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 43,
+            "top": 42
+          },
+          "direction": "east",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 38,
+            "top": 39
+          },
+          "direction": "north",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 58,
+            "left": 25,
+            "right": 38,
+            "top": 42
+          },
+          "direction": "south",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 20,
+            "right": 39,
+            "top": 42
+          },
+          "direction": "west",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 41,
+            "top": 43
+          },
+          "direction": "east",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 25,
+            "right": 38,
+            "top": 41
+          },
+          "direction": "north",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 56,
+            "left": 25,
+            "right": 38,
+            "top": 43
+          },
+          "direction": "south",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 22,
+            "right": 39,
+            "top": 43
+          },
+          "direction": "west",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 43,
+            "top": 42
+          },
+          "direction": "east",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 38,
+            "top": 39
+          },
+          "direction": "north",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 58,
+            "left": 25,
+            "right": 38,
+            "top": 42
+          },
+          "direction": "south",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 20,
+            "right": 39,
+            "top": 42
+          },
+          "direction": "west",
+          "team": "river"
+        }
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "format": "RGBA8 PNG",
+      "label": "A",
+      "path": "A-current-r2.png",
+      "postprocess": "byte-identical current R2 atlas; 4x4 alpha-premultiplied integer area average",
+      "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8"
+    },
+    {
+      "byteLength": 11772,
+      "cells": [
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 40,
+            "top": 43
+          },
+          "direction": "east",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 37,
+            "top": 41
+          },
+          "direction": "north",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 25,
+            "right": 37,
+            "top": 43
+          },
+          "direction": "south",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 23,
+            "right": 38,
+            "top": 43
+          },
+          "direction": "west",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 42,
+            "top": 43
+          },
+          "direction": "east",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 37,
+            "top": 39
+          },
+          "direction": "north",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 57,
+            "left": 25,
+            "right": 37,
+            "top": 43
+          },
+          "direction": "south",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 20,
+            "right": 38,
+            "top": 43
+          },
+          "direction": "west",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 40,
+            "top": 43
+          },
+          "direction": "east",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 37,
+            "top": 41
+          },
+          "direction": "north",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 25,
+            "right": 37,
+            "top": 43
+          },
+          "direction": "south",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 23,
+            "right": 38,
+            "top": 43
+          },
+          "direction": "west",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 42,
+            "top": 43
+          },
+          "direction": "east",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 25,
+            "right": 37,
+            "top": 39
+          },
+          "direction": "north",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 57,
+            "left": 25,
+            "right": 37,
+            "top": 43
+          },
+          "direction": "south",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 54,
+            "left": 20,
+            "right": 38,
+            "top": 43
+          },
+          "direction": "west",
+          "team": "river"
+        }
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "format": "RGBA8 PNG",
+      "label": "B",
+      "path": "B-crisp-center-sample.png",
+      "postprocess": "center sample of each 4x4 block from the pinned R4 256x256 source frame",
+      "sha256": "9c818184aa439f58ca34ea733fcae546230b7613edfb812058eed46f1ef3f6c4"
+    },
+    {
+      "byteLength": 12094,
+      "cells": [
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 41,
+            "top": 42
+          },
+          "direction": "east",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 38,
+            "top": 40
+          },
+          "direction": "north",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 56,
+            "left": 24,
+            "right": 38,
+            "top": 42
+          },
+          "direction": "south",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 22,
+            "right": 39,
+            "top": 42
+          },
+          "direction": "west",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 43,
+            "top": 42
+          },
+          "direction": "east",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 38,
+            "top": 38
+          },
+          "direction": "north",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 58,
+            "left": 24,
+            "right": 38,
+            "top": 42
+          },
+          "direction": "south",
+          "team": "ember"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 19,
+            "right": 39,
+            "top": 42
+          },
+          "direction": "west",
+          "team": "ember"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 41,
+            "top": 42
+          },
+          "direction": "east",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 38,
+            "top": 40
+          },
+          "direction": "north",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 56,
+            "left": 24,
+            "right": 38,
+            "top": 42
+          },
+          "direction": "south",
+          "team": "river"
+        },
+        {
+          "action": "idle",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 22,
+            "right": 39,
+            "top": 42
+          },
+          "direction": "west",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 43,
+            "top": 42
+          },
+          "direction": "east",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 24,
+            "right": 38,
+            "top": 38
+          },
+          "direction": "north",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 58,
+            "left": 24,
+            "right": 38,
+            "top": 42
+          },
+          "direction": "south",
+          "team": "river"
+        },
+        {
+          "action": "contact",
+          "alphaBounds": {
+            "bottom": 55,
+            "left": 19,
+            "right": 39,
+            "top": 42
+          },
+          "direction": "west",
+          "team": "river"
+        }
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "format": "RGBA8 PNG",
+      "label": "C",
+      "path": "C-crisp-center-plus-1px-ink-outline.png",
+      "postprocess": "same center sample as B plus one opaque 8-connected #191D22 contour pixel in transparent pixels",
+      "sha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a"
+    }
+  ]
+}

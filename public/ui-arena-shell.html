@@ -844,6 +844,13 @@
         top: 8px;
       }
 
+      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card::before,
+      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card::after,
+      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card::before,
+      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card::after {
+        transform: translateZ(0);
+      }
+
       body[data-app-frame="true"] .hud-card__name {
         display: block;
         left: 1px;

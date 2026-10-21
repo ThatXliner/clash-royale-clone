@@ -347,9 +347,16 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
     "the accepted default deck order remains exact");
   assert.deepEqual(createPlayableRoster(), parentRoster.createPlayableRoster(),
     "default card rendering metadata remains exact");
-  assert.equal(getCombatStyleText(), parentState.getCombatStyleText() +
+  const copperskiffMotionCss = `.combat-marker[data-kind="copperskiff"][data-pose] .combat-art{transform:none;transform-origin:50% 84.375%}`;
+  const copperskiffWindowCss = `.combat-art--copperskiff{overflow:hidden}`;
+  const styleWithoutCopperskiffRules = getCombatStyleText()
+    .replace(copperskiffMotionCss, "")
+    .replace(copperskiffWindowCss, "");
+  assert.equal(styleWithoutCopperskiffRules, parentState.getCombatStyleText() +
     `.combat-marker[data-kind="brackenwheel"]::before{content:"";position:absolute;z-index:-1;inset:-3px;border:2px solid;border-radius:50%;pointer-events:none}.combat-marker[data-kind="brackenwheel"][data-side="north"]::before{border-color:#b95c4c}.combat-marker[data-kind="brackenwheel"][data-side="south"]::before{border-color:#398ba4}`,
-  "the only added combat CSS is Brackenwheel's team-readable ring");
+  "Copperskiff only adds its fixed window and no-rotation rules on top of the accepted combat CSS");
+  assert.ok(getCombatStyleText().includes(copperskiffMotionCss));
+  assert.ok(getCombatStyleText().includes(copperskiffWindowCss));
 
   const portraitIds = getCardPortraitIds();
   assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 2,

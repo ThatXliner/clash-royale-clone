@@ -1,0 +1,69 @@
+[
+  {
+    "name": "saved_blend_fresh_render",
+    "runtime": "Blender 5.1.2",
+    "pid": 65899,
+    "exit_code": 0,
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background /Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model/skymaul.blend --threads 2 --python-exit-code 1 --python /Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/scripts/skymaul_evidence.py -- render --model-dir /Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model --output /Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders",
+    "log": "render.log",
+    "result": "384 color renders; 336 semantic masks; candidate .blend before/after hashes equal",
+    "process_state": "exited"
+  },
+  {
+    "name": "pinned_metrics",
+    "runtime": "/opt/homebrew/bin/python3",
+    "process_id": "not exposed by synchronous exec wrapper",
+    "exit_code": 0,
+    "command": "/opt/homebrew/bin/python3 /Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/scripts/skymaul_metrics.py --attempt /Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2",
+    "log": "metrics.log",
+    "result": "286/286 required pass; 848 crop rows, 0 failures"
+  },
+  {
+    "name": "direct_saved_blend_projection_first_attempt",
+    "runtime": "Blender 5.1.2 background",
+    "exit_code": 1,
+    "command": "Blender --background <attempt-05/model/skymaul.blend> --threads 2 --python-exit-code 1 --python <critic-r2/independent_saved_audit.py> -- --output <critic-r2/projection-audit.json>",
+    "log": "projection-audit.log",
+    "result": "critic validator stopped at presentation collection lookup; validator issue, not a candidate assertion; candidate untouched"
+  },
+  {
+    "name": "direct_saved_blend_projection_retry",
+    "runtime": "Blender 5.1.2 background",
+    "exec_session_id": 94667,
+    "exit_code": 0,
+    "command": "Blender --background <attempt-05/model/skymaul.blend> --threads 2 --python-exit-code 1 --python <critic-r2/independent_saved_audit.py> -- --output <critic-r2/projection-audit.json>",
+    "log": "projection-audit-retry1.log",
+    "output": "projection-audit.json",
+    "result": "848/848 rows pass; one constant 1.4-unit offset; clips unchanged"
+  },
+  {
+    "name": "independent_full_state_and_baseline_comparison",
+    "runtime": "python3",
+    "process_id": "not exposed by synchronous exec wrapper",
+    "exit_code": 0,
+    "command": "python3 inline audit: parse each complete preservation before/after JSON with Decimal; independently compare native camera subtrees to pinned Git baseline, and rings/materials to accepted-ring-reference.json",
+    "output": "independent-integrity-audit.json"
+  },
+  {
+    "name": "attempt_05_hash_immutability",
+    "runtime": "python3",
+    "process_id": "not exposed by synchronous exec wrapper",
+    "exit_code": 0,
+    "command": "python3 recursive SHA-256 snapshot and diff for candidate/attempts/attempt-05 against the pre-render snapshot",
+    "output": "candidate-hashes-before.json; candidate-hashes-after.json; hash-diff.json",
+    "result": "1238 prior files unchanged; only parent-added seal.json is new"
+  },
+  {
+    "name": "portrait_alpha_audit_and_visuals",
+    "runtime": "python3 and image viewer",
+    "exit_code": 0,
+    "result": "512x512; alpha bbox (154,0)-(491,353); top alpha edge count 112; inspected native 1x, enlargement, portrait, and unlabeled portrait comparison"
+  },
+  {
+    "name": "blender_release_check",
+    "runtime": "ps",
+    "exit_code": 0,
+    "command": "ps -p 65899 -o pid=,comm=",
+    "result": "no process with PID 65899; render process exited"
+  }
+]

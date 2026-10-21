@@ -10033,3 +10033,29 @@ EVIDENCE: Fresh independent unchanged browser gate SHA df5c179fb8641ff7c6150414a
 BIGGEST GAP: Low-contrast soft boat silhouette is hard to identify over grass and reflective water at actual native viewport size.
 
 DISPOSITION: Record one actual visualFAIL; restore correctness passes but the wholelive-artpiece does not. RetainRound537failure. No failedsprite/runtime/testfixture adopted. Prepare crisp sampling and originalinkoutline comparisons underunchanged 13/26inputs/zeroPNG/mechanic gates. Three-round samegap stopdoesnotapply: firstroundfailedrestore, secondreadability.
+
+
+## Round 545 — 2026-10-20
+
+PIECE: ART-3D-SKY-002 — Claude-directed Skymaul native character revision, round2
+
+VERDICT: FAIL — required portrait identity comparison
+
+EVIDENCE: Independent saved-Blend render exits0,384 render records and336 semantic masks. All286 nondiagnostic numeric gates pass;28 diagnostic entries remain distinct. Direct saved-model recomputation passes all848 crop rows (minimum4.1662750244140625px) and all106 fixed-rest frames, actor lift1.399999976158142 with original idle1–31/walk41–71/attack90–106 strips. Native camera and accepted ring/material subsets match exactly. All five preservation phases are numerically exact;535 signed-zero token differences are retained, never normalized; byte identity against initial canonical is false. Required fixed-camera portrait touches top edge in112 alpha pixels and clips upper head/hammer. Report and fresh imagery: external20261020-skymaul-redesign-round-2/critic-r2/VERDICT.md. Builder correction attempts are not independent rounds.
+
+BIGGEST GAP: The required diagnostic portrait clips the upper character instead of showing the complete identity.
+
+DISPOSITION: Keep public runtime unchanged. This is the second actual round for this piece, on a different gap. Preserve all failed artifacts; Claude/Astra source-only portrait-composition diagnosis precedes any new pinned authoring scope. No atlas/live-art/release acceptance is inferred.
+
+
+## Round 546 — 2026-10-20
+
+PIECE: APP-REDESIGN-COPPER-001 — live Copperskiff readability, round3
+
+VERDICT: PASS
+
+EVIDENCE: Fresh independent actual-game eight-case gate passes all phone/desktop normal/reduced horizontal/vertical cases with zero restore PNG differences and exact browser/session/input-bridge/audio future continuation and same-deck/seed restart. Original test SHA df5c179fb8641ff7c6150414ae3c4add0b0ea330d24d0d4b75193120ec758a2b unchanged; all probe flags unset. Fresh native A/C captures confirm selected atlas45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a has distinguishable hull boundaries overgrass/water at13/26inputs. Sprite6/6, isolation13/13, release24/24 and manifest6/6 pass;189file sourcefreeze passes before/after. Comparison corpus only read through a temporary link, not copied/imported/bundled. Historical Git fixture seed explicitly separated from fresh release evidence.
+
+BIGGEST GAP: At13 CSS-pixel phone size, interior hull detail remains too small to read; recognition relies on the clear outer contour, which meets the pinned grass/water separation bar.
+
+DISPOSITION: Adopt only accepted six runtime files, owned reproducibility/provenance/tests and this evidence. Do not adopt stale candidate audio/app-polish tests or unfinished Claude HUD/Skymaul work. Prior rounds537/544 and R545 failures retained. Public deployment is verified separately.

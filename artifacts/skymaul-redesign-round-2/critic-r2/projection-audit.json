@@ -1,0 +1,336 @@
+{
+  "source_blend": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model/skymaul.blend",
+  "frame_span": [
+    1,
+    106
+  ],
+  "teams": [
+    "river",
+    "ember"
+  ],
+  "directions": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "projection_rows": 848,
+  "projection_failures": 0,
+  "minimum_crop_margin_px": 4.1662750244140625,
+  "minimum_crop_row": {
+    "team": "river",
+    "direction": "east",
+    "frame": 1,
+    "actor_bounds": {
+      "left": 0.3915887176990509,
+      "right": 0.5710279941558838,
+      "top": 0.5042344331741333,
+      "bottom": 0.7171174883842468
+    },
+    "whole_bounds": {
+      "left": 0.3791276216506958,
+      "right": 0.6208721995353699,
+      "top": 0.5042344331741333,
+      "bottom": 0.9349019527435303
+    },
+    "actor_height_px": 13.624515533447266,
+    "crop_margins_px": [
+      24.26416778564453,
+      32.27100372314453,
+      24.264179229736328,
+      4.1662750244140625
+    ],
+    "anchor_px": [
+      31.9999942779541,
+      54.00001049041748
+    ],
+    "camera_elevation": 49.9999938705921,
+    "ortho_scale": 8.024999618530273,
+    "actor_forward_screen_delta": [
+      0.12461063265800476,
+      0.0
+    ],
+    "checks": {
+      "crop_min4": true,
+      "camera_elevation": true,
+      "ortho_scale": true,
+      "anchor": true,
+      "heading": true
+    }
+  },
+  "rest_offset_relative_to_placement_unique_count": 1,
+  "rest_offset_relative_to_placement_values": [
+    [
+      0.0,
+      0.0,
+      1.399999976158142
+    ]
+  ],
+  "rest_offset_range_world_units": {
+    "min_z": 1.399999976158142,
+    "max_z": 1.399999976158142
+  },
+  "root_transform_frame1": {
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation_euler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "clip_records_by_animated_object": {
+    "ME_SBR_R1_skymaul_body": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    },
+    "ME_SBR_R1_skymaul_upper_cluster": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    },
+    "ME_SBR_R1_skymaul_head": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    },
+    "ME_SBR_R1_skymaul_left_arm": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    },
+    "ME_SBR_R1_skymaul_right_arm": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    },
+    "ME_SBR_R1_skymaul_lower_stones": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    },
+    "ME_SBR_R1_skymaul_hammer": {
+      "idle": [
+        {
+          "frame_start": 1.0,
+          "frame_end": 31.0,
+          "action_frame_start": 1.0,
+          "action_frame_end": 31.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "walk": [
+        {
+          "frame_start": 41.0,
+          "frame_end": 71.0,
+          "action_frame_start": 41.0,
+          "action_frame_end": 71.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ],
+      "attack": [
+        {
+          "frame_start": 90.0,
+          "frame_end": 106.0,
+          "action_frame_start": 90.0,
+          "action_frame_end": 106.0,
+          "scale": 1.0,
+          "repeat": 1.0
+        }
+      ]
+    }
+  },
+  "clip_failures": [],
+  "actor_height_px_range_by_direction": {
+    "north": {
+      "min": 11.841381072998047,
+      "max": 15.862918853759766
+    },
+    "east": {
+      "min": 13.591203689575195,
+      "max": 14.824453353881836
+    },
+    "south": {
+      "min": 13.370450973510742,
+      "max": 15.539562225341797
+    },
+    "west": {
+      "min": 13.571266174316406,
+      "max": 14.861076354980469
+    }
+  },
+  "failures": []
+}

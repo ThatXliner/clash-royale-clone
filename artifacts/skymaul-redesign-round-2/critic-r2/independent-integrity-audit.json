@@ -1,0 +1,206 @@
+{
+  "preservation_phases": [
+    {
+      "phase": "post-export",
+      "before": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model/preservation/post-export-before.json",
+      "after": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model/preservation/post-export-after.json",
+      "before_sha256": "ea317b6a7988aa2ed2ccdb0811ca0b8c4fc1841ff39b60748925195d095bdec1",
+      "after_sha256": "32d1d0f4bd1483ae352df67013a8d3fb2dc2965417082a49f1093180699cb896",
+      "byte_identical": false,
+      "numeric_exact_equal": true,
+      "numeric_differences": 0,
+      "structural_differences": 0,
+      "equal_numeric_token_differences": 535,
+      "token_difference_patterns": {
+        "('0.0', '-0.0')": 535
+      },
+      "first_token_differences": [
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_lower_stones/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_body/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_head/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        }
+      ],
+      "rounding_or_epsilon_used": false
+    },
+    {
+      "phase": "post-save",
+      "before": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model/preservation/post-save-before.json",
+      "after": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/model/preservation/post-save-after.json",
+      "before_sha256": "ea317b6a7988aa2ed2ccdb0811ca0b8c4fc1841ff39b60748925195d095bdec1",
+      "after_sha256": "32d1d0f4bd1483ae352df67013a8d3fb2dc2965417082a49f1093180699cb896",
+      "byte_identical": false,
+      "numeric_exact_equal": true,
+      "numeric_differences": 0,
+      "structural_differences": 0,
+      "equal_numeric_token_differences": 535,
+      "token_difference_patterns": {
+        "('0.0', '-0.0')": 535
+      },
+      "first_token_differences": [
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_lower_stones/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_body/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_head/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        }
+      ],
+      "rounding_or_epsilon_used": false
+    },
+    {
+      "phase": "fresh-load",
+      "before": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders/preservation/fresh-load-before.json",
+      "after": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders/preservation/fresh-load-after.json",
+      "before_sha256": "ea317b6a7988aa2ed2ccdb0811ca0b8c4fc1841ff39b60748925195d095bdec1",
+      "after_sha256": "32d1d0f4bd1483ae352df67013a8d3fb2dc2965417082a49f1093180699cb896",
+      "byte_identical": false,
+      "numeric_exact_equal": true,
+      "numeric_differences": 0,
+      "structural_differences": 0,
+      "equal_numeric_token_differences": 535,
+      "token_difference_patterns": {
+        "('0.0', '-0.0')": 535
+      },
+      "first_token_differences": [
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_lower_stones/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_body/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_head/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        }
+      ],
+      "rounding_or_epsilon_used": false
+    },
+    {
+      "phase": "mask-restoration",
+      "before": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders/preservation/mask-restoration-before.json",
+      "after": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders/preservation/mask-restoration-after.json",
+      "before_sha256": "ea317b6a7988aa2ed2ccdb0811ca0b8c4fc1841ff39b60748925195d095bdec1",
+      "after_sha256": "32d1d0f4bd1483ae352df67013a8d3fb2dc2965417082a49f1093180699cb896",
+      "byte_identical": false,
+      "numeric_exact_equal": true,
+      "numeric_differences": 0,
+      "structural_differences": 0,
+      "equal_numeric_token_differences": 535,
+      "token_difference_patterns": {
+        "('0.0', '-0.0')": 535
+      },
+      "first_token_differences": [
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_lower_stones/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_body/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_head/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        }
+      ],
+      "rounding_or_epsilon_used": false
+    },
+    {
+      "phase": "final-render",
+      "before": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders/preservation/final-render-before.json",
+      "after": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/critic-r2/renders/preservation/final-render-after.json",
+      "before_sha256": "ea317b6a7988aa2ed2ccdb0811ca0b8c4fc1841ff39b60748925195d095bdec1",
+      "after_sha256": "32d1d0f4bd1483ae352df67013a8d3fb2dc2965417082a49f1093180699cb896",
+      "byte_identical": false,
+      "numeric_exact_equal": true,
+      "numeric_differences": 0,
+      "structural_differences": 0,
+      "equal_numeric_token_differences": 535,
+      "token_difference_patterns": {
+        "('0.0', '-0.0')": 535
+      },
+      "first_token_differences": [
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_lower_stones/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_body/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        },
+        {
+          "path": "/integer_frame_local_poses/85/ME_SBR_R1_skymaul_head/rotation_euler/1",
+          "before_token": "0.0",
+          "after_token": "-0.0"
+        }
+      ],
+      "rounding_or_epsilon_used": false
+    }
+  ],
+  "accepted_ring_reference_sha256": "5e44494a8c1c63d94adc4c2bbdbb520ccfa6c98a75ac8c91088424ae49d4cb9c",
+  "ring_mesh_object_comparison": {
+    "matches_reference": true,
+    "numeric_diffs": 0,
+    "token_diffs": 0,
+    "structural_diffs": 0
+  },
+  "shared_materials_comparison": {
+    "matches_reference": true,
+    "numeric_diffs": 0,
+    "token_diffs": 0,
+    "structural_diffs": 0
+  },
+  "native_camera_comparison": {
+    "baseline_git_ref": "16b8ad1664117dcb928ce3bcf3e2fdac45ab23a9:design/20261020-redesign/astra-next-three-round-1/models/skymaul/canonical-state.json",
+    "cameras": [
+      "ME_SBR_R1_skymaul_north",
+      "ME_SBR_R1_skymaul_east",
+      "ME_SBR_R1_skymaul_south",
+      "ME_SBR_R1_skymaul_west"
+    ],
+    "matches_baseline": true,
+    "numeric_diffs": 0,
+    "token_diffs": 0,
+    "structural_diffs": 0
+  },
+  "hammer_parent": "ME_SBR_R1_skymaul_right_arm",
+  "all_material_names": [
+    "ME_SBR_R1_skymaul_amber",
+    "ME_SBR_R1_skymaul_bone",
+    "ME_SBR_R1_skymaul_copper",
+    "ME_SBR_R1_skymaul_ink",
+    "ME_SBR_R1_skymaul_stone",
+    "ME_SBR_R1_skymaul_stone_light",
+    "ME_SBR_R1_skymaul_wood",
+    "TEAM"
+  ]
+}

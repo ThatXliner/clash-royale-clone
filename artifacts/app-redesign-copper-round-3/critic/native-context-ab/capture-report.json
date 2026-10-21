@@ -1,0 +1,545 @@
+{
+  "purpose": "diagnostic A/B/C rendering in the actual game at 1x phone and desktop viewports; not a release qualification",
+  "session": {
+    "seed": 3,
+    "scenario": "horizontal",
+    "serializedBytes": 39033
+  },
+  "records": [
+    {
+      "browserErrors": [],
+      "contact": {
+        "tick": 163,
+        "vectors": [
+          {
+            "id": 1,
+            "side": "south",
+            "targetId": 2,
+            "targetSide": "north",
+            "axis": "x"
+          },
+          {
+            "id": 2,
+            "side": "north",
+            "targetId": 1,
+            "targetSide": "south",
+            "axis": "x"
+          }
+        ],
+        "damagedSides": [
+          "north",
+          "south"
+        ],
+        "markers": [
+          {
+            "action": "contact",
+            "direction": "east",
+            "frame": "copperskiff-river-east-contact",
+            "marker": {
+              "left": 253.265625,
+              "top": 601.28125,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 207.8515625,
+              "top": 513.14013671875,
+              "width": 124.296875,
+              "height": 124.296875
+            },
+            "side": "south"
+          },
+          {
+            "action": "contact",
+            "direction": "west",
+            "frame": "copperskiff-ember-west-contact",
+            "marker": {
+              "left": 388.265625,
+              "top": 541.234375,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 342.8515625,
+              "top": 453.09326171875,
+              "width": 124.296875,
+              "height": 124.296875
+            },
+            "side": "north"
+          }
+        ]
+      },
+      "mount": {
+        "bodyCssPixels": 13,
+        "sourceSessionBytes": 39033,
+        "tick": 1,
+        "unitSides": [
+          "north",
+          "south"
+        ]
+      },
+      "screenshot": {
+        "byteLength": 336567,
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/A-phone-390x844.png",
+        "sha256": "e0898646cb3f013c035eea73c1442f9f90c3220740bf376d5a7f29ee720c835d"
+      },
+      "variant": {
+        "label": "A",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/prototypes/A-current-r2.png",
+        "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8"
+      },
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      }
+    },
+    {
+      "browserErrors": [],
+      "contact": {
+        "tick": 163,
+        "vectors": [
+          {
+            "id": 1,
+            "side": "south",
+            "targetId": 2,
+            "targetSide": "north",
+            "axis": "x"
+          },
+          {
+            "id": 2,
+            "side": "north",
+            "targetId": 1,
+            "targetSide": "south",
+            "axis": "x"
+          }
+        ],
+        "damagedSides": [
+          "north",
+          "south"
+        ],
+        "markers": [
+          {
+            "action": "contact",
+            "direction": "east",
+            "frame": "copperskiff-river-east-contact",
+            "marker": {
+              "left": 253.265625,
+              "top": 601.28125,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 162.09375,
+              "top": 435.923828125,
+              "width": 215.8125,
+              "height": 215.8125
+            },
+            "side": "south"
+          },
+          {
+            "action": "contact",
+            "direction": "west",
+            "frame": "copperskiff-ember-west-contact",
+            "marker": {
+              "left": 388.265625,
+              "top": 541.234375,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 297.09375,
+              "top": 375.876953125,
+              "width": 215.8125,
+              "height": 215.8125
+            },
+            "side": "north"
+          }
+        ]
+      },
+      "mount": {
+        "bodyCssPixels": 26,
+        "sourceSessionBytes": 39033,
+        "tick": 1,
+        "unitSides": [
+          "north",
+          "south"
+        ]
+      },
+      "screenshot": {
+        "byteLength": 477992,
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/A-desktop-1440x933.png",
+        "sha256": "a5d2420bd28bc62b7f3af41a633284592c8f7622cd24d494ad5303e15b127fc8"
+      },
+      "variant": {
+        "label": "A",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/prototypes/A-current-r2.png",
+        "sha256": "b7a308ee781303c4f8f84effedcc05195e36e7702a9a839c5c23cf10d856ace8"
+      },
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      }
+    },
+    {
+      "browserErrors": [],
+      "contact": {
+        "tick": 163,
+        "vectors": [
+          {
+            "id": 1,
+            "side": "south",
+            "targetId": 2,
+            "targetSide": "north",
+            "axis": "x"
+          },
+          {
+            "id": 2,
+            "side": "north",
+            "targetId": 1,
+            "targetSide": "south",
+            "axis": "x"
+          }
+        ],
+        "damagedSides": [
+          "north",
+          "south"
+        ],
+        "markers": [
+          {
+            "action": "contact",
+            "direction": "east",
+            "frame": "copperskiff-river-east-contact",
+            "marker": {
+              "left": 253.265625,
+              "top": 601.28125,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 207.8515625,
+              "top": 513.14013671875,
+              "width": 124.296875,
+              "height": 124.296875
+            },
+            "side": "south"
+          },
+          {
+            "action": "contact",
+            "direction": "west",
+            "frame": "copperskiff-ember-west-contact",
+            "marker": {
+              "left": 388.265625,
+              "top": 541.234375,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 342.8515625,
+              "top": 453.09326171875,
+              "width": 124.296875,
+              "height": 124.296875
+            },
+            "side": "north"
+          }
+        ]
+      },
+      "mount": {
+        "bodyCssPixels": 13,
+        "sourceSessionBytes": 39033,
+        "tick": 1,
+        "unitSides": [
+          "north",
+          "south"
+        ]
+      },
+      "screenshot": {
+        "byteLength": 336575,
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/B-phone-390x844.png",
+        "sha256": "734801379494bb08b266c0d7ffa0d35a706b7ba17e1128674226c80fc584046e"
+      },
+      "variant": {
+        "label": "B",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/prototypes/B-crisp-center-sample.png",
+        "sha256": "9c818184aa439f58ca34ea733fcae546230b7613edfb812058eed46f1ef3f6c4"
+      },
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      }
+    },
+    {
+      "browserErrors": [],
+      "contact": {
+        "tick": 163,
+        "vectors": [
+          {
+            "id": 1,
+            "side": "south",
+            "targetId": 2,
+            "targetSide": "north",
+            "axis": "x"
+          },
+          {
+            "id": 2,
+            "side": "north",
+            "targetId": 1,
+            "targetSide": "south",
+            "axis": "x"
+          }
+        ],
+        "damagedSides": [
+          "north",
+          "south"
+        ],
+        "markers": [
+          {
+            "action": "contact",
+            "direction": "east",
+            "frame": "copperskiff-river-east-contact",
+            "marker": {
+              "left": 253.265625,
+              "top": 601.28125,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 162.09375,
+              "top": 435.923828125,
+              "width": 215.8125,
+              "height": 215.8125
+            },
+            "side": "south"
+          },
+          {
+            "action": "contact",
+            "direction": "west",
+            "frame": "copperskiff-ember-west-contact",
+            "marker": {
+              "left": 388.265625,
+              "top": 541.234375,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 297.09375,
+              "top": 375.876953125,
+              "width": 215.8125,
+              "height": 215.8125
+            },
+            "side": "north"
+          }
+        ]
+      },
+      "mount": {
+        "bodyCssPixels": 26,
+        "sourceSessionBytes": 39033,
+        "tick": 1,
+        "unitSides": [
+          "north",
+          "south"
+        ]
+      },
+      "screenshot": {
+        "byteLength": 477917,
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/B-desktop-1440x933.png",
+        "sha256": "c7c014bcb040b7ca3bc5f74692c338351451833aeff669dc20bc03e431395a0b"
+      },
+      "variant": {
+        "label": "B",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/prototypes/B-crisp-center-sample.png",
+        "sha256": "9c818184aa439f58ca34ea733fcae546230b7613edfb812058eed46f1ef3f6c4"
+      },
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      }
+    },
+    {
+      "browserErrors": [],
+      "contact": {
+        "tick": 163,
+        "vectors": [
+          {
+            "id": 1,
+            "side": "south",
+            "targetId": 2,
+            "targetSide": "north",
+            "axis": "x"
+          },
+          {
+            "id": 2,
+            "side": "north",
+            "targetId": 1,
+            "targetSide": "south",
+            "axis": "x"
+          }
+        ],
+        "damagedSides": [
+          "north",
+          "south"
+        ],
+        "markers": [
+          {
+            "action": "contact",
+            "direction": "east",
+            "frame": "copperskiff-river-east-contact",
+            "marker": {
+              "left": 253.265625,
+              "top": 601.28125,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 207.8515625,
+              "top": 513.14013671875,
+              "width": 124.296875,
+              "height": 124.296875
+            },
+            "side": "south"
+          },
+          {
+            "action": "contact",
+            "direction": "west",
+            "frame": "copperskiff-ember-west-contact",
+            "marker": {
+              "left": 388.265625,
+              "top": 541.234375,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 342.8515625,
+              "top": 453.09326171875,
+              "width": 124.296875,
+              "height": 124.296875
+            },
+            "side": "north"
+          }
+        ]
+      },
+      "mount": {
+        "bodyCssPixels": 13,
+        "sourceSessionBytes": 39033,
+        "tick": 1,
+        "unitSides": [
+          "north",
+          "south"
+        ]
+      },
+      "screenshot": {
+        "byteLength": 336756,
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/C-phone-390x844.png",
+        "sha256": "11e225a483cb6364833c2b8cf71f318d42308cea2792947f9f08a78be4b3e7a6"
+      },
+      "variant": {
+        "label": "C",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/prototypes/C-crisp-center-plus-1px-ink-outline.png",
+        "sha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a"
+      },
+      "viewport": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "bodyCssPixels": 13
+      }
+    },
+    {
+      "browserErrors": [],
+      "contact": {
+        "tick": 163,
+        "vectors": [
+          {
+            "id": 1,
+            "side": "south",
+            "targetId": 2,
+            "targetSide": "north",
+            "axis": "x"
+          },
+          {
+            "id": 2,
+            "side": "north",
+            "targetId": 1,
+            "targetSide": "south",
+            "axis": "x"
+          }
+        ],
+        "damagedSides": [
+          "north",
+          "south"
+        ],
+        "markers": [
+          {
+            "action": "contact",
+            "direction": "east",
+            "frame": "copperskiff-river-east-contact",
+            "marker": {
+              "left": 253.265625,
+              "top": 601.28125,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 162.09375,
+              "top": 435.923828125,
+              "width": 215.8125,
+              "height": 215.8125
+            },
+            "side": "south"
+          },
+          {
+            "action": "contact",
+            "direction": "west",
+            "frame": "copperskiff-ember-west-contact",
+            "marker": {
+              "left": 388.265625,
+              "top": 541.234375,
+              "width": 33.46875,
+              "height": 33.46875
+            },
+            "art": {
+              "left": 297.09375,
+              "top": 375.876953125,
+              "width": 215.8125,
+              "height": 215.8125
+            },
+            "side": "north"
+          }
+        ]
+      },
+      "mount": {
+        "bodyCssPixels": 26,
+        "sourceSessionBytes": 39033,
+        "tick": 1,
+        "unitSides": [
+          "north",
+          "south"
+        ]
+      },
+      "screenshot": {
+        "byteLength": 478599,
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/critic-r3/native-context-ab/C-desktop-1440x933.png",
+        "sha256": "ee73da2c630970577a7b80a2fd1b2f15c3d3a6b017c7769b57835dac28c31fa9"
+      },
+      "variant": {
+        "label": "C",
+        "path": "/Users/me/.codex/clash-qualification/20261020-copperskiff-readability-r3/prototypes/C-crisp-center-plus-1px-ink-outline.png",
+        "sha256": "45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a"
+      },
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 933,
+        "bodyCssPixels": 26
+      }
+    }
+  ],
+  "missingPaths": []
+}

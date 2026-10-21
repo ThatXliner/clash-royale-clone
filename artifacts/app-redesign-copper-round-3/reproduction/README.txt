@@ -1,0 +1,1 @@
+Root reproduced acceptedC SHA45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a from pinned16rawframes withPython3.14.6, exit0. Generator A baseline now reads the immutable R2 evidence atlas so rerunning after shipping C does not mislabel C as A. No runtime asset differs from critic-reviewed bytes.
