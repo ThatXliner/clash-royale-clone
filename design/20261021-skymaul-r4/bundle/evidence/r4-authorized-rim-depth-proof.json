@@ -1,0 +1,52 @@
+{
+  "after": {
+    "bytes": 1379611,
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/authorized-rim-depth-after.json",
+    "sha256": "f59907c2f6e8354be1681582da2438953727a755552be025290c109e3d76e066"
+  },
+  "all_other_records_canonical_byte_exact": true,
+  "before": {
+    "bytes": 1379611,
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/authorized-rim-depth-before.json",
+    "sha256": "931d4df3ccffa1c93f7a830f44a837a1d80453f346d736e13c2df3b71505e148"
+  },
+  "byte_identical": false,
+  "epsilon": false,
+  "equal_numeric_token_difference_count": 0,
+  "equal_numeric_token_differences": [],
+  "exact_expected_before_value": -0.10000000149011612,
+  "exact_expected_paths": {
+    "/complete_object_matrices/ME_SBR_R1_skymaul_chest_core_rim/matrix_basis/1/3": -0.07999999821186066,
+    "/complete_object_matrices/ME_SBR_R1_skymaul_chest_core_rim/matrix_local/1/3": -0.07999999821186066,
+    "/complete_object_matrices/ME_SBR_R1_skymaul_chest_core_rim/matrix_world/1/3": -0.07999999821186066,
+    "/objects/ME_SBR_R1_skymaul_chest_core_rim/transform/location/1": -0.07999999821186066
+  },
+  "label": "authorized-rim-depth",
+  "numeric_difference_count": 4,
+  "numeric_differences": [
+    {
+      "after": -0.07999999821186066,
+      "before": -0.10000000149011612,
+      "path": "/complete_object_matrices/ME_SBR_R1_skymaul_chest_core_rim/matrix_basis/1/3"
+    },
+    {
+      "after": -0.07999999821186066,
+      "before": -0.10000000149011612,
+      "path": "/complete_object_matrices/ME_SBR_R1_skymaul_chest_core_rim/matrix_local/1/3"
+    },
+    {
+      "after": -0.07999999821186066,
+      "before": -0.10000000149011612,
+      "path": "/complete_object_matrices/ME_SBR_R1_skymaul_chest_core_rim/matrix_world/1/3"
+    },
+    {
+      "after": -0.07999999821186066,
+      "before": -0.10000000149011612,
+      "path": "/objects/ME_SBR_R1_skymaul_chest_core_rim/transform/location/1"
+    }
+  ],
+  "numeric_exact_equal": false,
+  "one_local_scalar_and_three_derived_matrix_entries_only": true,
+  "rounding": false,
+  "signed_zero_normalization": false
+}

@@ -1,0 +1,281 @@
+{
+  "status": "Measured builder evidence; independent critic required, no builder quality verdict",
+  "native_required_gates": 286,
+  "native_failures": 0,
+  "crop": {
+    "failures": 0,
+    "minimum_px": 4.1662750244140625,
+    "rows": 848
+  },
+  "rest_frames": 106,
+  "rest_checks_met": true,
+  "core_support": {
+    "isolated": 8194,
+    "visible": 8194,
+    "lost": 0,
+    "extra": 0,
+    "exact_support_equal": true,
+    "all114_prior_lost_pixels_recovered": true,
+    "isolated_core_rgba_unchanged": true
+  },
+  "portrait_alpha": {
+    "all_checks_pass": true,
+    "bounds": {
+      "height": 407,
+      "left": 87,
+      "top": 53,
+      "width": 338
+    },
+    "checks": {
+      "all_edges_alpha_zero": true,
+      "bottom_margin_min_9": true,
+      "height_fill_76_to_81": true,
+      "left_margin_min_6": true,
+      "right_margin_min_6": true,
+      "size_512": true,
+      "top_margin_min_9": true
+    },
+    "clear_margins_normalized": {
+      "bottom": 0.1015625,
+      "left": 0.169921875,
+      "right": 0.169921875,
+      "top": 0.103515625
+    },
+    "edge_pixel_counts": {
+      "bottom": 0,
+      "left": 0,
+      "right": 0,
+      "top": 0
+    },
+    "height_fill": 0.794921875,
+    "threshold": 1,
+    "threshold_rule": "alpha >= 1, every nonzero alpha pixel"
+  },
+  "portrait_source_projection": {
+    "bottom": 0.8959460482001305,
+    "left": 0.17274194955825806,
+    "right": 0.8272190690040588,
+    "top": 0.10485458374023438
+  },
+  "portrait_core_luminance": {
+    "max": 0.898475294117647,
+    "median": 0.8665364705882354,
+    "min": 0.7317717647058823,
+    "pixels": 8194
+  },
+  "portrait_other_luminance": {
+    "max": 0.8275521568627451,
+    "median": 0.26920705882352947,
+    "min": 0.0647521568627451,
+    "pixels": 41830
+  },
+  "native_fullstate_numeric_exact": true,
+  "native_fullstate_byte_identical": true,
+  "native_repeat_portrait_rgba_equal": true,
+  "all_preservation_proofs": [
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/portrait-first/preservation/complete-camera-and-matrix-render-restoration-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/portrait-first/preservation/portrait-render-restoration-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/portrait-first/preservation/r4-fresh-load-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/authorized-rim-depth-proof.json",
+      "numeric_difference_count": 4,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": false,
+      "byte_identical": false
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/glb-document-proof.json",
+      "numeric_difference_count": 1,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": false,
+      "byte_identical": false
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/post-export-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/post-save-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/preprojection-restoration-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/r3-sealed-load-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/preservation/source-generator-delta-proof.json",
+      "numeric_difference_count": 1,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": false,
+      "byte_identical": false
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/renders/preservation/complete-camera-and-matrix-render-restoration-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/renders/preservation/final-render-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/renders/preservation/fresh-load-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/renders/preservation/mask-restoration-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/renders/preservation/r4-fresh-load-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/verification-001/preservation/after-read-only-audits-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/verification-001/preservation/fresh-load-proof.json",
+      "numeric_difference_count": 0,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": true,
+      "byte_identical": true
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/verification-001/preservation/glb-document-proof.json",
+      "numeric_difference_count": 1,
+      "equal_numeric_token_difference_count": 0,
+      "numeric_exact_equal": false,
+      "byte_identical": false
+    }
+  ],
+  "glb_document_changes": [
+    {
+      "after": 0.07999999821186066,
+      "before": 0.10000000149011612,
+      "path": "/nodes/2/translation/2"
+    }
+  ],
+  "glb_all_binary_bytes_equal": true,
+  "glb_buffer_view_count": 79,
+  "old_new_native_summary": {
+    "raw-256": {
+      "images": 384,
+      "rgba_identical_images": 168,
+      "changed_pixels": 11810,
+      "alpha_changed_pixels": 3740,
+      "max_changed_pixels_one_image": 140
+    },
+    "native-64": {
+      "images": 384,
+      "rgba_identical_images": 168,
+      "changed_pixels": 1744,
+      "alpha_changed_pixels": 934,
+      "max_changed_pixels_one_image": 18
+    },
+    "semantic-64": {
+      "images": 336,
+      "rgba_identical_images": 216,
+      "changed_pixels": 890,
+      "alpha_changed_pixels": 890,
+      "max_changed_pixels_one_image": 14
+    },
+    "native-64/color": {
+      "images": 24,
+      "rgba_identical_images": 0,
+      "changed_pixels": 311,
+      "alpha_changed_pixels": 98,
+      "max_changed_pixels_one_image": 18
+    }
+  },
+  "native_color_changed_union_bbox_inclusive": [
+    29,
+    39,
+    34,
+    44
+  ],
+  "changed_semantic_groups": [
+    "semantic-64/chest",
+    "semantic-64/copper",
+    "semantic-64/core",
+    "semantic-64/lower",
+    "semantic-64/stone"
+  ],
+  "all_isolated_unowned_captures_exact": {
+    "raw-256": true,
+    "native-64": true
+  },
+  "portrait_difference_summary": {
+    "rgba_changed_pixels": 1707,
+    "alpha_changed_pixels": 72,
+    "changed_bbox_inclusive": [
+      122,
+      317,
+      257,
+      447
+    ]
+  },
+  "blend": {
+    "bytes": 726936,
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/model/skymaul.blend",
+    "sha256": "6b4d977731b96b90ae12ec093b4718b86760474084b586d018a3eec1eef11c8c"
+  },
+  "glb": {
+    "bytes": 94304,
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/model/skymaul.glb",
+    "sha256": "053dd3cb0cf1f64f13112529c510453f40239f711338263b9deac4862454fc15"
+  },
+  "r547": "FAIL unchanged",
+  "runtime_acceptance": false
+}

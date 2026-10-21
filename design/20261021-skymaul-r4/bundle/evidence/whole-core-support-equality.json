@@ -1,0 +1,38 @@
+{
+  "core_display_luminance": {
+    "max": 0.898475294117647,
+    "median": 0.8665364705882354,
+    "min": 0.7317717647058823,
+    "pixels": 8194
+  },
+  "core_object": "ME_SBR_R1_skymaul_warm_core",
+  "entire_core_inside": true,
+  "exact_support_equal": true,
+  "extra_coordinates": [],
+  "extra_pixels": 0,
+  "isolated_mask": {
+    "bytes": 63718,
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/portrait-first/portrait-core-isolated.png",
+    "sha256": "f3e98b032fb89e74f3dc51632707002b13dfd9c35f63c50173f25be9b0ebfc68"
+  },
+  "isolated_pixels": 8194,
+  "isolated_support_definition": "A >= 128 from isolated entire warm_core object",
+  "lightest_region_and_identity_visual_verdict": "Independent critic required",
+  "lost_coordinates": [],
+  "lost_pixels": 0,
+  "other_actor_display_luminance": {
+    "max": 0.8275521568627451,
+    "median": 0.26920705882352947,
+    "min": 0.0647521568627451,
+    "pixels": 41830
+  },
+  "status": "Pinned whole-object opaque support equality, no tolerance or face-subset replacement",
+  "threshold": 128,
+  "visible_mask": {
+    "bytes": 82720,
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/portrait-first/portrait-core-visible.png",
+    "sha256": "9c13bd304aef4f2da5cc82c2fbaf186928552c62a349c3130144c14096c3132f"
+  },
+  "visible_pixels": 8194,
+  "visible_support_definition": "round(R * A / 255) >= 128 from full-actor Raw pure-emission core mask"
+}

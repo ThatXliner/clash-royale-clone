@@ -10059,3 +10059,65 @@ EVIDENCE: Fresh independent actual-game eight-case gate passes all phone/desktop
 BIGGEST GAP: At13 CSS-pixel phone size, interior hull detail remains too small to read; recognition relies on the clear outer contour, which meets the pinned grass/water separation bar.
 
 DISPOSITION: Adopt only accepted six runtime files, owned reproducibility/provenance/tests and this evidence. Do not adopt stale candidate audio/app-polish tests or unfinished Claude HUD/Skymaul work. Prior rounds537/544 and R545 failures retained. Public deployment is verified separately.
+
+
+## Round 547 — 2026-10-21
+
+PIECE: ART-3D-SKY-002 — fixed diagnostic portrait framing, round3
+
+VERDICT: FAIL
+
+EVIDENCE: Independent saved-model portrait/native/fresh-load verification exits0. Framing alpha bounds(87,53,338,407), height0.794921875, zero occupied edges; camera exact pinned2.65/.130/.208. All848crop rows and106rest frames pass, nativedecodedrenders matchprior sealedpixels. Fullmodelstateafteractualrender numerically/byteexact,2353files unchanged, originalGLBbitexact. Isolated-vs-visible coremask shows114of8194 opaque pixels occluded by othergeometry; source ray ownership attributes110pixelcenters to chest_core_rim withfourcoverage-limitededges retained. Required entirecoreunoccluded gateFAIL. BuilderfirstPNGrawbyteassertionexit1 retained: Date/RenderTime metadata only, decodedRGBA0diff. Separatecorrectedwrapper/independentcriticactualfullinmemory proofs pass, not a normalization ofmodelstate.
+
+BIGGEST GAP: The existing copper rim hides114opaque corepixels, failing the pinned entirecoreunoccluded portrait requirement.
+
+DISPOSITION: Preserve round3 artifact, do not rescoreR545clippingfailure or adopt failedmodel. Thirdpiece round, different gaps from originalfloatingbody/nativechecks and clipping; no three samegapstop. Nextsource-only scope proposes a minimalcore/rimgeometry correction withallnativegates/timing unchanged, pendingactualClaude character guidance and rootpin beforeauthoring.
+
+## Round 548 — 2026-10-21
+
+PIECE: APP-REDESIGN-HUD-001 — painted portrait HUD correction
+
+VERDICT: FAIL
+
+EVIDENCE: Fresh independent immutable8 browser gate exits1 at phone390x844 reduced-motion vertical: five single-channel steps in Cinderlings hand portrait at(39,689),(39,690),(38,701),(39,702),(39,711), alpha255. Prior three phone cases have0PNG differences; desktop/remaining cases not reached. Exact screenshot pair retained in external20261021-hud-round-2-critic/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-critic-round2-copperskiff. Actual app1/hand1(all23x4=92measurements)/HUD9/input18/arena7/release24/isolation4/Pages5/visual-interface9 pass. Four viewport native screenshots inspected; no clipping; minimum shortnames10.656physicalpx/cost14.531. Sealed six source hashes and immutable original test unchanged. Runtime closed before next builder.
+
+BIGGEST GAP: Five portrait pixels change across exact replay restoration, violating the pinned zero-pixel requirement.
+
+DISPOSITION: Do not adopt failed HUD. Preserve independent failure; next round uses pinned equivalent translate3d atlas crop proposal only, with unchanged original8 tests/waits/tolerances, full source fence and fresh independent critic.
+
+## Round 549 — 2026-10-21
+
+PIECE: APP-REDESIGN-HUD-001 — portrait atlas replay correction
+
+VERDICT: FAIL
+
+EVIDENCE: Fresh independent original8 gate passes all8 with0PNG differences, exact session/browser/bridge/audio future bytes and restarttick0/count1. Actual23x4 hand, app1/release24/isolation4/Pages5 pass. Portraits/names/cost/resource/Next/selection inspected; pinned10short and11primary floors pass. Initial disabled appearance was unverified; critic preserved interim verdict, then ran required focused visual-interface gate once on same immutable source. Eight of9 pass; insufficient-elixir.png has two hashes over4freshChrome captures, run1/2/4 5ba29e427645e2df6a5fb1eba05afee9fbca73b94b005b9b86a31a1a2054303e vsrun3 27ec93caa4ab7c6a4a73edf0bc7222cfc1354f545bd5b75d95e10610505162cb. Exact15pixels differ (sumabs84/max6), bboxx59..660/y1084..1266, clusters outerbottomHUDrail andlowerresourcerail. Native720x1280 amount0/disabled4/insufficient4/tick65; selectedstate visiblyhighlightedBriarBandtick63. Otherfourstatehashes exactallruns. All20PNGs retained; candidate/source/test hashes unchanged.
+
+BIGGEST GAP: The insufficient-elixir HUD state changes15pixels across identical fresh browser captures.
+
+DISPOSITION: Do not adopt currentHUD; preserve all failures. Portrait replay correction itself passes; next bounded scope must diagnose actual outer/lower rail paint instability. No three rounds on same specificgap: earlier short-layout andportrait replay gaps differ. Astra source-only rimdepth correction may use next exclusiveheavy slot while HUDdiagnosisprepares.
+
+## Round 550 — 2026-10-21
+
+PIECE: ART-3D-SKY-002 — standalone Skymaul R4 core-visibility derivative
+
+VERDICT: PASS
+
+EVIDENCE: Fresh independent savedBlend reload/render fullstate numeric and byte exact. Actual848/848crop rows0fail/min4.1663px,106restframes and286/286nativegates pass. Portrait512square407pxheight79.49%,0edgealpha; threshold128 wholecore8194isolated=8194visible,0lost/extra, medianluminance0.8665. NativeR3toR4differences confinedchest/core64squarebboxx29..34/y39..44, raw256bbox114..145/156..179. Unownedhead/fists/lower/ring/hammerisolates pixelidentical. GLBsoleJSONdelta /nodes/2/translation/2 .10000000149011612→.07999999821186066; allotherJSON/unownednodes/79bufferviews/fullBIN exact. Existing1243listedartifactseals unchanged. PriorR545/R547failures retained, fixednotrescored.
+
+BIGGEST GAP: Live gameplay-footage parity remains unjudged; this is standalone model qualification without a supplied gameplay reference still.
+
+DISPOSITION: Accept standaloneR4 original model only. Atlas assembly and livebrowserintegration require separate qualified source/proof and freshcritic; do notclaim gameartshipped fromthismodelverdictalone.
+
+## Round 551 — 2026-10-21
+
+PIECE: APP-REDESIGN-ATLAS-003 — Skymaul R4 lossless atlas and portable source package
+
+VERDICT: PASS — standalone atlas/package only
+
+EVIDENCE: Fresh independent critic decoded the 256×384 RGBA8 atlas and verified all 24 complete RGBA cells match the pinned native inputs, including transparent RGB and edge pixels, with pivot (32,54) and the pinned E/N/S/W × River/Ember idle/walk/contact map. Two fresh builds are byte-identical at 27,488 bytes, SHA-256 `e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb`. The exact portable package has 63 files / 5,471,644 bytes; manifest SHA-256 `8d741df40d8fd7e856e2431e15ecd37f253db1799a1c222980b7b080988a16cb`. The relocated saved-model proof and R550 model qualification are preserved as separate evidence. No live renderer or motion claim. Compact critic report: `artifacts/app-redesign-atlas-003/critic/VERDICT.md`; exact atlas and package: `design/20261021-skymaul-r4/atlas/` and `design/20261021-skymaul-r4/bundle/`.
+
+BIGGEST GAP: Live renderer state/facing selection and current-tick motion binding remain unqualified; this pass proves only the standalone atlas and portable authored-source package.
+
+DISPOSITION: Accept only the standalone R4 atlas and bounded portable source package. Preserve all prior Skymaul failures; this pass does not rescore R545/R547/R550 model rounds, integrate a public asset, or accept live game rendering/motion.
+

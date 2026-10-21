@@ -1,0 +1,76 @@
+{
+  "accepted_model_round": {
+    "piece": "ART-3D-SKY-002",
+    "prior_failures_retained": [
+      "R545 portrait top clipping",
+      "R547 rim covers 114 opaque whole-core pixels"
+    ],
+    "round": 550,
+    "scope": "standalone R4 model only"
+  },
+  "authorship": "Original procedural 3D geometry and controlled rim-depth derivative by Astra; actual Claude character and portrait design direction",
+  "blender_version": "5.1.2",
+  "canonical_integration_base": "99adf89dc995e00cdfcb353afa561f2abd470fde",
+  "excluded_modes": [
+    "procedural rebuild",
+    "model save",
+    "GLB export",
+    "live game renderer",
+    "browser or motion qualification"
+  ],
+  "existing_r541_scope": "Old Skymaul, Brassbolt and Reedsting packing PASS remains unchanged; this atlas is separately versioned",
+  "geometry_source": {
+    "bytes": 9803,
+    "proposed_bundle_path": "source-package/scripts/skymaul.py",
+    "sha256": "4cf70f2caa401d28938aa295e97bdd5e2c29399390a08c8963200ed56482d01d"
+  },
+  "license": "AGPL-3.0-only",
+  "live_acceptance": false,
+  "metrics_pillow_version": "12.3.0",
+  "models": [
+    {
+      "bytes": 726936,
+      "proposed_bundle_path": "model/skymaul.blend",
+      "sha256": "6b4d977731b96b90ae12ec093b4718b86760474084b586d018a3eec1eef11c8c"
+    },
+    {
+      "bytes": 94304,
+      "proposed_bundle_path": "model/skymaul.glb",
+      "sha256": "053dd3cb0cf1f64f13112529c510453f40239f711338263b9deac4862454fc15"
+    }
+  ],
+  "motion_acceptance": false,
+  "new_atlas_acceptance": false,
+  "new_atlas_version": "skymaul-r4-native-v1",
+  "package_pin": "evidence/package-BAR.md",
+  "package_source_freeze": "evidence/package-source-freeze.json",
+  "painted_portraits_unchanged_sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+  "portable_function_provenance": "evidence/function-origins.json",
+  "r4_intentional_delta": {
+    "all_other_objects_changed": false,
+    "glb_all_79_buffer_views_and_BIN_unchanged": true,
+    "glb_json_change": "/nodes/2/translation/2",
+    "local_y_after": -0.07999999821186066,
+    "local_y_before": -0.10000000149011612,
+    "mesh_vertices_topology_materials_changed": false,
+    "object": "ME_SBR_R1_skymaul_chest_core_rim",
+    "source_derivative_method": "Source-controlled scalar applied to sealed saved R3 scene; actual new actor GLB export; no procedural model regeneration",
+    "source_literal_after": "-.08",
+    "source_literal_before": "-.10"
+  },
+  "reference_imported": false,
+  "repository_license_sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+  "reproduction_modes": [
+    "read-only saved-model verify",
+    "saved-model portrait and native rerender",
+    "original native metrics",
+    "lossless native-cell atlas assembly"
+  ],
+  "schema": "skymaul-r4-original-model-provenance-v1",
+  "source_dependency_policy": "All source, model and reproduction data inputs are relative to this bundle. Original provenance paths in historical receipts are inert metadata.",
+  "source_rounds": {
+    "r2": "20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05",
+    "r3": "20261021-skymaul-portrait-round-3",
+    "r4": "20261021-skymaul-core-round-4"
+  }
+}

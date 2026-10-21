@@ -1,0 +1,35 @@
+{
+  "exit_code": 0,
+  "known_existing": {
+    "original_r2_native_helper": {
+      "exists_before_sandbox": true,
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/inputs/observed-native-renderer/native_preview.py"
+    },
+    "original_r4_model": {
+      "exists_before_sandbox": true,
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/model/skymaul.blend"
+    },
+    "repository_source": {
+      "exists_before_sandbox": true,
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/src/ui/combat-art.js"
+    }
+  },
+  "observed": {
+    "originals": {
+      "original_r2_native_helper": "PermissionError: [Errno 1] Operation not permitted: '/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/inputs/observed-native-renderer/native_preview.py'",
+      "original_r4_model": "PermissionError: [Errno 1] Operation not permitted: '/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/model/skymaul.blend'",
+      "repository_source": "PermissionError: [Errno 1] Operation not permitted: '/Users/me/.codex/worktrees/9456/clash-royale-clone/src/ui/combat-art.js'"
+    },
+    "relocated": {
+      "blend": {
+        "bytes_read": 16,
+        "readable": true
+      },
+      "r2_helper": {
+        "bytes_read": 16,
+        "readable": true
+      }
+    }
+  },
+  "status": "PASS"
+}

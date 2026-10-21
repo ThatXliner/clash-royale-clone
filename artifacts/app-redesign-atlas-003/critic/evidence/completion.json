@@ -1,0 +1,106 @@
+{
+  "all_checks_pass": true,
+  "bundle_manifest_sha256": "8d741df40d8fd7e856e2431e15ecd37f253db1799a1c222980b7b080988a16cb",
+  "crop": {
+    "failures": 0,
+    "minimum_px": 4.1662750244140625,
+    "rows": 848
+  },
+  "diagnostic_gates": 28,
+  "failures": [],
+  "independent_quality_verdict": null,
+  "native_failures": 0,
+  "proofs": [
+    {
+      "byte_identical": true,
+      "label": "after-read-only-audits",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/verify/audits/preservation/after-read-only-audits-proof.json",
+      "stage": "verify"
+    },
+    {
+      "byte_identical": true,
+      "label": "portable-complete-final-restoration",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/verify/preservation/portable-complete-final-restoration-proof.json",
+      "stage": "verify"
+    },
+    {
+      "byte_identical": true,
+      "label": "portable-fresh-load",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/verify/preservation/portable-fresh-load-proof.json",
+      "stage": "verify"
+    },
+    {
+      "byte_identical": true,
+      "label": "portable-complete-final-restoration",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/portrait/preservation/portable-complete-final-restoration-proof.json",
+      "stage": "portrait"
+    },
+    {
+      "byte_identical": true,
+      "label": "portable-fresh-load",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/portrait/preservation/portable-fresh-load-proof.json",
+      "stage": "portrait"
+    },
+    {
+      "byte_identical": true,
+      "label": "portrait-render-restoration",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/portrait/preservation/portrait-render-restoration-proof.json",
+      "stage": "portrait"
+    },
+    {
+      "byte_identical": true,
+      "label": "after-read-only-audits",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/native/audits/preservation/after-read-only-audits-proof.json",
+      "stage": "native"
+    },
+    {
+      "byte_identical": true,
+      "label": "portable-complete-final-restoration",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/native/preservation/portable-complete-final-restoration-proof.json",
+      "stage": "native"
+    },
+    {
+      "byte_identical": true,
+      "label": "portable-fresh-load",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/native/preservation/portable-fresh-load-proof.json",
+      "stage": "native"
+    },
+    {
+      "byte_identical": true,
+      "label": "final-render",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/native/renders/preservation/final-render-proof.json",
+      "stage": "native"
+    },
+    {
+      "byte_identical": true,
+      "label": "fresh-load",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/native/renders/preservation/fresh-load-proof.json",
+      "stage": "native"
+    },
+    {
+      "byte_identical": true,
+      "label": "mask-restoration",
+      "numeric_exact_equal": true,
+      "path": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/proof/native/renders/preservation/mask-restoration-proof.json",
+      "stage": "native"
+    }
+  ],
+  "required_native_gates": 286,
+  "runtime_acceptance": false,
+  "status": "complete builder evidence; independent critic still required",
+  "whole_core_extra": 0,
+  "whole_core_isolated": 8194,
+  "whole_core_lost": 0,
+  "whole_core_visible": 8194
+}

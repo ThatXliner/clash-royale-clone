@@ -1,0 +1,143 @@
+{
+  "atlas": {
+    "bytes": 27488,
+    "cells": 24,
+    "changed_rgba_bytes": 0,
+    "columns": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "dimensions": [
+      256,
+      384
+    ],
+    "edge_rgba_changed_bytes": 0,
+    "frames": {
+      "contact": 100,
+      "idle": 1,
+      "walk": 51
+    },
+    "matches_sealed_shipping_atlas": true,
+    "mode": "RGBA8",
+    "pivot": [
+      32,
+      54
+    ],
+    "rows": [
+      [
+        "river",
+        "idle"
+      ],
+      [
+        "river",
+        "walk"
+      ],
+      [
+        "river",
+        "contact"
+      ],
+      [
+        "ember",
+        "idle"
+      ],
+      [
+        "ember",
+        "walk"
+      ],
+      [
+        "ember",
+        "contact"
+      ]
+    ],
+    "sha256": "e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb",
+    "srgb_intent": 0,
+    "transparent_rgb_changed_bytes": 0,
+    "two_builds_byte_identical": true
+  },
+  "bar_sha256": "2ac5d770e8b2aa3142ba9e4bb8c956af6ae8595bf4e92166ef6a87c3e44a4efe",
+  "biggest_gap": "Live renderer state/facing selection and current-tick motion binding remain unqualified; this pass proves only the standalone atlas and portable saved-model package.",
+  "candidate_manifest_integrity_before_after": {
+    "bytes": 60639025,
+    "entries": 1408,
+    "failures": 0
+  },
+  "candidate_manifest_sha256": "210edcd363eee3135644961e81ea8556ba8f48c1fc54b675152496f4731a69a8",
+  "durable_evidence_files": [
+    "evidence/after-run-integrity.json",
+    "evidence/completion.json",
+    "evidence/copy-receipt.json",
+    "evidence/independent-atlas-audit.json",
+    "evidence/independent-render-pixels.json",
+    "evidence/isolation-probe.json",
+    "evidence/native-metrics.json",
+    "evidence/native-portable-receipt.json",
+    "evidence/portrait-portable-receipt.json",
+    "evidence/verify-portable-receipt.json",
+    "images/atlas-nearest-4x-labeled.png",
+    "images/skymaul-battle-sprite.png",
+    "manifests/bundle-manifest.json"
+  ],
+  "native_metrics": {
+    "crop_failures": 0,
+    "crop_rows": 848,
+    "diagnostic_gates": 28,
+    "fixed_rest_frames": 106,
+    "render_hashes_verified": true,
+    "required_failures": 0,
+    "required_gates": 286,
+    "whole_core_extra_pixels": 0,
+    "whole_core_isolated_pixels": 8194,
+    "whole_core_lost_pixels": 0,
+    "whole_core_visible_pixels": 8194
+  },
+  "piece": "APP-REDESIGN-ATLAS-003",
+  "pixel_comparison": {
+    "native_cells_exact": 24,
+    "native_cells_total": 24,
+    "native_changed_rgba_bytes": 0,
+    "portrait_and_masks_changed_rgba_bytes": 0,
+    "portrait_and_masks_exact": 3,
+    "portrait_and_masks_total": 3
+  },
+  "portable_bundle": {
+    "bytes": 5471644,
+    "files": 63,
+    "limit_bytes": 6291456,
+    "manifest_sha256": "8d741df40d8fd7e856e2431e15ecd37f253db1799a1c222980b7b080988a16cb",
+    "selected_input_bytes": 5374651,
+    "selected_inputs": 48,
+    "selected_inputs_match": true
+  },
+  "raw_external_logs": "/private/tmp/20261021-skymaul-r4-atlas-critic-01/logs",
+  "relocation": {
+    "custom_policy_sha256": "5ab52d539f8269c4b364c287ef4b697e576f59b6ad3b970125b581079f1274a4",
+    "known_existing_original_r2_helper": "PermissionError",
+    "known_existing_original_r4_model": "PermissionError",
+    "known_existing_repository_source": "PermissionError",
+    "relocated_blend_readable": true,
+    "relocated_r2_helper_readable": true
+  },
+  "runtime": {
+    "blender_version": "5.1.2",
+    "external_image_dependencies": [],
+    "external_library_dependencies": [],
+    "final_fullstate_byte_identical": true,
+    "final_fullstate_numeric_exact": true,
+    "fresh_load_byte_identical": true,
+    "fresh_load_numeric_exact": true,
+    "native_exit": 0,
+    "package_input_bytes_unchanged": true,
+    "portrait_exit": 0,
+    "save_export_rebuild": false,
+    "verify_exit": 0
+  },
+  "scope": "root-pinned atlas and portable-package BAR only; no live renderer/motion/gameplay-footage claim",
+  "source_freeze_sha256": "eff4a2627536cc6144ac59d8b2556a11e0c54d4815f986d80cfa807c232659ea",
+  "verdict": "PASS",
+  "visual_evidence": {
+    "labeled_nearest_4x": "images/atlas-nearest-4x-labeled.png",
+    "native_1x": "images/skymaul-battle-sprite.png"
+  }
+}

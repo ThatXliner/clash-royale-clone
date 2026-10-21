@@ -1,0 +1,634 @@
+{
+  "atlas_version": "skymaul-r4-native-v1",
+  "card_id": "skymaul",
+  "cell_size": 64,
+  "cells": [
+    {
+      "bytes": 1281,
+      "clip_frame": 1,
+      "column": 0,
+      "destination_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "direction": "east",
+      "pose": "idle",
+      "rgba_sha256": "f5ce3a177e1a7a938076d93faf7b861d45d6b8d8e312233918fae2d1cce070fe",
+      "row": 0,
+      "sha256": "e9dda6a8508387cc004244318be9e1c1f61c5c116b939028e33a6d376c276fe5",
+      "source_name": "skymaul-river-east-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1313,
+      "clip_frame": 1,
+      "column": 1,
+      "destination_rect": [
+        64,
+        0,
+        64,
+        64
+      ],
+      "direction": "north",
+      "pose": "idle",
+      "rgba_sha256": "560d62aef87178f3a3a737c098c4d0d8a2466c4715c7ca127d7c410eca91b9d8",
+      "row": 0,
+      "sha256": "5544ac25278809311a10f8d480b11f95b47c8dfc98b7a843401b8aad8b129a4e",
+      "source_name": "skymaul-river-north-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1315,
+      "clip_frame": 1,
+      "column": 2,
+      "destination_rect": [
+        128,
+        0,
+        64,
+        64
+      ],
+      "direction": "south",
+      "pose": "idle",
+      "rgba_sha256": "7a24b411a65b2c1c0f63b371e8c87e36299835a725fa0cf6b297e58c00b86433",
+      "row": 0,
+      "sha256": "974193b64336b76de68e0ad17098a16ec07aa1945fb48fac611f8dc365baacf1",
+      "source_name": "skymaul-river-south-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1307,
+      "clip_frame": 1,
+      "column": 3,
+      "destination_rect": [
+        192,
+        0,
+        64,
+        64
+      ],
+      "direction": "west",
+      "pose": "idle",
+      "rgba_sha256": "b8de0b3fb62abc2fda71e4d92fe61722f975227c07ccb015da3b128e34ef6468",
+      "row": 0,
+      "sha256": "4868d068dca6718052747fe1cb17c39029cc0413b2859cf511f9fd5eeeeb32ec",
+      "source_name": "skymaul-river-west-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1307,
+      "clip_frame": 51,
+      "column": 0,
+      "destination_rect": [
+        0,
+        64,
+        64,
+        64
+      ],
+      "direction": "east",
+      "pose": "walk",
+      "rgba_sha256": "ab30d30222bd98e77ca4e7c551b99b786cafba13a9d1dc4853d7c8f8d060bb32",
+      "row": 1,
+      "sha256": "6e336bff61866a3ef952b0eee8a1c83b0b6170fcafb3b62f14896cffe5967fbc",
+      "source_name": "skymaul-river-east-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1323,
+      "clip_frame": 51,
+      "column": 1,
+      "destination_rect": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "direction": "north",
+      "pose": "walk",
+      "rgba_sha256": "ee4b18a493b9ecd03386d6f92dcf4a1388c40f16c0fd5a3b3adcce8ee057d4e6",
+      "row": 1,
+      "sha256": "011e731c571f452c6e3375f300f62c8f0bfbc555c29ed3f8e78a568f06883fb2",
+      "source_name": "skymaul-river-north-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1336,
+      "clip_frame": 51,
+      "column": 2,
+      "destination_rect": [
+        128,
+        64,
+        64,
+        64
+      ],
+      "direction": "south",
+      "pose": "walk",
+      "rgba_sha256": "deac5fd22d41891c92f8d3e9afbdc08e40172639b378b200f6e8b4d5d928ba62",
+      "row": 1,
+      "sha256": "5c3526f147221f11f2fd5a92eb1090cf39b295871d5a2429a30a489da45d4bfd",
+      "source_name": "skymaul-river-south-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1342,
+      "clip_frame": 51,
+      "column": 3,
+      "destination_rect": [
+        192,
+        64,
+        64,
+        64
+      ],
+      "direction": "west",
+      "pose": "walk",
+      "rgba_sha256": "20934fc9c71f292ca6a3bb2fa876ec8e6b9380dbdcc8497e8fa402427318d72c",
+      "row": 1,
+      "sha256": "905d5c422415f6422dd2c7e00aba4d475c722aeb0716d7fa7c9ba12b244ed216",
+      "source_name": "skymaul-river-west-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1335,
+      "clip_frame": 100,
+      "column": 0,
+      "destination_rect": [
+        0,
+        128,
+        64,
+        64
+      ],
+      "direction": "east",
+      "pose": "contact",
+      "rgba_sha256": "7654ce3d3376e1f87e123dbb2f0d3e6fbd06d9eefbaab7b960ce193e93acdf5c",
+      "row": 2,
+      "sha256": "37bf128aef981088dc21f9e11573b214b23a26d9be8cf263b05437f68f30e2b1",
+      "source_name": "skymaul-river-east-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1395,
+      "clip_frame": 100,
+      "column": 1,
+      "destination_rect": [
+        64,
+        128,
+        64,
+        64
+      ],
+      "direction": "north",
+      "pose": "contact",
+      "rgba_sha256": "80cc517aaafcb361229aa4779c5bce79e59610c059a7735be2942a95faf558fa",
+      "row": 2,
+      "sha256": "fad698d9ff777879a3fd192543bd91342e69bb2b862f60059fb9ccfd741a1541",
+      "source_name": "skymaul-river-north-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1325,
+      "clip_frame": 100,
+      "column": 2,
+      "destination_rect": [
+        128,
+        128,
+        64,
+        64
+      ],
+      "direction": "south",
+      "pose": "contact",
+      "rgba_sha256": "9a4258892c5d61235ba88a595e8937b308e8f7341258e58b956f46c5d627a407",
+      "row": 2,
+      "sha256": "34eda325acbdc78ebd640e9e8d9ef595986299e84f9e2a0aeae15fb2072413dd",
+      "source_name": "skymaul-river-south-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1351,
+      "clip_frame": 100,
+      "column": 3,
+      "destination_rect": [
+        192,
+        128,
+        64,
+        64
+      ],
+      "direction": "west",
+      "pose": "contact",
+      "rgba_sha256": "8361d10e8c37cfd919ba29c780ffedfab55eb8804939f802e958debb9d22b27d",
+      "row": 2,
+      "sha256": "a46700cf7ac7ad4426db4db3b4a4adf4a891b2908796b9142f91e98a93b97ba8",
+      "source_name": "skymaul-river-west-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "river"
+    },
+    {
+      "bytes": 1288,
+      "clip_frame": 1,
+      "column": 0,
+      "destination_rect": [
+        0,
+        192,
+        64,
+        64
+      ],
+      "direction": "east",
+      "pose": "idle",
+      "rgba_sha256": "845ed2c50bada1d19c90ece30aba7b81938624adda8be162e287cf34d27006cd",
+      "row": 3,
+      "sha256": "d30644d71f4a3ff0c1398583f4d9b394644f595bcc563381c9c5a8636398b799",
+      "source_name": "skymaul-ember-east-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1308,
+      "clip_frame": 1,
+      "column": 1,
+      "destination_rect": [
+        64,
+        192,
+        64,
+        64
+      ],
+      "direction": "north",
+      "pose": "idle",
+      "rgba_sha256": "47829d7d0fb2582aa130ca4668da34e98b199a0e6f7ee0feb74f7940a14d2ab0",
+      "row": 3,
+      "sha256": "fe671e2c8ead6d6da2ca123fa48412c9cc315fea5c82c44abd67768c2a5726b2",
+      "source_name": "skymaul-ember-north-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1307,
+      "clip_frame": 1,
+      "column": 2,
+      "destination_rect": [
+        128,
+        192,
+        64,
+        64
+      ],
+      "direction": "south",
+      "pose": "idle",
+      "rgba_sha256": "8ba75c218484c571465c8c13348b162bf49fa73db7a666bb1ed191efc332cf9c",
+      "row": 3,
+      "sha256": "6b076bbe23a628a08db67773208c9cb7a87b510825861d30ff6cde91c1e2500d",
+      "source_name": "skymaul-ember-south-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1312,
+      "clip_frame": 1,
+      "column": 3,
+      "destination_rect": [
+        192,
+        192,
+        64,
+        64
+      ],
+      "direction": "west",
+      "pose": "idle",
+      "rgba_sha256": "35a15b558b45f82778ccb7c0694ed573e0439a0defdc3679358422e729a905bd",
+      "row": 3,
+      "sha256": "8ae71676bd9c384fdfce128379cf4cddc2dbf3864885126352fe3dc01a3df38c",
+      "source_name": "skymaul-ember-west-idle-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1306,
+      "clip_frame": 51,
+      "column": 0,
+      "destination_rect": [
+        0,
+        256,
+        64,
+        64
+      ],
+      "direction": "east",
+      "pose": "walk",
+      "rgba_sha256": "df8bcca3093ccad51ecb5f73b58c6dcac67d88499f189ff1c7efc7ae3b8c102d",
+      "row": 4,
+      "sha256": "8b1f77634bd361d6e2e8500683806345e5ea0df647870f65fe27ae98a4c62ca5",
+      "source_name": "skymaul-ember-east-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1300,
+      "clip_frame": 51,
+      "column": 1,
+      "destination_rect": [
+        64,
+        256,
+        64,
+        64
+      ],
+      "direction": "north",
+      "pose": "walk",
+      "rgba_sha256": "02e62fa2d58c345a2eb5e176b252fe0484b28f33c6518d9d2063fefa098563f0",
+      "row": 4,
+      "sha256": "cdfd3b53f3cd1fcf992809108bf24a01d90087f815c9f9abcdb5ef8ea3309d5d",
+      "source_name": "skymaul-ember-north-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1327,
+      "clip_frame": 51,
+      "column": 2,
+      "destination_rect": [
+        128,
+        256,
+        64,
+        64
+      ],
+      "direction": "south",
+      "pose": "walk",
+      "rgba_sha256": "f9b4f664d67dfec59af11307aa16d37119e0932cb9dce13410da302cb4939897",
+      "row": 4,
+      "sha256": "706e9946372f6c542bae4bec4454356d2db537cb5367bf9eeef0ec6a44f24c04",
+      "source_name": "skymaul-ember-south-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1329,
+      "clip_frame": 51,
+      "column": 3,
+      "destination_rect": [
+        192,
+        256,
+        64,
+        64
+      ],
+      "direction": "west",
+      "pose": "walk",
+      "rgba_sha256": "0d57fb9a15b93a5e0bbd6ec1223fd60fbaead0bae70a58127e663b5a57c96f67",
+      "row": 4,
+      "sha256": "4ac91e8ddac8c570597aa72abacf1ee2786f1b8309d1301fafc3aed669c596e5",
+      "source_name": "skymaul-ember-west-walk-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1332,
+      "clip_frame": 100,
+      "column": 0,
+      "destination_rect": [
+        0,
+        320,
+        64,
+        64
+      ],
+      "direction": "east",
+      "pose": "contact",
+      "rgba_sha256": "3dcbe7e2dd1e61e7534c3e0fae0e3971213673e6c08ad66768d4360571c2a424",
+      "row": 5,
+      "sha256": "e386ca42d0d6d579e1c7dd7bbec23024bb14dcb134cd192de90cc6b9acdcd874",
+      "source_name": "skymaul-ember-east-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1385,
+      "clip_frame": 100,
+      "column": 1,
+      "destination_rect": [
+        64,
+        320,
+        64,
+        64
+      ],
+      "direction": "north",
+      "pose": "contact",
+      "rgba_sha256": "45ac57c1054b54b66d5dad45e176c14327c23c3a546e5d43fc7b407de92fd132",
+      "row": 5,
+      "sha256": "97655e26f44a417336e6779c5a782ef6d7a03364feb5e9093c250c26510c3f9d",
+      "source_name": "skymaul-ember-north-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1316,
+      "clip_frame": 100,
+      "column": 2,
+      "destination_rect": [
+        128,
+        320,
+        64,
+        64
+      ],
+      "direction": "south",
+      "pose": "contact",
+      "rgba_sha256": "9f2e29f0e8b3f7511742a6eb1d8e28a8a82520c73106c153c692f1311d0cb27c",
+      "row": 5,
+      "sha256": "b7b1a376ee98db2bd549d0466aedc20a18530ea0eb1eb28309e0d758448699e9",
+      "source_name": "skymaul-ember-south-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    },
+    {
+      "bytes": 1336,
+      "clip_frame": 100,
+      "column": 3,
+      "destination_rect": [
+        192,
+        320,
+        64,
+        64
+      ],
+      "direction": "west",
+      "pose": "contact",
+      "rgba_sha256": "661fa10c5adfb04e914a414f0d041816210082a8001b062f78c74f715b8c150e",
+      "row": 5,
+      "sha256": "d51dad14abed5e7d66f8c930a8711ed02e866bc640b7e8dcc23e6efe52604852",
+      "source_name": "skymaul-ember-west-contact-color.png",
+      "source_rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "team": "ember"
+    }
+  ],
+  "columns": [
+    "east",
+    "north",
+    "south",
+    "west"
+  ],
+  "height": 384,
+  "input_total_bytes": 31776,
+  "model_round": "ART-3D-SKY-002 R4 / independent R550 standalone PASS",
+  "pivot": [
+    32,
+    54
+  ],
+  "png": {
+    "bit_depth": 8,
+    "color_type": 6,
+    "interlace": 0,
+    "sRGB_rendering_intent": 0
+  },
+  "rows": [
+    [
+      "river",
+      "idle"
+    ],
+    [
+      "river",
+      "walk"
+    ],
+    [
+      "river",
+      "contact"
+    ],
+    [
+      "ember",
+      "idle"
+    ],
+    [
+      "ember",
+      "walk"
+    ],
+    [
+      "ember",
+      "contact"
+    ]
+  ],
+  "schema": "skymaul-r4-lossless-atlas-map-v1",
+  "source_directory_for_audit": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/renders/native-64",
+  "source_policy": "The assembler requires --source-dir and hashes; this audit path is provenance, not an execution dependency.",
+  "status": "PROPOSED; no asset assembled or qualified",
+  "whole_cell_rgba_preservation": true,
+  "width": 256
+}

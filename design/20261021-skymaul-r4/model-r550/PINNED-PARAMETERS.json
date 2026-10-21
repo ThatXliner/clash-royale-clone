@@ -1,0 +1,271 @@
+{
+  "status": "Source-only proposed round4 scope, not authored, pinned, rendered or qualified",
+  "authority": "Parent says existing actual Claude complete composition proposal supplies design intent; Astra may propose an implementation-only core/rim visibility fix. Root must pin new BAR and exact delta before authoring.",
+  "prior_verdicts": {
+    "R545": "FAIL unchanged",
+    "round3": "FAIL unchanged; root to record R547"
+  },
+  "inputs": [
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/critic-r3/VERDICT.md",
+      "bytes": 4031,
+      "sha256": "11f899451886f2467c1906f1eb4c26857bb8079c3c40755e7ec88fb0c0c01c99"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/CLAUDE-COMPLETE-PROPOSAL.md",
+      "bytes": 11679,
+      "sha256": "339c39cd8f2a93bd0a3c526ef8aeab664164730b1c5b63e994336b3189531dd6"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/BAR.md",
+      "bytes": 2158,
+      "sha256": "19f4ff30d80214823ccde14c1b94599e719b94808e60f2041b9aab578270987a"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/PINNED-PARAMETERS.json",
+      "bytes": 12792,
+      "sha256": "988a1461392e38a7d1bbdfa9141e03e177849e9883deaf52bdee0360101ebc8e"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/SEAL.json",
+      "bytes": 5344,
+      "sha256": "847b3e628b54128ca3fec124d0ed20b0f7e9c34c82865127479ff86a39672e70"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/candidate/attempt-01/model/skymaul.blend",
+      "bytes": 726936,
+      "sha256": "3b2467f46bf5a8e2842ebde5437baa8da2adcaa1d6d2fc3f763f7795561b021d"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/candidate/attempt-01/model/skymaul.glb",
+      "bytes": 94304,
+      "sha256": "9dfe23509caea3d7f0b33ac4d0bca1f74d3515bd6a6d88966c5c05fc320872b3"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/candidate/attempt-01/model/canonical-fullstate.json",
+      "bytes": 1333200,
+      "sha256": "ad580bdc5c373f2d58ed1a606bc782fb8b1f432cac74b38fba03fc1e12c5f36a"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/candidate/attempt-01/supplemental-read-only-001/core-pixel-ownership.json",
+      "bytes": 2239667,
+      "sha256": "fe7a3ba8d6bef1696b1d80572d70ad0a2fbad25f9c4e830f3867c87ad1c84ca9"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/scripts/skymaul.py",
+      "bytes": 9803,
+      "sha256": "a101cb86c8fd98c9e9833c2cd804b163146a36ce3f6e71a7a50c7bb52e8333fc"
+    },
+    {
+      "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/scripts/skymaul_evidence.py",
+      "bytes": 22742,
+      "sha256": "429576c8d674b560992ef6949b407620159c842312e828c435c41132389276d1"
+    }
+  ],
+  "proposed_minimal_delta": {
+    "object": "ME_SBR_R1_skymaul_chest_core_rim",
+    "source_path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/source-package/scripts/skymaul.py",
+    "source_line": 164,
+    "source_expression_before": "center=(0, -.10, -.03)",
+    "source_expression_after_proposed": "center=(0, -.08, -.03)",
+    "authored_local_y_before": -0.1,
+    "authored_local_y_after": -0.08,
+    "serialized_local_y_before": -0.10000000149011612,
+    "predicted_serialized_local_y_after": -0.07999999821186066,
+    "predicted_serialized_delta": 0.020000003278255463,
+    "serialized_path_allowlist": [
+      "/objects/ME_SBR_R1_skymaul_chest_core_rim/transform/location/1"
+    ],
+    "core_mesh_change": false,
+    "rim_mesh_shape_or_topology_change": false,
+    "rim_material_change": false,
+    "object_rotation_or_scale_change": false,
+    "metadata": "External provenance only; no model property change proposed"
+  },
+  "ownership": {
+    "minimal_owned_object": "ME_SBR_R1_skymaul_chest_core_rim",
+    "technical_fallback_scope_only_if_re_pinned": [
+      "ME_SBR_R1_skymaul_warm_core",
+      "ME_SBR_R1_skymaul_chest_core_rim"
+    ],
+    "no_fallback_authorized_by_this_proposal": true,
+    "unowned_objects_count": 35,
+    "unchanged_mesh_records_count": 20,
+    "all_nonowned_object_and_mesh_records": "Exact numeric and canonical JSON bytes compared to sealed R3 baseline. One rim local-Y object transform change only; all mesh vertices/indices/material slots, including core/rim, remain exact.",
+    "source_scope": "New external Skymaul-only source overlay and author driver after grant. No shared band_mesh, model_common, pose, palette, pipeline or other-character source edits."
+  },
+  "component_facts": {
+    "core": {
+      "object": "ME_SBR_R1_skymaul_warm_core",
+      "vertices": 38,
+      "polygons": 48,
+      "triangles": 72,
+      "source_layer_sections": [
+        {
+          "y": -0.12,
+          "rx": 0.245,
+          "rz": 0.21
+        },
+        {
+          "y": -0.32,
+          "rx": 0.26,
+          "rz": 0.23
+        },
+        {
+          "y": -0.55,
+          "rx": 0.2,
+          "rz": 0.18
+        }
+      ],
+      "front_tip": [
+        0,
+        -0.57,
+        0
+      ],
+      "back_center": [
+        0,
+        -0.12,
+        0
+      ],
+      "polygon_groups": {
+        "rear_shoulder": [
+          0,
+          11
+        ],
+        "forward_shoulder": [
+          12,
+          23
+        ],
+        "front_cap": [
+          24,
+          35
+        ],
+        "back_cap": [
+          36,
+          47
+        ]
+      },
+      "observed_core_hit_polygon_counts": {
+        "3": 8,
+        "2": 23,
+        "1": 32,
+        "0": 29,
+        "11": 19,
+        "10": 1
+      }
+    },
+    "rim": {
+      "object": "ME_SBR_R1_skymaul_chest_core_rim",
+      "vertices": 72,
+      "polygons": 72,
+      "triangles": 144,
+      "major_radii": [
+        0.23,
+        0.2
+      ],
+      "tube_radius": 0.04,
+      "axis": "Y",
+      "segments": 12,
+      "sides": 6,
+      "observed_rim_hit_polygon_counts": {
+        "22": 7,
+        "16": 22,
+        "10": 23,
+        "11": 8,
+        "5": 18,
+        "4": 14,
+        "71": 8,
+        "70": 11,
+        "64": 1
+      }
+    },
+    "retained_mask_difference_count": 114,
+    "core_hit_centers_without_rim_using_recorded_geometry": {
+      "ME_SBR_R1_skymaul_warm_core": 112
+    },
+    "without_rim_calculation_limit": "112 original core-hit centers only; source triangle arithmetic, not an actual new render or a proof of every antialias sample."
+  },
+  "source_depth_bounds": {
+    "coordinate_system": "Idle frame1 upper_cluster local axes match world axes; core and rim share upper_cluster. Camera ray Y is positive.",
+    "core_max_y_back": -0.11999999731779099,
+    "rim_min_local_vertex_y": -0.03464101627469063,
+    "old_rim_min_y_float32": -0.13464102149009705,
+    "strict_minimum_rear_delta_from_old_bound": 0.01464102417230606,
+    "proposed_rim_min_y_float32": -0.11464101076126099,
+    "positive_rear_clearance_y": 0.005358986556529999,
+    "portrait_camera_ray_direction": [
+      -0.5039832529004106,
+      0.806541671206544,
+      -0.3090168497077072
+    ],
+    "minimum_ray_depth_clearance": 0.006644401334543863,
+    "proof_scope": "With positive ray-Y, every rim point lies behind every core point in Y, so the rim cannot precede a core intersection in this fixed portrait view. This is a source-bound guarantee for rim geometry, not rendered alpha/mask qualification or other-object proof.",
+    "recorded_owned_projection_bounds": {
+      "ME_SBR_R1_skymaul_warm_core": {
+        "left": 0.1960134208202362,
+        "right": 0.4244084060192108,
+        "top": 0.6373230814933777,
+        "bottom": 0.8198130279779434
+      },
+      "ME_SBR_R1_skymaul_chest_core_rim": {
+        "left": 0.2630716562271118,
+        "right": 0.4369350075721741,
+        "top": 0.6245785355567932,
+        "bottom": 0.7968454211950302
+      }
+    },
+    "native_projected_motion_upper_bound_px": 0.15950158377674137
+  },
+  "mask_contract": {
+    "whole_core_object": "ME_SBR_R1_skymaul_warm_core",
+    "keep_existing_isolated_and_visible_mask_definition": true,
+    "front_cap_only_is_not_equivalent": true,
+    "rationale": "The failed pixels intersect rear shoulder polygons0\u20133,10,11, not front-cap polygons24\u201335. Measuring front cap only, splitting the shoulder out of warm_core, hiding it, relabeling it copper, or deleting it would change the identity mask and waive the whole-core requirement. Retain the whole isolated opaque core support and compare against the full-actor visible-core semantic mask at the same existing alpha threshold128.",
+    "face_subset_diagnostics": "Optional extra diagnostic labels may identify front cap and shoulder but cannot replace whole-core gate."
+  },
+  "preservation_and_export_plan": [
+    "Load the immutable R3 Blend read-only as input; write a separate new R4 output only after BAR/grant.",
+    "Apply the single pinned local-Y value from the source overlay to chest_core_rim; full unrounded R3-to-authored delta must equal exactly the allowed path. Record all token differences, no normalization.",
+    "Capture a new authored baseline before export. Export a new selected-actor GLB from this authored model with original NLA settings and inspect it. Copying the old GLB is invalid because rim placement changed.",
+    "Compare the complete authored baseline after export, save, fresh load and all renders; include every camera intrinsic and transform, every object/mesh/material/light,106 local poses and tracks. Require exact numeric and canonical JSON bytes; do not normalize signed zeros or silently reset drift.",
+    "Compare all unowned objects/mesh/material/animation data to R3, and inspect GLB per-node geometry/transform/animation accessors to verify only owned rim placement changes; whole GLB hash is expected to change.",
+    "Keep original R3 camera transformation/intrinsics exactly, all native cameras/rings unchanged, and all source/material/pose/timing contracts.",
+    "Run actual portrait projection/masks/alpha/identity, all286 native gates,848 crop rows,106 rest frames, full native semantic captures and new-GLB source attribution. Native pixels may legitimately change at the rim; do not promise pixel equality.",
+    "Close all owned processes before fresh independent critic. Retain every failure and open a new pinned scope if correction is required."
+  ],
+  "known_risks": {
+    "other_geometry": "Existing source ray arithmetic without the rim sees core first at all112 original core-hit centers, but actual whole-mask render must rule out all other-object occlusion and antialias coverage differences.",
+    "native_luminance": "Rim displacement changes visible copper and overlap/lighting; all286 gates must be rerun. Palette edits cannot repair a failure in this scope.",
+    "narrowest_core_median_record": {
+      "value": 0.8557211764705881,
+      "team": "ember",
+      "direction": "west",
+      "pose": "walk",
+      "threshold": 0.85
+    },
+    "lowest_copper_median_record": {
+      "value": 0.5675023529411765,
+      "team": "ember",
+      "direction": "south",
+      "pose": "idle",
+      "lower_threshold": 0.55
+    },
+    "entire_core_projection": "Core shape and placement remain unchanged; source-depth proof covers rim occlusion only.",
+    "depth_choice": "The proposed0.02 is a rounded source-space step above the computed strict0.01464102417230606 bound, giving0.005358986556529999 clearance. It is not post-render fitting and is not yet a pin."
+  },
+  "no_runtime_or_authoring": {
+    "blender_started": false,
+    "node_started": false,
+    "chrome_started": false,
+    "model_saved": false,
+    "model_exported": false,
+    "rendered": false,
+    "bulk_candidate_copy": false,
+    "other_character_files_touched": false,
+    "root_or_index_touched": false,
+    "owned_outputs": [
+      "SOURCE-AUDIT.md",
+      "PROPOSAL.json"
+    ]
+  }
+}

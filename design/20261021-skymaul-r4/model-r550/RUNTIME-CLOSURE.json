@@ -1,0 +1,71 @@
+{
+  "time_utc": "2026-10-21T11:19:26.024716+00:00",
+  "heavy_released": true,
+  "commands": [
+    {
+      "stage": "author",
+      "pid": 96928,
+      "session": 56971,
+      "exit_code": 0
+    },
+    {
+      "stage": "verify-saved",
+      "pid": 96941,
+      "session": 71622,
+      "exit_code": 0
+    },
+    {
+      "stage": "portrait",
+      "pid": 96968,
+      "session": 39611,
+      "exit_code": 0
+    },
+    {
+      "stage": "native",
+      "pid": 97001,
+      "session": 76465,
+      "exit_code": 0
+    },
+    {
+      "stage": "unchanged_native_metrics",
+      "exit_code": 0
+    }
+  ],
+  "remaining_blender": [
+    {
+      "pid": 63639,
+      "ppid": 1,
+      "elapsed": "05:51:11",
+      "command": "/Applications/Blender.app/Contents/MacOS/Blender"
+    }
+  ],
+  "protected_gui": "Pre-existing user GUI63639 untouched",
+  "node_or_chrome_started": false,
+  "root_head": "99adf89dc995e00cdfcb353afa561f2abd470fde",
+  "root_index": {
+    "path": "/Users/me/Developer/mine/clash-royale-clone/.git/worktrees/clash-royale-clone9/index",
+    "bytes": 382925,
+    "sha256": "8e79bb09cef07999afb8d2c991c3f1a9b5562528a82d74eef865a39582def914"
+  },
+  "r2_seal": {
+    "path": "/Users/me/.codex/clash-qualification/20261020-skymaul-redesign-round-2/candidate/attempts/attempt-05/seal.json",
+    "bytes": 220129,
+    "sha256": "53e67839eec9fc16aa6d9e6d0add164191f1870ce63b2c0a0a75d3522338cb23"
+  },
+  "r2_sealed_files_verified": 1238,
+  "r2_mismatches": [],
+  "r3_seal": {
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-portrait-round-3/SEAL.json",
+    "bytes": 5344,
+    "sha256": "847b3e628b54128ca3fec124d0ed20b0f7e9c34c82865127479ff86a39672e70"
+  },
+  "r3_sealed_files_verified": 2353,
+  "r3_mismatches": [],
+  "r4_source_freeze": {
+    "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/SOURCE-FREEZE.json",
+    "bytes": 1052,
+    "sha256": "99e131245c8fee7fa1f8abce1a5de4863fb44989e7a0aabfcb8e532c7eb62203"
+  },
+  "r4_sources_match": true,
+  "no_adoption_or_runtime_integration": true
+}

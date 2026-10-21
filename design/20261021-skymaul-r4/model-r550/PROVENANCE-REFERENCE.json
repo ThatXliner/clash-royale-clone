@@ -1,0 +1,28 @@
+{
+  "status": "R550 standalone model PASS; no live runtime acceptance",
+  "verdictSource": "/Users/me/.codex/clash-qualification/20261021-redesign-foundation-round1/tracking/rounds.md",
+  "verdictSection": "Round 550 — ART-3D-SKY-002",
+  "round550ModelSealSha256": "c14109bdf4203b79aafd8c970664812b772f55a1a4b4a1e6eb0328c68a37caaf",
+  "portableR4Provenance": {
+    "path": "../bundle/provenance.json",
+    "sha256": "edce002680a87da3cef4bec669158e249c568695e60497ff79325ec590c7157c"
+  },
+  "portableR4CandidateManifest": {
+    "path": "../bundle/evidence/r4-candidate-manifest.json",
+    "sha256": "2b84516c0afa065531c39c7433a9c1ec9088e9ed222ec639c6b0b776919b30f1",
+    "bytes": 348195
+  },
+  "modelBundleAssets": {
+    "blend": {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/model/skymaul.blend",
+      "bytes": 726936,
+      "sha256": "6b4d977731b96b90ae12ec093b4718b86760474084b586d018a3eec1eef11c8c"
+    },
+    "glb": {
+      "path": "/Users/me/.codex/clash-qualification/20261021-skymaul-core-round-4/candidate/attempt-01/model/skymaul.glb",
+      "bytes": 94304,
+      "sha256": "053dd3cb0cf1f64f13112529c510453f40239f711338263b9deac4862454fc15"
+    }
+  },
+  "note": "Model verdict and provenance are standalone inputs to atlas adoption only; live renderer/motion remains unqualified."
+}
