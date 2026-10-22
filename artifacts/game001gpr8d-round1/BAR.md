@@ -1,0 +1,11 @@
+# BAR — current-main default browser endurance
+
+Qualify the exact current-main source snapshot at commit `fd6b2af97294be762af637a1d8a40c3af18452cf` with the complete default-eight browser endurance test. This is a run qualification for the pinned source; it makes no claim of broad historical card parity or source adoption.
+
+The test must run as `default-eight`, with `GAME_BROWSER_ENDURANCE_TICKS` absent, and use the exact seed-zero setup (39,641 bytes; SHA-256 `306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c`). It must reach its natural terminal at tick 18,000, retain paid play for both sides, and pass the physical-input, browser/direct-session byte parity, and exact seed-zero restart assertions.
+
+The full journey includes the 300→600 branch, yielded restore to tick 300, and replay to tick 600. Replay must reproduce the browser continuation snapshot, direct session bytes, input bridge, projected layers, policy state, and future audio continuation. Restore must add no audio starts or replay historical cues; actual typed sink observations must preserve independent UI and simulation sequence domains. The post-restore physical input check must pass. At terminal, audio must be disposed, terminal feedback visible, and restart must return the exact shipped seed-zero session at tick 0.
+
+The immutable source assertions remain the gate: initialization long tasks ≤300 ms; driven, restore, terminal-observation, restart, screenshot, final-drain, and out-of-interval long tasks ≤50 ms; synchronous one-tick and restore operations ≤40 ms; each driven segment ≤30,000 ms; total run ≤1,200,000 ms. The test also requires Chrome long-task observation, no console/unhandled/resource errors, no pending resources, and clean endurance-server exit. The test's existing telemetry and conditional slice audit are part of this exact harness; do not change them or add external profiling, tolerance changes, or run-level retries.
+
+Use the previous accepted default-eight run at source `5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146` only as a comparison anchor: it ended at tick 18,000 with a South 2–1 `tiebreak_lowest_hp`, 40 submitted card commands, exact 600→300→600 replay, and exact restart. Current-main results are new evidence and must be reported from the run output.
