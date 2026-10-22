@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-10-22 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">324</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">260</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">556</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">261</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">558</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active targets: <strong>UI-BRIAR-CLIP-001</strong> (64 rendered cases; pixel probes and critic pending); <strong>APP-REDESIGN-SKY-LIVE-001</strong> (10/10 unit; browser and critic pending); <strong>RELEASE-VITE-PATCH-001</strong> (builder checks passed; independent critic pending).</p>
+  <p class="note">Active targets: <strong>UI-BRIAR-CLIP-001</strong> (64 rendered cases; pixel probes and critic pending); <strong>APP-REDESIGN-SKY-LIVE-001</strong> (10/10 unit; browser and critic pending).</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1024,10 +1024,10 @@
       <tr>
         <td><code>RELEASE-VITE-PATCH-001</code></td>
         <td>Root Vite dependency patch</td>
-        <td class="state-building">BUILDING</td>
-        <td>npm ci 1/1; npm ls 1/1; npm audit 1/1; release suite 23/24 (R1); R2 24/24, 5/5, 13/13</td>
-        <td>0</td>
-        <td>The R1 product patch changes only root package.json and package-lock.json; npm ci, npm ls and npm audit each exited 0. The R1 release-build suite exited 1 at 23/24 because its sole failure expected Vite 8.3.2 after the pin moved to 8.3.3. The R2 candidate changes the assertion to compare the manifest version with the declared package pin. R2 verification passed all seven commands: release tests 24/24, publication 5/5, shipping guard 13/13, and both 58-file builds at 6,420,592 bytes. Independent critique remains pending; 105 archived alerts are outside scope. Evidence: /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/RECEIPT.md; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-install-r1/RESULT.json; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-verification-r1/01-npm-ls/RESULT.json; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-verification-r1/02-npm-audit/RESULT.json; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-verification-r1/03-test-release-build/RESULT.json; R2 source plan /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair-r2/VERIFICATION.md and candidate receipt /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair-r2/CANDIDATE-RUN-RECEIPT.json.</td>
+        <td class="state-pass">PASS</td>
+        <td>npm ci 1/1; npm ls 1/1; npm audit 1/1; release suite 24/24; publication 5/5; shipping guard 13/13; standalone release and Pages builds passed</td>
+        <td>2</td>
+        <td>Round557 independent R1 FAIL is preserved: six stages passed, then release-output setup stopped before build on missing parent (ENOENT), so Pages was unrun. Round558 is scoped cumulative PASS: independent build-only R2 directly exited 0 for release (58 payload files / 6,420,592 bytes; 59 / 6,449,065 including manifest) and Pages (68 / 6,837,146 bytes), within output budgets. R2 did not rerun tests. The 105 archived alerts remain outside scope.</td>
       </tr>
       <tr>
         <td><code>RELEASE-001W</code></td>
@@ -3191,6 +3191,8 @@
       <li><strong>R555 PASS — audio-only verification-test candidate on frozen R4 source; not canonical-main validation</strong> · AUDIO-002F — fresh-directory audio production artifact fixture<br>The audio result is limited to the frozen R4 candidate; its clean-output condition comes from preflight rather than a test startup assertion, and this record does not include matching canonical 633-source validation or full-factory acceptance.</li>
   
       <li><strong>R556 PASS — scoped renderer contract only</strong> · VIS-003CT — typed combat-art renderer contract<br>Briar grid/cluster bleed remains plainly visible in the actual contact sheet; the complete 3D attack sequence and artwork quality remain unqualified. This test-only result does not adopt production art or renderer changes.</li>
+      <li><strong>R557 FAIL</strong> · RELEASE-VITE-PATCH-001<br>Independent R1 passed its first six stages, then stopped before the standalone release build because the output parent was missing (ENOENT); the Pages build was unrun. Preserve this setup failure.</li>
+      <li><strong>R558 PASS — scoped cumulative acceptance</strong> · RELEASE-VITE-PATCH-001<br>Combines the first six R1 stage receipts with independent R2 direct-exit-0 release and Pages builds: 59 release files including manifest (58 payload files) and 68 Pages files, both within artifact budgets. The 105 archived alerts remain outside scope.</li>
   </ol>
 </body>
 </html>

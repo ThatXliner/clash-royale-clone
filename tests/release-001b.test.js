@@ -110,6 +110,8 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   const manifest = JSON.parse(manifestBytes.toString("utf8"));
   const config = JSON.parse(await readFile(join(WORKSPACE_ROOT,
     "scripts/release-build.config.json"), "utf8"));
+  const rootPackage = JSON.parse(await readFile(join(WORKSPACE_ROOT,
+    "package.json"), "utf8"));
   assert.deepEqual(manifest.entrypoints, ["public/index.html"]);
   assert.deepEqual(manifest.standaloneModules,
     ["src/rl/environment.js", "src/ui/arena-shell-entry.js"]);
@@ -121,7 +123,7 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   assert.deepEqual(manifest.files.map(({ path }) => path),
     manifest.files.map(({ path }) => path).toSorted());
   assert.equal(manifest.build.bundler, "vite");
-  assert.equal(manifest.build.version, "8.3.2");
+  assert.equal(manifest.build.version, rootPackage.devDependencies.vite);
   assert.equal(manifest.build.qualificationProfile, "game");
   assert.deepEqual(manifest.build.runtimeDependencies, []);
   assert.deepEqual(manifest.build.inputs, config.entries.toSorted());

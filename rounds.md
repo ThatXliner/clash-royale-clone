@@ -10271,3 +10271,27 @@ FILES:
 ### Adoption
 
 Adopt the independently verified test repair and Round 556 records. This changes one verification test and tracking documents; production rendering and art assets are unchanged.
+
+## Round 557 — 2026-10-22
+
+PIECE: RELEASE-VITE-PATCH-001 — Root Vite dependency patch
+
+VERDICT: FAIL — independent R1 stopped at standalone build setup
+
+EVIDENCE: The fresh independent critic's first six stages passed: `npm ci`, Vite tree resolution, audit, release suite (24/24, including browser qualification), publication tests (5/5), and shipping-isolation guard (13/13). Its standalone release command then exited 1 before building because the run-once output was `.../outputs/release` while its parent `.../outputs` did not exist; stderr reported `ENOENT` while statting that parent. Following stop-at-first-failure, the standalone Pages build was not run. This records a verification setup failure, not an observed Vite build failure. The full verdict and raw stage receipts remain at `/Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/critic-r1/VERDICT.md` and `/Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/verification-r1/`.
+
+BIGGEST GAP: Independent direct build output and budget evidence for release and Pages were missing at this point.
+
+DISPOSITION: Preserve the independent R1 FAIL unchanged. A separate build-only R2 addresses the missing two build stages; it does not replace the first six R1 receipts.
+
+## Round 558 — 2026-10-22
+
+PIECE: RELEASE-VITE-PATCH-001 — Root Vite dependency patch
+
+VERDICT: PASS — scoped cumulative acceptance (R1 first six stages plus R2 build-only stages)
+
+EVIDENCE: The R1 first six passed stages are recorded in Round557 and its independent receipts. The fresh independent R2 critic ran only the standalone release and Pages builds; each directly exited 0 on the pinned 634-file candidate, with the original Git index and `reference` link unchanged. Release contains 58 manifest payload files totaling 6,420,592 bytes; including `release-manifest.json`, 59 files totaling 6,449,065 bytes. Pages contains 68 files totaling 6,837,146 bytes and embeds the matching 58-file, 6,420,592-byte release graph. Both outputs meet the 128-file, 1-MiB-per-file, 8-MiB-total limits; largest file is 987,565 bytes. R2 did not rerun install or tests. Formal verdict: `/Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/critic-r2/VERDICT.md`; raw summary and source fences: `/Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/verification-r2/R2-SUMMARY.json` and `POST-R2.json`.
+
+BIGGEST GAP: The acceptance covers the pinned dependency repair and the tested release/Pages outputs; the 105 archived alerts remain outside scope.
+
+DISPOSITION: Record the scoped candidate PASS while preserving Round557's setup FAIL. R2 supplies only the missing standalone build evidence and does not erase the independent R1 history.
