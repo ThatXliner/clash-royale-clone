@@ -10229,3 +10229,45 @@ FILES:
 ### Subsequent matching-canonical validation and adoption
 
 The two verification repairs passed again on exact canonical Git source at `0dcdb0335fc5ec83039a7c913ff6a920e4d8a112`, with only those two test overrides: placement 14/14 and audio 5/5, both direct exit 0 and empty stderr. All 633 source pins and both links stayed unchanged; the audio output directory was absent before its run. Raw streams and fences are retained at `/Users/me/.codex/clash-qualification/20261022-canonical-verification-test-repairs/runtime-canonical-r1/`. This subsequent validation is separate from the independent R4-candidate verdicts above. Adopt the two verification tests and these records; game/audio production code, full factory qualification, and the visual failures remain unchanged.
+
+## Round 556 — 2026-10-22
+
+PIECE: VIS-003CT — typed combat-art renderer contract
+
+VERDICT: PASS — scoped renderer contract only
+
+EVIDENCE:
+
+The candidate is based on canonical commit `13209f247d8a24a4ba9157c4152e30a7dcbd599d` with one verification-file override, `tests/visual-combat-assets.test.js` (SHA-256 `49c1ced9a8ab760152c170a5f34c74f9cf5ec2c4c43cdc8a068eb1f320df404f`). The builder's focused run and one fresh independent critic run each exited directly with code 0 and passed all three tests. The critic's formal verdict is `/Users/me/.codex/clash-qualification/20261022-visual-combat-team-independent-r1/formalVERDICT.md` (SHA-256 `f4e38c0522e134da7719c21ae5d793c463fd26c8cfc63571cacbf87278eeaa6e`); its compact receipt is `compactRECEIPT.json` (SHA-256 `9e5c8e3d99cc03833ffe2f5b80a013dbab0b4766359dbd839e3927b2500e7858`).
+
+Actual independent TAP summary:
+
+```text
+# tests 3
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11769.9665
+```
+
+The independent render receipt records 30 entity markers with unique IDs and positions, all in bounds, plus 15 unique nonempty decoded 64×64 alpha masks for each team. It pins the Copperskiff PNG with ember/south and river/north frames, 32:54 pivot, 64×64 frame, and resolved 13 CSS-pixel body; it records the Kilnkeeper WEBP body with a side-colored SVG ellipse ring; and it verifies side-colored vector paths. Motion checks cover attack pose/contact at tick 435, idle at 443, restore/chunk equivalence, and death lifetime across ticks 413, 414, 419, and 432. This qualifies only the tested typed representation, decoded-mask, and tick/restore/chunk/death renderer contract.
+
+The critic's pre/post inventories match the assembly receipt across all 633 source files and both symlink targets. Aggregate pin-set SHA-256 is `bc215c13cc4cd38fe75b653901f2a45f69bdddc1f68d896676d0ab948c8f46a3`. Independent stdout is 905 bytes, SHA-256 `f97a2eab3583970dd2b1d8c71e0611526d14bf60892e561916da5e8114bff19c`; stderr is empty (SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`). The actual contact sheet is `/Users/me/.codex/clash-qualification/20261022-visual-combat-team-independent-r1/visual-output/contact-sheet.png` (995,585 bytes, SHA-256 `fece6a9461051aebb172bae2847386d9deb1bebf89eba462f767616153e30bc5`).
+
+Earlier failures remain part of the record. Round 555's separate visual subtest failed the raw silhouette path gate at 13 distinct north silhouettes versus 15 expected (direct exit 1; preserved in `/Users/me/.codex/clash-qualification/20261022-clean-suite-test-repair-runtime-fixture-r1/RUNTIME-RECEIPT.json`, visual stdout SHA-256 `25eb4f463b5319c5ea7eeafa74c9acdc6c4466d3b71f67998959977655393ed2`). The subsequent alpha-mask candidate passed 15 distinct masks per team but failed the stale Copperskiff one-side-colored-body-path assertion: actual 0, expected 1, direct exit 1 (preserved in `/Users/me/.codex/clash-qualification/20261022-visual-combat-alpha-run/runtime-alpha-r1/RUNTIME-RECEIPT.json`, stdout SHA-256 `c74f2b42528a145b3324267fa69496cfd46cd86f7f862222d70fcfb93746f7c3`). Round 556 records the later typed raster contract and does not erase either failed run.
+
+BIGGEST GAP: Briar grid/cluster bleed remains plainly visible across the actual contact sheet and needs the separate UI-BRIAR-CLIP fix. Artwork quality and complete 3D attack sequences remain unqualified.
+
+DISPOSITION: Accept only this test-only candidate's scoped renderer-contract result. No production renderer, game/art source, or asset change is adopted. Do not claim artwork quality, a complete 3D attack sequence, full-factory qualification, or historical parity.
+
+FILES:
+- `/Users/me/.codex/clash-qualification/20261022-visual-combat-team-run/runtime-team-r1/RUNTIME-RECEIPT.md`, `stdout.raw`, `stderr.raw`, `direct-exit.txt`, `source-pre.json`, `source-post.json`, and `render-summary.json`
+- `/Users/me/.codex/clash-qualification/20261022-visual-combat-team-independent-r1/formalVERDICT.md`, `compactRECEIPT.json`, `stdout.raw`, `stderr.raw`, `source-pre.json`, `source-post.json`, `visual-output/render-evidence.json`, and `visual-output/contact-sheet.png`
+- Prior failures: `/Users/me/.codex/clash-qualification/20261022-clean-suite-test-repair-runtime-fixture-r1/RUNTIME-RECEIPT.json` and `/Users/me/.codex/clash-qualification/20261022-visual-combat-alpha-run/runtime-alpha-r1/RUNTIME-RECEIPT.json`
+
+
+### Adoption
+
+Adopt the independently verified test repair and Round 556 records. This changes one verification test and tracking documents; production rendering and art assets are unchanged.
