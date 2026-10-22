@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-22 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">321</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">324</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">260</div><div class="label">passed</div></div>
     <div class="card"><div class="num">556</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001HTJX — Extract existing shared combat factory</strong>.</p>
+  <p class="note">Active targets: <strong>UI-BRIAR-CLIP-001</strong> (64 rendered cases; pixel probes and critic pending); <strong>APP-REDESIGN-SKY-LIVE-001</strong> (10/10 unit; browser and critic pending); <strong>RELEASE-VITE-PATCH-001</strong> (builder checks passed; independent critic pending).</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -918,6 +918,14 @@
         <td>Round 556 scoped PASS on one test-only override. Independent critic confirms 15 distinct decoded masks per team and typed raster evidence; the contact sheet still shows Briar grid/cluster bleed. Production art quality and complete 3D attack sequence remain unqualified.</td>
       </tr>
       <tr>
+        <td><code>UI-BRIAR-CLIP-001</code></td>
+        <td>Briar image-only viewport clip</td>
+        <td class="state-building">BUILDING</td>
+        <td>28 pass, 1 skip; 1/1 real browser; 3/3 clean visual</td>
+        <td>0</td>
+        <td>The structural/unit run reports 28 passed and 1 skipped; the real-browser run is 1/1 and the clean visual test is 3/3. The image-only 220 px selected-pixel, ring, shadow and spill comparisons remain unqualified. The 64 rendered cases await A/B review, and the independent critic remains pending. These candidate runs are pinned to 13209f247d8a24a4ba9157c4152e30a7dcbd599d, not current canonical 33fc184b; the R556 contact sheet still shows Briar grid/cluster bleed. Evidence: /Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-source-r2/runtime-unit-r2/RUNTIME-RECEIPT.json; /Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-browser-r2/runtime-browser-r2/run-analysis.json; /Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-browser-r2/runtime-visual-candidate-clean-r2/RESULT.json; 64 rendered cases / A/B review pending at /Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-browser-r2/runtime-visual-ab-r1/; independent critic pending at /Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-independent-r1/.</td>
+      </tr>
+      <tr>
         <td><code>VIS-003D</code></td>
         <td>Card, hand, HUD, and match-feedback art</td>
         <td class="state-pass">PASS</td>
@@ -1012,6 +1020,14 @@
         <td>25/25</td>
         <td>2</td>
         <td>Independent frozen 3d18d45 release 20/20 and Pages 5/5 pass; two builds share manifest be5959cf…aabbab51 (38 files, 5,541,603 bytes). Actual Chromium game/controller/RL flows and manifest-bound requests pass; producer failures preserve prior bytes. Does not certify predecessor dependency-free tooling, remote deployment, endurance or historical parity.</td>
+      </tr>
+      <tr>
+        <td><code>RELEASE-VITE-PATCH-001</code></td>
+        <td>Root Vite dependency patch</td>
+        <td class="state-building">BUILDING</td>
+        <td>npm ci 1/1; npm ls 1/1; npm audit 1/1; release suite 23/24 (R1); R2 24/24, 5/5, 13/13</td>
+        <td>0</td>
+        <td>The R1 product patch changes only root package.json and package-lock.json; npm ci, npm ls and npm audit each exited 0. The R1 release-build suite exited 1 at 23/24 because its sole failure expected Vite 8.3.2 after the pin moved to 8.3.3. The R2 candidate changes the assertion to compare the manifest version with the declared package pin. R2 verification passed all seven commands: release tests 24/24, publication 5/5, shipping guard 13/13, and both 58-file builds at 6,420,592 bytes. Independent critique remains pending; 105 archived alerts are outside scope. Evidence: /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/RECEIPT.md; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-install-r1/RESULT.json; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-verification-r1/01-npm-ls/RESULT.json; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-verification-r1/02-npm-audit/RESULT.json; /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair/runtime-verification-r1/03-test-release-build/RESULT.json; R2 source plan /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair-r2/VERIFICATION.md and candidate receipt /Users/me/.codex/clash-qualification/20261022-vite-root-dependency-repair-r2/CANDIDATE-RUN-RECEIPT.json.</td>
       </tr>
       <tr>
         <td><code>RELEASE-001W</code></td>
@@ -2596,6 +2612,14 @@
         <td>24/24</td>
         <td>1</td>
         <td>Round551 independent package/atlas PASS: all24 full RGBA cells match; two clean atlas builds byte-identical at27,488B SHA-e6c02d3a; 63-file 5,471,644B bundle and manifest 8d741df4 preserved. Live renderer state/facing/motion remains unqualified. Evidence: design/20261021-skymaul-r4/atlas/, design/20261021-skymaul-r4/bundle/, artifacts/app-redesign-atlas-003/critic/.</td>
+      </tr>
+      <tr>
+        <td><code>APP-REDESIGN-SKY-LIVE-001</code></td>
+        <td>Skymaul live atlas binding</td>
+        <td class="state-building">BUILDING</td>
+        <td>10/10 unit; direct exit 0; 641 source pins unchanged; browser and critic pending</td>
+        <td>0</td>
+        <td>Root-reviewed focused unit proof: 10/10 passed, direct exit 0, and all 641 source pins are unchanged. The coverage is the fixed-pose selector and authentic GameSession binding; browser review and independent critic remain pending. The full 3D attack sequence is incomplete. Evidence: /Users/me/.codex/clash-qualification/20261022-skymaul-live-typed-assets-r2/runtime-unit-r1/RESULT.json; /Users/me/.codex/clash-qualification/20261022-skymaul-live-typed-assets-r2/runtime-unit-r1/ROOT-POST-REVIEW.json.</td>
       </tr>
       <tr>
         <td><code>GAME-001GPR8D</code></td>
