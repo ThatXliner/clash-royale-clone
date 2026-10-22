@@ -10165,3 +10165,20 @@ FILES:
 - `/Users/me/.codex/clash-qualification/20261022-current-main-endurance-round1/critic/runtime/active.png`, `terminal.png`, `restart.png`
 - `/Users/me/.codex/clash-qualification/20261022-current-main-endurance-round1/critic/runtime/integrity.txt`
 
+## Round 553 — 2026-10-22
+
+PIECE: GAME-001HTJS — local-copy unit projection sort
+
+VERDICT: PASS — focused frozen-array projectile regression only
+
+EVIDENCE:
+
+Fresh critic R2 `critic-r2/VERDICT.md` and root review `critic-r2/ROOT-RESULT-REVIEW.json` record the raw/fixed/guard exits as 1/0/0 on the pinned fixed-root candidate. The raw baseline constructs successfully, schedules both tick-zero deployments, then fails on the first public `LiveBattle.step()` with `TypeError: Cannot assign to read only property '0' of object '[object Array]'` in `#projectileSourcesFromState`. The fixed candidate changes the sorting operation to sort a copy and produces an ordinary projectile launch at tick 144 and contact at tick 148 against target 2, with observed damage 192 and HP 1766→1574 (delta 192). Its receipt hash is `abc98a533aa975038e68fd23fb5e59a2293b1e71ea51dbcdefcce351d686d972`.
+
+At `after-two-deployments`, `ordinary-projectile-in-flight`, and `ordinary-projectile-contact-and-hp-loss`, serialization, restoration, and independent forks reproduce exact bytes with no errors. Root review records checkpoint sizes/hashes 118,924/`16feeda3378f2ef4e6134b62be709851630b51f8e4a2636a1ead71afbeb4d3cb`, 486,155/`1bc8a007231c3ac74934cd1d2c45749d1ae9f03522dc991aa8d808c7783060ec`, and 137,202/`dd6ee472c45c66c7e7790c08933f5b935cf51d873ebb8254b591a22c00fc3f6d`. The scoped `npm run test:nondeterminism-guard` reports 10/10 passing. The fixed kernel SHA-256 is `0331a2f6089a6992ad39916e8183244b7c7015758eeff0cc34ad709de84bf16f`; harness SHA-256 is `738fce4da6e448fc0b67c4c0a4935b1ece00c96c61df15b4bb1b8803e0ad0de7`; runner SHA-256 is `d603ab56b7c407fa0e992f0c137d35c9241cc8e00ac069eaffc9905dcd163f61`. Actual streams and pins are retained under `/Users/me/.codex/clash-qualification/20261022-live-host-unit-sort-repair/critic-r2/` and `runtime-raw-r4/`, `runtime-fixed-r4/`, and `runtime-guard-fixed-r4/`.
+
+The earlier R1 `critic-r1/VERDICT.md` records an accidental extra diagnostic `node -e` command with stderr suppressed and `|| true` masking its direct exit. That protocol deviation remains disclosed; R1 is not counted as clean acceptance. The fresh R2 evidence supports this scoped regression only. The observation compares damage 192 with HP delta 192 but does not independently assert a reference damage constant.
+
+BIGGEST GAP: The observed 192 damage equals the actual HP delta, but lacks an independent numeric reference assertion; chain behavior, shared-factory qualification, historical gameplay parity, and product adoption remain unqualified.
+
+DISPOSITION: Record only a scoped candidate PASS for the local-copy sort. Preserve the R1 protocol deviation and do not adopt product source or infer broader qualification.
