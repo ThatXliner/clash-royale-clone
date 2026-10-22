@@ -10182,3 +10182,50 @@ The earlier R1 `critic-r1/VERDICT.md` records an accidental extra diagnostic `no
 BIGGEST GAP: The observed 192 damage equals the actual HP delta, but lacks an independent numeric reference assertion; chain behavior, shared-factory qualification, historical gameplay parity, and product adoption remain unqualified.
 
 DISPOSITION: Record only a scoped candidate PASS for the local-copy sort. Preserve the R1 protocol deviation and do not adopt product source or infer broader qualification.
+
+## Round 554 — 2026-10-22
+
+PIECE: UI-002AT — test-only projected spell placement-preview regression
+VERDICT: PASS — focused candidate test only; product source remains unadopted
+EVIDENCE:
+
+The R2 test artifact uses `projectSessionNonUnitBattleCard("squall-orb")` to construct the spell fixture, then checks its admitted `id`, `effect` kind, and 2,500-millitile radius. This fixes the prior R1 fixture-construction error without changing production source or inventing card fields. In the preserved R1 attempt, raw `createInstantSpellCatalog()` output was passed to the strict input-card serializer; test 9 failed with `TypeError: arena input card 1 has an invalid shape`, and the direct process exit was 1. Its raw output and run receipt remain at `/Users/me/.codex/clash-qualification/20261022-ui-placement-test-repair/runtime-builder-r1/` (stdout SHA-256 `a22128aa97653da6a8eeeb188642532504ad6034487f58394a3e13e9bcc65888`; receipt SHA-256 `674e176d5e74406dd8724cbe2c23a7f3ece816857d74f733c278f112f32d917a`).
+
+The builder run and a fresh independent critic each ran the focused `ui-placement-feedback.test.js` suite: 14 tests, 14 pass, zero fail/skip, direct exit 0, and empty stderr. The pinned test SHA-256 is `22adb7e52b54fe63e00a08db3bac78a8c590f1ce5a00530319bf2d27839c64c6`. Builder stdout SHA-256 is `69e52f519b7d81ef38e6f2b6b837ac23f3d1f20ce09dbb1f2780172ab7c4249e`; critic stdout SHA-256 is `f27bec9043dee9c46191d20238b20bcfec1c8786e5ddbb9d3a160bfb3b75bb60`. Both raw streams and direct-exit records are retained under `/Users/me/.codex/clash-qualification/20261022-ui-placement-test-repair-r2/runtime-builder-r2/` and `/Users/me/.codex/clash-qualification/20261022-ui-placement-test-repair-r2/critic-r1/`.
+
+The test exercises the input controller's and placement-feedback controller's preview paths with pointer and legacy mounts; preview movement leaves serialized input, deck, elixir, and command history unchanged. One single-use canonical input receipt authorizes release. The builder's 128-file candidate source closure retained the same source-pin digest `13878ec3f04531205377cc6601eb8844901908f4bf159bd261b02fcd9391d11c` before and after. Fresh-critic pre/post pins also match for the test (`22adb7e5…`), input controller (`2d98212b…`), and placement feedback (`3c672625…`). No product source changed.
+
+BIGGEST GAP: The fixture contains no simulation object, so it does not prove that preview movement has no simulation-side effect outside these handlers; this focused test does not accept the full factory candidate or adopt product source.
+
+DISPOSITION: Record only this test-only projected-fixture candidate PASS. Preserve the R1 invalid-catalog failure. Product implementation, general simulation-side-effect coverage, and full-factory acceptance remain unqualified.
+
+FILES:
+- `/Users/me/.codex/clash-qualification/20261022-ui-placement-test-repair-r2/critic-r1/VERDICT.md`
+- `/Users/me/.codex/clash-qualification/20261022-ui-placement-test-repair-r2/critic-r1/raw.stdout` and `raw.stderr`
+- `/Users/me/.codex/clash-qualification/20261022-ui-placement-test-repair-r2/runtime-builder-r2/raw.stdout` and `raw.stderr`
+
+## Round 555 — 2026-10-22
+
+PIECE: AUDIO-002F — fresh-directory audio production artifact fixture
+VERDICT: PASS — audio-only verification-test candidate on frozen R4 source; not canonical-main validation
+EVIDENCE:
+
+On the frozen R4 factory-source candidate, the test-only change adds `mkdirSync(ARTIFACTS, { recursive: true })` immediately before the offline WAV write in `tests/audio-production-assets.test.js` (candidate SHA-256 `b210c6d636e334fd64fdb23baa65a1eaef2fdca47913d0682fa4affa3c691680`; canonical 0dcdb base test SHA-256 `553c2dd59ac37fd4c8474530f3c24aff8294f2dd493d078a526af5bad6627215`). This lets the test write the WAV when its artifact directory is absent. It changes verification-test scope only.
+
+In `/Users/me/.codex/clash-qualification/20261022-clean-suite-test-repair-runtime-fixture-r1/RUNTIME-RECEIPT.json` (SHA-256 `a3510dcf0954bfe9584e0de3b701e299521effc6c2810eda98a05a3e9de3906c`), the audio command reports 5/5 passing, direct exit 0, and empty stderr. Its raw stdout SHA-256 is `d51fb583bc6121c6f8d9fa40a47ff7c7a726e6977993a269b336d1ca61d5c440`. A fresh independent audio-only critic on a copy of that R4 candidate also passes 5/5 with direct exit 0, zero skips, and empty stderr; its raw stdout SHA-256 is `69252636378bde9d99ead4833eb4606b265f54f871ab09377e0f75d29c9d4bb8`, and its verdict SHA-256 is `f68c10ed8498a5a2ee11dc63b7b592088a592d03f4b055953dd375918053e3ca`.
+
+The independent critic’s preflight found both audio output locations absent. Its post-run inventory contains only the expected audio WAV (126,044 bytes, SHA-256 `a46dfcc2b4942b7ce073ed65dc52366f53d5f15ff3096be1ad8a379d9d378e9c`) and evidence JSON (39,398 bytes, SHA-256 `fc4f53e454951d6cd969fdd17ffdcacec199db21da97d413eca75ab5febab00c`); public audio output remains absent. All 636 receipt-pinned source files and both expected symlink targets match before and after, with zero mismatches. The workspace HEAD remains `0dcdb0335fc5ec83039a7c913ff6a920e4d8a112` and the index SHA remains `8e79bb09cef07999afb8d2c991c3f1a9b5562528a82d74eef865a39582def914`. This evidence covers the 636-file R4 candidate source closure; it is not the separate exact canonical 633-source validation now underway and does not record that run’s result.
+
+**Separate visual result from the same builder receipt:** the subsequent `visual-combat-assets.test.js` command failed 2/3 with direct exit 1. The failed assertion was “north must retain a distinct silhouette for every archetype” (actual 13, expected 15). Its raw stdout SHA-256 is `25eb4f463b5319c5ea7eeafa74c9acdc6c4466d3b71f67998959977655393ed2`. This visual failure is retained separately and is not included in the audio-only PASS.
+
+BIGGEST GAP: The audio result is limited to the frozen R4 candidate; its clean-output condition comes from preflight rather than a test startup assertion, and this record does not include matching canonical 633-source validation or full-factory acceptance.
+
+DISPOSITION: Record a scoped PASS for the audio verification-test candidate on the R4 source only. Preserve the separate visual failure and do not count this as canonical 633-source validation. Game/audio production source is unchanged and unadopted; test-file adoption remains a separate review decision.
+
+FILES:
+- `/Users/me/.codex/clash-qualification/20261022-clean-suite-test-repair-runtime-fixture-r1/RUNTIME-RECEIPT.json`, `audio-stdout.raw`, `visual-stdout.raw`, and source-pin inventories
+- `/Users/me/.codex/clash-qualification/20261022-audio-fixture-independent-round1/critic/VERDICT.md`, `stdout.txt`, `RECEIPT.json`, `pre-state.json`, and `post-state.json`
+
+### Subsequent matching-canonical validation and adoption
+
+The two verification repairs passed again on exact canonical Git source at `0dcdb0335fc5ec83039a7c913ff6a920e4d8a112`, with only those two test overrides: placement 14/14 and audio 5/5, both direct exit 0 and empty stderr. All 633 source pins and both links stayed unchanged; the audio output directory was absent before its run. Raw streams and fences are retained at `/Users/me/.codex/clash-qualification/20261022-canonical-verification-test-repairs/runtime-canonical-r1/`. This subsequent validation is separate from the independent R4-candidate verdicts above. Adopt the two verification tests and these records; game/audio production code, full factory qualification, and the visual failures remain unchanged.

@@ -1,12 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { createInitialArenaHudSystems } from "../src/ui/arena-shell-entry.js";
 import {
   createArenaInputHudCapability,
   mountArenaInputController,
   serializeArenaInputCards,
 } from "../src/ui/input-controller.js";
+import { DeckCycle } from "../src/sim/deck.js";
 import {
   bindPlacementFeedback,
   mountPlacementFeedback,
@@ -100,7 +102,10 @@ class Node {
   }
 }
 
-function browser({ pointer = true } = {}) {
+function browser({
+  pointer = true,
+  handCardIds = ["mossguard", "cinderlings", "briar-band", "reedsting"],
+} = {}) {
   const document = {
     defaultView: pointer ? { PointerEvent: class PointerEvent {} } : {},
     createElement() {
@@ -118,13 +123,12 @@ function browser({ pointer = true } = {}) {
   arena.clientTop = 4;
   arena.clientWidth = 540;
   arena.getBoundingClientRect = () => BORDER_RECT;
-  const hand = ["mossguard", "cinderlings", "briar-band", "reedsting"]
-    .map((cardId) => {
-      const node = new Node();
-      node.dataset.cardId = cardId;
-      node.ownerDocument = document;
-      return node;
-    });
+  const hand = handCardIds.map((cardId) => {
+    const node = new Node();
+    node.dataset.cardId = cardId;
+    node.ownerDocument = document;
+    return node;
+  });
   shell.lookups.set('[data-ui="arena"]', arena);
   shell.lookups.set('[data-ui="card-slot"]', hand);
   return { arena, hand, shell };
@@ -135,6 +139,55 @@ function mountedBrowser() {
   const input = mountArenaInputController(nodes.shell, systems());
   const feedback = mountPlacementFeedback(nodes.shell, input);
   return { ...nodes, feedback, input };
+}
+
+function mountedSpellPreviewBrowser({ pointer = true } = {}) {
+  const initial = createInitialArenaHudSystems();
+  const spell = projectSessionNonUnitBattleCard("squall-orb");
+  assert.equal(spell.id, "squall-orb");
+  assert.equal(spell.kind, "effect");
+  assert.equal(spell.areaDamageRadiusMillitiles, 2500);
+  const replacedCardId = initial.deck.state.hand[0];
+  const cards = initial.cards.map((card) =>
+    card.id === replacedCardId ? spell : card
+  );
+  const deck = new DeckCycle({
+    deck: cards.map(({ id }) => id),
+    seed: 0,
+  });
+  assert.equal(deck.state.hand[0], spell.id,
+    "Squall Orb occupies the deterministic first starting-hand slot");
+  let external = { deck, elixir: initial.elixir };
+  const capability = createArenaInputHudCapability(
+    serializeArenaInputCards(cards),
+    external.deck.serializeJson(),
+    external.elixir.serialize(),
+    (next) => { external = next; },
+    () => {},
+  );
+  const nodes = browser({ handCardIds: deck.state.hand, pointer });
+  const input = mountArenaInputController(nodes.shell, capability);
+  const feedback = mountPlacementFeedback(nodes.shell, input);
+  return { ...nodes, feedback, input };
+}
+
+function spellPreviewNode(mounted) {
+  const node = mounted.arena.children.find(({ className }) =>
+    className === "squall-orb-radius-preview"
+  );
+  assert.ok(node, "effect spell preview is mounted");
+  return node;
+}
+
+function spellPreviewState(node) {
+  return {
+    display: node.style.display ?? null,
+    height: node.style.height ?? null,
+    left: node.style.left ?? null,
+    radiusMillitiles: node.dataset.radiusMillitiles ?? null,
+    top: node.style.top ?? null,
+    width: node.style.width ?? null,
+  };
 }
 
 function receiptBrowser() {
@@ -358,16 +411,177 @@ test("ui placement feedback: malformed touch, metrics, hooks, and results fail c
   assert.equal(feedback.controller.view.sequence, 1);
 });
 
-test("ui placement feedback: capability detection binds one deterministic event family", () => {
+test("ui placement feedback: capability detection keeps deterministic previews and one release family", () => {
+  for (const family of [
+    { name: "pointer", pointer: true },
+    { name: "legacy", pointer: false },
+  ]) {
+    const pair = [
+      mountedSpellPreviewBrowser({ pointer: family.pointer }),
+      mountedSpellPreviewBrowser({ pointer: family.pointer }),
+    ];
+    for (const mounted of pair) {
+      assert.equal(mounted.input.eventFamily, family.name);
+      const spellCard = mounted.hand.find(({ dataset }) =>
+        dataset.cardId === "squall-orb"
+      );
+      assert.ok(spellCard);
+      assert.equal(
+        spellCard.emit("click", { currentTarget: spellCard }).accepted,
+        true,
+      );
+      assert.equal(mounted.input.input.selectedCardId, "squall-orb");
+      assert.equal(mounted.input.input.commands.length, 0);
+      assert.equal(
+        mounted.feedback.controller.history.filter(
+          ({ status }) => status === "accepted",
+        ).length,
+        0,
+      );
+    }
+
+    if (family.pointer) {
+      for (const mounted of pair) {
+        assert.equal(mounted.arena.listeners.get("pointerup").length, 1);
+        for (const type of ["touchend", "touchmove", "mouseup", "mousemove"]) {
+          assert.equal(mounted.arena.listeners.has(type), false);
+        }
+      }
+    } else {
+      for (const mounted of pair) {
+        assert.equal(mounted.arena.listeners.has("pointerup"), false);
+        assert.equal(mounted.arena.listeners.has("pointermove"), false);
+        for (const type of ["touchend", "mouseup"]) {
+          assert.equal(mounted.arena.listeners.get(type).length, 1);
+        }
+        for (const type of ["touchmove", "mousemove"]) {
+          assert.equal(mounted.arena.listeners.get(type).length, 2);
+        }
+      }
+    }
+
+    const beforeMoves = pair.map((mounted) => ({
+      input: mounted.input.input.serialize(),
+      deck: mounted.input.input.deck,
+      elixir: mounted.input.input.elixir,
+    }));
+    let previousSpellPreviews = pair.map((mounted) =>
+      spellPreviewState(spellPreviewNode(mounted))
+    );
+    const previewCases = [
+      { move: "touchmove", point: LEGAL, status: "legal", reason: "own_side_ground" },
+      { move: "mousemove", point: RIVER, status: "illegal", reason: "river_excluded" },
+      {
+        move: "touchmove",
+        point: { clientX: RIVER.clientX + 1, clientY: RIVER.clientY + 1 },
+        status: "illegal",
+        reason: "river_excluded",
+      },
+      {
+        move: "mousemove",
+        point: { clientX: LEGAL.clientX + 1, clientY: LEGAL.clientY },
+        status: "legal",
+        reason: "own_side_ground",
+      },
+      {
+        move: "touchmove",
+        point: { clientX: LEGAL.clientX + 2, clientY: LEGAL.clientY },
+        status: "legal",
+        reason: "own_side_ground",
+      },
+    ];
+    for (const [index, { move, point, status, reason }] of previewCases.entries()) {
+      for (const mounted of pair) {
+        if (family.pointer) {
+          mounted.arena.emit("pointermove", { ...point, pointerType: "pen" });
+        } else if (move === "touchmove") {
+          mounted.arena.emit("touchmove", { changedTouches: [point] });
+        } else {
+          mounted.arena.emit("mousemove", point);
+        }
+      }
+      const states = pair.map((mounted) => ({
+        placement: mounted.feedback.controller.view,
+        spell: spellPreviewState(spellPreviewNode(mounted)),
+      }));
+      assert.deepEqual(states[0], states[1]);
+      for (const [mountIndex, mounted] of pair.entries()) {
+        assert.equal(states[mountIndex].placement.sequence, index + 2);
+        assert.equal(states[mountIndex].placement.status, status);
+        assert.equal(states[mountIndex].placement.reason, reason);
+        assert.equal(states[mountIndex].placement.selectedCardId, "squall-orb");
+        assert.equal(states[mountIndex].placement.command, null);
+        assert.equal(states[mountIndex].spell.display, "block");
+        assert.equal(states[mountIndex].spell.radiusMillitiles, "2500");
+        assert.notDeepEqual(states[mountIndex].spell, previousSpellPreviews[mountIndex]);
+        assert.equal(mounted.input.input.serialize(), beforeMoves[mountIndex].input);
+        assert.deepEqual(mounted.input.input.deck, beforeMoves[mountIndex].deck);
+        assert.deepEqual(mounted.input.input.elixir, beforeMoves[mountIndex].elixir);
+        assert.equal(mounted.input.input.commands.length, 0);
+        assert.equal(
+          mounted.feedback.controller.history.filter(
+            ({ status: historyStatus }) => historyStatus === "accepted",
+          ).length,
+          0,
+        );
+        previousSpellPreviews[mountIndex] = states[mountIndex].spell;
+      }
+    }
+
+    for (const mounted of pair) {
+      const movementTypes = family.pointer ? ["pointermove"] : ["touchmove", "mousemove"];
+      for (const type of movementTypes) {
+        const listeners = mounted.arena.listeners.get(type);
+        assert.equal(listeners.length, 2);
+        assert.equal(new Set(listeners).size, 2);
+      }
+      if (family.pointer) {
+        assert.equal(
+          mounted.arena.listeners.get("pointermove").filter(
+            (listener) => listener === mounted.feedback.onPointerMove,
+          ).length,
+          1,
+        );
+      }
+    }
+
+    for (const mounted of pair) {
+      const previewNode = spellPreviewNode(mounted);
+      const previewBeforeCleanup = spellPreviewState(previewNode);
+      const feedbackBeforeCleanup = mounted.feedback.controller.serialize();
+      const commandsBeforeCleanup = mounted.input.input.commands;
+      assert.equal(mounted.feedback.cleanup(), true);
+      assert.equal(mounted.feedback.cleanup(), false);
+      assert.equal(mounted.arena.children.length, 0);
+      const detachedEvents = family.pointer
+        ? [
+          ["pointermove", { ...RIVER, pointerType: "pen" }],
+          ["pointerup", { ...LEGAL, pointerType: "pen" }],
+        ]
+        : [
+          ["touchmove", { changedTouches: [RIVER] }],
+          ["mousemove", RIVER],
+          ["touchend", { changedTouches: [LEGAL] }],
+          ["mouseup", LEGAL],
+        ];
+      for (const [type, event] of detachedEvents) {
+        assert.equal(mounted.arena.listeners.get(type).length, 0);
+        assert.equal(mounted.arena.emit(type, event), undefined);
+      }
+      assert.equal(mounted.feedback.controller.serialize(), feedbackBeforeCleanup);
+      assert.deepEqual(mounted.input.input.commands, commandsBeforeCleanup);
+      assert.deepEqual(spellPreviewState(previewNode), previewBeforeCleanup);
+    }
+  }
+
   const pointer = mountedBrowser();
   assert.equal(pointer.input.eventFamily, "pointer");
   assert.equal(pointer.arena.listeners.get("pointerup").length, 1);
-  assert.equal(pointer.arena.listeners.get("pointermove").length, 1);
+  assert.equal(pointer.arena.listeners.get("pointermove").length, 2);
   assert.equal(pointer.arena.listeners.has("touchend"), false);
   assert.equal(pointer.arena.listeners.has("touchmove"), false);
   assert.equal(pointer.arena.listeners.has("mouseup"), false);
   assert.equal(pointer.arena.listeners.has("mousemove"), false);
-
   pointer.hand[1].emit("click", { currentTarget: pointer.hand[1] });
   pointer.arena.emit("pointermove", { ...LEGAL, pointerType: "pen" });
   const pen = pointer.arena.emit("pointerup", {
@@ -389,12 +603,20 @@ test("ui placement feedback: capability detection binds one deterministic event 
   assert.equal(input.eventFamily, "legacy");
   assert.equal(nodes.arena.listeners.has("pointerup"), false);
   assert.equal(nodes.arena.listeners.has("pointermove"), false);
-  for (const type of ["touchend", "mouseup", "touchmove", "mousemove"]) {
+  for (const type of ["touchend", "mouseup"]) {
     assert.equal(nodes.arena.listeners.get(type).length, 1);
+  }
+  for (const type of ["touchmove", "mousemove"]) {
+    assert.equal(nodes.arena.listeners.get(type).length, 2);
   }
 
   nodes.hand[1].emit("click", { currentTarget: nodes.hand[1] });
+  const beforeTouchMove = input.input.serialize();
   nodes.arena.emit("touchmove", { changedTouches: [LEGAL] });
+  assert.equal(input.input.serialize(), beforeTouchMove);
+  assert.equal(input.input.commands.length, 0);
+  assert.equal(feedback.controller.view.reason, "own_side_ground");
+  assert.equal(feedback.controller.view.command, null);
   const touch = nodes.arena.emit("touchend", { changedTouches: [LEGAL] });
   assert.equal(touch.accepted, true);
   const afterTouch = feedback.controller.serialize();
@@ -417,7 +639,10 @@ test("ui placement feedback: capability detection binds one deterministic event 
   );
 
   nodes.hand[0].emit("click", { currentTarget: nodes.hand[0] });
+  const beforeMouseMove = input.input.serialize();
   nodes.arena.emit("mousemove", { clientX: 271, clientY: 708 });
+  assert.equal(input.input.serialize(), beforeMouseMove);
+  assert.equal(input.input.commands.length, 1);
   const mouse = nodes.arena.emit("mouseup", {
     clientX: 271,
     clientY: 708,
@@ -425,6 +650,8 @@ test("ui placement feedback: capability detection binds one deterministic event 
   assert.equal(mouse.accepted, true);
   assert.equal(input.input.commands.length, 2);
 
+  const feedbackBeforeCleanup = feedback.controller.serialize();
+  const commandsBeforeCleanup = input.input.commands;
   assert.equal(feedback.cleanup(), true);
   for (const type of ["touchend", "mouseup", "touchmove", "mousemove"]) {
     assert.equal(nodes.arena.listeners.get(type).length, 0);
@@ -432,6 +659,16 @@ test("ui placement feedback: capability detection binds one deterministic event 
   for (const hand of nodes.hand) {
     assert.equal(hand.listeners.get("click").length, 0);
   }
+  for (const [type, event] of [
+    ["touchmove", { changedTouches: [LEGAL] }],
+    ["mousemove", { clientX: 271, clientY: 708 }],
+    ["touchend", { changedTouches: [LEGAL] }],
+    ["mouseup", { clientX: 271, clientY: 708 }],
+  ]) {
+    assert.equal(nodes.arena.emit(type, event), undefined);
+  }
+  assert.equal(feedback.controller.serialize(), feedbackBeforeCleanup);
+  assert.deepEqual(input.input.commands, commandsBeforeCleanup);
 });
 
 test("ui placement feedback: only single-use canonical input receipts have authority", () => {

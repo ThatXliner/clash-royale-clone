@@ -136,6 +136,7 @@ function writeOfflineRender(manifest) {
   bytes.set(pcmBytes, 44);
   const output = `${ARTIFACTS}audio-production-offline.wav`;
   const temporary = `${output}.tmp`;
+  mkdirSync(ARTIFACTS, { recursive: true });
   writeFileSync(temporary, bytes);
   renameSync(temporary, output);
   const written = readFileSync(output);
