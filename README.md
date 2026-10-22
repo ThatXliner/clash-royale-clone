@@ -59,3 +59,7 @@ Project-authored code and original brand assets are licensed under
 [GNU AGPL-3.0-only](LICENSE). Some authored audio and shipped icons have their
 own CC0-1.0 notices. See [NOTICE](NOTICE) for asset and comparison-corpus
 provenance, and [the brand guide](docs/brand.md) for the Moss &amp; Ember identity.
+
+## Build runtime security
+
+Use Node.js 22.23.4+, 24.22.1+, or 26.12.1+ for installs and builds. Node 23 and 25 are unsupported. These floors include the October 2026 eMudhra CA distrust update. The published game is static and uses browser certificate validation. Historical artifacts and fixture manifests retain their original metadata.

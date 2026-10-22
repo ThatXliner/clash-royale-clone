@@ -1,0 +1,24 @@
+{
+  "proofSourceCommit": "fd6b2af97294be762af637a1d8a40c3af18452cf",
+  "securityBaselineCommit": "636a53480fc03548b7b613a7722fb0999b308a1f",
+  "securityPaths": [
+    ".github/workflows/pages.yml",
+    ".npmrc",
+    ".nvmrc",
+    "README.md",
+    "package-lock.json",
+    "package.json"
+  ],
+  "runtimeAndHarnessTreesByteIdentical": true,
+  "treeInventorySha256": "ef523e312d69cb70fed1329b02ea56a179959d9cca23ff99dc2a0c39959ca8f9",
+  "treeInventoryPaths": [
+    "src",
+    "public",
+    "scripts",
+    "tests",
+    "site",
+    "docs"
+  ],
+  "actualTestNodeVersion": "22.23.4",
+  "evidenceScope": "Original 627-file fences refer to fd6. The browser runtime and harness are byte-identical on the security baseline; both full runs used the patched Node version. Installation and release-policy qualification remain separate."
+}
