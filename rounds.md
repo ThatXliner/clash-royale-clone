@@ -10295,3 +10295,28 @@ EVIDENCE: The R1 first six passed stages are recorded in Round557 and its indepe
 BIGGEST GAP: The acceptance covers the pinned dependency repair and the tested release/Pages outputs; the 105 archived alerts remain outside scope.
 
 DISPOSITION: Record the scoped candidate PASS while preserving Round557's setup FAIL. R2 supplies only the missing standalone build evidence and does not erase the independent R1 history.
+
+## Round 559 — 2026-10-22
+
+PIECE: UI-BRIAR-CLIP-001 — Briar image-only viewport clip
+
+VERDICT: FAIL — clip-edge raster changes violate the exact-pixel preservation gate
+
+EVIDENCE: The fresh independent R6 comparator directly exited 1 with empty stderr against the 64 already captured cases and 16 selected windows. Its formal verdict is `/Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-independent-r3/VERDICT.md`; compact receipt is `compactRECEIPT.json`; report SHA-256 is `b18cf46b68651ea02d5485f5383a5d762bbba4930676f6a7374785db3efc284c`. All 64 live pose crops differ, totaling 1,384 selected-screen pixel changes, with up to 50 differing pixels per crop and maximum channel delta 2. Eight ring-shadow crops differ by up to 21 pixels, maximum channel delta 1. The full scene changes 10,376 pixels: 10,315 are removed atlas spill and 61 are outside the allowed spill area. Source-window hashes, atlas bytes, geometry/metadata, isolated ring-shadow raster, and all 28 non-Briar nodes pass. The outside-spill differences are consistent with anti-aliased clip edges, but the accepted criterion requires zero pixel changes.
+
+BIGGEST GAP: The clip alters live sprite edge pixels in all 64 cases and leaves 61 full-scene pixels outside the allowed spill region, so the zero-difference gate fails.
+
+DISPOSITION: Record the formal FAIL and retain the exact zero-pixel bar; do not reclassify antialiasing as tolerated without a separate explicit decision. Preserve all prior failures. No product art or renderer change is adopted.
+
+
+## Round 560 — 2026-10-22
+
+PIECE: GAME-001HTJS — Local-copy unit projection sort, canonical product adoption
+
+VERDICT: PASS — public GameSession immutable-checkpoint fix only
+
+EVIDENCE: A fresh independent critic copied and verified all 635 receipt-pinned files in each raw/fixed source tree. The same public-API test admits Stormkite at tick 0 and Mossguard at tick 1. The raw control exits 1 at the second step with the read-only-array TypeError in #projectileSourcesFromState at kernel line 8835. The fixed kernel changes only state.units.sort to [...state.units].sort. Its focused test passes 1/1, the complete projectile test file passes 7/7, and the nondeterminism guard passes 10/10, each direct exit 0. The prior frozen public checkpoint retains its bytes/order and the live session reaches tick 2 with unit IDs [1,2]. No global built-in interception is used. All post-run source hashes and the protected Git index match. Evidence: /Users/me/.codex/clash-qualification/20261022-current-kernel-sort-independent-r1/runs/.
+
+BIGGEST GAP: This verifies the public GameSession sort fix, not historical gameplay parity, new default RL capabilities or broader redesign acceptance.
+
+DISPOSITION: Adopt only the one-line kernel fix and its public behavior regression, retaining prior Round553 evidence and all source-confidence questions.

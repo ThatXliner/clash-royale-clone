@@ -69,6 +69,34 @@ function deploy(session, id, commandId = 0) {
   }));
 }
 
+test("public GameSession preserves its checkpoint across two authentic deployments", () => {
+  const setup = witnessSetup("stormkite");
+  const seed = Array.from({ length: 10_000 }, (_, value) => value).find((value) =>
+    ["stormkite", "mossguard"].every((id) => new DeckCycle({ deck: setup.deck,
+      seed: `${value}:south` }).state.hand.includes(id)));
+  assert.notEqual(seed, undefined, "Stormkite and Mossguard share a legal opening hand");
+  setup.seed = seed;
+  const session = new GameSession(canonical(setup));
+
+  const first = deploy(session, "stormkite", 0);
+  assert.equal(first.accepted, true);
+  assert.equal(first.tick, 0);
+  session.step();
+  const checkpoint = session.state;
+  assert.deepEqual(checkpoint.battle.units.map(({ id }) => id), [1]);
+  assert.ok(Object.isFrozen(checkpoint) && Object.isFrozen(checkpoint.battle.units));
+  const checkpointBytes = canonical(checkpoint);
+
+  const second = deploy(session, "mossguard", 1);
+  assert.equal(second.accepted, true);
+  assert.equal(second.tick, 1);
+  session.step();
+  assert.equal(session.state.tick, 2);
+  assert.deepEqual(session.state.battle.units.map(({ id }) => id), [1, 2]);
+  assert.equal(canonical(checkpoint), checkpointBytes);
+  assert.deepEqual(checkpoint.battle.units.map(({ id }) => id), [1]);
+});
+
 function eventIdentity(event) {
   return event.projectileIdentity ?? event.projectile?.projectileIdentity ?? null;
 }

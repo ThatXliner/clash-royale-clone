@@ -8832,7 +8832,7 @@ class LiveBattle {
 
   #projectileSourcesFromState(state) {
     if (this.#projectileRuntime === null) return [];
-    return state.units.sort((left, right) => left.id - right.id)
+    return [...state.units].sort((left, right) => left.id - right.id)
       .map((unit) => ({
         cardId: this.#metadata.get(unit.id)?.cardId,
         damage: unit.damage,
