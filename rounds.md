@@ -10320,3 +10320,30 @@ EVIDENCE: A fresh independent critic copied and verified all 635 receipt-pinned 
 BIGGEST GAP: This verifies the public GameSession sort fix, not historical gameplay parity, new default RL capabilities or broader redesign acceptance.
 
 DISPOSITION: Adopt only the one-line kernel fix and its public behavior regression, retaining prior Round553 evidence and all source-confidence questions.
+
+## Round 561 — 2026-10-23
+
+PIECE: APP-004 — Readable hand and next-card HUD in packaged Battle, round 3
+
+VERDICT: FAIL — independent full-gate critic reproduces the standalone cost-font regression
+
+EVIDENCE:
+
+The unmodified canonical 405138f baseline run (PID 88356, direct exit 1, empty stderr) failed the expected packaged 390×844 Mossguard card/slot alignment assertion. Its retained browser measurement records a 2px `rgb(113, 129, 139)` tray border, static slots at x=184/304/424/544 and y=1120, HUD cards at x=185/305/425/545 and y=1121, and next input/HUD positions x=64/65. Evidence: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-r1/baseline-browser-artifacts/baseline-390x844.json` and the baseline run-once receipt.
+
+The isolated fixed candidate pins the app-frame tray border to 2px and moves only app-frame HUD values to next left 64px, hand left 184px, and common top 1120px. It uses exactly 195 canonical source files from 405138f, with only `public/ui-arena-shell.html` modified; the original test hash remains `df253b75d8af1195e91b76b5746fb167832fd57cc177c1a6128aeecdcf8a8886`. The root-run unchanged full test (PID 89113, direct exit 1, empty stderr) reached the standalone cost assertion and failed `14px !== 15px`; earlier packaged viewport and interaction checks and reduced-motion checks completed. This is not a whole-suite pass.
+
+A fresh independent critic reconstructed the exact 195-file source and repeated the unchanged full test with PID 89970. It directly exited 1 with empty stderr and 1 test, 0 pass, 1 fail. The same standalone assertion failed at `tests/battle-hand-polish.test.js:490` (actual 14px, expected 15px). Before that failure the critic completed the 390×844, 720×1280, and 1280×720 packaged checks, ≤0.5px card/input alignment, 44×44 physical target minimums, unchanged arena geometry, trusted selection/deploy, cycle, reduced motion, and standalone shell/arena/tray/slot/name checks. It inspected the six emitted packaged viewport and HUD PNGs. The standalone screenshot and final browser-exception assertion were not reached. Evidence: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-independent-r1/VERDICT.md`, `COMPACT-RECEIPT.json`, `run-once-evidence/`, and `browser-artifacts/`.
+
+The standalone page has no app-frame marker, so the four app-frame geometry declarations do not cover this cost-font failure. The isolated failure is the remaining APP-004 gap. Historical Round 355 PASS is retained unchanged; Round 561 records the current failed full gate and does not erase that prior result.
+
+BIGGEST GAP: The independent unmodified full browser gate fails its final standalone cost-label check: computed font is 14px instead of the required 15px. No standalone screenshot or final browser-error assertion exists for this run.
+
+DISPOSITION: Record the independent FAIL as APP-004 round 3 (0/1). Keep the exact gate and test unchanged. Do not adopt the candidate product CSS, weaken the test, or claim historical presentation parity. The critic run is closed and its exclusive runtime slot is free. No product change is adopted.
+
+FOLLOW-UP: Claude advisory job `job-df4ad592a4` is awaiting quota reset at 11:10 a.m. America/Los_Angeles on October 23, with continuation at 11:15 a.m. through automation `resume-claude-standalone-font-review`. Use that bounded design review to decide the standalone CSS-cascade repair before another candidate is built.
+
+FILES:
+- Baseline measurement: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-r1/baseline-browser-artifacts/baseline-390x844.json`
+- Fixed builder report/diff and run: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-fixed-r1/FIX-REVIEW.md`, `FIX.patch`, and `fixed-run-once-evidence/stdout.raw`
+- Independent verdict, receipts, and inspected images: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-independent-r1/VERDICT.md`, `COMPACT-RECEIPT.json`, and `browser-artifacts/`

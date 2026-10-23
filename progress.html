@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-10-22 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-23 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">327</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">261</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">560</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">260</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">561</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Current work: <strong>UI-BRIAR-CLIP-001</strong> Round559 FAIL (zero-difference clip-edge gate); <strong>APP-REDESIGN-SKY-LIVE-001</strong> remains BUILDING (unit and atlas browser pass; first live deployment facing witness fails, diagnosis pending); three Copperskiff attack pieces are PENDING from a source-only plan.</p>
+  <p class="note">Current work: <strong>APP-004</strong> Round561 FAIL (full unmodified gate reaches standalone cost-font check: 14px vs 15px; packaged alignment, interaction and reduced-motion checks pass; standalone screenshot and final browser-error check were not reached). Claude advisory job job-df4ad592a4 awaits quota reset at 11:10 a.m. America/Los_Angeles on October 23, with 11:15 a.m. continuation via automation resume-claude-standalone-font-review. <strong>UI-BRIAR-CLIP-001</strong> Round559 FAIL (zero-difference clip-edge gate); <strong>APP-REDESIGN-SKY-LIVE-001</strong> remains BUILDING (unit and atlas browser pass; R5 passes the corrected facing witness, then fails restore manual-stepping readiness; source diagnosis pending); three Copperskiff attack pieces are PENDING from a source-only plan.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1721,10 +1721,10 @@
       <tr>
         <td><code>APP-004</code></td>
         <td>Readable hand and next-card HUD in packaged Battle</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>2</td>
-        <td>Round 2 passed both requested suites and independent 720×1280 geometry: elixir right=715.609px with its 2px outline inside the frame; fourth card target is 112×128px, 3px clear of the badge box. Names/costs and trusted cycle/deploy behavior pass at all three viewports. At 1280×720 the smallest typography margins are 0.277px for names and 0.847px for costs.</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/1</td>
+        <td>3</td>
+        <td>Round 3 independent full-gate critic fails at the final standalone cost-font assertion: 14px vs 15px expected. The three packaged viewports, alignment/targets, arena geometry, trusted deploy/cycle, reduced-motion, and standalone geometry/name checks passed. No standalone screenshot or final browser-error assertion was reached. Round 355 PASS is retained in the history; no product change is adopted and no historical presentation-parity claim is made.</td>
       </tr>
       <tr>
         <td><code>RL-001</code></td>
@@ -2610,9 +2610,9 @@
         <td><code>APP-REDESIGN-SKY-LIVE-001</code></td>
         <td>Skymaul live atlas binding</td>
         <td class="state-building">BUILDING</td>
-        <td>11/11 unit direct 0; atlas browser 1/1 pass; live browser first-deployment facing witness FAIL (direct 1)</td>
+        <td>11/11 unit; 1/1 atlas browser; R5 live browser FAIL</td>
         <td>0</td>
-        <td>R4 retains all 24 raw-cell hashes and passes the unit suite and atlas browser case. The actual live GameSession browser fails at first deployment: south reports north and north reports south. Source diagnosis confirms movement-target versus attack-target timing; deployment fallback is correct, and the revised facing test remains unrun. Full 3D attack sequence remains incomplete.</td>
+        <td>R5 advances beyond the corrected facing witness, then fails restore manual-stepping readiness at test line 528. Direct exit 1; all 641 source pins unchanged. R4 failure remains retained. No live acceptance or full attack sequence.</td>
       </tr>
       <tr>
         <td><code>GAME-001GPR8D</code></td>
@@ -3198,6 +3198,7 @@
       <li><strong>R558 PASS — scoped cumulative acceptance</strong> · RELEASE-VITE-PATCH-001<br>Combines the first six R1 stage receipts with independent R2 direct-exit-0 release and Pages builds: 59 release files including manifest (58 payload files) and 68 Pages files, both within artifact budgets. The 105 archived alerts remain outside scope.</li>
       <li><strong>R559 FAIL</strong> · UI-BRIAR-CLIP-001<br>Independent R3 confirms the exact zero-pixel bar fails: 64/64 live crops differ, ring-shadow pixels change in 8 cases, and 61 full-scene changes lie outside the allowed spill region. The 1–2 channel clip-edge changes are still out of tolerance; no bar change or product adoption.</li>
   <li><strong>R560 PASS — canonical product fix</strong> · GAME-001HTJS<br>Independent raw failure, fixed public-API regression 1/1, projectile 7/7 and nondeterminism guard 10/10. The one-line local-copy sort preserves immutable checkpoints.</li>
+  <li><strong>R561 FAIL — independent full-gate critic</strong> · APP-004 — Readable hand and next-card HUD in packaged Battle, round 3<br>Exact 195-file candidate and unchanged test reproduce the final standalone cost font at 14px vs 15px. Packaged geometry, interaction, cycle, and reduced-motion checks pass; no standalone image or final browser-error gate was reached. Historical R355 PASS remains preserved; no product adoption or parity claim.</li>
   </ol>
 </body>
 </html>
