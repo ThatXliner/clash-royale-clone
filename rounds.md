@@ -10396,3 +10396,23 @@ FILES:
 - `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/generated/actual-progress.html`
 - `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/generated-audit.json`
 - Raw and fixed run receipts: `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/raw-run/evidence/` and `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/fixed-run/evidence/`
+
+## Round 564 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-RNA-001 — Brassbolt typed schema-marker controls
+
+VERDICT: PASS — scoped pure-data control gate
+
+EVIDENCE:
+
+The independent critic ran the same 22-method control file against the pinned R7 and R8 sources. The R7 raw run (PID 7133) directly exited 1 with exactly three expected baseline failures: schema marker `4.0` was admitted by the before-snapshot, after-snapshot and completed-baseline checks. Its other invalid markers (`true`, `false`, `3` and `5`) were rejected. The fixed R8 run (PID 7142) directly exited 0 with 22/22 methods passing; its 15 invalid-marker subcases were rejected and both exact integer-4 positive controls passed. The source diff contains only the two intended guards: `assert_preserved` checks the exact integer schema marker in both snapshots, and `completed_baseline` checks the receipt-pinned state. The R7 graph source logic and its 18 graph-control methods are unchanged. Pre-run and post-run SHA-256 pins match for both source copies, both test copies and the wrapper. Runtime is closed.
+
+BIGGEST GAP: The controls use fake RNA structs and in-memory receipt/dependency stand-ins; they do not prove real Blender wrapper behavior, fresh-process reload stability or a completed production baseline.
+
+DISPOSITION: Accept this new piece only for the scoped 22-method pure-data schema and graph-control result. Leave the existing ART-3D-BRASS-001 PASS and its historical evidence unchanged. No actual Blender, fresh-load, native-render or completed-baseline art acceptance is established.
+
+FILES:
+- `/Users/me/.codex/clash-qualification/20261023-brass-r8-controls-independent-r1/VERDICT.md`
+- `/Users/me/.codex/clash-qualification/20261023-brass-r8-controls-independent-r1/COMPACT-RECEIPT.json`
+- `/Users/me/.codex/clash-qualification/20261023-brass-r8-controls-independent-r1/evidence/` and `specs/`
+
