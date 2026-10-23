@@ -10416,3 +10416,26 @@ FILES:
 - `/Users/me/.codex/clash-qualification/20261023-brass-r8-controls-independent-r1/COMPACT-RECEIPT.json`
 - `/Users/me/.codex/clash-qualification/20261023-brass-r8-controls-independent-r1/evidence/` and `specs/`
 
+## Round 565 — 2026-10-23
+
+PIECE: APP-004 — Readable hand and next-card HUD in packaged Battle, round 4
+
+VERDICT: PASS — scoped independent full-gate candidate acceptance
+
+EVIDENCE:
+
+The Claude advisory design job `job-f4a471642a` is preserved at `/Users/me/.codex/clash-qualification/20261022-claude-hand-alignment-advisory/CLAUDE-DESIGN-f4a471642a.md`. The 195-file candidate is at `/Users/me/.codex/clash-qualification/20261023-hand-font-claude-r2/`. A fresh independent critic verified the source pins before and after its run and confirmed the unmodified test hash `df253b75d8af1195e91b76b5746fb167832fd57cc177c1a6128aeecdcf8a8886`. The complete `node --test tests/battle-hand-polish.test.js` run in actual Chrome (PID 16413) directly exited 0: 1 test passed, 0 failed; browser errors were empty.
+
+The unchanged full gate passed at 390×844, 720×1280 and 1280×720. The critic verified trusted slot selection and deployment, first/last-card cycle behavior, 17 reduced-motion checks, unchanged arena/playfield coordinates, standalone 10px names and 15px costs, packaged 30px costs, all five packaged labels fitting without scroll overflow, and all seven captured PNGs. At 390×844 the five visible names measure 12.36 physical pixels, costs 15.45 pixels, and card targets 57.66×65.90 pixels; corresponding measurements also pass at the other two packaged viewports.
+
+BIGGEST GAP: At 390px, the longer name “Stonehauler” wraps at an awkward character boundary (“Stoneha” / “uler”); the full name remains visible.
+
+DISPOSITION: Record APP-004 round 4 as a scoped PASS for this pinned candidate and unchanged full-gate dimension. Preserve the independent Round561 FAIL as historical evidence. This does not adopt product HTML or authorize deployment; combined restore, release and endurance gates remain pending before shipping. No full-art, endurance or broader shipping claim is established.
+
+FILES:
+- Claude design proposal: `/Users/me/.codex/clash-qualification/20261022-claude-hand-alignment-advisory/CLAUDE-DESIGN-f4a471642a.md`
+- Candidate: `/Users/me/.codex/clash-qualification/20261023-hand-font-claude-r2/`
+- Independent verdict: `/Users/me/.codex/clash-qualification/20261023-hand-font-independent-r2/VERDICT.md`
+- Compact receipt: `/Users/me/.codex/clash-qualification/20261023-hand-font-independent-r2/COMPACT-RECEIPT.md`
+- Seven inspected screenshots and browser evidence: `/Users/me/.codex/clash-qualification/20261023-hand-font-independent-r2/run-once-artifacts/`
+
