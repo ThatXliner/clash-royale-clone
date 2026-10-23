@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">333</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">267</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">576</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">334</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">268</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">580</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
@@ -1499,7 +1499,7 @@
         <td class="state-building">BUILDING</td>
         <td>8/11</td>
         <td>1</td>
-        <td>R5 exacte35 fulldefault progressed:Node18000all5branchesPASS, browser3/3full18000naturalterminal/restore300/restartPASS with preservedfullJSON; laterbuildingchoiceFAIL missingexistingBriarconfidenceQrecord. Firstfailurestop130, retainedreleaseNOTREACHED. Unchangedfactory5 sourcefences match; proposedwitnessinventoryrepair UNEXECUTED. Packet artifacts/shared-combat-factory-r5-qualification. No factoryadoption/whole-suitePASS; freshcritique stillrequired.</td>
+        <td>R5 exacte35 fulldefault progressed:Node18000all5branchesPASS, browser3/3full18000naturalterminal/restore300/restartPASS with preservedfullJSON; laterbuildingchoiceFAIL missingexistingBriarconfidenceQrecord. Firstfailurestop130, retainedreleaseNOTREACHED. Unchangedfactory5 sourcefences match; proposedwitnessinventoryrepair UNEXECUTED. Packet artifacts/shared-combat-factory-r5-qualification. No factoryadoption/whole-suitePASS; freshcritique stillrequired. Current b629 source-only extraction is pending fresh independent critique; this status is not a new PASS or adoption.</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJC</code></td>
@@ -2641,9 +2641,9 @@
         <td><code>APP-REDESIGN-MOSSCOIL-001</code></td>
         <td>Live Mossguard and Coilblade model sprites</td>
         <td class="state-fail">FAIL</td>
-        <td>0/1</td>
-        <td>1</td>
-        <td>Round575 FAIL: fresh first-three browser gate blocked at startup before battle case1 (0/24); direct Node PID92196 exit1, TAP0 pass/1 fail/0 skipped. page.goto raised net::ERR_HTTP_RESPONSE_CODE_FAILURE for http://127.0.0.1:52421/public/index.html; no case report or PNGs were emitted and no later gate ran. The browser exception did not record a numeric HTTP status. Static source analysis infers the test-server guard would return403 because ROOT retains a trailing slash and ROOT plus separator creates a double-slash prefix; treat403 as source-level inference, not an observed network log. The earlier source/input preflight did not flag this root-normalization path. All643 candidate hashes,26 true reference hashes and10 protected fixture pins match pre/post; process is closed. Separate unchanged Copper8 baseline PASS: all8 phone/desktop, normal/reduced-motion and horizontal/vertical cases have zero changed pixels, exact restore/future continuation and restart checks, with no errors. Startup/harness failure only; no Mossguard/Coilblade visual verdict follows. Preserve the historical old HUD candidate 5 purple-elixir pixels at row772 separately.</td>
+        <td>0/4</td>
+        <td>4</td>
+        <td>Round575 FAIL: fresh first-three browser gate blocked at startup before battle case1 (0/24); direct Node PID92196 exit1, TAP0 pass/1 fail/0 skipped. page.goto raised net::ERR_HTTP_RESPONSE_CODE_FAILURE for http://127.0.0.1:52421/public/index.html; no case report or PNGs were emitted and no later gate ran. The browser exception did not record a numeric HTTP status. Static source analysis infers the test-server guard would return403 because ROOT retains a trailing slash and ROOT plus separator creates a double-slash prefix; treat403 as source-level inference, not an observed network log. The earlier source/input preflight did not flag this root-normalization path. All643 candidate hashes,26 true reference hashes and10 protected fixture pins match pre/post; process is closed. Separate unchanged Copper8 baseline PASS: all8 phone/desktop, normal/reduced-motion and horizontal/vertical cases have zero changed pixels, exact restore/future continuation and restart checks, with no errors. Startup/harness failure only; no Mossguard/Coilblade visual verdict follows. Preserve the historical old HUD candidate 5 purple-elixir pixels at row772 separately. R577 native pointer-coordinate mismatch (0/24); R578 and R579 both stop at the first contact-restore pixel check, with their before/after PNGs byte-identical. R579 seven-field normalized-state equality passed, but post-restore state/future and 23 other cases remain unrun. The R578/R579 pair is only two consecutive failures on the same gap; R575 startup and R577 point failures are distinct. R4 retained ImageMagick analysis reports 5,127 changed RGB pixels, bbox x92..377/y681..772; preserve the R3 raw diagnostic whose minY390 aggregate is incorrect. These are functional-gate failures, not an art-cause verdict.</td>
       </tr>
       <tr>
         <td><code>APP-REDESIGN-ATLAS-003</code></td>
@@ -2700,6 +2700,14 @@
         <td>1/1 independent audit (16 frames)</td>
         <td>1</td>
         <td>Round574 scoped PASS: all16 source frames pass exact raw-pixel, zero-mask, and metadata checks; 779,688 copied texels and 24,380,568 generated transparent texels. The opaque caBX chunk is recorded but not copied or interpreted. All15 packet files and44 input pins match, and34 pre-existing asset/receipt hashes are unchanged. UI-BRIAR-CLIP-001 Round3 browser/art FAIL remains unchanged; this proof is not an art or browser PASS.</td>
+      </tr>
+      <tr>
+        <td><code>VERIFIER-BRASS-SEVEN-001</code></td>
+        <td>Brassbolt seven-channel observation parser controls</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>1</td>
+        <td>Round580 scoped PASS: all24 controls passed; direct Python PID98897 exit0, process closed; source_unchanged true, native_execution false, numeric_acceptance/art_acceptance null. No native Blender/EEVEE, coverage formula, baseline, art, or product acceptance.</td>
       </tr>
       </tbody>
     </table>
@@ -3282,6 +3290,10 @@
       <li><strong>R574 PASS — scoped source-grid pixel, zero-mask, and PNG metadata proof only</strong> · VERIFIER-BRIAR-SPARSE64-RAW-001 — Briar 16-frame raw PNG and metadata proof, round 1<br>The original R3 clip-rendered scene still violates the zero-difference visual gate; exact source-frame pixels do not prove browser clip behavior or artwork acceptance.</li>
       <li><strong>R575 FAIL — the first-three browser gate stopped at startup before battle case 1; 0/24 cases ran</strong> · APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 1<br>The new first-three 24-case gate never ran, so this round gives no visual verdict on Mossguard or Coilblade.</li>
       <li><strong>R576 PASS — scoped refresh preservation for the qualified public note and failure-state styling</strong> · OPS-001 — Complete gauntlet progress rendering, round 4<br>None on this scoped generator-refresh preservation bar; full game completion remains unproven.</li>
+      <li><strong>R577 FAIL — first-case native pointer-coordinate check; 0/24 complete cases</strong> · APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 2<br>The first scenario stops at pointer coordinates, so no contact/restore behavior or the other 23 cases were evaluated.</li>
+      <li><strong>R578 FAIL — contact-restore screenshot differs in the first scenario</strong> · APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 3<br>The first contact-restore pixel check fails, leaving post-restore state, continuation, and the remaining 23 cases untested.</li>
+      <li><strong>R579 FAIL — the same first-case contact-restore pixel check fails again</strong> · APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 4<br>The repeated first-case restore image mismatch remains unexplained; no later state/future/browser/restart checks ran.</li>
+      <li><strong>R580 PASS — bounded synthetic seven-channel structural/byte controls and observation/model separation only</strong> · VERIFIER-BRASS-SEVEN-001 — Brassbolt seven-channel observation parser controls, round 1<br>No native rendering or accepted-model/art baseline is qualified by these parser-only controls.</li>
   </ol>
 </body>
 </html>

@@ -10715,3 +10715,83 @@ FILES:
 - Independent qualified Round575 HTML: `/Users/me/.codex/clash-qualification/20261023-progress-renderer-template-fix-critic-independent-r1/progress.html`
 - Accepted source candidate: `/Users/me/.codex/clash-qualification/20261023-progress-renderer-template-fix-source-r1/candidate/`
 - Prior original-template generation FAIL: `/Users/me/.codex/clash-qualification/20261023-brass-native-alpha-briar-rawpng-tracking-critic-independent-r1/VERDICT.md`
+
+
+## Round 577 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 2
+
+VERDICT: FAIL — first-case native pointer-coordinate check; 0/24 complete cases
+
+EVIDENCE:
+
+The single actual Node run was PID 95826 and exited 1. TAP reported 0 passes, 1 failure, and 0 skips. In the first scenario (phone, normal motion, Copperskiff, horizontal geometry), one native bridge delivery and the trusted native-pointer checks passed, then the observed point `{x: 6214, y: 14732}` failed against expected `{x: 6000, y: 14999}`. The test stopped before AI-path, contact, restore, continuation, future-tick, or restart checks; none of the 24 scenarios completed. The formal review notes that this candidate helper uses `arena.boundingBox()` plus `arena.click({position})`, while the established Copper helper measures iframe/client metrics and projects to outer-page mouse coordinates. That source difference is observed, but it does not prove the cause of the mismatch.
+
+The review reports 643 candidate-file pins, 26 reference pins, and 10 protected-fixture pins unchanged. This is a scoped native-input coordinate failure; it gives no Mossguard/Coilblade art-quality or product-wide cause verdict.
+
+BIGGEST GAP: The first scenario stops at pointer coordinates, so no contact/restore behavior or the other 23 cases were evaluated.
+
+DISPOSITION: Record Mosscoil round 2 as a scoped FAIL. Keep the distinct R575 startup failure and all earlier art verdicts unchanged. No art, product, or release acceptance follows.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r2/evidence/first-three-r2-64a84deded07/VERDICT.md` (SHA-256 `ebeeee9e314ddcc31fa0c6a3ea11585bc02e45a3ce6a674eac9b4484ed40cff8`)
+
+## Round 578 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 3
+
+VERDICT: FAIL — contact-restore screenshot differs in the first scenario
+
+EVIDENCE:
+
+After a prelaunch attempt failed because the external parent directory was missing, the path alone was corrected and one actual run was made. Direct Node PID 97843 exited 1; TAP reported 0 passes, 1 failure, and 0 skips. The first phone/normal-motion/Copperskiff/horizontal case reached native input, native/AI mirror checks, movement/contact observation, and a contact checkpoint. The first restore screenshot comparison then failed with `false !== true`.
+
+The run did not reach exact post-restore state comparison, the 120-tick future branch, the other 23 cases, final browser/path checks, or restart. The before-restore PNG SHA-256 is `21e5c5062e3af09e9782caf053b6d5d0846798e63c764167425f2b073a2adbe2`; the after-restore PNG SHA-256 is `7e79bb4b3ba69ede2198e1461fec2f2b2e94c487665fb23674fb545cef67bbc6`. The process and sealed candidate/reference/preservation pins closed unchanged.
+
+BIGGEST GAP: The first contact-restore pixel check fails, leaving post-restore state, continuation, and the remaining 23 cases untested.
+
+DISPOSITION: Record a scoped functional-gate FAIL. This is not an art-quality verdict and does not establish a cause. Preserve R575 startup and R577 pointer-coordinate failures separately.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r3/evidence/first-three-r3-4f1a4a3d49ab/VERDICT.md` (SHA-256 `a497bf6d14c738e8ddd2bd046f9a96c874b4f1cb92b54eccf4d8bef5b56f88ba`)
+
+## Round 579 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 4
+
+VERDICT: FAIL — the same first-case contact-restore pixel check fails again
+
+EVIDENCE:
+
+The single actual Node run was PID 99641 and exited 1; TAP reported 0 passes, 1 failure, and 0 skips. In the first phone/normal-motion/Copperskiff/horizontal case, the new seven-field equality assertion after pointer/focus normalization passed, so the snapshot state fields were unchanged by normalization. The restore screenshot then failed with `false !== true`. The run did not reach exact post-restore state comparison, future 120-tick replay, the other 23 cases, final browser/path checks, or restart.
+
+R3 and R4 before/after PNG files are byte-identical: before `21e5c5062e3af09e9782caf053b6d5d0846798e63c764167425f2b073a2adbe2`, after `7e79bb4b3ba69ede2198e1461fec2f2b2e94c487665fb23674fb545cef67bbc6`; each pair is 390×844. R4's retained ImageMagick diagnostic reports 5,127 changed RGB pixels, channel counts R=4,006/G=3,945/B=3,397, alpha changes 0, corrected bounding box x=92..377 and y=681..772. This is ImageMagick-specific pixel evidence, not an art-quality conclusion. Preserve the R3 raw diagnostic JSON with its incorrect `minY=390` aggregate; do not replace that retained source record with the corrected R4 sample analysis.
+
+R578 and R579 are two consecutive failures on the same restore-pixel gap. R575 was a startup failure and R577 a pointer-coordinate failure, so they are distinct. R4's normalized-state assertion does not establish post-restore state or future equivalence; the 23 other cases remain unrun.
+
+BIGGEST GAP: The repeated first-case restore image mismatch remains unexplained; no later state/future/browser/restart checks ran.
+
+DISPOSITION: Record Mosscoil round 4 as a scoped functional FAIL and retain both pixel failures. Do not infer an art cause or revise earlier art verdicts.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r4/evidence/first-three-r4-94347a25/VERDICT.md` (SHA-256 `4e84fd9a8ca0b006c092930f82a629402a7341a6828a57707736a29f39ba9512`)
+
+## Round 580 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-SEVEN-001 — Brassbolt seven-channel observation parser controls, round 1
+
+VERDICT: PASS — bounded synthetic seven-channel structural/byte controls and observation/model separation only
+
+EVIDENCE:
+
+The independent pure-data suite ran 24 methods with no failures, errors, or skips. Actual Python PID 98897 exited 0 and closed. Its stdout was empty; stderr contained the unittest report ending in `OK`. The pinned receipt `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r2/qualification/PARSER-CONTROLS.json` is 644 bytes, SHA-256 `d29677e8f0fdb0c47b746a73a578073f1f9f949f8abbe7e2f5dc31a8dd51bb28`; it records `parser_controls_passed`, 24 tests, zero failures/errors/skips, `native_execution: false`, `numeric_acceptance: null`, `art_acceptance: null`, and `source_unchanged: true`. The actual run result is `/Users/me/.codex/clash-qualification/20261023-brassbolt-observation-r2-parser-qual-independent-r1/evidence/run-v1/RESULT.json` (SHA-256 `2df09ddf4e1d99a9564647d6cdda017ae6d73ba770aa77a7d00fa9899413d1a7`); its 2,216-byte stderr is pinned at SHA-256 `799484688e3a17c1c6daacef2ab840367a630a210dfe1afb3cc1e5faf57e47f7`.
+
+This proves only the synthetic parser and observation/model controls. It does not establish native Blender/EEVEE behavior, an alpha equation or coverage formula, any numeric acceptance, an accepted-model baseline, artwork quality, or product acceptance. Preserve the separate R573 native R==A diagnostic failure and the earlier float transport control unchanged.
+
+BIGGEST GAP: No native rendering or accepted-model/art baseline is qualified by these parser-only controls.
+
+DISPOSITION: Add this as a separate bounded PASS. Keep ART-3D-BRASS-001, VERIFIER-BRASS-FLOAT-001, VERIFIER-BRASS-ISOLATED-ALPHA-001, and all prior verdicts unchanged. Do not infer native coverage or art acceptance.
+
+FILES:
+- Formal parser-control receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r2/qualification/PARSER-CONTROLS.json` (SHA-256 `d29677e8f0fdb0c47b746a73a578073f1f9f949f8abbe7e2f5dc31a8dd51bb28`)
+- Independent execution result and unittest output: `/Users/me/.codex/clash-qualification/20261023-brassbolt-observation-r2-parser-qual-independent-r1/evidence/run-v1/RESULT.json` and `stderr.raw` (PID 98897, direct exit 0)
