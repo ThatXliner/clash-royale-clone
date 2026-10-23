@@ -10439,3 +10439,26 @@ FILES:
 - Compact receipt: `/Users/me/.codex/clash-qualification/20261023-hand-font-independent-r2/COMPACT-RECEIPT.md`
 - Seven inspected screenshots and browser evidence: `/Users/me/.codex/clash-qualification/20261023-hand-font-independent-r2/run-once-artifacts/`
 
+## Round 566 — 2026-10-23
+
+PIECE: APP-004E — App-frame fractional elixir meter placement, round 1
+
+VERDICT: PASS — scoped independent candidate acceptance
+
+EVIDENCE:
+
+The independent candidate contains 195 receipt-listed source files. The unchanged `tests/battle-hand-polish.test.js` (SHA-256 `df253b75d8af1195e91b76b5746fb167832fd57cc177c1a6128aeecdcf8a8886`) ran once; direct Node PID 23346 exited 0 with 1/1 tests passing, and all 195 source pins matched after the run. The separate actual Chrome 156.0.8078.47 meter diagnostic covered phone 390×844 and desktop 1280×720 in normal and reduced-motion modes. Across all four cases, `.hud-resource-progress` measured left 67, top 1261, width 586, height 16 inside the rail at left 64, top 1258, width 592, height 22. The accumulator-derived inline percentages were `77.85714285714286%` (phone normal), `71.19047619047619%` (phone reduced), and `70.89285714285714%` (both desktop modes); each computed clip path remained intact. All 10 tick cells and the fill gradient remained present, the rail and progress did not overlap the tray, and page errors were empty.
+
+The unmodified full hand gate also retained standalone shell 720×1280, arena, tray, four 88×72 slots, 10px names and 15px costs. Its seven captured gate PNGs were inspected. Gate Node PID 23346, diagnostic Node PID 24046, diagnostic Chrome PID 24082 and the diagnostic server were closed; the port was unreachable afterward.
+
+BIGGEST GAP: None against this scoped meter-placement bar. The separate Round562 five-pixel Copperskiff restore FAIL remains unattributed and unresolved; this result does not explain or resolve it.
+
+DISPOSITION: Accept APP-004E as PASS for the pinned candidate's scoped phone/desktop meter placement and unchanged full-hand gate. Retain the prior APP-004 PASS and Round562 failure record. Do not adopt product HTML or claim deployment, release, endurance or shipping acceptance; those combined gates remain pending.
+
+FILES:
+- Claude design: `/Users/me/.codex/clash-qualification/20261022-claude-hand-alignment-advisory/CLAUDE-DESIGN-421c227065.md`
+- Candidate: `/Users/me/.codex/clash-qualification/20261023-elixir-track-claude-r1/`
+- Formal independent verdict and critic receipt: `/Users/me/.codex/clash-qualification/20261023-elixir-track-independent-r1/VERDICT.md` and `CRITIC-RECEIPT.json`
+- Meter readbacks and closure: `/Users/me/.codex/clash-qualification/20261023-elixir-track-independent-r1/METER-DIAGNOSTIC-SUMMARY.json`
+- Root run evidence: `/Users/me/.codex/clash-qualification/20261023-elixir-track-root-run-r1/`
+
