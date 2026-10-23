@@ -26,12 +26,12 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">329</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">263</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">566</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">330</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">265</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">571</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Current work: <strong>APP-004</strong> Round565 scoped PASS: independent full hand gate passes, including standalone 15px costs. Product adoption and combined release/endurance gates remain pending. Claude’s elixir placement correction passed independent phone/desktop normal/reduced checks in Round566; product adoption and combined restore/release/endurance gates remain pending and the prior five-pixel restore failure remains unattributed. <strong>UI-BRIAR-CLIP-001</strong> Round559 FAIL (zero-difference clip-edge gate); <strong>APP-REDESIGN-SKY-LIVE-001</strong> Round562 FAIL (unit 39 PASS/1 skip; browser 2 PASS/1 FAIL; mandatory Copperskiff phone reduced-horizontal restore differs by five pixels at x=163, 194, 196, 222, 223, y=772). The canonical control passed eight cases plus restart; the matched R9 control exited 0 with all eight expected cases, and root review confirmed all eight cases plus restart. The optional diagnostic flag added DOM diagnostics only for desktop/normal/horizontal; the full browser test still asserted all eight cases, including the phone/reduced-motion case. Cause remains unresolved, no Skymaul attribution or acceptance. Stages 3/4 and 18k were not run or granted. Three Copperskiff attack pieces are PENDING from a source-only plan.</p>
+  <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -2656,10 +2656,10 @@
       <tr>
         <td><code>APP-REDESIGN-SKY-LIVE-001</code></td>
         <td>Skymaul live atlas binding</td>
-        <td class="state-fail">FAIL</td>
-        <td>39 PASS/1 skip unit; 2 PASS/1 FAIL browser</td>
-        <td>1</td>
-        <td>Round 1 independent critic: unit 39 PASS/1 skip (40 tests; skipped parent-art comparison is not a pass); browser 2 PASS/1 FAIL (3 tests). All 24 atlas cells and all eight live Skymaul cases pass, including exact restore screenshots/state/input/audio and 120-tick future. Mandatory Copperskiff phone 390×844, 13px, reduced-motion horizontal restore fails zero-PNG: five changed pixels at x=163, 194, 196, 222, and 223, y=772. Canonical control used a 633-blob source snapshot (PID 99931/session 82927; terminal 0): all eight Copperskiff cases plus restart PASS. Matched R9 candidate control used 641 source pins and the same GAME_BROWSER_VISUAL_DOM_DIAGNOSTICS flag (PID 483/session 4456; terminal 0): all eight expected cases; root post-run report review confirms all eight cases and restart. These later control runs do not erase or convert the independent critic FAIL into acceptance. The optional diagnostic flag added DOM diagnostics only for desktop/normal/horizontal; the full browser test still asserted all eight cases, including the failing phone/reduced-motion case. Cause remains unresolved, browser-paint nondeterminism is possible, and no attribution to Skymaul is supported. Stages 3/4 and 18k endurance were not run or granted. Preserve external R4/R5/R6 builder failures and diagnoses; they are not three independent same-gap critic failures. Preserve accepted Copperskiff R546. No product source/art/test adoption or shipping/parity claim. Evidence: /Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/VERDICT.md and COMPACT-RECEIPT.json. Prior candidate note retained: R5 actual live browser advances beyond the corrected facing witness, then fails restore manual-stepping readiness at test line 528 (PID 90746, direct exit 1). All 641 source pins remain unchanged. R4 facing-witness failure and diagnosis remain retained. No live acceptance or full attack sequence. Evidence: /Users/me/.codex/clash-qualification/20261022-skymaul-live-facing-r5/runtime-live-r5/ and ROOT-POST-LIVE-R5.json.</td>
+        <td class="state-pass">PASS</td>
+        <td>R568 Stage1 39 PASS/1 historical SKIP; Stage2 4/4. R570 Stage3 3/3; Stage4 54/54; release/Pages verification builds PASS</td>
+        <td>5</td>
+        <td>Round568 independently passed its authorized Stage1/2 gates and separate current-canonical static-preservation helper; retain its optional accepted-5ed ART004 comparison SKIP as not a pass. Round569 Stage3 FAIL was caused by a test-only generic 20–55px predicate treating Skymaul’s 64×64 atlas window as non-atlas art; retain this failure. Round570 adds explicit Skymaul atlas recognition alongside the existing Copperskiff test predicate; generic bounds for other art and dedicated Sky/Copper exact atlas checks remain unchanged. Independent Stage3 then passed 3/3; Stage4 passed 54/54 across seven gates (release-build TAP was 24/24, not the proposal’s 20), and release/Pages verification builds passed independent digest/inventory audits. Candidate 641 source and 26 reference pins match before/after the critic. These are scoped candidate/test and packaging results, not product adoption or overall release acceptance. Preserve Round562’s five-pixel Copperskiff restore FAIL and Round567’s setup FAIL unchanged. Separate GAME-001GPR9 records a scoped PASS for the exact sealed 641-file default-eight 18k run. Product13 is adopted and pushed at 8df80a440b1a68d1124137c1b3891e804b6db527. Root-verified Pages run 40019531871 succeeded at that HEAD: the public landing differs from the verified artifact only by the commit-link replacement, while the game entry, built shell, Skymaul atlas and release manifest match exactly. This verifies publication of the bounded changes only; the full 3D attack, whole-game parity and complete release remain open.</td>
       </tr>
       <tr>
         <td><code>GAME-001GPR8D</code></td>
@@ -2668,6 +2668,14 @@
         <td>3/3</td>
         <td>1</td>
         <td>Round552 independent full default18000 PASS on627-file fd6:67segments, naturalSouth2–1, exact600→300→600 session/input/typedAudio/futurecontinuation, terminal/restart0; no50ms lifecyclelongtasks/auditexemptions, init175/300ms, tick27.9/40ms, maxsegment10375/30000ms, total977897/1200000ms. Source/index unchanged. Scopeddefault8 only; customdecks/factory/redesign andhistoricalparity separate.</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001GPR9</code></td>
+        <td>Combined 641-file candidate default-eight browser endurance</td>
+        <td class="state-pass">PASS</td>
+        <td>3/3 (one exact 18k run)</td>
+        <td>1</td>
+        <td>Round571 independent formal PASS for one unchanged seed-zero default-eight 18,000-tick run against the sealed 641-file candidate. Exact deck: coilblade, mossguard, copperskiff, skymaul, brassbolt, reedsting, briar-band, cinderlings. Direct PID62380 exit0; TAP3/3; natural South 2–1 lowest-HP tiebreak at tick18000. All 641 candidate and26 reference pins match pre/post. Exact tick600→300 restore/replay, final 40 submitted commands with integer command.commandId values1–40, typed audio/input continuation, terminal and restart0 pass. 67 segments (max10,375ms), max one-tick34.5ms, initialization176ms, non-init long tasks0, total browser duration977,318ms under1,200,000ms. Product13 was adopted/pushed at8df80a440b1a68d1124137c1b3891e804b6db527. Root-verified Pages run40019531871 succeeded at that HEAD; the bounded change is live at https://bryanhu.com/clash-royale-clone/game/public/index.html. One run only: no repeatability, other scenario, whole-game parity or full attack acceptance.</td>
       </tr>
       </tbody>
     </table>
@@ -3240,6 +3248,11 @@
       <li><strong>R564 PASS — scoped pure-data control gate</strong> · VERIFIER-BRASS-RNA-001 — Brassbolt typed schema-marker controls<br>The controls use fake RNA structs and in-memory receipt/dependency stand-ins; they do not prove real Blender wrapper behavior, fresh-process reload stability or a completed production baseline.</li>
       <li><strong>R565 PASS — scoped independent full-gate candidate acceptance</strong> · APP-004 — Readable hand and next-card HUD in packaged Battle, round 4<br>At 390px, the longer name “Stonehauler” wraps at an awkward character boundary (“Stoneha” / “uler”); the full name remains visible.</li>
       <li><strong>R566 PASS — scoped independent candidate acceptance</strong> · APP-004E — App-frame fractional elixir meter placement, round 1<br>None against this scoped meter-placement bar. The separate Round562 five-pixel Copperskiff restore FAIL remains unattributed and unresolved; this result does not explain or resolve it.</li>
+      <li><strong>R567 FAIL — combined functional critic blocked by missing comparison input</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 2<br>Stage 1 cannot reach browser acceptance because its isolated candidate lacks the `reference/stats/towers.json` comparison input required by the high-confidence tower-HP test.</li>
+      <li><strong>R568 PASS — authorized Stage1/Stage2 combined-functional gates; separate static-preservation helper PASS</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 3<br>The historical ART004_PARENT_ROOT comparison remains skipped; the static helper does not prove full browser/gameplay parity or the complete 3D attack sequence. Stages3/4 are running separately and have no result in this entry. The separate 18,000-tick endurance was not run or granted.</li>
+      <li><strong>R569 FAIL — Stage3 test predicate classifies Skymaul atlas windows as generic body art</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 4<br>The generic 20–55px predicate has no Skymaul atlas exception, so it rejects the 64×64 atlas window before Stage4 can run.</li>
+      <li><strong>R570 PASS — scoped independent Stage3 and Stage4 packaging candidate gates</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 5<br>The unchanged default-eight 18,000-tick browser endurance remains unqualified, so this scoped Stage3/Stage4 result is not overall release acceptance.</li>
+      <li><strong>R571 PASS — one authorized exact-candidate default-eight 18,000-tick run</strong> · GAME-001GPR9 — Combined 641-file candidate default-eight browser endurance, round 1<br>This proves one exact sealed-candidate default-eight run only; it does not establish repeatability, other scenarios, custom decks, full gameplay/reference parity, or overall release acceptance.</li>
   </ol>
 </body>
 </html>

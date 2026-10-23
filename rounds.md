@@ -10462,3 +10462,133 @@ FILES:
 - Meter readbacks and closure: `/Users/me/.codex/clash-qualification/20261023-elixir-track-independent-r1/METER-DIAGNOSTIC-SUMMARY.json`
 - Root run evidence: `/Users/me/.codex/clash-qualification/20261023-elixir-track-root-run-r1/`
 
+## Round 567 — 2026-10-23
+
+PIECE: APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 2
+
+VERDICT: FAIL — combined functional critic blocked by missing comparison input
+
+EVIDENCE:
+
+The fresh independent combined-release critic verified the 648-entry source seal, then ran against exactly 641 receipt-pinned candidate files. All 641 hashes matched both before and after the run. Stage 1 ran once under Node v22.23.4 (PID 47743) and directly exited 1. TAP reported 40 tests: 38 passed, 1 failed and 1 skipped. The failure is `ui combat state: high-confidence tower HP bounds health exactly`: `tests/ui-combat-state.test.js:456` raises ENOENT because the isolated critic candidate lacks the comparison input `reference/stats/towers.json`. The skipped accepted-parent comparison had `ART004_PARENT_ROOT` unset and is not a pass. The same stage passed the raw-RGBA comparison for all 24 Skymaul atlas cells.
+
+Stage 2 was skipped because Stage 1 failed; no browser started, and no live-game PNGs, hand viewport captures, browser-error JSON, or restore/future reports were produced. Stages 3/4 and the separate 18,000-tick endurance were not run. This round therefore does not evaluate Skymaul live behavior or establish a product defect. A comparison-only `reference/` symlink is being prepared source-only for a new critic run; it has not been run or accepted, so this setup gap is not marked fixed.
+
+Separate root-owned Copperskiff A/B diagnostic context: A (PID 46079, direct exit 1) completed eight cases plus restart and reproduced exactly five changed pixels across seven channel values in the phone 390×844 reduced-motion horizontal case; the adjacent capture pairs were clean. B (PID 46367, direct exit 0) completed all eight cases plus restart with all three capture pairs identical after an intervention adding only four geometry CSS declarations. This is a diagnostic intervention, not formal combined-release acceptance, not a causal explanation of the Round562 pixel failure, and not evidence attributing the failure to Skymaul. Preserve the original Round562 five-pixel Copperskiff restore FAIL as written.
+
+BIGGEST GAP: Stage 1 cannot reach browser acceptance because its isolated candidate lacks the `reference/stats/towers.json` comparison input required by the high-confidence tower-HP test.
+
+DISPOSITION: Record this as APP-REDESIGN-SKY-LIVE-001 round 2 FAIL with a verification-setup blocker. Preserve Round562 and the earlier APP-004/APP-004E accepted rows and histories. Do not claim the blocker is fixed until a fresh independent critic runs with the comparison-only input setup. Stages 2/3/4 and 18k remain unqualified; no product change, Skymaul defect attribution, deployment, shipping or parity acceptance is made.
+
+FILES:
+- Formal combined functional verdict and receipt: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r1/VERDICT.md` and `compact-receipt.json`
+- Stage 1 streams and run receipt: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r1/evidence/stage1/`
+- Source pins: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r1/pre-run-pins.json` and `post-run-pins.json`
+- Separate root diagnostic A/B summary and receipts: `/Users/me/.codex/clash-qualification/20261023-copper-repeatability-root-run-r3/ROOT-AB-SUMMARY.json`, `A/evidence/`, and `B/evidence/`
+- Four-declaration diagnostic source: `/Users/me/.codex/clash-qualification/20261023-copper-restore-repeatability-source-r3/B-GEOMETRY.patch`
+
+
+
+## Round 568 — 2026-10-23
+
+PIECE: APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 3
+
+VERDICT: PASS — authorized Stage1/Stage2 combined-functional gates; separate static-preservation helper PASS
+
+EVIDENCE:
+
+The fresh independent critic ran against the sealed 641-file candidate. All 641 source pins matched before and after; the 26-file reference pin inventories also matched before and after. Setup and process closure were independently verified. Stage1 ran once under Node v22.23.4 (PID 56378), directly exited 0, and reported 39 PASS, 0 FAIL and 1 optional historical skip. The skipped ART004_PARENT_ROOT comparison against the accepted 5ed checkout is not a pass or current-preservation evidence.
+
+Stage2 ran once (Node PID 56552; test worker PID 56609), directly exited 0 with 4/4 test entries passing and no failures or skips. It covers all 24 unique fixed Skymaul atlas poses across four settings, eight live Skymaul cases, and all eight Copperskiff phone/desktop × horizontal/vertical × normal/reduced-motion cases. The Copperskiff cases retained trusted input and exact checkpoint pixels, matched browser/session/bridge/audio-continuation state after restore, and matched exact 120-tick future continuation in all eight cases. Terminal restart retained the deck and returned to tick 0. The unchanged hand gate passed at three viewports and standalone HUD mode, with trusted selection, all seven expected PNGs, and no browser errors.
+
+A separate independent current-canonical static-preservation helper ran once and passed against 9599f186b80596e9fb5f8636cccbc34f98887440. It compared 17 non-Sky battle-art kinds across 34 entities, six towers, playable roster, portraits, lore, assets and the exact declared stylesheet addition. Its boundary is a static FakeDOM at tick 42 with empty events and normal motion preference; it is not full browser or gameplay parity. This helper does not turn the optional accepted-5ed ART004 comparison into a pass.
+
+BIGGEST GAP: The historical ART004_PARENT_ROOT comparison remains skipped; the static helper does not prove full browser/gameplay parity or the complete 3D attack sequence. Stages3/4 are running separately and have no result in this entry. The separate 18,000-tick endurance was not run or granted.
+
+DISPOSITION: Record APP-REDESIGN-SKY-LIVE-001 round 3 as a scoped PASS for the authorized Stage1/Stage2 gates and the separate current-canonical static-preservation helper. Preserve Round567’s setup FAIL and Round562’s five-pixel Copperskiff restore FAIL unchanged. Root’s A/B diagnostic intervention remains context only; it establishes neither attribution nor a GPU mechanism. Do not claim product adoption, deployment, release, endurance, full parity or shipping acceptance.
+
+FILES:
+- Formal combined functional verdict and receipt: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r2/VERDICT.md` and `COMPACT-RECEIPT.json`
+- Candidate source pins, setup seal verification, static helper evidence and closure: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r2/`
+- Stage1 and Stage2 raw evidence: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r2/stage1/evidence/` and `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r2/stage2/evidence/`
+- Current-canonical static-preservation helper: `/Users/me/.codex/clash-qualification/20261023-combined-release-functional-critic-r2/static-preservation/`
+
+
+
+## Round 569 — 2026-10-23
+
+PIECE: APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 4
+
+VERDICT: FAIL — Stage3 test predicate classifies Skymaul atlas windows as generic body art
+
+EVIDENCE:
+
+The independent packaging critic ran Stage3 once on its sealed 641-file candidate. All 641 candidate and 26 comparison-reference pins matched before and after. Node PID 58173 directly exited 1; literal TAP reported 3 tests, 2 passed, 1 failed, 0 skipped. The failure at `tests/visual-combat-assets.test.js:826` was `non-atlas body art keeps the original generic game-scale bounds`: its pinned predicate required every kind except Copperskiff to have a 20–55px width and at least 20px height. Skymaul north and south each reported a 64×64 SVG art box against a 40.5×40.5 marker. The other two tests, covering the tick-435 attack restore/chunk pose and canonical death timing, passed. The critic rendered and inspected all eight 720×1280 PNGs and retained the run’s literal TAP, process, image and inventory evidence.
+
+The one-shot protocol stopped after the Stage3 failure. Stage4 gates, the release build, and the Pages build did not run; this round makes no packaging or isolation finding. The failing assertion is a test-predicate mismatch for atlas art, not a finding that the Skymaul product art or live renderer is defective.
+
+BIGGEST GAP: The generic 20–55px predicate has no Skymaul atlas exception, so it rejects the 64×64 atlas window before Stage4 can run.
+
+DISPOSITION: Preserve this independent Stage3 FAIL as Round569. Do not erase the earlier Round568 scoped Stage1/2 PASS or Round562/Round567 failures. No product-source/art adoption, release-build, deployment, parity, full-attack or endurance claim is established.
+
+FILES:
+- Independent critic verdict and receipt: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r1/PACKAGING-VERDICT.md` and `PACKAGING-RECEIPT.json`
+- Stage3 raw evidence and inspected captures: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r1/evidence/stage3/`
+
+## Round 570 — 2026-10-23
+
+PIECE: APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 5
+
+VERDICT: PASS — scoped independent Stage3 and Stage4 packaging candidate gates
+
+EVIDENCE:
+
+The corrected independent packaging critic verified its 656-entry seal and ran on a fresh copy of the 641-file candidate; all 641 source pins and 26 reference pins matched before and after every gate and build. The only reviewed source delta is test-only: the generic atlas-art predicate explicitly recognizes Skymaul alongside Copperskiff. The generic 20–55px bounds remain intact for other art, and the dedicated Sky/Copper atlas cell, pivot, body-size, frame-scale, image-hash/dimension, alpha-mask and rendered-geometry checks remain exact.
+
+Stage3 ran once as Node PID 59648, direct exit 0, with literal TAP 3/3 and no skips. All eight emitted 720×1280 PNGs were inspected. The 30 art records contain 26 non-atlas entries without generic-bound outliers; health height is 4 throughout, `restored=true`, and `linksHidden=true`. The atlas records pass their dedicated assertions. The false positive is resolved by recognizing the actual atlas type in the test predicate; no product art or renderer edit is claimed.
+
+Stage4 passed 54/54 checks across seven gates, with no failures or skips. The release-build literal TAP is 24/24 (14 top-level checks plus 10 nested checks), although the proposal listed 20; record the actual TAP count, not the proposal count. Both verification builds directly exited 0. The release audit matched all 59 payload paths, sizes and digests (6,454,443 bytes; manifest SHA-256 `74fb9c150dfd3874fe50696e91d17288e8dfdf715c5dfafb960ad5dd2b01f953`). The Pages artifact contains 69 files (6,871,400 bytes), with the same 59 payload files and byte-identical release manifest in its game tree; no symlinks or digest/size mismatches were found. The release-isolation browser gate passed its captured request and manifest checks. All ten direct test/build PIDs were absent after exit; the report does not claim machine-wide browser closure.
+
+BIGGEST GAP: The unchanged default-eight 18,000-tick browser endurance remains unqualified, so this scoped Stage3/Stage4 result is not overall release acceptance.
+
+DISPOSITION: Record this as a scoped Stage3/Stage4 PASS for the pinned candidate and retain Round569’s initial Stage3 FAIL as history. The Round568 Stage1/2 acceptance remains separate and unchanged; the optional accepted-5ed ART004 comparison remains a skip. At tracking time the separate endurance run PID62380 remains live and unqualified, and its candidate was not modified. No adoption, deployment, full release acceptance, full gameplay/reference parity, complete 3D attack sequence, or shipping claim is made.
+
+FILES:
+- Corrected formal verdict and receipt: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/NEW-FORMAL-VERDICT.md` and `PACKAGING-RECEIPT.json`
+- Stage3 raw evidence, eight captures, and geometry inventory: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/stage3/`
+- Stage4 raw gate/build evidence and release/Pages audits: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/stage4/`
+- Final candidate/reference pins and closure receipts: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/`
+
+
+
+## Round 571 — 2026-10-23
+
+PIECE: GAME-001GPR9 — Combined 641-file candidate default-eight browser endurance, round 1
+
+VERDICT: PASS — one authorized exact-candidate default-eight 18,000-tick run
+
+EVIDENCE:
+
+The independent frozen runner executed `/Users/me/.hermes/node/bin/node --test tests/game-browser-endurance.test.js` exactly once against the sealed 641-file candidate, using the unchanged seed-zero `default-eight` scenario without tick overrides, diagnostics, retries or speed overrides. Node 22.23.4, Playwright 1.58.2 and Chrome 156.0.8078.47 were used. The frozen spec SHA-256 is `43fe3bdeaa66ea8343eb598fa8d860a698e4de347348216a4a2991301f762a7a`; the test source SHA-256 is `f91186845455952b242a951d29e0ad9d7fcb791d2da60541a3ed44e68c149a5c`. Direct PID 62380 exited 0; literal TAP reports 3/3 passing, no failures or skips. Browser telemetry duration was 977,318 ms under the original 1,200,000 ms cap; total TAP duration was 979,763 ms. All 641 candidate and 26 comparison-reference pins matched before and after; setup symlinks were unchanged. Closure checks found the run-owned PIDs absent, server exited, and fresh TMP empty. No machine-wide browser-closure claim is made.
+
+The exact serialized seed-zero deck was `coilblade`, `mossguard`, `copperskiff`, `skymaul`, `brassbolt`, `reedsting`, `briar-band`, and `cinderlings`, in that order. The final transcript has exactly 18,000 one-tick steps, 40 submissions, one pause and one resume. The corrected machine-readable audit follows the actual nested `command.commandId` field and confirms all 40 IDs are integers, consecutive 1–40. Browser transport normalization includes the expected replay-branch duplicate of ID1, while the final canonical transcript retains 40 submissions. The audit-field correction did not rerun tests or change candidate source.
+
+The run reached a natural terminal at tick 18,000 with South winning 2–1 by lowest-HP tiebreak. The primary and replayed timelines contain 67 measured segments, maximum 10,375 ms against a 30,000 ms cap; physical simulation work is 18,300 ticks due to the intentional 300–600 replay overlap, while the final canonical transcript remains at exactly 18,000. Maximum explicit one-tick simulation was 34.5 ms against 40 ms; initialization long tasks peaked at 176 ms against 300 ms; non-initialization long tasks were 0 ms against 50 ms. Restore, serialization, DOM commit, lifecycle, terminal, restart and resource limits passed with no environment audits or console/resource errors.
+
+At tick 300 the browser restored from tick 600 using a 54,012-byte snapshot. Direct/browser byte and bridge assertions passed. The audio sink stream remained identical across restore (55 starts), and original/replayed typed simulation-cue continuations matched (29 each). Terminal disposed audio with no active voices; restart returned to tick 0 with all projection layers cleared, no pending resources and no cues. The critic visually inspected the active, terminal and restart 720×1280 screenshots.
+
+The first generated machine-readable audit looked up `entry.commandId`, one level too shallow, instead of the actual `entry.command.commandId` field. Its corrected audit uses `command.commandId` and confirms exact integer IDs 1–40 from the final serialized transcript. No test rerun and no candidate source change occurred.
+
+BIGGEST GAP: This proves one exact sealed-candidate default-eight run only; it does not establish repeatability, other scenarios, custom decks, full gameplay/reference parity, or overall release acceptance.
+
+DISPOSITION: Record GAME-001GPR9 as a scoped PASS for this single 641-file candidate run. Do not rewrite the historical GAME-001GPR8D acceptance on the older fd6b2af9 source. Product13 was separately adopted and pushed at `8df80a440b1a68d1124137c1b3891e804b6db527`; Pages run `40019531871` was still running at this snapshot, so actual deployment verification remains pending. This run does not itself authorize or prove deployment, shipment, or adoption of the 641-file candidate. No repeatability, custom-deck, full parity or full attack claim is made.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/endurance-18k/ENDURANCE-18K-FORMAL-VERDICT.md`
+- Corrected audit: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/endurance-18k/ENDURANCE-18K-AUDIT.json`
+- Literal TAP and process receipts: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/endurance-18k/run/`
+- Telemetry, screenshots, pins and closure: `/Users/me/.codex/clash-qualification/20261023-combined-release-packaging-critic-r2/evidence/endurance-18k/`
+
+
+
+POST-ROUND571 PUBLICATION DISPOSITION (separate verification): Root verified GitHub Pages run `40019531871` succeeded at actual HEAD `8df80a440b1a68d1124137c1b3891e804b6db527`. The live landing matches the verified artifact except for the expected commit-link replacement from `9599f186b80596e9fb5f8636cccbc34f98887440` to `8df80a440b1a68d1124137c1b3891e804b6db527`. The public game entry, built HTML shell, Skymaul atlas and release manifest match the verified artifact byte-for-byte. Manifest SHA-256 is `74fb9c150dfd3874fe50696e91d17288e8dfdf715c5dfafb960ad5dd2b01f953`; Skymaul atlas SHA-256 is `e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb`. Public game: https://bryanhu.com/clash-royale-clone/game/public/index.html. This confirms publication of the bounded adopted changes only; it does not establish whole-game completion, historical parity or a complete 3D attack sequence.
