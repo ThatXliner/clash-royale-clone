@@ -424,6 +424,17 @@ const REGISTERED_ASSETS = [
   },
   {
     authorship: "in-repo-authored",
+    byteLength: 27488,
+    dimensions: { height: 384, width: 256 },
+    format: "png",
+    id: "skymaul-battle-sprite",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/skymaul-battle-sprite.png",
+    sha256: "e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb",
+  },
+  {
+    authorship: "in-repo-authored",
     byteLength: 70090,
     dimensions: { height: 512, width: 512 },
     format: "webp",

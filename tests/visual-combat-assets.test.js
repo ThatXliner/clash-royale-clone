@@ -694,6 +694,65 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
         }
         continue;
       }
+      if (kind === 'skymaul') {
+        const atlasSha256 = 'e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb';
+        for (const [side, direction, team, row, column, sprite] of [
+          ['north', 'south', 'ember', 3, 2, north],
+          ['south', 'north', 'river', 0, 1, south],
+        ]) {
+          const viewBox = `${column * 64} ${row * 64} 64 64`;
+          assert.equal(sprite.painted, true, `${side} Skymaul must use the accepted atlas`);
+          assert.equal(sprite.imageHref,
+            `http://${ready.host}:${ready.port}/public/assets/skymaul-battle-sprite.png`);
+          assert.equal(sprite.spriteSide, side);
+          assert.equal(sprite.spriteTeam, team);
+          assert.equal(sprite.spriteAction, 'idle');
+          assert.equal(sprite.spriteDirection, direction);
+          assert.equal(sprite.spriteFrame, `skymaul-${team}-${direction}-idle`);
+          assert.equal(sprite.rootViewBox, viewBox);
+          assert.equal(sprite.rootPreserveAspectRatio, 'none');
+          assert.equal(sprite.spritePivot, '32:54');
+          assert.ok([13, 26].includes(sprite.spriteBodyCssPixels),
+            `${side} Skymaul must keep an approved 13px or 26px body presentation`);
+          assert.equal(sprite.resolvedPresentationBodyCssPixels, sprite.spriteBodyCssPixels,
+            `${side} Skymaul data and resolved presentation context must agree`);
+          assert.ok(Number.isFinite(sprite.frameScale) && sprite.frameScale > 0 &&
+            sprite.frameScale <= 8,
+          `${side} Skymaul must retain the bounded presentation frame scale`);
+          const expectedFrameCssPixels = 64 * sprite.spriteBodyCssPixels / 13 / sprite.frameScale;
+          assert.ok(Math.abs(Number.parseFloat(sprite.spriteStyle.width) - expectedFrameCssPixels) < 0.01);
+          assert.equal(sprite.spriteStyle.width, sprite.spriteStyle.height);
+          assert.equal(sprite.spriteStyle.left, '50%');
+          assert.equal(sprite.spriteStyle.top, '50%');
+          assert.equal(sprite.spriteStyle.translate, '-50% -84.375%');
+          assert.equal(sprite.spriteStyle.pointerEvents, 'none');
+          assert.ok(Math.abs(sprite.renderGeometry.art.width - expectedFrameCssPixels) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.art.height - expectedFrameCssPixels) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.pivotErrorX) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.pivotErrorY) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.art.width * sprite.frameScale -
+            64 * sprite.spriteBodyCssPixels / 13) < 0.01);
+          assert.ok(sprite.rasterCapture.maskArea > 0 && sprite.rasterCapture.maskBounds,
+            `${side} Skymaul must retain decoded visible-alpha evidence`);
+          assert.equal(sprite.imageElements.length, 1);
+          assert.deepEqual(sprite.imageElements[0], {
+            height: '384',
+            href: sprite.imageHref,
+            preserveAspectRatio: 'none',
+            width: '256',
+            x: '0',
+            y: '0',
+          });
+          assert.equal(sprite.pathData.length, 0,
+            `${side} Skymaul body must remain the accepted raster atlas`);
+          const pin = sprite.rasterCapture.imagePins[0];
+          assert.equal(sprite.rasterCapture.imagePins.length, 1);
+          assert.equal(pin.sha256, atlasSha256,
+            `${side} Skymaul must retain the accepted source atlas bytes`);
+          assert.equal(pin.byteLength, 27488);
+        }
+        continue;
+      }
       if (kind === 'kilnkeeper') {
         const imageSha256 = '43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a';
         assert.equal(north.painted, true);
@@ -764,7 +823,7 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
       assert.equal(southBody[teamPathIndex].fill, '#2E7F86',
         `${kind} south team path must be river teal`);
     }
-    assert.ok(result.art.every(a => a.kind === 'copperskiff' ||
+    assert.ok(result.art.every(a => a.kind === 'copperskiff' || a.kind === 'skymaul' ||
       (a.width >= 20 && a.width <= 55 && a.height >= 20)),
     'non-atlas body art keeps the original generic game-scale bounds');
     assert.ok(result.art.every(a => a.healthHeight === 4));

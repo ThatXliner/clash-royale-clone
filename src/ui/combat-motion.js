@@ -5,6 +5,7 @@ import {
   COMBAT_ART_ARCHETYPES,
   updateCopperskiffBattleArt,
 } from './combat-art.js';
+import { updateSkymaulBattleArt } from './skymaul-battle-sprite.js';
 
 const VIEWS = new WeakSet();
 const KINDS = new Set(COMBAT_ART_ARCHETYPES);
@@ -33,6 +34,12 @@ export function getCopperskiffFacingDirection(unit, target) {
 
 export function getCopperskiffSpriteAction(pose) {
   if (typeof pose !== 'string') throw new TypeError('Copperskiff pose must be a string');
+  return pose === 'attack' || pose === 'recoil' ? 'contact' : 'idle';
+}
+
+export function getSkymaulSpriteAction(pose) {
+  if (typeof pose !== 'string') throw new TypeError('Skymaul pose must be a string');
+  if (pose === 'move') return 'walk';
   return pose === 'attack' || pose === 'recoil' ? 'contact' : 'idle';
 }
 
@@ -94,6 +101,7 @@ export function createCombatMotionView(snapshot, effects) {
     const hit = Number.isFinite(hitAge);
     if (hit && pose !== 'deploy') { lift -= (6 - hitAge) / 2; }
     const copperskiff = unit.archetypeId === 'copperskiff';
+    const skymaul = unit.archetypeId === 'skymaul';
     const spritePose = getCopperskiffSpriteAction(pose);
     poses.push(Object.freeze({
       id: unit.id,
@@ -104,6 +112,10 @@ export function createCombatMotionView(snapshot, effects) {
       hit,
       ...(copperskiff ? {
         spriteAction: spritePose,
+        spriteDirection: getCopperskiffFacingDirection(unit, target),
+      } : {}),
+      ...(skymaul ? {
+        spriteAction: getSkymaulSpriteAction(pose),
         spriteDirection: getCopperskiffFacingDirection(unit, target),
       } : {}),
     }));
@@ -159,6 +171,16 @@ export function bindCombatMotion(combat, effects, view) {
     const copperskiff = children(node).find((child) => child.dataset?.artId === 'copperskiff');
     if (copperskiff) {
       updateCopperskiffBattleArt(copperskiff, {
+        action: pose.spriteAction,
+        direction: pose.spriteDirection,
+        reducedMotion,
+        side: node.dataset.side,
+        tick: view.tick,
+      });
+    }
+    const skymaul = children(node).find((child) => child.dataset?.artId === 'skymaul');
+    if (skymaul) {
+      updateSkymaulBattleArt(skymaul, {
         action: pose.spriteAction,
         direction: pose.spriteDirection,
         reducedMotion,

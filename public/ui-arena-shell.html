@@ -541,6 +541,12 @@
         line-height: 1;
       }
 
+      /* Release CSS loads after this block. One extra class keeps the art cost size
+         above the 14px base rule; the app-frame 30px rule still outranks it. */
+      .hud-card .hud-card__cost {
+        font-size: 15px;
+      }
+
       .hud-card::before {
         content: "";
         position: absolute;
@@ -777,6 +783,7 @@
       }
 
       body[data-app-frame="true"] .hand-tray {
+        border-width: 2px;
         top: 1114px;
         left: 50%;
         translate: -50% 0;
@@ -805,18 +812,18 @@
 
       body[data-app-frame="true"] [data-ui="hud-next"],
       body[data-app-frame="true"] [data-ui="hud-hand"] {
-        top: 1121px;
+        top: 1120px;
         height: 128px;
         align-items: stretch;
       }
 
       body[data-app-frame="true"] [data-ui="hud-next"] {
-        left: 65px;
+        left: 64px;
         width: 112px;
       }
 
       body[data-app-frame="true"] [data-ui="hud-hand"] {
-        left: 185px;
+        left: 184px;
         width: 472px;
         grid-template-columns: repeat(4, 112px);
         gap: 8px;
@@ -930,6 +937,14 @@
         left: 64px;
         width: 592px;
         height: 22px;
+      }
+
+      /* Fractional regeneration shares the rail track: the rail box inset by its 3px border. */
+      body[data-app-frame="true"] .hud-resource-progress {
+        top: 1261px;
+        left: 67px;
+        width: 586px;
+        height: 16px;
       }
 
       body[data-app-frame="true"] [data-ui="hud-elixir"] {
