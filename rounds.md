@@ -10615,3 +10615,48 @@ FILES:
 - Earlier setup-only failure: `/Users/me/.codex/clash-qualification/20261023-brassbolt-render-buffer-independent-r1/ACTUAL-PREDECESSOR.json`
 - EXR and control receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-render-buffer-independent-r1/attempts/control-v1/KNOWN-FLOAT32-CONTROL.json`
 
+## Round 573 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-ISOLATED-ALPHA-001 — Brassbolt native isolated-alpha diagnostic, round 1
+
+VERDICT: FAIL — R does not equal A for 108 of 65,536 samples
+
+EVIDENCE:
+
+The retained isolated native render covers the authorized `river / north / idle / frame 1 / full_actor / isolated` cell. Its semantic receipt has 39 visible white-emission actor meshes and four hidden black-emission ring nonmembers. The raw diagnostic reports all 65,536 RGBA32 samples in unit range and RGB-neutral, but the strict `R == A` predicate fails on 108 samples. The retained aggregate counters imply 22 failures at fractional alpha and 86 at alpha 1; that partition is derived from saved aggregates, not from a persisted independent decoder count. One retained alpha-one example is bottom-up coordinate (121,40): RGB 0.99951171875 (`3f7fe000`) and A 1.0 (`3f800000`). No exact fractional-alpha mismatch coordinate was retained.
+
+The one standard-library EXR decode attempt parsed samples and computed hashes/counts in memory; the raw-hash and count-agreement assertions passed before it stopped at exact mismatch-example comparison. The independent examples included `alpha_class`, while the retained examples do not. It therefore persisted neither its independent counts nor the full mismatch list; no retry occurred. Do not describe the incomplete decoder attempt as a completed independent decoder PASS. The retained EXR is 1,053,462 bytes with file SHA-256 `06122e2f4b980c209b2cfc516436045b9f658f30e29119ffb6da163aba2fc88d`; the run-recorded RGBA payload hash is `17886bf0875d82fc138949d67e35e1dfd0c8566ba5adcca4c7f11dce28e3d408`.
+
+Preservation is separate and passes: all ten flags are true, authored changed paths are empty, output settings restore exactly, all relevant sealed source/prerequisite pins match, and Blender PID 73486 is recorded absent. This is a diagnostic failure before the original R9 guard/comparison, not a production alpha equation or a qualified native-art baseline. No alpha association, geometry-coverage semantics, or artwork acceptance is established.
+
+BIGGEST GAP: The strict native-cell R==A predicate fails, while the one allowed decoder attempt did not persist independent mismatch counts or the complete coordinate list.
+
+DISPOSITION: Record only the new bounded isolated-alpha verifier as FAIL. Preserve `ART-3D-BRASS-001`, `VERIFIER-BRASS-FLOAT-001`, and all prior results unchanged. Do not choose an alpha formula, claim full Blender source coverage, or infer character-art or product acceptance.
+
+FILES:
+- Formal verdict and independent audit: `/Users/me/.codex/clash-qualification/20261023-brassbolt-native-alpha-critic-independent-r1/VERDICT.md` and `/Users/me/.codex/clash-qualification/20261023-brassbolt-native-alpha-critic-independent-r1/INDEPENDENT-EXR-AUDIT.json`
+- Retained R9 run and closure review: `/Users/me/.codex/clash-qualification/20261023-brassbolt-native-alpha-analysis-r1/attempts/diagnostic-v1/` and `/Users/me/.codex/clash-qualification/20261023-brassbolt-native-alpha-analysis-r1/execution-diagnostic-v1/ROOT-POST-REVIEW.json`
+
+## Round 574 — 2026-10-23
+
+PIECE: VERIFIER-BRIAR-SPARSE64-RAW-001 — Briar 16-frame raw PNG and metadata proof, round 1
+
+VERDICT: PASS — scoped source-grid pixel, zero-mask, and PNG metadata proof only
+
+EVIDENCE:
+
+The independent Python audit passed once (PID 72356, direct exit 0, process closed) against the 16 expected R4 scratch PNG frames. All copied source RGBA samples matched exactly; transparent pixels outside the expected bounds were exact black, zero-mask bytes matched exactly, the metadata KEEP set matched exactly, and the OMIT set was absent. The source PNG contains 6,290,064 RGBA bytes. The report records 779,688 copied texels and 24,380,568 generated transparent texels.
+
+The source contained one opaque `caBX` chunk (21,881 bytes; SHA-256 `6a7455ef855719c6f08f56e71b47e95808bd3d3558c8aaf509a0231543084aa4`). Its meaning is not inferred, and it was not copied to the derived PNGs. The sealed 15-file packet, all 44 pinned inputs, and all 34 pre-existing asset/receipt file hashes remained exact. The verifier report matches stdout. This is raw source-grid pixel and metadata evidence only.
+
+The prior `UI-BRIAR-CLIP-001` Round3 independent browser/art verdict remains FAIL: all 64 live pose crops differ, with 61 changed full-scene pixels outside the allowed spill area. This raw-PNG proof does not revise that verdict or establish art quality, browser rendering, or product acceptance.
+
+BIGGEST GAP: The original R3 clip-rendered scene still violates the zero-difference visual gate; exact source-frame pixels do not prove browser clip behavior or artwork acceptance.
+
+DISPOSITION: Add only this independent 16-frame raw-PNG/metadata proof as a separate scoped PASS. Keep `UI-BRIAR-CLIP-001` and all earlier art/browser verdicts unchanged. No product asset adoption or browser/art PASS is established.
+
+FILES:
+- Formal independent audit verdict: `/Users/me/.codex/clash-qualification/20261023-briar-sparse64-python-audit-r4-01/AUDIT-VERDICT.json`
+- Verifier and output report: `/Users/me/.codex/clash-qualification/20261023-briar-sparse64-qualification-source-r4/verify-sparse64-pngs.py` and `/Users/me/.codex/clash-qualification/20261023-briar-sparse64-qualification-source-r4/runtime-briar-sparse64-r4/report/independent-pixel-verification.json`
+- Original independent clip FAIL: `/Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-independent-r3/VERDICT.md`
+

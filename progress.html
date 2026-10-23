@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">331</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">266</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">572</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">333</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">267</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">574</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
@@ -2685,6 +2685,22 @@
         <td>1</td>
         <td>Round572 scoped PASS: independent one-run synthetic transport control, PID68133 direct exit0 and closed. All128 float32 words match both RenderPass and EXR readback; operations1/1/1, 12/12 negative controls rejected, all four preservation flags true, 13 source pins/59 R9 entries/two accepted inputs unchanged, no preservation errors; EXR1244B SHA-256 a31bbe8e0fd9ea38481f81acef2b98ea94980798d6b42de5dcd555b085f2d91c. Root PID67509 control is supporting only. Preserve prior R1 setup failure: factory already contained Render Result and Viewer Node, each with one user; render/callback/export counts were0, so no transport was exercised. Synthetic control only: no accepted model, native EEVEE, actual alpha, baseline, art or live acceptance; transient RenderResult contents are not claimed restored. Native EEVEE one-cell remains pending.</td>
       </tr>
+      <tr>
+        <td><code>VERIFIER-BRASS-ISOLATED-ALPHA-001</code></td>
+        <td>Brassbolt native isolated-alpha diagnostic</td>
+        <td class="state-fail">FAIL</td>
+        <td>2/3 native predicates; preservation 10/10</td>
+        <td>1</td>
+        <td>Round573 FAIL: unit range and RGB neutrality pass, but R!=A for 108/65,536 samples. The one independent EXR decoder attempt stopped on an example-object key mismatch before persisting its independent counts or full mismatch list; do not call it a decoder PASS. All ten preservation flags pass, authored changed paths are empty, settings restore exactly, runtime PID73486 is absent, and sealed pins match. No formula or art acceptance follows.</td>
+      </tr>
+      <tr>
+        <td><code>VERIFIER-BRIAR-SPARSE64-RAW-001</code></td>
+        <td>Briar 16-frame raw PNG and metadata proof</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1 independent audit (16 frames)</td>
+        <td>1</td>
+        <td>Round574 scoped PASS: all16 source frames pass exact raw-pixel, zero-mask, and metadata checks; 779,688 copied texels and 24,380,568 generated transparent texels. The opaque caBX chunk is recorded but not copied or interpreted. All15 packet files and44 input pins match, and34 pre-existing asset/receipt hashes are unchanged. UI-BRIAR-CLIP-001 Round3 browser/art FAIL remains unchanged; this proof is not an art or browser PASS.</td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -3262,6 +3278,8 @@
       <li><strong>R570 PASS — scoped independent Stage3 and Stage4 packaging candidate gates</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 5<br>The unchanged default-eight 18,000-tick browser endurance remains unqualified, so this scoped Stage3/Stage4 result is not overall release acceptance.</li>
       <li><strong>R571 PASS — one authorized exact-candidate default-eight 18,000-tick run</strong> · GAME-001GPR9 — Combined 641-file candidate default-eight browser endurance, round 1<br>This proves one exact sealed-candidate default-eight run only; it does not establish repeatability, other scenarios, custom decks, full gameplay/reference parity, or overall release acceptance.</li>
       <li><strong>R572 PASS — scoped synthetic float32 transport only</strong> · VERIFIER-BRASS-FLOAT-001 — Brassbolt synthetic float32 RenderResult transport control, round 1<br>Native EEVEE RenderResult acquisition/export and actual coverage-alpha behavior remain untested; this synthetic control establishes no accepted-model baseline or art result.</li>
+      <li><strong>R573 FAIL — R does not equal A for 108 of 65,536 samples</strong> · VERIFIER-BRASS-ISOLATED-ALPHA-001 — Brassbolt native isolated-alpha diagnostic, round 1<br>The strict native-cell R==A predicate fails, while the one allowed decoder attempt did not persist independent mismatch counts or the complete coordinate list.</li>
+      <li><strong>R574 PASS — scoped source-grid pixel, zero-mask, and PNG metadata proof only</strong> · VERIFIER-BRIAR-SPARSE64-RAW-001 — Briar 16-frame raw PNG and metadata proof, round 1<br>The original R3 clip-rendered scene still violates the zero-difference visual gate; exact source-frame pixels do not prove browser clip behavior or artwork acceptance.</li>
   </ol>
 </body>
 </html>
