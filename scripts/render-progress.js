@@ -16,7 +16,7 @@ export function parsePlan(plan) {
         || !pieceIdPattern.test(cells[0])
         || !cells[1]
         || !pieceStates.has(cells[4])
-        || !/^\d+\/\d+$/.test(cells[5])
+        || !cells[5]
         || !/^\d+$/.test(cells[6])
       ) return null;
       return {

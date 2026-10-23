@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-10-23 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">327</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">260</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">561</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">563</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Current work: <strong>APP-004</strong> Round561 FAIL (full unmodified gate reaches standalone cost-font check: 14px vs 15px; packaged alignment, interaction and reduced-motion checks pass; standalone screenshot and final browser-error check were not reached). Claude advisory job job-df4ad592a4 awaits quota reset at 11:10 a.m. America/Los_Angeles on October 23, with 11:15 a.m. continuation via automation resume-claude-standalone-font-review. <strong>UI-BRIAR-CLIP-001</strong> Round559 FAIL (zero-difference clip-edge gate); <strong>APP-REDESIGN-SKY-LIVE-001</strong> remains BUILDING (unit and atlas browser pass; R5 passes the corrected facing witness, then fails restore manual-stepping readiness; source diagnosis pending); three Copperskiff attack pieces are PENDING from a source-only plan.</p>
+  <p class="note">Current work: <strong>APP-004</strong> Round561 FAIL (full unmodified gate reaches standalone cost-font check: 14px vs 15px; packaged alignment, interaction and reduced-motion checks pass; standalone screenshot and final browser-error check were not reached). Claude advisory job job-df4ad592a4 awaits quota reset at 11:10 a.m. America/Los_Angeles on October 23, with 11:15 a.m. continuation via automation resume-claude-standalone-font-review. <strong>UI-BRIAR-CLIP-001</strong> Round559 FAIL (zero-difference clip-edge gate); <strong>APP-REDESIGN-SKY-LIVE-001</strong> Round562 FAIL (unit 39 PASS/1 skip; browser 2 PASS/1 FAIL; mandatory Copperskiff phone reduced-horizontal restore differs by five pixels at x=163, 194, 196, 222, 223, y=772). The canonical control passed eight cases plus restart; the matched R9 control exited 0 with all eight expected cases, and root review confirmed all eight cases plus restart. The optional diagnostic flag added DOM diagnostics only for desktop/normal/horizontal; the full browser test still asserted all eight cases, including the phone/reduced-motion case. Cause remains unresolved, no Skymaul attribution or acceptance. Stages 3/4 and 18k were not run or granted. Three Copperskiff attack pieces are PENDING from a source-only plan.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -923,7 +923,7 @@
         <td class="state-fail">FAIL</td>
         <td>28 pass, 1 skip; browser 1/1; clean visual 3/3; independent 64-case matrix FAIL</td>
         <td>1</td>
-        <td>Round559 independent FAIL: all 64 live pose crops differ (1,384 selected-screen pixels total; up to 50 per crop, channel delta 2); 8 ring-shadow crops differ (up to 21 pixels, delta 1). Full scene changes 10,376 pixels: 10,315 spill removal and 61 outside the allowed area. Antialiased 1–2 channel edge changes still violate the explicit zero-difference gate. The 28 non-Briar nodes, source windows, atlas bytes and metadata pass. Keep the pixel bar unchanged.</td>
+        <td>R3 independent critic FAIL: across 64 captures/16 windows, 1,384 selected-screen pixels differ across 64 cases (up to 50 pixels/case, channel delta 2); 8 ring-shadow crops differ (up to 21 pixels, delta 1). Full scene changes 10,376 pixels: 10,315 spill removal and 61 outside the allowed spill area. Source windows, atlas bytes, geometry/metadata, isolated ring-shadow raster and all 28 non-Briar nodes pass. The 1–2 channel edge changes are consistent with clip-edge antialiasing but violate the explicit zero-difference gate; keep that bar unchanged. Independent verdict/report: /Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-independent-r3/VERDICT.md and report/ab-report.json (SHA-256 b18cf46b68651ea02d5485f5383a5d762bbba4930676f6a7374785db3efc284c). Preserve earlier failures; no product adoption.</td>
       </tr>
       <tr>
         <td><code>VIS-003D</code></td>
@@ -1025,9 +1025,9 @@
         <td><code>RELEASE-VITE-PATCH-001</code></td>
         <td>Root Vite dependency patch</td>
         <td class="state-pass">PASS</td>
-        <td>npm ci 1/1; npm ls 1/1; npm audit 1/1; release suite 24/24; publication 5/5; shipping guard 13/13; standalone release and Pages builds passed</td>
+        <td>npm ci 1/1; npm ls 1/1; npm audit 1/1; release suite 24/24; publication 5/5; shipping isolation 13/13; independent release and Pages build budgets passed</td>
         <td>2</td>
-        <td>Round557 independent R1 FAIL is preserved: six stages passed, then release-output setup stopped before build on missing parent (ENOENT), so Pages was unrun. Round558 is scoped cumulative PASS: independent build-only R2 directly exited 0 for release (58 payload files / 6,420,592 bytes; 59 / 6,449,065 including manifest) and Pages (68 / 6,837,146 bytes), within output budgets. R2 did not rerun tests. The 105 archived alerts remain outside scope.</td>
+        <td>The earlier release-suite candidate failed 1/24 only on a stale Vite 8.3.2 assertion; the corrected assertion compares the emitted manifest against the declared package pin. Independent R1 passed its first six stages, then formally failed before the standalone release build because the run-once output parent was missing (ENOENT); the Pages build was unrun. Preserve that FAIL as Round557. Independent build-only R2 then directly exited 0 for both builds: release payload 58 files / 6,420,592 bytes (59 files / 6,449,065 bytes including release-manifest.json), Pages 68 files / 6,837,146 bytes; both within 128-file, 1-MiB-per-file and 8-MiB-total limits. Round558 is scoped cumulative acceptance of R1 stages 1–6 plus R2 builds; R2 did not rerun tests. The 105 archived alerts remain outside scope. Evidence: /Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/critic-r1/VERDICT.md; /Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/critic-r2/VERDICT.md; /Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/verification-r1/FINAL-SUMMARY.json; /Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/verification-r2/R2-SUMMARY.json; /Users/me/.codex/clash-qualification/20261022-vite-patch-independent-r1/verification-r2/POST-R2.json.</td>
       </tr>
       <tr>
         <td><code>RELEASE-001W</code></td>
@@ -1429,7 +1429,14 @@
         <td>2</td>
         <td>Round 2 passed private exact-receipt plan issuance, 40 fresh-process authority attacks, 113 altered receipts, 11 facade mismatches, realpath-exact guard closure and all 165 required selector tests</td>
       </tr>
-      <tr><td><code>GAME-001HTJS</code></td><td>Local-copy unit projection sort</td><td class="state-pass">PASS</td><td>focused 1/1; projectile 7/7; guard 10/10</td><td>2</td><td>Round560 independent canonical product PASS: unfixed public GameSession reproduces frozen-array TypeError on the second deployment; the one-line copy fix advances to tick 2 and preserves the prior frozen checkpoint. All 635 source pins and the Git index match. No historical parity or default RL feature claim.</td></tr>
+      <tr>
+        <td><code>GAME-001HTJS</code></td>
+        <td>Local-copy unit projection sort</td>
+        <td class="state-pass">PASS</td>
+        <td>focused 1/1; projectile 7/7; guard 10/10</td>
+        <td>2</td>
+        <td>Round560 independently qualifies the current canonical one-line local-copy sort and public-API regression: raw fails at kernel sort, fixed passes, all 635 source pins and protected Git index remain unchanged. Round553 remains the earlier external frozen-array regression only. This adopts the product fix; historical parity, expanded mechanics and a default RL feature are not established. Evidence: /Users/me/.codex/clash-qualification/20261022-current-kernel-sort-independent-r1/.</td>
+      </tr>
       <tr>
         <td><code>GAME-001BTC</code></td>
         <td>Shared battle contract verification repair</td>
@@ -1724,7 +1731,7 @@
         <td class="state-fail">FAIL</td>
         <td>0/1</td>
         <td>3</td>
-        <td>Round 3 independent full-gate critic fails at the final standalone cost-font assertion: 14px vs 15px expected. The three packaged viewports, alignment/targets, arena geometry, trusted deploy/cycle, reduced-motion, and standalone geometry/name checks passed. No standalone screenshot or final browser-error assertion was reached. Round 355 PASS is retained in the history; no product change is adopted and no historical presentation-parity claim is made.</td>
+        <td>Round 3 independent critic failed the unchanged full gate at the final standalone cost-font assertion (14px, expected 15px). Three packaged viewports, alignment/targets, arena geometry, trusted deploy/cycle, reduced-motion, and standalone geometry/name checks passed; standalone screenshot and final browser-error assertion were not reached. Preserve Round 355 PASS in rounds.md. No product fix adopted; no historical presentation-parity claim. Claude follow-up is pending for the standalone cascade gap.</td>
       </tr>
       <tr>
         <td><code>RL-001</code></td>
@@ -2307,8 +2314,8 @@
         <td>Complete gauntlet progress rendering</td>
         <td class="state-pass">PASS</td>
         <td>3/3</td>
-        <td>2</td>
-        <td>Round467 PASS exact391541 test-only oracle update: independent262 PLAN rows/466 historical rounds once/sourceorder/fullmetadata; addedpiece+round growth passes, injectedomissionsfail. Prior465 rendererPASS retained. Fixedhardcodedcount, source/defaultoutputimmutable.</td>
+        <td>3</td>
+        <td>Round563 scoped PASS: raw actual-source control 0/3 tests, direct exit1; fixed parser 3/3 tests, direct exit0. Independent generated output matched all327 valid PLAN rows and562 pre-R563 numbered rounds in source order, preserving row fields and scoped summaries; raw control exposed four omitted IDs. No remaining gap on the scoped parser/dataflow dimension; full game completion remains unproven.</td>
       </tr>
       <tr>
         <td><code>RELEASE-ARENA-001</code></td>
@@ -2487,6 +2494,14 @@
         <td>Round527 scopedPASS: fresh16native views, two teams/fourheadings/idlecontact; hull/team/contact readable, bounds safe and actualsavedscene labels correct. 1014triangles/25editablemeshes. Blender wrote16PNGs thenexit1 JSONserialization; postprocess0, separateheadingprobe0, all126frozen source/assets unchanged. Original failedreview and setupfailures retained; no livegame integration claim.</td>
       </tr>
       <tr>
+        <td><code>ART-3D-COPPER-ATTACK-001</code></td>
+        <td>Copperskiff full 3D attack clip and portable atlas</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Source proposal only; no direction reconciliation, authored action, fresh renders, atlas, or critic verdict. Required source plan: /Users/me/.codex/clash-qualification/20261022-copperskiff-full-attack-source-plan/BAR.md and OWNERSHIP.md. Keep accepted base model/atlas byte-identical.</td>
+      </tr>
+      <tr>
         <td><code>ART-3D-SKY-001</code></td>
         <td>Skymaul native model readability</td>
         <td class="state-pass">PASS</td>
@@ -2551,6 +2566,22 @@
         <td>Round546 independentPASS: crisp original ink-contour model atlas reads overgrass/water at13/26inputs. Unchanged8phone/desktop normal/reduced H/V cases0PNGdiff andexactstate/input/audiofuture/restart; sprite6/isolation13/release24/manifest6PASS. Source189pinsheld. Adopt only6runtimepaths+ownedprovenance/tests; otherClaudeHUD/characterwork remains unaccepted.</td>
       </tr>
       <tr>
+        <td><code>VERIFIER-COPPER-ATTACK-001</code></td>
+        <td>Copperskiff animated attack browser verifier contract</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Contract proposal only; no verifier test or execution exists. Copper8 remains an immutable accepted-baseline gate, not evidence that a new atlas-based renderer passes it.</td>
+      </tr>
+      <tr>
+        <td><code>APP-REDESIGN-COPPER-ATTACK-001</code></td>
+        <td>Live Copperskiff 3D attack binding</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Source proposal only; no selector, renderer binding, test, runtime, or acceptance exists. Full attack sequence remains incomplete; preserve all current Copper8 assertions and report literal incompatibilities.</td>
+      </tr>
+      <tr>
         <td><code>APP-REDESIGN-001</code></td>
         <td>Collection and battle visual redesign foundation</td>
         <td class="state-building">BUILDING</td>
@@ -2609,10 +2640,10 @@
       <tr>
         <td><code>APP-REDESIGN-SKY-LIVE-001</code></td>
         <td>Skymaul live atlas binding</td>
-        <td class="state-building">BUILDING</td>
-        <td>11/11 unit; 1/1 atlas browser; R5 live browser FAIL</td>
-        <td>0</td>
-        <td>R5 advances beyond the corrected facing witness, then fails restore manual-stepping readiness at test line 528. Direct exit 1; all 641 source pins unchanged. R4 failure remains retained. No live acceptance or full attack sequence.</td>
+        <td class="state-fail">FAIL</td>
+        <td>39 PASS/1 skip unit; 2 PASS/1 FAIL browser</td>
+        <td>1</td>
+        <td>Round 1 independent critic: unit 39 PASS/1 skip (40 tests; skipped parent-art comparison is not a pass); browser 2 PASS/1 FAIL (3 tests). All 24 atlas cells and all eight live Skymaul cases pass, including exact restore screenshots/state/input/audio and 120-tick future. Mandatory Copperskiff phone 390×844, 13px, reduced-motion horizontal restore fails zero-PNG: five changed pixels at x=163, 194, 196, 222, and 223, y=772. Canonical control used a 633-blob source snapshot (PID 99931/session 82927; terminal 0): all eight Copperskiff cases plus restart PASS. Matched R9 candidate control used 641 source pins and the same GAME_BROWSER_VISUAL_DOM_DIAGNOSTICS flag (PID 483/session 4456; terminal 0): all eight expected cases; root post-run report review confirms all eight cases and restart. These later control runs do not erase or convert the independent critic FAIL into acceptance. The optional diagnostic flag added DOM diagnostics only for desktop/normal/horizontal; the full browser test still asserted all eight cases, including the failing phone/reduced-motion case. Cause remains unresolved, browser-paint nondeterminism is possible, and no attribution to Skymaul is supported. Stages 3/4 and 18k endurance were not run or granted. Preserve external R4/R5/R6 builder failures and diagnoses; they are not three independent same-gap critic failures. Preserve accepted Copperskiff R546. No product source/art/test adoption or shipping/parity claim. Evidence: /Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/VERDICT.md and COMPACT-RECEIPT.json. Prior candidate note retained: R5 actual live browser advances beyond the corrected facing witness, then fails restore manual-stepping readiness at test line 528 (PID 90746, direct exit 1). All 641 source pins remain unchanged. R4 facing-witness failure and diagnosis remain retained. No live acceptance or full attack sequence. Evidence: /Users/me/.codex/clash-qualification/20261022-skymaul-live-facing-r5/runtime-live-r5/ and ROOT-POST-LIVE-R5.json.</td>
       </tr>
       <tr>
         <td><code>GAME-001GPR8D</code></td>
@@ -2621,16 +2652,6 @@
         <td>3/3</td>
         <td>1</td>
         <td>Round552 independent full default18000 PASS on627-file fd6:67segments, naturalSouth2–1, exact600→300→600 session/input/typedAudio/futurecontinuation, terminal/restart0; no50ms lifecyclelongtasks/auditexemptions, init175/300ms, tick27.9/40ms, maxsegment10375/30000ms, total977897/1200000ms. Source/index unchanged. Scopeddefault8 only; customdecks/factory/redesign andhistoricalparity separate.</td>
-      </tr>
-
-      <tr>
-        <td><code>ART-3D-COPPER-ATTACK-001</code></td><td>Copperskiff full 3D attack clip and portable atlas</td><td class="state-pending">PENDING</td><td>0/0</td><td>0</td><td>Source proposal only. Requires actual Claude direction review, 128 attack renders plus 8 rest views, exact model/camera/pivot/contact preservation, deterministic 1024×512 atlas, and fresh independent native critique. No build or acceptance yet.</td>
-      </tr>
-      <tr>
-        <td><code>VERIFIER-COPPER-ATTACK-001</code></td><td>Copperskiff animated attack browser verifier contract</td><td class="state-pending">PENDING</td><td>0/0</td><td>0</td><td>Test proposal only. Preserve Copper8 byte-identically and its eight scenarios; qualify every actual visible attack image, normal/reduced modes, per-offset zero-PNG restore, input/audio/future/restart and timing. Report incompatibilities literally; do not weaken the existing test.</td>
-      </tr>
-      <tr>
-        <td><code>APP-REDESIGN-COPPER-ATTACK-001</code></td><td>Live Copperskiff 3D attack binding</td><td class="state-pending">PENDING</td><td>0/0</td><td>0</td><td>Source proposal only. Requires native clip, verifier contract and accepted live Copperskiff family; bind to canonical tick/launch root and one visible image, preserve normal/reduced restore and existing limits, then run matching full 18,000-tick gate. No live sequence or acceptance exists.</td>
       </tr>
       </tbody>
     </table>
@@ -3192,13 +3213,14 @@
       <li><strong>R553 PASS — focused frozen-array projectile regression only</strong> · GAME-001HTJS — local-copy unit projection sort<br>The observed 192 damage equals the actual HP delta, but lacks an independent numeric reference assertion; chain behavior, shared-factory qualification, historical gameplay parity, and product adoption remain unqualified.</li>
       <li><strong>R554 PASS — focused candidate test only; product source remains unadopted</strong> · UI-002AT — test-only projected spell placement-preview regression<br>The fixture contains no simulation object, so it does not prove that preview movement has no simulation-side effect outside these handlers; this focused test does not accept the full factory candidate or adopt product source.</li>
       <li><strong>R555 PASS — audio-only verification-test candidate on frozen R4 source; not canonical-main validation</strong> · AUDIO-002F — fresh-directory audio production artifact fixture<br>The audio result is limited to the frozen R4 candidate; its clean-output condition comes from preflight rather than a test startup assertion, and this record does not include matching canonical 633-source validation or full-factory acceptance.</li>
-  
-      <li><strong>R556 PASS — scoped renderer contract only</strong> · VIS-003CT — typed combat-art renderer contract<br>Briar grid/cluster bleed remains plainly visible in the actual contact sheet; the complete 3D attack sequence and artwork quality remain unqualified. This test-only result does not adopt production art or renderer changes.</li>
-      <li><strong>R557 FAIL</strong> · RELEASE-VITE-PATCH-001<br>Independent R1 passed its first six stages, then stopped before the standalone release build because the output parent was missing (ENOENT); the Pages build was unrun. Preserve this setup failure.</li>
-      <li><strong>R558 PASS — scoped cumulative acceptance</strong> · RELEASE-VITE-PATCH-001<br>Combines the first six R1 stage receipts with independent R2 direct-exit-0 release and Pages builds: 59 release files including manifest (58 payload files) and 68 Pages files, both within artifact budgets. The 105 archived alerts remain outside scope.</li>
-      <li><strong>R559 FAIL</strong> · UI-BRIAR-CLIP-001<br>Independent R3 confirms the exact zero-pixel bar fails: 64/64 live crops differ, ring-shadow pixels change in 8 cases, and 61 full-scene changes lie outside the allowed spill region. The 1–2 channel clip-edge changes are still out of tolerance; no bar change or product adoption.</li>
-  <li><strong>R560 PASS — canonical product fix</strong> · GAME-001HTJS<br>Independent raw failure, fixed public-API regression 1/1, projectile 7/7 and nondeterminism guard 10/10. The one-line local-copy sort preserves immutable checkpoints.</li>
-  <li><strong>R561 FAIL — independent full-gate critic</strong> · APP-004 — Readable hand and next-card HUD in packaged Battle, round 3<br>Exact 195-file candidate and unchanged test reproduce the final standalone cost font at 14px vs 15px. Packaged geometry, interaction, cycle, and reduced-motion checks pass; no standalone image or final browser-error gate was reached. Historical R355 PASS remains preserved; no product adoption or parity claim.</li>
+      <li><strong>R556 PASS — scoped renderer contract only</strong> · VIS-003CT — typed combat-art renderer contract<br>Briar grid/cluster bleed remains plainly visible across the actual contact sheet and needs the separate UI-BRIAR-CLIP fix. Artwork quality and complete 3D attack sequences remain unqualified.</li>
+      <li><strong>R557 FAIL — independent R1 stopped at standalone build setup</strong> · RELEASE-VITE-PATCH-001 — Root Vite dependency patch<br>Independent direct build output and budget evidence for release and Pages were missing at this point.</li>
+      <li><strong>R558 PASS — scoped cumulative acceptance (R1 first six stages plus R2 build-only stages)</strong> · RELEASE-VITE-PATCH-001 — Root Vite dependency patch<br>The acceptance covers the pinned dependency repair and the tested release/Pages outputs; the 105 archived alerts remain outside scope.</li>
+      <li><strong>R559 FAIL — clip-edge raster changes violate the exact-pixel preservation gate</strong> · UI-BRIAR-CLIP-001 — Briar image-only viewport clip<br>The clip alters live sprite edge pixels in all 64 cases and leaves 61 full-scene pixels outside the allowed spill region, so the zero-difference gate fails.</li>
+      <li><strong>R560 PASS — public GameSession immutable-checkpoint fix only</strong> · GAME-001HTJS — Local-copy unit projection sort, canonical product adoption<br>This verifies the public GameSession sort fix, not historical gameplay parity, new default RL capabilities or broader redesign acceptance.</li>
+      <li><strong>R561 FAIL — independent full-gate critic reproduces the standalone cost-font regression</strong> · APP-004 — Readable hand and next-card HUD in packaged Battle, round 3<br>The independent unmodified full browser gate fails its final standalone cost-label check: computed font is 14px instead of the required 15px. No standalone screenshot or final browser-error assertion exists for this run.</li>
+      <li><strong>R562 FAIL — independent current-main functional critic fails the mandatory Copperskiff zero-PNG check</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 1<br>The strict Copperskiff restore PNG differs by five pixels in the phone reduced-motion horizontal case despite matching serialized state, input/audio continuation, and 120-tick future replay.</li>
+      <li><strong>R563 PASS — scoped current inventory parser and dataflow</strong> · OPS-001 — Complete gauntlet progress rendering<br>None on the independently judged scoped parser/dataflow dimension; full game completion remains unproven.</li>
   </ol>
 </body>
 </html>

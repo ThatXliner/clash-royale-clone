@@ -30,7 +30,9 @@ test("temporary fixtures preserve wrapped names, scoped verdicts, ordering, gaps
     "| --- | --- | --- | --- | --- | ---: | ---: | --- |",
     pieceRow("OPS-001", "Ops <review> & \"named\"", "BUILDING", "0/0", 0, "Await <evidence> & \"quotes\""),
     pieceRow("PUB-002", "Published view", "PASS", "2/2", 1, "None"),
+    pieceRow("OPS-004", "Scoped summary", "BUILDING", "9/10 overall; 4/4 <focused> & \"scoped\"", 2, "In progress"),
     pieceRow("BAD-003", "Invalid state", "UNKNOWN", "1/1", 1, "Exclude me"),
+    pieceRow("EMPTY-005", "Empty summary", "PENDING", "", 0, "Exclude me"),
     "| MALFORMED-004 | Missing the remaining columns |",
   ].join("\n"));
   writeFileSync(roundsPath, [
@@ -66,10 +68,14 @@ test("temporary fixtures preserve wrapped names, scoped verdicts, ordering, gaps
 
   const html = generateProgress({ planPath, roundsPath, outputPath });
   assert.equal(readFileSync(outputPath, "utf8"), html);
-  assert.match(html, /<div class="num">2<\/div><div class="label">tracked pieces<\/div>/);
+  assert.match(html, /<div class="num">3<\/div><div class="label">tracked pieces<\/div>/);
   assert.match(html, /Ops &lt;review&gt; &amp; &quot;named&quot;/);
   assert.match(html, /Await &lt;evidence&gt; &amp; &quot;quotes&quot;/);
-  assert.doesNotMatch(html, /BAD-003|MALFORMED-004|Exclude me/);
+  assert.match(html, /<code>OPS-004<\/code><\/td>\s*<td>Scoped summary<\/td>[\s\S]*?<td>9\/10 overall; 4\/4 &lt;focused&gt; &amp; &quot;scoped&quot;<\/td>/);
+  const parsedPieces = parsePlan(readFileSync(planPath, "utf8"));
+  assert.equal(parsedPieces.find(({ id }) => id === "PUB-002").passRate, "2/2");
+  assert.equal(parsedPieces.find(({ id }) => id === "OPS-004").passRate, "9/10 overall; 4/4 <focused> & \"scoped\"");
+  assert.doesNotMatch(html, /BAD-003|EMPTY-005|MALFORMED-004|Exclude me/);
 
   const first = html.indexOf("R9 PASS for reference evidence; GAME-001HSS remains BLOCKED");
   const second = html.indexOf("R8 FAIL");

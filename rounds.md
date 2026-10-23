@@ -10347,3 +10347,52 @@ FILES:
 - Baseline measurement: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-r1/baseline-browser-artifacts/baseline-390x844.json`
 - Fixed builder report/diff and run: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-fixed-r1/FIX-REVIEW.md`, `FIX.patch`, and `fixed-run-once-evidence/stdout.raw`
 - Independent verdict, receipts, and inspected images: `/Users/me/.codex/clash-qualification/20261023-hand-alignment-independent-r1/VERDICT.md`, `COMPACT-RECEIPT.json`, and `browser-artifacts/`
+
+## Round 562 — 2026-10-23
+
+PIECE: APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 1
+
+VERDICT: FAIL — independent current-main functional critic fails the mandatory Copperskiff zero-PNG check
+
+EVIDENCE:
+
+The independent copy was reconstructed from canonical commit `ebf7d132767d1d51c0f7dbe065cbe55f19620337` and verified all 641 receipt-pinned files before and after. All 12 Sky-owned overlay hashes and 32 public asset path/hash pairs remained unchanged. The 24-cell Skymaul atlas is 256×384, arranged as 4×6 64×64 cells, with raw SHA-256 `e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb`.
+
+Stage 1 unit TAP: 40 tests, 39 pass, 0 fail, 1 skipped, direct exit 0. The skipped non-Briar artwork/accepted-parent-portrait comparison requires `ART004_PARENT_ROOT`; it remains unverified and is not counted as a pass. Stage 2 browser TAP: 3 tests, 2 pass, 1 fail, direct exit 1. Both Skymaul browser tests passed: all 24 fixed cells were rendered in each requested atlas view, and the actual GameSession test passed across phone/desktop, normal/reduced motion, horizontal/vertical target paths, restore screenshots, state/input/audio continuation, and a 120-tick future replay. The full stage is not a pass because the mandatory Copperskiff preservation test failed.
+
+The Copperskiff test failed at phone 390×844, 13px body, reduced motion, horizontal scenario. Its restored viewport PNG has five changed pixels across seven channel values, at x=163, 194, 196, 222, and 223 on y=772, against the strict zero-pixel requirement. Serialized session/browser/input/audio continuation and the 120-tick future replay match; those matches do not satisfy the PNG gate. The independent record does not attribute these pixels to Skymaul. Exact before/after PNGs and hashes are in `COMPACT-RECEIPT.json`; the root also reviewed `ROOT-COPPER-PIXELS.json`.
+
+The failed test stopped the functional run. Stage 3 visual-combat-assets and Stage 4 manifest/release/publication were not run. The separate 18,000-tick endurance was not granted or run, and shipping remains unaccepted. The subsequent canonical Copperskiff control used a 633-blob source snapshot (PID 99931/session 82927; terminal 0) and passed all eight cases plus restart. A matched R9 candidate control used 641 source pins and the same `GAME_BROWSER_VISUAL_DOM_DIAGNOSTICS` flag (PID 483/session 4456; terminal 0); it produced all eight expected cases, with root post-run report review confirming all eight cases and restart. These later control runs do not erase or convert the independent critic’s Copperskiff FAIL into acceptance. The optional diagnostic flag added DOM diagnostics only for desktop/normal/horizontal; the full browser test still asserted all eight cases, including the failed phone/reduced-motion case. The cause remains unresolved; browser-paint nondeterminism is possible, and no causal attribution to Skymaul is supported.
+
+Prior R4/R5/R6 failed builder checks and diagnoses remain preserved at their existing external evidence. Those builder-candidate failures are not three independent critic failures of the same gap. Historical accepted eight-case Copperskiff R546 remains unchanged; this current independent FAIL does not rewrite it.
+
+BIGGEST GAP: The strict Copperskiff restore PNG differs by five pixels in the phone reduced-motion horizontal case despite matching serialized state, input/audio continuation, and 120-tick future replay.
+
+DISPOSITION: Keep APP-REDESIGN-SKY-LIVE-001 as FAIL, round 1. Preserve the zero-pixel gate, skipped parent-art comparison, earlier builder diagnoses, and historical R546. Do not adopt product CSS/art/test changes or make a shipping, all-suite-pass, or historical-parity claim. The later controls do not accept the Skymaul result: the optional diagnostic flag added no extra DOM diagnostics for the phone/reduced-motion case; both full controls still asserted all eight cases. The cause remains unresolved and no attribution to Skymaul is established.
+
+FILES:
+- `/Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/VERDICT.md`
+- `/Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/COMPACT-RECEIPT.json`
+- `/Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/evidence-unit/`
+- `/Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/evidence-browser/`
+- `/Users/me/.codex/clash-qualification/20261023-skymaul-current-main-functional-critic-r1/candidate/artifacts/app-redesign-copper-001-builder/browser/actual-game/attempt-6b494d2d-9480-4f51-ab5e-82bd00dcb096/`
+
+## Round 563 — 2026-10-23
+
+PIECE: OPS-001 — Complete gauntlet progress rendering
+
+VERDICT: PASS — scoped current inventory parser and dataflow
+
+EVIDENCE:
+
+The raw actual-source control (PID 4083) directly exited 1 with 0/3 tests passing. It rejected the nonempty scoped-summary fixture and omitted four valid PLAN IDs: UI-BRIAR-CLIP-001, RELEASE-VITE-PATCH-001, GAME-001HTJS, and APP-REDESIGN-SKY-LIVE-001. The root-reviewed fixed candidate (PID 4125) directly exited 0 with 3/3 tests passing. Independent generation before this Round563 entry matched all 327 accepted PLAN rows and 562 numbered rounds in source order; all row fields and round metadata matched, including the four detailed scoped summaries. The generated inventory contained 260 PASS rows, 31 QUESTION rows, 323 numeric fractions and four nonempty detailed summaries. The fixed parser changes only the nonempty pass-summary predicate.
+
+BIGGEST GAP: None on the independently judged scoped parser/dataflow dimension; full game completion remains unproven.
+
+DISPOSITION: Accept this scoped parser/dataflow result as OPS-001 round 3. The final page is generated from the updated PLAN.md and rounds.md; adoption requires a complete data comparison while retaining the reviewed static presentation. Round562 root corrections remain intact.
+
+FILES:
+- `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/VERDICT.md`
+- `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/generated/actual-progress.html`
+- `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/generated-audit.json`
+- Raw and fixed run receipts: `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/raw-run/evidence/` and `/Users/me/.codex/clash-qualification/20261023-progress-inventory-independent-r3/fixed-run/evidence/`

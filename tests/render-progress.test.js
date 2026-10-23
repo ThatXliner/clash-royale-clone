@@ -22,6 +22,7 @@ test("progress renderer includes valid new prefixes and keeps round trajectories
     pieceRow("PUB-003", "Publication", "PENDING", "0/0", 0, "Not started"),
     pieceRow("SKILL-CHAR-001", "Reusable skill", "BLOCKED", "0/0", 0, "Waiting on lore"),
     pieceRow("MOSS-007", "New valid prefix", "FAIL", "1/2", 1, "Needs a fix"),
+    pieceRow("OPS-004", "Scoped summary", "BUILDING", "9/10 overall; 4/4 scoped", 2, "In progress"),
     "| THIS IS A NON-PIECE HEADER | unrelated |",
     "| --- | --- | --- | --- | --- | --- | ---: | --- |",
     pieceRow("BADSTATE-002", "Invalid state", "UNKNOWN", "1/1", 1, "Ignore this"),
@@ -46,6 +47,7 @@ test("progress renderer includes valid new prefixes and keeps round trajectories
   for (const id of ["ART-005", "CARDS-013", "APP-004", "PUB-003", "SKILL-CHAR-001", "MOSS-007"]) {
     assert.ok(html.includes(`<code>${id}</code>`), `${id} should be included`);
   }
+  assert.match(html, /<code>OPS-004<\/code><\/td>\s*<td>Scoped summary<\/td>[\s\S]*?<td>9\/10 overall; 4\/4 scoped<\/td>/);
   for (const id of ["BADSTATE-002", "MALFORMED-003", "THIS IS A NON-PIECE HEADER"]) {
     assert.ok(!html.includes(id), `${id} should be excluded`);
   }
