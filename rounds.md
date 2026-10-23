@@ -10795,3 +10795,252 @@ DISPOSITION: Add this as a separate bounded PASS. Keep ART-3D-BRASS-001, VERIFIE
 FILES:
 - Formal parser-control receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r2/qualification/PARSER-CONTROLS.json` (SHA-256 `d29677e8f0fdb0c47b746a73a578073f1f9f949f8abbe7e2f5dc31a8dd51bb28`)
 - Independent execution result and unittest output: `/Users/me/.codex/clash-qualification/20261023-brassbolt-observation-r2-parser-qual-independent-r1/evidence/run-v1/RESULT.json` and `stderr.raw` (PID 98897, direct exit 0)
+
+
+## Round 581 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 5
+
+VERDICT: FAIL — observation diagnostic confirms the unchanged first-case restore assertion still fails; no functional or art acceptance
+
+EVIDENCE:
+
+The one authorized Node run used the frozen wrapper and direct Node PID 21602, exit 1. TAP reported 0 passed, 1 failed, and 0 skipped at the unchanged `phone-normal-copperskiff-horizontal restore must produce zero changed PNG pixels` assertion. The diagnostic record was written before that assertion. The remaining 23 combinations, future-tick/replay checks, and restart were not reached.
+
+Chrome Canvas counted 5,127 changed pixels in inclusive bounds x=92–377/y=681–772, with R/G/B/A changed-channel counts 4,006/3,945/3,397/0. The before/after images are byte-identical to the prior R3/R4 PNG pair. The seven-field checkpoint-to-normalized comparison is equal, but checkpoint-to-restored is unequal for `audioDiagnostics` (524→525 bytes), `audioScheduledPcmCount` (1→2 bytes), and `selectedCardId` (11→4 bytes; DOM reports `cinderlings`→`null`). Inner focus/hover snapshots and outer DOM snapshots match; this narrows the observed differences but does not prove their cause.
+
+The current browser snapshot contract is v2 and does not carry selection; v1 remains the legacy version. Do not relabel the current contract as v1. The actual Claude design job `cb8be6b7d0` produced the original proposed explicit v3 selection contract, preserved at immutable captured copy `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/CLAUDE-DESIGN.md` (SHA-256 `7d3d815c99e79c9ea21a657d01d8c58be82cb7b04b0ba70b31aa81a484c10640`). The mutable working-plan path `/Users/me/.claude/plans/read-brief-md-and-the-tranquil-hellman.md` is a historical locator only, not the pinned original design. The original design leaves admission predicates, other version consumers, and parts of audio verification marked `[verify]` for source reading. Track that as pending work and stop repeating blind pixel normalization. This round gives no Mossguard/Coilblade art or product verdict.
+
+BIGGEST GAP: The first restore case still diverges, with selectedCardId and observation counters differing after restore; the remaining cases and deterministic future/audio checks were not run.
+
+DISPOSITION: Record Mosscoil round 5 as a scoped diagnostic FAIL and preserve all prior failures. Add a separate BUILDING item for the v3 selection enhancement with zero tests; do not claim implementation, acceptance, or artwork quality. Existing asset/source and original art bars remain unchanged.
+
+FILES:
+- Independent diagnostic verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-restore-diagnostic-critic-independent-r1/DIAGNOSTIC-RUN-VERDICT.md` (SHA-256 `8bd896d9e7d3b7ead2e1d12eeabb9989fd24c41bf85facedf4af39456292ecd7`)
+- Diagnostic JSON: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-restore-diagnostic-critic-r1/candidate/artifacts/approved-sprite-integration-browser/attempt-mosscoil-restore-diag-20261023-r1/phone-normal-copperskiff-horizontal-restore-diagnostic.json` (SHA-256 `7705d68f5b61a0865a4b38d98a53468806ca16a21344f31cedfdaed8d5fa6de5`)
+- Original Claude v3 design, immutable captured copy: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/CLAUDE-DESIGN.md` (SHA-256 `7d3d815c99e79c9ea21a657d01d8c58be82cb7b04b0ba70b31aa81a484c10640`)
+- Original Claude working-plan path, historical locator only (mutable; not the pinned original design): `/Users/me/.claude/plans/read-brief-md-and-the-tranquil-hellman.md`
+
+## Round 582 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-SEVEN-001 — Brassbolt seven-channel observation parser controls, round 2
+
+VERDICT: PASS — R3 synthetic structural/byte and observation/model controls only
+
+EVIDENCE:
+
+The R3 qualification receipt is 644 bytes, SHA-256 `7d6a95cdf7aef359091f542f8b3c66d825132f60e9a95f001173af5837d0a4d7`. It records `parser_controls_passed`, 24 tests, zero failures/errors/skips, unchanged source pins, and null numeric/art acceptance with `native_execution: false`. This is a fresh pure-data/parser control result; it does not validate the separate native R3 render/export, accept a coverage formula, decode native pixels, or grant art/product acceptance.
+
+BIGGEST GAP: Native output observation and accepted-model/art qualification remain separate and unproven.
+
+DISPOSITION: Record the second scoped parser-control PASS for VERIFIER-BRASS-SEVEN-001. Preserve the prior native isolated-alpha failure and the following R3 scratch-native parser failure separately.
+
+FILES:
+- Qualification receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r3/qualification/PARSER-CONTROLS.json` (SHA-256 `7d6a95cdf7aef359091f542f8b3c66d825132f60e9a95f001173af5837d0a4d7`)
+
+## Round 583 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-EMISSION-001 — Brassbolt native primitive emission-layer observation, round 1
+
+VERDICT: FAIL — strict EXR parser rejected the source-named Emission pass before decoding pixels
+
+EVIDENCE:
+
+One scratch-only native Blender run completed one render operator and one export; the direct Blender process PID 24735 exited 0 and closed. The run status is `observation_failed` because strict EXR readback rejected the pass/channel name. The retained EXR is 8,403 bytes, SHA-256 `03aadc466e3bedda48c102cd4adc945b328a8cc49742cf7d3a03116380f3e09a`. Its retained header contains seven FLOAT32 channels: `BrassObservation.Combined.A/B/G/R` and `BrassObservation.Emission.B/G/R`. The parser expected `Emit`; the source-supported actual pass name is `Emission`. The header diagnostic is explicitly header-only: no pixel payload was decoded, so no native pixel values were accepted.
+
+All recorded preservation checks passed: no preservation errors; factory IDs, handlers, listed runtime, original scene/view layer/window, source/input bytes, parser qualification and grant remained unchanged; the pre-existing Render Result was retained with ownership verified; fresh pins matched and the run PID is absent. This was a scratch primitive observation, not an accepted-model render or numeric/art baseline. The R573 R==A failure and R580/R582 parser-only results remain distinct.
+
+BIGGEST GAP: The parser’s pass-name expectation prevented payload decoding; no sample values or numeric coverage behavior were established.
+
+DISPOSITION: Add a separate scoped FAIL for the native primitive observation. Keep VERIFIER-BRASS-SEVEN-001’s pure-data PASS and all existing alpha/art verdicts unchanged. Do not infer a native pixel equation, coverage acceptance, or art result.
+
+FILES:
+- Captured native observation: `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r3/attempts/observation-v1/NATIVE-PRIMITIVE-OBSERVATION.json` (SHA-256 `47c76ebec9290862c4c9362f04f1210bdd4dffa73f433b28b3c33dc36c3791e9`)
+- Root post-run review: `/Users/me/.codex/clash-qualification/20261023-brassbolt-primitive-observation-root-r3/ROOT-POST-REVIEW.json` (SHA-256 `a497740ba5737ddd92a396ade8bb9df6d3b9b55b463d9e86a9bd76126658e221`)
+- Retained header-only diagnostic: `/Users/me/.codex/clash-qualification/20261023-brassbolt-primitive-observation-root-r3/RETAINED-HEADER-DIAGNOSTIC.json` (SHA-256 `cb5801b56d98ee4f8b7761b3e987d6fd29c49e48595fd935d1cc95fae5a9e515`)
+- Direct run result/raw streams: `/Users/me/.codex/clash-qualification/20261023-brassbolt-primitive-observation-root-r3/evidence/run-v1/RESULT.json` (SHA-256 `39bb16f127e05d5d0033102a22008afda5a9ba742ee2f6db2bbb591bdae86214`), `stdout.raw` and `stderr.raw` retained alongside it.
+
+## Round 584 — 2026-10-23
+
+PIECE: GAME-001HTJX — Extract existing shared combat factory, round 2
+
+VERDICT: PARTIAL — Stage 1 differential and Stage 2 nondeterminism guard pass; the piece remains BUILDING
+
+EVIDENCE:
+
+On the frozen candidate `/Users/me/.codex/clash-qualification/20261023-game001htjx-b629fd7-source-candidate` (manifest SHA-256 `cb2124d29315c4fb20a418e0ed4cdedcce86f71c0eb9cde97336f68c497a73f7`), the independent Stage 1 run passed 2/2 differential tests, direct Node PID 24234 exit 0. It compared accepted-main bytes/host identities and receipt-backed GameSession/tower output. The independent Stage 2 guard passed 10/10 tests, direct Node PID 25244 exit 0, covering syntax, authority, dynamic-capability, graph-loading and hostile-bound checks.
+
+These are two bounded stage results, not full GAME-001HTJX acceptance. Preserve the existing BUILDING state and 8/11 rate. The separate 18,000-tick endurance gate, full graph/shipping qualification, and release remain unrun or unqualified; no implementation adoption or whole-suite PASS follows.
+
+BIGGEST GAP: The shared-factory piece has not completed its remaining independent gates; endurance and release qualification have not run.
+
+DISPOSITION: Record the scoped Stage 1 and Stage 2 PASS evidence while retaining GAME-001HTJX as BUILDING (8/11). Do not mark the piece PASS or claim endurance, full-suite, or release acceptance.
+
+FILES:
+- Stage 1 verdict: `/Users/me/.codex/clash-qualification/20261023-game001htjx-stage1-independent-r1/STAGE1-VERDICT.md` (SHA-256 `c5e1ce779511e1827b899be5bb686f698abe4c7a740e5b8eef4bad1797c6bb7e`)
+- Stage 1 result: `/Users/me/.codex/clash-qualification/20261023-game001htjx-stage1-independent-r1/evidence/run-v1/RESULT.json` (SHA-256 `870fff3e28e582b6b51165ee4edf211a2222bbc0407df0d8580f405cb54d7779`)
+- Stage 2 verdict: `/Users/me/.codex/clash-qualification/20261023-game001htjx-guard-independent-r1/GUARD-STAGE2-VERDICT.md` (SHA-256 `3c225306259dee4e5de1b911b6951209672dec4fbbce2f50e8d252964683af3f`)
+- Stage 2 result: `/Users/me/.codex/clash-qualification/20261023-game001htjx-guard-independent-r1/evidence/run-v1/RESULT.json` (SHA-256 `54a3120e802fe4a47f2d2231fd66dc38f864861bf11c65723f600c7ee49c039c`)
+
+## Round 585 — 2026-10-23
+
+PIECE: GAME-001HTJX — Extract existing shared combat factory, round 3
+
+VERDICT: PASS — scoped independent browser witness for the single Bulwark Needle building-choice restoration test
+
+EVIDENCE:
+
+The frozen candidate `/Users/me/.codex/clash-qualification/20261023-game001htjx-b629fd7-source-candidate` (sealed candidate-manifest SHA-256 `cb2124d29315c4fb20a418e0ed4cdedcce86f71c0eb9cde97336f68c497a73f7`) passed the actual browser witness. Direct Node PID `26380` exited `0`; the test reports 1 pass, 0 failures, and 0 skips in `52,964.782916 ms` total TAP duration. The page reported no console or page errors. The test retained the seed-zero Standard session, selected Bulwark Needle into the eight-card deck, exposed its `QUESTION` notice, deployed it for three elixir, observed six structure attacks, preserved the 32-question setup, and reached the natural north win at terminal tick `7863` (state ended at tick `7862`).
+
+Save/restore reproduced session and browser bytes plus DOM, HUD, input, and paint state. The 720×1280 viewport and 66×66 Bulwark crop each had zero changed pixels after restore, and same-deck restart was exact. The external evidence folder contains 16 PNGs; all were inventoried and all nine unique raster hashes were visually reviewed. The browser test and helper pins matched before and after the run. Processes associated with the run were absent at close and its empty mode-700 temporary directory was removed.
+
+The independent critic confirms this run exercises the repaired witness-inventory path: `createBulwarkNeedleSessionWitness()` gathers roster policy question keys, including source-confidence fields, resolves them into playable question records, and throws if a record is missing. The browser test keeps `briar-band` at roster index 7 and constructs the expected session through `new GameSession(createShippedGameSessionSetup(1, "bulwark-needle-witness"))`; constructor validation checks record presence, encoded value, and source. This path passed. It supersedes the earlier current-status note that the witness-inventory repair was unexecuted. The historical R5 FAIL remains unchanged, and no Briar numerical confidence question is resolved.
+
+BIGGEST GAP: GAME-001HTJX remains BUILDING at 8/11. This single scoped test does not satisfy the default-eight 18,000-tick browser gate, full graph/shipping qualification, whole-suite acceptance, or release. No full gameplay parity is claimed.
+
+DISPOSITION: Record this independent Stage 3 result as a scoped PASS while retaining the piece as BUILDING (8/11). Preserve the historical R5 FAIL. Mark the specific repaired witness-inventory constructor path as exercised by this test; keep Briar’s historical numeric-confidence status QUESTION. Do not claim a complete HTJX PASS, endurance, release, implementation adoption, or gameplay parity.
+
+FILES:
+- Stage 3 formal verdict: `/Users/me/.codex/clash-qualification/20261023-game001htjx-building-choice-independent-r1/STAGE3-VERDICT.md` (SHA-256 `f9869e28b810a1dd2a60acd7459cb722718c2fd53fb4d70b0c29cb9b5fc0df03`)
+- Stage 3 result: `/Users/me/.codex/clash-qualification/20261023-game001htjx-building-choice-independent-r1/evidence/run-v1/RESULT.json` (SHA-256 `8db3a6770720b2f8b970df4d401e99d588d00852d395ddb95e1d1fa3a332f202`)
+- Direct process receipt: `/Users/me/.codex/clash-qualification/20261023-game001htjx-building-choice-independent-r1/evidence/run-v1/PROCESS.json` (SHA-256 `3220c1e2ab8cbb30795c9ad70bd3a85d82564f57b5cb5f4e27de942d63d545ae`)
+- Run specification: `/Users/me/.codex/clash-qualification/20261023-game001htjx-building-choice-independent-r1/run.json` (SHA-256 `2e916a1db27a6e0041459bf5c9e88628f595fcc32cf01f048a076511fab932a9`)
+- Visual evidence inventory: `/Users/me/.codex/clash-qualification/20261023-game001htjx-building-choice-independent-r1/artifacts/building-choice-evidence.json` (4,119 bytes, SHA-256 `6d9bd318c6a23c1974a81fe3bdc2addfccda5423096c509e2a63bb3c92ad167d`)
+
+
+## Round 586 — 2026-10-23
+
+PIECE: GAME-001HTJX — Extract existing shared combat factory, round 4
+
+VERDICT: PASS — focused core Node 18,000-tick endurance test on the sealed source candidate; not browser or full-piece qualification
+
+EVIDENCE:
+
+On the frozen b629 candidate (manifest SHA-256 `cb2124d29315c4fb20a418e0ed4cdedcce86f71c0eb9cde97336f68c497a73f7`), the direct `tests/game-session-endurance.test.js` run passed 1/1 with zero failures or skips. The test reported 204 measured 300-tick segment records across direct stepping, irregular chunks and restore branches, with five progress endpoints at tick 18,000. Maximum segment duration was 5,635 ms against the unchanged 30,000 ms cap; maximum snapshot size was 332,963 bytes against the 1 MiB cap; the largest paid South deployment gap was 900 ticks. Exact direct/chunk and restore comparisons passed at ticks 2,100, 9,000 and 17,700.
+
+Direct Node PID `27425` exited 0 and was absent after completion. All 12 source pins and the Node binary, wrapper and run specification matched post-run; the empty mode-700 temporary directory was removed. No browser, full suite, build, install, or other runtime gate ran.
+
+BIGGEST GAP: This focused core Node result does not qualify the later combined shipping payload or default-eight browser endurance. Full graph/shipping qualification, the broader GAME-001HTJX bar, and release remain open.
+
+DISPOSITION: Record the scoped core Node endurance PASS. Keep GAME-001HTJX BUILDING at 8/11; do not infer browser endurance, full-piece acceptance, whole-suite PASS, adoption, or release.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261023-game001htjx-node-endurance-independent-r1/CORE-ENDURANCE-VERDICT.md` (SHA-256 `4a7e46fbe4526d6d58ead5c6a4c168f98a14aeb37717f219d57424e468500f34`)
+- Run specification: `/Users/me/.codex/clash-qualification/20261023-game001htjx-node-endurance-independent-r1/run.json` (SHA-256 `4728add9cc3b0ba358f7de5edd7b8c07f7ad12a0b97738fd45756c9c75eaad71`)
+- Result: `/Users/me/.codex/clash-qualification/20261023-game001htjx-node-endurance-independent-r1/evidence/run-v1/RESULT.json` (SHA-256 `2a2ca4f219dfd1eb9c899f85cd013c777bb8ee81487a14bdb44934b110c65671`)
+- Process receipt: `/Users/me/.codex/clash-qualification/20261023-game001htjx-node-endurance-independent-r1/evidence/run-v1/PROCESS.json` (SHA-256 `32e1355c5b8436dbe681d214d77217902898afd9d4b650a5c3c246102d2be9d9`)
+
+
+## Round 587 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Mosscoil browser restore selection v3 contract, round 1
+
+VERDICT: FAIL — R1 selection/restore suite found legacy invalid-snapshot atomicity gaps
+
+EVIDENCE:
+
+The sealed selection-source R1 candidate's single combined, unfiltered Node invocation reported 24 tests: 20 passed, 4 failed; direct Node PID `30357` exited 1. The focused browser-loop cases, including selection serialization/restoration for active, paused and terminal states, passed. The four added probes failed because malformed and session-divergent v1/v2 bridge snapshots were rejected only after the mounted loop was torn down. Diagnostics recorded `active=false`, changed session identity and DOM, cancelled RAF and removed hand/pointer listeners. This is a concrete restore-atomicity failure; it is not an art-quality verdict or a successful browser pixel/audio gate.
+
+The original Claude v3 design is pinned to the immutable captured copy at `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/CLAUDE-DESIGN.md` (SHA-256 `7d3d815c99e79c9ea21a657d01d8c58be82cb7b04b0ba70b31aa81a484c10640`). The former mutable working-plan path `/Users/me/.claude/plans/read-brief-md-and-the-tranquil-hellman.md` is only a historical locator. The separate follow-up atomicity design at `/Users/me/.codex/clash-qualification/20261023-claude-pending-selection-design-r1/follow-up-atomicity/CLAUDE-ATOMICITY-DESIGN.md` (SHA-256 `41b7277d63f240b1238b8958b5d92b9526861914bac48418b5e332520dd6d916`) is source-only advice and does not receive a separate round.
+
+At this round, the separately sealed R2 source candidate had no runtime result yet. Its later 28/28 focused result is recorded in Round 590. The R1 failure remains history.
+
+BIGGEST GAP: Invalid legacy v1/v2 bridge snapshots destroy the mounted loop before the rejection is reported; actual browser pixel repeatability and audio parity were not tested.
+
+DISPOSITION: Record the R1 scoped FAIL and retain all 20 passing assertions and four atomicity failures. Keep the piece BUILDING for the separately sealed R2 candidate and its pending browser gate; do not claim art, product, or whole-piece acceptance.
+
+FILES:
+- R1 formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/UNIT-TEST-R1/legacy-atomicity-probe/evidence/VERDICT.md` (SHA-256 `690e7f752e1ac310152a64b22b12413b32bfd35d159011954b56dda187b15d6b`)
+- R1 result: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/UNIT-TEST-R1/legacy-atomicity-probe/evidence/RESULT.json` (SHA-256 `56438bcb5f6a8e745673b785c2f98ad18a5a65fb0031bba7f09c577c87fc366d`)
+- R1 process receipt: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/UNIT-TEST-R1/legacy-atomicity-probe/evidence/PROCESS.json` (SHA-256 `d4db00dcd353530324cc2aac797ae05d9619f3e7889938743a4afc64457f6fdf`)
+- R1 candidate seal: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r1/SOURCE-SEAL.json` (SHA-256 `46229bfb887b92999863715220d3f05709b39dd9d6ac2f98bbfb4d7c65ec84d9`)
+- R2 source seal at this point: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/SOURCE-SEAL.json` (SHA-256 `8acf5d5351c3bb42e97049c13cffdfdb976f1f3a5849179219afa419e7ac2ea3`; no R2 runtime result yet at Round 587)
+
+
+## Round 588 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-SEVEN-001 — Brassbolt seven-channel observation parser controls, round 3
+
+VERDICT: PASS — R4 synthetic pure-data controls only
+
+EVIDENCE:
+
+The R4 qualification receipt reports 24 synthetic seven-channel EXR structural/byte controls, zero failures, errors or skips, unchanged source pins, `native_execution: false`, and null numeric/art acceptance. This is a fresh pure-data control result, not a native render or coverage equation.
+
+BIGGEST GAP: Native execution, numeric coverage acceptance, baseline, art and product qualification remain separate and unproven.
+
+DISPOSITION: Record this third scoped parser-control PASS. Preserve the native R573/R583 failures and do not infer native pixel behavior, model correctness or art acceptance.
+
+FILES:
+- R4 qualification receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r4/qualification/PARSER-CONTROLS.json` (SHA-256 `86500c4512b0ae657cdc70b66094635366f9022927fee13f4012d07eb1c0bfb0`)
+
+
+## Round 589 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-POSTHOC-001 — Brassbolt retained primitive posthoc observation diagnostic, round 1
+
+VERDICT: PASS — posthoc diagnostic completed on retained R3 data only
+
+EVIDENCE:
+
+The posthoc run read the retained 16×16, seven-channel FLOAT32 R3 EXR and extracted 256 observed samples per channel; all observed values are finite. It recorded a separate ideal source-derived conditional-geometry model while leaving native expected words and numeric/art acceptance null. The diagnostic used no Blender/GPU modules, loaded no model, made zero render calls and zero exports, and performed one EXR read plus one observed-sample extraction. All recorded direct-input/source seals remained unchanged with zero preservation errors; baseline evidence is false.
+
+The original R3 native scratch observation remains `observation_failed` because its strict reader rejected the actual `Emission` pass name before payload decoding. This offline posthoc result does not repair that historical verdict or establish a native equation, numeric coverage acceptance, baseline, art, or product result.
+
+BIGGEST GAP: No accepted native expected words, numeric model, production formula, baseline, or art result exists.
+
+DISPOSITION: Add this separate scoped PASS for completion of the bounded posthoc observation protocol. Keep the retained R3 native-emission FAIL unchanged and do not infer native numeric or art acceptance.
+
+FILES:
+- Posthoc observation record: `/Users/me/.codex/clash-qualification/20261023-brassbolt-primitive-posthoc-r1/attempts/posthoc-v1/POSTHOC-PRIMITIVE-OBSERVATION.json` (SHA-256 `61cfb5cc5450dc1eec8288c0d02a4b4208dfe96199eaa7837957427d85db0631`)
+- Retained R3 input EXR: `/Users/me/.codex/clash-qualification/20261023-brassbolt-coverage-observation-r3/attempts/observation-v1/native-primitive-combined-emit.exr` (SHA-256 `03aadc466e3bedda48c102cd4adc945b328a8cc49742cf7d3a03116380f3e09a`)
+
+
+## Round 590 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Mosscoil browser restore selection v3 contract, round 2
+
+VERDICT: PASS — focused R2 unit and legacy atomicity suite only
+
+EVIDENCE:
+
+The direct Node invocation on the sealed R2 source candidate passed 28/28 tests: the focused browser-loop suite contributed 24 tests and the unchanged legacy atomicity probe contributed four malformed/session-divergent v1/v2 cases. The wrapper launched PID `32684` in session `84261`; it exited 0 with total TAP duration `40,289.814 ms`. The four probe diagnostics preserved active state, state snapshot, session/input identities, serialized browser bytes, projected DOM, RAF count and hand/pointer listeners. R1’s 20/24 result and four atomicity failures remain preserved in Round 587.
+
+Post-run verification matched all 643 candidate files, 10 review sidecars, the allowlist, and R1-to-R2 patch to the sealed R2 packet; the first-three browser test also remained byte-identical. The child PID is absent and the owned TMP directory is empty. No browser, build, dependency change or full suite ran. A separate pre-existing bridge-admission limitation remains: nested admission records are checked for matching commandId, while extra or forged admission fields are accepted.
+
+BIGGEST GAP: Browser pixel/repeatability and audio-continuation qualification remain pending. This focused PASS neither establishes artwork quality nor completes the v3 product bar.
+
+DISPOSITION: Record the R2 focused unit/atomicity PASS as Round 590 while keeping the v3 piece BUILDING. Do not overwrite R1’s failure, claim browser or audio parity, or accept the whole product/artwork.
+
+FILES:
+- R2 formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/legacy-atomicity-probe/evidence/VERDICT.md` (SHA-256 `74e3c14dff157cc341ffa755399b9e9810f336689975d12b38221bddc86c2a25`)
+- R2 result: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/legacy-atomicity-probe/evidence/RESULT.json` (SHA-256 `90e572258d716560f8274fc2cc260def5aa9cd6dd41783cfaff07c5c7a52c6c7`)
+- R2 process receipt: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/legacy-atomicity-probe/evidence/PROCESS.json` (SHA-256 `d46bfb73a11fb89755be19652272f2448d2c0862ecbd51eb605295b1c8bd571c`)
+- R2 stdout: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/legacy-atomicity-probe/evidence/stdout.raw` (SHA-256 `fe2e8f24912ddd16d2296f86fdf1bf937c207bbc2d0dced3ec5055d58f159a21`)
+- R2 candidate seal: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/SOURCE-SEAL.json` (SHA-256 `8acf5d5351c3bb42e97049c13cffdfdb976f1f3a5849179219afa419e7ac2ea3`)
+
+
+## Round 591 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Mosscoil browser restore selection v3 contract, round 3
+
+VERDICT: FAIL / INCOMPLETE — the first of 24 internal browser cases stopped at the movement assertion
+
+EVIDENCE:
+
+The single top-level TAP test stopped in its first phone-normal, Copperskiff-horizontal scenario. The direct Node process was PID `34023`, wrapper session `6214`, direct exit 1, and took `9,915.9295 ms`; TAP reported one top-level test, zero pass and one fail. The internal 24-case viewport/motion/card/geometry matrix and seed-zero terminal-restart witness did not complete: the first case stopped at the movement assertion, and the other 23 matrix cases plus terminal-restart witness were not reached. The unchanged browser test file remains SHA-256 `d79408f554e40d81fb5fd8749efb5b242afbd15f385de2e56a15f89d41703807`.
+
+Before the movement assertion, the first contact-restore checkpoint passed. It restored saved `cinderlings` selection after the live selection changed; the 390×844 before/after screenshots were byte-identical at SHA-256 `21e5c5062e3af09e9782caf053b6d5d0846798e63c764167425f2b073a2adbe2`. Browser, bridge, session and selection bytes matched, and a fresh-graph witness matched the saved browser bytes and selection. The test also verified no appended PCM or restore cue, one audio-generation rebase, and exact equality of the next 120-tick continuation, future PCM projection and emitted event sequence.
+
+The failing assertion requires Copperskiff to move, but the unchanged fixture placed the north unit at `(10500,17001)` and the south unit at `(6000,14999)`. Their squared separation, `24,258,004`, is below Copperskiff's `6000` attack-range square, `36,000,000`. The preserved replay shows reciprocal attacks at tick 96, empty movement routes and no moving samples in 96 observations. This is an in-range engagement, so the run does not establish a selection-restore or movement defect; the assertion's fixture setup is insufficient to test movement.
+
+The post-run audit verified all 643 candidate files and 10 review sidecars unchanged, plus the pinned Chrome, Node, Playwright, browser-test, wrapper, source manifest and allowlist inputs. Node PID `34023` was absent, no Playwright profile process remained, the owned TMP directory was empty, and the browser/server closed in the test `finally` path.
+
+BIGGEST GAP: The browser matrix and terminal restart witness remain unqualified. A corrected movement setup and complete browser run are still required before accepting the selection v3 bar. The separately observed extra/forged bridge-admission fields remain unresolved.
+
+DISPOSITION: Record this incomplete browser-gate FAIL as Round 591. Preserve R587's four legacy atomicity failures and R590's 28/28 focused unit/atomicity PASS. Keep the piece BUILDING; do not infer a product restore defect, claim 24/24 browser completion, or accept artwork/product behavior.
+
+FILES:
+- Formal browser verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/browser24/evidence/VERDICT.md` (SHA-256 `e4985c0ab92a50914ddf27cdb54bc91171b054a024f7a9d0237182d6cc3011d7`)
+- Raw stdout: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/browser24/evidence/stdout.raw` (SHA-256 `74863135ea5f583c231a6d5f464d54643e7b4f8e2c90f8813b035095eeee5257`)
+- Result and post-run audit: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/browser24/evidence/RESULT.json` and `POST-RUN-PINS.json`
