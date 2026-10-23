@@ -10592,3 +10592,26 @@ FILES:
 
 
 POST-ROUND571 PUBLICATION DISPOSITION (separate verification): Root verified GitHub Pages run `40019531871` succeeded at actual HEAD `8df80a440b1a68d1124137c1b3891e804b6db527`. The live landing matches the verified artifact except for the expected commit-link replacement from `9599f186b80596e9fb5f8636cccbc34f98887440` to `8df80a440b1a68d1124137c1b3891e804b6db527`. The public game entry, built HTML shell, Skymaul atlas and release manifest match the verified artifact byte-for-byte. Manifest SHA-256 is `74fb9c150dfd3874fe50696e91d17288e8dfdf715c5dfafb960ad5dd2b01f953`; Skymaul atlas SHA-256 is `e6c02d3a0ce4634f060f508cca00f72a729551805536dc0a80930a74bf7b3fcb`. Public game: https://bryanhu.com/clash-royale-clone/game/public/index.html. This confirms publication of the bounded adopted changes only; it does not establish whole-game completion, historical parity or a complete 3D attack sequence.
+## Round 572 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-FLOAT-001 — Brassbolt synthetic float32 RenderResult transport control, round 1
+
+VERDICT: PASS — scoped synthetic float32 transport only
+
+EVIDENCE:
+
+The independent critic ran the sealed R2 known-float32 transport probe once in a fresh Blender 5.1.2 factory process. PID 68133 directly exited 0 and was closed by the run wrapper. It compared all 128 expected IEEE binary32 words against the RenderPass readback and the exported EXR readback; both were exact. The same initial RenderResult identity remained after the synthetic callback. The operator, callback and export each ran exactly once. All 12 negative controls were rejected: half channel, compressed data, missing A channel, wrong data window, duplicate row offset, truncated samples, changed sample bit, signed-zero normalization, flushed subnormal, RGB multiplied by alpha, swapped R/G channels, and inverted row orientation. All four preservation flags were true (source/input bytes unchanged, listed runtime restored, factory ID identities unchanged, original window unchanged); there were no preservation errors. This does not claim the transient scratch RenderResult content was empty or restored.
+
+All 13 copied sealed source pins, the 59-entry R9 inventory, and the two accepted input files matched pre/post. The expected little-endian fixture SHA-256 is `401053f59669d8e6666e477026d432415bbafb661d3d9c6a2437065ef5d325e1`. The exported EXR is 1,244 bytes with SHA-256 `a31bbe8e0fd9ea38481f81acef2b98ea94980798d6b42de5dcd555b085f2d91c`. Root's PID 67509 control also returned the scoped exact status, but remains supporting evidence only; the independent run above is the verdict basis.
+
+Preserve the earlier setup failure as history: PID 58643 found a Render Result and Viewer Node already present in the factory process, each with one user; render operator, callback and export counters all remained zero. It did not exercise float32 transport and is not overwritten by this pass.
+
+BIGGEST GAP: Native EEVEE RenderResult acquisition/export and actual coverage-alpha behavior remain untested; this synthetic control establishes no accepted-model baseline or art result.
+
+DISPOSITION: Add this separate bounded verifier as PASS. Keep ART-3D-BRASS-001 and all earlier verdicts unchanged. No accepted model was loaded; no native EEVEE, alpha, baseline, art, live-game, release, or deployment acceptance follows. A one-cell native EEVEE proposal remains pending.
+
+FILES:
+- Independent formal verdict and receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-render-buffer-independent-r1/VERDICT.md` and `/Users/me/.codex/clash-qualification/20261023-brassbolt-render-buffer-independent-r1/execution-independent-r1/COMPACT-RECEIPT.json`
+- Earlier setup-only failure: `/Users/me/.codex/clash-qualification/20261023-brassbolt-render-buffer-independent-r1/ACTUAL-PREDECESSOR.json`
+- EXR and control receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-render-buffer-independent-r1/attempts/control-v1/KNOWN-FLOAT32-CONTROL.json`
+

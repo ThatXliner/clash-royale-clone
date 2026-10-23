@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">330</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">265</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">571</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">331</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">266</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">572</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
@@ -2677,6 +2677,14 @@
         <td>1</td>
         <td>Round571 independent formal PASS for one unchanged seed-zero default-eight 18,000-tick run against the sealed 641-file candidate. Exact deck: coilblade, mossguard, copperskiff, skymaul, brassbolt, reedsting, briar-band, cinderlings. Direct PID62380 exit0; TAP3/3; natural South 2–1 lowest-HP tiebreak at tick18000. All 641 candidate and26 reference pins match pre/post. Exact tick600→300 restore/replay, final 40 submitted commands with integer command.commandId values1–40, typed audio/input continuation, terminal and restart0 pass. 67 segments (max10,375ms), max one-tick34.5ms, initialization176ms, non-init long tasks0, total browser duration977,318ms under1,200,000ms. Product13 was adopted/pushed at8df80a440b1a68d1124137c1b3891e804b6db527. Root-verified Pages run40019531871 succeeded at that HEAD; the bounded change is live at https://bryanhu.com/clash-royale-clone/game/public/index.html. One run only: no repeatability, other scenario, whole-game parity or full attack acceptance.</td>
       </tr>
+      <tr>
+        <td><code>VERIFIER-BRASS-FLOAT-001</code></td>
+        <td>Brassbolt synthetic float32 RenderResult transport control</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>1</td>
+        <td>Round572 scoped PASS: independent one-run synthetic transport control, PID68133 direct exit0 and closed. All128 float32 words match both RenderPass and EXR readback; operations1/1/1, 12/12 negative controls rejected, all four preservation flags true, 13 source pins/59 R9 entries/two accepted inputs unchanged, no preservation errors; EXR1244B SHA-256 a31bbe8e0fd9ea38481f81acef2b98ea94980798d6b42de5dcd555b085f2d91c. Root PID67509 control is supporting only. Preserve prior R1 setup failure: factory already contained Render Result and Viewer Node, each with one user; render/callback/export counts were0, so no transport was exercised. Synthetic control only: no accepted model, native EEVEE, actual alpha, baseline, art or live acceptance; transient RenderResult contents are not claimed restored. Native EEVEE one-cell remains pending.</td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -3253,6 +3261,7 @@
       <li><strong>R569 FAIL — Stage3 test predicate classifies Skymaul atlas windows as generic body art</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 4<br>The generic 20–55px predicate has no Skymaul atlas exception, so it rejects the 64×64 atlas window before Stage4 can run.</li>
       <li><strong>R570 PASS — scoped independent Stage3 and Stage4 packaging candidate gates</strong> · APP-REDESIGN-SKY-LIVE-001 — Skymaul live atlas binding, round 5<br>The unchanged default-eight 18,000-tick browser endurance remains unqualified, so this scoped Stage3/Stage4 result is not overall release acceptance.</li>
       <li><strong>R571 PASS — one authorized exact-candidate default-eight 18,000-tick run</strong> · GAME-001GPR9 — Combined 641-file candidate default-eight browser endurance, round 1<br>This proves one exact sealed-candidate default-eight run only; it does not establish repeatability, other scenarios, custom decks, full gameplay/reference parity, or overall release acceptance.</li>
+      <li><strong>R572 PASS — scoped synthetic float32 transport only</strong> · VERIFIER-BRASS-FLOAT-001 — Brassbolt synthetic float32 RenderResult transport control, round 1<br>Native EEVEE RenderResult acquisition/export and actual coverage-alpha behavior remain untested; this synthetic control establishes no accepted-model baseline or art result.</li>
   </ol>
 </body>
 </html>
