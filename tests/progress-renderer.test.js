@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { generateProgress, parsePlan, parseRounds } from "../scripts/render-progress.js";
+import { generateProgress, parsePlan, parseRounds, renderProgress } from "../scripts/render-progress.js";
 
 const pieceRow = (id, piece, state, passRate, roundCount, gap) =>
   `| ${id} | ${piece} | focused acceptance | — | ${state} | ${passRate} | ${roundCount} | ${gap} |`;
@@ -126,4 +126,29 @@ test("actual tracked plan and round history render once to a temporary output", 
   })), "every round should render once in source order with its full scoped metadata");
   assert.match(html, new RegExp(`<div class="num">${sourcePieceIds.length}<\\/div><div class="label">tracked pieces<\\/div>`));
   assert.match(html, new RegExp(`<div class="num">${sourceRoundNumbers.length}<\\/div><div class="label">completed rounds<\\/div>`));
+});
+
+
+test("renderProgress keeps its dynamic default note and accepts one explicit preserved note", () => {
+  const plan = [
+    "| ID | Piece | Independent acceptance bar | Depends on | State | Pass rate | Rounds | Current gap |",
+    "| --- | --- | --- | --- | --- | ---: | ---: | --- |",
+    pieceRow("OPS-001", "Original <piece>", "BUILDING", "0/0", 0, "Awaiting review"),
+  ].join("\n");
+  const rounds = [
+    "## Round 1 — 2026-10-23",
+    "",
+    "PIECE: OPS-001 — Original <piece>, round 1",
+    "VERDICT: PASS for this fixture only",
+    "EVIDENCE: Fixture evidence.",
+    "BIGGEST GAP: None on this fixture.",
+  ].join("\n");
+
+  const dynamicHtml = renderProgress(plan, rounds);
+  assert.ok(dynamicHtml.includes('<p class="note">Active target: <strong>OPS-001 — Original &lt;piece&gt;</strong>.</p>'));
+
+  const preservedNoteHtml = '<p class="note">Public <strong>history</strong> stays &amp; intact.</p>';
+  const preservedHtml = renderProgress(plan, rounds, { preservedNoteHtml });
+  assert.ok(preservedHtml.includes(preservedNoteHtml));
+  assert.equal([...preservedHtml.matchAll(/<p class="note">/g)].length, 1);
 });

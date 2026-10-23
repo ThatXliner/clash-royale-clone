@@ -10660,3 +10660,58 @@ FILES:
 - Verifier and output report: `/Users/me/.codex/clash-qualification/20261023-briar-sparse64-qualification-source-r4/verify-sparse64-pngs.py` and `/Users/me/.codex/clash-qualification/20261023-briar-sparse64-qualification-source-r4/runtime-briar-sparse64-r4/report/independent-pixel-verification.json`
 - Original independent clip FAIL: `/Users/me/.codex/clash-qualification/20261022-briar-atlas-clip-independent-r3/VERDICT.md`
 
+
+## Round 575 — 2026-10-23
+
+PIECE: APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 1
+
+VERDICT: FAIL — the first-three browser gate stopped at startup before battle case 1; 0/24 cases ran
+
+EVIDENCE:
+
+The fresh one-shot failed on its first navigation. TAP reports 0 pass, 1 fail, and 0 skipped. `page.goto` raised `net::ERR_HTTP_RESPONSE_CODE_FAILURE` for `http://127.0.0.1:52421/public/index.html`; the call came from `openActualBattle` before case 1. No screenshots or case report were produced, and no later gate ran. Direct Node PID 92196 exited 1; the process is closed. The test did not record a numeric HTTP response status.
+
+Static inspection of the retained server source infers the path guard's result: `ROOT` retains a trailing slash, while `${ROOT}${sep}` creates a double-slash prefix. The resolved `public/index.html` path does not match that prefix, so the source branch would return 403. This is a source-level inference only, not a numeric status observed in the browser or server log. The earlier source/input preflight did not flag this ROOT-normalization issue. No browser or server retry was made.
+
+All 643 candidate file hashes, 26 true reference hashes, and 10 protected fixture pins match before and after the one-shot. Registered browser/server cleanup completed without an error; the direct process is absent.
+
+A separate unchanged Copper 8-case baseline passed in its own fresh run: all eight phone/desktop, normal/reduced-motion, and horizontal/vertical combinations report zero changed pixels; restore PNG pairs and browser/session/input/audio continuation, the 120-tick future branch, and restart checks match, with no page, console, mount, observation, request, or restart errors. This is supporting baseline evidence only; it does not make up for the first-three test stopping before its 24 cases.
+
+The old HUD candidate's original 8-case first-phone horizontal 5-pixel purple-elixir failure remains historical and belongs to that earlier candidate. It is separate from this startup failure and is not rewritten as a Mossguard/Coilblade visual verdict.
+
+BIGGEST GAP: The new first-three 24-case gate never ran, so this round gives no visual verdict on Mossguard or Coilblade.
+
+DISPOSITION: Record one scoped FAIL for APP-REDESIGN-MOSSCOIL-001 because the combined candidate's fresh first-three gate could not start. Preserve the Copper 8-case PASS and the old HUD 5-pixel FAIL as separate evidence. After fixing test-server root normalization, a fresh one-shot grant is required. No art PASS, product acceptance, or release claim follows.
+
+FILES:
+- First-three formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r1/evidence/firstthree-critic-20261023-df6d79ac5d801e1d/VERDICT.md`
+- Static failure analysis: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r1/evidence/firstthree-critic-20261023-df6d79ac5d801e1d.STATIC-FAILURE-ANALYSIS.md`
+- First-three pre/post pins: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r1/evidence/firstthree-critic-20261023-df6d79ac5d801e1d.PRE-RUN-PINS.json` and `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r1/evidence/firstthree-critic-20261023-df6d79ac5d801e1d.POST-RUN-PINS.json`
+- Supporting Copper 8-case formal verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r1/evidence/copper8-critic-20261023-5260b1b533c2e823/VERDICT.md`
+- Source/input preflight: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-input-critic-r1/SOURCE-PREFLIGHT.md`
+
+## Round 576 — 2026-10-23
+
+PIECE: OPS-001 — Complete gauntlet progress rendering, round 4
+
+VERDICT: PASS — scoped refresh preservation for the qualified public note and failure-state styling
+
+EVIDENCE:
+
+The independent focused run used the pinned generator and its two focused test files. All 5/5 tests passed, direct Node PID 94453 exited 0, stderr was empty, and the process closed. The tests cover scoped/nonfraction summaries and escaping, actual tracked-source row and round coverage, dynamic `renderProgress` default, explicit preserved-note behavior, exact-note retention on generation, missing or ambiguous existing-note rejection without overwrite, and `.state-fail` markup.
+
+The independent CLI generation ran once against the unchanged Round575 PLAN/rounds input and existing qualified progress page. Direct Node PID 94516 exited 0 with empty stdout/stderr and closed. Output was 340,073 bytes, SHA-256 `27abf1771349fe1ed4d8d56631e70506a3528c0593950162b590aeaf57e07ce7`. The generated HTML has all 333 unique PLAN rows in source order with six fields each, all 575 rounds exactly once in source order, and cards 333 pieces / 267 passed / 575 rounds / 31 questions. The canonical public note is preserved verbatim exactly once, and `.state-fail { color: #ff8585; }` is present. This independent generation validates the Round575 input; it does not generate the newly appended Round576 tracker.
+
+The accepted generator and both focused tests match their sealed source pins exactly. No parser/dataflow code or claim changed in this round.
+
+The earlier independent R1 generated-template FAIL remains historical: its generated file had replaced the public note and omitted `.state-fail` CSS. The fixed candidate's bounded PASS does not rewrite or delete that verdict; it records a later correction and independent pass.
+
+BIGGEST GAP: None on this scoped generator-refresh preservation bar; full game completion remains unproven.
+
+DISPOSITION: Accept OPS-001 round 4 with focused test pass rate 5/5. Keep the parser/dataflow result from Round563 unchanged and retain the original R1 template-generation FAIL as historical evidence. The current Round576 progress HTML still needs one later actual generation and audit after this tracker update; no product or full-game acceptance follows.
+
+FILES:
+- Independent generation audit and formal result: `/Users/me/.codex/clash-qualification/20261023-progress-renderer-template-fix-critic-independent-r1/GENERATION-AUDIT.json`
+- Independent qualified Round575 HTML: `/Users/me/.codex/clash-qualification/20261023-progress-renderer-template-fix-critic-independent-r1/progress.html`
+- Accepted source candidate: `/Users/me/.codex/clash-qualification/20261023-progress-renderer-template-fix-source-r1/candidate/`
+- Prior original-template generation FAIL: `/Users/me/.codex/clash-qualification/20261023-brass-native-alpha-briar-rawpng-tracking-critic-independent-r1/VERDICT.md`

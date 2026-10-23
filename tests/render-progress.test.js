@@ -53,4 +53,51 @@ test("progress renderer includes valid new prefixes and keeps round trajectories
   }
   assert.match(html, /<td class="state-building">BUILDING<\/td>\s*<td>0\/0<\/td>\s*<td>0<\/td>\s*<td>Awaiting review<\/td>/);
   assert.match(html, /<strong>R9 PASS<\/strong> · ART-005 — Original art, round 1<br>None on the reviewed dimension\./);
+  assert.match(html, /<p class="note">Active target: <strong>ART-005 — Original art<\/strong>\.<\/p>/);
+  assert.match(html, /\.state-fail \{ color: #ff8585; \}/);
+  assert.match(html, /<td class="state-fail">FAIL<\/td>/);
+});
+
+
+test("generation preserves one existing note and rejects missing or ambiguous notes", (t) => {
+  const root = mkdtempSync(join(tmpdir(), "render-progress-note-"));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  mkdirSync(join(root, "scripts"));
+  copyFileSync(new URL("../scripts/render-progress.js", import.meta.url), join(root, "scripts/render-progress.js"));
+  writeFileSync(join(root, "PLAN.md"), [
+    "| ID | Piece | Independent acceptance bar | Depends on | State | Pass rate | Rounds | Current gap |",
+    "| --- | --- | --- | --- | --- | ---: | ---: | --- |",
+    pieceRow("MOSS-007", "Scoped failure row", "FAIL", "0/1", 1, "Startup blocked"),
+  ].join("\n"));
+  writeFileSync(join(root, "rounds.md"), [
+    "## Round 1 — 2026-10-23",
+    "",
+    "PIECE: MOSS-007 — Scoped failure row, round 1",
+    "VERDICT: FAIL for startup only",
+    "EVIDENCE: Fixture evidence.",
+    "BIGGEST GAP: Startup remains blocked.",
+  ].join("\n"));
+
+  const outputPath = join(root, "progress.html");
+  const preservedNote = '<p class="note">Public <strong>history</strong> stays &amp; intact.</p>';
+  writeFileSync(outputPath, `<!doctype html>\n${preservedNote}\n`);
+  const success = spawnSync(process.execPath, [join(root, "scripts/render-progress.js")], { encoding: "utf8" });
+  assert.equal(success.status, 0, success.stderr);
+  const generated = readFileSync(outputPath, "utf8");
+  assert.ok(generated.includes(preservedNote));
+  assert.equal([...generated.matchAll(/<p class="note">/g)].length, 1);
+  assert.match(generated, /\.state-fail \{ color: #ff8585; \}/);
+  assert.match(generated, /<td class="state-fail">FAIL<\/td>/);
+
+  for (const invalidExisting of [
+    "<!doctype html><html><body><p class=\"sub\">No qualified note</p></body></html>",
+    '<p class="note">First note</p><p class="note">Second note</p>',
+  ]) {
+    writeFileSync(outputPath, invalidExisting);
+    const before = readFileSync(outputPath);
+    const rejected = spawnSync(process.execPath, [join(root, "scripts/render-progress.js")], { encoding: "utf8" });
+    assert.notEqual(rejected.status, 0, "invalid existing output should fail closed");
+    assert.match(rejected.stderr, /exactly one complete <p class="note"> element/);
+    assert.deepEqual(readFileSync(outputPath), before, "failed generation must not overwrite the existing output");
+  }
 });

@@ -71,7 +71,29 @@ const escapeHtml = (value) => value
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
 
-export function renderProgress(plan, rounds) {
+const findNoteElements = (html) => [...html.matchAll(/<p class="note">[\s\S]*?<\/p>/g)];
+const countNoteStarts = (html) => [...html.matchAll(/<p class="note">/g)].length;
+
+function validatePreservedNoteHtml(noteHtml) {
+  const notes = findNoteElements(noteHtml);
+  if (notes.length !== 1 || countNoteStarts(noteHtml) !== 1 || notes[0][0] !== noteHtml) {
+    throw new TypeError('preservedNoteHtml must be exactly one complete <p class="note"> element');
+  }
+  return noteHtml;
+}
+
+function readExistingNoteHtml(outputPath) {
+  if (!existsSync(outputPath)) return undefined;
+  const existingHtml = readFileSync(outputPath, "utf8");
+  const notes = findNoteElements(existingHtml);
+  const starts = countNoteStarts(existingHtml);
+  if (notes.length !== 1 || starts !== 1) {
+    throw new Error(`Existing progress output must contain exactly one complete <p class="note"> element (found ${notes.length} complete and ${starts} opening tags)`);
+  }
+  return notes[0][0];
+}
+
+export function renderProgress(plan, rounds, { preservedNoteHtml } = {}) {
   const pieces = parsePlan(plan);
   const trajectories = parseRounds(rounds);
   const passed = pieces.filter(({ state }) => state === "PASS").length;
@@ -88,6 +110,11 @@ export function renderProgress(plan, rounds) {
       </tr>`).join("");
   const roundItems = trajectories.map((round) => `
       <li><strong>R${round.number} ${escapeHtml(round.verdict)}</strong> · ${escapeHtml(round.piece)}<br>${escapeHtml(round.gap)}</li>`).join("");
+  const noteMarkup = preservedNoteHtml === undefined
+    ? `<p class="note">${active
+      ? `Active target: <strong>${escapeHtml(active.id)} — ${escapeHtml(active.piece)}</strong>.`
+      : `Latest review: <strong>${escapeHtml(trajectories[0]?.piece ?? "None")} — ${escapeHtml(trajectories[0]?.verdict ?? "PENDING")}</strong>. Full game completion remains unproven.`}</p>`
+    : validatePreservedNoteHtml(preservedNoteHtml);
 
   return `<!doctype html>
 <html lang="en">
@@ -106,7 +133,7 @@ export function renderProgress(plan, rounds) {
     table { width: 100%; border-collapse: collapse; background: #11182c; font-size: 14px; }
     th,td { text-align: left; vertical-align: top; border-bottom: 1px solid #273453; padding: 9px 8px; }
     th { position: sticky; top: 0; background: #19223c; }
-    .state-pass { color: #63e6a4; } .state-building { color: #ffd166; }
+    .state-fail { color: #ff8585; } .state-pass { color: #63e6a4; } .state-building { color: #ffd166; }
     .state-question { color: #ff9f6e; } .state-blocked { color: #92a0c7; }
     .state-pending { color: #c6d2f5; } code { color: #b9d6ff; }
     .note { padding: 14px; border-left: 4px solid #63e6a4; background: #14251f; }
@@ -122,9 +149,7 @@ export function renderProgress(plan, rounds) {
     <div class="card"><div class="num">${trajectories.length}</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">${question}</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">${active
-    ? `Active target: <strong>${escapeHtml(active.id)} — ${escapeHtml(active.piece)}</strong>.`
-    : `Latest review: <strong>${escapeHtml(trajectories[0]?.piece ?? "None")} — ${escapeHtml(trajectories[0]?.verdict ?? "PENDING")}</strong>. Full game completion remains unproven.`}</p>
+  ${noteMarkup}
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -146,7 +171,8 @@ export function generateProgress({
   roundsPath = new URL("../rounds.md", import.meta.url),
   outputPath = new URL("../progress.html", import.meta.url),
 } = {}) {
-  const html = renderProgress(readFileSync(planPath, "utf8"), readFileSync(roundsPath, "utf8"));
+  const preservedNoteHtml = readExistingNoteHtml(outputPath);
+  const html = renderProgress(readFileSync(planPath, "utf8"), readFileSync(roundsPath, "utf8"), { preservedNoteHtml });
   writeFileSync(outputPath, html);
   return html;
 }

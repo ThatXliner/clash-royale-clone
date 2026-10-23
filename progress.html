@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">333</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">267</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">574</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">576</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
@@ -2321,9 +2321,9 @@
         <td><code>OPS-001</code></td>
         <td>Complete gauntlet progress rendering</td>
         <td class="state-pass">PASS</td>
-        <td>3/3</td>
-        <td>3</td>
-        <td>Round563 scoped PASS: raw actual-source control 0/3 tests, direct exit1; fixed parser 3/3 tests, direct exit0. Independent generated output matched all327 valid PLAN rows and562 pre-R563 numbered rounds in source order, preserving row fields and scoped summaries; raw control exposed four omitted IDs. No remaining gap on the scoped parser/dataflow dimension; full game completion remains unproven.</td>
+        <td>5/5</td>
+        <td>4</td>
+        <td>Round576 scoped PASS: focused suites 5/5 and independent CLI generation exit0 on the 575-round input; all333 PLAN rows render with six fields, cards are333/267/575/31, the qualified public note is exact once, and canonical .state-fail CSS is present. Missing/ambiguous existing notes fail closed. The earlier R1 generated-template FAIL remains historical; parser/dataflow claims are unchanged and full game completion remains unproven.</td>
       </tr>
       <tr>
         <td><code>RELEASE-ARENA-001</code></td>
@@ -2640,10 +2640,10 @@
       <tr>
         <td><code>APP-REDESIGN-MOSSCOIL-001</code></td>
         <td>Live Mossguard and Coilblade model sprites</td>
-        <td class="state-building">BUILDING</td>
+        <td class="state-fail">FAIL</td>
         <td>0/1</td>
-        <td>0</td>
-        <td>OldHUDcandidate builderoriginal8firstphoneHFAIL5purpleelixirpixels row772; allstate/futurebytesexact. Preserveartifact, no independentround yet; newcombinedfoundationcandidate separatelypinned, notoldartifactacceptance.</td>
+        <td>1</td>
+        <td>Round575 FAIL: fresh first-three browser gate blocked at startup before battle case1 (0/24); direct Node PID92196 exit1, TAP0 pass/1 fail/0 skipped. page.goto raised net::ERR_HTTP_RESPONSE_CODE_FAILURE for http://127.0.0.1:52421/public/index.html; no case report or PNGs were emitted and no later gate ran. The browser exception did not record a numeric HTTP status. Static source analysis infers the test-server guard would return403 because ROOT retains a trailing slash and ROOT plus separator creates a double-slash prefix; treat403 as source-level inference, not an observed network log. The earlier source/input preflight did not flag this root-normalization path. All643 candidate hashes,26 true reference hashes and10 protected fixture pins match pre/post; process is closed. Separate unchanged Copper8 baseline PASS: all8 phone/desktop, normal/reduced-motion and horizontal/vertical cases have zero changed pixels, exact restore/future continuation and restart checks, with no errors. Startup/harness failure only; no Mossguard/Coilblade visual verdict follows. Preserve the historical old HUD candidate 5 purple-elixir pixels at row772 separately.</td>
       </tr>
       <tr>
         <td><code>APP-REDESIGN-ATLAS-003</code></td>
@@ -3280,6 +3280,8 @@
       <li><strong>R572 PASS — scoped synthetic float32 transport only</strong> · VERIFIER-BRASS-FLOAT-001 — Brassbolt synthetic float32 RenderResult transport control, round 1<br>Native EEVEE RenderResult acquisition/export and actual coverage-alpha behavior remain untested; this synthetic control establishes no accepted-model baseline or art result.</li>
       <li><strong>R573 FAIL — R does not equal A for 108 of 65,536 samples</strong> · VERIFIER-BRASS-ISOLATED-ALPHA-001 — Brassbolt native isolated-alpha diagnostic, round 1<br>The strict native-cell R==A predicate fails, while the one allowed decoder attempt did not persist independent mismatch counts or the complete coordinate list.</li>
       <li><strong>R574 PASS — scoped source-grid pixel, zero-mask, and PNG metadata proof only</strong> · VERIFIER-BRIAR-SPARSE64-RAW-001 — Briar 16-frame raw PNG and metadata proof, round 1<br>The original R3 clip-rendered scene still violates the zero-difference visual gate; exact source-frame pixels do not prove browser clip behavior or artwork acceptance.</li>
+      <li><strong>R575 FAIL — the first-three browser gate stopped at startup before battle case 1; 0/24 cases ran</strong> · APP-REDESIGN-MOSSCOIL-001 — Live Mossguard and Coilblade model sprites, round 1<br>The new first-three 24-case gate never ran, so this round gives no visual verdict on Mossguard or Coilblade.</li>
+      <li><strong>R576 PASS — scoped refresh preservation for the qualified public note and failure-state styling</strong> · OPS-001 — Complete gauntlet progress rendering, round 4<br>None on this scoped generator-refresh preservation bar; full game completion remains unproven.</li>
   </ol>
 </body>
 </html>
