@@ -11243,3 +11243,32 @@ FILES:
 - Raw browser TAP and exit: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/browser/browser.tap` (SHA-256 `31f216532fe00bafc232f1b4a372f59d318ffd8db0ea6774f5cb5ce4d02e0392`); `browser.exit` records `1` (SHA-256 `4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865`).
 - Unchanged UI test output: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/tests.tap` (590 bytes; SHA-256 `e90145ba2f7e2a1cb5036fe4bfc0f4c7f29287a8e495807873efc533254499fc`); `tests.exit` records `0`.
 - Post-run source hashes: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/source-hashes-final.sha256` (361 bytes; SHA-256 `c35302d4d5fdd69f022c59732aa93db3df275a8baed4bda95e30c5134e39e19a`).
+
+## Round 600 — 2026-10-24
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Coilblade paint diagnostic R2
+
+VERDICT: NOT QUALIFIED / FAIL — restore piece remains FAIL; diagnostic incomplete, with no paint-cause finding
+
+EVIDENCE:
+
+The one authorized invocation exited directly with status 1. TAP reported zero passing and one failing top-level test. The phone/reduced-motion/Coilblade/horizontal case was partial: its immediate restore comparison had zero changed pixels, but the second-continuation restore differed from its checkpoint by two pixels in a 390×844 PNG. The exact assertion was that the post-continuation restore returns to the exact checkpoint PNG. Ten matrix cases completed, one was partial, and 13 were not reached. The seed-zero terminal/restart witness was not reached. There was no retry.
+
+The instrumented phone/normal/Coilblade/horizontal case captured all three moment reports: checkpoint, first restore, and second rewind. All three reports are INCOMPLETE because `LayerTree.enable` yielded no `layerTreeDidChange` payload with layers within 1.5 seconds. The capture did record one parent-page frame-owner match and one badge match; the same frame and badge identity mapped at all three moments. The protocol path contains 15 elements, the returned ancestor chain has eight, and the viewport and badge quads were retained. No layer-tree payload, selected paint layer, path-to-layer matches, command log, or replay was captured. The original and observer screenshot bytes match at all three diagnostic moments. The second-rewind source PNG hash differs from the prior R4 hash; that comparison is diagnostic-only and does not resolve ordinary repeatability versus observation. No cause is claimed for the restore pixels or the missing LayerTree event.
+
+All 17,729 manifest entries matched mode, bytes, SHA-256 and symlink text. All 15 owned path pins and the derived seal matched. The run process was absent after execution, the test server had no listener, the mode-700 temporary directory was empty, and the heavy runtime was released. The pre-existing Chrome process was not owned or changed by this run.
+
+This is another NOT QUALIFIED diagnostic failure under the existing restore piece, not a diagnostic PASS. Preserve the strict zero-pixel requirement; do not add tolerance or masks. Repeated badge/paint-observability attempts have not resolved the mismatch, so stop repeating this diagnostic path and choose substantive roster integration next. Full Rime role, slow, and spawn integration remain incomplete. Defer a RIME-PROJ-001 plan row until its builder scope is final; this packet adds no such row and no Round 601.
+
+BIGGEST GAP: The exact second-continuation restore still differs, and the diagnostic did not capture paint-layer evidence. Move on from repeated paint-observability attempts while keeping the exact restore bar and the broader product goal intact.
+
+DISPOSITION: Keep APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 at FAIL. Record Round 600 as NOT QUALIFIED/FAIL, with no separate PASS or causal paint claim. Do not weaken the zero-pixel assertion or redefine the full goal. Prioritize substantive roster integration next; do not record Round 601 until its scope is finalized and evidence exists.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/VERDICT.md` (4,423 bytes; SHA-256 `87bf77a4dcdbd51c94435f6f985125a908a056eaba923e9b3c522a7c89dc950a`)
+- Run specification: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/run-spec-final.json` (5,949 bytes; SHA-256 `4cd959ee2dd20c1f2e953fa76582c5b649f68f5352c5ce07154b93da706c9e6a`)
+- Raw TAP stdout: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/stdout.raw` (1,356 bytes; SHA-256 `388da2e64622f3c76b85b402a5d330474bea5dd276ab24f6066391502b91bc3a`); stderr is empty (SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`).
+- Wrapper result: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/RESULT.json` (666 bytes; SHA-256 `93d979730160c64cc62ccb23d91e55dca0e0cc86cd4cc705bcb9c7cd06fddee0`).
+- Process receipt: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/PROCESS.json` (333 bytes; SHA-256 `581c9eb5c39357db31bbabe3b32e5f6f14b192b25f0941fad7b5fcdd0ddd0e34`).
+- Post-run pins and closure record: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/POST-RUN-PINS.json` (17,522 bytes; SHA-256 `c7d7b0471012dd943b88d4be85523a4cbed8b48a18fe90367357164638458dfd`).
+- Artifact inventory: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/ARTIFACT-INVENTORY.json` (15,523 bytes; SHA-256 `a2e24f48b4b9884f8afda553b38e2bc304345d0031e08519d6a7b33b8d885696`).
