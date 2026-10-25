@@ -24,33 +24,53 @@ export const ORDINARY_PROJECTILE_SOURCE_CLAIMS = Object.freeze([
     catalogId: "ordinary-projectile-splash-v1",
     sourceExport: "createOrdinaryProjectileSplashCatalog",
   }),
-]);
-const SPLASH_SOURCE_PROFILE = Object.freeze({
-  archetypeId: "kilnkeeper",
-  cardId: "kilnkeeper",
-  catalogId: "ordinary-projectile-splash-v1",
-  enemiesOnly: true,
-  homing: true,
-  homingRuntimePolicy: Object.freeze({
-    pursuitSpeedMillitilesPerTick: 500,
-    directionUpdateRule: "aim-after-unit-motion-each-boundary",
-    directionRoundingRule: "ceil-distance-truncate-components-toward-zero",
-    targetLockRule: "retain-launch-target-id",
-    retargetRule: "never-reacquire",
-    targetDeathRule: "fizzle-on-first-boundary-after-death",
-    sourceDeathRule: "continue-after-launch",
-    outOfRangeRule: "continue-after-launch-range",
-    outOfBoundsRule: "continue-while-position-is-valid",
-    contactRadiusRule: "target-body-radius",
-    impactCenterRule: "live-target-center",
-    intermediateCollisionRule: "no-intermediate-collision",
-    arrivalBoundaryRule: "first-boundary-reaching-contact-radius",
-    contactOrderRule: "after-motion-before-simultaneous-damage",
+  Object.freeze({
+    cardId: "rime-adept",
+    archetypeId: "rime-adept",
+    catalogId: "ordinary-projectile-splash-v1",
+    sourceExport: "createSlowSpecialCatalog",
   }),
-  radiusMillitiles: 1_500,
-  sourceExport: "createOrdinaryProjectileSplashCatalog",
-  targetLayers: Object.freeze(["air", "ground"]),
+]);
+const QUESTION_HOMING_RUNTIME_POLICY = Object.freeze({
+  pursuitSpeedMillitilesPerTick: 500,
+  directionUpdateRule: "aim-after-unit-motion-each-boundary",
+  directionRoundingRule: "ceil-distance-truncate-components-toward-zero",
+  targetLockRule: "retain-launch-target-id",
+  retargetRule: "never-reacquire",
+  targetDeathRule: "fizzle-on-first-boundary-after-death",
+  sourceDeathRule: "continue-after-launch",
+  outOfRangeRule: "continue-after-launch-range",
+  outOfBoundsRule: "continue-while-position-is-valid",
+  contactRadiusRule: "target-body-radius",
+  impactCenterRule: "live-target-center",
+  intermediateCollisionRule: "no-intermediate-collision",
+  arrivalBoundaryRule: "first-boundary-reaching-contact-radius",
+  contactOrderRule: "after-motion-before-simultaneous-damage",
 });
+const SPLASH_SOURCE_PROFILES = Object.freeze([
+  Object.freeze({
+    archetypeId: "kilnkeeper",
+    cardId: "kilnkeeper",
+    catalogId: "ordinary-projectile-splash-v1",
+    enemiesOnly: true,
+    homing: true,
+    homingRuntimePolicy: QUESTION_HOMING_RUNTIME_POLICY,
+    radiusMillitiles: 1_500,
+    sourceExport: "createOrdinaryProjectileSplashCatalog",
+    targetLayers: Object.freeze(["air", "ground"]),
+  }),
+  Object.freeze({
+    archetypeId: "rime-adept",
+    cardId: "rime-adept",
+    catalogId: "ordinary-projectile-splash-v1",
+    enemiesOnly: true,
+    homing: true,
+    homingRuntimePolicy: QUESTION_HOMING_RUNTIME_POLICY,
+    radiusMillitiles: 1_000,
+    sourceExport: "createSlowSpecialCatalog",
+    targetLayers: Object.freeze(["air", "ground"]),
+  }),
+]);
 const POLICY_KEYS = Object.freeze([
   "archetypeId", "cardId", "catalogId", "delivery", "kind",
 ]);
@@ -74,6 +94,39 @@ const WIZARD_PROJECTILE_DAMAGE_RECEIPT = Object.freeze({
   sourceFileSha256: "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197",
   sourceUri: "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
   tournamentLevel: 11,
+  speedRaw: 600,
+  gravityRaw: null,
+});
+const RIME_PROJECTILE_SOURCE = Object.freeze({
+  cardId: "rime-adept",
+  productProjectileId: "rime-adept-projectile",
+  linkedProjectileId: "ice_wizardProjectile",
+  sourceCommit: "54fdef52c5086393b085f57faeeab8ef86b28160",
+  sourceFile: "docs/json/cards_stats_projectile.json",
+  sourceFileSha256: "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197",
+  sourceUri: "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
+});
+const RIME_PROJECTILE_DAMAGE_RECEIPT = Object.freeze({
+  damage: 90,
+  index: 2,
+  linkedProjectileId: RIME_PROJECTILE_SOURCE.linkedProjectileId,
+  rarity: "legendary",
+  sourceCommit: RIME_PROJECTILE_SOURCE.sourceCommit,
+  sourceFile: RIME_PROJECTILE_SOURCE.sourceFile,
+  sourceFileSha256: RIME_PROJECTILE_SOURCE.sourceFileSha256,
+  sourceUri: RIME_PROJECTILE_SOURCE.sourceUri,
+  tournamentLevel: 11,
+  speedRaw: 700,
+  gravityRaw: 50,
+});
+export const RIME_PROJECTILE_SOURCE_IDENTITY_RECEIPT = Object.freeze({
+  cardId: RIME_PROJECTILE_SOURCE.cardId,
+  productProjectileId: RIME_PROJECTILE_SOURCE.productProjectileId,
+  sourceLinkedProjectileId: RIME_PROJECTILE_SOURCE.linkedProjectileId,
+  sourceCommit: RIME_PROJECTILE_SOURCE.sourceCommit,
+  sourceFile: RIME_PROJECTILE_SOURCE.sourceFile,
+  sourceFileSha256: RIME_PROJECTILE_SOURCE.sourceFileSha256,
+  sourceUri: RIME_PROJECTILE_SOURCE.sourceUri,
 });
 function exact(value, keys, label) {
   if (value === null || typeof value !== "object" || Array.isArray(value) ||
@@ -130,36 +183,45 @@ export function getOrdinaryProjectileSplashProfile(cardId, archetypeId) {
   if (typeof cardId !== "string" || typeof archetypeId !== "string") {
     throw new TypeError("ordinary projectile splash identities must be strings");
   }
-  if (cardId !== SPLASH_SOURCE_PROFILE.cardId ||
-      archetypeId !== SPLASH_SOURCE_PROFILE.archetypeId) return null;
+  const sourceProfile = SPLASH_SOURCE_PROFILES.find((candidate) =>
+    candidate.cardId === cardId && candidate.archetypeId === archetypeId);
+  if (sourceProfile === undefined) return null;
   return {
-    ...SPLASH_SOURCE_PROFILE,
-    homingRuntimePolicy: { ...SPLASH_SOURCE_PROFILE.homingRuntimePolicy },
-    targetLayers: [...SPLASH_SOURCE_PROFILE.targetLayers],
+    ...sourceProfile,
+    homingRuntimePolicy: { ...sourceProfile.homingRuntimePolicy },
+    targetLayers: [...sourceProfile.targetLayers],
   };
 }
 
 export function getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId) {
   const profile = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
   if (profile === null) return null;
-  return {
+  const damageReceipt = cardId === "rime-adept"
+    ? RIME_PROJECTILE_DAMAGE_RECEIPT
+    : WIZARD_PROJECTILE_DAMAGE_RECEIPT;
+  const facts = {
     aoeToAir: profile.targetLayers.includes("air"),
     aoeToGround: profile.targetLayers.includes("ground"),
     characterAreaDamageRadiusMillitiles: 0,
     homing: true,
     onlyEnemies: profile.enemiesOnly,
-    projectileDamage: WIZARD_PROJECTILE_DAMAGE_RECEIPT.damage,
-    projectileDamagePerLevelIndex: WIZARD_PROJECTILE_DAMAGE_RECEIPT.index,
-    projectileDamageLinkedProjectileId: WIZARD_PROJECTILE_DAMAGE_RECEIPT.linkedProjectileId,
-    projectileDamageRarity: WIZARD_PROJECTILE_DAMAGE_RECEIPT.rarity,
-    projectileDamageSourceCommit: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceCommit,
-    projectileDamageSourceFile: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceFile,
-    projectileDamageSourceFileSha256: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceFileSha256,
-    projectileDamageSourceUri: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceUri,
-    projectileDamageTournamentLevel: WIZARD_PROJECTILE_DAMAGE_RECEIPT.tournamentLevel,
+    projectileDamage: damageReceipt.damage,
+    projectileDamagePerLevelIndex: damageReceipt.index,
+    projectileDamageLinkedProjectileId: damageReceipt.linkedProjectileId,
+    projectileDamageRarity: damageReceipt.rarity,
+    projectileDamageSourceCommit: damageReceipt.sourceCommit,
+    projectileDamageSourceFile: damageReceipt.sourceFile,
+    projectileDamageSourceFileSha256: damageReceipt.sourceFileSha256,
+    projectileDamageSourceUri: damageReceipt.sourceUri,
+    projectileDamageTournamentLevel: damageReceipt.tournamentLevel,
     radiusMillitiles: profile.radiusMillitiles,
-    speedRaw: 600,
+    speedRaw: damageReceipt.speedRaw,
   };
+  if (cardId === "rime-adept") {
+    facts.gravityRaw = damageReceipt.gravityRaw;
+    facts.projectileLinked = true;
+  }
+  return facts;
 }
 
 export function assertOrdinaryProjectileSplashProfile(value, cardId, archetypeId) {

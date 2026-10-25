@@ -28,6 +28,7 @@ import {
 } from "../shared/ordinary-projectile-delivery-authority.js";
 import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
 import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
+import { createSlowSpecialCatalog } from "./cards/special-combat-slow.js";
 
 const VERSION = 1;
 const MAX_SOURCE_CATALOG_ROWS = 64;
@@ -76,9 +77,9 @@ const IDENTITY_REQUIREMENTS = Object.freeze({
   status: "required-adapter-contract",
 });
 
-// The five admitted occurrences are all special projectile memberships. The
-// ordinary catalog rows below are source identities only until HTO can provide
-// card-specific delivery evidence.
+// The five claimed profile occurrences below are special projectile
+// memberships. Ordinary delivery claims are classified independently by the
+// shared source authority and do not enter this special-profile manifest.
 const CLAIM_SPECS = Object.freeze([
   Object.freeze({
     archetype: "stormkite",
@@ -309,12 +310,6 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
     exportName: "createShieldFormCatalog",
     id: "railward",
     reason: "the shield/form occurrence exports no projectile delivery claim",
-    status: "admitted",
-  },
-  {
-    exportName: "createSlowSpecialCatalog",
-    id: "rime-adept",
-    reason: "the status occurrence exports no projectile delivery claim",
     status: "admitted",
   },
   {
@@ -981,8 +976,8 @@ function assertHtpSurface(htpManifest) {
 }
 
 function assertOrdinarySourceClaims(htpManifest, htpMap) {
-  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 4) {
-    throw new Error("ordinary projectile source admission must contain exactly four claims");
+  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 5) {
+    throw new Error("ordinary projectile source admission must contain exactly five claims");
   }
   const catalogs = new Map([
     ["createOrdinaryProjectileSquadCatalog", {
@@ -992,6 +987,10 @@ function assertOrdinarySourceClaims(htpManifest, htpMap) {
     ["createOrdinaryProjectileSplashCatalog", {
       catalogId: "ordinary-projectile-splash-v1",
       rows: createOrdinaryProjectileSplashCatalog(),
+    }],
+    ["createSlowSpecialCatalog", {
+      catalogId: "ordinary-projectile-splash-v1",
+      rows: createSlowSpecialCatalog(),
     }],
   ]);
   const rowMaps = new Map();
@@ -1019,10 +1018,13 @@ function assertOrdinarySourceClaims(htpManifest, htpMap) {
     const profile = htpProfileFor(htpManifest, spec,
       `${claim.sourceExport}/${claim.cardId}`);
     const sourceCard = rowMaps.get(claim.sourceExport).get(claim.cardId);
-    if (sourceCard === undefined || sourceCard.components.length !== 1 ||
-        sourceCard.count !== sourceCard.components[0].count ||
-        sourceCard.components[0].id !== claim.archetypeId ||
-        sourceCard.components[0].role !== "primary") {
+    const directUnit = sourceCard?.components?.length === 0 && sourceCard.count === 1 &&
+      sourceCard.id === claim.archetypeId;
+    const singleComponent = sourceCard?.components?.length === 1 &&
+      sourceCard.count === sourceCard.components[0].count &&
+      sourceCard.components[0].id === claim.archetypeId &&
+      sourceCard.components[0].role === "primary";
+    if (sourceCard === undefined || (!directUnit && !singleComponent)) {
       throw new Error(`${claim.cardId} source component does not match its admitted archetype`);
     }
     assertAdmissionIdentity(profile, sourceCard, `${claim.sourceExport}/${claim.cardId}`);

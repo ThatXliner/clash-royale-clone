@@ -93,7 +93,6 @@ const EXPECTED_EXCLUDED = [
   ["mossguard", "createBasicMeleeCatalog"],
   ["pulse-sentry", "createStunSpecialCatalog"],
   ["railward", "createShieldFormCatalog"],
-  ["rime-adept", "createSlowSpecialCatalog"],
   ["skymaul", "createBasicFlyingCatalog"],
   ["stonehauler", "createStructureSeekerCatalog"],
   ["stonevault", "createJumpSpecialCatalog"],
@@ -1347,9 +1346,9 @@ test("projectile profiles: outputs are fresh, deeply frozen, detached, and canon
   const serialized = serializeSessionTroopProjectileProfileManifest();
   assert.equal(serialized, canonical(first));
   assert.equal(serialized, serializeSessionTroopProjectileProfileManifest());
-  assert.equal(serialized.length, 68162);
+  assert.equal(serialized.length, 67955);
   assert.equal(createHash("sha256").update(serialized).digest("hex"),
-    "abc98a533aa975038e68fd23fb5e59a2293b1e71ea51dbcdefcce351d686d972");
+    "a307bd7c53fdb80ae7d8b21b019ed3e6b1805ff9a5dc36f92be8a2d25dc969bc");
   assert.throws(() => { first.profiles[0].id = "forged"; }, TypeError);
   assert.throws(() => { first.questionFixtures.pellets.rayPattern.value[0].x = 0; }, TypeError);
   assert.throws(() => { first.profiles.push(null); }, TypeError);

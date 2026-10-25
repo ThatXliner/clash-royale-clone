@@ -13,6 +13,8 @@ import {
   projectSessionTroopBattleCard,
   serializeSessionTroopWitness,
 } from "../src/content/session-troop-roster.js";
+import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
+import { createSessionRadiusSpellProfileReceipts } from "../src/content/session-spell-profile-receipts.js";
 import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
@@ -29,6 +31,7 @@ import {
 import {
   getOrdinaryProjectileSplashProfile,
   ORDINARY_PROJECTILE_SOURCE_CLAIMS,
+  RIME_PROJECTILE_SOURCE_IDENTITY_RECEIPT,
 } from "../src/shared/ordinary-projectile-delivery-authority.js";
 
 const ADMITTED_IDS = Object.freeze([
@@ -311,6 +314,42 @@ function liveBattleWithRadiusSpell(targetCardId, seed = 2) {
   return new LiveBattle(setup.battleSetup);
 }
 
+function rimeBattleWithRadiusSpell(targetCardId, supportCardIds = []) {
+  const troopWitnesses = ["rime-adept", targetCardId, ...supportCardIds].map((id) =>
+    createSessionTroopWitness(id));
+  const cardsById = new Map();
+  const questionsByKey = new Map();
+  for (const witness of troopWitnesses) {
+    for (const card of witness.roster) cardsById.set(card.id, card);
+    for (const question of witness.questions) {
+      const previous = questionsByKey.get(question.key);
+      if (previous !== undefined) assert.deepEqual(question, previous, question.key);
+      else questionsByKey.set(question.key, question);
+    }
+  }
+  const selectedIds = ["rime-adept", "squall-orb", targetCardId, ...supportCardIds];
+  for (const id of PLAYABLE_CARD_IDS) {
+    if (selectedIds.length === 8) break;
+    if (!selectedIds.includes(id)) selectedIds.push(id);
+  }
+  assert.equal(selectedIds.length, 8);
+  assert.equal(new Set(selectedIds).size, 8);
+  const roster = selectedIds.map((id) => id === "squall-orb"
+    ? projectSessionNonUnitBattleCard(id)
+    : cardsById.get(id));
+  const referenced = [...new Set(questionReferences(roster))].sort();
+  return new LiveBattle(canonical({
+    initialWindupTicks: { central: 0, lane: 0 },
+    questions: referenced.map((key) => {
+      const question = questionsByKey.get(key);
+      assert.ok(question, `Rime shared-host setup closes ${key}`);
+      return question;
+    }),
+    roster,
+    spellProfileReceipts: createSessionRadiusSpellProfileReceipts(),
+  }));
+}
+
 function continueLiveBattleProjectile(continuations, projectileId, maximumTicks = 900) {
   for (let advanced = 0; advanced < maximumTicks; advanced += 1) {
     const events = continuations.map((battle) => battle.step());
@@ -398,14 +437,14 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
       const entity = projected.entities[index];
       const sourceEntity = entitySource(source, index);
       const hasSourceConfidencePolicy = STAGGERED_CARD_IDS.has(profile.id) ||
-        profile.id === "brackenwheel";
+        profile.id === "brackenwheel" || profile.id === "rime-adept";
       assert.equal(Object.hasOwn(entity, "sourceConfidencePolicy"), hasSourceConfidencePolicy,
         `${profile.id} source confidence metadata boundary`);
       const allowedKeys = [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
         ...(sourceEntity.damage === null ? ["damagePolicy"] : []),
         ...(hasSourceConfidencePolicy ? ["sourceConfidencePolicy"] : []),
         ...(profile.id === "brackenwheel" ? ["meleeAreaPolicy"] : []),
-        ...(profile.id === "kilnkeeper"
+        ...(profile.id === "kilnkeeper" || profile.id === "rime-adept"
           ? ["projectileSplashPolicy", "projectileSplashSourceFacts"] : [])];
       assert.deepEqual(Object.keys(entity).sort(), [...allowedKeys].sort(),
         `${profile.id} ordinary entity shape`);
@@ -476,6 +515,9 @@ test("every witness closes its exact questions, cards, and archetypes through Li
         : key.startsWith("kilnkeeper.projectile-") &&
           key !== "kilnkeeper.projectile-speed-millitiles-per-tick"
           ? "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile"
+        : ["rime-adept.projectile-speed-raw", "rime-adept.projectile-homing",
+          "rime-adept.projectile-gravity-raw"].includes(key)
+          ? "pinned-royaleapi-54fdef52:cards_stats_projectile#ice_wizardProjectile"
           : QUESTION_SOURCE;
       return authoritative === false && confidence === "unverified" && disposition === "question" &&
         source === expectedSource && Number.isSafeInteger(value) &&
@@ -493,13 +535,14 @@ test("every witness closes its exact questions, cards, and archetypes through Li
   }
 });
 
-test("ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims", () => {
+test("ordinary projectile delivery admits only its exact five source tuples and rejects forged restore claims", () => {
   assert.deepEqual(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId, archetypeId }) =>
     [cardId, archetypeId]), [
     ["sunthread-pair", "sunthread-warden"],
     ["duskwing-trio", "duskwing"],
     ["coppershade-flock", "coppershade"],
     ["kilnkeeper", "kilnkeeper"],
+    ["rime-adept", "rime-adept"],
   ]);
   const policyFor = (claim) => ({
     archetypeId: claim.archetypeId,
@@ -607,6 +650,10 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
   ];
   assert.ok(entity.projectileSplashPolicy);
   assert.equal(entity.projectileSplashSourceFacts.radiusMillitiles, 1_500);
+  assert.equal(Object.hasOwn(entity.projectileSplashSourceFacts, "gravityRaw"), false,
+    "the existing Kilnkeeper receipt retains its prior fact shape");
+  assert.equal(Object.hasOwn(entity.projectileSplashSourceFacts, "projectileLinked"), false,
+    "the Rime-only pointer fact leaves Kilnkeeper's source-facts shape unchanged");
   assert.equal(entity.projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles, 0);
   assert.equal(entity.projectileSplashSourceFacts.projectileDamage, 281);
   assert.equal(entity.projectileSplashSourceFacts.projectileDamagePerLevelIndex, 8);
@@ -723,6 +770,292 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
   forgedDamageQuestion.setup.questions.find(({ key }) => key === "kilnkeeper.damage").value += 1;
   assert.throws(() => LiveBattle.restore(canonical(forgedDamageQuestion)), /question|source|splash/u,
     "the actual pending snapshot rejects a forged projectile damage QUESTION");
+});
+
+test("Rime source receipt binds impact splash while flight, body, and unit layer remain questions", () => {
+  const witness = clone(createSessionTroopWitness("rime-adept"));
+  const card = witness.roster.find(({ id }) => id === "rime-adept");
+  const entity = card.entities.find(({ archetypeId }) => archetypeId === "rime-adept");
+  assert.deepEqual(entity.deliveryPolicy, {
+    archetypeId: "rime-adept",
+    cardId: "rime-adept",
+    catalogId: "ordinary-projectile-splash-v1",
+    delivery: "projectile",
+    kind: "source-backed",
+  });
+  assert.equal(entity.delivery, "projectile");
+  assert.equal(entity.damage, 90);
+  assert.equal(entity.areaDamageRadiusMillitiles, null,
+    "the character has no common area radius; its splash belongs to projectile impact");
+  assert.deepEqual(entity.projectileSplashPolicy, {
+    archetypeId: "rime-adept",
+    cardId: "rime-adept",
+    catalogId: "ordinary-projectile-splash-v1",
+    enemiesOnly: true,
+    homing: true,
+    homingRuntimePolicy: entity.projectileSplashPolicy.homingRuntimePolicy,
+    radiusMillitiles: 1_000,
+    sourceExport: "createSlowSpecialCatalog",
+    targetLayers: ["air", "ground"],
+  });
+  assert.deepEqual(entity.projectileSplashSourceFacts, {
+    aoeToAir: true,
+    aoeToGround: true,
+    characterAreaDamageRadiusMillitiles: 0,
+    homing: true,
+    onlyEnemies: true,
+    projectileLinked: true,
+    projectileDamage: 90,
+    projectileDamagePerLevelIndex: 2,
+    projectileDamageLinkedProjectileId: "ice_wizardProjectile",
+    projectileDamageRarity: "legendary",
+    projectileDamageSourceCommit: "54fdef52c5086393b085f57faeeab8ef86b28160",
+    projectileDamageSourceFile: "docs/json/cards_stats_projectile.json",
+    projectileDamageSourceFileSha256: "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197",
+    projectileDamageSourceUri: "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
+    projectileDamageTournamentLevel: 11,
+    radiusMillitiles: 1_000,
+    speedRaw: 700,
+    gravityRaw: 50,
+  });
+  assert.deepEqual(entity.bodyRadiusPolicy, {
+    kind: "question", questionKey: "rime-adept.body-radius-millitiles",
+  });
+  assert.deepEqual(entity.layerPolicy, {
+    kind: "question", questionKey: "rime-adept.layer",
+  });
+  assert.deepEqual(entity.projectileSpeedPolicy, {
+    kind: "question", questionKey: "rime-adept.projectile-speed-millitiles-per-tick",
+  });
+  const questions = new Map(witness.questions.map((question) => [question.key, question]));
+  assert.equal(questions.get("rime-adept.projectile-speed-millitiles-per-tick").value, 500,
+    "the raw speed 700 does not become a historical simulation speed");
+  assert.equal(questions.get("rime-adept.projectile-speed-raw").value, 700);
+  assert.equal(questions.get("rime-adept.projectile-gravity-raw").value, 50);
+  assert.equal(questions.get("rime-adept.projectile-homing").value, 1);
+  assert.equal(questions.get("rime-adept.projectile-speed-raw").source,
+    "pinned-royaleapi-54fdef52:cards_stats_projectile#ice_wizardProjectile");
+  assert.equal(questions.get("rime-adept.projectile-gravity-raw").source,
+    "pinned-royaleapi-54fdef52:cards_stats_projectile#ice_wizardProjectile");
+  assert.equal(questions.get("rime-adept.projectile-homing").source,
+    "pinned-royaleapi-54fdef52:cards_stats_projectile#ice_wizardProjectile");
+  assert.equal(questions.get("rime-adept.homing-target-death-rule").value, 8,
+    "target-death handling remains a runtime QUESTION");
+  assert.deepEqual(RIME_PROJECTILE_SOURCE_IDENTITY_RECEIPT, {
+    cardId: "rime-adept",
+    productProjectileId: "rime-adept-projectile",
+    sourceLinkedProjectileId: "ice_wizardProjectile",
+    sourceCommit: "54fdef52c5086393b085f57faeeab8ef86b28160",
+    sourceFile: "docs/json/cards_stats_projectile.json",
+    sourceFileSha256: "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197",
+    sourceUri: "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
+  });
+  for (const key of [
+    "rime-adept.projectile-speed-millitiles-per-tick",
+    "rime-adept.projectile-speed-raw",
+    "rime-adept.projectile-gravity-raw",
+    "rime-adept.projectile-homing",
+    "rime-adept.homing-target-death-rule",
+  ]) {
+    const question = questions.get(key);
+    assert.equal(question.authoritative, false, key);
+    assert.equal(question.confidence, "unverified", key);
+    assert.equal(question.disposition, "question", key);
+  }
+  assert.equal(questions.has("rime-adept.delivery"), false,
+    "delivery comes from the active projectile pointer claim");
+  assert.equal(questions.has("rime-adept.damage"), false,
+    "projectile damage is bound by the source receipt, not the standalone slow fixture's common-damage question");
+
+  const mutations = [
+    (target) => { target.projectileSplashPolicy.radiusMillitiles += 1; },
+    (target) => { target.projectileSplashPolicy.targetLayers = ["ground"]; },
+    (target) => { target.projectileSplashPolicy.enemiesOnly = false; },
+    (target) => { target.projectileSplashPolicy.homing = false; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.targetDeathRule = "continue"; },
+    (target) => { target.projectileSplashSourceFacts.aoeToAir = false; },
+    (target) => { target.projectileSplashSourceFacts.aoeToGround = false; },
+    (target) => { target.projectileSplashSourceFacts.onlyEnemies = false; },
+    (target) => { target.projectileSplashSourceFacts.radiusMillitiles += 1; },
+    (target) => { target.projectileSplashSourceFacts.projectileDamage += 1; },
+    (target) => { target.projectileSplashSourceFacts.projectileDamagePerLevelIndex += 1; },
+    (target) => {
+      target.projectileSplashSourceFacts.projectileDamageLinkedProjectileId = "rime-adept-projectile";
+    },
+    (target) => {
+      target.projectileSplashSourceFacts.projectileDamageSourceFileSha256 = "0".repeat(64);
+    },
+    (target) => { target.projectileSplashSourceFacts.speedRaw += 1; },
+    (target) => { target.projectileSplashSourceFacts.gravityRaw += 1; },
+    (target) => { target.projectileSplashSourceFacts.projectileLinked = false; },
+    (target) => { target.damage += 1; },
+  ];
+  for (const mutate of mutations) {
+    const malformed = clone(witness);
+    mutate(malformed.roster.find(({ id }) => id === "rime-adept").entities[0]);
+    assert.throws(() => parseLiveBattleSetup(canonical(malformed)), /splash|profile|source|QUESTION/u);
+  }
+});
+
+test("Rime checkpoint before contact restores through same-boundary contact and target death under QUESTION flight policy", () => {
+  const battle = rimeBattleWithRadiusSpell("cinder-host");
+  battle.scheduleDeploy(canonical({
+    cardId: "cinder-host", point: { x: 3_500, y: 21_000 }, sequence: 0,
+    side: "north", tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "rime-adept", point: { x: 3_500, y: 14_500 }, sequence: 1,
+    side: "south", tick: 0,
+  }));
+  let launch = null;
+  for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+    launch = battle.step().find(({ projectile, type }) =>
+      type === "projectile-launch" && projectile?.splashProfile?.cardId === "rime-adept")
+      ?.projectile ?? null;
+  }
+  assert.ok(launch, "the shared host launches Rime's projectile before target loss");
+  const target = battle.state.units.find(({ id }) => id === launch.targetId);
+  assert.equal(target.cardId, "cinder-host");
+  assert.equal(battle.scheduleSpell({
+    cardId: "squall-orb", point: target.position, sequence: 2,
+    side: "south", tick: battle.state.tick,
+  }).type, "spell-intent-scheduled");
+  assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+    "the actual pre-contact checkpoint owns the pending projectile");
+  assert.equal(target.alive, true,
+    "the target is alive when the pending projectile checkpoint is captured");
+
+  const checkpoint = battle.serialize();
+  const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+  assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+  const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+  assert.equal(impact.status, "contact");
+  assert.equal(battle.state.units.find(({ id }) => id === launch.targetId)?.alive, false,
+    "the target dies on the same resolved boundary after the projectile contacts it");
+  assert.equal(battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "projectile-impact").length, 1);
+  const hits = battle.replay.filter(({ projectileId, targetId, type }) =>
+    projectileId === launch.id && targetId === launch.targetId && type === "damage");
+  assert.deepEqual(hits.map(({ targetId, amount }) => ({ amount, targetId })), [
+    { amount: 90, targetId: launch.targetId },
+  ]);
+});
+
+test("Rime QUESTION flight policy fizzles a pending projectile after target death across restore and fork", () => {
+  const battle = rimeBattleWithRadiusSpell("cinder-host");
+  battle.scheduleDeploy(canonical({
+    cardId: "cinder-host", point: { x: 3_500, y: 21_000 }, sequence: 0,
+    side: "north", tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "rime-adept", point: { x: 3_500, y: 14_500 }, sequence: 1,
+    side: "south", tick: 0,
+  }));
+
+  let scheduledSpell = null;
+  let scheduledTarget = null;
+  let launch = null;
+  for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+    if (scheduledSpell === null && battle.state.tick === 131) {
+      const state = battle.state;
+      const source = state.units.find(({ cardId, side }) =>
+        cardId === "rime-adept" && side === "south");
+      const candidates = state.units.filter(({ cardId, side }) =>
+        cardId === "cinder-host" && side === "north");
+      assert.ok(source, "the actual Rime source is public before target-loss scheduling");
+      assert.ok(candidates.length > 0, "the Cinder Host squad is materialized before launch");
+      const distanceSquared = (unit) => {
+        const dx = BigInt(unit.position.x - source.position.x);
+        const dy = BigInt(unit.position.y - source.position.y);
+        return dx * dx + dy * dy;
+      };
+      scheduledTarget = candidates.reduce((closest, candidate) =>
+        distanceSquared(candidate) < distanceSquared(closest) ||
+          (distanceSquared(candidate) === distanceSquared(closest) && candidate.id < closest.id)
+          ? candidate : closest);
+      scheduledSpell = battle.scheduleSpell({
+        cardId: "squall-orb", point: scheduledTarget.position, sequence: 2,
+        side: "south", tick: state.tick,
+      });
+      assert.equal(scheduledSpell.type, "spell-intent-scheduled");
+    }
+    launch = battle.step().find(({ projectile, type }) =>
+      type === "projectile-launch" && projectile?.splashProfile?.cardId === "rime-adept")
+      ?.projectile ?? null;
+  }
+  assert.ok(scheduledSpell, "one current-tick radius spell is scheduled before Rime launches");
+  assert.ok(launch, "the shared host launches before the scheduled spell resolves");
+  assert.equal(launch.targetId, scheduledTarget.id,
+    "the target chosen from public geometry is the projectile's actual locked target");
+  const targetAtLaunch = battle.state.units.find(({ id }) => id === launch.targetId);
+  assert.equal(targetAtLaunch.cardId, "cinder-host");
+  assert.equal(targetAtLaunch.alive, true);
+
+  for (let tick = 0; tick < 10 &&
+      battle.state.units.find(({ id }) => id === launch.targetId)?.alive; tick += 1) {
+    battle.step();
+  }
+  assert.equal(battle.state.units.find(({ id }) => id === launch.targetId)?.alive, false,
+    "the public Squall Orb contact kills the locked target before projectile contact");
+  assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+    "the projectile remains pending at a real target-loss checkpoint");
+
+  const checkpoint = battle.serialize();
+  const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+  assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+  const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+  assert.equal(impact.status, "target_dead",
+    "the pinned runtime QUESTION policy fizzles on the next boundary after target death");
+  assert.equal(battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "projectile-impact").length, 1);
+  assert.equal(battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "damage").length, 0);
+});
+
+test("Rime launched projectile continues after source death identically after restore and fork under QUESTION flight policy", () => {
+  const battle = rimeBattleWithRadiusSpell("coilblade");
+  battle.scheduleDeploy(canonical({
+    cardId: "coilblade", point: { x: 3_500, y: 21_400 }, sequence: 0,
+    side: "north", tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "rime-adept", point: { x: 3_500, y: 14_500 }, sequence: 1,
+    side: "south", tick: 0,
+  }));
+  let launch = null;
+  for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+    launch = battle.step().find(({ projectile, type }) =>
+      type === "projectile-launch" && projectile?.splashProfile?.cardId === "rime-adept")
+      ?.projectile ?? null;
+  }
+  assert.ok(launch, "the shared host launches Rime's projectile before source removal");
+  const source = battle.state.units.find(({ id }) => id === launch.sourceId);
+  assert.equal(source.cardId, "rime-adept");
+  for (let sequence = 2; sequence < 4; sequence += 1) {
+    assert.equal(battle.scheduleSpell({
+      cardId: "squall-orb", point: source.position, sequence,
+      side: "north", tick: battle.state.tick,
+    }).type, "spell-intent-scheduled");
+  }
+  for (let tick = 0; tick < 10 &&
+      battle.state.units.find(({ id }) => id === launch.sourceId)?.alive; tick += 1) {
+    battle.step();
+  }
+  assert.equal(battle.state.units.find(({ id }) => id === launch.sourceId)?.alive, false);
+  assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+    "source death leaves the already launched projectile pending");
+
+  const checkpoint = battle.serialize();
+  const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+  assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+  const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+  assert.equal(impact.status, "contact");
+  assert.equal(battle.state.units.find(({ id }) => id === launch.sourceId)?.alive, false);
+  const hits = battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "damage");
+  assert.equal(hits.length, 1);
+  assert.equal(hits[0].targetId, launch.targetId);
+  assert.equal(hits[0].amount, 90);
 });
 
 test("Kilnkeeper follows moving ground and air targets through shared-host restore and fork", () => {
@@ -1029,6 +1362,229 @@ test("ordinary splash plans stable mixed troop, building, and tower contacts wit
   assert.equal(movedPrimary.impactStatus, "target_missing",
     "the locked impact point does not direct-hit a primary that moved beyond its radius");
   assert.deepEqual(movedPrimary.unitHits.map(({ targetId }) => targetId), [3, 7]);
+});
+
+test("Rime's impact oracle damages only enemy units inside the source radius and layers", () => {
+  const profile = getOrdinaryProjectileSplashProfile("rime-adept", "rime-adept");
+  const center = { x: 0, y: 0 };
+  const units = [
+    { alive: true, id: 1, layer: "ground", position: center, radius: 0,
+      side: "north", targetable: true },
+    { alive: true, id: 2, layer: "air", position: { x: 500, y: 0 }, radius: 0,
+      side: "north", targetable: true },
+    { alive: true, id: 3, layer: "ground", position: { x: -500, y: 0 }, radius: 0,
+      side: "north", targetable: true },
+    { alive: true, id: 4, layer: "ground", position: { x: 1_500, y: 0 }, radius: 0,
+      side: "north", targetable: true },
+    { alive: true, id: 5, layer: "ground", position: { x: 0, y: 500 }, radius: 0,
+      side: "south", targetable: true },
+  ];
+  const impact = planOrdinaryProjectileSplashImpact({
+    attackerId: 6,
+    attackSequence: 1,
+    center,
+    damage: 90,
+    enemySide: "north",
+    primaryKind: "unit",
+    primaryStatus: "contact",
+    primaryTarget: units[0],
+    primaryTargetId: 1,
+    primaryTargetable: true,
+    profile,
+    projectileId: 7,
+    structures: [],
+    tick: 10,
+    units,
+  });
+  assert.equal(impact.impactStatus, "contact");
+  assert.deepEqual(impact.unitHits, [
+    { amount: 90, targetId: 1 },
+    { amount: 90, targetId: 2 },
+    { amount: 90, targetId: 3 },
+  ]);
+  assert.deepEqual(impact.hitSources, [
+    { attackerId: 6, delivery: "projectile", projectileId: 7 },
+    { attackerId: 6, delivery: "projectile", projectileId: 7 },
+    { attackerId: 6, delivery: "projectile", projectileId: 7 },
+  ]);
+  assert.deepEqual(impact.structureContacts, []);
+});
+
+test("Rime shared-host impact damages inside enemy air and ground, excluding a nearby ally and distant enemy", () => {
+  const battle = rimeBattleWithRadiusSpell("briar-band", [
+    "mossguard", "copperskiff", "skymaul", "brassbolt",
+  ]);
+  battle.scheduleDeploy(canonical({
+    cardId: "briar-band", point: { x: 3_500, y: 17_001 }, sequence: 0,
+    side: "north", tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "rime-adept", point: { x: 3_500, y: 14_900 }, sequence: 1,
+    side: "south", tick: 0,
+  }));
+
+  let launch = null;
+  for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+    launch = battle.step().find(({ projectile, type }) =>
+      type === "projectile-launch" && projectile?.splashProfile?.cardId === "rime-adept")
+      ?.projectile ?? null;
+  }
+  assert.ok(launch, "the shared host causally launches Rime's source-bound projectile");
+  const primary = battle.state.units.find(({ id }) => id === launch.targetId);
+  assert.equal(primary.cardId, "briar-band");
+  assert.equal(primary.archetypeId, "briar-runner");
+
+  const deploymentTick = battle.state.tick;
+  const scheduled = [
+    ["skymaul", "north", { x: primary.position.x + 100, y: 17_001 }],
+    ["brassbolt", "north", { x: primary.position.x + 4_000, y: 17_001 }],
+    ["mossguard", "south", { x: primary.position.x + 500, y: 14_999 }],
+  ];
+  scheduled.forEach(([cardId, side, point], index) => {
+    battle.scheduleDeploy(canonical({ cardId, point, sequence: 2 + index,
+      side, tick: deploymentTick }));
+  });
+  const deploymentEvents = battle.step();
+  assert.equal(deploymentEvents.some(({ projectileId, type }) =>
+    projectileId === launch.id && type === "projectile-impact"), false,
+  "the in-flight source projectile remains pending after shared-host bystander deployment");
+  const oneUnit = (cardId, side) => {
+    const matches = battle.state.units.filter((unit) => unit.cardId === cardId && unit.side === side);
+    assert.equal(matches.length, 1, `${side} ${cardId} has one materialized body`);
+    return matches[0];
+  };
+  const enemyAir = oneUnit("skymaul", "north");
+  const outsideEnemy = oneUnit("brassbolt", "north");
+  const ally = oneUnit("mossguard", "south");
+  const source = battle.state.units.find(({ id }) => id === launch.attackerId);
+  const beforeHitpoints = new Map(battle.state.units.map(({ hitpoints, id }) => [id, hitpoints]));
+  const priorReplayLength = battle.replay.length;
+  const checkpoint = battle.serialize();
+  const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+  const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+  assert.equal(impact.status, "contact");
+
+  const completed = battle.state.units;
+  const afterFor = (id) => completed.find((unit) => unit.id === id);
+  const center = afterFor(primary.id).position;
+  const insideRimeRadius = (unit) => {
+    const dx = BigInt(unit.position.x) - BigInt(center.x);
+    const dy = BigInt(unit.position.y) - BigInt(center.y);
+    const radius = BigInt(launch.splashProfile.radiusMillitiles + unit.radius);
+    return dx * dx + dy * dy <= radius * radius;
+  };
+  for (const unit of [primary, enemyAir, ally]) {
+    assert.equal(insideRimeRadius(afterFor(unit.id)), true,
+      `${unit.cardId} is geometrically inside the actual impact radius`);
+  }
+  const enemyGroundCollateral = completed.filter((unit) =>
+    unit.cardId === "briar-band" && unit.side === "north" && unit.layer === "ground" &&
+    unit.id !== primary.id && insideRimeRadius(unit));
+  assert.ok(enemyGroundCollateral.length > 0,
+    "at least one actual nearby Briar Band ground body is inside the impact circle");
+  assert.equal(insideRimeRadius(afterFor(outsideEnemy.id)), false,
+    "the outside target has valid admitted body radius and remains clearly beyond splash");
+  assert.equal(insideRimeRadius(afterFor(source.id)), true,
+    "Rime itself is a same-side body inside this impact circle");
+
+  const impactBoundaryEvents = battle.replay.slice(priorReplayLength);
+  const projectileDamage = impactBoundaryEvents.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "damage");
+  const amountFor = (targetId) => projectileDamage
+    .filter(({ targetId: id }) => id === targetId)
+    .reduce((total, { amount }) => total + amount, 0);
+  const afterHitpoints = (id) => afterFor(id).hitpoints;
+  for (const unit of [primary, enemyAir, ...enemyGroundCollateral]) {
+    assert.equal(amountFor(unit.id), 90,
+      `${unit.cardId} receives one causal 90-damage projectile hit`);
+    const allDamageThisBoundary = impactBoundaryEvents
+      .filter(({ amount, targetId, type }) => type === "damage" && targetId === unit.id)
+      .reduce((total, { amount }) => total + amount, 0);
+    const unrelatedDamageThisBoundary = impactBoundaryEvents
+      .filter(({ amount, projectileId, targetId, type }) =>
+        type === "damage" && targetId === unit.id && projectileId !== launch.id)
+      .reduce((total, { amount }) => total + amount, 0);
+    assert.equal(beforeHitpoints.get(unit.id) - afterHitpoints(unit.id), allDamageThisBoundary,
+      `${unit.cardId} HP delta matches all damage recorded on the impact boundary`);
+    assert.equal(beforeHitpoints.get(unit.id) - afterHitpoints(unit.id) -
+      unrelatedDamageThisBoundary, 90,
+    `${unit.cardId} HP delta isolates Rime's 90 damage from simultaneous attacks`);
+  }
+  for (const unit of [outsideEnemy, ally, source]) {
+    assert.equal(amountFor(unit.id), 0,
+      `${unit.cardId} receives no Rime hit although ${unit.side} membership is retained`);
+  }
+  assert.equal(beforeHitpoints.get(outsideEnemy.id) - afterHitpoints(outsideEnemy.id), 0,
+    "the distant enemy retains its pre-impact hitpoints");
+  assert.equal(beforeHitpoints.get(ally.id) - afterHitpoints(ally.id), 0,
+    "the geometrically inside ally retains its pre-impact hitpoints");
+  assert.ok(afterFor(source.id).hitpoints > 0,
+    "Rime remains alive while the source damage resolves");
+});
+
+test("Rime launches and resolves source damage through GameSession restore", () => {
+  const setup = witnessSetup("rime-adept");
+  setup.seed = 1;
+  const northOpening = new DeckCycle({ deck: setup.deck, seed: `${setup.seed}:north` }).state.hand;
+  const southOpening = new DeckCycle({ deck: setup.deck, seed: `${setup.seed}:south` }).state.hand;
+  assert.ok(northOpening.includes("skymaul"), "the pinned seed opens a legal North Skymaul");
+  assert.ok(southOpening.includes("rime-adept"), "the pinned seed opens South Rime");
+  setup.legalNorthDeployments = [{ cardId: "skymaul", point: NORTH }];
+  setup.startingElixir = { north: 10, south: 10 };
+  setup.thinkIntervalTicks = 1;
+  setup.thinkOffsetTicks = 0;
+  const session = new GameSession(canonical(setup));
+  session.submitPlayerCommand(playerCommand(session, "rime-adept"));
+
+  let launch = null;
+  let targetHitpointsAtLaunch = null;
+  for (let tick = 0; tick < 300 && launch === null; tick += 1) {
+    const events = session.stepMany(1);
+    const event = events.find(({ projectile, type }) =>
+      type === "projectile-launch" && projectile?.splashProfile?.cardId === "rime-adept");
+    if (event !== undefined) {
+      launch = event.projectile;
+      const target = session.state.battle.units.find(({ id }) => id === launch.targetId);
+      assert.ok(target, "the actual launch target resolves in the public GameSession unit state");
+      assert.equal(target.cardId, "skymaul");
+      assert.equal(target.side, "north");
+      assert.equal(target.layer, "air");
+      targetHitpointsAtLaunch = target.hitpoints;
+    }
+  }
+  assert.ok(launch, "the actual GameSession host causally launches Rime's projectile");
+  const northDeployment = session.replay.find(({ side, type, deployment }) =>
+    type === "session-deployed" && side === "north" && deployment?.cardId === "skymaul");
+  assert.ok(northDeployment, "the public GameSession committed the legal North deployment");
+  assert.ok(northDeployment.deployment.entityIds.includes(launch.targetId),
+    "the projectile locks onto the unit minted by that actual North deployment");
+  assert.equal(launch.damage, 90);
+  assert.equal(launch.splashProfile.radiusMillitiles, 1_000);
+  assert.deepEqual(launch.splashProfile.targetLayers, ["air", "ground"]);
+  assert.equal(launch.splashProfile.enemiesOnly, true);
+  assert.ok(session.state.battle.projectiles.some(({ id }) => id === launch.id),
+    "the shared GameSession retains the causally launched projectile before impact");
+  assert.ok(Number.isSafeInteger(targetHitpointsAtLaunch));
+
+  const checkpoint = session.serialize();
+  const restored = GameSession.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint);
+  const restoredEvents = continueToProjectileImpact(restored, launch.id);
+  const directEvents = continueToProjectileImpact(session, launch.id);
+  assert.deepEqual(restoredEvents, directEvents,
+    "restored chunk boundaries reproduce the same projectile launch-to-impact events");
+  assert.equal(restored.serialize(), session.serialize());
+  assert.equal(restored.replayBytes(), session.replayBytes());
+
+  const impact = session.replay.find(({ projectileId, type }) =>
+    projectileId === launch.id && type === "projectile-impact");
+  assert.equal(impact?.status, "contact");
+  const hits = session.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "damage");
+  assert.deepEqual(hits.map(({ targetId }) => targetId), [launch.targetId]);
+  assert.equal(hits[0].amount, 90);
+  assert.equal(session.state.battle.units.find(({ id }) => id === launch.targetId)?.hitpoints,
+    targetHitpointsAtLaunch - 90);
 });
 
 test("Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight", () => {

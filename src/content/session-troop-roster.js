@@ -345,7 +345,8 @@ function estimateQuestion(key, value) {
 function projectOrdinaryEntity(card, component) {
   const source = component ?? card;
   const archetypeId = component === null ? card.id : component.id;
-  const delivery = estimateDelivery(card.id);
+  const sourceDeliveryPolicy = getOrdinaryProjectileDeliveryPolicy(card.id, archetypeId);
+  const delivery = sourceDeliveryPolicy?.delivery ?? estimateDelivery(card.id);
   const layer = estimateLayer(card.id);
   const bodyRadiusKey = `${archetypeId}.body-radius-millitiles`;
   const projectileSpeedKey = `${archetypeId}.projectile-speed-millitiles-per-tick`;
@@ -371,7 +372,7 @@ function projectOrdinaryEntity(card, component) {
     role: component === null ? "primary" : component.role,
     sightRangeMillitiles: source.sightRangeMillitiles,
     targetMode: source.targetMode,
-    deliveryPolicy: getOrdinaryProjectileDeliveryPolicy(card.id, archetypeId) ??
+    deliveryPolicy: sourceDeliveryPolicy ??
       questionPolicy(`${archetypeId}.delivery`),
     layerPolicy: questionPolicy(`${archetypeId}.layer`),
   };

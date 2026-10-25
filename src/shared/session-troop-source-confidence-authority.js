@@ -10,6 +10,8 @@ const SOURCE_CONFIDENCE_FIELDS = Object.freeze([
   Object.freeze({ field: "sightRangeMillitiles", questionKeySuffix: "sight-range-millitiles", valueEncoding: "positive-integer" }),
   Object.freeze({ field: "targetMode", questionKeySuffix: "target-mode", valueEncoding: "target-mode-code" }),
 ]);
+const RIME_PROJECTILE_SOURCE =
+  "pinned-royaleapi-54fdef52:cards_stats_projectile#ice_wizardProjectile";
 const KILNKEEPER_PROJECTILE_FIELDS = Object.freeze([
   Object.freeze({ field: "projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles",
     questionKeySuffix: "character-area-damage-radius-millitiles", valueEncoding: "nonnegative-integer",
@@ -61,6 +63,45 @@ const KILNKEEPER_PROJECTILE_FIELDS = Object.freeze([
     questionKeySuffix: "projectile-only-enemies", valueEncoding: "boolean-code",
     source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
 ]);
+const RIME_PROJECTILE_QUESTION_FIELDS = Object.freeze([
+  Object.freeze({ field: "projectileSplashSourceFacts.speedRaw",
+    questionKeySuffix: "projectile-speed-raw", valueEncoding: "positive-integer",
+    source: RIME_PROJECTILE_SOURCE }),
+  Object.freeze({ field: "projectileSplashSourceFacts.homing",
+    questionKeySuffix: "projectile-homing", valueEncoding: "boolean-code",
+    source: RIME_PROJECTILE_SOURCE }),
+  Object.freeze({ field: "projectileSplashSourceFacts.gravityRaw",
+    questionKeySuffix: "projectile-gravity-raw", valueEncoding: "positive-integer",
+    source: RIME_PROJECTILE_SOURCE }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick",
+    questionKeySuffix: "homing-pursuit-speed-millitiles-per-tick", valueEncoding: "positive-integer" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.directionUpdateRule",
+    questionKeySuffix: "homing-direction-update-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.directionRoundingRule",
+    questionKeySuffix: "homing-direction-rounding-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.targetLockRule",
+    questionKeySuffix: "homing-target-lock-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.retargetRule",
+    questionKeySuffix: "homing-retarget-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.targetDeathRule",
+    questionKeySuffix: "homing-target-death-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.sourceDeathRule",
+    questionKeySuffix: "homing-source-death-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.outOfRangeRule",
+    questionKeySuffix: "homing-out-of-range-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.outOfBoundsRule",
+    questionKeySuffix: "homing-out-of-bounds-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.contactRadiusRule",
+    questionKeySuffix: "homing-contact-radius-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.impactCenterRule",
+    questionKeySuffix: "homing-impact-center-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.intermediateCollisionRule",
+    questionKeySuffix: "homing-intermediate-collision-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.arrivalBoundaryRule",
+    questionKeySuffix: "homing-arrival-boundary-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.contactOrderRule",
+    questionKeySuffix: "homing-contact-order-rule", valueEncoding: "homing-runtime-policy-code" }),
+]);
 
 const MELEE_AREA_QUESTION_FIELDS = Object.freeze([
   Object.freeze({ field: "areaDamageRadiusMillitiles",
@@ -75,6 +116,7 @@ const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
   Object.freeze({ cardId: "briar-band", archetypeId: "briar-darter" }),
   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
   Object.freeze({ cardId: "kilnkeeper", archetypeId: "kilnkeeper" }),
+  Object.freeze({ cardId: "rime-adept", archetypeId: "rime-adept" }),
   Object.freeze({ cardId: "coppershade-flock", archetypeId: "coppershade" }),
   Object.freeze({ cardId: "duskwing-trio", archetypeId: "duskwing" }),
   Object.freeze({ cardId: "forgeguard", archetypeId: "forgeguard" }),
@@ -133,11 +175,14 @@ function exact(value, keys, label) {
 }
 
 function expectedPolicy(archetypeId) {
-  const fields = [...SOURCE_CONFIDENCE_FIELDS,
-    ...(archetypeId === "brackenwheel" ? MELEE_AREA_QUESTION_FIELDS : []),
-    ...(archetypeId === "kilnkeeper" ? KILNKEEPER_PROJECTILE_FIELDS : [])];
+  const fields = archetypeId === "rime-adept"
+    ? RIME_PROJECTILE_QUESTION_FIELDS
+    : [...SOURCE_CONFIDENCE_FIELDS,
+      ...(archetypeId === "brackenwheel" ? MELEE_AREA_QUESTION_FIELDS : []),
+      ...(archetypeId === "kilnkeeper" ? KILNKEEPER_PROJECTILE_FIELDS : [])];
   return {
-    ...(archetypeId === "brackenwheel" ? {} : { deploymentInterval: { ...DEPLOYMENT_INTERVAL } }),
+    ...(archetypeId === "brackenwheel" || archetypeId === "rime-adept"
+      ? {} : { deploymentInterval: { ...DEPLOYMENT_INTERVAL } }),
     fields: fields.map(({ field, questionKeySuffix, valueEncoding, source }) => {
       const provenance = source ?? (archetypeId === "kilnkeeper" && field === "damage"
         ? KILNKEEPER_DAMAGE_SOURCE

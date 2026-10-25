@@ -114,10 +114,10 @@ function format(number) {
 }
 
 const UNIT_DETAIL_STAT_FIELDS = Object.freeze([
-  Object.freeze(["Count", "count"]),
   Object.freeze(["Health", "hitpoints"]),
   Object.freeze(["Damage", "damage"]),
   Object.freeze(["Hit speed", "hitSpeedTicks"]),
+  Object.freeze(["Count", "count"]),
   Object.freeze(["Range", "rangeMillitiles"]),
   Object.freeze(["Targets", "targetMode"]),
   Object.freeze(["Moves", "movementMillitilesPerSecond"]),

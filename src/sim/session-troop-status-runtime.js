@@ -1,12 +1,19 @@
 import {
   assertSessionTroopSourceConfidencePolicy,
+  assertSessionTroopSourceConfidenceQuestions,
   encodeSessionTroopSourceConfidenceValue,
 } from "../shared/session-troop-source-confidence-authority.js";
 import {
+  assertOrdinaryProjectileDeliveryPolicy,
   assertOrdinaryProjectileSplashProfile,
+  getOrdinaryProjectileDeliveryPolicy,
   getOrdinaryProjectileSplashProfile,
   getOrdinaryProjectileSplashSourceFacts,
 } from "../shared/ordinary-projectile-delivery-authority.js";
+import {
+  ordinaryProjectileSplashEntityFields,
+  ordinaryProjectileSplashEntityShape,
+} from "./ordinary-projectile-splash.js";
 
 export const SESSION_TROOP_STATUS_RUNTIME_VERSION = 1;
 export const SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS = 1_024;
@@ -159,6 +166,9 @@ const STATUS_ENTITY_KEYS = Object.freeze([
   "hitSpeedTicks", "hitpoints", "kind", "layer", "movementMillitilesPerSecond",
   "projectileSpeedPolicy", "rangeMillitiles", "role", "sightRangeMillitiles",
   "targetMode", "deliveryPolicy", "layerPolicy",
+]);
+const STATUS_SOURCE_CONFIDENCE_ENTITY_KEYS = Object.freeze([
+  "sourceConfidencePolicy",
 ]);
 const STATUS_QUESTION_KEYS = Object.freeze([
   "authoritative", "confidence", "disposition", "key", "source", "value",
@@ -384,6 +394,14 @@ function statusDeliveryResolution(profile, label) {
       profile.sourceExport === "createReflectionSpecialCatalog") {
     return "projectile";
   }
+  if (profile.id === "rime-adept" && profile.claimFamily === "slow" &&
+      profile.sourceExport === "createSlowSpecialCatalog") {
+    const policy = getOrdinaryProjectileDeliveryPolicy(profile.id, profile.id);
+    if (policy === null || policy.delivery !== "projectile") {
+      throw new TypeError(`${label} has no matching source-backed projectile delivery claim`);
+    }
+    return policy.delivery;
+  }
   if (["heal", "invisibility", "shield-form", "slow", "snare", "stun"].includes(
     profile.claimFamily)) {
     return "melee";
@@ -432,26 +450,80 @@ function assertPinnedProjectionQuestion(questionMap, key, value, label) {
   }
 }
 
+function assertStatusSourceConfidenceQuestions(entity, cardId, archetypeId,
+  questionMap, label) {
+  const policy = assertSessionTroopSourceConfidencePolicy(
+    entity.sourceConfidencePolicy, cardId, archetypeId,
+  );
+  if (questionMap === null) return policy;
+  const records = [...questionMap.values()];
+  assertSessionTroopSourceConfidenceQuestions({
+    present: true,
+    value: policy,
+    cardId,
+    archetypeId,
+    entity,
+    questionKeys: new Set(questionMap.keys()),
+    questionValues: new Map(records.map(({ key, value }) => [key, value])),
+    questionSources: new Map(records.map(({ key, source }) => [key, source])),
+    referencedQuestionKeys: new Set(),
+    label,
+  });
+  return policy;
+}
+
 function assertReceiptStatusEntityPolicies(entity, profile, source, questionMap, label) {
   if (typeof entity.archetypeId !== "string" || entity.archetypeId.length === 0) {
     throw new TypeError(`${label}.archetypeId is invalid`);
   }
-  exact(entity, STATUS_ENTITY_KEYS, label);
+  const rimeProjectileClaim = profile.id === "rime-adept" &&
+    profile.claimFamily === "slow" &&
+    profile.sourceExport === "createSlowSpecialCatalog";
+  const hasSourceConfidencePolicy = rimeProjectileClaim &&
+    Object.hasOwn(entity, "sourceConfidencePolicy");
+  const splashShape = rimeProjectileClaim
+    ? ordinaryProjectileSplashEntityShape(entity, [
+      ...STATUS_ENTITY_KEYS,
+      ...(hasSourceConfidencePolicy ? STATUS_SOURCE_CONFIDENCE_ENTITY_KEYS : []),
+    ])
+    : { hasProfile: false, keys: STATUS_ENTITY_KEYS };
+  exact(entity, splashShape.keys, label);
+  if (rimeProjectileClaim && (!splashShape.hasProfile || !hasSourceConfidencePolicy)) {
+    throw new TypeError(`${label} lacks the Rime source-confidence/projectile claim`);
+  }
   const delivery = statusDeliveryResolution(profile, label);
   const layer = STATUS_LAYER_RESOLUTION === 2 ? "air" : "ground";
   if (entity.delivery !== delivery || entity.layer !== layer) {
     throw new TypeError(`${label} diverges from the receipt-derived delivery/layer tuple`);
   }
+  const sourceDeliveryPolicy = rimeProjectileClaim
+    ? assertOrdinaryProjectileDeliveryPolicy(
+      entity.deliveryPolicy, profile.id, entity.archetypeId, entity.delivery,
+    )
+    : null;
   assertQuestionPolicy(entity.bodyRadiusPolicy,
     `${entity.archetypeId}.body-radius-millitiles`, `${label}.bodyRadiusPolicy`);
   assertProjectilePolicy(entity.projectileSpeedPolicy, entity,
     `${label}.projectileSpeedPolicy`);
-  assertQuestionPolicy(entity.deliveryPolicy, `${entity.archetypeId}.delivery`,
-    `${label}.deliveryPolicy`);
+  if (sourceDeliveryPolicy === null) {
+    assertQuestionPolicy(entity.deliveryPolicy, `${entity.archetypeId}.delivery`,
+      `${label}.deliveryPolicy`);
+  }
   assertQuestionPolicy(entity.layerPolicy, `${entity.archetypeId}.layer`,
     `${label}.layerPolicy`);
-  for (const suffix of ["body-radius-millitiles", "delivery", "layer",
-    ...(delivery === "projectile" ? ["projectile-speed-millitiles-per-tick"] : [])]) {
+  if (rimeProjectileClaim) {
+    ordinaryProjectileSplashEntityFields(entity, profile.id, entity.archetypeId, label);
+    assertStatusSourceConfidenceQuestions(
+      entity, profile.id, entity.archetypeId, questionMap, label,
+    );
+    if (questionMap?.has(`${entity.archetypeId}.delivery`)) {
+      throw new TypeError(`${label} has a delivery QUESTION despite its source-backed claim`);
+    }
+  }
+  const questionSuffixes = ["body-radius-millitiles",
+    ...(sourceDeliveryPolicy === null ? ["delivery"] : []), "layer",
+    ...(delivery === "projectile" ? ["projectile-speed-millitiles-per-tick"] : [])];
+  for (const suffix of questionSuffixes) {
     const key = `${entity.archetypeId}.${suffix}`;
     assertPinnedProjectionQuestion(questionMap,
       key,

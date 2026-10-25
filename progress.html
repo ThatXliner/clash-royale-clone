@@ -27,8 +27,8 @@
   <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">340</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">272</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">604</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">273</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">605</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
@@ -1496,10 +1496,10 @@
       <tr>
         <td><code>GAME-001HTJX</code></td>
         <td>Extract existing shared combat factory</td>
-        <td class="state-fail">FAIL</td>
-        <td>8/11 legacy partial</td>
-        <td>5</td>
-        <td>Round 604: the full `npm test` invocation exited 1 with two TAP failures and three pre-existing skips. Integration audit digest expected `259d5fcf…e520b1`, actual `e7fab331…53233e` after seven Rime tests; app-shell still expects Count ahead of the APP-005-approved Health/Damage/Hit speed order. This is 0/1 full invocations, not a new full-suite test count; preserve 8/11 only as legacy partial criteria. Separate 18,000-tick Node and browser endurance checks passed, but do not close the full factory gate. Post-run source and runtime/dependency pins match; the 44-path output check remains CHECK for four known test-generated evidence writes omitted from the allowlist, with no product mutation. APP-005 final browser polish and Pages were not run. No whole-suite PASS or art-parity claim.</td>
+        <td class="state-pass">PASS</td>
+        <td>11/11 focused</td>
+        <td>6</td>
+        <td>Round 605 qualifies the sealed R3 factory only: focused game-battle 11/11; full `npm test` invocation 1/1 exited 0 with three existing skips; unchanged current-e476 differential 2/2; separate 18,000-tick Node and browser workloads; app-polish 1/1; Pages 5/5. The former 8/11 is legacy-only, not an 11-criterion factory checklist. Biggest gap: final exact-commit build/adoption/public deploy, broader 109 mechanics, visual art, and shipping parity remain incomplete.</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJC</code></td>
@@ -3366,6 +3366,7 @@
       <li><strong>R602 FAIL — the R3 targeted runtime acceptance gate did not qualify this slice. RUN Qualified Node v22.23.4 ran under a clean `env -i` with `--test --test-concurrency=1` over the nine authorized suites named in `argv.txt`. Direct exit was 1: 160 tests, 157 passed, 3 failed, 0 skipped; duration 238862.545542 ms. The default-eight baseline differential was not run after this failed gate.</strong> · RIME-PROJ-001 — Rime Adept shared projectile splash<br>The archived Rime v2 restore contract is not demonstrated: the Rime rejection assertion fails, and the raw TAP does not expose the exception that caused the predicate to reject. Do not infer a source root cause from this run.</li>
       <li><strong>R603 PASS — scoped projectile slice, using explicit mixed test provenance and a separate default-eight differential. RUN This result combines independent persisted evidence; it is not one 160-test invocation. R3's seven suites left unchanged by R4 contributed 118 passing tests. R4's separate two-suite affected run passed 42/42 with direct exit 0. Together these give a scoped 160/160 aggregate for the current acceptance slice. R3's nine-suite 157/160 failure remains recorded as-is; this is not a claim that R4 passed all nine suites.</strong> · RIME-PROJ-001 — Rime Adept shared projectile splash<br>This pass is limited to source-backed projectile impact-splash mechanics and the bounded default-eight continuation differential. Rime's speed 700, runtime speed conversion, gravity, homing, historical target-loss behavior, body radius, and unit layer remain QUESTIONS. The complete Rime role and broader browser/card roster still require qualification.</li>
       <li><strong>R604 FAIL — the full qualification invocation did not pass. RUN One full `npm test` invocation in the sealed execution mirror returned direct exit 1. Its raw output records two independent TAP failures and three existing skips. Treat this as 0/1 full invocations. The existing 8/11 value remains legacy partial criteria only; it is not the count or result of this full invocation.</strong> · GAME-001HTJX — Extract existing shared combat factory<br>The single full `npm test` invocation still fails two assertions, so the factory's full integration and shipping gate is not qualified. The independent Node/browser endurance passes are useful subchecks but do not satisfy that gate.</li>
+      <li><strong>R605 PASS — the sealed R3 candidate meets the scoped factory qualification bar. This tracking result does not adopt a product commit or establish a release.</strong> · GAME-001HTJX — Extract existing shared combat factory<br>The final exact-commit release build, adoption, and public deployment have not been performed; the broader 109-mechanics goal, visual art parity, and shipping parity remain incomplete.</li>
   </ol>
 </body>
 </html>

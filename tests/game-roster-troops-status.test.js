@@ -96,7 +96,10 @@ function mutatedStatusSetup(id, mutate) {
   const witness = JSON.parse(setup.battleSetup);
   const card = witness.roster.find(({ id: cardId }) => cardId === id);
   assert.ok(card, `${id} mutation witness must contain the source card`);
+  const beforeMutation = canonical(witness);
   mutate(card, card.entities?.[0] ?? null, witness);
+  assert.notEqual(canonical(witness), beforeMutation,
+    `${id} hostile setup mutation must change its input`);
   setup.battleSetup = canonical(witness);
   setup.rosterWitness = canonical({ questions: witness.questions, roster: witness.roster });
   return canonical(setup);
@@ -299,6 +302,64 @@ test("game roster troop status: the exact eight identities and sourced executabl
   }), /QUESTION/u);
 });
 
+test("game roster troop status: Rime slow claim composes exact projectile and confidence receipts", () => {
+  const witness = createSessionTroopWitness("rime-adept");
+  const receipt = canonical(createSessionTroopStatusRuntimeProfiles());
+  const runtime = new SessionTroopStatusRuntime(receipt);
+  assert.doesNotThrow(() => runtime.assertSourceRoster(witness.roster, witness.questions));
+  assert.doesNotThrow(() => assertSessionTroopStatusSourceRoster(
+    witness.roster, receipt, witness.questions,
+  ));
+  assert.doesNotThrow(() => new GameSession(canonical(setupObject("rime-adept"))));
+
+  const mutations = [
+    (candidate) => {
+      candidate.roster.find(({ id }) => id === "rime-adept").entities[0]
+        .projectileSplashPolicy.radiusMillitiles += 1;
+    },
+    (candidate) => {
+      candidate.roster.find(({ id }) => id === "rime-adept").entities[0]
+        .projectileSplashSourceFacts.projectileDamageLinkedProjectileId = "rime-adept-projectile";
+    },
+    (candidate) => {
+      candidate.roster.find(({ id }) => id === "rime-adept").entities[0]
+        .sourceConfidencePolicy.fields[0].valueEncoding = "boolean-code";
+    },
+    (candidate) => {
+      candidate.roster.find(({ id }) => id === "rime-adept").entities[0]
+        .unclaimedCombatField = true;
+    },
+    (candidate) => {
+      candidate.questions.find(({ key }) => key === "rime-adept.projectile-speed-raw").value += 1;
+    },
+    (candidate) => {
+      candidate.questions.push({
+        authoritative: false,
+        confidence: "unverified",
+        disposition: "question",
+        key: "rime-adept.delivery",
+        source: "runtime-playability-estimate-not-comparison-corpus",
+        value: 2,
+      });
+    },
+  ];
+  for (const mutate of mutations) {
+    const candidate = clone({ roster: witness.roster, questions: witness.questions });
+    mutate(candidate);
+    assert.throws(() => assertSessionTroopStatusSourceRoster(
+      candidate.roster, receipt, candidate.questions,
+    ), /shape|splash|profile|source|QUESTION|delivery/u);
+  }
+
+  const bloomRoster = clone(createSessionTroopWitness("bloom-wisp").roster);
+  bloomRoster.find(({ id }) => id === "bloom-wisp").entities[0]
+    .projectileSplashPolicy = {};
+  assert.throws(() => assertSessionTroopStatusSourceRoster(
+    bloomRoster, receipt,
+  ), /shape|splash|profile|source/u,
+  "the Rime-only schema does not widen other status entities");
+});
+
 test("game roster troop status: setup receipt mutations reject atomically before a session is exposed", () => {
   const base = setupObject("bloom-wisp");
   const mutations = [
@@ -362,7 +423,9 @@ test("game roster troop status: pinned live source fields reject before setup ex
     ["entity.hitSpeedTicks", (_card, entity) => { entity.hitSpeedTicks += 1; }],
     ["entity.hitpoints", (_card, entity) => { entity.hitpoints += 1; }],
     ["entity.kind", (_card, entity) => { entity.kind = "effect"; }],
-    ["entity.layer", (_card, entity) => { entity.layer = "air"; }],
+    ["entity.layer", (_card, entity) => {
+      entity.layer = entity.layer === "air" ? "ground" : "air";
+    }],
     ["entity.movementMillitilesPerSecond", (_card, entity) => {
       entity.movementMillitilesPerSecond += 1;
     }],
@@ -372,12 +435,14 @@ test("game roster troop status: pinned live source fields reject before setup ex
     ["entity.targetMode", (_card, entity) => {
       entity.targetMode = entity.targetMode === "ground" ? "ground-and-air" : "ground";
     }],
-    ["entity.delivery", (_card, entity) => { entity.delivery = "projectile"; }],
+    ["entity.delivery", (_card, entity) => {
+      entity.delivery = entity.delivery === "projectile" ? "melee" : "projectile";
+    }],
     ["entity.bodyRadiusPolicy", (_card, entity) => {
       entity.bodyRadiusPolicy.questionKey = "foreign.body-radius-millitiles";
     }],
     ["entity.projectileSpeedPolicy", (_card, entity) => {
-      entity.projectileSpeedPolicy = { kind: "question", questionKey: `${entity.archetypeId}.projectile-speed-millitiles-per-tick` };
+      entity.projectileSpeedPolicy.questionKey = "foreign.projectile-speed-millitiles-per-tick";
     }],
     ["entity.deliveryPolicy", (_card, entity) => {
       entity.deliveryPolicy.questionKey = "foreign.delivery";
@@ -419,10 +484,15 @@ test("game roster troop status: coupled QUESTION projection mutations fail close
       },
     },
     {
-      label: "delivery-melee-to-projectile",
+      label: "delivery-claim-change",
       mutate(_card, entity, questions, witness) {
         const nextDelivery = entity.delivery === "melee" ? "projectile" : "melee";
         entity.delivery = nextDelivery;
+        if (entity.deliveryPolicy?.kind === "source-backed") {
+          assert.equal(entity.deliveryPolicy.delivery, "projectile");
+          assert.equal(questions.has(`${entity.archetypeId}.delivery`), false);
+          return;
+        }
         const delivery = questions.get(entity.deliveryPolicy.questionKey);
         delivery.value = nextDelivery === "projectile" ? 2 : 1;
         const key = `${entity.archetypeId}.projectile-speed-millitiles-per-tick`;
@@ -872,8 +942,8 @@ test("game roster troop status: status admission receipts are frozen and carry r
 });
 
 test("game roster troop status: deterministic session continuation hashes stay stable", () => {
-  // Current full snapshots include Briar's six-tick member-spawn policy and
-  // its unverified QUESTION receipts; keep the separate replay controls intact.
+  // Snapshots include Briar's member-spawn policy and Rime's sourced projectile
+  // setup; the existing status-command replay remains a separate byte pin.
   const expectedHashes = Object.freeze({
     "bloom-wisp": Object.freeze({
       replay: "c910889cfedec9476105f42111dc2528cd508164ef3bb6a015712b24a0604b86",
@@ -889,7 +959,7 @@ test("game roster troop status: deterministic session continuation hashes stay s
     }),
     "rime-adept": Object.freeze({
       replay: "b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a",
-      snapshot: "5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40",
+      snapshot: "50a91aba0f5feb25c4d3220a0214efecabd8fe929ab46ff80b85942a9db0e25f",
     }),
     "tether-rider": Object.freeze({
       replay: "42195da81ea1add834995f2d16d807d2160794ca5c82d3e961abd18813b4562b",

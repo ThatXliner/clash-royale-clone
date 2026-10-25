@@ -446,7 +446,7 @@ test("game troop runtime: current v5 hostile witnesses, chunks, forks, and empty
     "current v3 action input rejects atomically after the ordinary contact too");
 });
 
-test("game troop runtime: archived c9 and 2a snapshots reject for missing Briar source-confidence policy", () => {
+test("game troop runtime: archived v2 snapshots reject before restore under current source-confidence policies", () => {
   const fixtures = [
     {
       file: "c9-empty-live-battle-v2.snapshot",
@@ -481,7 +481,7 @@ test("game troop runtime: archived c9 and 2a snapshots reject for missing Briar 
       bytes: 200_458,
       sha256: "96ea0ac365b8fb70a65c19eaeb940812a385fc05a580a2aa5621bda2e9502d92",
       restore: (serialized) => GameSession.restore(serialized),
-      errorLabel: "roster[7].entities[0]",
+      errorMessage: "status runtime source rime-adept.entities[0] lacks the Rime source-confidence/projectile claim",
     },
     {
       file: "2a-game-session-tether-rider-v2.snapshot",
@@ -509,10 +509,19 @@ test("game troop runtime: archived c9 and 2a snapshots reject for missing Briar 
     assert.equal(Buffer.byteLength(serialized, "utf8"), fixture.bytes,
       `${fixture.file} is valid UTF-8 snapshot text`);
     assert.equal(JSON.parse(serialized).version, 2, `${fixture.file} retains its v2 envelope`);
+    if (fixture.file === "2a-game-session-rime-adept-v2.snapshot") {
+      const setup = JSON.parse(serialized).setup;
+      const battleSetup = JSON.parse(setup.battleSetup);
+      const rime = battleSetup.roster.find(({ id }) => id === "rime-adept");
+      assert.equal(rime.entities[0].delivery, "melee",
+        "the pinned vintage Rime checkpoint records its previous melee delivery policy");
+      assert.equal(Object.hasOwn(rime.entities[0], "sourceConfidencePolicy"), false);
+    }
+    const expectedError = fixture.errorMessage ??
+      `${fixture.errorLabel} source confidence policy is missing or unexpected`;
     assert.throws(() => fixture.restore(serialized), (error) => (
-      error instanceof TypeError &&
-      error.message === `${fixture.errorLabel} source confidence policy is missing or unexpected`
-    ), `${fixture.file} must reject for the missing Briar source-confidence policy`);
+      error instanceof TypeError && error.message === expectedError
+    ), `${fixture.file} must reject before its old source policy can resume`);
   }
 });
 

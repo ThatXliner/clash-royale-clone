@@ -38,6 +38,9 @@ const SOURCE_FACT_KEYS = Object.freeze([
   "projectileDamageSourceFileSha256", "projectileDamageSourceUri",
   "projectileDamageTournamentLevel", "radiusMillitiles", "speedRaw",
 ]);
+const RIME_SOURCE_FACT_KEYS = Object.freeze([
+  ...SOURCE_FACT_KEYS, "gravityRaw", "projectileLinked",
+]);
 const SETUP_FIELDS = Object.freeze([
   "projectileSplashPolicy", "projectileSplashSourceFacts",
 ]);
@@ -204,10 +207,11 @@ export function assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeI
     exact(entity.projectileSplashPolicy, UNIT_PROFILE_KEYS,
       `${label}.projectileSplashPolicy`), cardId, archetypeId,
   );
-  const sourceFacts = exact(entity.projectileSplashSourceFacts, SOURCE_FACT_KEYS,
+  const sourceFactKeys = cardId === "rime-adept" ? RIME_SOURCE_FACT_KEYS : SOURCE_FACT_KEYS;
+  const sourceFacts = exact(entity.projectileSplashSourceFacts, sourceFactKeys,
     `${label}.projectileSplashSourceFacts`);
   const expected = getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId);
-  if (expected === null || SOURCE_FACT_KEYS.some((key) => sourceFacts[key] !== expected[key]) ||
+  if (expected === null || sourceFactKeys.some((key) => sourceFacts[key] !== expected[key]) ||
       entity.damage !== expected.projectileDamage) {
     throw new TypeError(`${label} splash source facts diverge from their pinned receipt`);
   }

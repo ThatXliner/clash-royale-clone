@@ -8,10 +8,13 @@ version-2 snapshots from source pin `2a5bd7a44ad3773de59e8e6dd8baaebf0ec09764`.
 
 The packet's public-restore control recorded that current restore rejects the
 c9 snapshot at `roster[6]` and each 2a snapshot at `roster[7]`, because the
-Briar Band setup lacks the current source-confidence policy. The focused
-regression in `tests/game-troop-runtime.test.js` pins each input hash and
-requires that exact policy error. The fixture records prove rejection of these
-inputs only. They do not establish migration behavior for every old checkpoint.
+Briar Band setup lacks the current source-confidence policy. The Rime Adept
+snapshot rejects in the status runtime at
+`rime-adept.entities[0]` because the archived entity lacks the current
+source-confidence/projectile claim. The focused regression in
+`tests/game-troop-runtime.test.js` pins each input hash and requires the exact
+applicable policy error. The fixture records prove rejection of these inputs
+only. They do not establish migration behavior for every old checkpoint.
 
 | File | Bytes | SHA-256 |
 |---|---:|---|

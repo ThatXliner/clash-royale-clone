@@ -11426,3 +11426,39 @@ EVIDENCE FILES
 - Browser endurance root summary: `BROWSER-ENDURANCE-ROOT-SUMMARY.json` in the same preparation packet (SHA-256 `e1fc4aebc8982cc8a94a38946ec08044d81ce1e5f3d4ec2de1b02db26e548703`); detailed result: `external-output/npm-test/browser-enduranceendurance-result.json` (SHA-256 `2652d425bb92d1792c703cfa0fc0c46152d391b75f0b31a76b23365a069e48b6`).
 - Runtime/dependency pin inventory: `source-runtime-pins.tsv` (SHA-256 `e3cb81e38db8ab60a2a606f0b67228007ff1b657a4fd63b45c48e0362a0b7a7b`); dependency cleanup receipt: `postrun/dependency-link-cleanup.json` (SHA-256 `b9e76fd8d12c6680dc98e6ba6cce284273f96aa3b598f0635c143b5e9fedb61e`).
 - Output allowlist: `fixed-output-allowlist.tsv` (44 paths; SHA-256 `994c66b62a30e96b519af70376915315e2c1c994ca0d940e52ca81db5f0c906d`); external-output inventory: `postrun/external-output-inventory.jsonl` (SHA-256 `8b073fe6ab28e5451f965a8150d8ec6f9ab25d06ef9a6b89f2ba22cb19bd03a3`); path audit: `postrun/external-output-path-audit.tsv` (SHA-256 `15010e03b35c446a12809288f6ddb4fb80e3848a0ffd45a4ad9025c3240bab96`).
+
+## Round 605 — 2026-10-25
+
+PIECE: GAME-001HTJX — Extract existing shared combat factory
+
+VERDICT: PASS — the sealed R3 candidate meets the scoped factory qualification bar. This tracking result does not adopt a product commit or establish a release.
+
+EVIDENCE:
+
+The formal independent root verdict is retained at `receipts/ROUND-605-GAME-001HTJX-VERDICT.md` (SHA-256 `87ff75473bfb957c7c85a6681f58de0eb3ae044a6a17eacb29eaf4852bf16259`). The current focused `game-battle` TAP group is 11/11. This is a focused test result, not an 11-criterion factory checklist. The separate full `npm test` invocation ran 1/1 and exited 0, with zero literal `not ok` lines and these three pre-existing skips, preserved as skips:
+
+- `game opponent: resolved shared history supports a full terminal match` — unresolved `GAME-001HC` tick-874 shared transcript cap.
+- `game UI projection: non-Briar play output matches the accepted 5ed parent modules` — `ART004_PARENT_ROOT` not set.
+- `non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer` — `ART004_PARENT_ROOT` not set.
+
+The current-e476 baseline differential remains 2/2, byte-identical from R2 into R3; its result is SHA-256 `65e0fa359539dca3c5d83209a70e430f0af3fc36c8e04ffd611c8bde74a3aa3f`. The R3 full invocation also reports `integration-audit` 6/6, `nondeterminism-guard` 10/10, `shipping isolation guard` 13/13, and the production release-build byte-identity/emitted-byte-isolation test passing. These named test groups do not close visual parity or public release.
+
+The Node default-eight endurance run reached tick 18,000, with 204 measured 300-tick segments, five tick-18,000 endpoints, maximum segment 5,271 ms against the 30,000 ms bound, maximum snapshot 332,963 bytes against 1 MiB, and maximum paid-South deployment gap 900 ticks. The default-eight browser workload passed 3/3, reached a natural tick-18,000 South 2–1 result, and recorded 67 segments with a 10,315 ms maximum against the 30,000 ms bound. Across all seven driven/restore/restart long-task arrays there were 0 tasks above the 50 ms threshold; initialization recorded two tasks with a 150 ms maximum against its separate 300 ms cap. Restore/replay, typed continuation equality, audio continuity, restart, and browser error checks passed.
+
+The separate app-polish gate passed 1/1 and Publication Pages passed 5/5. The original strict cache-closure FAIL metadata and predicates remain retained. The corrected interpretations accept only the documented Node 22.23.4 `node-compile-cache` tree within the private TMPDIR; neither interpretation relaxes any UI assertion or threshold. App-polish interpretation SHA-256: `ad7fd6a547ecbf81a13980a03db4b3609b8065f35a015809dcd95760582eabbf`. Pages interpretation SHA-256: `9e7c2eb0753d9a1d197506d04f6bce6a70c5bba9f77176b45fff933ef14eb8d4`.
+
+The sealed source manifest is 17,726 entries, SHA-256 `732c40996064be541196fa760b3a5946cc993f14dafbd8d0f1f366320122368d`; the 19-path R3 overlay pin SHA-256 is `e18adfa1fab5c31f2455081ff220d206b59abb18f1e8aff72fa8b1fc14306020`; root source verification SHA-256 is `ba17ddb8e33fac3cbb38043d47673ff0e13b025191a144b90f80dfb38c460071`. Full-run closure is `PASS_WITH_3_PREEXISTING_SKIPS`; runtime/dependency pins match. Original closure logs and all source-bound raw receipts remain at the external paths listed in the formal verdict.
+
+BIGGEST GAP: The final exact-commit release build, adoption, and public deployment have not been performed; the broader 109-mechanics goal, visual art parity, and shipping parity remain incomplete.
+
+DISPOSITION:
+
+Set GAME-001HTJX to PASS for the qualified sealed R3 factory only, with `11/11 focused` as its focused test rate and six recorded rounds. Preserve Round 604's FAIL and all earlier round history unchanged. Do not claim full-game completion, Tier A art, visual parity, final shipping, adoption, or public release.
+
+EVIDENCE FILES:
+
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r3-full-qualification-prep-r1/postrun/ROUND-605-GAME-001HTJX-VERDICT.md` (SHA-256 `87ff75473bfb957c7c85a6681f58de0eb3ae044a6a17eacb29eaf4852bf16259`).
+- Full run result/raw output: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r3-full-qualification-prep-r1/evidence/npm-test-144-r1/RESULT.json` (SHA-256 `4119c416a871dfcd6f3e48c0a9fffc03b6caecca958987b0635e46cfe747c685`) and `stdout.raw` (SHA-256 `757a468cdd9ec9ceb1af597e1c02495f0371f3b894c7e8b5b529167192aa5b69`).
+- Browser endurance root summary: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r3-full-qualification-prep-r1/BROWSER-ENDURANCE-ROOT-SUMMARY.json` (SHA-256 `481deda7d6ef47fa2722b2e42ee45cbbbea3089ea41d1ae1823441a1988c2917`).
+- Current-e476 differential result: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r2-full-qualification-prep-r1/evidence/core-differential-e476-r1/RESULT.json` (SHA-256 `65e0fa359539dca3c5d83209a70e430f0af3fc36c8e04ffd611c8bde74a3aa3f`).
+- App-polish and Pages raw closures and interpretations remain under `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r3-later-gates-prep-r1`.
