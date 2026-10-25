@@ -11314,3 +11314,77 @@ FILES
 - Raw TAP: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/raw.tap` (SHA-256 `69131838af39ec494a198bb6bb571ed8fbb73946e29e427084ce0bbdfe7ece99`).
 - Command specification: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/argv.txt` (SHA-256 `e377df12931842f90b2143d411d73a824b1c15ebeb1ace2425d5efd8956eadc5`).
 - Post-run source pins: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/postpins.sha256` (SHA-256 `341ff1afa592c78af34d45b2fcdb1ac45dcfdbc240c56fae77a1ed6b4b25450f`).
+
+## Round 602 — 2026-10-25
+
+PIECE: RIME-PROJ-001 — Rime Adept shared projectile splash
+
+VERDICT: FAIL — the R3 targeted runtime acceptance gate did not qualify this slice.
+
+RUN
+
+Qualified Node v22.23.4 ran under a clean `env -i` with `--test --test-concurrency=1` over the nine authorized suites named in `argv.txt`. Direct exit was 1: 160 tests, 157 passed, 3 failed, 0 skipped; duration 238862.545542 ms. The default-eight baseline differential was not run after this failed gate.
+
+EVIDENCE:
+
+- #103, `pinned live source fields reject before setup exposure`, failed because it expected a Rime `entity.delivery` rejection but no exception occurred. The corresponding mutation assigns `entity.delivery = "projectile"`, while this Rime candidate is already projectile. This is a no-op witness for Rime and does not prove that a changed hostile Rime delivery receipt was accepted.
+- #132, `deterministic session continuation hashes stay stable`, retained the same Rime replay hash (`b7743ef309caefcac631e0b51881df9082ac38b3cf9fc027338612bddd7eef1a`), but the snapshot hash differed: expected `5aae149bd1940573874270866defe41433baa7217a9c27c6a7aca26721952d40`; actual `50a91aba0f5feb25c4d3220a0214efecabd8fe929ab46ff80b85942a9db0e25f`.
+- #147, `archived v2 snapshots reject before restore under current source-confidence policies`, failed its predicate for `2a-game-session-rime-adept-v2.snapshot`. It expected a `TypeError` with message `roster[0].entities[0] source confidence policy is missing or unexpected`; the raw TAP does not expose the actual exception, so this evidence does not distinguish no exception from a different exception.
+
+R3 source, test-input, manifest/diff, evidence, and Node-binary pre/post SHA-256 pins matched. PID 87634 was closed; exec session 14427 returned exit 1. No retry or source change followed. These preservation checks do not qualify the behavior.
+
+BIGGEST GAP:
+
+The archived Rime v2 restore contract is not demonstrated: the Rime rejection assertion fails, and the raw TAP does not expose the exception that caused the predicate to reject. Do not infer a source root cause from this run.
+
+DISPOSITION:
+
+Keep RIME-PROJ-001 at FAIL, with a Round 602 result of 157/160 and two recorded rounds. Preserve Round 601's FAIL. No default-eight baseline differential is claimed. Do not claim UI admission, slow behavior, spawn/deployment effect, a complete Rime role, or full roster acceptance. Keep unresolved projectile flight timing, chunk/restore, source-death and target-loss behavior as explicit QUESTIONs. Add no PASS.
+
+EVIDENCE FILES
+
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r3/runtime-targeted-acceptance/R3-VERDICT.md` (SHA-256 `158a755e6cd97b5389ce7204837ce296a23c87c281167faaaef990c6c8ee40ee`).
+- Raw TAP: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r3/runtime-targeted-acceptance/raw.tap` (SHA-256 `fdcaa57d6a8ff4a8bb193e37abe9ed07eab0dd8fca5a0fa1d3cca59c85153ead`).
+- Authorized command: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r3/runtime-targeted-acceptance/argv.txt` (SHA-256 `e377df12931842f90b2143d411d73a824b1c15ebeb1ace2425d5efd8956eadc5`).
+- Direct exit: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r3/runtime-targeted-acceptance/direct-exit.txt` (SHA-256 `4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865`).
+- Pre/post source pins: `pre-run-source-pins.sha256` and `post-run-source-pins.sha256` in the same evidence directory; both SHA-256 `1ae12bb48cd9c4cbdc928067f84a5f2c7c635f556f36f02723bcdde33853fb67`.
+- Pre/post evidence pins: `pre-run-evidence-pins.sha256` and `post-run-evidence-pins.sha256` in the same evidence directory; both SHA-256 `6b0e8902da96e00c06f8ae0f5cc98342d8aa4a093004fcf1bc0653ee7b764163`.
+- Pre/post Node-binary pins: `pre-run-node-binary.sha256` and `post-run-node-binary.sha256` in the same evidence directory; both SHA-256 `7ea65e1b1fa55ddf5c0861096cb059d8204a750804a0b714e5c769eb838760d8`.
+- Process closure: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r3/runtime-targeted-acceptance/process-closure.txt` (SHA-256 `91b7b91a90bccdfe750cf9a915af14f3f6076bc5c4c64ccc08f2437687bad29c`).
+
+## Round 603 — 2026-10-25
+
+PIECE: RIME-PROJ-001 — Rime Adept shared projectile splash
+
+VERDICT: PASS — scoped projectile slice, using explicit mixed test provenance and a separate default-eight differential.
+
+RUN
+
+This result combines independent persisted evidence; it is not one 160-test invocation. R3's seven suites left unchanged by R4 contributed 118 passing tests. R4's separate two-suite affected run passed 42/42 with direct exit 0. Together these give a scoped 160/160 aggregate for the current acceptance slice. R3's nine-suite 157/160 failure remains recorded as-is; this is not a claim that R4 passed all nine suites.
+
+EVIDENCE:
+
+- The pinned source establishes projectile identity and the scoped impact facts: level-11 damage 90, radius 1000 millitiles, enemy-only contacts, and both air and ground target layers. The unchanged R3 ordinary-projectile tests passed source receipt, target-loss/source-death continuation, impact oracle, shared-host splash, and GameSession restore witnesses (subtests #47–#50 and #56–#58). R4 leaves their production code and test file byte-identical.
+- R4 changed two affected test files and the fixture README. In its authorized two-suite run, status test #4 passes with mutations that actually change the canonical witness; status test #33 passes with the measured Rime snapshot hash and unchanged replay hash; and troop-runtime test #39 passes with the exact archived-v2 Rime rejection error. The complete affected run passed 42/42. It is recorded separately from R3's seven unaffected suites.
+- The independent R2 default-eight baseline-versus-R4 differential passed through tick 600. Setup bytes, public state, snapshots, replay bytes, command receipts, and returned event streams matched at ticks 0, 1, 60, 180, 300, and 600. At tick 300, baseline and candidate restore paths reproduced the exact snapshots and then continued identically through tick 600 using different step chunks (4 and 7); all four direct/restored paths matched.
+- The default-eight schedule accepted four south commands at ticks 0, 120, 240, and 360. The tick-360 Cinderlings play used slot 3. At tick 480, the witness recorded an explicit no-command decision because no current-hand card was affordable. All eligible choices were derived from public hand/elixir state and canonical costs and were equal across paths. Across both sides, eight paid deployments and 40 shared-session damage events totaling 8,316 damage were observed. Tick-600 snapshot SHA-256 was `2cf93f412bed2e94f433634a1bc77222a30f4e34b704b57eebb07742971e0621`; replay SHA-256 was `9138afa46464680bdaa3052c6ea31fba8173c2d5d5b67105917bd6925ed0e13e`.
+- The first default-eight differential R1 failure remains preserved: the prescribed slot-0 command at tick 360 was unaffordable on the canonical baseline before any baseline/candidate divergence. R2 changed the harness to select the first affordable public-hand slot; this is a test-control correction, not a product fix or a retry of the unchanged schedule.
+
+BIGGEST GAP:
+
+This pass is limited to source-backed projectile impact-splash mechanics and the bounded default-eight continuation differential. Rime's speed 700, runtime speed conversion, gravity, homing, historical target-loss behavior, body radius, and unit layer remain QUESTIONS. The complete Rime role and broader browser/card roster still require qualification.
+
+DISPOSITION:
+
+Mark RIME-PROJ-001 PASS for the bounded projectile slice at 160/160 with three recorded rounds and the mixed provenance stated above. Retain Round 601's and Round 602's FAIL records. Do not describe this as a nine-suite R4 pass. The R4 production candidate is not adopted and awaits broad core qualification. The standalone slow fixture is preserved, but no Rime slow arithmetic or stacking, deployment AoE, spawn behavior, UI/deck admission, full-card parity, count-24 coverage, full-role completeness, or 18,000-tick/browser path is claimed. The full goal remains active.
+
+EVIDENCE FILES
+
+- Overall critic formal: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/RIME-PROJ-VERDICT.md` (SHA-256 `bcdbaaead1ee2e6cc35a5efc3b4c846f3d2a0c5e796e97f3f702dd151d6455aa`).
+- R3 raw nine-suite TAP: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r3/runtime-targeted-acceptance/raw.tap` (SHA-256 `fdcaa57d6a8ff4a8bb193e37abe9ed07eab0dd8fca5a0fa1d3cca59c85153ead`).
+- R4 affected-suite verdict: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/runtime-affected-acceptance/R4-AFFECTED-VERDICT.md` (SHA-256 `14c184bdb224e9da7aaa9780faa5353f9ec0e05f25edb414dd12d8f07109e657`).
+- R4 affected-suite raw TAP: `runtime-affected-acceptance/raw.tap` in the same evidence tree (SHA-256 `6c11bf1f9c8760bf14e82eac67ba5bcf75d03803e37171f291aa2db8296ca5c7`).
+- R3/R4 source-closure record: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/ROOT-R3-R4-CLOSURE.json` (SHA-256 `a38260347a8b7679ab592773d9e093084e7eafe5fe37a6b170f78f751285b4aa`).
+- Default-eight R2 raw NDJSON and normalized stages have the same SHA-256 `42bdbd45d8b9f69ae6770e154a0196116628902d3c9a60dfe8ae546b77a52a41`; they are under `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/default8-differential-r2/`.
+- Default-eight R2 probe receipt: `default8-differential-r2/probe-receipt.md` in the same evidence tree (SHA-256 `37fcb6f59f7a521d4aa7778c33cde67619c0fa79097087642e69ea60b858f9c7`). Direct exit was 0 and process closure records PID 91231 is no longer running.
+- Preserved R1 default-eight differential failure formal: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/default8-differential/FORMAL-VERDICT.md` (SHA-256 `8c8c704b5c780f89c2b3d085c857a6d4f06a8bb957f2ecead0a17b0fe7682fec`).
