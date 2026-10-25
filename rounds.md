@@ -11388,3 +11388,41 @@ EVIDENCE FILES
 - Default-eight R2 raw NDJSON and normalized stages have the same SHA-256 `42bdbd45d8b9f69ae6770e154a0196116628902d3c9a60dfe8ae546b77a52a41`; they are under `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/default8-differential-r2/`.
 - Default-eight R2 probe receipt: `default8-differential-r2/probe-receipt.md` in the same evidence tree (SHA-256 `37fcb6f59f7a521d4aa7778c33cde67619c0fa79097087642e69ea60b858f9c7`). Direct exit was 0 and process closure records PID 91231 is no longer running.
 - Preserved R1 default-eight differential failure formal: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r4/default8-differential/FORMAL-VERDICT.md` (SHA-256 `8c8c704b5c780f89c2b3d085c857a6d4f06a8bb957f2ecead0a17b0fe7682fec`).
+
+## Round 604 — 2026-10-25
+
+PIECE: GAME-001HTJX — Extract existing shared combat factory
+
+VERDICT: FAIL — the full qualification invocation did not pass.
+
+RUN
+
+One full `npm test` invocation in the sealed execution mirror returned direct exit 1. Its raw output records two independent TAP failures and three existing skips. Treat this as 0/1 full invocations. The existing 8/11 value remains legacy partial criteria only; it is not the count or result of this full invocation.
+
+EVIDENCE:
+
+- `integration-audit` failed its reproduction digest assertion: expected `259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1`, actual `e7fab331570a3791fdfde509ebab736d6252e3d0146aed419a15ccf53453233e`. Root review attributes the expected digest to the prior seven-Rime-test state; the current digest includes those added tests. This is a stale test expectation, not evidence of a production-source mutation.
+- The app-shell test failed the Brackenwheel badge-order assertion at 720×1280. It expected `Count` before `Health`, `Damage`, and `Hit speed`; the observed order is `Health`, `Damage`, `Hit speed`, `Count`, `Range`, `Targets`, `Moves`, matching the approved APP-005 lead order. The existing test expectation is stale relative to that approved order.
+- Three pre-existing skips remained: the unresolved `GAME-001HC` shared-history case and the two accepted-parent parity checks gated by `ART004_PARENT_ROOT`.
+- Separate full 18,000-tick Node endurance evidence passed: 204 measured 300-tick segments and five tick-18,000 endpoints; maximum segment 5,290 ms against 30,000 ms, maximum snapshot 332,963 bytes against 1 MiB, and maximum paid-South deployment gap 900 ticks.
+- The separate browser endurance evidence completed all 3/3 checks and reached a natural tick-18,000 terminal result, South 2–1. It recorded zero driven, restore, and restart long tasks over the 50 ms cap; initialization was 151 ms against its separate 300 ms cap. Audio, input, and restart checks passed. These subchecks do not turn the failed full npm invocation into a PASS.
+- Post-run closure reports the candidate source unchanged and all 22 runtime/dependency pins matching. The 44-path output policy remains CHECK because four known release-001b test-generated JSON evidence writes were omitted from the allowlist. Root reviewed each regular file's pre/post SHA-256 and source writer; they were generated in the disposable execution mirror and do not represent a product-source mutation. The four paths are `artifacts/release-001b-round-2/evidence.json`, `escaped-css-producer-rejection.json`, `external-base-producer-rejection.json`, and `opaque-srcdoc-producer-rejection.json`.
+- All 86 observed external outputs remained under the designated output parent; the path audit records five directory-valued artifact variables whose writers emitted sibling-prefix filenames because they omit a separator. The dependency symlink was removed after process exit. APP-005's final browser polish and Pages were not run.
+
+BIGGEST GAP:
+
+The single full `npm test` invocation still fails two assertions, so the factory's full integration and shipping gate is not qualified. The independent Node/browser endurance passes are useful subchecks but do not satisfy that gate.
+
+DISPOSITION:
+
+Set GAME-001HTJX to FAIL with five recorded rounds. Keep `8/11` only as legacy partial criteria and state the current full invocation as 0/1 in the notes. Record no whole-piece PASS, no art-parity claim, and no release PASS. Two test-only expectation repairs have been proposed for the digest and badge-order assertions, but neither has been verified; add no Round 605. App-polish and Pages qualification remain pending. The broader goal remains active.
+
+EVIDENCE FILES
+
+- Full npm result: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r2-full-qualification-prep-r1/evidence/npm-test-144-r1/RESULT.json` (SHA-256 `c294dd3ba851d2fe9f8277a8ae9744d6c9c02360900c2b75d6ad12cd9dd0aa18`).
+- Complete full npm stdout/TAP and embedded Node endurance output: `evidence/npm-test-144-r1/stdout.raw` in the same preparation packet (SHA-256 `f8ac251f46db67cf59aa09a3569a45f702edf33c5bd9c767c18dbdc5d04169eb`).
+- Process receipt: `evidence/npm-test-144-r1/PROCESS.json` (SHA-256 `974fb5aeeb848bd5161e3cda888f56293022ee6497f0518e95e937f8b9a5a418`).
+- Full npm post-run closure: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r2-full-qualification-prep-r1/postrun/full-npm-postrun-closure-final.json` (SHA-256 `a0aaed411300b31d17e05511e4ad0f60790c6087ffdaa362e5312532f0be21d5`).
+- Browser endurance root summary: `BROWSER-ENDURANCE-ROOT-SUMMARY.json` in the same preparation packet (SHA-256 `e1fc4aebc8982cc8a94a38946ec08044d81ce1e5f3d4ec2de1b02db26e548703`); detailed result: `external-output/npm-test/browser-enduranceendurance-result.json` (SHA-256 `2652d425bb92d1792c703cfa0fc0c46152d391b75f0b31a76b23365a069e48b6`).
+- Runtime/dependency pin inventory: `source-runtime-pins.tsv` (SHA-256 `e3cb81e38db8ab60a2a606f0b67228007ff1b657a4fd63b45c48e0362a0b7a7b`); dependency cleanup receipt: `postrun/dependency-link-cleanup.json` (SHA-256 `b9e76fd8d12c6680dc98e6ba6cce284273f96aa3b598f0635c143b5e9fedb61e`).
+- Output allowlist: `fixed-output-allowlist.tsv` (44 paths; SHA-256 `994c66b62a30e96b519af70376915315e2c1c994ca0d940e52ca81db5f0c906d`); external-output inventory: `postrun/external-output-inventory.jsonl` (SHA-256 `8b073fe6ab28e5451f965a8150d8ec6f9ab25d06ef9a6b89f2ba22cb19bd03a3`); path audit: `postrun/external-output-path-audit.tsv` (SHA-256 `15010e03b35c446a12809288f6ddb4fb80e3848a0ffd45a4ad9025c3240bab96`).
