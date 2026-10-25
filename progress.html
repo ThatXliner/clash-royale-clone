@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">340</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">271</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">600</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">601</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
@@ -2168,10 +2168,10 @@
       <tr>
         <td><code>RIME-PROJ-001</code></td>
         <td>Rime Adept shared projectile splash</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Builder scope is approved and source-backed inputs are pinned; implementation and independent judgment are pending. This bounded splash slice does not complete Rime Adept; its full role, slow, and spawn/deployment effect remain incomplete.</td>
+        <td class="state-fail">FAIL</td>
+        <td>122/136</td>
+        <td>1</td>
+        <td>Round 601 FAIL: 122/136 passed and 14 failed; the shared status runtime rejects Rime's expanded entity shape in seven tests (#82, #86, #95, #100, #105, #108, #109). Other failures: missing staged `reference/stats/cards.json` import (#1), coupled QUESTION mutation (#80), target-death snapshot ownership (#26), impact-radius fixture geometry (#34), unsafe/missing launch HP (#35), unexpected 100 ms/6-tick deployment interval (#47), and serialization length 67,955 vs 68,162 (#74). Default-eight differential not run. Full role, slow, spawn/deployment, and UI remain incomplete.</td>
       </tr>
       <tr>
         <td><code>ART-019P</code></td>
@@ -3362,6 +3362,7 @@
       <li><strong>R598 FAIL — hypothesis rejected by the strict restore gate; no source or art cause established</strong> · APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — own-layer CSS hypothesis browser run<br>The hypothesis failed the exact restore gate at the first Copperskiff case. No rendering cause follows from this result.</li>
       <li><strong>R599 PASS — scoped card-info hierarchy acceptance. The raw browser harness exited 1 on four non-applicable Squall Orb Impact-delay font assertions; this record does not claim a browser-harness PASS.</strong> · APP-005 — Card-info hierarchy polish<br>Empty-state styling remains untested because the baseline has no empty cells. Before-and-after visual comparison beyond Coilblade remains unavailable.</li>
       <li><strong>R600 NOT QUALIFIED / FAIL — restore piece remains FAIL; diagnostic incomplete, with no paint-cause finding</strong> · APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Coilblade paint diagnostic R2<br>The exact second-continuation restore still differs, and the diagnostic did not capture paint-layer evidence. Move on from repeated paint-observability attempts while keeping the exact restore bar and the broader product goal intact.</li>
+      <li><strong>R601 FAIL — the targeted runtime acceptance gate did not qualify this slice. RUN The authorized targeted command used qualified Node v22.23.4 with `--test --test-concurrency=1` over these nine suites: `tests/combat-status-slow.test.js`, `tests/game-roster-admission.test.js`, `tests/game-roster-troop-profiles.test.js`, `tests/game-roster-troops-ordinary.test.js`, `tests/game-roster-troops-projectile-profiles.test.js`, `tests/game-roster-troops-status.test.js`, `tests/game-session.test.js`, `tests/game-troop-runtime.test.js`, and `tests/nondeterminism-guard.test.js`. Direct exit was 1: 136 tests, 122 passed, 14 failed. The default-eight differential was not run after this failed gate.</strong> · RIME-PROJ-001 — Rime Adept shared projectile splash<br>The shared status runtime rejects Rime's expanded entity shape, preventing seven status/source-roster witnesses from reaching their intended LiveBattle and GameSession assertions. The separate pending-target-death snapshot witness also fails; flight and target-loss policy remains unresolved. DISPOSITION Keep RIME-PROJ-001 at FAIL with a truthful 122/136 rate and one recorded round. Do not claim a default-eight differential, complete Rime role, slow behavior, spawn/deployment effect, UI admission, or full roster acceptance. Keep unresolved projectile flight timing, chunk/restore, source-death, and target-loss facts explicit QUESTIONs. Do not record a PASS for this round. FILES - Formal verdict: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/R1-VERDICT.md` (SHA-256 `fb13404c71f9c010c1b99056a35ed8d29b76ff5a4188363b02032849fd6b9d47`). - Raw TAP: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/raw.tap` (SHA-256 `69131838af39ec494a198bb6bb571ed8fbb73946e29e427084ce0bbdfe7ece99`). - Command specification: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/argv.txt` (SHA-256 `e377df12931842f90b2143d411d73a824b1c15ebeb1ace2425d5efd8956eadc5`). - Post-run source pins: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/postpins.sha256` (SHA-256 `341ff1afa592c78af34d45b2fcdb1ac45dcfdbc240c56fae77a1ed6b4b25450f`).</li>
   </ol>
 </body>
 </html>

@@ -11272,3 +11272,45 @@ FILES:
 - Process receipt: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/PROCESS.json` (333 bytes; SHA-256 `581c9eb5c39357db31bbabe3b32e5f6f14b192b25f0941fad7b5fcdd0ddd0e34`).
 - Post-run pins and closure record: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/POST-RUN-PINS.json` (17,522 bytes; SHA-256 `c7d7b0471012dd943b88d4be85523a4cbed8b48a18fe90367357164638458dfd`).
 - Artifact inventory: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r2/UNIT-TEST-PAINT-DIAGNOSTIC-R2/browser24/evidence/ARTIFACT-INVENTORY.json` (15,523 bytes; SHA-256 `a2e24f48b4b9884f8afda553b38e2bc304345d0031e08519d6a7b33b8d885696`).
+
+## Round 601 — 2026-10-24
+
+PIECE: RIME-PROJ-001 — Rime Adept shared projectile splash
+
+VERDICT: FAIL — the targeted runtime acceptance gate did not qualify this slice.
+
+RUN
+
+The authorized targeted command used qualified Node v22.23.4 with `--test --test-concurrency=1` over these nine suites: `tests/combat-status-slow.test.js`, `tests/game-roster-admission.test.js`, `tests/game-roster-troop-profiles.test.js`, `tests/game-roster-troops-ordinary.test.js`, `tests/game-roster-troops-projectile-profiles.test.js`, `tests/game-roster-troops-status.test.js`, `tests/game-session.test.js`, `tests/game-troop-runtime.test.js`, and `tests/nondeterminism-guard.test.js`. Direct exit was 1: 136 tests, 122 passed, 14 failed. The default-eight differential was not run after this failed gate.
+
+EVIDENCE: Exact failed cases
+
+- Suite import: `tests/combat-status-slow.test.js` could not load because the frozen staging tree lacks `reference/stats/cards.json`.
+- #26, pending target loss: the assertion that the pending homing projectile remains snapshot-owned after target death failed.
+- #34, shared-host impact geometry: the fixture assertion that Coilblade is geometrically inside the actual impact radius failed.
+- #35, GameSession launch/restore: `targetHitpointsAtLaunch` was not a safe integer.
+- #47, shared LiveBattle expansion: Rime returned a `deploymentInterval` of 100 ms / 6 ticks where the existing assertion expected `undefined`.
+- #74, canonical projectile profile serialization: actual length was 67,955 versus expected 68,162 after the authority receipt changes.
+- #80, coupled QUESTION mutation: `Cannot set properties of undefined (setting 'value')`.
+- #82, #86, #95, #100, #105, #108, and #109: the shared status runtime rejected `rime-adept.entities[0]` as an invalid shape at `session-troop-status-runtime.js:439`. This blocked valid status projection, target-rejection, deterministic continuation, and restore-cut witnesses.
+
+The primary source-policy/witness gap is the shared status runtime's rejection of the Rime entity shape before the affected LiveBattle/GameSession witnesses can exercise their intended behavior. The pending-target-death snapshot assertion is an additional unresolved flight-policy witness. The missing reference-stat fixture, coupled mutation, geometry precondition, launch HP, deployment interval, and serialized-length mismatches are recorded as observed; this run does not establish a broader cause for them. The separate `diagnostic-r1-ambiguous` result explains three setup failures only; it is not acceptance evidence and does not waive or reclassify any R1 failure.
+
+SOURCE AND CLOSURE
+
+All 10 staged source SHA-256 pins matched the frozen receipt. The recorded source diff SHA-256 remained `3aa54a9aeb4a9e9d7e9260cc389cf38f860512302d63c01550fa109451c6fcb4`. Node PID 81000 was closed and the original exec session returned exit 1. No retry followed. These preservation checks do not qualify the behavior.
+
+BIGGEST GAP:
+
+The shared status runtime rejects Rime's expanded entity shape, preventing seven status/source-roster witnesses from reaching their intended LiveBattle and GameSession assertions. The separate pending-target-death snapshot witness also fails; flight and target-loss policy remains unresolved.
+
+DISPOSITION
+
+Keep RIME-PROJ-001 at FAIL with a truthful 122/136 rate and one recorded round. Do not claim a default-eight differential, complete Rime role, slow behavior, spawn/deployment effect, UI admission, or full roster acceptance. Keep unresolved projectile flight timing, chunk/restore, source-death, and target-loss facts explicit QUESTIONs. Do not record a PASS for this round.
+
+FILES
+
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/R1-VERDICT.md` (SHA-256 `fb13404c71f9c010c1b99056a35ed8d29b76ff5a4188363b02032849fd6b9d47`).
+- Raw TAP: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/raw.tap` (SHA-256 `69131838af39ec494a198bb6bb571ed8fbb73946e29e427084ce0bbdfe7ece99`).
+- Command specification: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/argv.txt` (SHA-256 `e377df12931842f90b2143d411d73a824b1c15ebeb1ace2425d5efd8956eadc5`).
+- Post-run source pins: `/Users/me/.codex/clash-qualification/20261025-rime-projectile-evidence-r1/runtime-targeted-acceptance/postpins.sha256` (SHA-256 `341ff1afa592c78af34d45b2fcdb1ac45dcfdbc240c56fae77a1ed6b4b25450f`).
