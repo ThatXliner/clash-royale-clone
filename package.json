@@ -122,6 +122,7 @@
     "test:app-shell": "node tests/app-shell-runner.js app-shell",
     "test:app-polish": "node tests/app-polish-runner.js app-polish",
     "test:battle-hand-polish": "node tests/battle-hand-polish-runner.js battle-hand-polish",
+    "test:hud-card-painter": "node scripts/test-portable.js -- node tests/content-schema-runner.js hud-card-painter",
     "test:ui-hud-state": "node tests/ui-hud-state-runner.js ui-hud-state",
     "test:ui-input": "node tests/ui-input-runner.js ui-input",
     "test:ui-placement-feedback": "node tests/ui-placement-feedback-runner.js ui-placement-feedback",

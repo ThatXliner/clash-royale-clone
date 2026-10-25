@@ -1044,13 +1044,57 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "scaled pointer coordinates preserve the legal south-side placement");
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForTimeout(100);
-    const smallFrameBox = await page.locator("[data-battle-frame-slot] iframe").boundingBox();
+    const smallFrameGeometry = await page.evaluate(() => {
+      const slot = document.querySelector("[data-battle-frame-slot]");
+      const iframe = slot?.querySelector("iframe");
+      if (!slot || !iframe) return null;
+      const box = (element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          left: rect.left,
+          right: rect.right,
+          top: rect.top,
+          bottom: rect.bottom,
+          width: rect.width,
+          height: rect.height,
+        };
+      };
+      const slotBox = box(slot);
+      const style = getComputedStyle(slot);
+      const pixels = (name) => Number.parseFloat(style.getPropertyValue(name)) || 0;
+      const borderLeft = pixels("border-left-width");
+      const borderRight = pixels("border-right-width");
+      const borderTop = pixels("border-top-width");
+      const borderBottom = pixels("border-bottom-width");
+      const paddingLeft = pixels("padding-left");
+      const paddingRight = pixels("padding-right");
+      const paddingTop = pixels("padding-top");
+      const paddingBottom = pixels("padding-bottom");
+      return {
+        viewport: { width: innerWidth, height: innerHeight },
+        slot: slotBox,
+        contentBox: {
+          left: slotBox.left + borderLeft + paddingLeft,
+          right: slotBox.right - borderRight - paddingRight,
+          top: slotBox.top + borderTop + paddingTop,
+          bottom: slotBox.bottom - borderBottom - paddingBottom,
+        },
+        frame: box(iframe),
+      };
+    });
+    const smallFrameBox = smallFrameGeometry?.frame ?? null;
     const smallLayout = await cardFrameLayout(child);
     assert.deepEqual([smallLayout.viewport.width, smallLayout.viewport.height], [720, 1280],
       "small phones retain the source arena coordinate space");
-    assert.ok(smallFrameBox && smallFrameBox.width > 0 && smallFrameBox.height > 0 &&
-      smallFrameBox.width <= 390 && smallFrameBox.height <= 660,
-    `the full arena scales to the 390x844 available area: ${JSON.stringify(smallFrameBox)}`);
+    const { viewport, contentBox, frame: iframeBox } = smallFrameGeometry ?? {};
+    assert.ok(viewport?.width === 390 && viewport?.height === 844 &&
+      contentBox?.right > contentBox?.left && contentBox?.bottom > contentBox?.top &&
+      iframeBox?.width > 0 && iframeBox?.height > 0 &&
+      iframeBox.left >= contentBox.left && iframeBox.right <= contentBox.right &&
+      iframeBox.top >= contentBox.top && iframeBox.bottom <= contentBox.bottom &&
+      iframeBox.left >= 0 && iframeBox.top >= 0 && iframeBox.right <= viewport.width &&
+      iframeBox.bottom <= viewport.height,
+    `the full arena stays inside the measured 390x844 slot content box and viewport: ${JSON.stringify(smallFrameGeometry)}`);
     const smallControlBoxes = [...smallLayout.cardSlots, ...smallLayout.hand,
       ...smallLayout.next, ...smallLayout.elixir, ...smallLayout.timer,
       ...smallLayout.arena];

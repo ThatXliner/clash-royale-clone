@@ -116,7 +116,8 @@ function cleanupGraph(graph, preserveProjection = false) {
  * explicit simulation ticks to request; they never enter simulation state.
  */
 export function mountGameBrowserLoop(options) {
-  const checked = exact(options, ["createInput", "layers", "root", "scheduler", "session"],
+  const checked = exact(options, ["createInput", "layers", "root", "scheduler", "session",
+    ...(options && Object.hasOwn(options, "hudPainterFactory") ? ["hudPainterFactory"] : [])],
     "game browser options");
   assertGameBrowserRootAvailable(checked.root);
   if (!isAuthenticGameSession(checked.session)) {
@@ -254,7 +255,8 @@ export function mountGameBrowserLoop(options) {
       bridge = bridgeBytes === null
         ? new GameInputBridge(input, candidateSession)
         : GameInputBridge.restore(bridgeBytes, input, candidateSession);
-      projection = retainedProjection ?? mountGameUiProjection(layers);
+      projection = retainedProjection ?? mountGameUiProjection(layers,
+        checked.hudPainterFactory ?? null);
       const candidate = { bridge, input, projection };
       graph = candidate;
       selectedCardId = typeof input.selectedCardId === "string"

@@ -112,6 +112,7 @@ for (const selector of selectors) {
       "ui-arena-shell",
       "app-shell",
       "battle-hand-polish",
+      "hud-card-painter",
       "ui-hud-state",
       "ui-input",
       "ui-placement-feedback",
@@ -650,6 +651,12 @@ if (selectors.length === 0 || selectors.includes("battle-hand-polish")) {
   run([
     new URL("./battle-hand-polish-runner.js", import.meta.url).pathname,
     "battle-hand-polish",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("hud-card-painter")) {
+  run([
+    new URL("./hud-card-painter-runner.js", import.meta.url).pathname,
+    "hud-card-painter",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("ui-hud-state")) {

@@ -6,6 +6,7 @@
     <meta name="color-scheme" content="dark">
     <title>Original Card Battler — Arena Shell</title>
     <link rel="stylesheet" href="../src/ui/arena-shell.css">
+    <link rel="stylesheet" href="../src/ui/battle-type.css">
     <style id="arena-production-art">
       .arena {
         background-color: #e3cd9e;
@@ -777,30 +778,53 @@
       }
     </style>
     <style id="app-frame-hand-polish">
+      .hud-card__portrait {
+        display: none;
+      }
+
       body[data-app-frame="true"] .match-rail--bottom {
-        top: 1070px;
-        height: 38px;
+        display: none;
       }
 
       body[data-app-frame="true"] .hand-tray {
-        border-width: 2px;
-        top: 1114px;
-        left: 50%;
-        translate: -50% 0;
-        width: 612px;
-        height: 140px;
-        grid-template-columns: repeat(5, 112px);
-        gap: 8px;
-        align-items: stretch;
-        padding: 4px 8px;
+        top: 1073px;
+        left: 2px;
+        translate: none;
+        width: 716px;
+        height: 205px;
+        padding: 0 2px;
+        border-width: 3px;
+        border-top-color: #46a8bc;
+        grid-template-columns: repeat(5, 136px);
+        grid-template-rows: 162px;
+        column-gap: 6px;
+        align-items: start;
+      }
+
+      body[data-app-frame="true"] .hand-tray::before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        left: 140px;
+        top: 8px;
+        width: 2px;
+        height: 18px;
+        background: #191d22;
       }
 
       body[data-app-frame="true"] .next-card,
       body[data-app-frame="true"] .card-slot {
         position: relative;
-        width: 112px;
-        height: 128px;
+        width: 136px;
+        height: 162px;
         overflow: visible;
+      }
+
+      body[data-app-frame="true"] .next-card {
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        opacity: 1;
       }
 
       body[data-app-frame="true"] .card-slot {
@@ -810,23 +834,46 @@
         cursor: pointer;
       }
 
-      body[data-app-frame="true"] [data-ui="hud-next"],
-      body[data-app-frame="true"] [data-ui="hud-hand"] {
-        top: 1120px;
-        height: 128px;
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"],
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] {
+        position: absolute;
+        top: 1076px;
+        height: 162px;
         align-items: stretch;
       }
 
-      body[data-app-frame="true"] [data-ui="hud-next"] {
-        left: 64px;
-        width: 112px;
+      body[data-app-frame="true"] .game-ui-hud-frame > .game-ui-hud-painter {
+        position: absolute;
+        z-index: 2;
+        left: 2px;
+        top: 1071px;
+        display: block;
+        width: 714px;
+        height: 172px;
+        pointer-events: none;
       }
 
-      body[data-app-frame="true"] [data-ui="hud-hand"] {
-        left: 184px;
-        width: 472px;
-        grid-template-columns: repeat(4, 112px);
-        gap: 8px;
+      /* The semantic card tree keeps its size, text and decoded portraits for
+         assistive and existing browser consumers. Canvas owns visible card art. */
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card,
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card {
+        opacity: 0 !important;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"]::after {
+        opacity: 0;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] {
+        left: 7px;
+        width: 136px;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] {
+        left: 149px;
+        width: 562px;
+        grid-template-columns: repeat(4, 136px);
+        column-gap: 6px;
       }
 
       body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"],
@@ -834,122 +881,243 @@
         transform: none !important;
       }
 
-      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card,
-      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card {
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card,
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card {
         position: relative;
         inset: auto;
-        width: 112px;
-        height: 128px;
-        padding: 0;
-        font-size: 25px;
-      }
-
-      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card::before,
-      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card::before {
-        width: 72px;
-        height: 56px;
-        top: 8px;
-      }
-
-      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card::before,
-      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card::after,
-      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card::before,
-      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card::after {
-        transform: translateZ(0);
-      }
-
-      body[data-app-frame="true"] .hud-card__name {
+        width: 136px;
+        height: 162px;
+        min-width: 0;
         display: block;
-        left: 1px;
-        right: 1px;
-        bottom: 3px;
-        padding: 3px 1px 4px;
-        font-size: 24px;
+        overflow: hidden;
+        padding: 0;
+        border: 3px solid #191d22;
+        border-radius: 10px;
+        color: #191d22;
+        background: #18232c;
+        box-shadow: none;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card[data-portrait] {
+        filter: none;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card[data-portrait]::before,
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card[data-portrait]::after {
+        content: none;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card__portrait {
+        position: absolute;
+        z-index: 0;
+        left: 0;
+        top: 0;
+        display: block;
+        width: 130px;
+        height: 104px;
+        overflow: hidden;
+        border-bottom: 1px solid #191d22;
+        border-radius: 7px 7px 0 0;
+        background: #18232c;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card__portrait-cell {
+        position: absolute;
+        left: 0;
+        top: -8px;
+        width: 100%;
+        aspect-ratio: 1;
+        overflow: hidden;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card__portrait-image {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card__portrait-image[data-portrait-cell] {
+        width: 400%;
+        height: auto;
+        object-fit: fill;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="1"] { left: -100%; }
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="2"] { left: -200%; }
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="3"] { left: -300%; }
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="4"] { top: -100%; }
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="5"] { left: -100%; top: -100%; }
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="6"] { left: -200%; top: -100%; }
+      body[data-app-frame="true"] .game-ui-hud-frame [data-portrait-cell="7"] { left: -300%; top: -100%; }
+
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card__name {
+        position: absolute;
+        inset: 105px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0 3px;
+        border-radius: 0 0 7px 7px;
+        background: #f4ebd6;
+        box-shadow: none;
+        color: #191d22;
+        font-size: 22px;
+        font-weight: 700;
         line-height: 1;
         letter-spacing: 0;
-        overflow-wrap: anywhere;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: manual;
         text-wrap: balance;
       }
 
-      body[data-app-frame="true"] .hud-card__cost {
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card__cost {
         top: 5px;
         left: 5px;
-        width: 42px;
-        height: 42px;
+        z-index: 2;
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        padding: 0;
         border-width: 3px;
         font-size: 30px;
         line-height: 1;
       }
 
-      body[data-app-frame="true"] .hud-card[data-card-id="stonehauler"] {
-        background: linear-gradient(145deg, #899085, #43534a 72%);
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__portrait {
+        top: 20px;
+        height: 84px;
+        border: 0;
+        border-radius: 0;
       }
 
-      body[data-app-frame="true"] .hud-card[data-card-id="stonehauler"]::before {
-        top: 6px;
-        width: 76px;
-        height: 54px;
-        background:
-          radial-gradient(circle at 57% 44%, #dcede9 0 3px, transparent 4px),
-          radial-gradient(circle at 43% 44%, #dcede9 0 3px, transparent 4px),
-          linear-gradient(145deg, #d4b983 0 22%, #a9a386 22% 43%, #68736b 44% 72%, #46564d 73%);
-        clip-path: polygon(49% 0, 75% 10%, 99% 34%, 89% 55%, 96% 78%, 67% 94%,
-          47% 100%, 27% 91%, 3% 73%, 13% 51%, 0 34%, 25% 12%);
-        filter: drop-shadow(2px 3px 0 #191d2155);
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__portrait-cell {
+        top: -8px;
       }
 
-      body[data-app-frame="true"] .hud-card[data-card-id="stonehauler"]::after {
-        content: "";
-        position: absolute;
-        z-index: 1;
-        left: 50%;
-        top: 43px;
-        width: 38px;
-        height: 8px;
-        translate: -50%;
-        border: 2px solid #3b443d;
-        border-radius: 8px 8px 4px 4px;
-        background: linear-gradient(90deg, #69756c, #b6aa89 50%, #69756c);
-        box-shadow: 0 2px 0 #191d2188;
-      }
-
-      body[data-app-frame="true"] [data-ui="hud-next"]::after {
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"]::after {
         content: "NEXT";
         position: absolute;
         z-index: 2;
-        top: 7px;
-        right: 6px;
-        min-width: 54px;
-        padding: 4px 3px;
-        border: 2px solid #191d22;
-        border-radius: 7px;
-        background: #f4ebd6;
-        box-shadow: 0 2px 0 #191d2266;
-        color: #191d22;
-        font-size: 24px;
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        height: 20px;
+        padding: 0;
+        border: 0;
+        border-radius: 7px 7px 0 0;
+        background: #191d22;
+        color: #f4ebd6;
+        font-size: 16px;
         font-weight: 900;
-        line-height: 1;
+        line-height: 20px;
+        letter-spacing: .12em;
         text-align: center;
       }
 
-      body[data-app-frame="true"] .elixir-rail {
-        top: 1258px;
-        left: 64px;
-        width: 592px;
-        height: 22px;
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card[data-portrait] {
+        border-color: #191d22;
+        box-shadow: inset 0 0 0 1px #b8672e;
       }
 
-      /* Fractional regeneration shares the rail track: the rail box inset by its 3px border. */
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__portrait-image {
+        filter: saturate(.85) brightness(.92);
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__cost {
+        top: 25px;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"]:not([data-phase="ended"]) .hud-card[data-selected="true"] {
+        z-index: 2;
+        border-color: #e9a83a;
+        box-shadow: 0 0 0 3px #e9a83a, 0 0 0 5px #191d22;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"]:not([data-phase="ended"]) .hud-card[data-selected="true"] .hud-card__name {
+        background: #e9a83a;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"]:not([data-phase="ended"]) .hud-card[data-insufficient="true"] {
+        border-style: dashed;
+        border-color: #8b8578;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"]:not([data-phase="ended"]) .hud-card[data-insufficient="true"] .hud-card__portrait-image {
+        filter: grayscale(.6) brightness(.55);
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"]:not([data-phase="ended"]) .hud-card[data-insufficient="true"] .hud-card__cost {
+        filter: none;
+        border-color: #b455c4;
+        color: #f2a9ed;
+        background: #191d22;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"][data-phase="ended"] .hud-card[data-kind="hand"] {
+        border-style: solid;
+        border-color: #5d6468;
+        box-shadow: none;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"][data-phase="ended"] .hud-card[data-kind="hand"] .hud-card__portrait-image {
+        filter: grayscale(1) brightness(.6);
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"][data-phase="ended"] .hud-card[data-kind="hand"] .hud-card__cost {
+        filter: none;
+        border-color: #191d22;
+        color: #f4ebd6;
+        background: #5d6468;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-projection"][data-phase="ended"] .hud-card[data-kind="hand"] .hud-card__name {
+        background: #8b8578;
+        color: #f4ebd6;
+      }
+
+      body[data-app-frame="true"] .elixir-rail output {
+        display: none;
+      }
+
+      body[data-app-frame="true"] .elixir-rail {
+        top: 1247px;
+        left: 65px;
+        width: 648px;
+        height: 24px;
+      }
+
       body[data-app-frame="true"] .hud-resource-progress {
-        top: 1261px;
-        left: 67px;
-        width: 586px;
-        height: 16px;
+        top: 1250px;
+        left: 68px;
+        width: 642px;
+        height: 18px;
       }
 
       body[data-app-frame="true"] [data-ui="hud-elixir"] {
-        top: 1224px;
-        left: 660px;
+        top: 1244px;
+        left: 7px;
+        width: 52px;
+        min-width: 52px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        padding: 0 7px;
+        font-size: 24px;
+        line-height: 1;
       }
     </style>
   </head>

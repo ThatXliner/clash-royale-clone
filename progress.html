@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-10-20 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-25 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">340</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">273</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">605</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">341</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">274</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">611</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Skymaul sprites and battle-hand polish are live at commit <strong>8df80a44</strong> after independent browser, packaging and full 18,000-tick default-deck checks. Pages run 40019531871 succeeded, and public game files match the verified build. The earlier failed rounds remain recorded. Full 3D attack sequences, remaining redesign work and historical parity are still incomplete.</p>
+  <p class="note">R611 qualifies the public app-frame painter handoff only. The whole-HUD bar remains FAIL at the legacy visual-interface-art 8/9 exact336 baseline; the broader 109-card roster remains unfinished. Deployment is verified separately.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -2649,9 +2649,17 @@
         <td><code>APP-REDESIGN-HUD-001</code></td>
         <td>Battle painted portraits and phone readability</td>
         <td class="state-fail">FAIL</td>
-        <td>8/9</td>
+        <td>Whole-bar FAIL: legacy visual-interface-art remains 8/9 against the exact336 matched-control baseline; R608 0/1 was the old DOM-candidate restore suite, not the current public painter restore score. Round611 public painter PASS is separate and does not pass whole HUD.</td>
+        <td>6</td>
+        <td>Round 608 FAIL: this was the third same DOM-card exact-restore failure across R606–R608. Independent original Copperskiff suite: first 3 phone cases exact, then 119 pixels/264 channels at 390×844 reduced vertical (x=83–381, y=647–723). Builder: first 4 phone cases exact, then 335 pixels/670 channels at 1440×933 normal horizontal (x=522–600, y=787–871). All restore/future byte flags true; remaining cases unrun. R9 changed only CSS (`transform:none`, opacity guard on legacy child `.hud-card`); GameSession does not bind those legacy copies, so no visible-copy removal was claimed. Stop that CSS loop; no fourth CSS guess or tolerance change. Canvas-paint-seam work was Phase A architecture grounding only, not implemented or passed. Historical R549 8/9 and R606 Phase 4 3/4 are not current proof. At R608, visual-interface-art and downstream gates had not run; the public 336 source was the candidate base. R611 update: APP-REDESIGN-HUD-PAINT-001 passes as a separate scoped public app-frame piece; the whole-HUD bar remains FAIL because standalone legacy visual-interface-art is still 8/9 against its exact336 baseline. R608 0/1 applies only to the old DOM candidate; it is not the current public painter restore score. R606–R608 DOM-only candidates remain historical and unadopted. R611 qualifies the scoped painter; deployment is verified separately. The broader 109-card roster remains unfinished. Round count 6 carries prior 5 plus R608.</td>
+      </tr>
+      <tr>
+        <td><code>APP-REDESIGN-HUD-PAINT-001</code></td>
+        <td>Deterministic public app-frame painted hand</td>
+        <td class="state-pass">PASS</td>
+        <td>Scoped public app-frame handoff PASS: 27 invocations, 233 TAP tests (231 pass, 1 skip, 1 known legacy visual-interface-art baseline failure); default full npm not run.</td>
         <td>3</td>
-        <td>Round549 freshcritic: all8 exact0PNG/future/restart and23x4/app/release/isolation/Pages pass. Focused visual-interface8/9; insufficient image differs15pixels across4freshChromecontexts (outer/lowerHUDrails). Priorportraitgapfixed; nextscope diagnose railpaint ownership without tolerance/testchanges.</td>
+        <td>Round 611 PASS for the public app-frame handoff piece only. Painter gate 2/2 covered 115 targets at each of four viewports; four fresh contexts per viewport reproduced Canvas RGBA and iframe PNG bytes for initial, selected, insufficient-elixir, and ended states. Phone iframe 382.5×680 fits the measured 390×725 slot and 390×844 viewport; arena remains 720×1280. R3 product source is identical to R2; only the app-shell test assertion changed to check measured slot/viewport containment, without a wait, mask, or weakened UI threshold. Original Copperskiff passed 1/1 across eight scenarios; motion checks 6, font provenance 1/1, Pages 5/5, release-build 25/25, RELEASE-001B 7/7 and guards 18/18, shipping isolation 13/13 and release 4/4, progress renderer 5/5. Pages subpath build passed browser qualification and produced 79 site files / 69 release-manifest files (6,614,925 bytes). The one strict failure is standalone visual-interface-art 8/9: source SHA is unchanged, current and exact336 baseline runs share the same two-hash insufficient-elixir capture set, and all other state images match byte-for-byte. This remains a whole-HUD gap, not a public painter restore failure. R2 reused only 17 previously passing alias blocks (123 pass, one skip) plus a separate minimized regression 1/1 with byte-verified dependency; these are version-scoped reuse, not fresh R3 tests. Default full `npm test` was not run. Scope is only the public app-frame handoff, not full HUD or 109-card parity. R611 qualifies this scoped painter piece; deployment is verified separately.</td>
       </tr>
       <tr>
         <td><code>APP-REDESIGN-MOSSCOIL-001</code></td>
@@ -3367,6 +3375,12 @@
       <li><strong>R603 PASS — scoped projectile slice, using explicit mixed test provenance and a separate default-eight differential. RUN This result combines independent persisted evidence; it is not one 160-test invocation. R3's seven suites left unchanged by R4 contributed 118 passing tests. R4's separate two-suite affected run passed 42/42 with direct exit 0. Together these give a scoped 160/160 aggregate for the current acceptance slice. R3's nine-suite 157/160 failure remains recorded as-is; this is not a claim that R4 passed all nine suites.</strong> · RIME-PROJ-001 — Rime Adept shared projectile splash<br>This pass is limited to source-backed projectile impact-splash mechanics and the bounded default-eight continuation differential. Rime's speed 700, runtime speed conversion, gravity, homing, historical target-loss behavior, body radius, and unit layer remain QUESTIONS. The complete Rime role and broader browser/card roster still require qualification.</li>
       <li><strong>R604 FAIL — the full qualification invocation did not pass. RUN One full `npm test` invocation in the sealed execution mirror returned direct exit 1. Its raw output records two independent TAP failures and three existing skips. Treat this as 0/1 full invocations. The existing 8/11 value remains legacy partial criteria only; it is not the count or result of this full invocation.</strong> · GAME-001HTJX — Extract existing shared combat factory<br>The single full `npm test` invocation still fails two assertions, so the factory's full integration and shipping gate is not qualified. The independent Node/browser endurance passes are useful subchecks but do not satisfy that gate.</li>
       <li><strong>R605 PASS — the sealed R3 candidate meets the scoped factory qualification bar. This tracking result does not adopt a product commit or establish a release.</strong> · GAME-001HTJX — Extract existing shared combat factory<br>The final exact-commit release build, adoption, and public deployment have not been performed; the broader 109-mechanics goal, visual art parity, and shipping parity remain incomplete.</li>
+      <li><strong>R606 FAIL — full HUD acceptance does not pass; Phase 4 focused gates passed 3/4</strong> · APP-REDESIGN-HUD-001 — Battle painted portraits and phone readability<br>At 390×844 normal-motion vertical checkpoint restore, 119 outer card-edge pixels differ, including 117 on Brassbolt, violating the exact zero-pixel requirement.</li>
+      <li><strong>R607 FAIL — the independent unchanged Copperskiff restore suite fails; no whole-piece PASS</strong> · APP-REDESIGN-HUD-001 — R8 whole-pixel / scale-grid origin correction<br>Exact checkpoint restore still differs in the unchanged Copperskiff gate, with the builder and independent critic failing different contexts despite the requested integer-grid origins.</li>
+      <li><strong>R608 FAIL — independent original Copperskiff strict-restore suite 0/1</strong> · APP-REDESIGN-HUD-001 — R9 flat hit-target / legacy-card CSS change<br>The unchanged exact restore gate still fails for this DOM-card presentation, with the independent run failing on phone and the builder run failing on desktop.</li>
+      <li><strong>R609 FAIL — focused painter checks pass, but the browser-loop projection-identity contract fails; full `npm test` is incomplete</strong> · APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand<br>After `stepMany(0)`, the combat projection's child-array/reference topology differs from the captured pre-step state; the later explicit child-identity assertion is not reached.</li>
+      <li><strong>R610 FAIL — the minimized zero-step check passes, but the selected UI integration group fails an unchanged app-shell layout contract</strong> · APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand<br>At 390×844, the measured battle frame is 680 px high against the unchanged app-shell test's 660 px maximum.</li>
+      <li><strong>R611 PASS — scoped to the public app-frame handoff; not a whole-HUD or full 109-piece qualification</strong> · APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand<br>Make the unchanged standalone `insufficient-elixir.png` capture byte-identical across four fresh Chrome contexts; its current two-hash result matches the exact336 baseline set.</li>
   </ol>
 </body>
 </html>

@@ -757,10 +757,30 @@ function layoutBattleFrame() {
   const borderBottom = Number.parseFloat(slotStyle.borderBottomWidth) || 0;
   const width = bounds.width - borderLeft - borderRight;
   const height = bounds.height - borderTop - borderBottom;
-  const scale = Math.min(width / 720, height / 1_280);
-  if (!Number.isFinite(scale) || scale <= 0) return;
-  battleFrame.style.left = `${(width - 720 * scale) / 2}px`;
-  battleFrame.style.top = `${(height - 1_280 * scale) / 2}px`;
+  const fit = Math.min(width / 720, height / 1_280, 8);
+  if (!Number.isFinite(fit) || fit <= 0) return;
+
+  let scaleUnits = Math.floor(fit * 64);
+  while (scaleUnits > 0) {
+    const reciprocal = Math.fround(64 / scaleUnits);
+    const relativeError = Math.abs(reciprocal * scaleUnits - 64) / 64;
+    if (relativeError <= 2 ** -25) break;
+    scaleUnits -= 1;
+  }
+  if (scaleUnits === 0) return;
+  const scale = scaleUnits / 64;
+  const contentLeft = bounds.left + borderLeft;
+  const contentTop = bounds.top + borderTop;
+  const pageOffset = (origin, available, frameSize) => {
+    const maximum = origin + available - frameSize * scale;
+    const nearest = Math.round((origin + (available - frameSize * scale) / 2) / scale) * scale;
+    const firstInside = Math.ceil(origin / scale) * scale;
+    const lastInside = Math.floor(maximum / scale) * scale;
+    return Math.max(firstInside, Math.min(lastInside, nearest)) - origin;
+  };
+
+  battleFrame.style.left = `${pageOffset(contentLeft, width, 720)}px`;
+  battleFrame.style.top = `${pageOffset(contentTop, height, 1_280)}px`;
   battleFrame.style.transform = `scale(${scale})`;
   battleFrameScale = scale;
   postBattleState(currentView === "battle");

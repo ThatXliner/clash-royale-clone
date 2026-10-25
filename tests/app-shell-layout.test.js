@@ -117,24 +117,32 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
       height: slotBounds.height - borderTop - borderBottom,
     };
     const expectedSlotWidth = expectPhone ? 390 : 1_296;
-    const expectedSlotHeight = expectPhone ? 659 : 761.125;
+    const expectedSlotHeight = expectPhone ? 725 : 761.125;
     const slotSettled = Math.abs(slotBounds.width - expectedSlotWidth) <= layoutUnit &&
       Math.abs(slotBounds.height - expectedSlotHeight) <= layoutUnit &&
       getComputedStyle(main).paddingLeft === (expectPhone ? "0px" : "72px");
-    const expectedScale = Math.min(content.width / 720, content.height / 1_280);
+    const fit = Math.min(content.width / 720, content.height / 1_280, 8);
+    let scaleUnits = Math.floor(fit * 64);
+    while (scaleUnits > 0) {
+      const reciprocal = Math.fround(64 / scaleUnits);
+      const relativeError = Math.abs(reciprocal * scaleUnits - 64) / 64;
+      if (relativeError <= 2 ** -25) break;
+      scaleUnits -= 1;
+    }
+    const expectedScale = scaleUnits / 64;
     const style = getComputedStyle(iframe);
     const matrix = style.transform.match(/^matrix\(([^)]+)\)$/u);
     const values = matrix?.[1].split(",").map(Number) ?? [];
     const scale = values.length === 6 ? Math.hypot(values[0], values[1]) : null;
     const bounds = iframe.getBoundingClientRect();
-    const frameFits = Number.isFinite(scale) && Math.abs(scale - expectedScale) <= matrixScaleEpsilon &&
-      Math.abs(bounds.x + bounds.width / 2 - (content.x + content.width / 2)) <= layoutUnit &&
-      Math.abs(bounds.y + bounds.height / 2 - (content.y + content.height / 2)) <= layoutUnit &&
+    const frameFits = Number.isFinite(scale) && scale === expectedScale &&
+      Math.abs(bounds.x / expectedScale - Math.round(bounds.x / expectedScale)) <= matrixScaleEpsilon &&
+      Math.abs(bounds.y / expectedScale - Math.round(bounds.y / expectedScale)) <= matrixScaleEpsilon &&
       bounds.x >= content.x - layoutUnit &&
       bounds.x + bounds.width <= content.x + content.width + layoutUnit &&
       bounds.y >= content.y - layoutUnit &&
       bounds.y + bounds.height <= content.y + content.height + layoutUnit;
-    const fit = slotSettled && frameFits;
+    const fits = slotSettled && frameFits;
     const finiteGeometry = [
       content.x, content.y, content.width, content.height, expectedScale,
       bounds.x, bounds.y, bounds.width, bounds.height,
@@ -185,10 +193,10 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
         scale,
         slotSettled,
         frameFits,
-        fits: fit,
+        fits,
       });
     }
-    return fit;
+    return fits;
   }, {
     description,
     frameLimit: frameStart + MAX_SETTLEMENT_RAF_SAMPLES,
@@ -205,17 +213,22 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
 
 function assertFrameFits(layout, description) {
   assert.ok(layout, `${description}: the real battle iframe is mounted`);
-  const expectedScale = Math.min(layout.slotContent.width / 720,
-    layout.slotContent.height / 1_280);
-  assert.ok(Number.isFinite(layout.scale) &&
-    Math.abs(layout.scale - expectedScale) <= MATRIX_SCALE_EPSILON,
-    `${description}: iframe scale matches the settled slot; ${JSON.stringify({ layout, expectedScale })}`);
-  assert.ok(Math.abs(layout.iframe.x + layout.iframe.width / 2 -
-    (layout.slotContent.x + layout.slotContent.width / 2)) <= CSS_LAYOUT_UNIT,
-  `${description}: iframe is horizontally centered in the slot content box; ${JSON.stringify(layout)}`);
-  assert.ok(Math.abs(layout.iframe.y + layout.iframe.height / 2 -
-    (layout.slotContent.y + layout.slotContent.height / 2)) <= CSS_LAYOUT_UNIT,
-  `${description}: iframe is vertically centered in the slot content box; ${JSON.stringify(layout)}`);
+  const fit = Math.min(layout.slotContent.width / 720,
+    layout.slotContent.height / 1_280, 8);
+  let scaleUnits = Math.floor(fit * 64);
+  while (scaleUnits > 0) {
+    const reciprocal = Math.fround(64 / scaleUnits);
+    const relativeError = Math.abs(reciprocal * scaleUnits - 64) / 64;
+    if (relativeError <= 2 ** -25) break;
+    scaleUnits -= 1;
+  }
+  const expectedScale = scaleUnits / 64;
+  assert.ok(Number.isFinite(layout.scale) && layout.scale === expectedScale,
+    `${description}: iframe uses the exact derived k/64 scale; ${JSON.stringify({ layout, expectedScale })}`);
+  assert.ok(Math.abs(layout.iframe.x / layout.scale - Math.round(layout.iframe.x / layout.scale)) <= MATRIX_SCALE_EPSILON,
+    `${description}: iframe page x origin is rounded to a scale multiple; ${JSON.stringify(layout)}`);
+  assert.ok(Math.abs(layout.iframe.y / layout.scale - Math.round(layout.iframe.y / layout.scale)) <= MATRIX_SCALE_EPSILON,
+    `${description}: iframe page y origin is rounded to a scale multiple; ${JSON.stringify(layout)}`);
   assert.ok(layout.iframe.x >= layout.slotContent.x - CSS_LAYOUT_UNIT &&
     layout.iframe.x + layout.iframe.width <= layout.slotContent.x +
       layout.slotContent.width + CSS_LAYOUT_UNIT &&
@@ -296,8 +309,8 @@ test("battle iframe follows the settled slot across viewport, motion, and view c
   assert.equal(homeDeckCardCount, 8, "the standard home deck remains eight cards");
   assertFrameFits(layouts[0], "desktop Battle");
   assert.ok(Math.abs(layouts[1].slot.width - 390) <= CSS_LAYOUT_UNIT &&
-    Math.abs(layouts[1].slot.height - 659) <= CSS_LAYOUT_UNIT,
-  `390x844 Battle reaches the settled full-width phone slot: ${JSON.stringify(layouts[1])}`);
+    Math.abs(layouts[1].slot.height - 725) <= CSS_LAYOUT_UNIT,
+  `390x844 Battle reaches the expanded full-width phone slot: ${JSON.stringify(layouts[1])}`);
   assertFrameFits(layouts[1], "phone Battle after desktop resize");
   assertFrameFits(layouts[2], "desktop Battle after hidden-slot resize");
   assertFrameFits(layouts[3], "phone Battle after returning from Deck");

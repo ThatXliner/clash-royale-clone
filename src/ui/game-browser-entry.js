@@ -32,6 +32,40 @@ import { mountGameAudioControls } from "./game-audio-controls.js";
 import { getMatchFeedbackStyleText } from "./match-feedback.js";
 
 const LOCAL_SIDE = "south";
+const APP_FRAME_HUD_PREPARATION = new WeakMap();
+
+/** Prepare the private, document-owned app-frame painter before mounting. */
+export function prepareShippedAppFrameHud(document) {
+  if (!document || typeof document.createElement !== "function") {
+    return Promise.reject(new TypeError("app-frame HUD preparation requires a Document"));
+  }
+  const existing = APP_FRAME_HUD_PREPARATION.get(document);
+  if (existing) return existing.promise;
+  const entry = { factory: null, promise: null };
+  entry.promise = import("./hud-card-painter.js").then(({ prepareHudCardPainter }) =>
+    prepareHudCardPainter(document)).then((factory) => {
+    entry.factory = factory;
+    return factory;
+  }, (error) => {
+    APP_FRAME_HUD_PREPARATION.delete(document);
+    throw error;
+  });
+  APP_FRAME_HUD_PREPARATION.set(document, entry);
+  return entry.promise;
+}
+
+function preparedAppFrameHudFactory(document) {
+  return APP_FRAME_HUD_PREPARATION.get(document)?.factory ?? null;
+}
+
+/** Return the already-prepared painter capability for this exact Document. */
+export function getPreparedShippedAppFrameHud(document) {
+  const factory = preparedAppFrameHudFactory(document);
+  if (factory === null) {
+    throw new RangeError("app-frame HUD painter is not ready for this document");
+  }
+  return factory;
+}
 
 /**
  * The sustained browser path is deliberately smaller than an ordinary manual
@@ -369,6 +403,13 @@ export function mountShippedGameBrowser(
     throw new TypeError("shipped browser deck choice option is invalid");
   }
   assertGameBrowserRootAvailable(root);
+  const appFrame = root.ownerDocument?.body?.dataset?.appFrame === "true";
+  const hudPainterFactory = appFrame
+    ? preparedAppFrameHudFactory(root.ownerDocument)
+    : null;
+  if (appFrame && hudPainterFactory === null) {
+    throw new RangeError("app-frame HUD painter must be prepared before mounting");
+  }
   let active = true;
   let graph = null;
   let manualStepMode = false;
@@ -623,6 +664,7 @@ export function mountShippedGameBrowser(
       controls = mountGameAudioControls(shell, browserAudio, audioRuntime, audioUiBridge);
       loop = mountGameBrowserLoop({
         createInput: createInputFactory(shell, audioUiBridge),
+        ...(hudPainterFactory === null ? {} : { hudPainterFactory }),
         layers: createProjectionLayers(shell),
         root,
         scheduler: {

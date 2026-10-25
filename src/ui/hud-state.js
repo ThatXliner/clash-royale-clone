@@ -8,6 +8,7 @@ import {
   ELIXIR_CAPACITY,
 } from "../sim/elixir.js";
 import { DECK_MAX_PLAY_COMMANDS, DECK_SIZE, HAND_SIZE } from "../sim/deck.js";
+import { getCardPortrait } from "./card-portrait-art.js";
 
 const SIDES = Object.freeze(["north", "south"]);
 const SIDE_SET = new Set(SIDES);
@@ -412,16 +413,34 @@ function escapeHtml(value) {
   return escaped;
 }
 
-function cardMarkup(card, kind) {
+function cardMarkup(card, kind, includePortrait = false) {
   const flags = kind === "hand"
     ? ` data-disabled="${card.disabled}" data-insufficient="${card.insufficient}" data-selected="${card.selected}" data-slot="${card.slot}"`
     : "";
-  return `<span class="hud-card" data-card-id="${escapeHtml(card.id)}" data-kind="${kind}"${flags}><b class="hud-card__cost">${card.cost}</b><span class="hud-card__name">${escapeHtml(card.displayName)}</span></span>`;
+  const portrait = includePortrait ? getCardPortrait(card.id) : null;
+  const cell = portrait?.cell == null
+    ? ""
+    : ` data-portrait-cell="${portrait.cell}"`;
+  const art = portrait === null
+    ? ""
+    : `<span class="hud-card__portrait" aria-hidden="true"><span class="hud-card__portrait-cell"><img class="hud-card__portrait-image" src="${escapeHtml(portrait.src)}"${cell} alt="" loading="lazy" decoding="sync" draggable="false"></span></span>`;
+  const mark = portrait === null
+    ? ""
+    : ` data-portrait="${portrait.cell === null ? "image" : "atlas"}"`;
+  return `<span class="hud-card" data-card-id="${escapeHtml(card.id)}" data-kind="${kind}"${flags}${mark}>${art}<b class="hud-card__cost">${card.cost}</b><span class="hud-card__name">${escapeHtml(card.displayName)}</span></span>`;
 }
 
-export function getHudMarkup(viewModel) {
+export function getHudMarkup(viewModel, options) {
   const view = checkedViewModel(viewModel);
-  return `<section data-ui="hud-projection" data-phase="${view.phase}" data-tick="${view.tick}"><time data-ui="hud-timer">${view.timer.text}</time><span data-ui="hud-crowns" data-north="${view.crowns.north}" data-south="${view.crowns.south}"></span><span data-ui="hud-elixir" data-accumulator="${view.elixir.accumulator}" data-amount="${view.elixir.amount}" data-side="${view.elixir.side}"></span><div data-ui="hud-next">${cardMarkup(view.next, "next")}</div><div data-ui="hud-hand">${view.hand.map((card) => cardMarkup(card, "hand")).join("")}</div></section>`;
+  let includePortraits = false;
+  if (options !== undefined) {
+    const checkedOptions = dataObject(options, ["portraits"], "getHudMarkup options");
+    if (typeof checkedOptions.portraits !== "boolean") {
+      throw new TypeError("getHudMarkup options.portraits must be a boolean");
+    }
+    includePortraits = checkedOptions.portraits;
+  }
+  return `<section data-ui="hud-projection" data-phase="${view.phase}" data-tick="${view.tick}"><time data-ui="hud-timer">${view.timer.text}</time><span data-ui="hud-crowns" data-north="${view.crowns.north}" data-south="${view.crowns.south}"></span><span data-ui="hud-elixir" data-accumulator="${view.elixir.accumulator}" data-amount="${view.elixir.amount}" data-side="${view.elixir.side}"></span><div data-ui="hud-next">${cardMarkup(view.next, "next", includePortraits)}</div><div data-ui="hud-hand">${view.hand.map((card) => cardMarkup(card, "hand", includePortraits)).join("")}</div></section>`;
 }
 
 function checkedViewModel(value) {

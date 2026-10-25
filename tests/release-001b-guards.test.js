@@ -18,7 +18,7 @@ import test from "node:test";
 import { buildRelease } from "../scripts/build-release.js";
 
 const WORKSPACE = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const ALLOWED_EXTENSIONS = [".html", ".css", ".js", ".json", ".svg", ".png", ".woff2"];
+const ALLOWED_EXTENSIONS = [".html", ".css", ".js", ".json", ".svg", ".png", ".ttf", ".woff2", ".txt"];
 
 async function snapshot(directory) {
   const result = {};
@@ -84,6 +84,21 @@ test("escaped workspace entry paths fail before publication and preserve the pri
     "public/index.html": "<!doctype html><title>guard</title>\n",
   }, { entries: ["../outside.html"] });
   await rejectWithoutChangingOutput(project, /non-canonical release input entries/u);
+});
+
+test("configured license roots emit plain-text third-party license files", async (t) => {
+  const license = "SIL Open Font License 1.1 fixture\n";
+  const project = await fixture(t, {
+    "public/index.html": "<!doctype html><title>license</title>\n",
+    "public/licenses/typeface-OFL.txt": license,
+  }, { staticAssetRoots: ["public/licenses"] });
+  const built = await buildRelease(project);
+  const manifest = JSON.parse(await readFile(join(project.output, "release-manifest.json"), "utf8"));
+  const licensePath = "public/licenses/typeface-OFL.txt";
+  assert.ok(manifest.files.some(({ path }) => path === licensePath),
+    "the exact license path is published in the manifest");
+  assert.equal(await readFile(join(project.output, licensePath), "utf8"), license);
+  assert.equal(manifest.fileCount, built.fileCount);
 });
 
 test("internal and external symlink inputs are refused atomically", async (t) => {

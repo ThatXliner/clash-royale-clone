@@ -68,6 +68,8 @@ function mimeType(path) {
     [".js", "text/javascript; charset=utf-8"],
     [".json", "application/json; charset=utf-8"],
     [".svg", "image/svg+xml"],
+    [".ttf", "font/ttf"],
+    [".txt", "text/plain; charset=utf-8"],
     [".wav", "audio/wav"],
   ]).get(extname(path).toLowerCase()) ?? "application/octet-stream";
 }

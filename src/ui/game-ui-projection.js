@@ -37,6 +37,7 @@ const FRAME_MOTION = new WeakMap();
 const FRAME_HUD_RECEIPT = new WeakMap();
 const FRAME_TERMINAL_TICK = new WeakMap();
 const OPTIONS = new WeakSet();
+const HUD_PAINTER_SURFACES = new WeakSet();
 const STRUCTURE_IDS = new Map([
   [Number.MAX_SAFE_INTEGER - 5, "south:central"],
   [Number.MAX_SAFE_INTEGER - 4, "south:lane:west"],
@@ -348,9 +349,41 @@ function sameChildren(left, right) {
   return left.length === right.length && left.every((child, index) => child === right[index]);
 }
 
+function isHudPainterCanvas(node) {
+  return node?.nodeType === 1 &&
+    String(node.tagName ?? node.nodeName).toLowerCase() === "canvas" &&
+    node.dataset?.ui === "hud-card-paint" && HUD_PAINTER_SURFACES.has(node);
+}
+
 function sameRenderedNode(left, right) {
   if (left === right) return true;
   return typeof left?.isEqualNode === "function" && left.isEqualNode(right);
+}
+
+function hasHudPainterCanvas(node) {
+  if (isHudPainterCanvas(node)) return true;
+  return Array.from(node?.childNodes ?? []).some(hasHudPainterCanvas);
+}
+
+function sameHudRenderedNode(left, right) {
+  if (left === right) return true;
+  if (!hasHudPainterCanvas(left) && !hasHudPainterCanvas(right)) {
+    return sameRenderedNode(left, right);
+  }
+  if (!compatibleRenderedNode(left, right)) return false;
+  if (left.nodeType !== 1) return sameRenderedNode(left, right);
+
+  const a = renderedAttributeEntries(left);
+  const b = renderedAttributeEntries(right);
+  if (a === null || b === null) return false;
+  a.sort(([leftName], [rightName]) => leftName.localeCompare(rightName));
+  b.sort(([leftName], [rightName]) => leftName.localeCompare(rightName));
+  if (a.length !== b.length || a.some(([name, value], index) =>
+    b[index]?.[0] !== name || b[index]?.[1] !== value)) return false;
+  const leftChildren = Array.from(left.childNodes ?? []);
+  const rightChildren = Array.from(right.childNodes ?? []);
+  return leftChildren.length === rightChildren.length &&
+    leftChildren.every((child, index) => sameHudRenderedNode(child, rightChildren[index]));
 }
 
 function cloneRenderedNode(node) {
@@ -377,7 +410,8 @@ function renderedAttributeEntries(node) {
     return null;
   }
   return Array.from(node.attributes, (attribute) => Array.isArray(attribute)
-    ? attribute : [attribute.name, attribute.value]);
+    ? attribute : [attribute.name, attribute.value])
+    .filter(([name]) => !isHudPainterCanvas(node) || (name !== "width" && name !== "height"));
 }
 
 function planRenderedNodePatch(current, candidate, operations = []) {
@@ -497,12 +531,17 @@ function stage(layer) {
   return layer.ownerDocument.createElement("div");
 }
 
-export function mountGameUiProjection(value) {
+export function mountGameUiProjection(value, readyPainterFactory = null) {
   const layers = ownRecord(value, ["combat", "effects", "feedback", "hud"],
     "game UI projection layers");
   for (const name of ["combat", "effects", "feedback", "hud"]) {
     layers[name] = checkedLayer(layers[name], `game UI ${name} layer`);
   }
+  // The shipped browser entry resolves this optional capability from its
+  // private per-Document preparation bank before calling the loop. Keeping
+  // projection independent of the painter module preserves standalone and
+  // headless import isolation.
+  const painter = readyPainterFactory === null ? null : readyPainterFactory.create();
   let active = true;
   let poisoned = false;
   let lastTick = -1;
@@ -559,27 +598,55 @@ export function mountGameUiProjection(value) {
     const hudFrame = layers.hud.ownerDocument.createElement("div");
     hudFrame.className = "game-ui-hud-frame";
     hudFrame.dataset.tick = String(frame.tick);
-    hudFrame.innerHTML = getHudMarkup(frame.hud);
+    hudFrame.innerHTML = getHudMarkup(frame.hud, {
+      portraits: layers.hud.ownerDocument.body?.dataset?.appFrame === "true",
+    });
+    if (painter !== null) {
+      const canvas = layers.hud.ownerDocument.createElement("canvas");
+      canvas.className = "game-ui-hud-painter";
+      canvas.dataset.ui = "hud-card-paint";
+      canvas.dataset.painterRevision = "hud-card-painter-1";
+      canvas.setAttribute("aria-hidden", "true");
+      HUD_PAINTER_SURFACES.add(canvas);
+      hudFrame.appendChild(canvas);
+    }
     bindHudMotion(hudFrame, frame.hud, FRAME_HUD_RECEIPT.get(frame));
     staged.hud.replaceChildren(hudFrame);
 
+    let paintTransaction = null;
+    if (painter !== null) {
+      let priorCanvas = null;
+      if (prior.hud.length > 0) {
+        const priorCanvases = Array.from(prior.hud[0]?.querySelectorAll?.("canvas") ?? []);
+        if (priorCanvases.length !== 1 || !isHudPainterCanvas(priorCanvases[0]) ||
+            priorCanvases[0].ownerDocument !== layers.hud.ownerDocument) {
+          throw new TypeError("game UI prior HUD painter surface is not authentic");
+        }
+        priorCanvas = priorCanvases[0];
+      }
+      const candidateCanvas = hudFrame.querySelector?.('canvas[data-ui="hud-card-paint"]');
+      paintTransaction = painter.stage(frame.hud, priorCanvas ?? candidateCanvas);
+    }
+
     const committed = [];
     const inPlaceUndo = new Map();
+    let paintAttempted = false;
     try {
       for (const name of ["combat", "effects", "feedback", "hud"]) {
         const candidate = children(staged[name]);
+        const sameProjectedNode = name === "hud" ? sameHudRenderedNode : sameRenderedNode;
         // HUD cards sit on a fractionally scaled layer, so retain their parent
         // chain through state rewinds even when the projected attributes change.
         if (name === "hud" && prior[name].length === 1 && candidate.length === 1 &&
             compatibleRenderedNode(prior[name][0], candidate[0])) {
           const patch = planRenderedNodePatch(prior[name][0], candidate[0]);
           if (patch !== null) {
-            if (patch.length === 0 && sameRenderedNode(prior[name][0], candidate[0])) continue;
+            if (patch.length === 0 && sameProjectedNode(prior[name][0], candidate[0])) continue;
             committed.push(name);
             const undo = [];
             inPlaceUndo.set(name, undo);
             applyRenderedNodePatch(patch, undo);
-            if (!sameRenderedNode(prior[name][0], candidate[0])) {
+            if (!sameProjectedNode(prior[name][0], candidate[0])) {
               throw new Error("game UI hud layer did not match its in-place candidate");
             }
             continue;
@@ -592,7 +659,7 @@ export function mountGameUiProjection(value) {
         // exact DOM equality check.
         if (sameChildren(prior[name], lastChildren[name]) &&
             prior[name].length === candidate.length &&
-            prior[name].every((node, index) => sameRenderedNode(node, candidate[index]))) {
+            prior[name].every((node, index) => sameProjectedNode(node, candidate[index]))) {
           continue;
         }
         // Register the layer before invoking hostile DOM. A conforming or
@@ -603,8 +670,17 @@ export function mountGameUiProjection(value) {
           throw new Error(`game UI ${name} layer did not commit its candidate`);
         }
       }
+      if (paintTransaction !== null) {
+        paintAttempted = true;
+        paintTransaction.commit();
+      }
+      paintTransaction?.finalize();
     } catch (error) {
       const rollbackErrors = [];
+      if (paintAttempted) {
+        try { paintTransaction.rollback(); }
+        catch (caught) { rollbackErrors.push(caught); }
+      }
       for (let index = committed.length - 1; index >= 0; index -= 1) {
         const name = committed[index];
         const inPlace = inPlaceUndo.get(name);
@@ -631,6 +707,7 @@ export function mountGameUiProjection(value) {
         throw new AggregateError([error, ...rollbackErrors],
           "game UI projection is poisoned after rollback failure");
       }
+      paintTransaction?.finalize();
       throw error;
     }
     lastTick = frame.tick;
@@ -645,12 +722,14 @@ export function mountGameUiProjection(value) {
     cleanup() {
       if (!active) return false;
       if (poisoned) {
+        try { painter?.dispose(); } catch {}
         active = false;
         return true;
       }
       for (const name of ["hud", "feedback", "effects", "combat"]) {
         layers[name].replaceChildren();
       }
+      painter?.dispose();
       active = false;
       return true;
     },

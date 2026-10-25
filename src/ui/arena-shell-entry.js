@@ -2,6 +2,7 @@ import { mountArenaShell } from "./arena-shell.js";
 import {
   createShippedGameSessionSetup,
   mountShippedGameBrowser,
+  prepareShippedAppFrameHud,
 } from "./game-browser-entry.js";
 import { GameSession } from "../sim/game-session.js";
 import { EDITABLE_MIXED_DECK_CARD_IDS } from "../content/editable-deck.js";
@@ -476,55 +477,81 @@ export function mountArenaShellWithHud(root, injectionCapability) {
   });
 }
 
-export const arenaHudController =
-  typeof document === "object" && document !== null &&
+const appFrameBootstrap = typeof document === "object" && document !== null &&
   typeof window === "object" && window !== null
-    ? (() => {
-      const parameters = new URLSearchParams(window.location.search);
-      const profile = parameters.get("session-profile");
-      const appFrameValue = parameters.get("app-frame");
-      if (appFrameValue !== null && appFrameValue !== "1") {
-        throw new TypeError("public app frame option is invalid");
-      }
-      const appFrame = appFrameValue === "1";
-      if (appFrame) document.body.dataset.appFrame = "true";
-      if (profile !== null && profile !== "live-seed-2-terminal" &&
-          profile !== "stonehauler-witness") {
-        throw new TypeError("public game session profile is invalid");
-      }
-      const session = profile === null ? null : new GameSession(
-        createShippedGameSessionSetup(
-          profile === "live-seed-2-terminal" ? 2 : 1, profile,
-        ),
-      );
-      const controller = mountShippedGameBrowser(
-        document.querySelector("[data-arena-shell-root]"), window, session,
-        undefined, profile === null && !appFrame,
-      );
-      if (appFrame) {
-        controller.pause();
-        let lastAppFrameActive;
-        let lastPresentationContext;
-        window.addEventListener("message", (event) => {
-          if (event.source !== window.parent || event.origin !== window.location.origin) return;
-          const message = checkedAppBattleMessage(event.data);
-          if (message === null) return;
-          const presentationChanged = lastPresentationContext === undefined ||
-            lastPresentationContext.bodyCssPixels !== message.presentation.bodyCssPixels ||
-            lastPresentationContext.frameScale !== message.presentation.frameScale;
-          lastPresentationContext = message.presentation;
-          document.documentElement.dataset.combatBodyCssPixels = String(message.presentation.bodyCssPixels);
-          document.documentElement.dataset.combatFrameScale = String(message.presentation.frameScale);
-          const currentDeck = JSON.parse(controller.session.serialize()).setup.deck;
-          const deckChanged = !sameDeckIds(currentDeck, message.deckIds);
-          if (deckChanged) controller.replaceDeck(message.deckIds);
-          else if (presentationChanged && controller.state.paused) controller.stepMany(0);
-          const activeChanged = lastAppFrameActive === undefined || lastAppFrameActive !== message.active;
-          lastAppFrameActive = message.active;
-          if (!message.active) controller.pause();
-          else if (activeChanged) controller.resume();
-        });
-      }
-      return controller;
-    })()
-    : null;
+  ? (() => {
+    const parameters = new URLSearchParams(window.location.search);
+    const profile = parameters.get("session-profile");
+    const appFrameValue = parameters.get("app-frame");
+    if (appFrameValue !== null && appFrameValue !== "1") {
+      throw new TypeError("public app frame option is invalid");
+    }
+    if (profile !== null && profile !== "live-seed-2-terminal" &&
+        profile !== "stonehauler-witness") {
+      throw new TypeError("public game session profile is invalid");
+    }
+    const appFrame = appFrameValue === "1";
+    if (appFrame) document.body.dataset.appFrame = "true";
+    return { appFrame, document, profile, window };
+  })()
+  : null;
+
+let mountedAppFrameController = null;
+let pendingAppFrameMessage = null;
+let lastAppFrameActive;
+let lastPresentationContext;
+function applyAppFrameMessage(controller, message) {
+  const { document: frameDocument } = appFrameBootstrap;
+  const presentationChanged = lastPresentationContext === undefined ||
+    lastPresentationContext.bodyCssPixels !== message.presentation.bodyCssPixels ||
+    lastPresentationContext.frameScale !== message.presentation.frameScale;
+  lastPresentationContext = message.presentation;
+  frameDocument.documentElement.dataset.combatBodyCssPixels =
+    String(message.presentation.bodyCssPixels);
+  frameDocument.documentElement.dataset.combatFrameScale =
+    String(message.presentation.frameScale);
+  const currentDeck = JSON.parse(controller.session.serialize()).setup.deck;
+  const deckChanged = !sameDeckIds(currentDeck, message.deckIds);
+  if (deckChanged) controller.replaceDeck(message.deckIds);
+  else if (presentationChanged && controller.state.paused) controller.stepMany(0);
+  const activeChanged = lastAppFrameActive === undefined ||
+    lastAppFrameActive !== message.active;
+  lastAppFrameActive = message.active;
+  if (!message.active) controller.pause();
+  else if (activeChanged) controller.resume();
+}
+
+if (appFrameBootstrap?.appFrame) {
+  appFrameBootstrap.window.addEventListener("message", (event) => {
+    if (event.source !== appFrameBootstrap.window.parent ||
+        event.origin !== appFrameBootstrap.window.location.origin) return;
+    const message = checkedAppBattleMessage(event.data);
+    if (message === null) return;
+    if (mountedAppFrameController === null) pendingAppFrameMessage = message;
+    else applyAppFrameMessage(mountedAppFrameController, message);
+  });
+  await prepareShippedAppFrameHud(appFrameBootstrap.document);
+}
+
+export const arenaHudController = appFrameBootstrap === null ? null : (() => {
+  const { appFrame, document: frameDocument, profile, window: frameWindow } = appFrameBootstrap;
+  const session = profile === null ? null : new GameSession(
+    createShippedGameSessionSetup(
+      profile === "live-seed-2-terminal" ? 2 : 1, profile,
+    ),
+  );
+  const controller = mountShippedGameBrowser(
+    frameDocument.querySelector("[data-arena-shell-root]"), frameWindow, session,
+    undefined, profile === null && !appFrame,
+  );
+  if (appFrame) {
+    controller.pause();
+    mountedAppFrameController = controller;
+    if (pendingAppFrameMessage !== null) {
+      const message = pendingAppFrameMessage;
+      pendingAppFrameMessage = null;
+      applyAppFrameMessage(controller, message);
+    }
+  }
+  return controller;
+})();

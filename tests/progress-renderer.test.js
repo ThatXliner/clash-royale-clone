@@ -152,3 +152,41 @@ test("renderProgress keeps its dynamic default note and accepts one explicit pre
   assert.ok(preservedHtml.includes(preservedNoteHtml));
   assert.equal([...preservedHtml.matchAll(/<p class="note">/g)].length, 1);
 });
+
+test("renderProgress dates the header with the latest appended round", () => {
+  const plan = [
+    "| ID | Piece | Independent acceptance bar | Depends on | State | Pass rate | Rounds | Current gap |",
+    "| --- | --- | --- | --- | --- | ---: | ---: | --- |",
+    pieceRow("OPS-001", "Original piece", "PENDING", "0/0", 0, "Awaiting review"),
+  ].join("\n");
+  const rounds = [
+    "## Round 1 — 2026-10-14",
+    "",
+    "PIECE: OPS-001 — Original piece, round 1",
+    "VERDICT: PASS for this fixture only",
+    "EVIDENCE: Fixture evidence.",
+    "BIGGEST GAP: First fixture gap.",
+    "",
+    "## Round 2 — 2026-10-25",
+    "",
+    "PIECE: OPS-001 — Original piece, round 2",
+    "VERDICT: FAIL for this fixture only",
+    "EVIDENCE: Fixture evidence.",
+    "BIGGEST GAP: Latest fixture gap.",
+  ].join("\n");
+
+  const html = renderProgress(plan, rounds);
+  assert.match(html, /<p class="sub">Updated 2026-10-25/);
+  assert.doesNotMatch(html, /<p class="sub">Updated 2026-10-14/);
+});
+
+test("renderProgress retains the empty-history date fallback", () => {
+  const plan = [
+    "| ID | Piece | Independent acceptance bar | Depends on | State | Pass rate | Rounds | Current gap |",
+    "| --- | --- | --- | --- | --- | ---: | ---: | --- |",
+    pieceRow("OPS-001", "Original piece", "PENDING", "0/0", 0, "Awaiting review"),
+  ].join("\n");
+
+  const html = renderProgress(plan, "");
+  assert.match(html, /<p class="sub">Updated No completed rounds/);
+});

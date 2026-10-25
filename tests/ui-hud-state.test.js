@@ -15,6 +15,7 @@ import {
   createArenaHudController,
   createInitialArenaHudSystems,
 } from "../src/ui/arena-shell-entry.js";
+import { getCardPortrait } from "../src/ui/card-portrait-art.js";
 
 const CARDS = Object.freeze([
   Object.freeze({ cost: 1, displayName: "Ashling", id: "ashling" }),
@@ -82,6 +83,42 @@ test("ui HUD: initial canonical projection contains exact timer, rail, hand, and
   });
   assert.ok(Object.isFrozen(view));
   assert.ok(Object.isFrozen(view.hand[0]));
+});
+
+test("ui HUD: portrait markup is opt-in and leaves unmapped fixtures unchanged", () => {
+  const mappedSystems = createInitialArenaHudSystems();
+  const view = createHudViewModel({
+    cards: mappedSystems.cards.map(({ cost, displayName, id }) => ({ cost, displayName, id })),
+    deck: mappedSystems.deck.state,
+    elixir: mappedSystems.elixir.state,
+    localSide: "south",
+    match: mappedSystems.match.state,
+    selectedCardId: null,
+  });
+  const baseline = getHudMarkup(view);
+  const explicitBaseline = getHudMarkup(view, { portraits: false });
+  const portraitMarkup = getHudMarkup(view, { portraits: true });
+  const mappedIds = [...new Set([view.next.id, ...view.hand.map(({ id }) => id)])]
+    .filter((id) => getCardPortrait(id) !== null);
+  const imageCount = (markup) =>
+    markup.match(/<img class="hud-card__portrait-image"/gu)?.length ?? 0;
+
+  assert.equal(imageCount(baseline), 0, "default HUD markup contains no portrait images");
+  assert.equal(explicitBaseline, baseline, "explicit false preserves default HUD bytes");
+  assert.equal(imageCount(portraitMarkup), mappedIds.length,
+    "explicit portrait presentation includes each mapped hand and Next image");
+  assert.ok(mappedIds.length > 0);
+  for (const id of mappedIds) {
+    assert.ok(portraitMarkup.includes(`data-card-id="${id}"`));
+    assert.ok(portraitMarkup.includes(`src="${getCardPortrait(id).src}"`),
+      `${id} uses its canonical original portrait source`);
+  }
+
+  const fixtureView = viewOf(systems());
+  assert.ok(CARDS.every(({ id }) => getCardPortrait(id) === null),
+    "the unit fixtures remain unmapped IDs");
+  assert.equal(getHudMarkup(fixtureView, { portraits: true }), getHudMarkup(fixtureView),
+    "portrait opt-in leaves unmapped fixture markup byte-identical");
 });
 
 test("ui HUD: regulation, overtime, triple-rate, and terminal boundaries are exact", () => {

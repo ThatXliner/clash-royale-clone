@@ -11462,3 +11462,177 @@ EVIDENCE FILES:
 - Browser endurance root summary: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r3-full-qualification-prep-r1/BROWSER-ENDURANCE-ROOT-SUMMARY.json` (SHA-256 `481deda7d6ef47fa2722b2e42ee45cbbbea3089ea41d1ae1823441a1988c2917`).
 - Current-e476 differential result: `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r2-full-qualification-prep-r1/evidence/core-differential-e476-r1/RESULT.json` (SHA-256 `65e0fa359539dca3c5d83209a70e430f0af3fc36c8e04ffd611c8bde74a3aa3f`).
 - App-polish and Pages raw closures and interpretations remain under `/Users/me/.codex/clash-qualification/20261025-core-rime-current-source-r3-later-gates-prep-r1`.
+
+## Round 606 — 2026-10-25
+
+PIECE: APP-REDESIGN-HUD-001 — Battle painted portraits and phone readability
+
+VERDICT: FAIL — full HUD acceptance does not pass; Phase 4 focused gates passed 3/4
+
+EVIDENCE:
+
+The independent Phase 4 report is `/Users/me/.codex/clash-qualification/20261025-horizontal-hud-critic-r1/phase4/PHASE4.md`. Its current candidate presents five horizontal painted hand cards plus Next for the 23-card registry, uses Barlow, and targets phone readability and a short desktop viewport. It remains unadopted.
+
+The focused UI HUD-state suite passed 10/10, typeface provenance passed 1/1, and battle-hand browser polish passed 1/1. The Copperskiff live browser gate then failed the checkpoint-restore assertion. The later visual-interface-art gate and all downstream release/app-shell/Pages gates did not run. The earlier Round549 8/9 is the historical focused visual-interface result; it is not this round's full-bar score. Phase 4's 3/4 is a count of focused gates, not the whole HUD acceptance rate.
+
+At 390×844, normal motion, vertical layout, checkpoint restoration changed 119 pixels and 264 RGB channels (maximum channel delta 3; total absolute delta 399; bounds x=83–381, y=647–723). The differences are on card outer edges: Brassbolt 117, Cinderlings 1, Briar Band 1, Reedsting 0, and Next/Skymaul 0. No card-interior, cost-badge, name-plate-interior, or arena pixels changed. The same invocation's horizontal restore had zero changed pixels and byte-identical PNGs. Audio-continuation, bridge, browser, and session restore flags and their future-continuation flags were all true. Failed requests, page errors, and console messages were empty. The report does not record font/image readiness, so this round makes no readiness claim.
+
+BIGGEST GAP: At 390×844 normal-motion vertical checkpoint restore, 119 outer card-edge pixels differ, including 117 on Brassbolt, violating the exact zero-pixel requirement.
+
+DISPOSITION:
+
+Keep APP-REDESIGN-HUD-001 at FAIL and do not adopt the candidate. Preserve the historical Round549 8/9 focused visual-interface result with that scope label; Phase 4's focused-gate result is 3/4 and does not establish a whole-piece score. The existing PLAN row listed 3 rounds before this result, so increment its count to 4. The retained history has explicit earlier HUD entries for Round548's five portrait restore pixels and Round549's 15-pixel outer/lower rail capture instability; no additional missing round entry is inferred from the prior count. Round606's 119 outer card-edge restore pixels are a distinct gap, so the three-same-gap stop does not apply. Make no whole-HUD or historical-parity claim. The broader full 109-card goal remains active.
+
+EVIDENCE FILES:
+
+- Phase 4 independent report: `/Users/me/.codex/clash-qualification/20261025-horizontal-hud-critic-r1/phase4/PHASE4.md`.
+- Copperskiff raw log: `/Users/me/.codex/clash-qualification/20261025-horizontal-hud-critic-r1/phase4/evidence/04-copperskiff-live-sprite-game-browser.log`.
+- Saved restore images and report: `/Users/me/.codex/clash-qualification/20261025-horizontal-hud-critic-r1/phase4/evidence/copperskiff/attempt-hudphase4copper001/`.
+
+## Round 607 — 2026-10-25
+
+PIECE: APP-REDESIGN-HUD-001 — R8 whole-pixel / scale-grid origin correction
+
+VERDICT: FAIL — the independent unchanged Copperskiff restore suite fails; no whole-piece PASS
+
+EVIDENCE:
+
+The independent actual result is `/Users/me/.codex/clash-qualification/20261025-hud-integer-origin-critic-r1/ROUND607.md`. The R8 candidate is `/Users/me/.codex/clash-qualification/20261025-hud-integer-origin-r1/candidate`; its only changed product source is `src/ui/app-shell.js` (SHA-256 `cd3c824bbc234866b3a1410b052a61f89a180db31571ee4f11d93a32508f8b1b`). The original Copperskiff test and visual-interface test remain at their pinned hashes. The requested whole-pixel / scale-grid origin property was present: phone origin (0,68) at scale 34/64, desktop origin (522,171) at scale 36/64.
+
+The independent critic ran one invocation of the unchanged `tests/copperskiff-live-sprite-game-browser.test.js` with qualified Node 22.23.4 and direct exit 1. The first four phone cases restored with zero pixel differences. The first desktop case, 1440×933 normal-motion horizontal, then failed the strict restore assertion with 277 changed pixels and 485 RGB channels (maximum channel delta 13, total absolute delta 1,249; bounds x=532–680, y=794–860). The suite stopped before the remaining desktop cases and restart check.
+
+Offline mapping of the retained screenshots places 253 changed pixels in the Next/Skymaul cost-badge box where it overlaps the portrait; the owner is unknown. Another 24 pixels are in the Cinderlings nameplate near its right edge. Briar Band, Reedsting, Brassbolt, the arena, and bridge are unchanged. Restore and future-continuation flags for audio, bridge, browser, and session bytes are true. Failed requests and page errors are empty. This location map establishes no paint cause.
+
+The separate builder invocation of the same R8 source also exited 1 on the unchanged Copperskiff gate, but in a different context: phone 390×844 reduced-motion vertical, with 118 pixels / 262 channels changed (bounds x=79–377, y=642–718). Its first three phone cases were exact; it stopped before desktop. Both retained runs are failures, not a retry-to-green sequence. They do not establish R8 restore correctness or a reproducible single-context cause.
+
+This round records only the current R8 Copperskiff suite as 0/1. The historical Round549 focused visual-interface 8/9 and Round606 Phase 4 focused gates 3/4 remain labeled historical and are not evidence for this source. The earlier Round606 23×4 hand result is not an R8 hand gate. No visual-interface-art gate or downstream release/app-shell/Pages gate ran.
+
+BIGGEST GAP: Exact checkpoint restore still differs in the unchanged Copperskiff gate, with the builder and independent critic failing different contexts despite the requested integer-grid origins.
+
+DISPOSITION:
+
+Keep APP-REDESIGN-HUD-001 at FAIL. Increment the existing plan count from 4 to 5 for Round607, while preserving the explicit historical 8/9 Round549 and 3/4 Round606 focused scores as non-current evidence. The independent R607 focused original Copperskiff TAP suite is 0/1; it is not a full acceptance score. Do not adopt the R8 candidate or attribute the changed pixels to a specific paint owner. Its whole-pixel / scale-grid origin hypothesis did not satisfy exact restore. The builder and critic failures occur in different contexts, so restore behavior remains unresolved; do not seek a green result by retrying the same run. Keep the public 336-card source and broader full 109-card goal active. Do not record or count a Round608 result before its independent critic verdict.
+
+EVIDENCE FILES:
+
+- Independent Round607 report: `/Users/me/.codex/clash-qualification/20261025-hud-integer-origin-critic-r1/ROUND607.md`.
+- Independent critic artifacts: `/Users/me/.codex/clash-qualification/20261025-hud-integer-origin-critic-r1/attempt-001/`.
+- Builder handoff: `/Users/me/.codex/clash-qualification/20261025-hud-integer-origin-r1/builder-attempt-001/handoff.json`.
+- Builder raw TAP and artifacts: `/Users/me/.codex/clash-qualification/20261025-hud-integer-origin-r1/builder-attempt-001/`.
+
+## Round 608 — 2026-10-25
+
+PIECE: APP-REDESIGN-HUD-001 — R9 flat hit-target / legacy-card CSS change
+
+VERDICT: FAIL — independent original Copperskiff strict-restore suite 0/1
+
+EVIDENCE:
+
+The independent receipt is `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-critic-r1/verdict-receipt.txt`; its raw report is `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-critic-r1/actual-game/attempt-hudflatcritic20261025r1/actual-game-report.json` (SHA-256 `2ceb35de2b0782c8c4ff481deddac1f8ba72cc668fccf37c5e92b7d016a46afe`). The independent run invoked the unchanged `tests/copperskiff-live-sprite-game-browser.test.js` once with Node 22.23.4 and exited 1. Its first three phone cases restored exactly; the fourth, 390×844 reduced-motion vertical, failed with 119 changed pixels and 264 changed channels, bounds x=83–381, y=647–723. The exact assertion stopped the run before the remaining cases. Restore and 120-tick future-continuation byte comparisons for audio, bridge, browser, and session were true.
+
+The separate builder handoff is `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-layer-r1/builder-attempt-001/handoff.json`. Its original suite invocation also exited 1, in a different context: after four exact phone cases, the first desktop case (1440×933 normal-motion horizontal) failed with 335 changed pixels and 670 channels, bounds x=522–600, y=787–871. Restore and future byte flags were true; the report includes a native Cinderlings deployment accepted at tick 163. Later cases were not run. This builder result is corroboration, not part of the independent 0/1 pass-rate denominator.
+
+R9 changes only the app-frame CSS in `public/ui-arena-shell.html`: card-slot transform is set to none and opacity is set to zero on legacy child `.hud-card` elements. The packaged GameSession path does not bind these legacy copies, so this round does not claim that visible copies were removed. The candidate remains unadopted. Historical Round549 8/9 visual-interface and Round606 3/4 Phase 4 focused counts remain explicitly historical; neither establishes R9 behavior. Round607 also remains a separate 0/1 strict-suite FAIL.
+
+BIGGEST GAP: The unchanged exact restore gate still fails for this DOM-card presentation, with the independent run failing on phone and the builder run failing on desktop.
+
+DISPOSITION:
+
+Keep APP-REDESIGN-HUD-001 at FAIL and increment its existing count from 5 to 6 for Round608. Record the independent original Copperskiff strict suite as 0/1; do not promote historical R549 8/9 or R606 3/4 to current proof. R606, R607, and R608 are the third consecutive round records with exact restore failures in the same DOM-card presentation family. Stop this CSS-only loop: the DOM/CSS paint premise is wrong-shaped for the observed restore seam, while the zero-pixel requirement remains the bar. Do not make a fourth CSS guess or weaken the tolerance. Canvas paint-seam architecture grounding is in Phase A only; it is not implemented or passed. Add no new module piece until root defines that architecture. Keep all R8/R9 candidates unadopted, the public 336-card source current, and the full 109-card goal active. Visual-interface-art and downstream release/app-shell/Pages gates remain unrun.
+
+EVIDENCE FILES:
+
+- Independent Round608 receipt and report: `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-critic-r1/verdict-receipt.txt` and `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-critic-r1/actual-game/attempt-hudflatcritic20261025r1/actual-game-report.json`.
+- Independent raw TAP: `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-critic-r1/stdout.raw`.
+- Builder handoff and raw artifacts: `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-layer-r1/builder-attempt-001/handoff.json` and `/Users/me/.codex/clash-qualification/20261025-hud-flat-hit-layer-r1/builder-attempt-001/`.
+
+## Round 609 — 2026-10-25
+
+PIECE: APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand
+
+VERDICT: FAIL — focused painter checks pass, but the browser-loop projection-identity contract fails; full `npm test` is incomplete
+
+EVIDENCE:
+
+The independent formal verdict is `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/VERDICT.md`. The painter-specific gate passed 2/2, the unchanged Copperskiff live browser gate passed 1/1, and focused HUD/font/hand checks passed 12/12: 15/15 focused checks in total. This is partial evidence and does not satisfy the full painter-piece acceptance bar.
+
+The browser-loop TAP block reports 17 tests, 16 passed, and 1 failed. The failing case is “zero-step render and same-state restore retain projections and replace input,” at `tests/game-browser-loop.test.js:314`; its first assertion at line 320 observes a difference in the combat projection's child-array/reference topology after `stepMany(0)`; the later explicit child-identity assertion is not reached. The formal verdict records the observable contract failure and does not attribute a source cause. This corrects the earlier 14/14 characterization; the verified count is 17/16/1.
+
+The critic stopped the full `npm test` process after confirming the browser-loop failure. The run-once record has direct exit `-15` (intentional SIGTERM), so the full npm result is incomplete rather than a completed overall failure score. No release or Pages checks followed. The retained R1 browser-endurance 3/3 and model-endurance 1/1 results are historical and do not qualify the R2 repair.
+
+The painter candidate remains unadopted pending correction and independent requalification of the combat projection identity behavior. The older APP-REDESIGN-HUD-001 whole-bar piece remains FAIL at six rounds, with its legacy visual-interface 8/9 and Round606 focused-gate 3/4 explicitly historical; those scores are not current proof for this paint-specific piece. This round does not establish full-HUD or 109-card parity. The broader 109-card roster remains unfinished.
+
+BIGGEST GAP: After `stepMany(0)`, the combat projection's child-array/reference topology differs from the captured pre-step state; the later explicit child-identity assertion is not reached.
+
+DISPOSITION:
+
+Record APP-REDESIGN-HUD-PAINT-001 as FAIL at 1 round. Retain the 15/15 focused-gate count only with that scope label, and retain the browser-loop result as 16/17 with its single failure. Do not assign a completed full-suite score to the interrupted npm run, infer a source cause, or use historical endurance results as R2 evidence. Keep the painter candidate unadopted; preserve the separate six-round APP-REDESIGN-HUD-001 FAIL and all earlier history. No Round610 result is recorded.
+
+EVIDENCE FILES:
+
+- Formal independent verdict: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/VERDICT.md`.
+- Browser-loop raw TAP and interrupted full-suite result: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/evidence/full-npm-gate-004/stdout.raw` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/evidence/full-npm-gate-004/RESULT.json`.
+- Focused gate results: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/evidence/hud-card-painter-gate-001/RESULT.json`, `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/evidence/copperskiff-live-sprite-gate-002/RESULT.json`, and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-critic-r1/evidence/focused-hud-gate-003/RESULT.json`.
+
+## Round 610 — 2026-10-25
+
+PIECE: APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand
+
+VERDICT: FAIL — the minimized zero-step check passes, but the selected UI integration group fails an unchanged app-shell layout contract
+
+EVIDENCE:
+
+The independent formal verdict is `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/VERDICT.md`, with the detailed run record in `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/receipt.json`. The minimized zero-step / same-state-restore test passed 1/1. The required old regression check also passed 1/1.
+
+The selected R2 UI integration run stopped at its first new scoped failure in the unchanged `tests/app-shell.test.js:1051` check. At 390×844, the battle frame measured x=3.71875, y=73.3125, width=382.5 px, and height=680 px; the contract requires height no greater than 660 px, so the measured frame is 20 px over. The first failed test was “player shell renders roster-derived cards and launches a paused shared battle frame.”
+
+Across 18 completed TAP blocks, the selected group reports 125 tests: 123 passed, 1 failed, and 1 skipped. The following `battle-hand-polish` block began after the failure was found but was interrupted before a result and is not counted. The run-once child direct exit is -15, as recorded in the receipt. This is a stopped, incomplete selected group, not a completed full-suite result. No R2 painter-specific gate, full npm suite, Copperskiff, type-provenance, release, Pages, isolation, or progress gate ran after the failure.
+
+The run captured a 720×1280 public app-shell screenshot, SHA-256 `7e36e49684f91d0c54401b22b687e03e71f389fde727a494f9ddc706454c43f3`. It did not capture the failing 390×844 view because the assertion occurs before that screenshot call. The verdict leaves the cause unclassified; the evidence does not distinguish product behavior from a test-expectation issue.
+
+Round609's painter-specific and focused results remain historical R1 evidence, not R2 qualification. The R2 zero-step pass is scoped to that single minimized check and does not establish the integration group or full piece. The candidate remains unadopted. The older APP-REDESIGN-HUD-001 whole-bar piece remains FAIL at six rounds, and its R606–R608 history plus legacy visual-interface 8/9 baseline remain unchanged and historical. This round makes no 109-card parity claim; the broader roster remains unfinished.
+
+BIGGEST GAP: At 390×844, the measured battle frame is 680 px high against the unchanged app-shell test's 660 px maximum.
+
+DISPOSITION:
+
+Record APP-REDESIGN-HUD-PAINT-001 as FAIL at 2 rounds. Preserve the R2 zero-step result as 1/1 scoped evidence, and report the selected UI integration result only as 18 completed TAP blocks with 125 tests (123 pass, 1 fail, 1 skip); the following block is interrupted and unscored. Use direct exit -15 from the receipt, and do not call it a completed full npm result. Keep the cause unclassified, do not promote R1/Round609 evidence to R2, and keep the candidate unadopted. Preserve the separate six-round whole-HUD FAIL and all prior round history. No Round611 result is recorded.
+
+EVIDENCE FILES:
+
+- Independent formal verdict and receipt: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/VERDICT.md` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/receipt.json`.
+- Selected UI integration raw output and failure-specific TAP: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/attempt-005-ui-integration/evidence/stdout.raw` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/attempt-005-ui-integration/evidence/app-shell-failure.tap.txt`.
+- Scoped zero-step TAP: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/candidate/tests/game-browser-loop.test.js` as pinned by the receipt; run output `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r2-critic-r1/attempt-001-zero-step/evidence/stdout.raw`.
+
+## Round 611 — 2026-10-25
+
+PIECE: APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand
+
+VERDICT: PASS — scoped to the public app-frame handoff; not a whole-HUD or full 109-piece qualification
+
+EVIDENCE:
+
+The independent formal verdict is `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/VERDICT.md`; the complete gate, source-pin, reuse, visual, failure, process, and cleanup record is `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/receipt.json`. The public app-frame painter gate passed 2/2. It covered 115 targets per viewport (23 card IDs across four hand positions and Next) at 390×844, 720×1280, 1440×933, and 1280×720. Four fresh public contexts per viewport reproduced identical Canvas RGBA and iframe PNG bytes for initial, selected, insufficient-elixir, and ended states. Reduced motion, A→B→A repaint, equivalent-frame stability, forged-canvas rejection, rollback recovery, and poisoned-handoff behavior are also recorded.
+
+At 390×844, the settled iframe measures 382.5×680 at x=3.71875, y=73.3125 inside the measured 390×725 slot and within the viewport. The source arena remains 720×1280. The unchanged independent app-shell layout test passed 1/1, and the corrected app-shell browser test passed 1/1. R3 product source is identical to R2; the only source change for the geometry correction is a test assertion that checks positive iframe bounds are contained by the measured slot content box and viewport. It adds no wait, mask, or weakened UI threshold.
+
+The current qualification has 27 test invocations and 233 TAP tests: 231 passed, 1 skipped, and 1 strict failure. The skipped `ART004_PARENT_ROOT` artwork comparison is pre-existing. The only strict failure is standalone `visual-interface-art` at 8/9: four fresh `insufficient-elixir.png` captures produced two hashes. Its source SHA is unchanged from the control baseline, the current and exact336 baseline runs have the same two-hash set, and all other state images match byte-for-byte. The frequency changed from 3/1 to 2/2, so the strict gate remains failed; it is classified as pre-existing baseline nondeterminism only. This is still a whole-HUD gap, not a public painter restore failure.
+
+Other current R3 results include original Copperskiff 1/1 across all eight internal scenarios, motion checks 6, font provenance 1/1, publication Pages 5/5, release-build 25/25, RELEASE-001B 7/7 and guards 18/18, shipping isolation guard 13/13 and release 4/4, and progress renderer 5/5. The project-subpath Pages build passed browser qualification and produced 79 site files; the 69 release-manifest files total 6,614,925 bytes.
+
+Reuse from R2 was limited to 17 passing alias blocks (123 pass and 1 skip) plus a separate minimized zero-step test (1/1) with byte-verified dependency and inputs. The R2 failed app-shell alias and interrupted battle-hand-polish alias were rerun in R3. These are version-scoped results, not additional fresh R3 passes. The default full `npm test` suite was not run; the historical R1 full-suite run was interrupted, so no all-green full-suite claim is made.
+
+The separate APP-REDESIGN-HUD-001 whole-bar piece remains FAIL at six rounds. Its R608 0/1 strict suite applies to the old DOM candidate only, not the current public painter restore. R606–R608 DOM-only failures remain historical and their candidates remain unadopted. The known standalone legacy visual-interface-art 8/9 baseline still blocks the whole-HUD bar. The broader 109-card roster remains unfinished. At qualification time, the R3 candidate had not yet been adopted, pushed, or deployed; this verdict does not perform adoption or deployment.
+
+BIGGEST GAP: Make the unchanged standalone `insufficient-elixir.png` capture byte-identical across four fresh Chrome contexts; its current two-hash result matches the exact336 baseline set.
+
+DISPOSITION:
+
+Set APP-REDESIGN-HUD-PAINT-001 to PASS at three rounds, limited to the public app-frame handoff. Keep APP-REDESIGN-HUD-001 at FAIL and six rounds; its remaining whole-bar gap is the strict legacy visual-interface-art 8/9 result. Clarify that R608's 0/1 is the old DOM-candidate restore suite and does not describe current public painter restore. Preserve all previous entries, keep the 109-card roster unfinished, and do not claim full HUD, full-game, adoption, push, or deployment. No Round612 result is recorded.
+
+EVIDENCE FILES:
+
+- Independent verdict and complete receipt: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/VERDICT.md` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/receipt.json`.
+- Exact test-only geometry correction: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/evidence/app-shell-test-correction.diff`.
+- Four-viewport painter matrix and fresh-context repeatability: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/evidence/candidate-test-side-effects/artifacts/hud-card-painter-test/painter-matrix.json` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/evidence/candidate-test-side-effects/artifacts/hud-card-painter-test/shipping-repeatability/repeatability.json`.
+- Legacy baseline comparison and project-subpath Pages artifact: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/attempt-018-ui-visual-interface-art/visual9-comparison.json` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/attempt-028-project-subpath-pages-build/pages-artifact/`.

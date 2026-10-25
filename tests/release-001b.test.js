@@ -28,7 +28,7 @@ const EVIDENCE_PATH = join(EVIDENCE_DIRECTORY, "evidence.json");
 const LIMITS = Object.freeze({ maxFiles: 128, maxFileBytes: 1_048_576, maxTotalBytes: 8_388_608 });
 const ALLOWED_EXTENSIONS = Object.freeze([
   ".html", ".css", ".js", ".json", ".gif", ".jpeg", ".jpg", ".mp3", ".mp4",
-  ".ogg", ".otf", ".png", ".svg", ".ttf", ".wav", ".webm", ".webp", ".woff", ".woff2",
+  ".ogg", ".otf", ".png", ".svg", ".ttf", ".wav", ".webm", ".webp", ".woff", ".woff2", ".txt",
 ]);
 
 async function snapshot(directory) {
@@ -140,6 +140,12 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   assert.ok(paths.has("src/ui/app-shell.js"));
   assert.ok(paths.has("src/ui/arena-shell-entry.js"));
   assert.ok(paths.has("src/rl/environment.js"));
+  assert.ok(sourceAssetWasRequested(paths, "BarlowCondensed-Bold.ttf"),
+    "the battle typeface is emitted as a local release asset");
+  const fontOutput = manifest.files.find(({ path }) => path.endsWith(".ttf"));
+  assert.ok(fontOutput, "the release manifest includes the bundled battle font");
+  const licensePath = "public/licenses/BarlowCondensed-OFL.txt";
+  assert.ok(paths.has(licensePath), "the complete OFL text is in the release manifest");
   for (const node of Object.values(manifest.build.graph)) {
     for (const output of [node.file, ...(node.css ?? []), ...(node.assets ?? [])]) {
       assert.ok(paths.has(output), `graph output is absent from the canonical manifest: ${output}`);
@@ -160,6 +166,15 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   const prefix = "/moss-and-ember";
   const host = await startManifestHost(first, { prefix });
   t.after(() => host.close());
+  const fontResponse = await fetch(`${host.baseUrl}/${fontOutput.path}`);
+  assert.equal(fontResponse.status, 200);
+  assert.equal(fontResponse.headers.get("content-type"), "font/ttf");
+  const licenseResponse = await fetch(`${host.baseUrl}/${licensePath}`);
+  assert.equal(licenseResponse.status, 200);
+  assert.equal(licenseResponse.headers.get("content-type"), "text/plain; charset=utf-8");
+  assert.deepEqual(Buffer.from(await licenseResponse.arrayBuffer()),
+    await readFile(join(WORKSPACE_ROOT, licensePath)),
+    "the published license bytes are unchanged");
   const page = await context.newPage();
   const requests = recordBrowserRequests(context);
   const consoleErrors = [];
@@ -243,6 +258,8 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   assert.ok(productionRequests.some(({ path }) => path === "src/ui/arena-shell-bootstrap.js"));
   assert.ok(productionRequests.some(({ path }) => path === "src/ui/arena-shell-entry.js"));
   assert.ok(productionRequests.some(({ path }) => path === "src/rl/environment.js"));
+  assert.ok(productionRequests.some(({ path }) => path.endsWith(".ttf")),
+    "the live battle loads its same-origin condensed typeface");
 
   await writeEvidence({
     schemaVersion: 1,
