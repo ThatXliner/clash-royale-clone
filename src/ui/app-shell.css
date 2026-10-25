@@ -1154,17 +1154,31 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   background: rgb(16 26 34 / 70%);
   box-shadow: inset 0 0 0 1px var(--line);
 }
+.unit-profile.is-solo { padding: 0; background: none; box-shadow: none; }
 .detail-label + .unit-profile { margin-top: 0; }
 .unit-profile h3 { margin: 0 0 4px; font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
 .unit-profile > p { margin: 0 0 12px; color: var(--paper-dim); font-size: 13px; line-height: 1.5; }
 .spell-profile > p { margin: 12px 0 0; }
-.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.stat-grid {
+  display: grid;
+  container-type: inline-size;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 8px;
+}
 .stat-cell {
   min-width: 0;
+  grid-column: span 6;
   padding: 9px 11px 10px;
   border-radius: 10px;
   background: var(--ink-3);
   box-shadow: inset 0 0 0 1px #2b434d;
+}
+.stat-cell:not(.is-lead):last-child:nth-child(even) { grid-column: 1 / -1; }
+.stat-cell.is-lead {
+  grid-column: span 4;
+  padding: 11px 12px 12px;
+  background: #223642;
+  box-shadow: inset 0 0 0 1px #3a5866;
 }
 .stat-cell > span {
   display: block;
@@ -1185,7 +1199,18 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
+.stat-cell.is-lead .stat-num {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.stat-unit { color: var(--paper-dim); font-size: 13px; font-weight: 700; }
+.stat-cell.is-lead .stat-unit { font-size: 12px; }
+.stat-cell[data-empty] strong { color: var(--paper-mute); font-size: 14px; font-weight: 700; }
 .stat-cell[data-flag] { background: rgb(30 46 56 / 45%); box-shadow: none; outline: 1.5px dashed rgb(255 210 122 / 52%); outline-offset: -1.5px; }
+.stat-cell.is-lead[data-flag] { background: rgb(30 46 56 / 45%); box-shadow: none; }
 .stat-flag {
   display: inline-block;
   color: var(--seed);
@@ -1198,6 +1223,23 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
 .detail-footnote { margin: 12px 0 0; color: var(--paper-mute); font-size: 13px; line-height: 1.5; }
 .detail-legend { margin: 12px 0 0; display: flex; align-items: flex-start; gap: 10px; color: var(--paper-dim); font-size: 13px; line-height: 1.5; }
 .legend-swatch { flex: none; width: 20px; height: 14px; margin-top: 3px; border: 1.5px dashed rgb(255 210 122 / 70%); border-radius: 4px; }
+@container (min-width: 560px) {
+  .stat-cell:not(.is-lead),
+  .stat-cell:not(.is-lead):last-child:nth-child(even) { grid-column: span 3; }
+}
+@container (max-width: 359px) {
+  .stat-cell.is-lead {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 12px;
+    padding: 8px 12px 9px;
+  }
+  .stat-cell.is-lead > span { margin: 0; }
+  .stat-cell.is-lead strong { text-align: right; }
+  .stat-cell.is-lead .stat-num { font-size: 20px; }
+}
 /* Lore sits on a paper specimen tag, the one place the light surface is used. */
 .card-lore {
   position: relative;
@@ -1437,7 +1479,6 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   .detail-heading h2 { font-size: 30px; }
   .resource-cycle { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .resource-cycle li { grid-template-columns: minmax(0, 1fr); align-content: start; }
-  .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .kind-badge,
   .deck-badge { padding: 2px 5px; font-size: 10px; letter-spacing: 0; }
 
@@ -1454,7 +1495,6 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   .detail-cost { top: 14px; left: auto; right: 14px; width: 46px; height: 57px; padding-top: 14px; font-size: 25px; }
   .resource-cycle { grid-template-columns: minmax(0, 1fr); }
   .resource-cycle li { grid-template-columns: 108px minmax(0, 1fr); align-content: normal; }
-  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .role-chip { font-size: 12px; }
 }
 

@@ -393,10 +393,27 @@ function collectionCardMarkup(card) {
   })}</button>`;
 }
 
-function statCell(label, value, flag = null) {
+function statValueMarkup(value) {
+  const match = /^([\d.,]+)( .+)?$/u.exec(value);
+  if (match === null) return html(value);
+  return `<span class="stat-num">${html(match[1])}</span>${match[2] === undefined
+    ? "" : `<span class="stat-unit">${html(match[2])}</span>`}`;
+}
+
+function statCell(label, value, flag = null, lead = false) {
   const marker = flag === null ? "" : ` <span class="stat-flag">(${flag})</span>`;
   const state = flag === null ? "" : ` data-flag="${flag === "QUESTION" ? "question" : "estimate"}"`;
-  return `<div class="stat-cell"${state}><span>${label}</span><strong>${html(value)}${marker}</strong></div>`;
+  const empty = value === "Not available" ? " data-empty" : "";
+  return `<div class="stat-cell${lead ? " is-lead" : ""}"${state}${empty}><span>${label}</span><strong>${statValueMarkup(value)}${marker}</strong></div>`;
+}
+
+function statGridMarkup(entries, leadLabels) {
+  const lead = entries.filter(([label]) => leadLabels.includes(label));
+  const rest = entries.filter(([label]) => !leadLabels.includes(label));
+  return `<div class="stat-grid">${[
+    ...lead.map(([label, value, flag]) => statCell(label, value, flag, true)),
+    ...rest.map(([label, value, flag]) => statCell(label, value, flag)),
+  ].join("")}</div>`;
 }
 
 function radiusSpellProfileMarkup(card) {
@@ -408,22 +425,23 @@ function radiusSpellProfileMarkup(card) {
     Math.floor((fact.damage * (100 + fact.crownTowerDamagePercent) + 50) / 100))} damage per cast)`;
   return `<section class="unit-profile spell-profile" aria-label="${html(card.displayName)} spell profile">
     <h3>Center cast · estimated values</h3>
-    <div class="stat-grid">${[
+    ${statGridMarkup([
       ["Area damage", `${formatter.format(fact.damage)} per target`, null],
       ["Radius", radius, "estimate"],
       ["Targets", target, "estimate"],
       ["Crown towers", crown, "estimate"],
       ["Impact delay", `about ${impactDelay} seconds`, "estimate"],
-    ].map(([label, value, flag]) => statCell(label, value, flag)).join("")}</div>
+    ], ["Area damage", "Radius", "Impact delay"])}
     <p>Radius, target coverage, tower damage, rounding and impact timing are estimates. Projectile flight and knockback are not simulated.</p>
   </section>`;
 }
 
-function unitProfileMarkup(entity, questionFlags) {
+function unitProfileMarkup(entity, questionFlags, solo) {
   const heading = entity.count === 1
     ? html(entity.displayName) : `${formatter.format(entity.count)} × ${html(entity.displayName)}`;
   const delivery = entity.delivery === "projectile" ? "Ranged" : "Melee";
   const layer = entity.layer === "air" ? "Flying" : "Ground";
+  const visuallyHidden = solo ? ' class="visually-hidden"' : "";
   const flag = (field) => questionFlags.get(field) === true ? "QUESTION" : null;
   const values = [
     ["Count", formatter.format(entity.count), "count"],
@@ -439,10 +457,10 @@ function unitProfileMarkup(entity, questionFlags) {
   const classification = classificationHasQuestion(entity)
     ? html(questionClassificationCopy(entity))
     : `${layer} · ${delivery} · Targets ${html(targetLabel(entity.targetMode))}`;
-  return `<section class="unit-profile" aria-label="${heading} statistics">
-    <h3>${heading}</h3><p>${classification}</p>
-    <div class="stat-grid">${values.map(([label, value, field]) =>
-      statCell(label, value, flag(field))).join("")}</div>
+  return `<section class="unit-profile${solo ? " is-solo" : ""}" aria-label="${heading} statistics">
+    <h3${visuallyHidden}>${heading}</h3><p${visuallyHidden}>${classification}</p>
+    ${statGridMarkup(values.map(([label, value, field]) =>
+      [label, value, flag(field)]), ["Health", "Damage", "Hit speed"])}
   </section>`;
 }
 
@@ -469,8 +487,7 @@ function structureProfileMarkup(card) {
       <p>${question
         ? "Some resource fields remain QUESTION; source-aligned values keep their existing status."
         : "Values are from the current shared structure profile."}</p>
-      <div class="stat-grid">${values.map(([label, value, state]) =>
-        statCell(label, value, state)).join("")}</div>
+      ${statGridMarkup(values, ["Health", "Generation", "Interval"])}
     </section>`;
   }
   const broadQuestion = policy.disposition === "question";
@@ -502,8 +519,7 @@ function structureProfileMarkup(card) {
   return `<section class="unit-profile structure-profile" aria-label="${html(card.displayName)} statistics">
     <h3>${heading} · ${question ? "QUESTION" : "current profile"}</h3>
     <p>${confidence}</p>
-    <div class="stat-grid">${values.map(([label, value, state]) =>
-      statCell(label, value, state)).join("")}</div>
+    ${statGridMarkup(values, ["Health", "Damage", "Hit speed"])}
   </section>`;
 }
 
@@ -559,7 +575,8 @@ function renderCardDetails(card) {
       ${card.kind === "effect" ? radiusSpellProfileMarkup(card)
         : card.kind === "structure" ? structureProfileMarkup(card)
           : card.entities.map((entity) => unitProfileMarkup(entity,
-            unitQuestionFlags.get(entity) ?? emptyQuestionFlags)).join("")}
+            unitQuestionFlags.get(entity) ?? emptyQuestionFlags,
+            card.entities.length === 1)).join("")}
       ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}
       ${provisional ? `<p class="detail-legend"><span class="legend-swatch" aria-hidden="true"></span><span>Dashed outlines and ${legendMarks} mark provisional values. The game uses them, but they are not confirmed yet.</span></p>` : ""}
     </section>
