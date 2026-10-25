@@ -11044,3 +11044,202 @@ FILES:
 - Formal browser verdict: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/browser24/evidence/VERDICT.md` (SHA-256 `e4985c0ab92a50914ddf27cdb54bc91171b054a024f7a9d0237182d6cc3011d7`)
 - Raw stdout: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/browser24/evidence/stdout.raw` (SHA-256 `74863135ea5f583c231a6d5f464d54643e7b4f8e2c90f8813b035095eeee5257`)
 - Result and post-run audit: `/Users/me/.codex/clash-qualification/20261023-mosscoil-visible-atlas-selection-source-r2/UNIT-TEST-R2/browser24/evidence/RESULT.json` and `POST-RUN-PINS.json`
+
+## Round 592 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-SEVEN-001 — Brassbolt seven-channel observation parser controls, round 4
+
+VERDICT: PASS — 24 pure-data controls only
+
+EVIDENCE:
+
+The fresh independent pure-data run reported 24 tests, zero failures, zero errors and zero skips; the frozen wrapper exited 0, child PID `64118` closed, and source pins were unchanged. The receipt reports `native_execution=false`, `numeric_acceptance=null` and `art_acceptance=null`. Its bounded scope is synthetic seven-channel EXR structure/byte preservation, source-derived square cases at 0/+1/-1, and observation/model separation.
+
+This does not establish native render output, GPU arithmetic, a numeric coverage equation, baseline, artwork or production acceptance. The historical Brass native R3 failure and 108-pixel R==A failure remain unchanged.
+
+BIGGEST GAP: No accepted native pixel model, numeric equation, baseline or art result exists.
+
+DISPOSITION: Record the fourth scoped pure-data control PASS for VERIFIER-BRASS-SEVEN-001. Do not infer native or art acceptance.
+
+FILES:
+- Independent formal verdict: `/Users/me/.codex/clash-qualification/20261023-brassbolt-exposure-plus-one-parser-qual-independent-r1/evidence/FORMAL-VERDICT.md` (SHA-256 `47eba7a64dff03ce8f6bd584ad24ba04f61e6091dd4eb568c4436994a94599c3`)
+- Parser-controls receipt: `/Users/me/.codex/clash-qualification/20261023-brassbolt-exposure-plus-one-r1/qualification/PARSER-CONTROLS.json` (679 bytes; SHA-256 `b9c66caa1b638847df7b3b55910372f859d99afdb4f1f47059cfb5c582904d6e`)
+- Run spec SHA-256: `23712daeae8aefc1d2748b1ef4a6aa0d9f8f53c8fe43b363c8e82ba27338d1cd`
+
+## Round 593 — 2026-10-23
+
+PIECE: VERIFIER-BRASS-EXPOSURE-PLUS-ONE-001 — Brassbolt exposure-plus-one native acquisition and preservation diagnostic, round 1
+
+VERDICT: PASS — one scratch acquisition and its enumerated preservation checks only
+
+EVIDENCE:
+
+Blender 5.1.2 completed one scratch EEVEE render and one EXR export at the source-defined exposure +1, with the expected init/pre/post/complete event sequence. Direct exit was 0; child PID `73164` and wrapper session `4965` closed. All nine preservation flags were true, `preservation_errors=[]`, and before/after pins matched for 59 R9 files, two accepted inputs, 80 dependencies and 34 direct packet sources.
+
+The retained EXR is 16×16 FLOAT32/NONE with seven named channels. The observation records 7,168 raw sample bytes with SHA-256 `c8639ce0fd115235a3c0f56512aff3771e71dbc7f6402c1e1be52de09be2da06`. Exposure read back as +1 before and after. The scale is source-derived; `gpu_exposure_scale_observed=false`. Native expected words/model were not accepted, and numeric/art acceptance remain null. The historical R3 record remains an acquisition failure at exposure +0; the original isolated-alpha `R==A` failure at 108 samples remains untouched.
+
+BIGGEST GAP: GPU uniform contents, exact GPU arithmetic/raster membership, an accepted native pixel model, numeric coverage, baseline and art remain unestablished.
+
+DISPOSITION: Record a separate PASS for this one acquisition/preservation diagnostic only. Preserve the original R3 acquisition/parser FAIL and 108-sample R==A FAIL. Do not infer a production formula, numeric or art acceptance, or resolve the historical failure.
+
+FILES:
+- Independent formal verdict: `/Users/me/.codex/clash-qualification/20261023-brassbolt-exposure-plus-one-native-independent-r1/evidence/FORMAL-VERDICT.md` (SHA-256 `d2e1637ac75784e306be27b7326050d35b85507b3c22863b354fe56df2e4a8af`)
+- Observation JSON: `/Users/me/.codex/clash-qualification/20261023-brassbolt-exposure-plus-one-r1/attempts/observation-v1/NATIVE-EXPOSURE-PLUS-ONE-OBSERVATION.json` (1,009,539 bytes; SHA-256 `c0f66cf682141cfa9082773afa3e8b02c958028af4d90ddd42242ebf77ef61e1`)
+- EXR: `/Users/me/.codex/clash-qualification/20261023-brassbolt-exposure-plus-one-r1/attempts/observation-v1/native-exposure-plus-one-combined-emission.exr` (8,397 bytes; SHA-256 `ec9a0ef730d1ddae5f87638845f680a4240482ca8872b74ee09b048c97039e8a`)
+- Run spec SHA-256: `87eabf5a1f29407f0209d6cca7fa950918d2bc55f6bfd79b91464a309f1d33c0`
+
+## Round 594 — 2026-10-24
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Mosscoil browser restore selection v3 contract, combined candidate R2 browser matrix
+
+VERDICT: FAIL — browser matrix stopped before completion; no gameplay or art verdict
+
+EVIDENCE:
+
+The one direct Node invocation exited 1 (child PID 79402; outer session 62950), with one top-level TAP test failing. The browser test's 24 internal cases were one completed, one partial and 22 not reached; the seed-zero terminal restart was not reached. The completed phone/normal/Copperskiff/horizontal case passed its reciprocal-contact checkpoint, zero-pixel restore comparison, checkpoint audio checks, no-restore-cue checks and 120-tick restored future continuation. Its before/after PNGs are byte-identical (SHA-256 `21e5c5062e3af09e9782caf053b6d5d0846798e63c764167425f2b073a2adbe2`).
+
+The next vertical case failed the exact deployment-point assertion: expected `{x:3500,y:12000}`, received `{x:3499,y:12000}`. The saved run has no raw client coordinates, so the browser stage responsible for the one-pixel mismatch is unproved. Remaining cases were not reached. No tolerance or assertion was changed.
+
+All 17,729 combined-candidate manifest entries and pinned runtimes matched post-run. The browser and server closed; child PID 79402 was absent and the owned temporary directory was removed. The granted runtime slot was released.
+
+BIGGEST GAP: Identify the browser stage behind the 3499/3500 placement mismatch, then complete the untouched matrix and restart witness.
+
+DISPOSITION: Preserve this browser FAIL as executed. It does not establish a selection-restore gameplay defect or art result. Keep APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 BUILDING.
+
+FILES:
+- Formal browser verdict: `/Users/me/.codex/clash-qualification/20261023-combined-release-source-219-r2/UNIT-TEST-R2/browser24/evidence/VERDICT.md` (SHA-256 `ead4e1ff7a9d7c93322b4db6ae1f0659756c6e7660433b5f1ea2b058f0abe5d5`)
+- Run spec SHA-256: `a06c1c207c7aa4fc4bf50e6838d295ed32fdcdb90c8ee66d968ae468bee7bfb3`
+- Candidate seal: `d16a3d7465553e60ac6959a31ed91c2be583a3807e16081dded006ac1d45f0f0`; manifest SHA-256: `a322df67f2f16e0581a803d787dea6e570b566a3d19008219d44218e5bbae9cc`
+
+## Round 595 — 2026-10-24
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Mosscoil browser restore selection v3 contract, combined candidate R3 browser matrix
+
+VERDICT: FAIL — browser matrix stopped at the bounded completion witness; no gameplay or art verdict
+
+EVIDENCE:
+
+The one direct Node invocation exited 1 after about 47.1 seconds (child PID 81134; outer session 11454). The test's 24 internal cases were four completed, one partial and 19 not reached; the seed-zero terminal restart was not reached. The four completed cases were phone/normal Copperskiff horizontal and vertical, and phone/normal Mossguard horizontal and vertical. Each accepted the recorded deployment point and reached both-side contact evidence. Copperskiff vertical movement and the Mossguard horizontal/vertical walk and idle coverage passed.
+
+The partial phone/normal/Coilblade/horizontal case reached its tick-270 contact checkpoint with both sides represented. Its restore comparison was 390×844 with zero changed pixels (before/after PNG SHA-256 `bbe659afd9405ca77c4b225ac0bc069d1e6ad17ecc69599e4b1b21383e249a9c`). The 120-tick restored continuation and expected future audio projection passed; the checkpoint had 86 scheduled PCM entries and 11 cues, and its tick-390 future had 94 PCM entries and 19 cues. The retained expected-future record at tick 390 has both sides dead with zero hitpoints; it is the already consumed future state, not a separately saved completion trace. The completion assertion at test line 990 then failed: `Number.isSafeInteger(trace.coverage.completedAt) && trace.coverage.completedAt <= 1_920` was false. The saved evidence does not distinguish an absent value from one above the bound.
+
+Source-only diagnosis of the frozen R3 test source (`candidate/tests/approved-sprite-first-three-game-browser.test.js`, SHA-256 `5ae08007948a125fa8537fd58cd86f55505e82900137ddc6796dbb76eca39bba`) found that the restore helper advances the shared page through the 120-tick future to tick 390, then the second `stepAndObserve` trace starts from that future state. The helper's future witness therefore consumes the state the later two-part completion trace expects to observe. This is a test-helper sequencing diagnosis only; a source-only repair is pending. It does not establish a gameplay defect or art pass.
+
+All 17,729 manifest entries, all 15 owned path pins and the recorded runtimes matched post-run. The browser and server closed; child PID 81134 was absent and the owned temporary directory was removed. The granted runtime slot was released.
+
+BIGGEST GAP: Repair the test helper's future/second-trace sequencing in source, then rerun the untouched browser matrix and restart witness. The current R3 run does not decide the underlying gameplay behavior.
+
+DISPOSITION: Preserve this browser FAIL as executed. Keep APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 BUILDING; retain the earlier v3/selection and Mosscoil visual failures unchanged. No art or product acceptance follows.
+
+FILES:
+- Formal browser verdict: `/Users/me/.codex/clash-qualification/20261023-combined-release-source-219-r3/UNIT-TEST-R3/browser24/evidence/VERDICT.md` (SHA-256 `85af8c2890a90319b5d98cf20f857958293dc807ec2d874c8061fb3f6e5beb16`)
+- Tick-270 Coilblade restore record: `/Users/me/.codex/clash-qualification/20261023-combined-release-source-219-r3/candidate/artifacts/approved-sprite-integration-browser/attempt-combined-r3browser24-20261023/phone-normal-coilblade-horizontal-restore-record.json` (719,144 bytes; SHA-256 `d843b6b72189aa636a5c5593dc6df0f54c6702b0fa92cace5cb9e0261ef011a8`)
+- Run spec SHA-256: `8a35778f46e8a43eb4f2a5d315cecf4b8aab231062678ffe548847b7be057da2`
+- Candidate seal: `ef130876f4f3dd8a272447331e037d8005beaa9c19645c2f850169052178069d`; manifest SHA-256: `163ac3d0ac49a36f8811a048e2404a7e95ef53e1344c90c01a031a76dc19fef6`
+
+## Round 596 — 2026-10-24
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Mosscoil browser restore selection v3 contract, combined R4 browser matrix
+
+VERDICT: FAIL — one Coilblade second-rewind pixel differed; no art or product verdict
+
+EVIDENCE:
+
+The single authorized run exited 1 (child PID 59812) after about 22.7 seconds. The 24 internal cases were four completed, one partial and 19 not reached; the seed-zero terminal-restart witness was not reached. Phone/normal Copperskiff horizontal and vertical, and Mossguard horizontal and vertical, completed. The Coilblade horizontal case reached its tick-270 contact checkpoint. Its first restore passed the exact pixel check.
+
+The second rewind returned the recorded browser, session, bridge, audio-continuation, selection and controller state exactly. Scheduled PCM history and count were unchanged, the UI sequence did not increment, and audio generation advanced by one. The 390×844 screenshot comparison found one changed pixel at (359, 754): red changed from 241 to 242; green, blue and alpha were unchanged. This failed the strict assertion at test line 732 before the second simulation trace. The first restore and Copperskiff/Mossguard second-rewind comparisons each had zero changed pixels.
+
+The saved comparison says the Coilblade pixel is not visually discernible at the displayed scale and attributes no cause to a fresh-graph witness or paint state. The exact browser restore requirement failed, so record the piece as FAIL. This single pixel does not establish an art cause or product acceptance. The completion witness and restart remain untested because 19 cases were not reached. A separate diagnostic is running; it is not evidence for a Round 597 entry in this packet.
+
+All 17,729 manifest entries and all 15 owned pins matched after the run. The browser and server closed, child PID 59812 and the Playwright browser process were absent, the owned temporary directory was removed, and the heavy runtime slot was released. No stat, simulation-policy, geometry, cap or tolerance changes were made.
+
+BIGGEST GAP: Resolve the exact one-pixel second-rewind mismatch without weakening the pixel assertion, then reach the remaining cases and restart witness. This run does not identify a paint or renderer cause.
+
+DISPOSITION: Preserve the actual R4 browser FAIL. Set APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 to FAIL for its exact browser restore gate. Do not infer an art cause or full product acceptance. Do not record the separate running diagnostic as Round 597.
+
+FILES:
+- Formal browser verdict: `/Users/me/.codex/clash-qualification/20261024-coilblade-contact-completion-r4/UNIT-TEST-R4/browser24/evidence/VERDICT.md` (3,155 bytes; SHA-256 `631f860872d42052b4bcb18d07502867b38689feb7cbbed6b46ab9fa5b8660c2`)
+- Coilblade pixel-diff record: `/Users/me/.codex/clash-qualification/20261024-coilblade-contact-completion-r4/UNIT-TEST-R4/browser24/evidence/COILBLADE-END-REWIND-PIXEL-DIFF.json` (5,921 bytes; SHA-256 `54ee871a2dbd97663a0c100269e2595cdc82fb61fa2d2807e8e253ce3c019f0a`)
+- Run specification: `/Users/me/.codex/clash-qualification/20261024-coilblade-contact-completion-r4/UNIT-TEST-R4/browser24/run-spec-final.json` (SHA-256 `c8a449b8ebc034ef5a66e57e101f3fd3a572635b91d6832fbeb852979e1951f1`)
+- Evidence inventory: `/Users/me/.codex/clash-qualification/20261024-coilblade-contact-completion-r4/UNIT-TEST-R4/browser24/evidence/EVIDENCE-INVENTORY.tsv` (SHA-256 `d8cffab0c8f4831bad97d78fc7a3de21cb662872639ea2a045ea6445c73c0c0c`)
+
+## Round 597 — 2026-10-24
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — Coilblade restore paint diagnostic
+
+VERDICT: FAIL — diagnostic not qualified; no paint cause or product result
+
+EVIDENCE:
+
+The single authorized diagnostic run exited 1 (child PID 64016; TAP duration about 46.1 seconds). It ran the instrumented diagnostic candidate with a test-only delta, so it does not satisfy the next clean 24-case browser gate. Ten of the 24 case records passed. The phone/reduced-motion/Coilblade/horizontal case was partial; 13 cases and the seed-zero terminal-restart witness were not reached.
+
+The strict second-restore screenshot comparison at 390×844 found two changed pixels: at (359, 754), red changed from 241 to 242; at (366, 754), green changed from 124 to 125. Checkpoint and first-restore PNGs matched; the second-rewind image differed. The one-pixel screenshot assertion stopped the case before its second-restore state/audio assertions, so this run does not establish those results. The changed coordinates are within the visible lower-right badge area; location does not identify which paint operation caused them.
+
+The three paint reports (checkpoint, first restore, second rewind) are all INCOMPLETE. The same-process iframe could not obtain its own CDP session, so the run collected zero LayerTree snapshots, command logs, replays or CDP quads. The source built `ancestorChain` records but omitted them from the returned environment; no ancestor geometry was available. There is no paint-cause conclusion. This diagnostic is not a separate PASS and does not establish product acceptance.
+
+The post-run inventory reports all 17,729 manifest entries verified with zero mismatches; candidate source and runtime pins remained sealed. The test and runner processes were gone, the temporary directory was empty and removed, and no retry or source edit followed. The separate own-layer CSS experiment has not been executed and is not recorded as Round 598.
+
+BIGGEST GAP: Obtain complete paint-layer and ancestor evidence, then pass the unchanged strict pixel comparison in a clean browser run. This diagnostic does not identify a paint cause.
+
+DISPOSITION: Record Round 597 as a not-qualified diagnostic FAIL under the existing v3 piece. Keep the piece FAIL from the Round 596 exact browser gate. Do not create a separate diagnostic PASS, claim an art cause or product result, or record Round 598.
+
+FILES:
+- Formal diagnostic verdict: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r1/UNIT-TEST-PAINT-DIAGNOSTIC-R1/browser24/VERDICT.md` (7,311 bytes; SHA-256 `ad52716926a5ca69808124cfadbf57325545b770fc730b38b003d38d3e26fe4a`)
+- Post-run inventory: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r1/UNIT-TEST-PAINT-DIAGNOSTIC-R1/browser24/POST-RUN-INVENTORY.tsv` (19,717 bytes; SHA-256 `7a37a5fe7d9f3c9cb285ed127a9b17928ca8adba290f425843e34a4e9af087b6`)
+- Run specification: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r1/UNIT-TEST-PAINT-DIAGNOSTIC-R1/browser24/run-spec-final.json` (5,751 bytes; SHA-256 `98f9da543fae90d67f206cb6a380bfc8096c785f73b8c37b2eaf8bee5363e767`)
+- Run result: `/Users/me/.codex/clash-qualification/20261024-coilblade-paint-diagnostic-r1/UNIT-TEST-PAINT-DIAGNOSTIC-R1/browser24/evidence/RESULT.json` (666 bytes; SHA-256 `75dc0511cceb1cf92e03f64f97f55ba1951f055674e2523283fdb0714e7f3ca3`)
+
+## Round 598 — 2026-10-24
+
+PIECE: APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 — own-layer CSS hypothesis browser run
+
+VERDICT: FAIL — hypothesis rejected by the strict restore gate; no source or art cause established
+
+EVIDENCE:
+
+The single granted clean, uninstrumented run exited 1 on its first case, phone/normal/Copperskiff/horizontal. The first restore PNG differed from its checkpoint by two pixels at 390×844: (362, 751) changed from RGBA (222, 141, 224, 255) to (222, 142, 224, 255), and (362, 752) changed from (225, 145, 225, 255) to (225, 146, 225, 255). Both are green-channel +1 changes inside the visible lower-right badge area. The screenshots look identical at display scale, but the unchanged exact comparator failed.
+
+The first case was partial; zero of 24 cases passed, 23 cases and the seed-zero terminal restart were not reached. The run stopped before any Coilblade case, so the Coilblade art comparisons were not evaluated. No tolerance or masking was added. The own-layer CSS hypothesis remains a failed isolated candidate; it was not adopted, and this run establishes no rendering cause or product result. The normal R4 source remains unchanged.
+
+All 17,729 manifest entries were rechecked with zero mismatches. Child PID 65304, runner and test processes were gone, the temporary directory was empty and removed, and the test's finally path closed browser and server. No retry, source edit or follow-up run followed.
+
+BIGGEST GAP: The hypothesis failed the exact restore gate at the first Copperskiff case. No rendering cause follows from this result.
+
+DISPOSITION: Preserve the own-layer hypothesis as a FAIL. Keep APP-REDESIGN-MOSSCOIL-RESTORE-V3-001 FAIL. Do not adopt the CSS candidate or claim a cause, an art result or product acceptance.
+
+FILES:
+- Formal verdict: `/Users/me/.codex/clash-qualification/20261024-coilblade-own-layer-hypothesis-r1/UNIT-TEST-OWN-LAYER-HYPOTHESIS-R1/browser24/VERDICT.md` (4,944 bytes; SHA-256 `7b22cb7b5162b64ec47dc49ee96fe8c27428c4f6f2f63e6bc79df5e1bce17dac`)
+- Post-run inventory: `/Users/me/.codex/clash-qualification/20261024-coilblade-own-layer-hypothesis-r1/UNIT-TEST-OWN-LAYER-HYPOTHESIS-R1/browser24/POST-RUN-INVENTORY.tsv` (5,764 bytes; SHA-256 `7e348b1abac5d02e1724ee3cf55582611170407ab9b4cb4e4d64f7d0e989e192`)
+- Run specification: `/Users/me/.codex/clash-qualification/20261024-coilblade-own-layer-hypothesis-r1/UNIT-TEST-OWN-LAYER-HYPOTHESIS-R1/browser24/run-spec-final.json` (6,133 bytes; SHA-256 `76e1245af7c753235160e641c8b349c66886059ec786a6a51c95a473c82dcc2c`)
+- Isolated candidate CSS: `/Users/me/.codex/clash-qualification/20261024-coilblade-own-layer-hypothesis-r1/candidate/src/ui/hud-motion.js` (SHA-256 `665f5a510754635b7ae6ea668e67bbd4bc2430cc9663de4919607af4dbbf2ad5`)
+- One-file CSS hypothesis delta: `/Users/me/.codex/clash-qualification/20261024-coilblade-own-layer-hypothesis-r1/ONE-FILE-DELTA.patch` (SHA-256 `9e05a35ea6fa0fd9a74fb7097cdd4dde3e98d115ee709040e93a80ab0059e21f`)
+
+## Round 599 — 2026-10-24
+
+PIECE: APP-005 — Card-info hierarchy polish
+
+VERDICT: PASS — scoped card-info hierarchy acceptance. The raw browser harness exited 1 on four non-applicable Squall Orb Impact-delay font assertions; this record does not claim a browser-harness PASS.
+
+EVIDENCE:
+
+The unchanged `app-polish.test.js` and `app-shell-layout.test.js` suites passed 2/2 with zero skips. The independent critic inspected all 23 cards at widths 320, 390, 720, and 1440 pixels, covering 92 card screens. At each width, the 24 profiles and 173 stat cells matched the captured baseline for card identity, text, labels, values, legend, flags, empty markers, and other markers. The requested lead-stat order and responsive ledger/grid layout passed. All 173 cells fit their content boxes at 320 and 390 pixels, and the page had no horizontal overflow at any of the four widths.
+
+All 95 provisional or estimated cells per width retained dashed outlines. The 18 single-entity troop profiles retained their repeated heading and classification in accessible 1×1-pixel visually hidden elements. Both Briar Band unit headings remained visible.
+
+The browser script’s actual process exit was 1 and its preserved report contains four font-size assertions for the same non-applicable case: Squall Orb’s unchanged Impact delay value, “about 0.03 seconds,” has no `.stat-num` element, but the first harness version expected that span to be 20 or 24 pixels. The formal critic classifies these four checks as non-applicable; the raw failure is retained and no rerun occurred. Other measured browser checks passed and the run recorded no console errors. Do not describe the raw browser script as passing.
+
+The captured baseline contains zero `data-empty` cells, so empty-state styling was not exercised. Before/after comparison used the existing Coilblade card-info stills at 390×844 and 1440×900; other card types were inspected after the change without before screenshots. This result is limited to APP-005 card-info hierarchy and does not establish full visual parity or gameplay acceptance.
+
+Source hashes for `src/ui/app-shell.js`, `src/ui/app-shell.css`, and both test files matched before and after the run. The critic did not edit product or test source. Test PID 67943 exited 0; browser harness PID 68475 exited 1; server PID 68503 exited 0. Browser and server closed, and no recorded process remained afterward.
+
+BIGGEST GAP: Empty-state styling remains untested because the baseline has no empty cells. Before-and-after visual comparison beyond Coilblade remains unavailable.
+
+DISPOSITION: Mark APP-005 PASS for the judged card-info hierarchy scope. Preserve the raw browser harness exit 1 with its non-applicable assertion class; do not claim a browser-harness PASS. No full visual-parity or gameplay acceptance follows.
+
+FILES:
+- Formal critic verdict: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/VERDICT.md` (4,855 bytes; SHA-256 `69d7c5c436e5d735c03cbb25db6dd5d86c02e50d92732acd6a902236ae0666a1`)
+- Structured verdict: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/verdict.json` (2,671 bytes; SHA-256 `7283c203154ed3ae814c3e91539ad255f6c349e58061ccff35a0ad7c7c6e14ad`)
+- Raw browser receipt: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/browser/browser-acceptance.json` (145,417 bytes; SHA-256 `de287971d38ccdf53941364cfe9435ba2ea6f110b9690f64695256858a2e32ec`)
+- Raw browser TAP and exit: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/browser/browser.tap` (SHA-256 `31f216532fe00bafc232f1b4a372f59d318ffd8db0ea6774f5cb5ce4d02e0392`); `browser.exit` records `1` (SHA-256 `4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865`).
+- Unchanged UI test output: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/tests.tap` (590 bytes; SHA-256 `e90145ba2f7e2a1cb5036fe4bfc0f4c7f29287a8e495807873efc533254499fc`); `tests.exit` records `0`.
+- Post-run source hashes: `/Users/me/.codex/clash-qualification/20261025-menu-polish-r1/evidence/final-acceptance-critic-r1/source-hashes-final.sha256` (361 bytes; SHA-256 `c35302d4d5fdd69f022c59732aa93db3df275a8baed4bda95e30c5134e39e19a`).
