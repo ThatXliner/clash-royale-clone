@@ -1498,6 +1498,37 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   .role-chip { font-size: 12px; }
 }
 
+@media (max-width: 599px) {
+  .deck-summary-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "avg curve" "size curve" "mix mix";
+    align-items: start;
+    gap: 10px 18px;
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+  .deck-metric { gap: 3px; }
+  .deck-metric-average { grid-area: avg; }
+  .deck-metric:not(.deck-metric-average) { grid-area: size; }
+  .deck-metric-value { font-size: 24px; }
+  .deck-metric-of { font-size: 15px; }
+  .deck-curve-block { grid-area: curve; gap: 4px; }
+  .deck-curve { width: 100%; max-width: 224px; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+  .curve-col { grid-template-rows: 14px 34px 14px; gap: 2px; }
+  .deck-mix {
+    grid-area: mix;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .deck-mix-kind { font-size: 11px; letter-spacing: 0.1em; }
+  .deck-mix [data-deck-mix] { font-size: 13px; }
+}
+
 @media (max-width: 359px) {
   .app-main { padding-inline: 12px; }
   .brand-copy small { display: none; }
@@ -1505,8 +1536,15 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   .deck-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; }
   .deck-card-copy strong { font-size: 13px; }
   .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .deck-summary-card { gap: 12px 16px; padding: 12px; }
-  .deck-curve { grid-template-columns: repeat(7, 22px); gap: 5px; }
+  .deck-summary-card { grid-template-columns: minmax(0, 76px) minmax(0, 1fr); gap: 8px 12px; padding: 10px 12px; }
+  .deck-metric { gap: 2px; }
+  .deck-metric-value { font-size: 22px; }
+  .deck-metric-of { font-size: 14px; }
+  .deck-metric-label { font-size: 10px; letter-spacing: 0.08em; line-height: 12px; }
+  .deck-curve-block { gap: 2px; }
+  .curve-col { grid-template-rows: 12px 28px 12px; }
+  .deck-mix { padding-top: 7px; }
+  .deck-curve { gap: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

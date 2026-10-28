@@ -10353,6 +10353,13 @@ class GameSession {
   get replay() { return freeze(clone(this.#events)); }
   replayBytes() { return canonical(this.#events); }
 
+  /** Fork this authentic session without replaying its durable transcript. */
+  fork() {
+    const forked = this.#runtimeClone();
+    forked.#projectionSource = Object.freeze({});
+    return forked;
+  }
+
   /**
    * One immutable, module-branded read of every authority needed by browser
    * projections. It does not replay, restore, or expose live mutable state.

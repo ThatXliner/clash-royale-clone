@@ -2,8 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GAME_SESSION_MAX_SETUP_BYTES, GAME_SESSION_MAX_TRANSCRIPT,
-  GameSession } from "../src/sim/game-session.js";
+  GameSession, getGameSessionAudioReplay, isAuthenticGameSession } from "../src/sim/game-session.js";
 import { createPlayableRoster, createPlayableRosterQuestionRecords } from "../src/content/playable-roster.js";
+import {
+  createEnduranceWorkloadPolicy,
+  exactEnduranceSetupBytes,
+  normalizedWorkloadCommand,
+} from "./helpers/endurance-workload.js";
 
 const ROSTER = createPlayableRoster();
 const DECK = ROSTER.map(({ id }) => id);
@@ -69,6 +74,186 @@ test("game session: one boundary commits south ingress and north proposal into o
   assert.notDeepEqual(session.state.decks.south.hand, new GameSession(setup()).state.decks.south.hand);
   assert.ok(session.state.battle.units.some(({ side }) => side === "south"));
   assert.ok(session.state.battle.units.some(({ side }) => side === "north"));
+});
+
+test("game session: fork matches restore and keeps pending work independent", () => {
+  const source = new GameSession(setup({ think: 3_600 }));
+  source.submitPlayerCommand(command(source, 0));
+  source.stepMany(3);
+  source.pause();
+  source.resume();
+  const pendingCommand = JSON.parse(command(source, 1, source.state.tick + 2));
+  source.submitPlayerCommand(canonical(pendingCommand));
+
+  const sourceBytes = source.serialize();
+  const sourceState = source.state;
+  const sourceReplay = source.replayBytes();
+  const sourceAudio = getGameSessionAudioReplay(source);
+  assert.ok(sourceReplay.length > 0, "the fork fixture has real accepted-command replay");
+  assert.ok(sourceAudio.length > 0, "the fork fixture has emitted simulation audio");
+  assert.equal(source.state.pendingPlayerCommands.length, 1,
+    "the fork fixture preserves an accepted future command");
+  const sourceProjection = source.projectionSnapshot();
+
+  const restored = GameSession.restore(sourceBytes);
+  const fork = source.fork();
+  assert.ok(fork instanceof GameSession, "the facade fork retains its public prototype");
+  assert.equal(isAuthenticGameSession(fork), true,
+    "the fork remains an authentic GameSession");
+  assert.equal(fork.serialize(), sourceBytes);
+  assert.equal(restored.serialize(), sourceBytes);
+  assert.deepEqual(fork.state, sourceState);
+  assert.deepEqual(fork.state, restored.state);
+  assert.equal(fork.replayBytes(), sourceReplay);
+  assert.equal(fork.replayBytes(), restored.replayBytes());
+  assert.deepEqual(fork.replay, restored.replay);
+  assert.deepEqual(getGameSessionAudioReplay(fork), sourceAudio);
+  assert.deepEqual(getGameSessionAudioReplay(fork), getGameSessionAudioReplay(restored));
+  assert.deepEqual(fork.state.pendingPlayerCommands, [pendingCommand]);
+
+  const forkProjection = fork.projectionSnapshot();
+  const restoredProjection = restored.projectionSnapshot();
+  const sourceNextProjection = source.projectionSnapshot();
+  assert.deepEqual(forkProjection.state, sourceProjection.state);
+  assert.equal(forkProjection.sequence, sourceProjection.sequence + 1,
+    "fork copies the source sequence before projecting its own branch");
+  assert.equal(sourceNextProjection.sequence, forkProjection.sequence,
+    "fork projection does not advance the source sequence");
+  assert.equal(sourceNextProjection.source, sourceProjection.source,
+    "the original projection source remains stable");
+  assert.notEqual(forkProjection.source, sourceProjection.source,
+    "an independent fork receives a new projection source identity");
+  assert.notEqual(forkProjection.source, restoredProjection.source,
+    "restore and fork branches each own a projection source");
+
+  assert.deepEqual(fork.stepMany(3), restored.stepMany(3),
+    "the copied pending command commits on the same future tick");
+  assert.equal(fork.state.tick, 6);
+  assert.equal(fork.state.pendingPlayerCommands.length, 0);
+  assert.ok(fork.replay.some(({ side, tick, type }) =>
+    side === "south" && tick === pendingCommand.tick && type === "session-deployed"));
+
+  const nextCommand = command(fork, 2, fork.state.tick + 1);
+  assert.deepEqual(fork.submitPlayerCommand(nextCommand),
+    restored.submitPlayerCommand(nextCommand),
+    "both independent branches admit the same later input");
+  fork.pause();
+  restored.pause();
+  const pausedBytes = fork.serialize();
+  assert.deepEqual(fork.stepMany(3), []);
+  assert.deepEqual(restored.stepMany(3), []);
+  assert.equal(fork.serialize(), pausedBytes);
+  assert.equal(restored.serialize(), pausedBytes);
+  fork.resume();
+  restored.resume();
+  assert.deepEqual(fork.stepMany(3), restored.stepMany(3));
+  assert.equal(fork.state.tick, 9);
+
+  const invalidCommand = canonical({ cardId: fork.state.decks.south.hand[0],
+    commandId: 99, point: SOUTH, slot: 4, tick: fork.state.tick, type: "deploy" });
+  const beforeInvalidFork = fork.serialize();
+  const beforeInvalidRestore = restored.serialize();
+  assert.throws(() => fork.submitPlayerCommand(invalidCommand), /player session command is invalid/u);
+  assert.throws(() => restored.submitPlayerCommand(invalidCommand), /player session command is invalid/u);
+  assert.throws(() => fork.stepMany(-1), /session step count is invalid/u);
+  assert.throws(() => restored.stepMany(-1), /session step count is invalid/u);
+  assert.equal(fork.serialize(), beforeInvalidFork,
+    "invalid work cannot partially mutate the fork");
+  assert.equal(restored.serialize(), beforeInvalidRestore,
+    "invalid work cannot partially mutate the restore control");
+
+  const restoredFork = GameSession.restore(fork.serialize());
+  assert.equal(restoredFork.serialize(), fork.serialize(),
+    "the serialized fork remains compatible with the explicit restore path");
+  assert.deepEqual(restoredFork.state, fork.state);
+  assert.equal(restoredFork.replayBytes(), fork.replayBytes());
+  assert.deepEqual(getGameSessionAudioReplay(restoredFork), getGameSessionAudioReplay(fork));
+  assert.equal(source.serialize(), sourceBytes,
+    "advancing, submitting, pausing, and rejecting inputs on either branch leaves source bytes intact");
+  assert.deepEqual(source.state, sourceState);
+  assert.equal(source.replayBytes(), sourceReplay);
+  assert.deepEqual(getGameSessionAudioReplay(source), sourceAudio);
+});
+
+test("game session: restore and fork forecasts preserve decisions and branch evidence", () => {
+  const source = new GameSession(exactEnduranceSetupBytes());
+  source.stepMany(15);
+  const sourceBytes = source.serialize();
+  const realFork = source.fork;
+
+  const runForecast = (mode) => {
+    let preview = null;
+    let initialPreviewBytes = null;
+    Object.defineProperty(source, "fork", { configurable: true, value() {
+      preview = mode === "restore" ? GameSession.restore(source.serialize()) : realFork.call(source);
+      initialPreviewBytes = preview.serialize();
+      return preview;
+    } });
+    try {
+      const policy = createEnduranceWorkloadPolicy();
+      const decisionAtStart = policy.plan(source);
+      assert.equal(decisionAtStart, null);
+      const forecast = policy.nextPlannedAttempt(source, 300);
+      assert.ok(preview, `${mode}: look-ahead creates one private branch`);
+      assert.equal(initialPreviewBytes, sourceBytes,
+        `${mode}: private branch starts byte-identical to source`);
+      assert.equal(source.serialize(), sourceBytes,
+        `${mode}: look-ahead does not advance the source`);
+      const actual = mode === "restore" ? GameSession.restore(sourceBytes) : realFork.call(source);
+      actual.stepMany(forecast.ticksAhead);
+      assert.equal(actual.state.tick, preview.state.tick,
+        `${mode}: the independent live branch reaches the exact forecast boundary`);
+      assert.equal(actual.serialize(), preview.serialize(),
+        `${mode}: the independent live branch matches the forecast at the boundary`);
+      const decisionAtBoundary = policy.plan(actual);
+      assert.deepEqual(decisionAtBoundary, forecast.plan,
+        `${mode}: the live decision matches the forecast at the exact boundary`);
+      const acceptedCommand = { ...normalizedWorkloadCommand(decisionAtBoundary),
+        commandId: 0, type: "deploy" };
+      const admission = actual.submitPlayerCommand(canonical(acceptedCommand));
+      assert.equal(admission.accepted, true,
+        `${mode}: the recorded input is admitted on the live branch`);
+      assert.equal(policy.recordAcceptedPhysicalDelivery(acceptedCommand), true,
+        `${mode}: accepted input is mirrored into the forecast branch`);
+      const actualEvents = actual.stepMany(15);
+      const previewEvents = preview.stepMany(15);
+      assert.deepEqual(actualEvents, previewEvents,
+        `${mode}: live and forecast branches commit the same reaction-window events`);
+      const decisionAfterReaction = policy.plan(actual);
+      const previewDecisionAfterReaction = createEnduranceWorkloadPolicy().plan(preview);
+      assert.deepEqual(decisionAfterReaction, previewDecisionAfterReaction,
+        `${mode}: no extra action is invented in the following reaction window`);
+      return {
+        sourceAfter: { audio: getGameSessionAudioReplay(source), replayBytes: source.replayBytes(),
+          serialized: source.serialize(), state: source.state },
+        forecast: { plan: forecast.plan, ticksAhead: forecast.ticksAhead },
+        decisions: { atStart: decisionAtStart, atBoundary: decisionAtBoundary,
+          afterReaction: decisionAfterReaction },
+        acceptedCommand,
+        branch: { actual: { audio: getGameSessionAudioReplay(actual), replay: actual.replay,
+          replayBytes: actual.replayBytes(), serialized: actual.serialize(), state: actual.state },
+        preview: { audio: getGameSessionAudioReplay(preview), replay: preview.replay,
+          replayBytes: preview.replayBytes(), serialized: preview.serialize(), state: preview.state } },
+      };
+    } finally {
+      delete source.fork;
+    }
+  };
+
+  const restored = runForecast("restore");
+  const forked = runForecast("fork");
+  assert.deepEqual(forked, restored,
+    "restore and fork forecasts preserve recorded commands, decisions, branch state, replay, and audio");
+  assert.equal(forked.forecast.ticksAhead, 285);
+  assert.deepEqual(forked.forecast.plan, { cardId: "cinderlings",
+    decision: "frozen-GH-baseline", point: { x: 3_500, y: 5_500 }, slot: 3, tick: 300 });
+  assert.equal(forked.branch.actual.state.tick, 315);
+  assert.equal(forked.branch.actual.serialized, canonical(JSON.parse(forked.branch.actual.serialized)),
+    "the final forecast branch retains a canonical serialized witness");
+  assert.deepEqual(forked.branch.actual, forked.branch.preview,
+    "the live and forecast branches retain identical state, replay, and audio evidence");
+  assert.equal(source.serialize(), sourceBytes,
+    "both forecast strategies preserve the original 15-tick source");
 });
 
 test("game session: both sides materialize the default deck at exact boundaries and combat", () => {

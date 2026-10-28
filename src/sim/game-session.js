@@ -27,6 +27,12 @@ export class GameSession extends KernelGameSession {
     Object.setPrototypeOf(restored, GameSession.prototype);
     return restored;
   }
+
+  fork() {
+    const forked = super.fork();
+    Object.setPrototypeOf(forked, GameSession.prototype);
+    return forked;
+  }
 }
 
 export {

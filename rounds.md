@@ -11636,3 +11636,163 @@ EVIDENCE FILES:
 - Exact test-only geometry correction: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/evidence/app-shell-test-correction.diff`.
 - Four-viewport painter matrix and fresh-context repeatability: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/evidence/candidate-test-side-effects/artifacts/hud-card-painter-test/painter-matrix.json` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/evidence/candidate-test-side-effects/artifacts/hud-card-painter-test/shipping-repeatability/repeatability.json`.
 - Legacy baseline comparison and project-subpath Pages artifact: `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/attempt-018-ui-visual-interface-art/visual9-comparison.json` and `/Users/me/.codex/clash-qualification/20261025-hud-card-painter-r3-critic-r1/attempt-028-project-subpath-pages-build/pages-artifact/`.
+
+
+## Round 612 — 2026-10-25
+
+PIECE: GAME-001GPR10 — Current-source default-eight strict browser endurance
+
+VERDICT: FAIL — setup blocked before Chrome; no endurance-cap result
+
+EVIDENCE:
+
+The independent formal setup verdict is `/private/tmp/clash-current-endurance-20261025/critic/verdict.md`. One unchanged `npm test -- game-browser-endurance` invocation ran from the exact accepted candidate `65cbb60cbef54ebc34e65aa50a16e2d78643c786` under `env -i`, Node 22.23.4, Playwright 1.58.2, and system Chrome 156.0.8078.47. The process exited 1. TAP executed three cases: two passed and the full endurance case failed during server setup (107.8 ms; total TAP duration 2.4 s).
+
+The literal startup error was `Error: listen EPERM: operation not permitted 127.0.0.1` from Node 22.23.4. The test reported `browser endurance server exited before readiness` at `tests/game-browser-endurance.test.js:636`. The loopback server did not become ready, so Playwright and Chrome were not launched. There are no endurance segments, screenshots, restore/replay/audio/terminal observations, or measurements for the unchanged 50 ms lifecycle, 300 ms initialization, 40 ms one-tick, 30 s segment, or 1,200 s total caps. This is a setup failure, not a measured performance or product-code failure.
+
+A bounded 210-file source-closure comparison matched the accepted HEAD before and after the attempt; the accepted HEAD stayed `65cbb60cbef54ebc34e65aa50a16e2d78643c786`. No scoped source was made writable and no scoped symlink was followed. No repository source or normal index was changed. The independent verdict reports high host load at launch; this attempt provides no performance inference.
+
+BIGGEST GAP: The default sandbox denied the endurance server's loopback bind before Chrome launched, so the full 18,000-tick journey and its performance caps remain unmeasured for this source.
+
+DISPOSITION:
+
+Record GAME-001GPR10 as FAIL at one round with the observed 2/3 TAP result. Keep the full acceptance bar and exact-source scope unchanged. This setup failure identifies no source-code bug and establishes no endurance pass or cap failure. A separately permitted qualification is pending; do not record Round 613 until that run has an independent formal verdict. Preserve all prior round records, including the Round 320 throughput FAIL and the separate legacy whole-HUD FAIL. No expanded-deck, historical-parity, full-suite, release, or deployment claim follows.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-current-endurance-20261025/critic/verdict.md`.
+- Run specification and raw process evidence: `/private/tmp/clash-current-endurance-20261025/critic/run-spec.json`, `/private/tmp/clash-current-endurance-20261025/critic/raw/stdout.raw`, `/private/tmp/clash-current-endurance-20261025/critic/raw/stderr.raw`, `/private/tmp/clash-current-endurance-20261025/critic/raw/exit-code.txt`, `/private/tmp/clash-current-endurance-20261025/critic/raw/process-pids.txt`, and `/private/tmp/clash-current-endurance-20261025/critic/raw/host-load-at-start.txt`.
+- Failure telemetry: `/private/tmp/clash-current-endurance-20261025/evidence/full-run/endurance-result.json`.
+- Bounded source-closure records: `/private/tmp/clash-current-endurance-20261025/critic/source-closure-prehash.tsv`, `/private/tmp/clash-current-endurance-20261025/critic/source-closure-posthash.tsv`, and their adjacent summary JSON files.
+
+
+## Round 613 — 2026-10-26
+
+PIECE: GAME-001GPR10 — Current-source default-eight strict browser endurance
+
+VERDICT: FAIL — reached tick 18,000, then exceeded the strict total-duration cap before terminal and restart checks
+
+EVIDENCE:
+
+The independent permitted verdict is `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/VERDICT.md`. One unchanged `npm test -- game-browser-endurance` invocation ran from the accepted candidate at `65cbb60cbef54ebc34e65aa50a16e2d78643c786` under `env -i`, with Node 22.23.4, Playwright 1.58.2, and system Chrome 156.0.8078.47. It exited 1; TAP reported two passing cases and one failing endurance case. No retry was made.
+
+The browser reached tick 18,000 in 67 drive segments. The largest segment was 10,776 ms against the unchanged 30,000 ms limit; the largest measured one-tick slice was 27.9 ms against 40 ms. Initialization long tasks were 92 ms and 172 ms against 300 ms. The 50 ms lifecycle limit also passed. The result JSON measured 1,211,769 ms against the unchanged 1,200,000 ms total cap, exceeding it by 11,769 ms. The TAP test lasted 1,212,130.652709 ms and failed its final `browser endurance run stayed inside the documented overall cap` assertion at `tests/game-browser-endurance.test.js:1381`.
+
+Before that final assertion, the 600-to-300 restore/replay evidence and preceding assertions passed. Restore metadata reports `rewindFromTick: 600` and `rewindToTick: 300`; both typed simulation continuations contain 29 cues. Actual sink starts were 55 at branch and after restore, then 86 after replay. UI sequence values were 2 at branch, 2 after restore, and 4 after replay, including two replayed UI starts. These observations do not establish the later natural-terminal or same-seed-restart checks: the overall-cap assertion stopped the test before those checks. The retained result artifacts are `active.png` and `endurance-result.json`.
+
+The bounded 210-file relevant source closure matched accepted HEAD before and after the run; the active HEAD stayed `65cbb60cbef54ebc34e65aa50a16e2d78643c786`. The measured host load is recorded in the verdict as environment context only; it does not establish the cause of the over-cap result. No source change or performance cause is inferred.
+
+BIGGEST GAP: The unchanged 1,200,000 ms total cap was exceeded by 11,769 ms. Natural terminal observation and same-seed restart remain unverified because the final cap assertion prevented those checks.
+
+DISPOSITION:
+
+Record GAME-001GPR10 as FAIL at two rounds with the observed latest TAP result of 2/3. Round 612 remains the historical setup failure (`listen EPERM` before Chrome); Round 613 is the permitted run that reached tick 18,000 and failed only the strict total-duration assertion after the preceding recorded checks passed. Keep all 50/300/40/30,000/1,200,000 limits, exact source, workload and acceptance bar unchanged. Do not retry the unchanged run to green. A later independent full run requires a justified fix or an established environment change; no performance cause is established by this result. Preserve prior Round 320 throughput FAIL, Round 611 painter scope, and legacy whole-HUD FAIL. No expanded-deck, historical-parity, full-suite, release, or deployment claim follows.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/VERDICT.md`.
+- Frozen run specification and raw TAP/process evidence: `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/run-spec.json`, `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/raw/stdout.raw`, `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/raw/stderr.raw`, and `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/raw/exit-code.txt`.
+- Result JSON and active screenshot: `/private/tmp/clash-current-endurance-20261025/evidence/full-run-permitted-r1/`.
+- Bounded source-closure records: `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/source-closure-prehash.tsv`, `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/source-closure-posthash.tsv`, and `/private/tmp/clash-current-endurance-20261025/critic-permitted-r1/source-closure-pre-post-comparison.json`.
+
+## Round 614 — 2026-10-28
+
+PIECE: GAME-SESSION-FORK-001 — Public GameSession fork parity and forecast prerequisite
+
+VERDICT: PASS — focused public fork prerequisite only; not a full browser endurance or GPR10 PASS
+
+EVIDENCE:
+
+Independent critic receipt: `/private/tmp/clash-game-session-fork-critic-20261028/final-verdict.md`. The frozen four-overlay successor, based on accepted `65cbb60cbef54ebc34e65aa50a16e2d78643c786`, passed the focused fork, state/bytes/replay/audio equivalence, branch-independence, projection-source identity, forecast, restore, and requested integration/safety gates. The fork adds no serialization change or snapshot-version change; exact restore-byte equality passed, and the browser endurance cap source remains identical to accepted base.
+
+The qualified gate count is 159 PASS, one optional historical skip, zero FAIL. Qualified command results include: `npm test -- game-session` 11/11; `node --test tests/endurance-workload.test.js` 9/9; `npm test -- game-session-endurance` 1/1; `npm test -- game-ui-projection` 37 PASS with one optional accepted-parent comparison skip; `npm test -- game-browser-loop` 17/17; `npm test -- game-browser-audio` 11/11; `npm test -- game-restart` 3/3; `npm test -- browser-frame-restore` 1/1; `npm test -- rl-environment` 16/16; `npm test -- nondeterminism-guard` 10/10; `npm test -- shipping-isolation-guard` 13/13; `npm run test:release-build` 25/25; and `npm run test:publication-pages` 5/5.
+
+A separate forged-receiver probe passed: plain objects, prototype-spoofed objects, proxies around real sources, and revoked proxies are rejected; an authentic current-facade fork has the expected facade prototype/brand and leaves its source state, bytes, replay and audio unchanged. The 18,000-tick **Node session** endurance gate passed direct and irregular-chunk execution plus restore cuts at ticks 2,100, 9,000 and 17,700; paid-South gap maximum was 900 ticks, maximum reported segment 5,138 ms, and maximum snapshot 332,963 bytes. This is not a browser full-endurance run. The builder's five paired measurements remain builder evidence only, not a critic rerun, speedup claim, or game-frame claim.
+
+Source closure used Git-archive copies of the accepted base, not the root worktree or index. Each review/release copy contained 19,976 paths, retained the tracked historical symlink, and differed from the base at exactly the four manifest-pinned files: `src/sim/battle-continuation-kernel.js`, `src/sim/game-session.js`, `tests/helpers/endurance-workload.js`, and `tests/game-session.test.js`. The overlay hashes and `0444` modes match `/private/tmp/clash-endurance-total-cap-diagnosis-20261028/final-overlay-files.json`. Temporary release dependency/output symlinks were removed, tracked test-output JSONs were restored, and no owned test/build/browser/Playwright processes remained.
+
+Preserved setup history: the initial version-suffixed Node executable probe failed before launch; the pinned `/Users/me/.hermes/node/bin/node` rerun passed. The first release-build import attempt in a dependency-free archive failed before any test case because Vite was unavailable; after verifying the pinned Vite 8.3.3/Playwright 1.58.2 dependency tree and using a clean release copy, the qualified `npm run test:release-build` passed. These are setup attempts, not product failures or qualified-gate counts.
+
+No `game-browser-endurance` run was launched. GPR10 remains FAIL/pending on the fixed successor. Full browser caps (50 ms lifecycle, 300 ms initialization, 40 ms one-tick, 30 s segment, 1,200 s total), natural terminal, browser restore/audio/input and same-seed restart remain for a separate root-coordinated qualification. Deployment of this fixed successor also remains pending; the scoped R611 public app-frame painter handoff and its separately verified deployment are unchanged, as is the legacy whole-HUD FAIL.
+
+BIGGEST GAP: This focused PASS does not establish the full 18,000-tick browser run, its terminal/restart checks, or deployment of the fixed successor.
+
+DISPOSITION:
+
+Mark only GAME-SESSION-FORK-001 PASS at one round with 159 qualified passes, one optional historical skip, and zero failures. Preserve the two setup failures as history, excluded from the qualified gate count. Keep GPR10 at FAIL (2/3, two historical rounds) until an independent full-browser verdict on the fixed successor; do not infer browser acceptance from this focused result. Keep the R611 painter deployment scope, legacy whole-HUD FAIL, original 50/300/40/30,000/1,200,000 caps, and all unrelated round records unchanged. No expanded-deck, 109-card parity, full-suite, full-release, or successor-deployment claim follows.
+
+EVIDENCE FILES:
+
+- Independent critic receipt: `/private/tmp/clash-game-session-fork-critic-20261028/final-verdict.md`.
+- Frozen overlay manifest: `/private/tmp/clash-endurance-total-cap-diagnosis-20261028/final-overlay-files.json`.
+- Independent forged-receiver probe: `/private/tmp/clash-game-session-fork-critic-20261028/forged-fork-probe.mjs`.
+- Browser frame evidence: `/private/tmp/clash-game-session-fork-critic-20261028/evidence/browser-frame/`.
+- Qualified publication Pages evidence: `/private/tmp/clash-game-session-fork-critic-20261028/evidence/publication-pages-builder/`.
+- Release-build test-output receipts: `/private/tmp/clash-game-session-fork-critic-20261028/evidence/release-build-actual/`.
+
+
+## Round 615 — 2026-10-28
+
+PIECE: GAME-001GPR10 — full fixed-successor default-eight browser endurance
+
+VERDICT: PASS — one seed-zero default-eight 18,000-tick browser run on the fixed successor; no repeatability or deployment claim
+
+EVIDENCE:
+
+The independent English verdict is `/private/tmp/clash-fixed-successor-browser-critic-20261028/final-verdict-en.md`. One unchanged `npm test -- game-browser-endurance` run executed from the fixed successor tree based on accepted commit `65cbb60cbef54ebc34e65aa50a16e2d78643c786` plus exactly the four pinned overlays. TAP reports 3/3, zero failures and zero skips. The full browser case took 886,369.921916 ms; total TAP duration was 888,619.434208 ms. The run reached terminal tick 18,000 in 67 workload segments; the segment count is not a test count. Launcher PID 63002 and npm PID 63003 exited 0 at `2026-10-28T14:56:10Z`.
+
+The run used pinned Node `/Users/me/.hermes/node/bin/node` v22.23.4 and the pinned Chrome executable, whose actual version was Google Chrome 156.0.8078.49 (the saved pin had last verified 156.0.8078.47). The seed-zero scenario was `default-eight`, qualification mode `default-eight-full-18k`, setup SHA-256 `306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c`, with no tick/scenario/cap override. This is one-run absolute-cap qualification, not a before/after speedup claim.
+
+The full journey stayed within the unchanged caps: total measured duration 886,169 ms of 1,200,000 ms; slowest segment 10,343 ms of 30,000 ms; largest measured one-tick slice 31.4 ms of 40 ms; initialization long-task maximum 152 ms of 300 ms; and no driven, restore, terminal-observation, restart, screenshot, final-drain, or out-of-segment long-task entries against the 50 ms lifecycle limit. All 67 segments used `raf-scheduler-yield-raf` with one-tick chunks. Restore replay used 300 single-tick slices with a 9.7 ms maximum. Restore preflight, serialization, and DOM-commit maxima were 6.1 ms, 0.1 ms, and 0.1 ms. The final observer drain had no pending or newly observed tasks.
+
+Restore and replay passed exact browser/session continuation checks. The browser restored from tick 600 to snapshot tick 300 in 10,168 ms and replayed to the exact tick-600 continuation. The snapshot was 54,012 bytes. Restore emitted no new audio starts (55 before and after restore). Original and replayed typed simulation audio continuations matched byte-for-byte with 29 entries; actual sink starts were 55 at the branch and after restore, then 86 after replay. UI sequence remained 2 through restore and advanced to 4 after replay; the replayed UI cues were tick-300 `card-select` and `card-play`. Simulation and UI sequence-zero domains remained distinct, and the terminal audio renderer reported disposed with zero active voices.
+
+Physical input assertions passed: actual mouse/E2 delivery accepted a primary `cinderlings` command at tick 300, slot 3, point `{x:3500,y:5500}`, command ID 1. The replayed timeline accepted 40 commands with IDs 1–40; the final command was `skymaul` at tick 17,115, slot 0, point `{x:11750,y:12000}`. Post-restore physical delivery and paid active play by both sides passed.
+
+At tick 18,000, the match naturally ended in a South win, crowns South 2–North 1 by `tiebreak_lowest_hp`. The terminal UI was visible and restart was shown. Same-seed restart passed with session tick 0, non-terminal state, hidden restart control and no terminal overlay. Restart serialization was 39,253 bytes with SHA-256 `ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1`.
+
+Source closure matched before and after the run: 19,977 manifest entries including the root (19,976 below it), 17,733 files, 2,243 directories including the root, and one preserved symlink. Pre/post differences were zero; the closure matched the clean review runtime by path, content, and regular-file/directory modes. The symlink target was preserved and not followed. All four overlay SHA-256 pins and `0444` modes matched. The original browser test, runner, server, HTML, and `package.json` matched the accepted base byte-for-byte. The result is scoped to this fixed successor tree; R612 setup FAIL and R613 over-cap FAIL remain historical results on the unmodified base, and R614 remains the separate focused fork prerequisite PASS.
+
+Cleanup evidence reports empty pending resources, resource errors, console errors, and unhandled errors; server exited with empty stderr, no browser-close error, no remaining observed test/server/Chrome PIDs, and no listener on port 59756. This is not repeatability, another scenario, expanded-deck/109-card parity, full-suite qualification, release completion, or deployment of the fixed successor.
+
+BIGGEST GAP: This one run does not establish repeatability, another scenario, broader card parity, full-suite or release completion, or deployment of the fixed successor.
+
+DISPOSITION:
+
+Set GAME-001GPR10 to scoped PASS at three rounds, with R615 recording the one exact full-browser run as TAP 3/3. Preserve R612 setup FAIL, R613 total-cap FAIL, and R614 focused-fork PASS unchanged. The PASS applies to the accepted base plus exactly four pinned overlays and the one default-eight seed-zero journey at tick 18,000 under the original caps. Do not claim repeatability, another deck, 109-card parity, full suite, release completion, or deployment. Keep the R611 public app-frame painter/deployment scope and legacy whole-HUD FAIL unchanged.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-fixed-successor-browser-critic-20261028/final-verdict-en.md`.
+- Raw TAP, stderr, process, and launch evidence: `/private/tmp/clash-fixed-successor-browser-critic-20261028/logs/npm-test.stdout.log`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/logs/npm-test.stderr.log`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/logs/exit-code.txt`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/logs/launch.json`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/process-tree-at-launch.json`, and `/private/tmp/clash-fixed-successor-browser-critic-20261028/process-closure.json`.
+- Structured result and closure evidence: `/private/tmp/clash-fixed-successor-browser-critic-20261028/output/endurance-result.json`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/result-summary.json`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/post-run-closure-comparison.json`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/closure-comparison.json`, and `/private/tmp/clash-fixed-successor-browser-critic-20261028/preflight-post-run.json`.
+- 720×1280 active, terminal, and restart captures: `/private/tmp/clash-fixed-successor-browser-critic-20261028/output/active.png`, `/private/tmp/clash-fixed-successor-browser-critic-20261028/output/terminal.png`, and `/private/tmp/clash-fixed-successor-browser-critic-20261028/output/restart.png`.
+
+## Round 616 — 2026-10-28
+
+PIECE: APP-006 — Phone deck summary polish
+
+VERDICT: PASS — scoped responsive polish for the phone deck summary; no exact-pixel or deployment claim
+
+EVIDENCE:
+
+The independent `phone_deck_polish_critic` returned PASS for the CSS-only candidate based on exact accepted source `65cbb60cbef54ebc34e65aa50a16e2d78643c786`. Only `src/ui/app-shell.css` changed; candidate CSS SHA-256 is `c3717d883c311c2543d0578c6223c0bb8e90c3a98d71dd2577538e8bed56c01b`. The design direction is from Claude job `f867ab31c4`.
+
+Both app-suite processes exited 0. The `app-polish` suite recorded TAP 1/1 in 10.38 seconds. Raw TAP for `app-shell` is unavailable; its process exit 0 was captured via `set -eu`, and saved browser evidence passed restore/replay/restart coverage across 20 screens. Twelve paired baseline/candidate frames covered 320×568 and 390×844 at normal/reduced motion, plus 720×1280 and 1440×900. At 320px, the summary height changed 228→158px; at 390px, 236→155px. The 720px summary stayed 236px and the 1440px summary stayed 134px. Reduced-motion measurements matched the corresponding normal-motion results.
+
+Average elixir, card count, all seven curve columns, and the composition/mix values stayed the same. Minimum visible control height was 52px at 320px and 44px at the other tested viewports. The critic found no horizontal overflow, clipping, or overlap. Desktop summary geometry and content were unchanged. Paired desktop-image normalized average errors were small but nonzero at `6.68e-7` and `4.03e-8`; this result does not claim exact pixel equality. At 320×568, small wrapped labels remained readable and vertical scrolling is expected.
+
+The initial missing-Vite import attempt, stale Playwright measurement, and measurement-helper mismeasurement are preserved as setup/diagnostic history, not product failures. They are excluded from the qualified result. The measured 12-frame evidence is under `/private/tmp/clash-visible-polish-20261028/evidence/paired-screens/`; saved browser evidence is under `/private/tmp/clash-visible-polish-20261028/evidence/candidate-app-polish/` and `/private/tmp/clash-visible-polish-20261028/evidence/app-shell/`.
+
+BIGGEST GAP: At 320×568 the deck still requires vertical scrolling and small summary labels wrap, although the critic found them readable and uncropped; the paired image comparison also has tiny nonzero error rather than exact pixel equality.
+
+DISPOSITION:
+
+Mark APP-006 PASS at one round for this CSS-only phone deck-summary polish. Preserve the exact accepted-base scope, desktop layout, underlying metric/curve/mix values, reduced-motion behavior, minimum 44px touch targets, and no-overflow/clipping/overlap results. The app-shell raw TAP is unavailable and must remain identified as such; the saved independent browser evidence and exit 0 support this scoped result. Keep the three setup/measurement attempts as history, not product failures. Make no release/deployment, whole-HUD, 109-card, gameplay, or exact-pixel-parity claim. Preserve R615 GPR10 PASS and all earlier history unchanged.
+
+EVIDENCE FILES:
+
+- Paired baseline/candidate frame measurements: `/private/tmp/clash-visible-polish-20261028/evidence/paired-screens/measurements.json` and the PNGs in that directory.
+- Saved app-polish/browser evidence: `/private/tmp/clash-visible-polish-20261028/evidence/candidate-app-polish/browser-evidence.json` and its saved screenshots.
+- Saved app-shell browser evidence: `/private/tmp/clash-visible-polish-20261028/evidence/app-shell/browser-evidence.json` and `/private/tmp/clash-visible-polish-20261028/app-shell/`.
+- CSS-only source patch: `/private/tmp/clash-visible-polish-20261028/deck-summary-phone.patch`; accepted-base CSS reference: `/private/tmp/clash-visible-polish-20261028/evidence/baseline-source/src/ui/app-shell.css`.

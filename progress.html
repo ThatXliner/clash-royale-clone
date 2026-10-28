@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-10-25 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-28 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">341</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">274</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">611</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">344</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">277</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">616</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">R611 qualifies the public app-frame painter handoff only. The whole-HUD bar remains FAIL at the legacy visual-interface-art 8/9 exact336 baseline; the broader 109-card roster remains unfinished. Deployment is verified separately.</p>
+  <p class="note">R611’s public app-frame painter handoff remains separately deployment-verified. The whole-HUD bar remains FAIL at the legacy visual-interface-art 8/9 exact336 baseline; the broader 109-card roster remains unfinished. R615 passes one full default-eight GPR10 browser run on the fixed successor; deployment of that successor remains pending. R616 passes APP-006’s scoped phone deck summary polish; no release, deployment, or exact-pixel claim follows.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1750,6 +1750,14 @@
         <td>Round 599 scoped PASS: the unchanged UI test suites passed 2/2 with zero skips. The independent run inspected 23 cards at 320/390/720/1440px (92 card screens); exact identity, text, labels, values, flags, legend and markers matched across 173 stat cells per viewport. All 95 provisional cells per viewport retained dashed outlines; 18 single-entity troop profiles retained accessible 1×1 hidden headings/classifications; both Briar Band unit headings remained visible. Cell and page overflow checks passed. The raw browser harness exited 1 on four non-applicable Squall Orb Impact delay font assertions: unchanged text about 0.03 seconds has no .stat-num span. Preserve that raw failure; do not call it a browser-harness PASS. Zero data-empty cells were present, so empty-state styling was not exercised. Before/after image comparison was limited to Coilblade at 390×844 and 1440×900. Scoped card-info acceptance only; no full visual-parity claim.</td>
       </tr>
       <tr>
+        <td><code>APP-006</code></td>
+        <td>Phone deck summary polish</td>
+        <td class="state-pass">PASS</td>
+        <td>2/2 app-suite exits; app-polish 1/1; 12 paired frames</td>
+        <td>1</td>
+        <td>Round 616 independent scoped PASS. The CSS-only candidate is on exact base `65cbb60cbef54ebc34e65aa50a16e2d78643c786`; only `src/ui/app-shell.css` changed, SHA-256 `c3717d883c311c2543d0578c6223c0bb8e90c3a98d71dd2577538e8bed56c01b`. Both app-suite processes exited 0. `app-polish` TAP passed 1/1 in 10.38s; raw `app-shell` TAP is unavailable, but its exit 0 and saved browser evidence cover restore/replay/restart across 20 screens. Twelve paired baseline/candidate frames confirm summary heights: 320px 228→158px, 390px 236→155px, 720px unchanged at236px, and 1440px unchanged at134px; reduced-motion results match. Average/count, seven curve columns and mix values are unchanged. Minimum visible target is52px at320px and44px otherwise; there is no overflow, clipping or overlap. Desktop geometry and content are unchanged; normalized average errors are small but nonzero (6.68e-7 and4.03e-8), so no exact-pixel-match claim is made. At320×568 the small wrapped labels remain readable and vertical scrolling is expected. Preserve the missing-Vite, stale-Playwright and measurement-helper setup attempts as setup history, not product failures. Claude design job `f867ab31c4`. No release or deployment acceptance.</td>
+      </tr>
+      <tr>
         <td><code>RL-001</code></td>
         <td>Deterministic JavaScript training environment</td>
         <td class="state-pass">PASS</td>
@@ -2702,6 +2710,22 @@
         <td>Round571 independent formal PASS for one unchanged seed-zero default-eight 18,000-tick run against the sealed 641-file candidate. Exact deck: coilblade, mossguard, copperskiff, skymaul, brassbolt, reedsting, briar-band, cinderlings. Direct PID62380 exit0; TAP3/3; natural South 2–1 lowest-HP tiebreak at tick18000. All 641 candidate and26 reference pins match pre/post. Exact tick600→300 restore/replay, final 40 submitted commands with integer command.commandId values1–40, typed audio/input continuation, terminal and restart0 pass. 67 segments (max10,375ms), max one-tick34.5ms, initialization176ms, non-init long tasks0, total browser duration977,318ms under1,200,000ms. Product13 was adopted/pushed at8df80a440b1a68d1124137c1b3891e804b6db527. Root-verified Pages run40019531871 succeeded at that HEAD; the bounded change is live at https://bryanhu.com/clash-royale-clone/game/public/index.html. One run only: no repeatability, other scenario, whole-game parity or full attack acceptance.</td>
       </tr>
       <tr>
+        <td><code>GAME-001GPR10</code></td>
+        <td>Current-source default-eight strict browser endurance</td>
+        <td class="state-pass">PASS</td>
+        <td>3/3 (one full 18k browser run)</td>
+        <td>3</td>
+        <td>Rounds 612 and 613 remain historical failures on the unmodified accepted base: R612 loopback setup `EPERM`; R613 exceeded the 1,200,000ms cap by 11,769ms. R614 passed only the focused fork prerequisite. Round 615 is the single independent full-browser PASS on the fixed successor (accepted base plus exactly four pinned overlays): TAP 3/3; tick 18,000; all unchanged 50/300/40/30,000/1,200,000ms caps pass; exact restore/replay, input/audio continuation, natural terminal and same-seed restart pass; 19,977-entry source closure matches. No repeatability, other scenario, full-suite, 109-card parity, release completion, or successor deployment claim. See `/private/tmp/clash-fixed-successor-browser-critic-20261028/final-verdict-en.md`.</td>
+      </tr>
+      <tr>
+        <td><code>GAME-SESSION-FORK-001</code></td>
+        <td>Public GameSession fork parity and forecast prerequisite</td>
+        <td class="state-pass">PASS</td>
+        <td>159/159; 1 optional historical skip</td>
+        <td>1</td>
+        <td>Round 614 independently passed the focused fork prerequisite (159 qualified PASS, one optional historical skip, zero FAIL); that focused scope did not include `game-browser-endurance`. Round 615 subsequently passed the separate one-run full-browser GPR10 gate on the fixed successor. Successor deployment, repeatability, other scenarios, broader card parity and full-suite/release completion remain unproved. The five paired measurements remain builder evidence only, not a critic rerun, speedup or game-frame claim.</td>
+      </tr>
+      <tr>
         <td><code>VERIFIER-BRASS-FLOAT-001</code></td>
         <td>Brassbolt synthetic float32 RenderResult transport control</td>
         <td class="state-pass">PASS</td>
@@ -3381,6 +3405,11 @@
       <li><strong>R609 FAIL — focused painter checks pass, but the browser-loop projection-identity contract fails; full `npm test` is incomplete</strong> · APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand<br>After `stepMany(0)`, the combat projection's child-array/reference topology differs from the captured pre-step state; the later explicit child-identity assertion is not reached.</li>
       <li><strong>R610 FAIL — the minimized zero-step check passes, but the selected UI integration group fails an unchanged app-shell layout contract</strong> · APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand<br>At 390×844, the measured battle frame is 680 px high against the unchanged app-shell test's 660 px maximum.</li>
       <li><strong>R611 PASS — scoped to the public app-frame handoff; not a whole-HUD or full 109-piece qualification</strong> · APP-REDESIGN-HUD-PAINT-001 — Deterministic public app-frame painted hand<br>Make the unchanged standalone `insufficient-elixir.png` capture byte-identical across four fresh Chrome contexts; its current two-hash result matches the exact336 baseline set.</li>
+      <li><strong>R612 FAIL — setup blocked before Chrome; no endurance-cap result</strong> · GAME-001GPR10 — Current-source default-eight strict browser endurance<br>The default sandbox denied the endurance server's loopback bind before Chrome launched, so the full 18,000-tick journey and its performance caps remain unmeasured for this source.</li>
+      <li><strong>R613 FAIL — reached tick 18,000, then exceeded the strict total-duration cap before terminal and restart checks</strong> · GAME-001GPR10 — Current-source default-eight strict browser endurance<br>The unchanged 1,200,000 ms total cap was exceeded by 11,769 ms. Natural terminal observation and same-seed restart remain unverified because the final cap assertion prevented those checks.</li>
+      <li><strong>R614 PASS — focused public fork prerequisite only; not a full browser endurance or GPR10 PASS</strong> · GAME-SESSION-FORK-001 — Public GameSession fork parity and forecast prerequisite<br>This focused PASS does not establish the full 18,000-tick browser run, its terminal/restart checks, or deployment of the fixed successor.</li>
+      <li><strong>R615 PASS — one seed-zero default-eight 18,000-tick browser run on the fixed successor; no repeatability or deployment claim</strong> · GAME-001GPR10 — full fixed-successor default-eight browser endurance<br>This one run does not establish repeatability, another scenario, broader card parity, full-suite or release completion, or deployment of the fixed successor.</li>
+      <li><strong>R616 PASS — scoped responsive polish for the phone deck summary; no exact-pixel or deployment claim</strong> · APP-006 — Phone deck summary polish<br>At 320×568 the deck still requires vertical scrolling and small summary labels wrap, although the critic found them readable and uncropped; the paired image comparison also has tiny nonzero error rather than exact pixel equality.</li>
   </ol>
 </body>
 </html>

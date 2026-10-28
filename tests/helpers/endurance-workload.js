@@ -519,7 +519,7 @@ function createEnduranceWorkloadPolicyForCatalog({ emergencyDecisionTicks, catal
         return null;
       }
       if (previewSession === null || previewSession.state.tick !== startTick) {
-        previewSession = GameSession.restore(session.serialize());
+        previewSession = session.fork();
       }
       assert.equal(previewSession.serialize(), session.serialize(),
         "retained forecast bytes exactly match the live session at each policy boundary");
