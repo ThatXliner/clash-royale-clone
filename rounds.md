@@ -11797,6 +11797,185 @@ EVIDENCE FILES:
 - Saved app-shell browser evidence: `/private/tmp/clash-visible-polish-20261028/evidence/app-shell/browser-evidence.json` and `/private/tmp/clash-visible-polish-20261028/app-shell/`.
 - CSS-only source patch: `/private/tmp/clash-visible-polish-20261028/deck-summary-phone.patch`; accepted-base CSS reference: `/private/tmp/clash-visible-polish-20261028/evidence/baseline-source/src/ui/app-shell.css`.
 
+## Round 617 — 2026-10-28
+
+PIECE: GAME-001HTJC — Shared chained-projectile host continuation
+
+VERDICT: FAIL — focused suite passes, but the exact nondeterminism inventory and required host-level behavior remain incomplete
+
+EVIDENCE:
+
+Independent critic verdict: `/private/tmp/clash-chain-host-critic-20261028/final-verdict.md`. The critic evaluated the frozen six-file chain candidate and its separate source copy; the frozen source-fence records report no differences, all six manifest pins match, and the transient test file is absent. The candidate remains private and unadopted.
+
+The focused host selector passed 13/13 with zero skips. Existing selectors also passed: `special-projectiles-chain` 23/23, `game-roster-troops-projectile-profiles` 26/26, `game-roster-troops-projectile` 7/7, `battle-projectile-history` 17/17, `game-battle` 11/11, `battle-towers` 15/15, `game-shared-runtime-integration` 2/2, `game-session` 11/11, `audio-events` 12/12, and `game-audio-runtime` 11/11. The nondeterminism guard failed 9/10, leaving 170/171 qualified scoped cases passed with zero skips. Its exact simulation-module inventory omits the new `src/sim/live-battle-chain.js`; the failing assertion is `tests/nondeterminism-guard.test.js:212`.
+
+Required host behavior is not yet directly established. The forced post-advance/pre-adopt rollback fixture sets `chain: false` for both direct LiveBattle and GameSession, and the GameSession fixture also sets `receipt: false`; it therefore does not prove rollback of pending chain state. The new host suite does not directly test actual LiveBattle stable-ID tie breaking, range-edge behavior, or duplicate-contact rejection. Those checks occur only in private `ChainEncounter` tests, which do not establish LiveBattle host execution.
+
+The first shipping-isolation-guard run ran in parallel with the nondeterminism guard and failed 12/13 because a transient guard fixture file was missing. Preserve that output as a setup collision; the serial rerun passed 13/13 and is the qualified shipping result. Do not hide the parallel failure or count it as a product assertion or a pass.
+
+All 11 source-stat QUESTIONS remain non-authoritative, and the chain attribution assumption does not become source authority. The earlier R533 same-side exclusion PASS remains narrowly scoped. This R617 result makes no host adoption, full-browser/endurance, historical-value, or gameplay-parity claim.
+
+BIGGEST GAP: The determinism inventory omits the live host module, pending-chain rollback is not exercised, and actual LiveBattle tie/range/duplicate-contact rules still lack direct tests.
+
+DISPOSITION:
+
+Mark GAME-001HTJC FAIL at round 3 with 170/171 qualified scoped selector cases and zero skips. Preserve the host selector's 13/13 scoped PASS and the initial parallel shipping-guard failure as described; the reliable serial shipping rerun is 13/13. Do not adopt the six-file candidate or promote any of the 11 source QUESTIONS or attribution assumptions. Keep full browser/endurance, complete host semantics, and historical-value/gameplay parity unqualified. Preserve all R1–R616 records unchanged.
+
+EVIDENCE FILES:
+
+- Independent critic verdict: `/private/tmp/clash-chain-host-critic-20261028/final-verdict.md`.
+- Frozen source fences: `/private/tmp/clash-chain-host-critic-20261028/source-fence-before.json` and `/private/tmp/clash-chain-host-critic-20261028/source-fence-after.json`.
+- Raw selector logs and process/evidence files are under `/private/tmp/clash-chain-host-critic-20261028/`.
+
+## Round 618 — 2026-10-28
+
+PIECE: GAME-001HTJC — Shared chained-projectile host continuation
+
+VERDICT: FAIL — all scoped R2 selectors pass, but two required host-level proofs remain absent
+
+EVIDENCE:
+
+The independent R2 critic reviewed the frozen eight-path overlay candidate based on exact accepted commit `5904e44ec0cc8bffb7b1b919068b303de1dffd7e`. The candidate remains private and unadopted. Before and after review, all eight overlay pins and the source archive pin matched the manifest. Candidate and baseline copies used distinct inodes; recursive source diffs were empty apart from the deliberate `node_modules` symlink, and the transient guard file was absent after the run.
+
+All 13 fresh sequential selectors exited 0 with 175/175 assertions and zero skips: `test:live-battle-chain-host` 17/17; `test:special-projectiles-chain` 23/23; `test:game-roster-troops-projectile-profiles` 26/26; `test:game-roster-troops-projectile` 7/7; `test:battle-projectile-history` 17/17; `test:game-battle` 11/11; `test:battle-towers` 15/15; `test:game-shared-runtime-integration` 2/2; `test:game-session` 11/11; `test:audio-events` 12/12; `test:game-audio-runtime` 11/11; `test:nondeterminism-guard` 10/10; and `test:shipping-isolation-guard` 13/13. The focused invocation used exact-5904 baseline `/private/tmp/clash-chain-host-implementation-20261028/exact-5904/baseline` and historical-65 comparison `/private/tmp/clash-current-endurance-20261025/candidate`.
+
+Two required coverage items still block PASS. First, `primary lineage captures launch side and keeps post-primary continuation after source death` drives `LiveBattleChainContinuation` directly with a supplied dead-source condition. It does not kill an actual host Stormkite after the primary owner-confirmed impact and show its scheduled hop completing in `LiveBattle` and `GameSession` from serialized/restored host state. Second, the focused suite does not prove the clarified cross-kind canonical tie rule: for equal-distance eligible targets of different kinds, ascending canonical numeric `hostId` must win, with the selected target HP/receipt checked, the other target unchanged, and the same result under reversed input order. Existing same-kind building tie coverage does not establish this. Earlier design wording allowed tagged IDs, so this is a missing proof criterion, not a demonstrated R2 numeric tie bug.
+
+The R617 nondeterminism inventory omission is resolved: the R2 guard passed 10/10. The R2 data factory now has one owner in `sim` with a `content` re-export, and the simulation module graph/guard inventory gaps are resolved. These repairs do not close the two host proof gaps. All 11 source-stat QUESTIONS and the chain attribution assumption remain non-authoritative. The focused suite also does not stress every supported host-capacity case up to 1024 pending roots. No full-browser or endurance suite ran; this result makes no expanded-roster, release, historical-value, or gameplay-parity claim.
+
+BIGGEST GAP: Actual-host post-primary source-death continuation across serialization/restore and a cross-kind numeric-hostId tie under reversed input order remain unproved.
+
+DISPOSITION:
+
+Keep GAME-001HTJC FAIL at round 4 with 175/175 executed scoped assertions and zero skips. Preserve the complete R617 R1 FAIL history. Do not adopt the private eight-path candidate or promote any of the 11 source QUESTIONS or attribution assumptions. Record that the nondeterminism inventory, data-factory ownership, and module-graph guard gaps are resolved, while the two missing host proofs remain. Keep 1024-pending-root capacity stress, full-browser/endurance, release, expanded-roster, historical-value, and gameplay-parity qualification open.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-chain-host-critic-20261028/r2/final-verdict.md`.
+- Frozen eight-path overlay manifest: `/private/tmp/clash-chain-host-implementation-20261028/r2-exact-5904/r2-overlay-files.json`.
+- Source fences: `/private/tmp/clash-chain-host-critic-20261028/r2/source-fence-before.json` and `/private/tmp/clash-chain-host-critic-20261028/r2/source-fence-after.json`.
+- Selector logs/status and process evidence: `/private/tmp/clash-chain-host-critic-20261028/r2/` and `/private/tmp/clash-chain-host-critic-20261028/r2/logs/`.
+
+## Round 619 — 2026-10-28
+
+PIECE: GAME-001HTJC — Shared chained-projectile host continuation
+
+VERDICT: PASS — scoped R3 shared-host chain behavior; permanent ordinal-2 regression and combined adoption gate remain pending
+
+EVIDENCE:
+
+The independent critic reviewed the frozen eight-path R3 candidate based on exact accepted commit `5904e44ec0cc8bffb7b1b919068b303de1dffd7e`, using independent candidate and exact-5904 baseline copies. All eight candidate pins, applicable baseline pins, and the exact-5904 source archive pin matched; baseline-to-candidate diff contained exactly the eight manifest paths, and no frozen source, root/index/ref, or worktree files were edited.
+
+All 13 fresh sequential selectors exited 0 with zero failures and skips: focused `test:live-battle-chain-host` 21/21; `test:special-projectiles-chain` 23/23; `test:game-roster-troops-projectile-profiles` 26/26; `test:game-roster-troops-projectile` 7/7; `test:battle-projectile-history` 17/17; `test:game-battle` 11/11; `test:battle-towers` 15/15; `test:game-shared-runtime-integration` 2/2; `test:game-session` 11/11; `test:audio-events` 12/12; `test:game-audio-runtime` 11/11; `test:nondeterminism-guard` 10/10; and `test:shipping-isolation-guard` 13/13. Total: 179/179 TAP test cases, zero failures and zero skips. This count is TAP test cases, not individual assertions.
+
+The focused host suite proves the clarified cross-kind tie: the lower canonical numeric host ID wins even when tagged owner-key ordering differs; the chosen unit takes 192 damage, the tied structure stays at full HP, and reversing candidate enumeration preserves events, owner HP, and serialized state. It also covers primary/source ownership, friendly exclusion, same-kind tie, visited/cap behavior, inclusive and just-outside range, exact-5904 no-policy bytes, the historical-65 comparison, restore/fork/chunk/session projection, and fault rollback in both hosts. The R3 phase clarifications distinguish first hop from a second reachable hop and perform movement before candidate collection.
+
+Separately from the 179/179 selector total, a bounded critic-only ordinal-2 dead-source probe passed 1/1 on a temporary copy of the host test, which was removed after execution. After the first due hop the source was already dead at 0 HP and ordinal 2 remained `hop-pending` for tick 148; with the source still dead, the next selection hit unit 5 for 192, taking it from 81 HP to zero and completing the root. A restored control produced identical events and serialized bytes. This directly demonstrates second-hop continuation in `LiveBattle`, but its permanent regression assertion and the combined adoption gate are still pending. Do not add the probe as an extra TAP case or describe this result as 180/180.
+
+All eleven chain source records remain QUESTION-valued and unchanged; no confidence or historical attribution was promoted. The separate ordinary Brassbolt no-chain control still fails at tick 233 with `projectile brassbolt.delivery has an invalid shape` on both exact-5904 and R3; this pre-existing limitation is outside the scoped chain PASS. No 1,024-root stress case, full-browser or endurance suite, full-roster, release, adoption, or historical/gameplay parity qualification was performed.
+
+BIGGEST GAP: The ordinal-2 source-death behavior is proven by a bounded critic probe, but the permanent regression test and combined adoption gate are not yet incorporated and run.
+
+DISPOSITION:
+
+Record GAME-001HTJC scoped R3 PASS at round 5 for the eight-path candidate and the 179/179 fresh selector run, with the separate ordinal-2 probe clearly labeled as critic-only. Keep permanent regression/adoption work pending and preserve source QUESTIONS. Do not claim release, full-browser/endurance, full-roster or historical/gameplay parity.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-chain-host-critic-20261028/r3/final-verdict.md`.
+- R3 manifest: `/private/tmp/clash-chain-host-implementation-20261028/r3/r3-overlay-files.json`.
+- Source fences and closure diff: `/private/tmp/clash-chain-host-critic-20261028/r3/source-fence-before.json`, `/private/tmp/clash-chain-host-critic-20261028/r3/source-fence-after.json`, and `/private/tmp/clash-chain-host-critic-20261028/r3/closure-after.diff.txt`.
+- Selector status and raw logs: `/private/tmp/clash-chain-host-critic-20261028/r3/run-r3-sequential.cjs` and `/private/tmp/clash-chain-host-critic-20261028/r3/logs/`.
+- Separate bounded ordinal-2 probe and raw log: `/private/tmp/clash-chain-host-critic-20261028/r3/probe/live-battle-chain-host-r3-probe.test.js` and `/private/tmp/clash-chain-host-critic-20261028/r3/logs/dead-source-second-hop-probe-attempt2.log`.
+
+## Round 620 — 2026-10-28
+
+PIECE: GAME-001HTJC — Shared chained-projectile host continuation
+
+VERDICT: FAIL — V2 focused supplement has one test-harness failure; the scoped R3 core PASS remains unchanged
+
+EVIDENCE:
+
+The corrected, correctly configured fresh V2 focused run exited 1 with 20 passed, 1 failed, and zero skipped. Its failure is `GameSession restores an owner-confirmed primary, spell-kills its source, then publishes the hop` at `tests/live-battle-chain-host.test.js:1210`: `getGameSessionAudioReplay(copiedFirst.host)` throws `TypeError: game session audio replay receiver is invalid`. The host was restored from a staged copied module, while the getter was imported from the original candidate module. The original getter correctly rejects a host created by a foreign module instance; this is a test-harness brand mismatch, not a production behavior failure. Do not weaken product module branding to accept foreign instances.
+
+Preserve the initial 18/21 attempt separately as setup history: two additional failures occurred because the critic's exact-5904 baseline had not yet been copied to the configured path. The corrected attempt used an independently copied and pinned baseline and isolated the single harness failure. V2 changed only the supplement test; all seven R3-owned path pins and the exact-5904 archive pin matched, R3-to-critic diff contained only `tests/live-battle-chain-host.test.js`, and no source or worktree change occurred. No other selectors or profile, tower, guard, browser, or endurance suites ran for V2.
+
+This supplement FAIL does not revoke or expand the R619 scoped R3 core PASS: that PASS remains 179/179 fresh TAP test cases plus the separate bounded ordinal-2 critic probe, with the permanent regression assertion and combined adoption gate still pending. Do not count the separate probe as a TAP case. A V3 two-call namespace fix is source-only and unrun; it has no verdict and is not evidence. All eleven source QUESTIONS remain non-authoritative, and no adoption, release, full-browser/endurance, full-roster, or historical/gameplay parity claim is made.
+
+BIGGEST GAP: The focused supplement's restore/audio assertion crosses module instances and fails the original getter's intended brand check; a same-module test harness is needed before this supplement can qualify.
+
+DISPOSITION:
+
+Record GAME-001HTJC FAIL at round 6 for the latest V2 focused supplement, 20/21 tests with zero skips, while preserving R619's scoped R3 core PASS and its independent probe as distinct evidence. Preserve the initial 18/21 setup attempt as a separate historical failure; do not attribute the one corrected-run failure to production code. Do not mark the unrun V3 fix as passing. Keep the permanent ordinal-2 assertion, combined adoption gate, release, full-browser/endurance and broader-roster qualification pending.
+
+EVIDENCE FILES:
+
+- Independent R3 core verdict: `/private/tmp/clash-chain-host-critic-20261028/r3/final-verdict.md`.
+- Independent V2 supplement verdict: `/private/tmp/clash-chain-host-critic-20261028/r3-v2/final-verdict.md`.
+- Corrected V2 TAP log: `/private/tmp/clash-chain-host-critic-20261028/r3-v2/logs/focused-both-baselines-attempt2.log`.
+- Preserved initial V2 setup attempt: `/private/tmp/clash-chain-host-critic-20261028/r3-v2/logs/focused-both-baselines.log`.
+- V2 source fences: `/private/tmp/clash-chain-host-critic-20261028/r3-v2/source-fence-before.json`, `/private/tmp/clash-chain-host-critic-20261028/r3-v2/source-fence-before-attempt2.json`, and `/private/tmp/clash-chain-host-critic-20261028/r3-v2/source-fence-after.json`.
+
+## Round 621 — 2026-10-28
+
+PIECE: GAME-001HTJQN — Unresolved projectile QUESTION boundary normalization
+
+VERDICT: PASS — scoped Brassbolt QUESTION-boundary normalization; matching-source adoption and broader qualification remain pending
+
+EVIDENCE:
+
+The independent critic reviewed a fresh exact-5904 verification checkout with exactly two owned files: `src/sim/session-troop-projectile-runtime.js` at SHA-256 `40da7f4f87b95159fef8680496eed6fa2e8acb9fc4090d374016b75139de5064` and `tests/game-roster-troops-projectile.test.js` at SHA-256 `11aed59526493f7b0e3b0a90aaa7875d650b8f1bee243874e25ce651062f6fd1`. The fixed source/test stayed distinct from their frozen artifacts. Pre- and post-run source fences found 17,733 files, 2,242 directories and one archived symlink, with no path/shape/mode differences beyond those two owned files; source archive comparison matched. The archive-restored `reference/` directory had 30 entries and 275,126 regular bytes with no content or shape difference. Its read-only comparison found the protected checkout's 0644 modes differ from the archive's 0664 modes; no protected reference files were changed.
+
+The exact same three-case regression command reproduced the baseline defect at 0/3 on original exact-5904 source and passed 3/3 on the fixed candidate. These red/fixed diagnostic cases are separate from the acceptance count. The defect was that an unresolved QUESTION record normalized with an internal `key` was later revalidated as the raw exact-five-field schema; the emitted record also failed explicit QUESTION validation. The private adapter now removes the manifest's separate `key` before normalization while preserving the raw record fields.
+
+Four fresh sequential acceptance selectors all exited 0, with 60/60 TAP test cases and zero failures/skips: `game-roster-troops-projectile` 11/11, `game-roster-troops-projectile-profiles` 26/26, `nondeterminism-guard` 10/10 and `shipping-isolation-guard` 13/13.
+
+A genuine ordinary Brassbolt host launch emits the canonical non-authoritative QUESTION event with matching projectile identity, source, target, and LiveBattle tick. The event's declared raw confidence/source/value records match the receipt. Filtering only that QUESTION diagnostic leaves normal host events and state equal to the profile-disabled control. Serialize/restore, fork, chunked advance, replay bytes and normal audio replay events match; audio evidence is an event-stream comparison only. Overriding public `question()` cannot forge fields in private emitted records. Extra-key, malformed and authority-promoted raw receipt records reject before mutating an existing session. The default path and all five known profiles remain unchanged. Unknown Brassbolt delivery and speed remain QUESTION; the fix adds no mechanic, stat, confidence or roster admission.
+
+Preserve early incomplete-corpus and wrong-reference-symlink RED runs as setup history, excluded from qualification, including the separately reported reduced-copy 12/13 missing-corpus attempt. The formal record also details an 11-case 8-pass/3-fail scratch-reference attempt; the corrected archive-restored context produced the qualified baseline red3/fixed3 comparison and all-green acceptance selectors. The temporary symlink was removed before the corrected run; no guard, browser or release command ran while it existed. A read-only comparison of the protected reference found no content changes.
+
+BIGGEST GAP: Matching-source adoption remains pending. This scoped pass does not establish Brassbolt delivery/speed values, audio PCM or audibility, browser/release behavior, complete roster support, historical truth, or gameplay parity.
+
+DISPOSITION:
+
+Mark GAME-001HTJQN PASS at round 1 with 60/60 acceptance TAP cases and zero skips. Keep the three-case baseline red and fixed green as distinct regression evidence outside that total. Preserve raw source bounds and flags as QUESTION and keep the combined matching-source/adoption step pending. Make no audible/PCM, browser, release, complete-roster, historical-value, or gameplay-parity claim. Do not change GAME-001HTJC's latest R620 Supplement V2 FAIL; its R619 core PASS remains separately scoped.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-projectile-question-normalization-20261028/critic-evidence/final-verdict.md`.
+- Fresh acceptance TAP and setup logs: `/private/tmp/clash-projectile-question-normalization-20261028/critic-evidence/`.
+- Raw three-case diagnostic comparator and source-fence evidence are preserved with the critic's artifact.
+
+## Round 622 — 2026-10-28
+
+PIECE: GAME-001HTJC — Shared chained-projectile host continuation
+
+VERDICT: PASS — scoped V3 ordinal-2 regression supplement; combined adoption gate remains pending
+
+EVIDENCE:
+
+The independent critic ran only the focused `test:live-battle-chain-host` selector with both mandatory baselines configured. It exited 0 with 21/21 TAP cases passed, zero failures, and zero skips under Node v22.23.4/npm 12.2.0. The V3 test file includes the ordinal-2 regression in both hosts. Its two copied-session audio checks call the getter from `copiedHosts.gameSession`, matching the staged host's module instance; production module branding is unchanged.
+
+This is a fresh focused 21/21 result. The 158 other R3 passing cases may be reused as version-scoped evidence because their production sources and selector inputs are unchanged; they were not run fresh for V3. Do not report a fresh V3 179/179 run. The earlier R619 core PASS of 179/179 fresh cases and its separate critic probe remain distinct evidence; no extra probe case is added to the V3 TAP count.
+
+In LiveBattle, the permanent regression inspects serialized root anchor, side, identity, visited owners, and ordinal; proves the source is at 0 HP before ordinal-2 selection; uses the captured post-movement/pre-combat candidate frame for an independent target oracle; and checks owner HP, lineage, damage receipt, and restored event/state equality. GameSession avoids internal-root parsing and checks its captured candidate frame, dead source, ordinal-2 owner damage and lineage, transcript/replay bytes, and audio replay across restored and staged-host controls.
+
+The source-fence records verify the V3 test pin `069deb83999304c489b86c9e6c0a739b67e0c93523cb258ca6681c88951bb2f2`, all seven unchanged R3-owned path pins, and exact-5904 archive pin `f0bc0d842dc73f7ad65bad8a719911592066ccbefaaf414eac0091b89e41b5c1`. Recursive R3-to-V3 diff contains only `tests/live-battle-chain-host.test.js`; exact-base-to-candidate closure remains the eight owned paths. The critic copy matches frozen V3 and no temporary tests remain.
+
+The R3 eight-path chain overlay and the separate R621 two-file projectile QUESTION normalization overlay are both scoped-qualified and remain unadopted. No full browser, endurance, release, or combined adoption gate ran. Source QUESTION values remain non-authoritative; no full-roster or historical/gameplay parity claim is made.
+
+BIGGEST GAP: The combined matching-source/adoption gate has not been run, so neither engine overlay is adopted.
+
+DISPOSITION:
+
+Record the R3-V3 ordinal-2 supplement PASS at round 7 with 21/21 fresh focused TAP cases and zero skips. Record 158 prior unchanged-input cases only as version-scoped reuse, not as a fresh V3 suite. Preserve R619's 179/179 R3 core result, R620's V2 FAIL and its setup history, and the scoped R621 projectile QUESTION normalization PASS. Keep both engine overlays qualified but unadopted until the combined gate. No full-browser/endurance/release/full-roster/parity completion is claimed.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-chain-host-critic-20261028/r3-v3/final-verdict.md`.
+- Source fences: `/private/tmp/clash-chain-host-critic-20261028/r3-v3/source-fence-before.json` and `/private/tmp/clash-chain-host-critic-20261028/r3-v3/source-fence-after.json`.
+- Direct run status and PIDs: `/private/tmp/clash-chain-host-critic-20261028/r3-v3/logs/run-status.json`.
+
 ## Round 623 — 2026-10-28
 
 PIECE: APP-002P — Phone deck action clearance
@@ -11825,3 +12004,91 @@ EVIDENCE FILES:
 - Independent phone captures: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-390x844-initial.png`, `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-390x844-hint-reachable.png`, `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-320x568-initial.png`, and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-320x568-bottom-row-reachable.png`.
 - Independent desktop capture and pixel-difference image: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/desktop-1440x900-deck.png` and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/desktop-diff.png`.
 - Builder before/after capture reports: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-baseline/report.json` and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/report.json`.
+
+## Round 624 — 2026-10-28
+
+PIECE: GAME-001HTJC/HTJQN — Combined chain-host and projectile QUESTION integration
+
+VERDICT: PASS — scoped combined exact-90fb integration only
+
+EVIDENCE:
+
+The independent critic reviewed the frozen combined candidate based on exact accepted 90fb. Source closure is exactly ten owned paths: the eight-path R3 chain overlay, including its V3 focused test and the additive coexistence case, plus the two-path projectile QUESTION-normalization overlay. The independent source check matched the final manifest and exact archive; before/after scans found no candidate or critic-copy changes, reference files were untouched, and no hardlinked files were present.
+
+Fresh results from the clean copy were 97/97 TAP cases across eight selectors: focused chain 22/22 with both required baseline environments; projectile normalizer 11/11; nondeterminism guard 10/10; shipping isolation 13/13; GameSession 11/11; input bridge 7/7; audio events 12/12; and game audio runtime 11/11. A separate default seed-zero nonbrowser `game-session-endurance` case passed 1/1 at 18,000 ticks, including chunked execution and restore cuts; the raw log reports maximum paid South deployment gap 900 ticks. This is not a browser-endurance run.
+
+The builder's 214 passing cases are separate evidence and are not included in the independent critic's 97 focused cases or its separate 1/1 nonbrowser endurance case. The duplicate default-route and pilot checks are excluded from the builder's unique count. Preserve the initial shipping-isolation release attempt failure 3/4 as an environment setup failure because `GAME_BROWSER_PLAYWRIGHT` was missing; the corrected selector passed 4/4 without weakening assertions.
+
+The ten-path combined result certifies deterministic integration of the explicitly modeled QUESTION-valued chain and projectile boundary. All eleven historical chain QUESTION records remain unchanged, owner attribution remains a separate non-authoritative QUESTION, and no source-mechanic discovery, full-roster parity, gameplay parity, adoption, push, release acceptance, or full-browser qualification is claimed.
+
+BIGGEST GAP: The full browser-endurance run on this exact combined source has not run; the full 18,000-tick browser result is reserved for R625.
+
+DISPOSITION:
+
+Record GAME-001HTJC/HTJQN combined integration PASS at R624 as 97/97 fresh focused TAP cases plus the separate 1/1 default seed-zero nonbrowser 18,000-tick endurance case. Keep the builder's 214 separate. Preserve all prior R617–R623 records unchanged, including R620 V2 failure and R622 V3 scoped pass. Keep all source QUESTION values and owner attribution non-authoritative. Do not claim adoption, release, full browser/endurance, full-roster, or historical/gameplay parity. R625 browser qualification remains pending.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-chain-host-integration-20261028/critic-evidence/final-verdict.md`.
+- Builder source handoff and unique-case count: `/private/tmp/clash-chain-host-integration-20261028/evidence/source-handoff.md`.
+- Final source manifest: `/private/tmp/clash-chain-host-integration-20261028/evidence/final-source-manifest.json`.
+- Focused and nonbrowser endurance logs: `/private/tmp/clash-chain-host-integration-20261028/critic-evidence/focused-chain-both-baselines.tap` and `/private/tmp/clash-chain-host-integration-20261028/critic-evidence/game-session-endurance-18k.tap`.
+
+## Round 625 — 2026-10-28
+
+PIECE: GAME-001HTJC/HTJQN — Full-browser endurance on the combined chain-host candidate
+
+VERDICT: PASS — one unchanged full browser endurance run on the exact combined source
+
+EVIDENCE:
+
+The independent critic ran the unchanged `npm test -- game-browser-endurance` command on accepted base `90fbf0ee31621b96b34e447a8b9d3aa39d2676da` plus the ten paths in the frozen chain-host/projectile-normalization manifest. The independent copy matched 19,981 paths (17,736 files, two preserved symlinks), all ten source pins and modes, and had no shared inodes with the candidate. The post-run manifest had zero differences. `tests/game-browser-endurance.test.js` remained unchanged at SHA-256 `f91186845455952b242a951d29e0ad9d7fcb791d2da60541a3ed44e68c149a5c`.
+
+The sterile run used default-eight, seed 0, and 18,000 ticks. The original caps were unchanged: 50 ms lifecycle tasks, 300 ms initialization, 40 ms per simulation step, 30,000 ms per segment, 1,200,000 ms total, with the existing 1,260,000 ms test timeout. Node v22.23.4, npm 12.2.0, pinned Playwright, and pinned Chrome 156.0.8078.49 were used. Session 38793 exited 0 at `2026-10-28T21:09:12Z`; the run started at `20:54:22Z`. TAP was 3/3 top-level cases. The full browser test took 887,097.8 ms; its JSON reports 886,861 ms of workload over 67 segments (segments are not tests). Maximum segment was 10,317 ms, maximum recorded single-tick step 26.2 ms, and maximum initialization task 150 ms. No lifecycle long tasks or cap failures were recorded.
+
+The browser admitted the real E2 `deploy` input for `cinderlings` at tick 300, slot 3, point `(3500, 5500)`, command ID 1. Restore returned from tick 600 to tick 300 using the 54,012-byte snapshot and replay returned to 600; the 29 typed simulation cues matched the original continuation. Natural terminal occurred at tick 18,000 (South 2–1 by `tiebreak_lowest_hp`); same-seed restart returned to tick 0 and cleared terminal state. No console/resource/unhandled errors or pending resources remained. The server, cancelled driver, gate processes, and port 57240 were closed; the Playwright profile was removed.
+
+R624's 97/97 fresh focused selector cases and separate 1/1 nonbrowser 18,000-tick case remain distinct. The builder's 214 cases are also separate. R625 tests this one default-eight browser journey; it does not establish full-suite, other-scenario, full-roster, gameplay-parity, release, or general speedup claims. It does not adopt the private engine overlay or resolve the historical QUESTION records.
+
+BIGGEST GAP: The chain-host custom qualification is a separate R626. The combined overlays remain private/unadopted, and broader roster and release qualification remain open.
+
+DISPOSITION:
+
+Record R625 as a scoped 3/3 PASS for the unchanged default-eight 18,000-tick browser endurance gate on exact accepted base 90fb plus the ten frozen source paths. Preserve the earlier GPR10 65-based failures and R612 setup failure as history; do not describe this as an unchanged rerun of that source. Keep R624's counts, the builder's 214, and this browser run separate. Do not claim adoption, release, whole-suite, full-roster, historical/gameplay parity, or general speedup. R626 GAME-SESSION-FORK custom qualification remains active and is not yet verdicted.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-chain-host-integration-browser-critic-20261028/final-verdict-en.md` (Polish source preserved as `final-verdict-pl.md`).
+- Frozen run result: `/private/tmp/clash-chain-host-integration-browser-critic-20261028/output/endurance-result.json`.
+- Raw logs and closure: `/private/tmp/clash-chain-host-integration-browser-critic-20261028/logs/`, `execution-pre-run-closure.json`, `execution-post-run-closure.json`, and `source-fence-post-run.json`.
+
+## Round 626 — 2026-10-28
+
+PIECE: CARDS-022Q — Expanded melee-area runtime matching-source qualification
+
+VERDICT: PASS — scoped Brackenwheel custom-eight browser and audio qualification on the exact combined source
+
+EVIDENCE:
+
+The independent critic ran the Brackenwheel custom-eight browser journey on the exact accepted base `90fbf0ee31621b96b34e447a8b9d3aa39d2676da` plus the ten R624 integration paths. The browser command was `npm run test:game-browser-endurance` with `GAME_BROWSER_ENDURANCE_SCENARIO=brackenwheel`; `GAME_BROWSER_ENDURANCE_TICKS` was unset. It passed 3/3 top-level TAP cases. The separate current-source gates `npm run test:game-browser-audio` (11/11) and `npm run test:audio-production-assets` (5/5) also passed, for 19/19 fresh TAP cases across the three gates. These 19 cases are not combined with R625 as fresh evidence.
+
+The setup used seed 2 and deck `brackenwheel, briar-band, coilblade, mossguard, ironroot, copperskiff, brassbolt, reedsting` (setup SHA-256 `2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b`). A real player gesture deployed Brackenwheel at tick 0, and seeded AI also selected it naturally. Tick 234 recorded the primary and secondary targets 4, 5, and 6 exactly once. Damage records and both Brackenwheel entities matched after the branch restored tick 600 to tick 300 and replayed to tick 600.
+
+At tick 600 the actual sink had 82 starts (2 UI, 80 simulation), unchanged immediately after restore. Replay produced 127 total starts; all 45 typed simulation-continuation starts matched the original 45. The UI sequence was unchanged through branch, restore, and replay; terminal UI sequence/counter was 44. Post-restore physical E2 delivery, canonical byte/projection equality, and future-audio continuation passed.
+
+Natural terminal occurred at session tick 11,774 (South won 3–1 by central destruction at tick 11,773). Same-seed, same-deck restart returned to canonical tick 0 and matched the selected setup bytes. The run used 41 segments; maximum segment was 10,286 ms, total telemetry duration 493,736 ms, maximum explicit slice 25 ms, maximum initialization task 161 ms, and no driven, restore, or restart lifecycle long tasks. The full scenario test took 493,940.9 ms. The existing 50/300/40 ms, 30,000 ms segment, and 1,200,000 ms total caps were unchanged; there were no pending resources, console errors, unhandled exceptions, or resource errors. Runtime was Node 22.23.4, npm 12.2.0, pinned Playwright 1.58.2, and Chrome 156.0.8078.49.
+
+The exact-source default-eight leg is R625 and remains a separate result: that critic passed 3/3 for the default seed-zero 18,000-tick run on the same accepted base and ten path pins. R626 reused that matching-source evidence; it did not rerun the default leg. R625’s full browser run and R626’s custom run together cover two distinct journeys, while R626’s fresh count remains 19/19. Exact source pins, relevant unowned R625 fences, reference isolation, and artifact restoration were verified; no production source, root worktree/index, or reference files changed. The full repository `npm test` was not run. Setup-preparation mistakes are preserved in logs as pre-test setup history, not test failures.
+
+BIGGEST GAP: The scoped browser/audio gates do not establish historical Brackenwheel mechanics; its raw values remain QUESTION, and whole-roster parity and full-suite qualification remain open.
+
+DISPOSITION:
+
+Mark CARDS-022Q PASS at its second round for the exact-source default-eight and seed-2 Brackenwheel browser journeys plus fresh focused audio/production-asset gates. Keep the 19/19 fresh R626 count separate from the reused R625 default 3/3. Preserve R506’s prior 5/6 FAIL and its actual missing terminal/restart coverage as history; R626 closes that scoped gap without changing the caps or tests. Do not claim full `npm test`, full-roster, historical/gameplay parity, engine adoption, or release readiness. Brackenwheel raw mechanics remain QUESTION.
+
+EVIDENCE FILES:
+
+- Independent formal verdict: `/private/tmp/clash-cards022q-r626-critic-20261028/final-verdict.md`.
+- Brackenwheel result and raw logs: `/private/tmp/clash-cards022q-r626-critic-20261028/output/brackenwheel/` and `/private/tmp/clash-cards022q-r626-critic-20261028/logs/`.
+- Matching-source default-eight R625 verdict: `/private/tmp/clash-chain-host-integration-browser-critic-20261028/final-verdict-en.md`.
+

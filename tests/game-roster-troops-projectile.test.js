@@ -9,7 +9,7 @@ import {
 } from "../src/content/session-troop-projectile-profiles.js";
 import { createSessionTroopWitness } from "../src/content/session-troop-roster.js";
 import { DeckCycle } from "../src/sim/deck.js";
-import { GameSession } from "../src/sim/game-session.js";
+import { GameSession, getGameSessionAudioReplay } from "../src/sim/game-session.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
 import { SessionTroopProjectileRuntime } from "../src/sim/session-troop-projectile-runtime.js";
 
@@ -124,6 +124,49 @@ function mechanicCommand(id, sourceId, targetId = null, tick = 0) {
   return canonical({ cardId: id, sourceId, targetId, tick, type: "projectile-mechanic" });
 }
 
+function projectileSourceFromSession(session, cardId) {
+  const unit = session.state.battle.units.find((candidate) => candidate.cardId === cardId);
+  assert.ok(unit, `${cardId} live host source`);
+  return {
+    cardId,
+    damage: unit.damage,
+    delivery: unit.delivery,
+    layer: unit.layer,
+    maxHealth: unit.maxHealth,
+    projectileSpeed: unit.projectileSpeed,
+    rangeMillitiles: unit.reach,
+    sightRangeMillitiles: unit.sightRange,
+    side: unit.side,
+    sourceId: unit.id,
+    targetMode: unit.targetMode,
+  };
+}
+
+function brassboltLaunchBoundary(source, tick = 1) {
+  return {
+    events: [{
+      projectileIdentity: {
+        attackSequence: 1,
+        direction: "unit-to-tower",
+        projectileId: 1,
+        sourceId: source.sourceId,
+      },
+      targetId: 2,
+      tick,
+      type: "projectile-launch",
+    }],
+    sources: [source],
+    tick,
+  };
+}
+
+function questionRecords(dependency) {
+  return Object.entries(dependency.questions).map(([key, record]) => ({
+    ...clone(record),
+    key,
+  }));
+}
+
 test("projectile support is the exact HTP/HTO/HTJP receipt join", () => {
   const sourcedIds = MANIFEST.profiles.map(({ id }) => id);
   const sourcedClaims = MANIFEST.profiles.flatMap(({ claims }) => claims);
@@ -161,6 +204,171 @@ test("projectile support is the exact HTP/HTO/HTJP receipt join", () => {
     assert.equal(battle.supportsProjectileRuntime(questionIds[0]), false, id);
   }
   assert.ok(questionIds.every((id) => !PROFILE_BY_ID.has(id)));
+});
+
+test("unresolved projectile launch emits the admitted QUESTION record unchanged", () => {
+  const dependency = MANIFEST.unresolvedDeliveryDependencies.find(({ id }) => id === "brassbolt");
+  assert.ok(dependency, "Brassbolt unresolved receipt dependency");
+  const session = sessionFor("brassbolt");
+  assert.equal(deploy(session, "brassbolt").accepted, true);
+  session.step();
+
+  const runtime = SessionTroopProjectileRuntime.fromReceipt(RECEIPT);
+  const source = projectileSourceFromSession(session, "brassbolt");
+  const boundary = brassboltLaunchBoundary(source, 7);
+  const [question] = runtime.step(boundary);
+  const identity = boundary.events[0].projectileIdentity;
+
+  assert.deepEqual(question, {
+    cardId: "brassbolt",
+    claimFamily: dependency.claimFamily,
+    disposition: "question",
+    identity,
+    questions: questionRecords(dependency),
+    reason: "projectile delivery remains an explicit QUESTION",
+    sourceId: source.sourceId,
+    targetId: boundary.events[0].targetId,
+    tick: boundary.tick,
+    type: "projectile-runtime-question",
+  });
+  assert.equal(question.questions.length, Object.keys(dependency.questions).length);
+  for (const record of question.questions) {
+    assert.equal(record.authoritative, false);
+    assert.equal(record.disposition, "question");
+  }
+  assert.deepEqual(runtime.state.history, [{
+    cardId: "brassbolt",
+    claimFamily: dependency.claimFamily,
+    disposition: "question",
+    identity,
+    reason: question.reason,
+    status: "question",
+    targetId: question.targetId,
+    tick: question.tick,
+    type: "projectile-runtime-question",
+  }]);
+});
+
+test("unresolved projectile launch ignores an overridden public QUESTION lookup", () => {
+  const dependency = MANIFEST.unresolvedDeliveryDependencies.find(({ id }) => id === "brassbolt");
+  const session = sessionFor("brassbolt");
+  assert.equal(deploy(session, "brassbolt").accepted, true);
+  session.step();
+  const source = projectileSourceFromSession(session, "brassbolt");
+  const boundary = brassboltLaunchBoundary(source, 7);
+  const original = Object.getOwnPropertyDescriptor(SessionTroopProjectileRuntime.prototype, "question");
+  let overrideCalls = 0;
+
+  Object.defineProperty(SessionTroopProjectileRuntime.prototype, "question", {
+    configurable: true,
+    value(cardId) {
+      overrideCalls += 1;
+      return {
+        cardId,
+        claimFamily: "forged-authority",
+        questions: {
+          "brassbolt.delivery": {
+            authoritative: true,
+            confidence: "verified",
+            disposition: "sourced",
+            source: "forged override",
+            value: 999,
+          },
+        },
+      };
+    },
+    writable: true,
+  });
+
+  try {
+    const runtime = SessionTroopProjectileRuntime.fromReceipt(RECEIPT);
+    const [question] = runtime.step(boundary);
+    assert.equal(overrideCalls, 0);
+    assert.equal(question.claimFamily, dependency.claimFamily);
+    assert.deepEqual(question.questions, questionRecords(dependency));
+    assert.ok(question.questions.every(({ authoritative, disposition }) =>
+      authoritative === false && disposition === "question"));
+  } finally {
+    Object.defineProperty(SessionTroopProjectileRuntime.prototype, "question", original);
+  }
+});
+
+test("Brassbolt host launch keeps authority and audio equal to the profile-disabled control", () => {
+  const enabled = sessionFor("brassbolt");
+  const controlSetup = witnessSetup("brassbolt");
+  delete controlSetup.projectileRuntimeProfiles;
+  const control = new GameSession(canonical(controlSetup));
+  assert.equal(deploy(enabled, "brassbolt").accepted, true);
+  assert.equal(deploy(control, "brassbolt").accepted, true);
+
+  const enabledEvents = enabled.stepMany(450);
+  const controlEvents = control.stepMany(450);
+  const dependency = MANIFEST.unresolvedDeliveryDependencies.find(({ id }) => id === "brassbolt");
+  const questionEvents = enabledEvents.filter(({ type }) => type === "projectile-runtime-question");
+  assert.ok(questionEvents.length > 0, "actual host launch emits a QUESTION diagnostic");
+  for (const question of questionEvents) {
+    assert.deepEqual(Object.keys(question).sort(), [
+      "cardId", "claimFamily", "disposition", "identity", "questions", "reason",
+      "sourceId", "targetId", "tick", "type",
+    ]);
+    assert.equal(question.cardId, "brassbolt");
+    assert.equal(question.claimFamily, dependency.claimFamily);
+    assert.equal(question.disposition, "question");
+    assert.equal(question.reason, "projectile delivery remains an explicit QUESTION");
+    assert.equal(question.type, "projectile-runtime-question");
+    assert.ok(Number.isSafeInteger(question.sourceId));
+    assert.ok(Number.isSafeInteger(question.targetId));
+    assert.ok(Number.isSafeInteger(question.tick));
+    assert.equal(question.identity.sourceId, question.sourceId);
+    const launch = enabledEvents.find((event) => event.type === "projectile-launch" &&
+      sameIdentity(eventIdentity(event), question.identity));
+    assert.ok(launch, "QUESTION is tied to its actual host launch");
+    assert.deepEqual(question.identity, eventIdentity(launch));
+    assert.equal(question.targetId, launch.targetId ?? launch.projectile?.targetId);
+    assert.deepEqual(question.questions, questionRecords(dependency));
+  }
+  assert.ok(enabledEvents.some((event) => event.type === "projectile-launch" &&
+    eventIdentity(event)?.sourceId === questionEvents[0].sourceId), "genuine Brassbolt host launch");
+  assert.deepEqual(enabledEvents.filter(({ type }) => type !== "projectile-runtime-question"),
+    controlEvents, "only QUESTION diagnostics extend the host event stream");
+  const enabledState = clone(enabled.state);
+  delete enabledState.battle.projectileRuntime;
+  assert.deepEqual(enabledState, control.state, "host authority state matches control");
+  const directAudio = getGameSessionAudioReplay(enabled);
+  assert.deepEqual(directAudio.filter(({ type }) => type !== "projectile-runtime-question"),
+    getGameSessionAudioReplay(control),
+    "normal audio replay events excluding QUESTION diagnostics match the control");
+
+  const directBytes = enabled.serialize();
+  const directReplay = enabled.replayBytes();
+  const chunked = sessionFor("brassbolt");
+  assert.equal(deploy(chunked, "brassbolt").accepted, true);
+  const chunkedEvents = [
+    ...chunked.stepMany(1),
+    ...chunked.stepMany(17),
+    ...chunked.stepMany(63),
+    ...chunked.stepMany(369),
+  ];
+  assert.deepEqual(chunkedEvents, enabledEvents);
+  assert.equal(chunked.serialize(), directBytes);
+  assert.equal(chunked.replayBytes(), directReplay);
+  assert.deepEqual(getGameSessionAudioReplay(chunked), directAudio);
+
+  const prefix = sessionFor("brassbolt");
+  assert.equal(deploy(prefix, "brassbolt").accepted, true);
+  prefix.stepMany(317);
+  const prefixBytes = prefix.serialize();
+  const restored = GameSession.restore(prefixBytes);
+  assert.equal(restored.serialize(), prefixBytes);
+  const fork = restored.fork();
+  restored.stepMany(133);
+  fork.stepMany(133);
+  assert.equal(restored.serialize(), directBytes);
+  assert.equal(restored.replayBytes(), directReplay);
+  assert.equal(fork.serialize(), directBytes);
+  assert.equal(fork.replayBytes(), directReplay);
+  assert.deepEqual(getGameSessionAudioReplay(restored), directAudio);
+  assert.deepEqual(getGameSessionAudioReplay(fork), directAudio);
 });
 
 test("each sourced projectile occurrence uses shared host identity, health, tick, and history", () => {
@@ -377,6 +585,29 @@ test("closed receipt admission rejects forged plans and roster TOCTOU", () => {
   snapshot.projectileRuntime.configuration = forgedBytes;
   assert.throws(() => LiveBattle.restore(canonical(snapshot)),
     /closed HTJP snapshot|host-admitted capability|diverges|witness is invalid/u);
+});
+
+test("raw unresolved QUESTION records reject extra keys, malformed fields, and authority promotion", () => {
+  const live = sessionFor("brassbolt");
+  const before = live.serialize();
+  const mutations = [
+    (record) => { record.unexpected = "extra"; },
+    (record) => { record.source = null; },
+    (record) => { record.authoritative = true; },
+  ];
+
+  for (const mutate of mutations) {
+    const forged = JSON.parse(RECEIPT);
+    const dependency = forged.unresolvedDeliveryDependencies.find(({ id }) => id === "brassbolt");
+    const record = Object.values(dependency.questions)[0];
+    mutate(record);
+    const forgedReceipt = canonical(forged);
+    assert.throws(() => SessionTroopProjectileRuntime.fromReceipt(forgedReceipt));
+    assert.throws(() => new GameSession(canonical(witnessSetup("brassbolt", {
+      receipt: forgedReceipt,
+    }))));
+    assert.equal(live.serialize(), before, "rejected receipt leaves existing session unchanged");
+  }
 });
 
 const AUTHORITY_RUNTIME_PATH = fileURLToPath(new URL(

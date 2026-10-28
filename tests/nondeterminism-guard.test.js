@@ -84,6 +84,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "game-session.js",
   "game-side-deploy-core.js",
   "game-side-deploy.js",
+  "live-battle-chain.js",
   "live-battle.js",
   "match.js",
   "melee.js",

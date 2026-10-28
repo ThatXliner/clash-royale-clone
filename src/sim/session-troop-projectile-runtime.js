@@ -855,14 +855,14 @@ export class SessionTroopProjectileRuntime {
       if (source === undefined) continue;
       const profile = profiles.get(source.cardId);
       if (profile === undefined) {
-        const unresolved = this.question(source.cardId);
-        if (unresolved !== null && event.type === "projectile-launch") {
+        const unresolved = this.#configuration.questions.find(({ cardId }) =>
+          cardId === source.cardId);
+        if (unresolved !== undefined && event.type === "projectile-launch") {
           const receipt = {
             ...questionWitness({
               claimFamily: unresolved.claimFamily,
-              id: source.cardId,
-              questions: Object.fromEntries(Object.entries(unresolved.questions).map(([key, record]) =>
-                [key, checkedQuestionRecord(record, key, `projectile ${source.cardId}.${key}`)])),
+              id: unresolved.cardId,
+              questions: unresolved.questions,
             }, source.sourceId, event.targetId, tick, "projectile delivery remains an explicit QUESTION"),
             identity: clone(event.identity),
           };

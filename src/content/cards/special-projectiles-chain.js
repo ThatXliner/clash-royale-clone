@@ -1,4 +1,6 @@
 import { DamageSystem } from "../../sim/damage.js";
+import { createChainQuestionFixture } from "../../sim/live-battle-chain.js";
+export { createChainQuestionFixture };
 import { targetCandidate } from "../../sim/targeting.js";
 import { createCardCatalog } from "../schema.js";
 
@@ -22,41 +24,7 @@ const DEFINITIONS = [{
   components: [],
 }];
 
-const QUESTION_SOURCE = "unsourced-chained-target-attack-fixture";
-
-function question(value) {
-  return Object.freeze({
-    authoritative: false,
-    confidence: "unverified",
-    disposition: "question",
-    source: QUESTION_SOURCE,
-    value,
-  });
-}
-
-const QUESTION_FIXTURES = Object.freeze({
-  attackerCancellationRule: question(
-    "death-through-primary-boundary-cancels;death-after-primary-does-not-cancel",
-  ),
-  candidateDeathRule: question("dead-before-selection-is-ineligible"),
-  damagePerHop: question(192),
-  eventOrderRule: question(
-    "commands-then-start-hit-damage-death-then-pending-or-complete",
-  ),
-  hopDelayTicks: question(1),
-  hopRangeMillitiles: question(3000),
-  lethalHopRule: question(
-    "lethal-current-hit-keeps-snapshotted-origin-and-does-not-cancel-continuation",
-  ),
-  rangeRule: question("circle-edge-to-circle-edge-inclusive"),
-  selectionRule: question(
-    "explicit-primary-then-nearest-eligible-unhit-center-distance-stable-id",
-  ),
-  targetCap: question(3),
-  targetEligibilityRule: question(
-    "alive-targetable-ground-or-air-troops-and-structures",
-  ),
-});
+const QUESTION_FIXTURES = createChainQuestionFixture();
 
 const ATTACKER_ID = 101;
 const ATTACKER_POSITION = Object.freeze({ x: 1000, y: 4000 });
@@ -307,15 +275,6 @@ function defaultCandidates() {
   ];
 }
 
-function deepFrozenQuestionCopy() {
-  return Object.freeze(Object.fromEntries(
-    Object.entries(QUESTION_FIXTURES).map(([key, record]) => [
-      key,
-      Object.freeze({ ...record }),
-    ]),
-  ));
-}
-
 function distanceSquared(left, right) {
   const dx = BigInt(left.x) - BigInt(right.x);
   const dy = BigInt(left.y) - BigInt(right.y);
@@ -333,17 +292,6 @@ function inRange(origin, candidate, range) {
  */
 export function createChainSpecialCatalog() {
   return createCardCatalog(DEFINITIONS);
-}
-
-/**
- * Returns independently frozen QUESTION records for every chained-target
- * number or policy absent from the common corpus.
- */
-export function createChainQuestionFixture(...args) {
-  if (args.length !== 0) {
-    throw new TypeError("chain question fixture does not accept overrides");
-  }
-  return deepFrozenQuestionCopy();
 }
 
 /** Creates a validated, isolated, bounded encounter fixture. */

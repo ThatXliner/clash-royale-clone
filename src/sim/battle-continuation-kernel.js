@@ -43,6 +43,10 @@ import {
   SessionTroopProjectileRuntime,
 } from "./session-troop-projectile-runtime.js";
 import {
+  admitStormkiteChainQuestionPolicy,
+  LiveBattleChainContinuation,
+} from "./live-battle-chain.js";
+import {
   assertOrdinaryProjectileDeliveryPolicy,
 } from "../shared/ordinary-projectile-delivery-authority.js";
 import {
@@ -3654,13 +3658,24 @@ const IntegratedBattleTowers = BattleTowerCombat;
     }
     return compact(value);
   }, registerCompact);
+  function towerCandidateGeometry(tower) {
+    if (tower === null || typeof tower !== "object" ||
+        !TOWER_TEXT_IDS.has(tower.id) || !Object.hasOwn(TOWER_FOOTPRINT_RADII, tower.role)) {
+      throw new TypeError("canonical crown tower candidate is invalid");
+    }
+    return {
+      hostId: TOWER_IDS.get(tower.id),
+      radius: TOWER_FOOTPRINT_RADII[tower.role],
+    };
+  }
+
   return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS,
-    recordStructureContacts, towerSnapshot };
+    recordStructureContacts, towerCandidateGeometry, towerSnapshot };
 }
 
 function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompactClone,
   resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, battleTowerSnapshot,
-  battleTowerRecordStructureContacts, registerCompact) {
+  battleTowerRecordStructureContacts, battleTowerCandidateGeometry, registerCompact) {
   let compact, towerSnapshot, advanceFromSession, combatEffectFeed;
   const runtimeInstances = new WeakSet();
 
@@ -3973,14 +3988,21 @@ function checkedPolicy(value, label, { projectile = false } = {}) {
 function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
   const descriptors = plain(value, "live battle setup");
   const actual = Reflect.ownKeys(descriptors).sort();
-  const hasSpellProfiles = actual.length === SPELL_SETUP_KEYS.length && actual.every((key, index) =>
-    key === [...SPELL_SETUP_KEYS].sort()[index]);
-  const expected = hasSpellProfiles ? SPELL_SETUP_KEYS : SETUP_KEYS;
+  const hasSpellProfiles = actual.includes("spellProfileReceipts");
+  const hasChainQuestionPolicy = actual.includes("chainQuestionPolicy");
+  const expected = [
+    ...SETUP_KEYS,
+    ...(hasSpellProfiles ? ["spellProfileReceipts"] : []),
+    ...(hasChainQuestionPolicy ? ["chainQuestionPolicy"] : []),
+  ];
   if (actual.length !== expected.length || actual.some((key, index) =>
     key !== [...expected].sort()[index])) {
     throw new TypeError("live battle setup has an invalid shape");
   }
   const setup = Object.fromEntries(expected.map((key) => [key, descriptors[key].value]));
+  const chainQuestionPolicy = hasChainQuestionPolicy
+    ? admitStormkiteChainQuestionPolicy(setup.chainQuestionPolicy)
+    : null;
   const windups = exact(setup.initialWindupTicks, ["central", "lane"],
     "live battle setup.initialWindupTicks");
   const initialWindupTicks = {
@@ -4311,9 +4333,13 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
       throw new TypeError("live battle spell receipt diverges from its admitted roster fact");
     }
   }
-  const normalized = freeze(spellProfileReceipts === null
-    ? { initialWindupTicks, questions: canonicalQuestions, roster }
-    : { initialWindupTicks, questions: canonicalQuestions, roster, spellProfileReceipts });
+  const normalized = freeze({
+    initialWindupTicks,
+    questions: canonicalQuestions,
+    roster,
+    ...(spellProfileReceipts === null ? {} : { spellProfileReceipts }),
+    ...(chainQuestionPolicy === null ? {} : { chainQuestionPolicy }),
+  });
   ADMITTED_SETUPS.add(normalized);
   return normalized;
 }
@@ -4322,6 +4348,13 @@ function admittedSetup(value) {
   if (typeof value === "string") return checkedSetup(parsedSetupBytes(value));
   if (value !== null && typeof value === "object" && ADMITTED_SETUPS.has(value)) return value;
   throw new TypeError("live battle setup object must come from parseLiveBattleSetup");
+}
+
+function projectileUnitRosterFromAdmittedSetup(setup) {
+  if (!ADMITTED_SETUPS.has(setup)) {
+    throw new TypeError("projectile unit source roster requires an admitted full setup");
+  }
+  return setup.roster.filter(({ kind }) => kind === "unit");
 }
 
 function buildingProfileReceipt(setup) {
@@ -4897,6 +4930,7 @@ class LiveBattle {
   #pendingStructures;
   #pendingTroopActions;
   #pendingTroopStatusActions;
+  #chainContinuation;
   #projectileRuntime;
   #questionValues;
   #rosterById;
@@ -4917,7 +4951,17 @@ class LiveBattle {
       : typeof projectileRuntimePlan === "string"
         ? SessionTroopProjectileRuntime.fromReceipt(projectileRuntimePlan)
         : new SessionTroopProjectileRuntime(projectileRuntimePlan);
-    projectileRuntime?.assertSourceRoster(setup.roster);
+    projectileRuntime?.assertSourceRoster(projectileUnitRosterFromAdmittedSetup(setup));
+    const chainQuestionPolicy = setup.chainQuestionPolicy ?? null;
+    if (chainQuestionPolicy !== null) {
+      const chainProfile = projectileRuntime?.profile("stormkite") ?? null;
+      if (chainProfile?.claimFamily !== "chain" ||
+          !setup.roster.some(({ id, kind }) => id === "stormkite" && kind === "unit")) {
+        throw new RangeError(
+          "live battle Stormkite chain execution requires its admitted chain projectile profile",
+        );
+      }
+    }
     const statusRuntime = statusRuntimeProfiles === undefined
       ? null
       : new SessionTroopStatusRuntime(statusRuntimeProfiles);
@@ -4943,6 +4987,8 @@ class LiveBattle {
     this.#pendingStructures = [];
     this.#pendingTroopActions = [];
     this.#pendingTroopStatusActions = [];
+    this.#chainContinuation = chainQuestionPolicy === null
+      ? null : new LiveBattleChainContinuation(chainQuestionPolicy);
     this.#projectileRuntime = projectileRuntime;
     this.#setup = setup;
     const hasBuildingProfile = setup.roster.some(({ buildingRuntime, kind }) =>
@@ -5136,7 +5182,7 @@ class LiveBattle {
       throw new RangeError("live battle has no sourced projectile profile receipt");
     }
     const command = parsedCommandBytes(serialized, "live battle projectile mechanic command");
-    this.#projectileRuntime.assertSourceRoster(this.#setup.roster);
+    this.#projectileRuntime.assertSourceRoster(projectileUnitRosterFromAdmittedSetup(this.#setup));
     const state = this.#battleRuntime().state;
     const sources = this.#projectileSourcesFromState(state);
     return freeze(clone(this.#projectileRuntime.inspectMechanic(command, sources)));
@@ -5558,6 +5604,9 @@ class LiveBattle {
       history: this.#history.slice(tailStart),
       movements: movementWitnesses(this.#movementRuntimes(), this.#metadata),
       ...(hasProjectileRuntime ? { projectileRuntime: this.#projectileRuntime.serialize() } : {}),
+      ...(this.#chainContinuation === null ? {} : {
+        chainContinuation: this.#chainContinuation.serialize(),
+      }),
       setup: this.#setup,
       transcript: compactLiveHistory(this.#history.slice(0, tailStart)),
     };
@@ -5690,6 +5739,9 @@ class LiveBattle {
     const hasProjectileRuntimeWitness = Object.hasOwn(snapshot, "projectileRuntime");
     const projectileRuntimeSnapshot = hasProjectileRuntimeWitness
       ? snapshot.projectileRuntime : null;
+    const hasChainContinuationWitness = Object.hasOwn(snapshot, "chainContinuation");
+    const chainContinuationSnapshot = hasChainContinuationWitness
+      ? snapshot.chainContinuation : null;
     const legacyRuntimeSnapshot = (version === 3 && !hasBuildingWitness &&
       !hasSpellRuntimeWitness) || [4, 6, 7, 9, 10, 11, 12].includes(version) ||
       [19, 20, 21, 22].includes(version);
@@ -5698,12 +5750,12 @@ class LiveBattle {
     const movementRuntimeSnapshot = [31, 32, 33, 34, 35, 36, 37, 38].includes(version);
     const hasTroopRuntimeWitness = legacyRuntimeSnapshot || actionRuntimeSnapshot ||
       currentRuntimeSnapshot || movementRuntimeSnapshot;
-    // Projectile runtime state is additive to every existing LiveBattle
-    // snapshot version.  Strip the additive witness only for the historical
-    // shape table below; it is validated and replay-checked separately.
-    if (hasProjectileRuntimeWitness) {
+    // Optional runtime witnesses are additive to every existing LiveBattle
+    // snapshot version. Strip them only for the historical shape table below;
+    // each is validated and replay-checked separately.
+    if (hasProjectileRuntimeWitness || hasChainContinuationWitness) {
       snapshot = Object.fromEntries(Object.entries(snapshot)
-        .filter(([key]) => key !== "projectileRuntime"));
+        .filter(([key]) => key !== "projectileRuntime" && key !== "chainContinuation"));
     }
     let checked;
     if (version === 15) {
@@ -6020,6 +6072,16 @@ class LiveBattle {
     const restored = new LiveBattle(checkedSetup(checked.setup,
       { legacyStructureReceipts: version <= 2 }), runtimeBytes, statusRuntimeBytes,
       projectileRuntimePlan);
+    if ((restored.#chainContinuation !== null) !== hasChainContinuationWitness) {
+      throw new TypeError("live battle chain witness presence diverges from its admitted setup");
+    }
+    if (hasChainContinuationWitness) {
+      if (typeof chainContinuationSnapshot !== "string") {
+        throw new TypeError("live battle chain witness must be canonical JSON text");
+      }
+      LiveBattleChainContinuation.restore(chainContinuationSnapshot,
+        restored.#chainContinuation.policy);
+    }
     const replayOperation = (operation, index, label) => {
       plain(operation, `live battle snapshot.history[${index}]`);
       if (operation.type === "deploy") {
@@ -6100,10 +6162,14 @@ class LiveBattle {
     const projectileWitnessMatches = !hasProjectileRuntimeWitness || (
       restored.#projectileRuntime !== null &&
       restored.#projectileRuntime.serialize() === projectileRuntimeSnapshot);
+    const chainWitnessMatches = !hasChainContinuationWitness || (
+      restored.#chainContinuation !== null &&
+      restored.#chainContinuation.serialize() === chainContinuationSnapshot);
     if (!battleWitnessMatches || !buildingWitnessMatches || !runtimeWitnessMatches ||
         !statusWitnessMatches ||
         !spellWitnessMatches ||
         !projectileWitnessMatches ||
+        !chainWitnessMatches ||
         canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
           canonical(checked.movements) || (version >= 2 && restored.serialize() !== serialized)) {
       throw new TypeError("live battle snapshot witnesses are not causal");
@@ -6125,6 +6191,7 @@ class LiveBattle {
     const unitOnlyBoundary = this.#buildingRuntime === EMPTY_BUILDING_RUNTIME &&
       this.#troopRuntime === EMPTY_TROOP_RUNTIME && this.#spells === null &&
       this.#projectileRuntime === null &&
+      this.#chainContinuation === null &&
       this.#structures.length === 0 && this.#pendingStructures.length === 0 &&
       this.#pendingBuildingHits.length === 0 && this.#pendingTroopActions.length === 0 &&
       this.#pendingTroopStatusActions.length === 0 && !this.#hasStatusRuntime();
@@ -6345,6 +6412,33 @@ class LiveBattle {
     const statusHeals = this.#hasStatusRuntime()
       ? statusPlans.filter(({ heal }) => heal !== null).map(({ heal }) => heal)
       : null;
+    const chainCandidates = this.#chainContinuation === null ? null :
+      this.#chainCandidatesFromState(battle.state, statusControls);
+    const chainHopPlans = this.#chainContinuation === null ? [] :
+      this.#chainContinuation.planDue(tick, chainCandidates);
+    const chainBuildingPlans = [];
+    for (const plan of chainHopPlans) {
+      if (plan.target === null) {
+        this.#chainContinuation.settleHop(plan, { ownerConfirmed: false, tick });
+        boundary.push({ lineage: clone(plan.lineage), status: "no-eligible-target", tick,
+          type: "chain-hop-settled" });
+      } else if (plan.target.owner.kind === "unit") {
+        externalHits.push({ damage: plan.damage, delivery: "melee",
+          sourceId: plan.ingressSourceId, targetUnitId: plan.target.owner.id });
+      } else if (plan.target.owner.kind === "crown-tower") {
+        externalTowerHits.push({ amount: plan.damage, sourceId: plan.ingressSourceId,
+          towerId: plan.target.owner.id });
+      } else if (plan.target.owner.kind === "building") {
+        chainBuildingPlans.push(plan);
+      } else {
+        throw new TypeError("live battle chain selected an unsupported owner");
+      }
+    }
+    if (chainHopPlans.some(({ target }) => target !== null)) {
+      externalHits.sort((left, right) => left.targetUnitId - right.targetUnitId ||
+        (left.sourceId < right.sourceId ? -1 : left.sourceId > right.sourceId ? 1 : 0) ||
+        left.damage - right.damage);
+    }
     if (!this.#hasStatusRuntime() && spellEffects.unitHits.length > 0 && structureCandidates.length === 0 &&
         externalHits.length === 0 && externalTowerHits.length === 0) {
       combatEvents = battle.stepWithEffects(tick, spellEffects);
@@ -6366,6 +6460,26 @@ class LiveBattle {
         } : {}) });
     }
     boundary.push(...combatEvents);
+    const chainPrimaryImpacts = [];
+    if (this.#chainContinuation !== null) {
+      for (const launch of combatEvents.filter(({ type }) => type === "projectile-launch")) {
+        const identity = launch.projectileIdentity;
+        if (identity === undefined || this.#metadata.get(identity.sourceId)?.cardId !== "stormkite" ||
+            this.#projectileRuntime?.profile("stormkite")?.claimFamily !== "chain") continue;
+        const source = before.units.find(({ id }) => id === identity.sourceId);
+        const targetId = launch.projectile?.targetId;
+        if (source === undefined || !source.alive || !Number.isSafeInteger(targetId) || targetId < 1) {
+          continue;
+        }
+        this.#chainContinuation.launch({ identity, primaryTargetId: targetId,
+          sourceSide: source.side, tick });
+      }
+      for (const impact of combatEvents.filter(({ projectileIdentity, type }) =>
+        type === "projectile-impact" && projectileIdentity !== undefined &&
+        this.#chainContinuation.hasPrimaryFlight(projectileIdentity))) {
+        chainPrimaryImpacts.push(impact);
+      }
+    }
     if (dueBuilding?.length) {
       battleTowerRecordStructureContacts(battle, dueBuilding, tick, boundary);
     }
@@ -6374,7 +6488,7 @@ class LiveBattle {
       // The host event list is the sole source of projectile identity.  The
       // reducer may retain only those identities and QUESTION receipts; it
       // cannot mint a projectile, advance the host tick, or touch health.
-      this.#projectileRuntime.assertSourceRoster(this.#setup.roster);
+      this.#projectileRuntime.assertSourceRoster(projectileUnitRosterFromAdmittedSetup(this.#setup));
       boundary.push(...this.#projectileRuntime.step({
         events: combatEvents,
         sources: this.#projectileSourcesFromState(before),
@@ -6406,13 +6520,101 @@ class LiveBattle {
 
     // BattleCombat emits unit-to-building contacts for data-only targets;
     // LiveBattle owns the corresponding structure-health transition exactly once.
+    const primaryBuildingResults = [];
     for (const contact of combatEvents.filter((event) => event.type === "external-structure-contact" &&
       typeof event.structureId === "string" && event.structureId.startsWith("building:"))) {
       const id = Number(contact.structureId.slice("building:".length));
       const structure = this.#structures.find((entry) => entry.id === id);
       if (structure?.alive) {
-        boundary.push(...this.#damageStructure(structure, contact.damage,
-          contact.sourceUnitId ?? contact.sourceId ?? null, "combat-damage", tick));
+        const identity = this.#chainContinuation === null
+          ? null : contact.projectileIdentity ?? null;
+        const result = this.#damageStructure(structure, contact.damage,
+          contact.sourceUnitId ?? contact.sourceId ?? null, "combat-damage", tick, identity);
+        boundary.push(...result);
+        if (identity !== null) {
+          primaryBuildingResults.push({ amountApplied: result.find(({ type }) =>
+            type === "structure-damaged")?.amountApplied ?? 0, buildingId: id,
+          identity: clone(identity) });
+        }
+      }
+    }
+
+    if (this.#chainContinuation !== null) {
+      const afterState = battle.state;
+      for (const plan of chainHopPlans.filter(({ target }) => target !== null)) {
+        let ownerConfirmed = false;
+        if (plan.target.owner.kind === "unit") {
+          const damage = combatEvents.find((event) => event.type === "damage" &&
+            event.externalSourceId === plan.ingressSourceId &&
+            event.targetId === plan.target.owner.id);
+          ownerConfirmed = damage !== undefined &&
+            damage.currentHealthAfter < damage.currentHealthBefore;
+        } else if (plan.target.owner.kind === "crown-tower") {
+          const hit = combatEvents.find((event) => event.type === "external-structure-contact" &&
+            event.sourceId === plan.ingressSourceId && event.structureId === plan.target.owner.id);
+          const beforeTower = before.towers.find(({ id }) => id === plan.target.owner.id);
+          const afterTower = afterState.towers.find(({ id }) => id === plan.target.owner.id);
+          ownerConfirmed = hit !== undefined && hit.damage > 0 && beforeTower !== undefined &&
+            afterTower !== undefined && beforeTower.hitpoints > afterTower.hitpoints;
+        } else {
+          const target = this.#structures.find(({ id }) => id === plan.target.owner.id);
+          const applied = target?.alive
+            ? this.#damageStructure(target, plan.damage, plan.ingressSourceId,
+              "stormkite-chain-contact", tick)
+            : [];
+          boundary.push(...applied);
+          ownerConfirmed = applied.some((event) => event.type === "structure-damaged" &&
+            event.amountApplied > 0 && event.sourceId === plan.ingressSourceId);
+        }
+        const status = this.#chainContinuation.settleHop(plan, { ownerConfirmed, tick });
+        boundary.push({ lineage: clone(plan.lineage), owner: clone(plan.target.owner),
+          status: ownerConfirmed ? status : "no-owner-decrease", tick, type: "chain-hop-settled" });
+      }
+
+      for (const impact of chainPrimaryImpacts) {
+        const identity = impact.projectileIdentity;
+        const sourceSide = this.#chainContinuation.primarySourceSide(identity);
+        const target = chainCandidates.find(({ hostId }) => hostId === impact.targetId) ?? null;
+        let ownerConfirmed = false;
+        if (impact.status === "contact" && target !== null && target.side !== sourceSide) {
+          if (target.owner.kind === "unit") {
+            const damage = combatEvents.find((event) => event.type === "damage" &&
+              canonical(event.projectileIdentity) === canonical(identity) &&
+              event.targetId === target.owner.id);
+            ownerConfirmed = damage !== undefined &&
+              damage.currentHealthAfter < damage.currentHealthBefore;
+          } else {
+            const contactStructureId = target.owner.kind === "building"
+              ? `building:${target.owner.id}` : target.owner.id;
+            const contact = combatEvents.find((event) => event.type === "external-structure-contact" &&
+              canonical(event.projectileIdentity) === canonical(identity) &&
+              event.structureId === contactStructureId && event.damage > 0);
+            if (contact !== undefined && target.owner.kind === "crown-tower") {
+              const beforeTower = before.towers.find(({ id }) => id === target.owner.id);
+              const afterTower = afterState.towers.find(({ id }) => id === target.owner.id);
+              ownerConfirmed = beforeTower !== undefined && afterTower !== undefined &&
+                beforeTower.hitpoints > afterTower.hitpoints;
+            } else if (contact !== undefined && target.owner.kind === "building") {
+              ownerConfirmed = primaryBuildingResults.some((result) =>
+                result.buildingId === target.owner.id && result.amountApplied > 0 &&
+                canonical(result.identity) === canonical(identity));
+            }
+          }
+        }
+        const sourceAlive = afterState.units.find(({ id }) => id === identity.sourceId)?.alive === true;
+        const result = this.#chainContinuation.settlePrimary(identity, {
+          ownerConfirmed,
+          sourceAlive,
+          target: ownerConfirmed ? {
+            owner: target.owner,
+            position: target.position,
+            radius: target.radius,
+          } : null,
+          tick,
+        });
+        boundary.push({ lineage: { hopOrdinal: 0, primaryProjectileIdentity: clone(identity) },
+          owner: result.target?.owner ?? null, status: result.status, tick,
+          type: "chain-primary-settled" });
       }
     }
 
@@ -6962,6 +7164,46 @@ class LiveBattle {
           this.#projectileRuntime.question(cardId) !== null));
   }
 
+  #chainCandidatesFromState(state, unitControls = null) {
+    const controls = new Map((unitControls ?? []).map((control) => [control.id, control]));
+    const units = state.units.map((unit) => ({
+      alive: unit.alive,
+      hostId: unit.id,
+      layer: unit.layer,
+      owner: { id: unit.id, kind: "unit" },
+      position: clone(unit.position),
+      radius: unit.radius,
+      side: unit.side,
+      targetable: unit.alive && (controls.get(unit.id)?.targetable ?? true),
+    }));
+    const towers = state.towers.map((tower) => {
+      const geometry = battleTowerCandidateGeometry(tower);
+      return {
+        alive: tower.hitpoints > 0,
+        hostId: geometry.hostId,
+        layer: "ground",
+        owner: { id: tower.id, kind: "crown-tower" },
+        position: clone(tower.position),
+        radius: geometry.radius,
+        side: tower.side,
+        targetable: tower.hitpoints > 0,
+      };
+    });
+    const buildings = this.#structures.map((structure) => ({
+      alive: structure.alive,
+      hostId: structure.id,
+      layer: "ground",
+      owner: { id: structure.id, kind: "building" },
+      position: clone(structure.position),
+      radius: 0,
+      side: structure.side,
+      targetable: structure.alive && structure.targetable,
+    }));
+    return [...units, ...towers, ...buildings].sort((left, right) =>
+      left.hostId - right.hostId || (left.owner.kind < right.owner.kind ? -1 :
+        left.owner.kind > right.owner.kind ? 1 : 0));
+  }
+
   #phaseStatusSourcesFromState(state) {
     if (!this.#hasStatusRuntime()) return [];
     return state.units.filter(({ alive }) => alive).sort((left, right) => left.id - right.id)
@@ -7286,12 +7528,14 @@ class LiveBattle {
       type: "building-contact-missed" };
   }
 
-  #damageStructure(structure, amount, sourceId, origin, tick = this.#battleRuntime().state.tick) {
+  #damageStructure(structure, amount, sourceId, origin, tick = this.#battleRuntime().state.tick,
+    projectileIdentity = null) {
     if (!structure.alive || amount <= 0) return [];
     const applied = Math.min(structure.hitpoints, amount);
     structure.hitpoints -= applied;
     const events = [{ amountApplied: applied, amountRequested: amount, buildingId: structure.id,
-      origin, sourceId, tick, type: "structure-damaged" }];
+      origin, sourceId, tick, type: "structure-damaged",
+      ...(projectileIdentity === null ? {} : { projectileIdentity: clone(projectileIdentity) }) }];
     if (structure.hitpoints === 0) {
       structure.alive = false;
       structure.deathCause = "combat-damage";
@@ -7302,7 +7546,8 @@ class LiveBattle {
           type: "travel-building-destroyed" });
       } else {
         events.push({ buildingId: structure.id, cause: "combat-damage", reason: "damage", sourceId,
-          tick, type: "structure-destroyed" });
+          tick, type: "structure-destroyed",
+          ...(projectileIdentity === null ? {} : { projectileIdentity: clone(projectileIdentity) }) });
       }
     }
     return events;
@@ -7469,7 +7714,10 @@ class LiveBattle {
   }
 
   #runtimeClone(includeTranscript = true) {
-    const candidate = new LiveBattle(this.#setup,
+    const cloneSetup = this.#chainContinuation === null ? this.#setup : checkedSetup(
+      Object.fromEntries(Object.entries(this.#setup).filter(([key]) =>
+        key !== "chainQuestionPolicy")));
+    const candidate = new LiveBattle(cloneSetup,
       this.#hasTroopRuntime() ? this.#troopRuntime.serialize() : undefined,
       this.#hasStatusRuntime() ? this.#statusRuntime.serialize() : undefined);
     const retainTranscript = includeTranscript && !this.#isContinuation;
@@ -7506,6 +7754,8 @@ class LiveBattle {
       : EMPTY_TROOP_RUNTIME;
     candidate.#projectileRuntime = this.#projectileRuntime === null
       ? null : this.#projectileRuntime.fork();
+    candidate.#chainContinuation = this.#chainContinuation === null
+      ? null : this.#chainContinuation.fork();
     candidate.#troopStatuses = this.#troopStatuses.size === 0 ? new Map() : new Map(
       [...this.#troopStatuses].map(([key, status]) => [key, clone(status)]));
     return candidate;
@@ -7536,6 +7786,7 @@ class LiveBattle {
     this.#statusRuntime = candidate.#statusRuntime;
     this.#troopRuntime = candidate.#troopRuntime;
     this.#projectileRuntime = candidate.#projectileRuntime;
+    this.#chainContinuation = candidate.#chainContinuation;
     this.#troopStatuses = candidate.#troopStatuses;
   }
 }
@@ -7585,6 +7836,7 @@ const battleTowers = defineBattleTowers(combat.BattleCombat, towers.CrownTowerBa
 const liveBattle = defineLiveBattle(movement.BattleMovement, battleTowers.BattleTowerCombat,
   compactMovement, resolveMovement, compactBattleTowers, resolveBattleTowers,
   battleTowers.towerSnapshot, battleTowers.recordStructureContacts,
+  battleTowers.towerCandidateGeometry,
   (clone, resolve) => { compactLiveBattle = clone; resolveLiveBattle = resolve; });
 liveBattleAdvanceFromSession = liveBattle.advanceFromSession;
 liveBattleTowerSnapshot = liveBattle.towerSnapshot;
@@ -10789,6 +11041,8 @@ class GameSession {
       "projectile-launch",
       "projectile-runtime-question",
       "projectile-runtime-receipt",
+      "chain-primary-settled",
+      "chain-hop-settled",
       "tower-destroyed",
       "troop-status-receipt",
       "troop-status-expired",
@@ -10811,7 +11065,8 @@ class GameSession {
         type: "locomotion-start",
       });
     }
-    const audioEvents = [...sessionEvents, ...movementStarts];
+    const audioEvents = [...sessionEvents.filter(({ type }) =>
+      !["chain-primary-settled", "chain-hop-settled"].includes(type)), ...movementStarts];
     audioEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
     this.#audioEvents.push(...clone(audioEvents));
     this.#events.push(...clone(sessionEvents));
