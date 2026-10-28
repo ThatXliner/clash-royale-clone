@@ -11796,3 +11796,32 @@ EVIDENCE FILES:
 - Saved app-polish/browser evidence: `/private/tmp/clash-visible-polish-20261028/evidence/candidate-app-polish/browser-evidence.json` and its saved screenshots.
 - Saved app-shell browser evidence: `/private/tmp/clash-visible-polish-20261028/evidence/app-shell/browser-evidence.json` and `/private/tmp/clash-visible-polish-20261028/app-shell/`.
 - CSS-only source patch: `/private/tmp/clash-visible-polish-20261028/deck-summary-phone.patch`; accepted-base CSS reference: `/private/tmp/clash-visible-polish-20261028/evidence/baseline-source/src/ui/app-shell.css`.
+
+## Round 623 — 2026-10-28
+
+PIECE: APP-002P — Phone deck action clearance
+
+VERDICT: PASS — scoped phone action visibility and deck interaction; not exact desktop pixel parity or a release claim
+
+EVIDENCE:
+
+The independent Chrome critic report is `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/report.json`. It records `result: PASS`, 31 passing checks, no failed checks, and no page, console, or HTTP faults.
+
+At 390×844 with initial `scrollY=0`, all eight Replace controls are visible, 44px high, and fully above the fixed navigation. The lower row ends at y=752.5 while navigation begins at y=777, leaving 24.5px. All eight real replacement clicks passed, the deck remained eight unique cards, and the Home/deck/card-info/back workflow passed. The hint is below the navigation at the initial position; after a normal 40px wheel scroll it is fully readable above navigation. At 320×568 there is no horizontal overflow, all eight controls remain at least 44px high, and each can be scrolled above navigation.
+
+At 1440×900, independent geometry comparisons passed for the main frame, view, navigation, summary, deck grid, and final slot. The independent screenshot comparison nevertheless reports 2,093 changed pixels and RMSE 0.0016; this round makes no exact-pixel-equivalence claim. The browser version was Chrome 156.0.8078.49.
+
+The candidate is the CSS-only file `src/ui/app-shell.css`, SHA-256 `9144f28232c010b8522d678e3b93df978b97b6463fbf76622c7346a121333735`, built from exact source archive `5904e44ec0cc8bffb7b1b919068b303de1dffd7e`. The production release build exited 0 (69 files, 6,616,492 bytes). Claude Code design/implementation job `job-b0a08c9960` produced the CSS change; Claude reported the `frontend-design` skill was unavailable in that session. No broad test suite or deployment was run for this scoped candidate.
+
+BIGGEST GAP: The replacement hint sits below the fixed navigation on the initial phone view and needs a scroll; the independent desktop image comparison also has a small nonzero difference (2,093 pixels, RMSE 0.0016), so only geometry is accepted.
+
+DISPOSITION:
+
+Mark APP-002P PASS at one round for the phone Deck action-clearance dimension, based on the independent 31-check Chrome verdict. Preserve the hint-scroll and desktop raster-difference limits; make no exact-pixel, release, deployment, historical-game-parity, or broader UI-completion claim. Keep this round at assigned identifier R623; no unadopted private engine-round records are copied into this tracking draft.
+
+EVIDENCE FILES:
+
+- Independent critic report and raw checks: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/report.json` and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/qualify-app002.mjs`.
+- Independent phone captures: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-390x844-initial.png`, `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-390x844-hint-reachable.png`, `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-320x568-initial.png`, and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/phone-320x568-bottom-row-reachable.png`.
+- Independent desktop capture and pixel-difference image: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/desktop-1440x900-deck.png` and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/independent-critic/desktop-diff.png`.
+- Builder before/after capture reports: `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-baseline/report.json` and `/private/tmp/clash-visible-polish-20261028/evidence/current-ui-after/report.json`.

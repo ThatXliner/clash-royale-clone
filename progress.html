@@ -26,12 +26,12 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-28 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">344</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">277</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">616</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">345</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">278</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">617</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">R611’s public app-frame painter handoff remains separately deployment-verified. The whole-HUD bar remains FAIL at the legacy visual-interface-art 8/9 exact336 baseline; the broader 109-card roster remains unfinished. R615 passes one full default-eight GPR10 browser run on the fixed successor; deployment of that successor remains pending. R616 passes APP-006’s scoped phone deck summary polish; no release, deployment, or exact-pixel claim follows.</p>
+  <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1716,6 +1716,14 @@
         <td>34/34</td>
         <td>1</td>
         <td>Round 1 passed production build/browser checks, canonical custom setup launch, restore/restart, hostile-message rejection and 390×844 slot-8 keyboard/pointer access; slot 8 needs a 76px scroll to clear the fixed navigation from the initial position</td>
+      </tr>
+      <tr>
+        <td><code>APP-002P</code></td>
+        <td>Phone deck action clearance</td>
+        <td class="state-pass">PASS</td>
+        <td>31/31 independent browser checks</td>
+        <td>1</td>
+        <td>Round 1 independent PASS: all 8 actions are visible at 390×844 scrollY=0 (44px high, final row y=708.5–752.5, nav y=777); all eight replacement clicks and card-info/Home round-trip pass; at 320×568 all actions remain 44px and scroll above nav; 1440 desktop geometry matches. 2,093 desktop pixels differ (RMSE 0.0016), so there is no exact-pixel claim. The phone hint remains below the fixed nav until scrolling. CSS SHA-256 9144f28232c010b8522d678e3b93df978b97b6463fbf76622c7346a121333735</td>
       </tr>
       <tr>
         <td><code>APP-003</code></td>
@@ -3410,6 +3418,7 @@
       <li><strong>R614 PASS — focused public fork prerequisite only; not a full browser endurance or GPR10 PASS</strong> · GAME-SESSION-FORK-001 — Public GameSession fork parity and forecast prerequisite<br>This focused PASS does not establish the full 18,000-tick browser run, its terminal/restart checks, or deployment of the fixed successor.</li>
       <li><strong>R615 PASS — one seed-zero default-eight 18,000-tick browser run on the fixed successor; no repeatability or deployment claim</strong> · GAME-001GPR10 — full fixed-successor default-eight browser endurance<br>This one run does not establish repeatability, another scenario, broader card parity, full-suite or release completion, or deployment of the fixed successor.</li>
       <li><strong>R616 PASS — scoped responsive polish for the phone deck summary; no exact-pixel or deployment claim</strong> · APP-006 — Phone deck summary polish<br>At 320×568 the deck still requires vertical scrolling and small summary labels wrap, although the critic found them readable and uncropped; the paired image comparison also has tiny nonzero error rather than exact pixel equality.</li>
+      <li><strong>R623 PASS — scoped phone action visibility and deck interaction; not exact desktop pixel parity or a release claim</strong> · APP-002P — Phone deck action clearance<br>The replacement hint sits below the fixed navigation on the initial phone view and needs a scroll; the independent desktop image comparison also has a small nonzero difference (2,093 pixels, RMSE 0.0016), so only geometry is accepted.</li>
   </ol>
 </body>
 </html>

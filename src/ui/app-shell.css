@@ -1432,12 +1432,17 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   .page-intro { margin: 2px 0 16px; }
   .page-intro h1 { font-size: 34px; }
   .page-lede { font-size: 14px; }
-  .deck-summary-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px 22px; padding: 14px 16px; border-radius: 16px; }
+  .deck-summary-card { grid-template-columns: auto minmax(0, 1fr); gap: 14px 22px; margin-bottom: 14px; padding: 14px 16px; border-radius: 16px; }
   .deck-curve-block,
   .deck-mix { grid-column: 1 / -1; }
   .deck-metric-value { font-size: 26px; }
   .deck-metric-of { font-size: 16px; }
-  .deck-help { font-size: 13px; }
+  /* The tray sits directly under the summary so both rows of Replace clear the bottom nav;
+     the how-to line becomes the tray's caption. Visual order only — DOM and reading order are unchanged. */
+  .deck-view { display: flex; flex-direction: column; }
+  .deck-view > .deck-help,
+  .deck-view > .deck-card-grid ~ * { order: 1; }
+  .deck-help { margin: 12px 0 0; font-size: 13px; }
   .deck-status { font-size: 13px; }
   .deck-card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 6px; padding: 8px; border-radius: 16px; }
   .deck-slot { gap: 6px; }
