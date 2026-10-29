@@ -460,6 +460,21 @@ export class ReflectionEncounter {
       });
       return projectile;
     });
+    this.#replay.push(...this.#applyCommands(0));
+  }
+
+  #applyCommands(tick) {
+    const events = [];
+    while (this.#commands[this.#commandIndex]?.tick === tick) {
+      const command = this.#commands[this.#commandIndex++];
+      events.push({ targetId: command.targetId, tick, type: "reflection-command" });
+      const health = this.#damage.get(command.targetId);
+      const result = this.#damage.damage(command.targetId, health.maxHealth);
+      events.push(...result.events.map((event) => ({
+        ...event, tick, type: `external-${event.type}`,
+      })));
+    }
+    return events;
   }
 
   #entity(id) {
@@ -583,16 +598,7 @@ export class ReflectionEncounter {
       throw new RangeError("reflection tick space is exhausted");
     }
     const tick = this.#tick + 1;
-    const events = [];
-    while (this.#commands[this.#commandIndex]?.tick === tick) {
-      const command = this.#commands[this.#commandIndex++];
-      events.push({ targetId: command.targetId, tick, type: "reflection-command" });
-      const health = this.#damage.get(command.targetId);
-      const result = this.#damage.damage(command.targetId, health.maxHealth);
-      events.push(...result.events.map((event) => ({
-        ...event, tick, type: `external-${event.type}`,
-      })));
-    }
+    const events = this.#applyCommands(tick);
 
     const survivors = [];
     const replacements = [];

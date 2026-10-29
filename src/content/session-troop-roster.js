@@ -83,6 +83,7 @@ const PROJECTILE_OCCURRENCES = new Set([
   "createPierceSpecialCatalog",
   "createReflectionSpecialCatalog",
   "createReturnSpecialCatalog",
+  "createRecoilSpecialCatalog",
 ]);
 
 const SOURCE_FACTORIES = Object.freeze({

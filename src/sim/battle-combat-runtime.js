@@ -335,8 +335,9 @@ function checkedBoundary(value) {
     .map(checkedUnitHeal)
     .sort((left, right) => left.commandId - right.commandId ||
       left.sourceId - right.sourceId || left.targetUnitId - right.targetUnitId);
-  if (new Set(unitHeals.map(({ commandId }) => commandId)).size !== unitHeals.length) {
-    throw new TypeError("battle combat boundary unit heal command IDs must be unique");
+  if (new Set(unitHeals.map(({ commandId, sourceId }) =>
+    `${sourceId}:${commandId}`)).size !== unitHeals.length) {
+    throw new TypeError("battle combat boundary unit heal source/command identities must be unique");
   }
   return { externalHits, externalProjectiles, structures, tick, unitControls, unitHeals };
 }

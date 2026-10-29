@@ -7,7 +7,8 @@ if (args.length !== 1 || args[0] !== "game-roster-troops-status") {
   );
 }
 const result = spawnSync(process.execPath, ["--test",
-  new URL("./game-roster-troops-status.test.js", import.meta.url).pathname], {
+  new URL("./game-roster-troops-status.test.js", import.meta.url).pathname,
+  new URL("./game-roster-troops-heal-identity.test.js", import.meta.url).pathname], {
   stdio: "inherit",
 });
 if (result.error) throw result.error;

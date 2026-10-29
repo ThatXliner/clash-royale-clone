@@ -284,13 +284,15 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
             maxY = Math.max(maxY, y);
           }
           let teamColorCoverage = null;
-          if (svg.dataset.artId === 'copperskiff') {
+          if (svg.dataset.artId === 'copperskiff' || svg.dataset.artId === 'stormkite') {
             const [cellX, cellY, cellWidth, cellHeight] = svg.getAttribute('viewBox')
               .trim().split(/[ ,]+/u).map(Number);
             const pinnedAtlas = pinnedImageSources[0];
-            if (!pinnedAtlas || pinnedAtlas.pin.sha256 !==
-                '45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a') {
-              throw new Error('Copperskiff team-color evidence is not using the pinned battle-atlas bytes');
+            const expectedAtlasSha256 = svg.dataset.artId === 'stormkite'
+              ? '05ff6a0db991026211427136b6dbf7d0a2fbe8e8849bca141af308083ff14e6e'
+              : '45ee8feefc4c4dc94ea7e94a8cac1e4b6e69c723fb730fb34a9866098dd7485a';
+            if (!pinnedAtlas || pinnedAtlas.pin.sha256 !== expectedAtlasSha256) {
+              throw new Error(`${svg.dataset.artId} team-color evidence is not using the pinned battle-atlas bytes`);
             }
             const atlas = new Image();
             atlas.src = pinnedAtlas.dataUrl;
@@ -299,7 +301,7 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
             cellCanvas.width = rasterSize;
             cellCanvas.height = rasterSize;
             const cellContext = cellCanvas.getContext('2d', { willReadFrequently: true });
-            if (!cellContext) throw new Error('Copperskiff atlas Canvas2D context is unavailable');
+            if (!cellContext) throw new Error(`${svg.dataset.artId} atlas Canvas2D context is unavailable`);
             cellContext.clearRect(0, 0, rasterSize, rasterSize);
             cellContext.drawImage(
               atlas, cellX, cellY, cellWidth, cellHeight,
@@ -313,7 +315,7 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
                 : null;
             if (!palette || atlas.naturalWidth !== 256 || atlas.naturalHeight !== 256 ||
                 cellWidth !== 64 || cellHeight !== 64) {
-              throw new Error('Copperskiff team-color evidence has an unexpected team or atlas cell');
+              throw new Error(`${svg.dataset.artId} team-color evidence has an unexpected team or atlas cell`);
             }
             let opaquePixelCount = 0;
             let teamColorPixelCount = 0;
@@ -753,6 +755,63 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
         }
         continue;
       }
+      if (kind === 'stormkite') {
+        const atlasSha256 = '05ff6a0db991026211427136b6dbf7d0a2fbe8e8849bca141af308083ff14e6e';
+        for (const [side, direction, team, viewBox, sprite] of [
+          ['north', 'south', 'ember', '128 0 64 64', north],
+          ['south', 'north', 'river', '64 128 64 64', south],
+        ]) {
+          assert.equal(sprite.painted, true, `${side} Stormkite must use its accepted team atlas`);
+          assert.equal(sprite.pathData.length, 0);
+          assert.equal(sprite.vectorShapes.length, 0);
+          assert.equal(sprite.spriteSide, side);
+          assert.equal(sprite.spriteTeam, team);
+          assert.equal(sprite.spriteAction, 'idle');
+          assert.equal(sprite.spriteDirection, direction);
+          assert.equal(sprite.spriteFrame, `stormkite-${team}-${direction}-idle`);
+          assert.equal(sprite.rootViewBox, viewBox);
+          assert.equal(sprite.rootPreserveAspectRatio, 'none');
+          assert.equal(sprite.spritePivot, '32:54');
+          assert.ok([13, 26].includes(sprite.spriteBodyCssPixels));
+          assert.equal(sprite.resolvedPresentationBodyCssPixels, sprite.spriteBodyCssPixels);
+          assert.ok(Number.isFinite(sprite.frameScale) && sprite.frameScale > 0 && sprite.frameScale <= 8);
+          const expectedFrameCssPixels = 64 * sprite.spriteBodyCssPixels / 13 / sprite.frameScale;
+          assert.ok(Math.abs(Number.parseFloat(sprite.spriteStyle.width) - expectedFrameCssPixels) < 0.01);
+          assert.equal(sprite.spriteStyle.width, sprite.spriteStyle.height);
+          assert.equal(sprite.spriteStyle.left, '50%');
+          assert.equal(sprite.spriteStyle.top, '50%');
+          assert.equal(sprite.spriteStyle.translate, '-50% -84.375%');
+          assert.equal(sprite.spriteStyle.pointerEvents, 'none');
+          assert.ok(Math.abs(sprite.renderGeometry.art.width - expectedFrameCssPixels) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.art.height - expectedFrameCssPixels) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.pivotErrorX) < 0.01);
+          assert.ok(Math.abs(sprite.renderGeometry.pivotErrorY) < 0.01);
+          assert.equal(sprite.imageHref,
+            `http://${ready.host}:${ready.port}/public/assets/stormkite-battle-sprite.png`);
+          assert.deepEqual(sprite.imageElements, [{
+            height: '256', href: sprite.imageHref, preserveAspectRatio: 'none',
+            width: '256', x: '0', y: '0',
+          }]);
+          assert.equal(sprite.rasterCapture.imagePins.length, 1);
+          assert.equal(sprite.rasterCapture.imagePins[0].sha256, atlasSha256);
+          assert.equal(sprite.rasterCapture.imagePins[0].byteLength, 9325);
+          const coverage = sprite.rasterCapture.teamColorCoverage;
+          assert.ok(coverage, `${side} Stormkite must retain decoded team-color evidence`);
+          assert.equal(coverage.imageSha256, atlasSha256);
+          assert.equal(coverage.team, team);
+          assert.equal(coverage.paletteHex, team === 'ember' ? '#C6452E' : '#2E7F86');
+          assert.equal(coverage.radiusRgb, 64);
+          assert.equal(coverage.minimumRequiredPixels, 4);
+          assert.deepEqual(coverage.cell, {
+            x: Number(viewBox.split(' ')[0]), y: Number(viewBox.split(' ')[1]),
+            width: 64, height: 64,
+          });
+          assert.ok(coverage.opaquePixelCount > 0);
+          assert.ok(coverage.teamColorPixelCount >= coverage.minimumRequiredPixels,
+            `${side} Stormkite's pinned atlas cell must contain decoded ${team} palette coverage`);
+        }
+        continue;
+      }
       if (kind === 'kilnkeeper') {
         const imageSha256 = '43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a';
         assert.equal(north.painted, true);
@@ -824,6 +883,7 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
         `${kind} south team path must be river teal`);
     }
     assert.ok(result.art.every(a => a.kind === 'copperskiff' || a.kind === 'skymaul' ||
+      a.kind === 'stormkite' ||
       (a.width >= 20 && a.width <= 55 && a.height >= 20)),
     'non-atlas body art keeps the original generic game-scale bounds');
     assert.ok(result.art.every(a => a.healthHeight === 4));

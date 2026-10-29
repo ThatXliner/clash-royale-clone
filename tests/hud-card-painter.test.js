@@ -97,8 +97,9 @@ function makeStateCase(deckIds, { amount = 10, ended = false, selected = null } 
   };
 }
 
+const CARD_POSITIONS = Object.freeze([0, 1, 2, 3, 4]);
 const MATRIX_CASES = Object.freeze(EDITABLE_MIXED_DECK_CARD_IDS.flatMap((id) =>
-  Array.from({ length: 5 }, (_, position) => makeDeckCase(id, position))));
+  CARD_POSITIONS.map((position) => makeDeckCase(id, position))));
 const MATRIX_STATE_DECK = EDITABLE_MIXED_DECK_CARD_IDS.slice(0, 8);
 const STATE_CASES = Object.freeze([
   Object.freeze({ label: "normal", input: makeStateCase(MATRIX_STATE_DECK) }),
@@ -836,7 +837,9 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
     assert.ok(Math.abs(result.bounds.height - 172 * viewport.scale) < 0.01,
       `${viewport.width}x${viewport.height} composited height ${result.bounds.height}`);
     assert.equal(result.sameCanvasAtoBtoA, true);
-    assert.equal(result.targets.length, 23 * 5);
+    assert.equal(result.targets.length,
+      EDITABLE_MIXED_DECK_CARD_IDS.length * CARD_POSITIONS.length,
+      `${viewport.width}x${viewport.height} target matrix covers every card at every position`);
     const badTargets = result.targets.filter(({ actualId, cardId, sample }) =>
       actualId !== cardId || sample.alphaMinimum !== 255 || sample.colors <= 1);
     assert.equal(badTargets.length, 0,
@@ -848,7 +851,7 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
     for (const cardId of EDITABLE_MIXED_DECK_CARD_IDS) {
       const positions = result.targets.filter((sample) => sample.cardId === cardId)
         .map(({ position }) => position).toSorted();
-      assert.deepEqual(positions, [0, 1, 2, 3, 4],
+      assert.deepEqual(positions, CARD_POSITIONS,
         `${viewport.width}x${viewport.height} paints ${cardId} in all four hand slots and Next`);
     }
     assert.deepEqual(result.normalAgainHash, result.normalHash,

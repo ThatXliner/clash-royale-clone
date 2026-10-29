@@ -87,11 +87,21 @@ async function renderedState(page) {
       inputSlots: slots,
       questionNotice: (() => {
         const node = document.querySelector('[data-ui="policy-question"]');
+        const summary = node?.querySelector("summary.policy-question-summary") ?? null;
+        const details = node?.querySelector("details.policy-question-details") ?? null;
+        const detailCards = [...(node?.querySelectorAll(".policy-question-detail-card") ?? [])];
+        const detailCard = detailCards[0] ?? null;
         return node ? {
           cardId: node.dataset.cardId ?? null,
+          detailCardIds: detailCards.map(({ dataset }) => dataset.cardId),
+          detailHeading: detailCard?.querySelector("h2")?.textContent ?? null,
           disposition: node.dataset.disposition ?? null,
+          detailsOpen: details?.open ?? null,
           hidden: node.hidden,
-          text: node.textContent,
+          policyText: detailCard?.querySelector("p")?.textContent ?? null,
+          summaryText: summary?.textContent ?? null,
+          summaryVisible: summary !== null && summary.getClientRects().length > 0 &&
+            getComputedStyle(summary).visibility === "visible",
           unverifiedFields: node.dataset.unverifiedFields ?? null,
         } : null;
       })(),
@@ -334,11 +344,21 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
         setup,
         questionNotice: (() => {
           const node = document.querySelector('[data-ui="policy-question"]');
+          const summary = node?.querySelector("summary.policy-question-summary") ?? null;
+          const details = node?.querySelector("details.policy-question-details") ?? null;
+          const detailCards = [...(node?.querySelectorAll(".policy-question-detail-card") ?? [])];
+          const detailCard = detailCards[0] ?? null;
           return node ? {
             cardId: node.dataset.cardId ?? null,
+            detailCardIds: detailCards.map(({ dataset }) => dataset.cardId),
+            detailHeading: detailCard?.querySelector("h2")?.textContent ?? null,
             disposition: node.dataset.disposition ?? null,
+            detailsOpen: details?.open ?? null,
             hidden: node.hidden,
-            text: node.textContent,
+            policyText: detailCard?.querySelector("p")?.textContent ?? null,
+            summaryText: summary?.textContent ?? null,
+            summaryVisible: summary !== null && summary.getClientRects().length > 0 &&
+              getComputedStyle(summary).visibility === "visible",
             unverifiedFields: node.dataset.unverifiedFields ?? null,
           } : null;
         })(),
@@ -365,9 +385,14 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       id === "bulwark-needle" && cost === 3 && name === "Bulwark Needle"));
     assert.deepEqual(opening.questionNotice, {
       cardId: "bulwark-needle",
+      detailCardIds: ["bulwark-needle"],
+      detailHeading: "Bulwark Needle · QUESTION",
       disposition: "question",
+      detailsOpen: false,
       hidden: false,
-      text: "Bulwark Needle combat: QUESTION. First-hit timing is absent; damage, HP, deploy, range and target fields are unverified.",
+      policyText: "Bulwark Needle combat: QUESTION. First-hit timing is absent; damage, HP, deploy, range and target fields are unverified.",
+      summaryText: "QUESTION · Bulwark Needle · Details",
+      summaryVisible: true,
       unverifiedFields: "damage,deployTicks,firstHitTicks,hitpoints,maxRange,mode,sightRange",
     }, "the running match visibly carries the source confidence boundary");
     await page.screenshot({ path: `${ARTIFACTS}bulwark-opening.png` });

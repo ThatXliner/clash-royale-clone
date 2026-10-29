@@ -348,15 +348,23 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
   assert.deepEqual(createPlayableRoster(), parentRoster.createPlayableRoster(),
     "default card rendering metadata remains exact");
   const copperskiffMotionCss = `.combat-marker[data-kind="copperskiff"][data-pose] .combat-art{transform:none;transform-origin:50% 84.375%}`;
-  const copperskiffWindowCss = `.combat-art--copperskiff{overflow:hidden}`;
-  const styleWithoutCopperskiffRules = getCombatStyleText()
-    .replace(copperskiffMotionCss, "")
-    .replace(copperskiffWindowCss, "");
-  assert.equal(styleWithoutCopperskiffRules, parentState.getCombatStyleText() +
-    `.combat-marker[data-kind="brackenwheel"]::before{content:"";position:absolute;z-index:-1;inset:-3px;border:2px solid;border-radius:50%;pointer-events:none}.combat-marker[data-kind="brackenwheel"][data-side="north"]::before{border-color:#b95c4c}.combat-marker[data-kind="brackenwheel"][data-side="south"]::before{border-color:#398ba4}`,
-  "Copperskiff only adds its fixed window and no-rotation rules on top of the accepted combat CSS");
-  assert.ok(getCombatStyleText().includes(copperskiffMotionCss));
-  assert.ok(getCombatStyleText().includes(copperskiffWindowCss));
+  const stormkiteMotionCss = `.combat-marker[data-kind="stormkite"][data-pose] .combat-art{transform:none;transform-origin:50% 84.375%}`;
+  const atlasWindowCss = `.combat-art--copperskiff,.combat-art--skymaul,.combat-art--stormkite{overflow:hidden}`;
+  const parentTowerHealthCss = `.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}`;
+  const acceptedTowerHealthCss = `.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;border-radius:0;box-shadow:0 0 0 1px #191D22;transform:translateZ(0) scaleX(calc(var(--combat-health)/var(--combat-health-max)))}`;
+  const deathStyleStart = `.combat-death-remnant{position:absolute;pointer-events:none;`;
+  const parentCombatCss = parentState.getCombatStyleText();
+  assert.equal(parentCombatCss.split(parentTowerHealthCss).length, 2,
+    "the exact accepted parent has one original tower-health rule");
+  assert.equal(parentCombatCss.split(deathStyleStart).length, 2,
+    "the exact accepted parent has one motion/death stylesheet boundary");
+  const expectedCombatCss = parentCombatCss
+    .replace(parentTowerHealthCss, acceptedTowerHealthCss)
+    .replace(deathStyleStart, copperskiffMotionCss + stormkiteMotionCss + deathStyleStart) +
+    atlasWindowCss +
+    `.combat-marker[data-kind="brackenwheel"]::before{content:"";position:absolute;z-index:-1;inset:-3px;border:2px solid;border-radius:50%;pointer-events:none}.combat-marker[data-kind="brackenwheel"][data-side="north"]::before{border-color:#b95c4c}.combat-marker[data-kind="brackenwheel"][data-side="south"]::before{border-color:#398ba4}`;
+  assert.equal(getCombatStyleText(), expectedCombatCss,
+    "combat CSS retains exact parent bytes except the qualified tower-health, atlas, and Brackenwheel rules");
 
   const portraitIds = getCardPortraitIds();
   assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 3,
@@ -419,7 +427,8 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
     .filter((kind) => kind !== "briar-runner").sort();
   assert.deepEqual(COMBAT_ART_ARCHETYPES.filter((kind) => kind !== "briar-runner").sort(),
-    expectedKinds, "all other combat-art archetypes remain present");
+    [...expectedKinds, "stormkite"].sort(),
+    "all parent non-Briar archetypes remain exact with only the accepted Stormkite addition");
   const layersByKind = new Map(createPlayableRoster().flatMap(({ entities }) =>
     entities.map(({ archetypeId, layer }) => [archetypeId, layer])));
   for (const kind of expectedKinds) {

@@ -2859,7 +2859,8 @@ function checkedBuildingBoundary(value, currentTick) {
     .sort((left, right) => left.commandId - right.commandId ||
       left.sourceId - right.sourceId || left.targetUnitId - right.targetUnitId);
   if (new Set(unitControls.map(({ id }) => id)).size !== unitControls.length ||
-      new Set(unitHeals.map(({ commandId }) => commandId)).size !== unitHeals.length) {
+      new Set(unitHeals.map(({ commandId, sourceId }) =>
+        `${sourceId}:${commandId}`)).size !== unitHeals.length) {
     throw new TypeError("battle tower status ingress identities must be unique");
   }
   return { externalHits: clone(boundary.externalHits),
@@ -6826,8 +6827,10 @@ class LiveBattle {
   #finalizeStatusPlans(plans, combatEvents, boundary, tick) {
     for (const plan of plans) {
       if (plan.heal === null) continue;
-      const event = combatEvents.find(({ commandId, type }) =>
-        type === "heal" && commandId === plan.heal.commandId);
+      const event = combatEvents.find(({ commandId, sourceId, targetId, type }) =>
+        type === "heal" && commandId === plan.heal.commandId &&
+        sourceId === plan.heal.sourceId &&
+        targetId === plan.heal.targetUnitId);
       boundary.push({
         ...clone(plan.receipt),
         appliedAmount: event?.appliedAmount ?? 0,
@@ -7667,8 +7670,11 @@ class LiveBattle {
         target: { position: point, radius: enemy.radius, range: unit.reach },
       };
     }
+    const structureSight = BigInt(unit.radius + unit.sightRange);
     const structures = this.#structures.filter((candidate) => candidate.alive &&
-      candidate.targetable && candidate.side !== unit.side);
+      candidate.targetable && candidate.side !== unit.side &&
+      (unit.targetMode !== "buildings" || squaredDistance(unit.position,
+        candidate.position) <= structureSight * structureSight));
     structures.sort((left, right) => {
       const distance = squaredDistance(unit.position, left.position) -
         squaredDistance(unit.position, right.position);

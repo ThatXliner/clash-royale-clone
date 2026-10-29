@@ -457,7 +457,7 @@ test("buildings defensive: concealed building is untargetable until same-boundar
 test("buildings defensive differential: Buried concealment snapshots canonical visibility", () => {
   pinnedHash(
     "../src/content/cards/combat-status-invisibility.js",
-    "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b",
+    "536b4b4a0e6ce3cd7a91f79c8a069e25ddac350da27905ecba66d0543d81729f",
   );
   pinnedHash(
     "../src/sim/targeting.js",

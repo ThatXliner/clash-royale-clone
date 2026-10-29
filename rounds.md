@@ -12508,3 +12508,398 @@ BIGGEST GAP: No remaining gap in these bounded Buffer-absent module APIs and the
 DISPOSITION:
 
 Record API-003 at round 1 as scoped PASS with 3/3 fresh independent TAP, five manual Chrome-to-Node canonical snapshot comparisons and 103 explicitly reused builder cases. Preserve earlier rounds and all existing source-confidence questions. Prepare only the accepted eight implementation/test files plus PLAN.md, rounds.md and canonical-rendered progress.html for a later commit on exact f949. A separate critic will review tracking/source isolation and run the normal production Pages build once with its built-in browser qualifier. No publication is authorized by this round record.
+
+## Round 641 — 2026-10-29
+
+PIECE: GAME-REPAIR-003C — Bounded live structure sight and healing identity
+
+VERDICT: PASS — scoped source-profile live host repair; no combined-release, full-game or historical parity claim
+
+EVIDENCE:
+
+Formal independent verdict: /private/tmp/unit-c-independent-critic-20261029/VERDICT.md. Its frozen artifact was exact f949458b393ec3c1088b0844fabd6d70dc03b1ce plus six pinned Unit C source/test files. The critic independently exported the 604-file base source profile, confirmed exactly three modified and three added paths, and matched all 607 resulting profile files byte-for-byte with the builder. All source content definitions and reference inputs remained identical; QUESTION policies, amounts and original identity were unchanged.
+
+Fresh independent TAP comprises three separate finished commands: 5/5 focused cases (three healing and two sight), 1/1 RL deployment case, and 3/3 adversarial cases, each exit 0. This is nine fresh independent cases across separate commands, not a fabricated combined invocation. The critic verified axis sight edges at 7999/8000/8001 millitiles and a Pythagorean edge at (4800,6400) versus one millitile outside. Existing source sight 7500 plus QUESTION body radius 500 gives the admitted inclusive threshold 8000; this calculation does not corroborate those values historically. Structure-only movement retained tower approach outside sight and acquired a visible building inside it, with exact before/after-acquisition restore continuation.
+
+Opposing live healing commands sharing Number.MAX_SAFE_INTEGER command ID 9007199254740991 both resolved with their own capped health receipts: south source/target 1 retained current health 1717 with requested amount 120; north source/target 2 retained current health 231 with requested amount 240; each applied amount was zero. Independent damaged low-level sources then healed by 17 and 41 up to their distinct source maxima 1717 and 231 under shared command ID 0. Same-source duplicates with different targets, same-side alternate-source duplicate commands and consumed-command replays rejected atomically. Reverse ingress/scheduling and restored continuation produced identical events and serialized bytes. Critic fixture mistakes and corrections are retained externally; the qualified candidate was never edited.
+
+Version-scoped builder reuse, not fresh independent cases: 6/6 focused cases, 121/121 adjacent Node cases and 37/37 wired status-runner cases, in separate overlapping commands. Do not sum these as distinct coverage. The original builder RED established three intended failures in five corrected-fixture cases: two heal ingress uniqueness failures and a remote-building route divergence. The earlier unsupported mixed editable-deck fixture failure and its direct admitted LiveBattle witness correction remain recorded; no card admission expansion was made.
+
+This source-only next-integration candidate starts from exact d2511a21bcbcfbf332b3f0f3ab74dc28cdb2b112 and copies the exact accepted six Unit C bytes, plus this tracking row/round and canonical-rendered progress. The d251 base already includes Unit A; its accepted 769-path source profile is retained, including tracked demo and provenance-addressed design files, while historical artifacts/dist and other design paths remain explicitly omitted. This preparation did not rerun tests, browser, build, install or publication. The nine independent cases qualify the accepted f949 Unit C artifact; a future combined source verification remains separate.
+
+BIGGEST GAP: No defect remained within the independently judged structure-sight and heal command/receipt identity scope. QUESTION healing/radius fidelity, full-game and historical parity, combined-suite qualification, rendering, release build and publication remain outside this PASS.
+
+DISPOSITION:
+
+Record GAME-REPAIR-003C at round 1 as scoped PASS, nine fresh independent cases across 5+1+3 commands, with reused builder 6/121/37 reported separately. Preserve Round 640 and every previous canonical round. Adopt only the exact six independently accepted implementation/test bytes and three tracking paths onto d251; keep Unit B separate until accepted. This source-only preparation does not authorize a commit or publication.
+
+## Round 642 — 2026-10-29
+
+PIECE: GAME-REPAIR-003B — Ordinary Cinderback projectile delivery and initial reflection command progress
+
+VERDICT: PASS — bounded ordinary delivery and exported encounter lifecycle; no full special-mechanic or normal editable-player admission claim
+
+EVIDENCE:
+
+Accepted Unit B artifact: /private/tmp/clash-unit-b-f949-20261029, exact f949458b393ec3c1088b0844fabd6d70dc03b1ce plus four files. Its frozen-candidate-pins.json SHA256 is 848871fa306c541d2a175ba4c4c190957b57bb3d3f324ca7577838cd61536769; exact-delta.json records two source modifications and two added regressions. Independent results are retained at /private/tmp/clash-unit-b-f949-20261029-evidence/independent-critic-focused.log and independent-critic-edge-probe.log. The coordinator accepted the bounded independent PASS after those executions.
+
+Fresh independent focused TAP: 6/6 cases, exit 0. Real already-admitted GameSession witness paths exercise both player and AI paid Cinderback deployments, source cost 3 and elixir 10 to 7, actual projectile launches before contact, impact after flight and in-flight restore. Its ordinary projection now uses the existing projectile delivery estimate through createRecoilSpecialCatalog membership. Source damage remains null; ordinary damage 1 and projectile speed 500 remain explicit QUESTION estimates. Delivery classification changes only the ordinary runtime estimate and referenced QUESTION closure; no historical recoil/split behavior is claimed.
+
+External independent manual checks, excluded from TAP counts: five reflection command variants cover boundaries zero through three, reversed ordering, source/reflector/target deaths and same-boundary progress, with exact restored continuation. Two Cinderback death-flight probes show source death at tick 207 retains the launched projectile's tick-209 contact, while target death at 207 produces target_dead at 209 with no damage; restored event/state bytes match. Reflection uses the same private command reducer at initialization and later boundaries, so a valid tick-zero command executes once and advances the cursor. These manual probes are not additional TAP registrations.
+
+Version-scoped builder reuse, not fresh independent cases: six focused, 32 ordinary roster, 16 movement, 28 reflection and 19 champion cases in separate commands; preserve their logs and original RED/fixture corrections. The original invalid editable-deck assumption was replaced by an already-supported admitted witness rather than expanding catalog/player admission. No byte fixture or source receipt was automatically refreshed.
+
+The exact four accepted bytes are prepared on d251 alongside the separately accepted six Unit C bytes and documentation, but this preparation reruns no tests/browser/build. Unit C's targeting change requires a future full-game journey before final combined game acceptance. Combined-source verification and full suite remain pending.
+
+BIGGEST GAP: No defect remained in the bounded judged ordinary delivery and exported reflection command lifecycle. Normal editable/browser/RL Cinderback admission, recoil/split special mechanics, shared-world champion reflection, historical parameter parity, full-game qualification and publication remain outside this PASS.
+
+DISPOSITION:
+
+Record GAME-REPAIR-003B at round 1 with six fresh independent TAP cases, five manual reflection variants and two manual Cinderback death-flight probes separately. Keep Unit B/C acceptance scopes and their prior-base evidence separate from future combined runtime verification. Adopt exactly four accepted Unit B paths; no unrelated card admission is authorized.
+
+## Round 643 — 2026-10-29
+
+PIECE: DOCS-003I — Captured as-of-f949 completion inventory provenance
+
+VERDICT: PASS — bounded documentation refresh and optional captured-provenance supplement
+
+EVIDENCE:
+
+Formal independent R2 supplement verdict: /private/tmp/clash-completion-inventory-critic-20261029/r2-supplement-verdict.md. Accepted document: /private/tmp/clash-100-issue-swarm-20261029/issues/009/inventory-f949-r2/overlay/docs/completion-inventory.md, SHA256 7589952869d3163f47f834b61fc543f80f143f1594b961cfa1dc651dc6dafe52. It explicitly records published commit f949458b393ec3c1088b0844fabd6d70dc03b1ce / Pages run 40823465484, with later source/deployment requiring its own snapshot.
+
+Fresh independent R2 manual assertions: 13/13, Python PID 25878, exit 0; these are assertions, not TAP cases. Checks verified the exact pin, one added paragraph with byte-identical R1 remainder, unchanged complete ordered links, three retained manifest digests, 71 manifest-listed exact artifact files, and captured live evidence of 80 paths / 76 raw-exact paths. Four named HTML exceptions each retain a narrowly described known 367-byte insertion; no blanket normalization, current-live or successor-deployment equivalence is claimed.
+
+Explicit reuse, not fresh R2 execution: corrected R1's 26/26 exact-f949 relative-link checks and 30/30 factual/provenance assertions, because R1 prose and link destinations remain unchanged. The optional original digest omission was a documentation detail, not a product defect. The supplement does not change the corrected R1 PASS interpretation. No browser, build, broad suite or product edit was part of the R2 review.
+
+This source-only integration copies the exact accepted document onto d251 without rewriting its accurate as-of-f949 label or implying that it describes the successor's current deployment. Documentation scope is independent of Unit B/C gameplay repairs.
+
+BIGGEST GAP: None within the captured-provenance supplement. Successor publication, current-live verification, complete historical execution/parity, and combined runtime/build qualification remain outside this documentation PASS.
+
+DISPOSITION:
+
+Record DOCS-003I at round 1 as scoped PASS with 13 fresh manual assertions and reused R1 26 link / 30 factual assertions separately. Adopt only the exact accepted docs/completion-inventory.md bytes. Keep as-of-f949 provenance explicit; no fresh deployment or broader gameplay acceptance follows.
+
+## Round 644 — 2026-10-29
+
+PIECE: CARDS-025B — Bulwark Needle R2 editable-card integration, round 2
+
+VERDICT: FAIL — two required named/registered cases fail their fixtures; independent portrait and physical browser evidence does not override those failures
+
+EVIDENCE:
+
+Formal independent report: `/private/tmp/clash-bulwark-critic-evidence-20261029/CRITIC.md`. The frozen 11-path candidate retained all 11 source pins before/after review. The required named app-shell selector ran once and failed at `tests/app-shell.test.js:954` because the complete portrait expectation omitted the standalone `['bulwark-needle', null]` entry: **0/1 fresh named-app TAP**. The required registered building-choice runner ran once and failed at `tests/game-browser-building-choice.test.js:366` because its expected QUESTION text omitted the visible wrapper/header text: **0/1 fresh building TAP**. Raw logs are `app-shell.log` and `building-choice.log` under the report directory; neither failed gate was edited or rerun by the critic.
+
+Separate independent portrait tests passed **2/2**. The shipped original portrait is 512x512, 71442 bytes; its preserved generated source is 1254x1254, 2521633 bytes, with matching manifest/provenance. The original eight-cell atlas remained identical to exact f949. This supersedes the earlier statement that no art exists; it does not establish an actual Claude consultation from these runtime receipts.
+
+Independent manual physical-browser observations, **excluded from TAP counts**: product views at 390x844 and 1440x933 showed 25 collection choices, the decoded portrait, two-sentence lore, replacement, and Bulwark in hand. Trusted structure deployment spent the source cost 3 (elixir 10 to 7), produced HP 824, and advanced the hand. Separate normal/reduced arena witnesses produced six attacks, HP 824 to 482 after 240 ticks, terminal tick 7863 and exact same-deck restart. The visible 540x960 arena had a 45.359375px Bulwark marker and a distinct needle/stone silhouette with team base. These are bounded observations of the current QUESTION-bearing execution, not historical mechanical corroboration.
+
+Normal/reduced standalone witness and product-phone controller/viewport restore pairs matched; product desktop reduced matched too. Product desktop normal controller bytes matched, but its strict PNG comparison retained exactly one changed static HUD/elixir-edge pixel at (518,882), maximum channel delta 1. Before/after hashes and raster analysis remain in `probe-physical/desktop-normal-raster-diff.json` and the original captures. No cause was established, tolerance waived, or separate audio serialization captured. Controller bytes alone do not prove separate checkpoint audio/UI serialization. Invalid slot/gesture harness probes remain preserved as harness history, not product defects.
+
+Runtime fields retain QUESTION disposition and the absent source first-hit value; the report identifies only cost 3 and hit speed 54 as high-confidence source fields. Full app-shell and interaction suites, publication/Pages checks, and the supplied baseline canonical-arena digest failure were not rerun or resolved. All review-owned processes ended and the dependency link was removed; runtime was released.
+
+BIGGEST GAP: The required named app-shell test still expects the old portrait map and fails at line 954; the building QUESTION-text fixture and strict desktop one-pixel restore also remain failing or unresolved evidence.
+
+DISPOSITION:
+
+Preserve R636 and both fresh R2 fixture failures, portrait 2/2, and independent manual observations separately. Keep CARDS-025B BUILDING at round 2: its acceptance requires the registered editable-deck and full app-shell suites, and no complete app-suite result is supplied. Do not erase the one-pixel or missing audio evidence. GAME-001HUIB remains QUESTION under its existing no-unsourced-policy bar; QUESTION labels do not corroborate source-null first-hit semantics or the other provisional building parameters. No full-card, 18000-tick, 109-card, combined-release or publication qualification follows.
+
+## Round 645 — 2026-10-29
+
+PIECE: CARDS-025B — Bulwark Needle R3 exact-d251 fixture follow-up, round 3
+
+VERDICT: FAIL — fresh registered building choice passes, while the named app-shell gate fails its direct-portrait lookup
+
+EVIDENCE:
+
+Formal independent report: `/private/tmp/clash-bulwark-r3-critic-evidence-20261029/CRITIC.md`. The named app-shell case ran once, Node PID 27500/worker 27501, session 80254, exit 1: **0/1 fresh named-app TAP**, assertion at `tests/app-shell.test.js:993` that Bulwark's emitted URL retains registered portrait bytes. The repaired 25-entry collection expectation had passed; the subsequent `directPortraits` source lookup still omitted Bulwark. This is a missing validation mapping, not proof that emitted image bytes differ. The critic did not edit source/expectations, change tolerance or repeat the case.
+
+The registered building-choice runner ran once and exited 0, runner PID 28026/test PID 28027/worker 28028, session 50224: **1/1 fresh building TAP**, duration 46572.13825 ms. Raw logs/PID/exit receipts remain beside the formal report. Actual `building-choice/building-choice-evidence.json` records trusted cost-3 deployment with elixir 7 after spend; exact deck/hand/input identity and QUESTION notice; six structure attacks, first at tick 120 for amount 212; post-combat HP 311; live target `unit:4` and visible target link. The match reached terminal tick 7863 and exact same-deck restart.
+
+At the registered **720x1280 normal-motion** checkpoint, browser/session bytes, combat/effects/feedback DOM, notice, HUD hand, input slots, focus, target links and marker render state restored exactly. The strict full viewport and independent art crop each had changedPixels 0 and maxChannelDelta 0; continuation matched. This is the fresh registered checkpoint's scope, not a new phone/desktop reduced-motion review. Separate checkpoint audio serialization was not captured and remains unverified.
+
+The prior desktop normal-motion restore remains unresolved: one HUD/elixir-edge pixel at (518,882), RGBA [79,82,82,255] to [79,81,82,255]. The fresh registered 720x1280 PASS does not resolve or waive that separate result. Original R2 captures, hashes and raster measurements remain under `/private/tmp/clash-bulwark-critic-evidence-20261029/`. No standalone probe was repeated.
+
+All 12 owned source pins matched before/after. Independent exact-d251 Git-blob comparison verified the 26 retained reference inputs (275126 bytes) and original atlas unchanged. The bounded source profile contained 773 files; the supplied manifest declared 16986 omitted historical artifact/design/dist paths. This is not a whole-repository-copy claim. All test/browser/server processes ended and the dependency symlink was removed. Full suites, publication checks and the known baseline arena digest failure were not rerun or claimed resolved.
+
+BIGGEST GAP: The required named app-shell emitted-portrait assertion fails at line 993 because the direct source lookup omits Bulwark, despite the fresh registered building-choice PASS.
+
+DISPOSITION:
+
+Keep CARDS-025B BUILDING at round 3. Preserve the R2 two-fixture FAIL and desktop pixel observation, then record R3 named app 0/1 and building 1/1 as separate fresh commands. The 720x1280 building PASS is useful bounded deployment/defense/restore evidence; it does not satisfy the full registered app-shell acceptance bar, corroborate provisional historical building mechanics, or verify missing audio serialization. GAME-001HUIB's QUESTION row and sourced-mechanics bar remain unchanged. No full-card/109-card, combined-release or publication claim.
+
+## Round 646 — 2026-10-29
+
+PIECE: CARDS-025B — Bulwark Needle R4 focused app-shell fixture correction, round 4
+
+VERDICT: PASS — one fresh named app-shell case only; overall CARDS-025B remains BUILDING under its unchanged full registered acceptance bar
+
+EVIDENCE:
+
+Formal independent report: `/private/tmp/clash-bulwark-r4-critic-evidence-20261029/CRITIC.md`. The fresh named app-shell case ran exactly once, shell PID 32119/Node 32130/worker 32131, session 72612, exit 0:
+
+```text
+ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  duration_ms: 107230.336083
+# tests 1
+# pass 1
+# fail 0
+# duration_ms 107492.598416
+```
+
+This is **1/1 fresh named-app TAP**, not a full registered `npm run test:app-shell` result. The named case passed the exact 25-entry collection/portrait mapping and emitted source/output size and SHA-256 assertions, including the new direct Bulwark mapping. Browser evidence records 25 choices and the standalone null-cell portrait decoded at 512x512. The real app ran at 720x1280, 390x844 and 1440x933; structured output/screenshots remain under `app-shell/` beside the report. No critic source/test/tolerance edit or case retry occurred.
+
+**R3 building 1/1 is explicitly reused, not rerun.** Its source test remains SHA-256 `e707b96a308c23ae3bc052f3ae9ffee70a6e73601f46580b698333cd81b92619`; every R4 file except `tests/app-shell.test.js` is byte/mode-identical to R3. That earlier registered case proved the trusted cost-3 structure deployment, six attacks, HP 311 after combat, terminal tick 7863, same-deck restart and exact strict 720x1280 normal-motion checkpoint. Its original evidence is `/private/tmp/clash-bulwark-r3-critic-evidence-20261029/building-choice/building-choice-evidence.json`. Do not count it as a second fresh R4 test or repeat R2's portrait/manual checks as new R4 execution.
+
+The strict desktop normal restore observation is still unresolved: one HUD/elixir-edge pixel at (518,882), channel delta 1. R4 did not repeat the corresponding Bulwark desktop restore probe, and neither the fresh named-app PASS nor the reused 720x1280 building checkpoint waives it. Separate checkpoint audio serialization also remains unverified. The registered building case carries its own DOM/HUD/input equality; it does not supply missing audio or an exact result for the old separate desktop pair. Full registered app-shell, full interaction/browser suites, publication checks and the existing baseline canonical-arena digest failure remain outside this review.
+
+All 12 frozen source pins matched before/after. Independent comparison checked 773 source-profile files with zero extra/missing paths and only `tests/app-shell.test.js` changed from R3. All 26 reference inputs and the original atlas matched exact-d251 blobs. The initial inventory filter accidentally omitted 14 nested dependency fixtures in its comparison; those files were present and the corrected root-only filter checked all 773. The erroneous filter receipt remains preserved separately and is not a product/source change. All review-owned processes ended, the dependency link was removed, and runtime was released.
+
+BIGGEST GAP: The prior desktop normal restore retains its unresolved one-pixel HUD difference; separate checkpoint audio and the full registered app-shell acceptance suite remain unverified. The R4 named-case fixture correction has no remaining failing assertion within that executed case.
+
+DISPOSITION:
+
+Record the critic's narrowly scoped R4 PASS and retain **CARDS-025B BUILDING, round 4**. Its original independent acceptance bar still explicitly requires registered editable-deck and full app-shell runs; the older R636 editable 13/13 and new named-app 1/1 do not establish that bar on the R4 source. The proposal does not change the bar, invent an aggregate fresh suite, or split off a new fully qualified card piece. Preserve all original builder/critic reports and failures; do not overwrite them with this tracking summary. GAME-001HUIB remains QUESTION, with its existing sourced-mechanics bar untouched. No broader card, 109-card, combined-runtime, full-suite or publication acceptance follows.
+
+TRACKING HANDOFF:
+
+These two external PLAN/rounds copies extend the frozen combined R643 tracking baseline `/private/tmp/clash-100-issue-swarm-20261029/issues/004/unit-bc-docs-next/candidate/`, based on exact d251, rather than the dirty root. Only the CARDS-025B status-summary row is updated; GAME-001HUIB and all existing rounds through R643 remain unchanged. This tracking preparation executed no runtime, tests, browser, progress render or hashing, copied no Bulwark product source, and modifies no original report, frozen combined candidate, normal source/index/ref, or shared tracking file. Full npm owns the exclusive runtime. The patches are for a later unified candidate; this proposal is not a publication action, and its new rows have no newly rendered progress artifact yet.
+
+## Round 647 — 2026-10-29
+
+PIECE: RELEASE-001 — Combined B+C ordinary full-suite requirement and selected missing gates
+
+VERDICT: FAIL — the single ordinary npm test exits 1 with nine failing runner groups; both actual 18000-tick endurance runners pass
+
+EVIDENCE:
+
+Formal independent report: `/private/tmp/clash-bc-full-suite-20261029/critic-evidence/CRITIC-VERDICT.md`. The frozen combined B+C/documentation candidate is the fourteen-path exact-d251 successor described in `/private/tmp/clash-100-issue-swarm-20261029/issues/004/unit-bc-docs-next/HANDOFF.md`; manifest SHA256 `81e6e08474631a7ba83bff76e4bf174ef5d81164bb905829fbd8d181545e16aa`. This profile does not contain the separately reviewed Bulwark R2–R4 source changes. Pending R644–R646 tracking records do not change the source that was actually run.
+
+The original ordinary `/Users/me/.hermes/node/bin/npm test` ran exactly once, Node v22.23.4 with the qualified dependency directory and Chrome. Default scenario/tick variables were unset; no cap, skip or selector overrides, install, source correction, expected-hash refresh, index/ref mutation, or separate duplicate 18k browser invocation occurred. Original UTC interval: 2026-10-29T06:16:51.760327+00:00 to 2026-10-29T07:24:52.985996+00:00. It exited 1 after all **148 top-level runner groups** completed: **nine groups failed**, with **six original gated skipped cases**. Do not sum nested diagnostics or separately repeated direct runners into a fabricated unique-test count.
+
+Fresh original failing groups, each reported as tests/pass/fail/skip:
+
+| Group | Actual counts | Stopping assertion and scope |
+| --- | --- | --- |
+| 47 — Browser building choice | 1/0/1/0 | `tests/game-browser-building-choice.test.js:366`: visible QUESTION wrapper contains heading/Details prefix; expectation contains only the policy paragraph. |
+| 79 — Canonical integration audit | 6/5/1/0 | Nested defensive-building runner stops at the same invisibility source hash as group 124; overlapping evidence. |
+| 89 — Content schema | 20/19/1/0 | `tests/content-schema.test.js:714`: ELOOP follows shared dependency self-link; later selected clean-source supplement is separate. |
+| 124 — Defensive buildings | 24/23/1/0 | `tests/buildings-defensive.test.js:458`: invisibility source hash expected `306d99f8…`, actual `536b4b4a…`; remaining selected-case body was not executed. |
+| 128 — Arena shell | 7/6/1/0 | `tests/ui-arena-shell.test.js:164`: source/CSS hash expected `f3daa865…`, actual `98f9bc04…`. |
+| 130 — Battle hand | 1/0/1/0 | `tests/battle-hand-polish.test.js:100`: registry expected 23, actual 24; subsequent behavior not executed. |
+| 131 — HUD card painter | 2/1/1/0 | `tests/hud-card-painter.test.js:839`: painter count expected 115, actual 120; first-case remainder not executed. |
+| 143 — Visual arena art | 6/5/1/0 | `tests/visual-arena-art.test.js:152`: same source/CSS pair as group 128; preceding markup assertion passed. |
+| 147 — Visual combat assets | 3/2/1/0 | `tests/visual-combat-assets.test.js:818`: Stormkite expected one side-colored SVG body path, actual zero; first-case remainder not executed. |
+
+The existing f949 paired current/baseline logs independently retain the arena-shell hash pair; they do not make the original ordinary run pass. The invisibility hash and other UI failures have no fresh baseline qualification in this run, and their causes are not inferred merely from source review. Raw original output, runner metrics and actual stacks are in `npm-test.raw.log`, `runner-summaries.json/.tsv`, and `runner-logs/` beside the formal report. Do not automatically replace pinned hashes/counts or weaken the visual contract.
+
+**Actual state-only endurance passed 1/1 inside the ordinary run**, duration 843588.98625 ms. Direct, irregular-chunk, and restore-cut phases at ticks 2100/9000/17700 all finished at tick 18000, with 60/60/53/30/1 segment rows respectively. Each final snapshot was 332963 bytes. Phase maximum segment durations were 5340/5488/5485/7131/4816 ms, all under 30000 ms. The single outer case verified exact snapshot/replay/state/adaptive-decision equality only after every phase completed; those phase rows are not additional TAP cases.
+
+**Actual default-eight browser endurance passed 4/4 inside the same ordinary run**, TAP duration 933626.825208 ms. Scenario was `default-eight-full-18k`, setup SHA256 `306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c`. It reached natural terminal at tick 18000, South 2–1 by `tiebreak_lowest_hp`, then restarted. Main duration was 905411/1200000 ms; 67 adaptive/replay segments, maximum 10334/30000 ms. Simulation slice maximum was 27.6/40 ms; restore step 4.5 ms and preflight 5.9 ms. Initialization long task was 181/300 ms; measured driven/restore/terminal/restart/screenshot/final-drain long-task maxima were zero under the unchanged 50 ms gate. The separate audioPresentation diagnostic peak 43.1 ms is not the simulation-slice measurement. Environment audits and console/resource/unhandled errors were empty.
+
+The browser's 600→300→600 restore/replay passed exact session/input/presentation/future-audio continuation assertions. Actual sink starts were 55 at branch, 55 after restore, and 86 after replay; typed simulation continuations matched 29/29; UI sequence was 2→2→4. Complete telemetry and terminal/restart captures remain under `endurance/`, with `browser-endurance-summary.json` and `game-session-endurance-phases.json` beside the report. These are current combined-profile default-eight results, not every-deck, full-card or historical parity evidence. No extra 18k run was launched for supplementation.
+
+The six **original default skipped cases** remain as recorded: one game-opponent terminal case requiring GAME_001HC_RESOLVED; one historical accepted-65 no-policy comparison requiring ACCEPTED_65_BASE_ROOT; two fork-base QUESTION/no-policy comparisons requiring GAME_SESSION_FORK_BASE_ROOT; and two accepted-5ed projection/renderer comparisons requiring ART004_PARENT_ROOT. The final two **accepted-5ed comparisons remain unexecuted and unqualified**. Do not say all original skips were resolved.
+
+After original terminal exit and post-input audit, **five fresh selected supplement cases passed in three separate commands**, excluded from the ordinary run's totals:
+
+- Content isolation **1/1**, 255.961708 ms, with only the critic-owned outer dependency link removed. The shared dependency self-link stayed untouched. Its separately reported 2180/2180 protected-identity injections are not 2180 TAP cases and do not relabel original group 89.
+- Selected game-opponent terminal **1/1**, 71495.492584 ms, with GAME_001HC_RESOLVED=1 only for that selected case. The original default skipped record remains intact.
+- Selected historical/fork comparisons **3/3**, 5473.576875 ms, using exact accepted-65 Git 157-file and fork 159-file source profiles with the four pinned R614 overlays. These three results supplement three original skips; they do not alter the original run's skip counters.
+
+Nested group 79 and direct group 124 share the invisibility assertion; groups 128 and 143 share the arena source/CSS assertion. The two endurance runners, five supplement cases, injection diagnostics, original six skips, and earlier component/other-candidate evidence must remain separately scoped. No invented combined fresh pass total is recorded.
+
+Input fence and cleanup: all 775 original verification inputs retained bytes/modes before/after the original run and supplements, including all 774 accepted candidate files and the added exact Git fixture `a5312c9b9ee62a2df29e640c24467104f01358cf`. The fourteen-path manifest remained exact. All 316 baseline profile pins were unchanged. Tests generated 119 output-only files in the external verification copy; these are not accepted source changes. The critic-owned outer dependency link was removed, shared dependencies stayed unchanged, all recorded original/supplement PIDs were absent, and both runtime sessions 87022/79866 completed. The formal report says heavy-runtime ownership was released before it was written; this tracking job does not request or use that runtime.
+
+BIGGEST GAP: Nine ordinary runner groups still fail, including the 23-to-24 registry assertion, 115-to-120 painter assertion and missing Stormkite body-path assertion; their unexecuted behavioral remainders and two pending accepted-5ed comparisons prevent combined full-suite acceptance despite both successful 18000-tick runners.
+
+DISPOSITION:
+
+Record R647 as FAIL under the **existing RELEASE-001 ordinary full-suite requirement**, leaving RELEASE-001 BLOCKED and every prior scoped piece state/acceptance bar unchanged. Append the actionable successor list to PLAN: reconcile the QUESTION notice's compared surface; establish provenance and real behavior before any invisibility/arena pin refresh; make source scanning robust to the dependency self-link without weakening coverage or modifying shared dependencies; bind registry/painter assertions to the intended population and execute their previously blocked behavior; verify the approved Stormkite visual ownership before changing path expectations; and supply exact accepted-5ed inputs for the two outstanding historical art differentials. The separate Bulwark R645/R646 successes are not passes on this combined profile.
+
+Preserve the actual original FAIL, all raw logs, six original skips, five separate supplemental passes and both real endurance PASS results. The next repair candidate needs independently executed focused repair gates and combined acceptance evidence; this source-only tracking proposal neither performs those repairs nor preauthorizes a new runtime. No complete 109-card execution, full-suite PASS, current publication/build acceptance or deployment is established.
+
+TRACKING HANDOFF:
+
+This append-only external proposal is based on frozen combined R643 tracking at `/private/tmp/clash-100-issue-swarm-20261029/issues/004/unit-bc-docs-next/candidate/`, plus the still-unadopted R644–R646 tracking-only proposal at `/private/tmp/clash-100-issue-swarm-20261029/issues/009/bulwark-tracking-r644-r646/candidate/`. Exact preimages for the R647-only patches are that latter directory's PLAN.md and rounds.md. No existing piece identity was fabricated or row rewritten; PLAN receives a bounded R647 update section and rounds receives this one mandatory-metadata round. No prior round or report was edited, and no product/Bulwark source, original candidate, shared/index/ref, progress artifact, runtime, test, browser, hash or renderer was changed/run. This is a proposal for later coordinated integration, not publication.
+
+## Round 648 — 2026-10-29
+
+PIECE: CARDS-025B — Finite Bulwark HUD restore diagnostic, authorized R3 execution
+
+VERDICT: FAIL — incomplete setup/protocol attempt; tick-0 precondition failed before any capture, not a newly measured product-pixel failure
+
+EVIDENCE:
+
+Formal actual report: `/private/tmp/clash-bulwark-hud-restore-r3-exec-20261029/CRITIC-VERDICT.md`. The frozen diagnostic runner matched SHA256 `a2873ed7e4e3b601ecacbd87215127255dd3a280d7aaa5390d87564a501f4824`. Its separate authorized pinned-Node syntax check exited 0. The single authorized harness execution then ran once, Node PID 68253/shell PID 68240/session 36883, and exited **2**. No source edit, repair, retry, replacement/extra context, tolerance change, GPU change or alternative output directory occurred.
+
+The first declared context, `baseline-normal-1`, recorded **opening.tick=5**. The required tick-0 precondition failed at `diagnostic-runner-r3.mjs:521`, before trusted card/arena deployment or B0 capture. The actual receipt says:
+
+```text
+complete: false
+captures: 0
+status: INCOMPLETE_OR_PROTOCOL_ERROR
+inputsComparable: false
+measurementCoverageComplete: false
+diagnosticEvidenceComplete: false
+exactDiagnosticChecks: false
+errors: [Error: Opening was not tick 0; abort without retry]
+cleanupTerminal: true
+```
+
+This is **0 of the maximum 64 PNG captures**, not zero changed pixels or a successful 64-case comparison. The empty failedChecks list cannot establish a PASS when measurement and comparability are false. The syntax result is separate from diagnostic execution, and neither is a new TAP suite total. No screenshot, audio-continuation, PCM-duplication, DOM/identity, canvas-bitmap or compositor-ownership conclusion can be drawn from this aborted protocol.
+
+Both source fences matched before/after, with zero owned/shared-UI pin mismatches: baseline f949 plus original Bulwark paths retained 1677 files/139290429 bytes and tree digest `7d3f92999874b9c422c0ff3efeae6169ea5a01d1ad9b2eff7a7d3b8ba27bde1b`; frozen R4 candidate retained 773 files/86964295 bytes and digest `193b14f6ac0715603d60e5599842af81377db5e9696d20cd6e92faa2e5363e53`. These are preserved before/after input receipts, not a claim that the two differently scoped source inventories are identical or diagnostically comparable.
+
+Cleanup closed the context, baseline static server PID 68380 and owned browser. Recorded browser PIDs 68278/68374/68375/68377/68378 returned ESRCH after cleanup; a later actual process check found none of those IDs, server 68380 or runner 68253. The formal report confirms the heavy-runtime lease was released. Authoritative `evidence.json` and extracted `critic-summary.json` remain in the report directory; original stdout/exit/syntax logs and exit receipts retain the `/private/tmp/clash-bulwark-hud-restore-r3-exec-20261029` path prefix. No original report or receipt is modified by this tracking record.
+
+The original desktop normal-motion one-pixel HUD restore difference remains unresolved, with its cause unproven. R646's scoped R4 named-app PASS and R645's reused R3 registered building-choice PASS remain separate and unchanged. This diagnostic's R3 revision label must not be confused with a newly executed R3 building-choice test or a successful R4 restore comparison.
+
+BIGGEST GAP: The finite diagnostic failed to establish its required tick-0 opening; tick 5 was reached before checkpoint arming, so no declared capture comparison ran.
+
+DISPOSITION:
+
+Record R648 FAIL/INCOMPLETE under the existing CARDS-025B restore-gap context, with syntax exit 0 and single diagnostic exit 2 kept separate. CARDS-025B remains BUILDING; do not increment successful cases, declare the pixel fixed, infer an art/GPU/audio/compositor cause, waive strict tolerance, or revise GAME-001HUIB's sourced-mechanics QUESTION bar. The actionable successor is a bounded harness precondition correction that establishes and records exact tick 0 before advancing/arming, while preserving abort-without-retry and the finite capture protocol. It requires source review before any separately authorized later runtime; this record itself requests no runtime or product change.
+
+TRACKING HANDOFF:
+
+This separate R648-only append proposal follows the frozen external R647 proposal at `/private/tmp/clash-100-issue-swarm-20261029/issues/009/full-suite-r647/candidate/`; those PLAN.md/rounds.md are its exact patch preimages. The chain remains combined R643 plus pending historical R644–R646 tracking, then R647, then this R648 proposal. Only append sections are added; existing rows, bars and all rounds through R647 remain intact. No Bulwark product/admission/art files enter the combined repair successor through tracking. No progress render, runtime, test, hash, source/index/ref or shared mutation occurred, and no publication is claimed.
+
+## Round 649 — 2026-10-29
+
+PIECE: RELEASE-001 — Successor21 test-fixture reconciliation, eight focused gates
+
+VERDICT: PASS — all eight authorized focused commands complete with unchanged input pins; original ordinary full-suite FAIL and separate ART004 gap remain
+
+EVIDENCE:
+
+Formal actual independent verdict: `/private/tmp/clash-bc-suite-repair-critic-20261029/runtime/CRITIC-VERDICT-8-GATES.md`. Per-command processes/exits are `focused-processes.json`; completed post-run source audit/results are `post-input-and-results.json`, captured UTC `2026-10-29T12:43:20.060369+00:00`. Source was frozen successor21 at `/private/tmp/clash-bc-suite-repair-successor-20261029/candidate`, manifest SHA256 **4b852a2e13f5495b422e11cb461bc3a407005142aadde21e8998e6517b024110**, checked through the separate critic verification copy. No verdict was written from launch or unfinished output; these are complete command and post-input receipts.
+
+All eight authorized commands exited 0, each with zero skipped cases. The fresh TAP counts/durations are separate:
+
+| Gate | Actual tests/pass/fail/skip | TAP duration ms |
+| --- | --- | ---: |
+| Complete defensive runner | 24/24/0/0 | 16750.818459 |
+| Selected canonical audit outer case | 1/1/0/0 | 561445.3985 |
+| Complete arena-shell runner | 7/7/0/0 | 78.602417 |
+| Complete visual-arena runner | 6/6/0/0 | 10260.213541 |
+| Complete registered building-choice journey | 1/1/0/0 | 53680.751125 |
+| Complete packaged/standalone battle-hand journey | 1/1/0/0 | 45933.746041 |
+| Complete HUD painter runner, concurrency 1 unchanged | 2/2/0/0 | 105687.244292 |
+| Complete visual-combat runner | 3/3/0/0 | 13520.308666 |
+
+The canonical audit selected **exactly one named outer case**, not all six integration-audit cases. Its complete artifact/coverage/reproducibility body executed all **47 nested mechanic selectors twice**. These nested executions overlap direct defensive/mechanical checks; they are not two fresh full suites or an additive unique-test count. Raw TAP remains in the eight numbered `*.raw.log` files beside the report; all command PIDs/exits and scoped environment are retained in `focused-processes.json`.
+
+The complete defensive 24-case body passed after its accepted-source pin reconciliation. Its invisibility provenance was independently traced to qualified Unit A/exact d251: two UTF-8 byte-count substitutions are the complete f949-to-d251 module change. The current CSS retained its already-qualified `98f9bc04…` identity. Full arena/visual-arena suites, complete registered building journey, complete hand journey, both painter cases and all visual-combat tests ran beyond their former stopping assertions. No gate/cap, runner, helper, production source, package or production art was changed by the critic.
+
+The report's inspected visual evidence positively qualifies the corrected Stormkite representation: rendered faction groups and Stormkite sprites appear in `visual-combat/contact-sheet.png`; structured evidence records 13 CSS-pixel bodies, pinned atlas `05ff6a0d…`, 64x64 cells and zero pivot errors. Decoded ember cell had 25 accepted-palette pixels of 113 opaque pixels; river cell 23 of 119, both above the retained minimum four. Geometry/cell/pivot/source identity, team palette and all remaining original silhouettes were tested; Stormkite was not dropped from the visual loop. Building viewport and independent art restore each had changedPixels 0. Both painter matrices had 120 targets, retaining all 24 registry IDs in five positions. These are scoped actual checks, not a complete visual-parity claim.
+
+Independent source audit matched all **774 profile files** against the final21 freeze: exactly 21 d251 deltas, only seven test repairs plus the three authorized tracking paths differed from the immutable combined parent14, and each packet preimage/postimage matched. Production/helpers/runners/packages and all 26 reference files remained unchanged. The separate frozen verification profile added only the original required 23681-byte melee fixture, exact Git blob `a5312c9b9ee62a2df29e640c24467104f01358cf`, giving **775 declared inputs**. Completed post-audit confirms all 775 input bytes/modes and all 774 frozen successor files unchanged. Three generated-only visual-003b outputs are recorded separately; none is a product/source change. The critic-owned dependency link was removed and all recorded driver/command PIDs were absent.
+
+A separate critic canonical-progress render exited 0 and exactly matched the frozen successor21 progress SHA256 `06666652f7eca3f11c44e482639098cdf5705d3834f61ec52a0ce71af7db107f`. This is a manual canonical-tracking check, not a ninth TAP gate and not a render of these new R649/R650 proposal files. This tracking builder executed no render or runtime.
+
+**The predecessor ordinary full suite remains FAIL, exit 1**, with its original 148 runner groups, nine failed groups and six default skip records unchanged. No ordinary full-suite rerun or duplicate 18000-tick invocation occurred. The predecessor's actual state-only 1/1 and browser 4/4 18000 results remain scoped reuse only because production/helpers/performance gates are identical. Separate historical/terminal/content-isolation supplements retain their own records, rather than replacing ordinary-run outcomes. The original ART004 projection selected case passed and original ART004 combat-state selected case failed at CSS before its remaining body; these are separate R650 evidence, not closed by the eight repaired gates.
+
+BIGGEST GAP: This is focused successor21 qualification, not a new full-suite PASS. The original ART004 combat-state comparison remains FAIL pending actual successor22 full ui-combat-state qualification; the original ordinary npm FAIL and default skips are not retroactively changed.
+
+DISPOSITION:
+
+Record R649 scoped PASS for these eight completed successor21 commands only, preserving each count and the nested audit overlap. Existing RELEASE-001 remains BLOCKED; historical component passes and sourced-mechanics QUESTION bars are unchanged. The failed/unexecuted ART004 original body requires its separate source-grounded successor and actual full ui-combat-state execution. This report provides no result for that future R651 gate, no complete 109-card execution or parity, no full-suite rerun, and no publication/build/deployment acceptance.
+
+TRACKING HANDOFF:
+
+This proposal starts from the exact frozen successor22 R648 PLAN/rounds at `/private/tmp/clash-bc-suite-repair-successor22-20261029/candidate/`, whose source freeze is manifest `646327d15146181871e2a2b38ccc812b3f9f9a5b7c4b4c7bff7cd88bca5ef079`. The R649 evidence above belongs to the separately frozen successor21 and does not claim fresh successor22 execution. R649 is appended first, followed by the unchanged actual-complete R650 fragment; no R651 placeholder or verdict is created. Existing rows/bars/rounds remain byte-preserved, and no frozen21/22 candidate, shared tracking, product source/index/ref or progress artifact was edited here. No new runtime, browser, test, hash or renderer was run by this tracking preparation.
+
+## Round 650 — 2026-10-29
+
+PIECE: ART-004 — Exact accepted-5ed parent differential supplements on the original combined verification profile
+
+VERDICT: FAIL — selected projection passes, selected combat-state fails at the CSS assertion; the rest of that differential body is unexecuted
+
+EVIDENCE:
+
+Actual completed receipt: `/private/tmp/clash-art004-parent-profile-20261029/critic-evidence/post-audit-and-results.json`, captured UTC `2026-10-29T12:26:07.678197+00:00`. Raw selected TAP is in sibling `projection.raw.log` and `combat-state.raw.log`; exact process commands/PIDs/exits are in `processes.json`. Both selected commands ran only after the original combined ordinary full suite had exited 1 and its input audit was completed. The working directory remained `/private/tmp/clash-bc-full-suite-20261029/verification-copy`; `ART004_PARENT_ROOT` pointed at `/private/tmp/clash-art004-parent-profile-20261029/accepted-5ed`, with GIT_OPTIONAL_LOCKS=0 scoped to the recorded executions. No new browser or 18000-tick invocation was part of these two supplements.
+
+Fresh selected projection command, Node PID 72122, exit 0, UTC 12:25:42.841049 to 12:25:43.507096:
+
+```text
+ok 1 - game UI projection: non-Briar play output matches the accepted 5ed parent modules
+# tests 1
+# pass 1
+# fail 0
+# skipped 0
+# duration_ms 624.38025
+```
+
+Fresh selected combat-state command, Node PID 72151, exit 1, UTC 12:25:43.507563 to 12:25:43.964920:
+
+```text
+not ok 1 - non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer
+error: Copperskiff only adds its fixed window and no-rotation rules on top of the accepted combat CSS
+operator: strictEqual
+stack: tests/ui-combat-state.test.js:355:10
+# tests 1
+# pass 0
+# fail 1
+# skipped 0
+# duration_ms 413.133958
+```
+
+These are two separate selected commands, **projection 1/1 PASS and combat-state 0/1 FAIL**, not a passing aggregate or a full ui-combat-state run. The raw CSS diff is retained intact in `combat-state.raw.log`. The executed case had passed its exact-parent admission and initial default-deck/metadata assertions before stopping at the strict combat-style equality. **Everything after line 355 in that case remains unexecuted**: remaining expected Copperskiff CSS presence, parent/new portrait ordering and lore/pixel-source comparisons, archetype preservation, and per-kind/team/layer/hidden rendered-SVG comparisons. Source inspection identifies that remaining body; it does not verify it. No portrait/artwork preservation or broader renderer PASS follows from the earlier projection result.
+
+Exact accepted-parent provenance: profile commit **5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146**, tree **d2f039c4fddae413f44b4ffca400538456f08977**, **537 retained inputs / 10409695 bytes** scoped to `src/**`, `public/**`, `tests/**`, `package.json` and `package-lock.json`. Parent lock SHA256 is **d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4**, profile manifest SHA256 **ef3e7970d1123064b4e02e5ae8ff0e375c6d56ec2adeac6819ae444c59b6ba1c**, and the checked source/asset/test/manifest pathspec was clean. `PROFILE-MANIFEST.json` and `critic-evidence/pre-audit.json` retain that exact metadata; `post-audit-and-results.json` confirms all 537 parent inputs/modes, HEAD/tree/lock/clean pathspec and parent Git metadata hashes remained unchanged. This is the declared parent profile, not an unqualified whole-repository-copy claim.
+
+The completed post-audit also records `original775InputsUnchanged:true`, `originalFullSuiteExitRemains:1`, `originalDefaultSixSkipsUnchanged:true`, and no remaining recorded processes. These two supplement executions qualify neither a successor source nor the original ordinary suite as a whole. R647's original six skipped records remain historically intact; its two then-pending accepted-5ed cases now have these separate selected outcomes, rather than being retroactively marked passed in the original TAP. Earlier five supplemental passes remain their own 1+1+3 commands and are not re-counted here.
+
+BIGGEST GAP: The selected combat-state accepted-parent differential stops at its strict CSS assertion at line 355; subsequent CSS, portrait/lore and rendered-SVG preservation checks have not executed on that original profile.
+
+DISPOSITION:
+
+Record R650 FAIL for this later combined-profile ART-004 differential supplement, with selected projection 1/1 and combat-state 0/1 kept separate. Preserve the historical ART-004 accepted-source PASS, the original ordinary npm exit 1, all six original skip records and prior evidence. The successor must explain the permitted style evolution against the exact parent and execute the entire blocked combat-state body before qualification; no broad CSS normalization or expectation-only bypass is established by this report. Any future full ui-combat-state run requires its own actual result and separate record. No verdict for unfinished R649/R651 gates, full-suite PASS, full 109-card execution, historical parity, current-live qualification or publication is written here.
+
+TRACKING HANDOFF:
+
+This is an actual-complete **R650-only append fragment**, prepared source-only against the frozen external R648 tracking baseline at `/private/tmp/clash-100-issue-swarm-20261029/issues/009/full-suite-r647/r648/candidate/`. **Do not append it into canonical rounds until the actual R649 record has been inserted.** No R649 placeholder or verdict was invented. Existing rows/rounds/reports are unchanged; only the separate PLAN and R650 append fragments are proposed. Frozen twenty-one/twenty-two-path successor candidates, product sources, source/index/ref metadata and shared tracking remain untouched. No runtime, browser, test, render, hash or progress generation occurred in this tracking preparation. R651 is only reserved for a future actual full ui-combat-state result; R652 HUD R5 runtime remains ungranted and has no record here.
+
+## Round 651 — 2026-10-29
+
+PIECE: ART-004 — Successor22 complete ui-combat-state qualification with exact accepted-5ed parent enabled
+
+VERDICT: PASS — all 19 full-file cases execute with exact-parent comparison and unchanged post-input pins; original ART/full-suite failures remain separate history
+
+EVIDENCE:
+
+Formal actual independent report: `/private/tmp/clash-bc-suite-repair-critic-20261029/runtime22/CRITIC-VERDICT-22-ART004.md`. Command was `/Users/me/.hermes/node/bin/node tests/ui-combat-state-runner.js ui-combat-state`, scoped to `ART004_PARENT_ROOT=/private/tmp/clash-art004-parent-profile-20261029/accepted-5ed` and GIT_OPTIONAL_LOCKS=0. Session 3970 completed; launcher 22735 and runner 22762 are absent. No browser, dependency link, build, source change during execution or duplicate 18000-tick gate was used.
+
+Actual full-file raw TAP, `ui-combat-state-full.raw.log`:
+
+```text
+ok 5 - non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer
+1..19
+# tests 19
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1263.269208
+```
+
+This is **19/19 fresh cases from the full registered ui-combat-state file**, with the exact accepted parent enabled, not a named-case substitute or an ordinary full-suite PASS. The formerly gated fifth case executed its entire comparison body after CSS: all complete parent portrait/lore/source comparisons, explicit appended portrait and Stormkite-registry expectations, and per-side/per-layer/hidden-state parent art comparisons. The rest of the full state-projection file also ran. These executed assertions close the focused accepted-parent gap on this successor; source inspection alone was not treated as completion.
+
+Source was frozen successor22, manifest SHA256 **646327d15146181871e2a2b38ccc812b3f9f9a5b7c4b4c7bff7cd88bca5ef079**. Its only change from independently qualified successor21 is `tests/ui-combat-state.test.js`, exact postimage SHA256 **1e88eeba4ebfe352ce41d5be8e356c5273839049e77a6174566856ef01ba4679**. Production, stats/admission, helpers, runners, package data, assets, tracking and all 26 reference inputs remained identical. The separately frozen 775-input verification copy added only the original exact melee fixture, Git blob `a5312c9b9ee62a2df29e640c24467104f01358cf`.
+
+The revised test constructs a complete expected stylesheet from exact accepted-parent bytes, permitting only declared tower-health, Copper/Storm pose, combined Copper/Sky/Storm atlas-window and existing Brackenwheel rules. The entire current stylesheet is still compared exactly. The original parent-kind domain remains intact; the registry assertion admits exactly the separately accepted Stormkite addition without filtering other unexpected kinds. Independent read-only Git review tied these admitted differences to immutable `d1ea5a1…`, `99adf89…`, `8df80a4…` and `f949458…` blobs. No expected product state was accepted merely by copying arbitrary current output, stripping generic CSS, or dropping parent portrait/SVG requirements.
+
+Completed `post-input-and-results.json` confirms all **775 verification inputs' bytes/modes** and **774 frozen candidate files** unchanged. The exact parent retained all **537 files/modes**, HEAD `5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146`, tree `d2f039c4fddae413f44b4ffca400538456f08977`, lock SHA256 `d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4`, clean checked pathspec and unchanged .git/HEAD/index hashes. GIT_OPTIONAL_LOCKS=0 governed every recorded Git operation; no normal index/ref/shared metadata write occurred. Both recorded processes were gone. `pre-input-audit.json`, `processes.json`, raw TAP and the completed post-audit remain beside the formal report.
+
+The original combined ordinary npm test still exited 1 with nine failing runner groups and six default skips. The original accepted-parent projection supplement passed 1/1, while original combat-state failed at its CSS assertion with later body unexecuted; R650 preserves both actual outcomes. **This fresh successor22 19/19 PASS does not rewrite those original receipts.** R649's eight focused gates remain separately qualified on byte-identical successor21 inputs; they are not added to this full-file count or promoted into a unique cross-run total. Predecessor state-only/browser 18000 results retain their original source/helper/gate scope and were not rerun.
+
+BIGGEST GAP: No gap remains in the focused exact-parent full ui-combat-state qualification on successor22. A new ordinary full-suite PASS, full 109-card execution/parity, Bulwark full-card/HUD closure and production publication/build/deployment qualification remain outside this result.
+
+DISPOSITION:
+
+Record R651 scoped PASS for 19/19 full-file cases with exact accepted parent and completed immutable-input/cleanup audit. Preserve original R647 full-suite FAIL, R650 ART comparison FAIL and all scoped earlier PASS/QUESTION records. The source22 publication proposal contains no stat/admission or private Bulwark product/art change; its accepted focused evidence does not complete RELEASE-001 or the overall historical roster. A later normal publication build and separately reviewed source/tracking fence are still required; no deployment is performed or claimed by this record.
+
+TRACKING HANDOFF:
+
+Final ordered external tracking proposal: exact frozen successor22 R648 PLAN/rounds preimages at `/private/tmp/clash-bc-suite-repair-successor22-20261029/candidate/`, then actual-complete **R649 PASS → R650 FAIL → R651 PASS**. Existing piece rows/bars and all rounds through R648 remain unchanged. No placeholder or unfinished verdict is present; R652 is reserved only and its HUD R5 runtime remains ungranted. The proposal changes PLAN/rounds only; it neither mutates frozen21/22/publication candidates nor generates progress. This tracking builder ran no Node/runtime/browser/test/hash/renderer, index/ref or shared write. Integrator 004 receives the frozen exact-preimage patches for separately authorized application and one later canonical progress render; that execution is not claimed here.

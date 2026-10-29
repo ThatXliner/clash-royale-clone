@@ -163,7 +163,7 @@ test("ui arena shell: canonical markup and source bytes are stable", () => {
   );
   assert.equal(
     createHash("sha256").update(css).digest("hex"),
-    "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e",
+    "98f9bc04494d2774df7be1fd7d968f2d23db6ca0f5d5b0119e26e890bddfa04d",
   );
   assert.match(css,
     /\.card-slot\s*\{[^}]*transform:\s*translateZ\(0\);/su,

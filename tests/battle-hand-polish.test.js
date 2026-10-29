@@ -97,7 +97,9 @@ async function cardFrameDiagnostics(frame) {
 
 function createHudProbeData(origin) {
   const ids = [...EDITABLE_MIXED_DECK_CARD_IDS];
-  assert.equal(ids.length, 23, "the authoritative mixed registry has all 23 supported cards");
+  const portraitIds = [...getCardPortraitIds()];
+  assert.equal(ids.length, portraitIds.length,
+    "the authoritative mixed-card and portrait registries have matching populations");
   assert.equal(new Set(ids).size, ids.length, "the authoritative mixed registry has unique card IDs");
   const cardsById = Object.fromEntries(ids.map((id) => {
     const card = EDITABLE_DECK_CARD_IDS.includes(id)
@@ -107,8 +109,8 @@ function createHudProbeData(origin) {
     return [id, { cost: card.cost, displayName: card.displayName, id: card.id }];
   }));
   assert.deepEqual(Object.keys(cardsById), ids,
-    "all 23 registry IDs have one canonical name and cost record");
-  assert.deepEqual([...getCardPortraitIds()].toSorted(), [...ids].toSorted(),
+    `all ${ids.length} registry IDs have one canonical name and cost record`);
+  assert.deepEqual(portraitIds.toSorted(), ids.toSorted(),
     "each supported card has exactly one original portrait mapping");
   const portraits = {};
   for (const id of ids) {
@@ -861,9 +863,9 @@ test("packaged battle hand stays readable, selectable, and cycle-accurate", {
     const layout = await measureHud(page, viewport, probeData.portraits, probeData.cardsById);
     layouts.push(layout);
     const rosterSamples = await inspectHudCases(childFrame, probeData.cases);
-    assert.equal(rosterSamples.length, 23,
-      `${viewport.width}x${viewport.height} measures every playable identity`);
     const expectedIds = Object.keys(probeData.cardsById).toSorted();
+    assert.equal(rosterSamples.length, expectedIds.length,
+      `${viewport.width}x${viewport.height} measures every playable identity`);
     const handAppearances = Object.fromEntries(expectedIds.map((id) => [id, 0]));
     for (const [index, sample] of rosterSamples.entries()) {
       assert.deepEqual(sample.handIds, probeData.cases[index].handIds);

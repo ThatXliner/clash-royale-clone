@@ -150,7 +150,7 @@ test("visual arena art: pinned shell primitives are untouched and art stays insi
     "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
   );
   assert.equal(sha256(css),
-    "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e");
+    "98f9bc04494d2774df7be1fd7d968f2d23db6ca0f5d5b0119e26e890bddfa04d");
   assert.match(css,
     /\.card-slot\s*\{[^}]*transform:\s*translateZ\(0\);/su,
     "scaled card surfaces keep their own stable compositor layer");
