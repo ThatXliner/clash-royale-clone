@@ -23,6 +23,8 @@ import { createSessionTroopWitness, projectSessionTroopBattleCard } from
   "../src/content/session-troop-roster.js";
 import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { createSessionSpellProfileReceipts } from "../src/content/session-spell-profile-receipts.js";
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 import {
   createChainQuestionFixture,
   createChainSpecialFixture,
@@ -791,6 +793,56 @@ test("a real GameSession opt-in sends unit hops through shared unit health and r
     event.externalSourceId?.startsWith("chain:")),
   "the canonical chain owner damage remains in the audio projection");
   assert.ok(before.battle.units.length === 0, "the retained setup checkpoint remains immutable");
+});
+
+test("canonical editable Stormkite setup restores, forks, chunks, and keeps the same deck", () => {
+  const deck = ["stormkite", ...PLAYABLE_CARD_IDS.slice(1)];
+  const setupText = createEditableGameSessionSetup(deck, 1);
+  const setup = JSON.parse(setupText);
+  const session = new GameSession(setupText);
+  assert.ok(session.state.decks.south.hand.includes("stormkite"),
+    "the canonical custom seed gives the real player Stormkite in hand");
+  deployStormkite(session);
+
+  const beforePending = stepToEvent(session, (event) =>
+    event.type === "chain-primary-settled" && event.status === "pending");
+  const source = session.state.battle.units.find(({ cardId, side }) =>
+    cardId === "stormkite" && side === "south");
+  assert.ok(source, "the canonical editable setup materializes the player Stormkite");
+  assert.ok(beforePending.some((event) => event.type === "session-deployed" &&
+    event.side === "north" && event.deployment?.cardId !== undefined),
+  "the unforced opponent controller deployed a real target from the same custom deck");
+  assert.ok(beforePending.some((event) => event.type === "projectile-launch" &&
+    eventProjectileIdentity(event)?.sourceId === source.id),
+  "the player contact carries a host-minted Stormkite projectile identity");
+
+  const pendingBytes = session.serialize();
+  const direct = GameSession.restore(pendingBytes);
+  const fork = direct.fork();
+  const directEvents = direct.stepMany(4);
+  const chunkedEvents = [...fork.stepMany(1), ...fork.stepMany(3)];
+  assert.deepEqual(chunkedEvents, directEvents,
+    "the restored host settles the same pending chain across chunk sizes");
+  assert.ok(directEvents.some((event) => event.type === "chain-hop-settled"),
+    "a real editable GameSession resolves the delayed chain contact");
+  assert.ok(directEvents.some((event) => event.type === "damage" &&
+    event.externalSourceId?.startsWith("chain:")),
+  "the next contact passes through canonical battle owner damage");
+  assert.equal(fork.serialize(), direct.serialize());
+  assert.deepEqual(getGameSessionAudioReplay(fork), getGameSessionAudioReplay(direct));
+  assert.ok(getGameSessionAudioReplay(direct).some((event) => event.type === "damage" &&
+    event.externalSourceId?.startsWith("chain:")),
+  "audio replay retains the actual chain damage");
+
+  session.restart();
+  const restarted = JSON.parse(session.serialize()).setup;
+  assert.deepEqual(restarted.deck, deck,
+    "restart carries the same selected editable deck");
+  assert.equal(restarted.projectileRuntimeProfiles, setup.projectileRuntimeProfiles,
+    "restart retains the authentic projectile profile receipt");
+  assert.deepEqual(JSON.parse(restarted.battleSetup).chainQuestionPolicy,
+    JSON.parse(setup.battleSetup).chainQuestionPolicy,
+    "restart retains the explicit Stormkite QUESTION policy");
 });
 
 test("an admitted Stormkite chain coexists with an unresolved Brassbolt QUESTION launch", () => {

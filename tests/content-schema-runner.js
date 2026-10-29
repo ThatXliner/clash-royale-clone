@@ -55,6 +55,7 @@ for (const selector of selectors) {
       "game-browser-deck-choice",
       "game-browser-deck-keyboard",
       "game-browser-building-choice",
+      "game-browser-policy-notice",
       "browser-frame-restore",
       "game-browser-journey",
       "game-presentation-journey",
@@ -118,6 +119,7 @@ for (const selector of selectors) {
       "ui-input",
       "ui-placement-feedback",
       "ui-combat-state",
+      "stormkite-battle-sprite",
       "ui-combat-effects",
       "ui-match-feedback",
       "audio-events",
@@ -223,6 +225,7 @@ const foundationRunners = [
   ["game-browser-deck-choice", "game-browser-deck-choice-runner.js"],
   ["game-browser-deck-keyboard", "game-browser-deck-keyboard-runner.js"],
   ["game-browser-building-choice", "game-browser-building-choice-runner.js"],
+  ["game-browser-policy-notice", "game-browser-policy-notice-runner.js"],
   ["browser-frame-restore", "browser-frame-restore-runner.js"],
   ["game-browser-journey", "game-browser-journey-runner.js"],
   ["game-presentation-journey", "game-presentation-journey-runner.js"],
@@ -683,6 +686,12 @@ if (selectors.length === 0 || selectors.includes("ui-combat-state")) {
   run([
     new URL("./ui-combat-state-runner.js", import.meta.url).pathname,
     "ui-combat-state",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("stormkite-battle-sprite")) {
+  run([
+    new URL("./stormkite-battle-sprite-runner.js", import.meta.url).pathname,
+    "stormkite-battle-sprite",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("ui-combat-effects")) {

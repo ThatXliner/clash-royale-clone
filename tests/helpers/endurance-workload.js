@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { createPlayableRoster, createPlayableRosterQuestionRecords } from "../../src/content/playable-roster.js";
+import {
+  createPlayableRoster,
+  createPlayableRosterQuestionRecords,
+  PLAYABLE_CARD_IDS,
+} from "../../src/content/playable-roster.js";
 import { createEditableGameSessionSetup } from "../../src/content/editable-deck.js";
 import { getArenaGeometry } from "../../src/sim/arena-geometry.js";
 import { evaluateDeployment } from "../../src/sim/deployment.js";
@@ -12,6 +16,7 @@ import { GameSession } from "../../src/sim/game-session.js";
 export const ENDURANCE_REACTION_INTERVAL_TICKS = 15;
 export const ENDURANCE_BASELINE_INTERVAL_TICKS = 300;
 export const ENDURANCE_EMERGENCY_COOLDOWN_TICKS = 300;
+const ENDURANCE_PAID_DEPLOYMENT_INTERVAL_TICKS = 900;
 export const ENDURANCE_REQUIRED_TICK = 18_000;
 
 const DEFAULT_ROSTER = createPlayableRoster();
@@ -24,6 +29,9 @@ export const KILNKEEPER_ENDURANCE_DECK = Object.freeze([
 export const BRACKENWHEEL_ENDURANCE_DECK = Object.freeze([
   "brackenwheel", "briar-band", "coilblade", "mossguard",
   "ironroot", "copperskiff", "brassbolt", "reedsting",
+]);
+export const STORMKITE_ENDURANCE_DECK = Object.freeze([
+  "stormkite", ...PLAYABLE_CARD_IDS.slice(1),
 ]);
 
 function createWorkloadCatalog(roster, questions, label) {
@@ -114,6 +122,11 @@ export function exactBrackenwheelEnduranceSetupBytes() {
   return createEditableGameSessionSetup(BRACKENWHEEL_ENDURANCE_DECK, 2);
 }
 
+/** The canonical seed-nine Stormkite deck used for the full-chain browser journey. */
+export function exactStormkiteEnduranceSetupBytes() {
+  return createEditableGameSessionSetup(STORMKITE_ENDURANCE_DECK, 9);
+}
+
 function workloadCatalogFromSetupBytes(setupBytes) {
   if (typeof setupBytes !== "string" || canonical(JSON.parse(setupBytes)) !== setupBytes) {
     throw new TypeError("endurance setup must be canonical JSON text");
@@ -143,7 +156,8 @@ export function plannedSouthAttempt(session, catalog = DEFAULT_WORKLOAD_CATALOG)
     alive && side === "north" && position.y < 15_000);
   const lastSouthDeploymentTick = state.cardRuntime.history
     .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
-  const guardRefreshDue = state.tick - lastSouthDeploymentTick >= 900;
+  const guardRefreshDue = state.tick - lastSouthDeploymentTick >=
+    ENDURANCE_PAID_DEPLOYMENT_INTERVAL_TICKS;
   if (incoming.length === 0 && !guardRefreshDue) return null;
   const candidates = state.decks.south.hand.map((cardId, slot) => {
     const profile = catalog.defensiveProfiles.get(cardId);
@@ -413,19 +427,36 @@ export function createEnduranceWorkloadPolicy({ emergencyDecisionTicks = [] } = 
 /** Create a policy whose defensive choices come from an accepted setup. */
 export function createSelectedEnduranceWorkloadPolicy({
   emergencyDecisionTicks = [],
+  preferredCardId = null,
   setupBytes,
 } = {}) {
   return createEnduranceWorkloadPolicyForCatalog({
     emergencyDecisionTicks,
     catalog: workloadCatalogFromSetupBytes(setupBytes),
+    preferredCardId,
   });
 }
 
-function createEnduranceWorkloadPolicyForCatalog({ emergencyDecisionTicks, catalog }) {
+function preferredCardAttempt(session, cardId, catalog) {
+  const state = session.state;
+  if (state.terminal) return null;
+  const slot = state.decks.south.hand.indexOf(cardId);
+  const cost = catalog.costs.get(cardId);
+  if (slot < 0 || cost === undefined || cost > state.elixir.sides.south.amount) return null;
+  return { cardId, point: { x: 3_500, y: 14_500 }, slot, tick: state.tick };
+}
+
+function createEnduranceWorkloadPolicyForCatalog({
+  emergencyDecisionTicks, catalog, preferredCardId = null,
+}) {
   if (!Array.isArray(emergencyDecisionTicks) ||
       !emergencyDecisionTicks.every(Number.isSafeInteger) ||
       emergencyDecisionTicks.some((tick, index) => index > 0 && tick <= emergencyDecisionTicks[index - 1])) {
     throw new TypeError("endurance policy emergency history is invalid");
+  }
+  if (preferredCardId !== null &&
+      (typeof preferredCardId !== "string" || !catalog.cards.has(preferredCardId))) {
+    throw new TypeError("endurance preferred card must belong to the selected setup");
   }
   let emergencyHistory = [...emergencyDecisionTicks];
   let previewSession = null;
@@ -442,14 +473,22 @@ function createEnduranceWorkloadPolicyForCatalog({ emergencyDecisionTicks, catal
       if (state.tick % ENDURANCE_REACTION_INTERVAL_TICKS !== 0) {
         throw new TypeError("endurance decisions require a 15-tick reaction boundary");
       }
-      const baseline = state.tick % ENDURANCE_BASELINE_INTERVAL_TICKS === 0
+      const lastSouthDeploymentTick = state.cardRuntime.history
+        .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
+      const stormkiteRefreshDue = preferredCardId === "stormkite" &&
+        state.tick - lastSouthDeploymentTick >= ENDURANCE_PAID_DEPLOYMENT_INTERVAL_TICKS;
+      const baseline = state.tick % ENDURANCE_BASELINE_INTERVAL_TICKS === 0 || stormkiteRefreshDue
         ? plannedSouthAttempt(session, catalog) : null;
+      const preferred = preferredCardId === null
+        ? null : preferredCardAttempt(session, preferredCardId, catalog);
       const emergency = aggregateDefensePlan(state, mostRecentEmergencyTick(), catalog);
       let plan;
       if (emergency !== null) {
         emergencyHistory.push(state.tick);
         plan = { ...emergency,
           suppressedBaseline: baseline === null ? null : normalizedWorkloadCommand(baseline) };
+      } else if (preferred !== null) {
+        plan = { ...preferred, decision: "stormkite-priority" };
       } else {
         plan = baseline === null ? null : { ...baseline, decision: "frozen-GH-baseline" };
       }
@@ -496,6 +535,14 @@ function createEnduranceWorkloadPolicyForCatalog({ emergencyDecisionTicks, catal
       return true;
     },
 
+    /** Drop a forecast after canonical lifecycle entries were applied outside it. */
+    invalidatePreview() {
+      previewSession = null;
+      expectedPreviewTick = null;
+      expectedPreviewPlan = null;
+      return true;
+    },
+
     /**
      * Simulate a clone to the earliest future 15-tick boundary with an action.
      * Browser segments can therefore remain 300 ticks when no action is due.
@@ -511,8 +558,8 @@ function createEnduranceWorkloadPolicyForCatalog({ emergencyDecisionTicks, catal
       }
       const untilBaseline = ENDURANCE_BASELINE_INTERVAL_TICKS -
         (startTick % ENDURANCE_BASELINE_INTERVAL_TICKS);
-      if (session.state.clock.phase !== "overtime" && maxTicks > ENDURANCE_REACTION_INTERVAL_TICKS &&
-          maxTicks <= untilBaseline) {
+      if (preferredCardId === null && session.state.clock.phase !== "overtime" &&
+          maxTicks > ENDURANCE_REACTION_INTERVAL_TICKS && maxTicks <= untilBaseline) {
         // No emergency is eligible in regulation, and the browser scheduler
         // ends this span at the next baseline boundary. The next loop checks
         // that boundary before any further simulation tick is driven.
@@ -527,6 +574,7 @@ function createEnduranceWorkloadPolicyForCatalog({ emergencyDecisionTicks, catal
       const previewPolicy = createEnduranceWorkloadPolicyForCatalog({
         emergencyDecisionTicks: emergencyHistory,
         catalog,
+        preferredCardId,
       });
       let elapsedTicks = 0;
       while (elapsedTicks < maxTicks && !preview.state.terminal) {
@@ -557,6 +605,121 @@ export function normalizedWorkloadCommand(command) {
 
 function normalizedWorkloadDecision(plan) {
   return plan === null ? null : { ...normalizedWorkloadCommand(plan), decision: plan.decision };
+}
+
+function stormkiteOwnerHitpoints(state, owner) {
+  const collection = owner.kind === "unit" ? state.battle.units
+    : owner.kind === "crown-tower" ? state.battle.towers
+      : owner.kind === "building" ? state.battle.structures : null;
+  assert.ok(Array.isArray(collection), `Stormkite contact owner kind ${owner.kind} is renderable`);
+  const record = collection.find(({ id }) => id === owner.id);
+  assert.ok(record, `Stormkite contact owner ${owner.kind}:${owner.id} exists in canonical state`);
+  assert.ok(Number.isSafeInteger(record.hitpoints) && record.hitpoints >= 0,
+    `Stormkite contact owner ${owner.kind}:${owner.id} has canonical hitpoints`);
+  return record.hitpoints;
+}
+
+/** Join a committed Stormkite chain receipt to one same-boundary owner HP loss. */
+export function captureStormkiteContactOwnerHpWitness({
+  afterState, beforeState, boundaryEvents, settlement,
+}) {
+  if (!beforeState || !afterState || !Array.isArray(boundaryEvents) || !settlement ||
+      !["chain-primary-settled", "chain-hop-settled"].includes(settlement.type) ||
+      !["pending", "complete"].includes(settlement.status) || settlement.owner == null) {
+    throw new TypeError("Stormkite HP evidence requires an owner-confirmed contact boundary");
+  }
+  const identity = settlement.lineage?.primaryProjectileIdentity;
+  const ordinal = settlement.type === "chain-primary-settled" ? 0 : settlement.lineage?.hopOrdinal;
+  if (identity === undefined || !Number.isSafeInteger(ordinal) || ordinal < 0 ||
+      (settlement.type === "chain-primary-settled" && ordinal !== 0) ||
+      (settlement.type === "chain-hop-settled" && ordinal < 1)) {
+    throw new TypeError("Stormkite HP evidence has no canonical chain lineage");
+  }
+  assert.equal(beforeState.tick, settlement.tick,
+    "the before-state is the exact canonical tick that emitted the chain receipt");
+  assert.equal(afterState.tick, beforeState.tick + 1,
+    "the after-state closes exactly one canonical simulation boundary");
+
+  const owner = settlement.owner;
+  const beforeHitpoints = stormkiteOwnerHitpoints(beforeState, owner);
+  const afterHitpoints = stormkiteOwnerHitpoints(afterState, owner);
+  const ingressSourceId = ordinal === 0 ? null
+    : `chain:${identity.sourceId}:${identity.attackSequence}:${identity.projectileId}:` +
+      `${identity.direction}:${ordinal}`;
+  const sameOwnerDamage = owner.kind === "unit"
+    ? boundaryEvents.filter((event) => event.type === "damage" &&
+      event.tick === settlement.tick && event.targetId === owner.id)
+    : owner.kind === "crown-tower"
+      ? boundaryEvents.filter((event) => event.type === "external-structure-contact" &&
+        event.tick === settlement.tick && event.structureId === owner.id)
+      : boundaryEvents.filter((event) => event.type === "structure-damaged" &&
+        event.tick === settlement.tick && event.buildingId === owner.id);
+  let damage;
+  let observedBoundaryDamage;
+
+  if (ordinal === 0) {
+    assert.equal(boundaryEvents.filter((event) => event.type === "projectile-impact" &&
+      event.status === "contact" && event.tick === settlement.tick &&
+      event.sourceId === identity.sourceId &&
+      canonical(event.projectileIdentity) === canonical(identity)).length, 1,
+    "a primary owner loss is linked to its exact canonical projectile contact");
+  }
+
+  if (owner.kind === "unit") {
+    assert.equal(sameOwnerDamage.length, 1,
+      "no concurrent same-owner unit damage obscures this boundary's HP loss");
+    const matchingDamage = sameOwnerDamage.filter((event) =>
+      event.externalSourceId === ingressSourceId ||
+      (ordinal === 0 && canonical(event.projectileIdentity) === canonical(identity)));
+    assert.equal(matchingDamage.length, 1,
+      "one unit damage event carries this primary projectile or exact hop lineage");
+    damage = matchingDamage[0];
+    assert.ok(Number.isSafeInteger(damage.currentHealthBefore) &&
+      Number.isSafeInteger(damage.currentHealthAfter) &&
+      damage.currentHealthBefore > damage.currentHealthAfter,
+    "the attributed damage event carries an actual unit owner HP decrease");
+    assert.equal(damage.currentHealthBefore, beforeHitpoints);
+    assert.equal(damage.currentHealthAfter, afterHitpoints);
+    observedBoundaryDamage = damage.currentHealthBefore - damage.currentHealthAfter;
+  } else if (owner.kind === "crown-tower") {
+    assert.equal(sameOwnerDamage.length, 1,
+      "no second crown-tower damage event obscures this boundary's owner HP loss");
+    damage = sameOwnerDamage[0];
+    assert.equal(ordinal === 0
+      ? canonical(damage.projectileIdentity) === canonical(identity)
+      : damage.sourceId === ingressSourceId, true,
+    "crown-tower damage is attributed to this primary projectile or exact hop lineage");
+  } else {
+    assert.equal(sameOwnerDamage.length, 1,
+      "no second building damage event obscures this boundary's owner HP loss");
+    damage = sameOwnerDamage[0];
+    assert.equal(ordinal === 0
+      ? canonical(damage.projectileIdentity) === canonical(identity)
+      : damage.sourceId === ingressSourceId && damage.origin === "stormkite-chain-contact", true,
+    "building damage is attributed to this primary projectile or exact hop lineage");
+    if (ordinal === 0) {
+      assert.equal(boundaryEvents.filter((event) => event.type === "external-structure-contact" &&
+        event.tick === settlement.tick && event.structureId === `building:${owner.id}` &&
+        canonical(event.projectileIdentity) === canonical(identity) && event.damage > 0).length, 1,
+      "a primary building loss has its typed external-contact receipt");
+    }
+    observedBoundaryDamage = damage.amountApplied;
+  }
+
+  const attributedDamage = owner.kind === "unit"
+    ? damage.currentHealthBefore - damage.currentHealthAfter
+    : owner.kind === "crown-tower" ? damage.damage : damage.amountApplied;
+  assert.ok(beforeHitpoints > afterHitpoints,
+    "the typed chain owner loses HP across the committed boundary");
+  if (owner.kind === "crown-tower") observedBoundaryDamage = damage.damage;
+  assert.equal(beforeHitpoints - afterHitpoints, observedBoundaryDamage,
+    "the owner HP delta matches its complete same-boundary damage evidence");
+  assert.ok(attributedDamage > 0);
+  const key = canonical({ identity, ordinal, owner, tick: settlement.tick,
+    type: settlement.type });
+  return Object.freeze({ afterHitpoints, beforeHitpoints, attributedDamage,
+    damageEvent: damage, identity, key, owner, settlementType: settlement.type,
+    tick: settlement.tick });
 }
 
 /** Fails the full-duration workload immediately when the natural match ends. */

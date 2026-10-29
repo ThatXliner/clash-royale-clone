@@ -22,6 +22,7 @@ const CARD_PORTRAITS = Object.freeze({
   kilnkeeper: Object.freeze({ asset: "kilnkeeper-portrait-painted", cell: null }),
   brackenwheel: Object.freeze({ asset: "brackenwheel-portrait-painted", cell: null }),
   "aether-well": Object.freeze({ asset: "aether-well-portrait-painted", cell: null }),
+  stormkite: Object.freeze({ asset: "stormkite-portrait-painted", cell: null }),
 });
 
 const PORTRAIT_ASSET_PATHS = Object.freeze({
@@ -87,6 +88,10 @@ const PORTRAIT_ASSET_PATHS = Object.freeze({
   ).href,
   "aether-well-portrait-painted": new URL(
     "../../public/assets/aether-well-portrait-painted.webp",
+    import.meta.url,
+  ).href,
+  "stormkite-portrait-painted": new URL(
+    "../../public/assets/stormkite-portrait-painted.webp",
     import.meta.url,
   ).href,
 });

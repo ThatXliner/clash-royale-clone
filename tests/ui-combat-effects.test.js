@@ -424,14 +424,14 @@ test("ui combat effects: contact, lethal damage, death, and close are feed-causa
   ]);
 });
 
-test("ui combat effects: direct structure contact stays on its authoritative apply boundary", () => {
+test("ui combat effects: direct structure contact appears at its latest committed boundary", () => {
   const feed = createCombatEffectFeed();
   const root = appendCombatEffectRoot(feed, {
     point: point(5_000, 1_000),
-    sequence: "10:0",
+    sequence: "0:0",
     sourceId: 9,
     targetId: 2,
-    tick: 10,
+    tick: 0,
     type: "contact",
   });
   const contact = appendCombatEffectEvent(feed, {
@@ -444,7 +444,7 @@ test("ui combat effects: direct structure contact stays on its authoritative app
     },
     phase: "contact",
     rootId: root.rootId,
-    tick: 10,
+    tick: 0,
     type: "contact",
   });
   const damage = appendCombatEffectEvent(feed, {
@@ -457,7 +457,7 @@ test("ui combat effects: direct structure contact stays on its authoritative app
     },
     phase: "damage",
     rootId: root.rootId,
-    tick: 10,
+    tick: 0,
     type: "contact",
   });
   appendCombatEffectEvent(feed, {
@@ -465,27 +465,32 @@ test("ui combat effects: direct structure contact stays on its authoritative app
     payload: { reason: "complete" },
     phase: "close",
     rootId: root.rootId,
-    tick: 10,
+    tick: 0,
     type: "contact",
   });
 
-  const applyBoundary = createCombatEffectsViewModel(feed, 10);
-  const postStepCursor = createCombatEffectsViewModel(feed, 11);
-  assert.equal(applyBoundary.impacts.length, 1,
-    "one authenticated contact produces one impact primitive on its apply boundary");
-  assert.deepEqual(postStepCursor.impacts, [],
-    "the feed view does not add a second impact at the browser's incremented cursor");
-  assert.deepEqual(createCombatEffectsViewModel(feed, 12).impacts, [],
+  const zeroClockCursor = createCombatEffectsViewModel(feed, 0);
+  const postStepCursor = createCombatEffectsViewModel(feed, 1);
+  assert.deepEqual(zeroClockCursor.impacts, [],
+    "clock zero has no preceding committed boundary to display");
+  assert.equal(postStepCursor.impacts.length, 1,
+    "one direct contact displays on the exact state tick after its committed event");
+  assert.deepEqual(createCombatEffectsViewModel(feed, 2).impacts, [],
     "a direct contact is not retained after its authoritative apply boundary");
-  const bytes = serializeCombatEffectsViewModel(applyBoundary);
+  const bytes = serializeCombatEffectsViewModel(postStepCursor);
   const left = restoreCombatEffectsViewModel(bytes);
   const right = restoreCombatEffectsViewModel(bytes);
   assert.equal(serializeCombatEffectsViewModel(left), bytes,
-    "the apply-boundary impact restores to its exact canonical view bytes");
+    "the committed-boundary impact restores to its exact canonical view bytes");
   assert.equal(serializeCombatEffectsViewModel(right), bytes,
     "independent restore branches retain the same exact canonical impact bytes");
   assert.deepEqual(left.impacts, right.impacts,
     "forked restored views keep the direct contact without duplicating it");
+  const rendered = dom();
+  bindCombatEffectsViewModel(rendered.layer, postStepCursor);
+  assert.equal(rendered.layer.children[0].children.length, 1,
+    "the committed direct contact mounts the existing impact primitive");
+  assert.equal(rendered.layer.children[0].children[0].dataset.kind, "contact");
 });
 
 test("ui combat effects: area roots retain zero-damage shared-target outcomes", () => {

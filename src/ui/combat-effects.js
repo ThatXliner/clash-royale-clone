@@ -381,6 +381,72 @@ function ordinarySplashAreaRecords(snapshot, sessionOwner, feed, feedRecords, ro
   return bursts;
 }
 
+function stormkiteChainHopImpactRecords(snapshot, sessionOwner, feed, tick) {
+  if (snapshot === undefined) return [];
+  if (!isAuthenticGameSessionProjectionSnapshot(snapshot) ||
+      !isAuthenticGameSession(sessionOwner) ||
+      snapshot.combatEffectFeed !== feed || snapshot.state.tick !== tick) {
+    throw new TypeError("Stormkite chain visuals require the matching authentic session snapshot");
+  }
+  if (tick === 0) return [];
+
+  if (snapshot.setup.projectileRuntimeProfiles === undefined ||
+      !snapshot.setup.deck.includes("stormkite")) return [];
+  const battle = snapshot.state.battle;
+  const stormkiteIds = new Set(battle.units
+    .filter((unit) => unit.cardId === "stormkite")
+    .map(({ id }) => id));
+  if (stormkiteIds.size === 0) return [];
+
+  const ownerPosition = (owner) => {
+    const collection = owner?.kind === "crown-tower" ? battle.towers
+      : owner?.kind === "unit" ? battle.units
+        : owner?.kind === "building" ? battle.structures : null;
+    if (collection === null) {
+      throw new TypeError("Stormkite chain owner has an unsupported canonical kind");
+    }
+    const target = collection?.find(({ id }) => id === owner.id);
+    if (target?.position === undefined ||
+        !Number.isSafeInteger(target.position.x) || !Number.isSafeInteger(target.position.y)) {
+      throw new TypeError("Stormkite chain owner has no canonical render position");
+    }
+    return target.position;
+  };
+  const impacts = [];
+  const committedTick = tick - 1;
+  // Session replay is appended in tick order. Walk back only through the most
+  // recent committed boundary, then use its host-confirmed chain result.
+  for (let index = snapshot.replay.length - 1; index >= 0; index -= 1) {
+    const event = snapshot.replay[index];
+    if (!Number.isSafeInteger(event.tick) || event.tick < committedTick) break;
+    if (event.type !== "chain-hop-settled" || event.tick !== committedTick ||
+        (event.status !== "pending" && event.status !== "complete")) continue;
+    const identity = event.lineage?.primaryProjectileIdentity;
+    if (!stormkiteIds.has(identity?.sourceId) ||
+        !Number.isSafeInteger(identity.attackSequence) ||
+        !Number.isSafeInteger(event.lineage.hopOrdinal) || event.lineage.hopOrdinal < 1) {
+      continue;
+    }
+    const point = ownerPosition(event.owner);
+    if (point === null) continue;
+    impacts.push({
+      key: `stormkite-chain-hop:${identity.sourceId}:${identity.attackSequence}:` +
+        `${event.lineage.hopOrdinal}:${event.tick}`,
+      kind: "contact",
+      point: {
+        denominator: "1",
+        xNumerator: String(point.x),
+        yNumerator: String(point.y),
+      },
+      sourceSequence: identity.attackSequence,
+    });
+    if (impacts.length > COMBAT_EFFECT_PRIMITIVE_LIMIT) {
+      throw new RangeError("Stormkite chain contact count exceeds its bound");
+    }
+  }
+  return impacts;
+}
+
 function liveHomingLeg(root, endpoint, tick) {
   const open = root.open;
   if (open.type !== "projectile" || open.payload.to === null ||
@@ -465,9 +531,9 @@ function buildView(input, suppliedTick, suppliedLiveProjectiles, sessionSnapshot
   const { feed, tick: rawTick } = projectionInput(input, suppliedTick);
   const tick = integer(rawTick, 0, Number.MAX_SAFE_INTEGER, "combat effects view.tick");
   const livePoints = liveHomingProjectilePoints(suppliedLiveProjectiles);
-  // UI-002CP owns the complete schema, lifecycle state machine, byte bound,
-  // and canonical record normalization. The renderer consumes this one
-  // normalized snapshot and never interprets producer replay dialects.
+  // UI-002CP owns the complete feed schema, lifecycle state machine, byte
+  // bound, and record normalization. Stormkite's hop contact is joined below
+  // only from the matching branded session snapshot's persisted host receipt.
   const normalized = validateCombatEffectFeed(feed);
   const records = normalized.records;
   const roots = new Map();
@@ -502,8 +568,12 @@ function buildView(input, suppliedTick, suppliedLiveProjectiles, sessionSnapshot
       } else if (record.tick === tick && record.type === "projectile") {
         impactVisuals.push(impactRecord(root, record));
       }
-    } else if (record.phase === "contact" && record.tick === tick) {
-      impactVisuals.push(impactRecord(root, record, "contact"));
+    } else if (record.phase === "contact") {
+      if (root.open.type === "contact" && tick > 0 && record.tick === tick - 1) {
+        impactVisuals.push(impactRecord(root, record, "contact"));
+      } else if (root.open.type === "projectile" && record.tick === tick) {
+        impactVisuals.push(impactRecord(root, record, "contact"));
+      }
     } else if (record.phase === "close") {
       root.close = record;
     }
@@ -520,6 +590,9 @@ function buildView(input, suppliedTick, suppliedLiveProjectiles, sessionSnapshot
 
   areaVisuals.push(...ordinarySplashAreaRecords(
     sessionSnapshot, sessionOwner, feed, records, roots, tick,
+  ));
+  impactVisuals.push(...stormkiteChainHopImpactRecords(
+    sessionSnapshot, sessionOwner, feed, tick,
   ));
 
   assertLiveHomingRootsAreActive(roots, livePoints, tick);

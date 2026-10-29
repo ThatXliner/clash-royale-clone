@@ -17,6 +17,18 @@ const observation = env.reset(); // Reset also returns the initial observation.
 const transition = env.step(0); // Action 0 waits.
 ```
 
+Run `node examples/rl-training-loop.mjs` to collect one deterministic episode
+of policy transitions. The example chooses only actions enabled by
+`actionMask`, records observations and rewards, and reports whether the episode
+terminated or reached its horizon. It restores a checkpoint midway through
+the episode, replays the same actions, and checks that every transition and
+the final checkpoint match. The example collects data for an external learner.
+Each sample contains `observation`, `actionId`, `reward`, `nextObservation`,
+`terminated`, and `truncated`. After collection, learner code can read the
+transition records from the local `samples` array, while stdout includes only
+a compact episode summary and transition trace.
+The example does not implement a policy optimizer.
+
 The current editable card set has 17 troops, Squall Orb, and Ember Basin.
 Supply exactly eight distinct admitted card IDs to select a deck; a mixed
 deck must include Squall Orb or Ember Basin. The same deck is used by both
@@ -173,25 +185,14 @@ counter advances only after its action and fixed stride complete successfully.
 version-2 checkpoint containing configuration and the engine's own snapshot.
 It includes seed, shared deck configuration, opponent/controller state, and
 transcript data needed for causal restoration. Treat it as trusted storage,
-not policy input or an observation.
-
-A recognized checkpoint version is necessary but not sufficient for restore.
-Restore validates the embedded setup against current card admission and
-source-confidence policy, then checks the causal transcript and deployment
-counter. A checkpoint can use a supported envelope version and still fail if
-its setup from an older source revision lacks a policy that the current
-engine requires. Source-vintage migration is not implemented. Successful
-same-format restoration does not prove behavioral compatibility across engine
-revisions. Keep the producing engine commit with each checkpoint and use it to
-reproduce the run.
-
-For an accepted checkpoint from the same engine revision, restore continues
-with the same observation, reward, done status, structures, and future actions.
-Restore rejects wrapper version-1 checkpoints with a `TypeError`
-(`serialized environment has an invalid shape or version`); no version-1
-migration is implemented. Paused engine sessions and sessions with an
-unprocessed player command are also rejected because this wrapper cannot
-produce or resume those states.
+not policy input or an observation. Restore validates the checkpoint against
+the real `GameSession` setup and deployment counter, so a restored environment
+continues with the same observation, reward, done status, structures, and
+future actions. Restore rejects version-1 checkpoints with a `TypeError`
+(`serialized environment has an invalid shape or version`); no migration is
+implemented. Paused engine sessions and sessions with an unprocessed player
+command are also rejected because this wrapper cannot produce or resume those
+states.
 
 The wrapper inherits the simulation's current supported-card admission and
 approximation limits. Its tile centers use the current estimated placement

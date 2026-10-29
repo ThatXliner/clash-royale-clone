@@ -15,6 +15,7 @@ import {
 
 export const SESSION_TROOP_PROJECTILE_RUNTIME_VERSION = 1;
 export const SESSION_TROOP_PROJECTILE_RUNTIME_MAX_PROFILES = 8;
+export const SESSION_TROOP_PROJECTILE_RUNTIME_MAX_SOURCES = 1_024;
 export const SESSION_TROOP_PROJECTILE_RUNTIME_MAX_PENDING = 1_024;
 export const SESSION_TROOP_PROJECTILE_RUNTIME_MAX_HISTORY = 4_096;
 export const SESSION_TROOP_PROJECTILE_RUNTIME_MAX_BYTES = 262_144;
@@ -805,7 +806,7 @@ export class SessionTroopProjectileRuntime {
       }
       throw new RangeError("projectile mechanic card is not admitted by the profile receipt");
     }
-    const checkedSources = dense(sources, SESSION_TROOP_PROJECTILE_RUNTIME_MAX_PROFILES,
+    const checkedSources = dense(sources, SESSION_TROOP_PROJECTILE_RUNTIME_MAX_SOURCES,
       "projectile mechanic sources").map(checkedSource);
     const source = checkedSources.find(({ sourceId }) => sourceId === command.sourceId);
     if (source === undefined) throw new RangeError("projectile mechanic source is not live");
@@ -833,7 +834,7 @@ export class SessionTroopProjectileRuntime {
   #reduce(value) {
     const input = exact(value, ["events", "sources", "tick"], "projectile runtime boundary");
     const tick = integer(input.tick, 0, Number.MAX_SAFE_INTEGER, "projectile runtime boundary.tick");
-    const sources = dense(input.sources, SESSION_TROOP_PROJECTILE_RUNTIME_MAX_PROFILES,
+    const sources = dense(input.sources, SESSION_TROOP_PROJECTILE_RUNTIME_MAX_SOURCES,
       "projectile runtime boundary.sources").map(checkedSource);
     const sourceById = new Map(sources.map((source) => [source.sourceId, source]));
     const rawEvents = dense(input.events, 4_096, "projectile runtime boundary.events");

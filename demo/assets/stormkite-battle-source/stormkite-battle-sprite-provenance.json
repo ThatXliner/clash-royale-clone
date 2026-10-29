@@ -1,0 +1,566 @@
+{
+  "card_id": "stormkite",
+  "status": "Rendered and packed; independent visual critique pending",
+  "authorship": "Original procedural model; no external or reference assets imported",
+  "license": "AGPL-3.0-only",
+  "source_commit": "3df9a311",
+  "model_source": "../stormkite_model.py",
+  "model_source_sha256": "54ba2ec2c3e55e0feee95dbf02145ea52cee9d752f42966ca2bdc1c5f7df7de2",
+  "model_path": "stormkite.blend",
+  "model_sha256": "6327e68f7c0b45dae0b76c7661b87b71ae6f9f8a4d1c13aae385d57977dfb5b1",
+  "packer_source": "pack_atlas.py",
+  "packer_sha256": "669f34e40e82d365555d229897e6f69b5ab79167333994006d61bb7166661c95",
+  "reduction_helper_source": "scripts/build-copperskiff-atlas.py",
+  "reduction_helper_sha256": "292d2d85cc8b3fd39c40eb46d8313c2cc2f8da3f76050107dbfe3483e011f937",
+  "reduction": "One 4x4 premultiplied-alpha integer area average; fixed crop and pivot",
+  "color_profile_hex": {
+    "sRGB": "03",
+    "gAMA": "0000b18f",
+    "cHRM": "00007a26000080840000fa00000080e8000075300000ea6000003a9800001770"
+  },
+  "atlas_path": "stormkite-battle-sprite.png",
+  "atlas_sha256": "05ff6a0db991026211427136b6dbf7d0a2fbe8e8849bca141af308083ff14e6e",
+  "atlas_byte_length": 9325,
+  "atlas_width": 256,
+  "atlas_height": 256,
+  "cell_size": 64,
+  "pivot": [
+    32,
+    54
+  ],
+  "columns": [
+    "east",
+    "north",
+    "south",
+    "west"
+  ],
+  "rows": [
+    {
+      "team": "ember",
+      "action": "idle"
+    },
+    {
+      "team": "ember",
+      "action": "contact"
+    },
+    {
+      "team": "river",
+      "action": "idle"
+    },
+    {
+      "team": "river",
+      "action": "contact"
+    }
+  ],
+  "frames": [
+    {
+      "team": "ember",
+      "action": "idle",
+      "direction": "east",
+      "row": 0,
+      "column": 0,
+      "raw_path": "raw-256/stormkite-ember-east-idle.png",
+      "raw_sha256": "9bae89d9de445dd7be0e5e4dfc02a9169f7a0ecf78229ee7793b35e85596cb38",
+      "native_path": "native-64/stormkite-ember-east-idle.png",
+      "native_sha256": "634b7b9b7a07b9e08d0e52a2f2d55f12eecce9f7285f12631d7a1f60dff3f0e4",
+      "alpha_bounds_1": {
+        "x": 23,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 24,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        23,
+        40,
+        27,
+        8
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "idle",
+      "direction": "north",
+      "row": 0,
+      "column": 1,
+      "raw_path": "raw-256/stormkite-ember-north-idle.png",
+      "raw_sha256": "1a68dedf2eda6f035764fc7d55e7e599a067e2c53a032005d62b7937580a0432",
+      "native_path": "native-64/stormkite-ember-north-idle.png",
+      "native_sha256": "7e961348a70f18a74d4938e8f42168fd8a76c8f2925e5366ef763f99f08ad157",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 17
+      },
+      "alpha_bounds_128": {
+        "x": 25,
+        "y": 42,
+        "width": 14,
+        "height": 15
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        6
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "idle",
+      "direction": "south",
+      "row": 0,
+      "column": 2,
+      "raw_path": "raw-256/stormkite-ember-south-idle.png",
+      "raw_sha256": "baa9cbaf66d1a2a6d5eedbe0749d1af1f9afdabe6fafbcbf8cd5b443f0f2a537",
+      "native_path": "native-64/stormkite-ember-south-idle.png",
+      "native_sha256": "bcab7eac17e4a48d6a7335ce662390c37aad09bca06810dfb4c3029aed31ca32",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_128": {
+        "x": 26,
+        "y": 42,
+        "width": 12,
+        "height": 13
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        8
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "idle",
+      "direction": "west",
+      "row": 0,
+      "column": 3,
+      "raw_path": "raw-256/stormkite-ember-west-idle.png",
+      "raw_sha256": "fa66def7bfe4e749756b710bb0cb730260c3afbc9ed22d5fef701aae612516c7",
+      "native_path": "native-64/stormkite-ember-west-idle.png",
+      "native_sha256": "f4830a925e0b47f17af368eef9c6d01c34f117dc9f4d2bced419402cf00a6523",
+      "alpha_bounds_1": {
+        "x": 27,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 28,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        27,
+        40,
+        23,
+        8
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "contact",
+      "direction": "east",
+      "row": 1,
+      "column": 0,
+      "raw_path": "raw-256/stormkite-ember-east-contact.png",
+      "raw_sha256": "3ca90fd01f07ea2168da3e25bbed46e2a8f95bf06cbb043f87754ef0b9212183",
+      "native_path": "native-64/stormkite-ember-east-contact.png",
+      "native_sha256": "5a5334248ac13d6f9ed904d6b5fc0cdd5c9fca94509c0c99750b79839eea1382",
+      "alpha_bounds_1": {
+        "x": 23,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 24,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        23,
+        40,
+        27,
+        8
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "contact",
+      "direction": "north",
+      "row": 1,
+      "column": 1,
+      "raw_path": "raw-256/stormkite-ember-north-contact.png",
+      "raw_sha256": "c3f6531871ad210f62856c523ea4654dc05da23ebe1781c6a07cda13f8ac58c2",
+      "native_path": "native-64/stormkite-ember-north-contact.png",
+      "native_sha256": "ba9532d0f79c6cf3a353199035ccb945ba5f1d23c0e7f4fc5449f760909c26fd",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 17
+      },
+      "alpha_bounds_128": {
+        "x": 25,
+        "y": 42,
+        "width": 14,
+        "height": 15
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        6
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "contact",
+      "direction": "south",
+      "row": 1,
+      "column": 2,
+      "raw_path": "raw-256/stormkite-ember-south-contact.png",
+      "raw_sha256": "c33b346f24a2affa7c78a9c4431959e3cdb4df9ffcc97a9effd22619b7b11c25",
+      "native_path": "native-64/stormkite-ember-south-contact.png",
+      "native_sha256": "bc2d577ed9e7cf70e3e33bf8941ba0e9537117e3cbec8712b9955eb2c5cd6d0a",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_128": {
+        "x": 26,
+        "y": 42,
+        "width": 12,
+        "height": 13
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        8
+      ]
+    },
+    {
+      "team": "ember",
+      "action": "contact",
+      "direction": "west",
+      "row": 1,
+      "column": 3,
+      "raw_path": "raw-256/stormkite-ember-west-contact.png",
+      "raw_sha256": "fe6baed324530a5f9500e77a518a2f256cc3f6e45e2555cff3a375cd0238cfbf",
+      "native_path": "native-64/stormkite-ember-west-contact.png",
+      "native_sha256": "3ee0fd7e7c8151d502046474624d3caad7aafb076f78d66fa8bee65153227e16",
+      "alpha_bounds_1": {
+        "x": 27,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 28,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        27,
+        40,
+        23,
+        8
+      ]
+    },
+    {
+      "team": "river",
+      "action": "idle",
+      "direction": "east",
+      "row": 2,
+      "column": 0,
+      "raw_path": "raw-256/stormkite-river-east-idle.png",
+      "raw_sha256": "b46036068f2f9ea97d7b326439d739248320c660f77eb928967b1bfea69c0558",
+      "native_path": "native-64/stormkite-river-east-idle.png",
+      "native_sha256": "83bebc1600fdb1cf45d9f890c501c79fef18c1711b790d110b26942cf0dcaa2c",
+      "alpha_bounds_1": {
+        "x": 23,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 24,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        23,
+        40,
+        27,
+        8
+      ]
+    },
+    {
+      "team": "river",
+      "action": "idle",
+      "direction": "north",
+      "row": 2,
+      "column": 1,
+      "raw_path": "raw-256/stormkite-river-north-idle.png",
+      "raw_sha256": "c150fb690d42c4600092461a35e1bd3443c3896ee96c2c8b7599629c9a634503",
+      "native_path": "native-64/stormkite-river-north-idle.png",
+      "native_sha256": "4e2d57e88c5015e518671a4b88a36093d203d02fdc3a84212c9e21faf5e41c3b",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 17
+      },
+      "alpha_bounds_128": {
+        "x": 25,
+        "y": 42,
+        "width": 14,
+        "height": 15
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        6
+      ]
+    },
+    {
+      "team": "river",
+      "action": "idle",
+      "direction": "south",
+      "row": 2,
+      "column": 2,
+      "raw_path": "raw-256/stormkite-river-south-idle.png",
+      "raw_sha256": "4ffce52b48a487e211a8399f77c4066251434d00a73a4335abac24726f13bf79",
+      "native_path": "native-64/stormkite-river-south-idle.png",
+      "native_sha256": "f40a744ac25daa765e48d3c57b0cbd8f2b4d4e20951b21ab5efeb6d05c5d1ba0",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_128": {
+        "x": 26,
+        "y": 42,
+        "width": 12,
+        "height": 13
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        8
+      ]
+    },
+    {
+      "team": "river",
+      "action": "idle",
+      "direction": "west",
+      "row": 2,
+      "column": 3,
+      "raw_path": "raw-256/stormkite-river-west-idle.png",
+      "raw_sha256": "0dd23c0443afa4dfe1d33ad8faec232cba9eb9cbdc1b225a337480c5798598b1",
+      "native_path": "native-64/stormkite-river-west-idle.png",
+      "native_sha256": "a5d5746e42ca4223409465dd52f1e061629ae6663ba11c25284b256764e0bef5",
+      "alpha_bounds_1": {
+        "x": 27,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 28,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        27,
+        40,
+        23,
+        8
+      ]
+    },
+    {
+      "team": "river",
+      "action": "contact",
+      "direction": "east",
+      "row": 3,
+      "column": 0,
+      "raw_path": "raw-256/stormkite-river-east-contact.png",
+      "raw_sha256": "033f990a874b6979f142e4c8155cc01731097601203e7717f3ff8d96300e9c9b",
+      "native_path": "native-64/stormkite-river-east-contact.png",
+      "native_sha256": "8a5d817ff53851f9cc7dad415a2cd5cf5417a3b4d5b99f3313b351ed1615c366",
+      "alpha_bounds_1": {
+        "x": 23,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 24,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        23,
+        40,
+        27,
+        8
+      ]
+    },
+    {
+      "team": "river",
+      "action": "contact",
+      "direction": "north",
+      "row": 3,
+      "column": 1,
+      "raw_path": "raw-256/stormkite-river-north-contact.png",
+      "raw_sha256": "4e5126e991293a20c1dae5f61695859fbd21a9beb1dbcf2444f845d6ba92c1e8",
+      "native_path": "native-64/stormkite-river-north-contact.png",
+      "native_sha256": "0b7685147741e0573cd8200f15e1b48888d469c2191e841f7e6ef676278a9ca2",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 17
+      },
+      "alpha_bounds_128": {
+        "x": 25,
+        "y": 42,
+        "width": 14,
+        "height": 15
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        6
+      ]
+    },
+    {
+      "team": "river",
+      "action": "contact",
+      "direction": "south",
+      "row": 3,
+      "column": 2,
+      "raw_path": "raw-256/stormkite-river-south-contact.png",
+      "raw_sha256": "6437a857ff3e13d703cb15880ee55cfb24f7f8fef76de76ce7d92816a273128e",
+      "native_path": "native-64/stormkite-river-south-contact.png",
+      "native_sha256": "1d868c8a75d1bc832c9d27a2c1eabee0248e3f39860fe5ebed6174f80375b8eb",
+      "alpha_bounds_1": {
+        "x": 25,
+        "y": 41,
+        "width": 14,
+        "height": 15
+      },
+      "alpha_bounds_128": {
+        "x": 26,
+        "y": 42,
+        "width": 12,
+        "height": 13
+      },
+      "clear_margins_px": [
+        25,
+        41,
+        25,
+        8
+      ]
+    },
+    {
+      "team": "river",
+      "action": "contact",
+      "direction": "west",
+      "row": 3,
+      "column": 3,
+      "raw_path": "raw-256/stormkite-river-west-contact.png",
+      "raw_sha256": "5f336e74cc49cc055ce44f155ceedf6e9c41428ba900a90a29fff104dc34111c",
+      "native_path": "native-64/stormkite-river-west-contact.png",
+      "native_sha256": "fb81d272585355b0075ae89ce8f13a5c1df27275130b487be320b45a87c9a427",
+      "alpha_bounds_1": {
+        "x": 27,
+        "y": 40,
+        "width": 14,
+        "height": 16
+      },
+      "alpha_bounds_128": {
+        "x": 28,
+        "y": 41,
+        "width": 12,
+        "height": 14
+      },
+      "clear_margins_px": [
+        27,
+        40,
+        23,
+        8
+      ]
+    }
+  ],
+  "pose_differences": [
+    {
+      "team": "ember",
+      "direction": "east",
+      "idle_contact_changed_pixels": 18
+    },
+    {
+      "team": "ember",
+      "direction": "north",
+      "idle_contact_changed_pixels": 16
+    },
+    {
+      "team": "ember",
+      "direction": "south",
+      "idle_contact_changed_pixels": 37
+    },
+    {
+      "team": "ember",
+      "direction": "west",
+      "idle_contact_changed_pixels": 28
+    },
+    {
+      "team": "river",
+      "direction": "east",
+      "idle_contact_changed_pixels": 20
+    },
+    {
+      "team": "river",
+      "direction": "north",
+      "idle_contact_changed_pixels": 17
+    },
+    {
+      "team": "river",
+      "direction": "south",
+      "idle_contact_changed_pixels": 33
+    },
+    {
+      "team": "river",
+      "direction": "west",
+      "idle_contact_changed_pixels": 27
+    }
+  ],
+  "runtime_integration": false,
+  "simulation_changes": false,
+  "live_blender_control_used": false
+}

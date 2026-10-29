@@ -16,6 +16,7 @@ import {
 import { DeckCycle } from "../sim/deck.js";
 import { ElixirMatch } from "../sim/elixir.js";
 import { GameSession } from "../sim/game-session.js";
+import { createChainQuestionFixture } from "../sim/live-battle-chain.js";
 import { mountArenaShell } from "./arena-shell.js";
 import { getCombatEffectsStyleText } from "./combat-effects.js";
 import { getCombatStyleText } from "./combat-state.js";
@@ -221,59 +222,140 @@ function inputCardsForSession(session, cache) {
 function combatPolicyQuestion(session) {
   const setup = JSON.parse(session.serialize()).setup;
   const battleSetup = JSON.parse(setup.battleSetup);
-  const card = battleSetup.roster.find(({ buildingRuntime }) =>
+  const defensive = battleSetup.roster.find(({ buildingRuntime }) =>
     buildingRuntime?.class === "defensive" &&
     buildingRuntime.policy?.disposition === "question");
-  if (card !== undefined) {
-    const fields = card.buildingRuntime.policy.corpusFields;
+  const questions = [];
+  if (defensive !== undefined) {
+    const fields = defensive.buildingRuntime.policy.corpusFields;
     const unverifiedFields = Object.entries(fields)
       .filter(([, record]) => record.authoritative !== true)
       .map(([field]) => field);
-    return {
-      cardId: card.id,
-      text: `${card.displayName} combat: QUESTION. First-hit timing is ${fields.firstHitTicks.value === null
+    questions.push({
+      cardId: defensive.id,
+      displayName: defensive.displayName,
+      text: `${defensive.displayName} combat: QUESTION. First-hit timing is ${fields.firstHitTicks.value === null
         ? "absent" : "unverified"}; damage, HP, deploy, range and target fields are unverified.`,
       unverifiedFields,
-    };
+    });
+  } else if (setup.deck.includes("brackenwheel")) {
+    const brackenwheel = battleSetup.roster.find(({ id }) => id === "brackenwheel");
+    const meleeAreaEntity = brackenwheel?.entities.find(({ meleeAreaPolicy }) =>
+      meleeAreaPolicy?.authoritative === false &&
+      meleeAreaPolicy?.confidence === "question" &&
+      meleeAreaPolicy?.version === "melee-area-question-v1");
+    if (meleeAreaEntity === undefined) {
+      throw new TypeError("Brackenwheel deck lacks its melee-area QUESTION policy");
+    }
+    questions.push({
+      cardId: brackenwheel.id,
+      displayName: brackenwheel.displayName,
+      text: "Brackenwheel melee area/contact rule remains QUESTION and provisional for historical comparison.",
+      unverifiedFields: ["melee-area-contact"],
+    });
   }
-  if (!setup.deck.includes("brackenwheel")) return null;
-  const brackenwheel = battleSetup.roster.find(({ id }) => id === "brackenwheel");
-  const meleeAreaEntity = brackenwheel?.entities.find(({ meleeAreaPolicy }) =>
-    meleeAreaPolicy?.authoritative === false &&
-    meleeAreaPolicy?.confidence === "question" &&
-    meleeAreaPolicy?.version === "melee-area-question-v1");
-  if (meleeAreaEntity === undefined) {
-    throw new TypeError("Brackenwheel deck lacks its melee-area QUESTION policy");
+  const stormkite = stormkitePolicyQuestion(setup, battleSetup);
+  if (stormkite !== null) questions.push(stormkite);
+  return questions.length === 0 ? null : questions;
+}
+
+function stormkitePolicyQuestion(setup, battleSetup) {
+  if (!setup.deck.includes("stormkite")) return null;
+  const policy = battleSetup.chainQuestionPolicy;
+  const fixture = createChainQuestionFixture();
+  if (policy?.cardId !== "stormkite" || policy.claimFamily !== "chain" ||
+      policy.kind !== "execute-question-model-v1") {
+    throw new TypeError("Stormkite deck lacks its admitted chain QUESTION policy");
   }
+  for (const [key, record] of Object.entries(fixture)) {
+    if (canonical(policy.questions?.[key]) !== canonical(record)) {
+      throw new TypeError(`Stormkite chain notice diverges from its QUESTION fixture at ${key}`);
+    }
+  }
+  const card = battleSetup.roster.find(({ id }) => id === "stormkite");
+  if (card === undefined) throw new TypeError("Stormkite QUESTION card is absent from its selected roster");
   return {
-    cardId: brackenwheel.id,
-    text: "Brackenwheel melee area/contact rule remains QUESTION and provisional for historical comparison.",
-    unverifiedFields: ["melee-area-contact"],
+    cardId: "stormkite",
+    displayName: card.displayName,
+    text: "Stormkite chain hops: QUESTION. Target choice, hop limits and timing remain unverified.",
+    unverifiedFields: Object.keys(fixture),
   };
 }
 
 function projectCombatPolicyQuestion(questionNotice, session) {
-  const policyQuestion = combatPolicyQuestion(session);
+  const policyQuestions = combatPolicyQuestion(session);
   if (questionNotice === null) {
-    if (policyQuestion !== null) {
+    if (policyQuestions !== null) {
       throw new TypeError("shipped browser lacks the defensive QUESTION notice");
     }
     return null;
   }
-  if (policyQuestion === null) {
+  if (policyQuestions === null) {
     questionNotice.hidden = true;
     delete questionNotice.dataset.cardId;
+    delete questionNotice.dataset.cardIds;
     delete questionNotice.dataset.disposition;
     delete questionNotice.dataset.unverifiedFields;
-    questionNotice.textContent = "";
+    questionNotice.replaceChildren();
     return null;
   }
+  const unverifiedFields = [...new Set(policyQuestions.flatMap(({ unverifiedFields: fields }) => fields))];
   questionNotice.hidden = false;
-  questionNotice.dataset.cardId = policyQuestion.cardId;
+  questionNotice.dataset.cardId = policyQuestions[0].cardId;
+  if (policyQuestions.length > 1) {
+    questionNotice.dataset.cardIds = policyQuestions.map(({ cardId }) => cardId).join(",");
+  } else {
+    delete questionNotice.dataset.cardIds;
+  }
   questionNotice.dataset.disposition = "question";
-  questionNotice.dataset.unverifiedFields = policyQuestion.unverifiedFields.join(",");
-  questionNotice.textContent = policyQuestion.text;
-  return policyQuestion;
+  questionNotice.dataset.unverifiedFields = unverifiedFields.join(",");
+
+  const document = questionNotice.ownerDocument;
+  const cardNames = policyQuestions.map(({ displayName }) => {
+    if (typeof displayName !== "string" || displayName.length === 0) {
+      throw new TypeError("combat QUESTION notice lacks an admitted card display name");
+    }
+    return displayName;
+  });
+  const summaryText = `QUESTION · ${cardNames.join(" + ")} · Details`;
+  const existingDetails = questionNotice.querySelector("details.policy-question-details");
+  const existingSummary = existingDetails?.querySelector("summary");
+  const existingCards = existingDetails?.querySelectorAll(".policy-question-detail-card") ?? [];
+  const unchanged = existingSummary?.textContent === summaryText &&
+    existingCards.length === policyQuestions.length &&
+    policyQuestions.every((question, index) => {
+      const item = existingCards[index];
+      return item.dataset.cardId === question.cardId &&
+        item.querySelector("p")?.textContent === question.text;
+    });
+  if (!unchanged) {
+    const details = document.createElement("details");
+    details.className = "policy-question-details";
+    const summary = document.createElement("summary");
+    summary.className = "policy-question-summary";
+    summary.textContent = summaryText;
+    details.append(summary);
+
+    const detailList = document.createElement("div");
+    detailList.className = "policy-question-detail-list";
+    detailList.tabIndex = 0;
+    detailList.setAttribute("role", "region");
+    detailList.setAttribute("aria-label", `QUESTION details for ${cardNames.join(" and ")}`);
+    for (const question of policyQuestions) {
+      const item = document.createElement("section");
+      item.className = "policy-question-detail-card";
+      item.dataset.cardId = question.cardId;
+      const heading = document.createElement("h2");
+      heading.textContent = `${question.displayName} · QUESTION`;
+      const copy = document.createElement("p");
+      copy.textContent = question.text;
+      item.append(heading, copy);
+      detailList.append(item);
+    }
+    details.append(detailList);
+    questionNotice.replaceChildren(details);
+  }
+  return policyQuestions;
 }
 
 function inputSystems(session, cards, cache) {

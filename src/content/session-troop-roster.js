@@ -70,6 +70,7 @@ export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   "gloamwing-cluster",
   "coppershade-flock",
   "kilnkeeper",
+  "stormkite",
 ]);
 
 // These are source-occurrence classifications for an ordinary runtime estimate.

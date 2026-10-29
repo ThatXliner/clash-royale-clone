@@ -203,7 +203,7 @@ test("Brackenwheel resolves its accepted portrait and exactly two approved lore 
     cell: null,
     src: new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url).href,
   });
-  assert.deepEqual(getCardPortraitIds().slice(-2), ["brackenwheel", "aether-well"]);
+  assert.deepEqual(getCardPortraitIds().slice(-3), ["brackenwheel", "aether-well", "stormkite"]);
 });
 
 test("Aether Well resolves the accepted standalone portrait and two exact lore sentences", () => {
@@ -214,7 +214,7 @@ test("Aether Well resolves the accepted standalone portrait and two exact lore s
     cell: null,
     src: new URL("../public/assets/aether-well-portrait-painted.webp", import.meta.url).href,
   });
-  assert.deepEqual(getCardPortraitIds().slice(-1), ["aether-well"]);
+  assert.deepEqual(getCardPortraitIds().slice(-2), ["aether-well", "stormkite"]);
 });
 
 test("Brackenwheel selects renderer and physical body size from deterministic presentation context", () => {
@@ -359,10 +359,10 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
   assert.ok(getCombatStyleText().includes(copperskiffWindowCss));
 
   const portraitIds = getCardPortraitIds();
-  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 2,
-    "Brackenwheel and Aether Well append two new portrait outputs to the accepted collection");
-  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel", "aether-well"],
-    "the accepted collection order, including Buried Coil, is preserved with Brackenwheel and Aether Well appended");
+  assert.equal(portraitIds.length, parentPortraits.getCardPortraitIds().length + 3,
+    "Brackenwheel, Aether Well and Stormkite append their original portrait outputs to the accepted collection");
+  assert.deepEqual(portraitIds, [...parentPortraits.getCardPortraitIds(), "brackenwheel", "aether-well", "stormkite"],
+    "the accepted collection order, including Buried Coil, is preserved with the three new portraits appended");
   assert.ok(portraitIds.includes("buried-coil"));
   for (const cardId of parentPortraits.getCardPortraitIds()) {
     assert.deepEqual({
@@ -401,6 +401,20 @@ test("non-Briar artwork and all accepted parent portraits match the accepted 5ed
       src: "/public/assets/aether-well-portrait-painted.webp",
     },
   }, "Aether Well appends its accepted portrait and lore without changing parent outputs");
+  assert.deepEqual({
+    lore: getCardLore("stormkite"),
+    portrait: cardPortraitOutput({ getCardPortrait }, "stormkite"),
+  }, {
+    lore: "On storm nights at the Rivermark weir, a lock-keeper flies a kite of copper ribs and waxed reed paper on one long braided wire. When a thread of lightning catches the kite, the wire hums and the keeper sends the spark leaping from one raider to the next.",
+    portrait: {
+      asset: "stormkite-portrait-painted",
+      cell: null,
+      imageSha256: createHash("sha256").update(readFileSync(fileURLToPath(
+        new URL("../public/assets/stormkite-portrait-painted.webp", import.meta.url),
+      ))).digest("hex"),
+      src: "/public/assets/stormkite-portrait-painted.webp",
+    },
+  }, "Stormkite adds its original standalone portrait and exactly two lore sentences");
 
   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
     .filter((kind) => kind !== "briar-runner").sort();

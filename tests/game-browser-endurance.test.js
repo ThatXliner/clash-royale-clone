@@ -10,6 +10,9 @@ import {
   GameSession,
   getGameSessionAudioReplay,
 } from "../src/sim/game-session.js";
+import { createChainQuestionFixture } from "../src/sim/live-battle-chain.js";
+import { serializeSessionTroopProjectileProfileManifest } from
+  "../src/content/session-troop-projectile-profiles.js";
 import {
   GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
   GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
@@ -18,15 +21,18 @@ import {
 } from "../src/ui/game-browser-entry.js";
 import {
   assertEnduranceWorkloadCanContinue,
+  captureStormkiteContactOwnerHpWitness,
   ENDURANCE_BASELINE_INTERVAL_TICKS,
   ENDURANCE_REACTION_INTERVAL_TICKS,
   createEnduranceWorkloadPolicy,
   createSelectedEnduranceWorkloadPolicy,
   exactBrackenwheelEnduranceSetupBytes,
   exactEnduranceSetupBytes,
+  exactStormkiteEnduranceSetupBytes,
   exactKilnkeeperEnduranceSetupBytes,
   BRACKENWHEEL_ENDURANCE_DECK,
   KILNKEEPER_ENDURANCE_DECK,
+  STORMKITE_ENDURANCE_DECK,
   normalizedWorkloadCommand,
 } from "./helpers/endurance-workload.js";
 
@@ -39,21 +45,28 @@ const TERMINAL_TICK = 18_000;
 const DEFAULT_SCENARIO = "default-eight";
 const KILNKEEPER_SCENARIO = "kilnkeeper";
 const BRACKENWHEEL_SCENARIO = "brackenwheel";
+const STORMKITE_SCENARIO = "stormkite";
 const SCENARIO = process.env.GAME_BROWSER_ENDURANCE_SCENARIO ?? DEFAULT_SCENARIO;
+const STORMKITE_SETUP_SHA256 = "f57b4a4de34c45f607fa62fc98bebdcb4a5135d019ec2cc7ec31bf4d174dbfb4";
 const EXPLICIT_TICK_BOUND = process.env.GAME_BROWSER_ENDURANCE_TICKS !== undefined;
 const ARTIFACTS = process.env.GAME_BROWSER_ENDURANCE_ARTIFACTS ?? new URL(
   SCENARIO === BRACKENWHEEL_SCENARIO
     ? "../artifacts/cards022qh-round-1/builder/browser/brackenwheel/"
-    : `../artifacts/game001gpx-round-1/builder/browser/${SCENARIO}/`,
+    : SCENARIO === STORMKITE_SCENARIO
+      ? "../artifacts/cards024k-round-1/builder/browser/stormkite/"
+      : `../artifacts/game001gpx-round-1/builder/browser/${SCENARIO}/`,
   import.meta.url,
 ).pathname;
 const EXPECTED_SETUP_SHA256 = SCENARIO === KILNKEEPER_SCENARIO
   ? "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9"
   : SCENARIO === BRACKENWHEEL_SCENARIO
     ? "2207fce9a5a9c64ebca77acd12bae175bfcc0e05ddb94886b7354ccc50f1a15b"
-    : "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
+    : SCENARIO === STORMKITE_SCENARIO ? STORMKITE_SETUP_SHA256
+      : "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
 const TEST_END_TICK = process.env.GAME_BROWSER_ENDURANCE_TICKS === undefined
   ? TERMINAL_TICK : Number(process.env.GAME_BROWSER_ENDURANCE_TICKS);
+const SCENARIO_SEED_LABEL = SCENARIO === BRACKENWHEEL_SCENARIO ? "seed-two"
+  : SCENARIO === STORMKITE_SCENARIO ? "seed-nine" : "seed-zero";
 const MAX_BROWSER_LONG_TASK_MS = 50;
 const MAX_EXPLICIT_SLICE_MS = 40;
 // Module parse plus the first real shell mount are intentionally measured
@@ -71,7 +84,7 @@ const FULL_DEFAULT_RUN = SCENARIO === DEFAULT_SCENARIO && TEST_END_TICK === TERM
 const EXPANDED_TERMINAL_RUN = SCENARIO !== DEFAULT_SCENARIO && !EXPLICIT_TICK_BOUND;
 const RUN_IS_SMOKE = !FULL_DEFAULT_RUN && !EXPANDED_TERMINAL_RUN;
 
-if (![DEFAULT_SCENARIO, KILNKEEPER_SCENARIO, BRACKENWHEEL_SCENARIO].includes(SCENARIO)) {
+if (![DEFAULT_SCENARIO, KILNKEEPER_SCENARIO, BRACKENWHEEL_SCENARIO, STORMKITE_SCENARIO].includes(SCENARIO)) {
   throw new TypeError(`unsupported GAME_BROWSER_ENDURANCE_SCENARIO: ${SCENARIO}`);
 }
 
@@ -90,6 +103,43 @@ function canonical(value) {
       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
   }
   return JSON.stringify(value);
+}
+
+function stormkiteSourceIds(replay, side = null) {
+  return new Set(replay.filter((event) => event.type === "session-deployed" &&
+    event.deployment.cardId === "stormkite" && (side === null || event.side === side))
+    .flatMap((event) => event.deployment.entityIds));
+}
+
+function stormkiteCommittedContactEvents(replay, sourceIds) {
+  const primary = replay.filter((event) =>
+    event.type === "chain-primary-settled" &&
+    sourceIds.has(event.lineage?.primaryProjectileIdentity?.sourceId) &&
+    ["pending", "complete"].includes(event.status) && event.owner != null);
+  const primaryKeys = new Set(primary.map((event) =>
+    canonical(event.lineage.primaryProjectileIdentity)));
+  const primaryProjectileContacts = replay.filter((event) =>
+    event.type === "projectile-impact" && event.status === "contact" &&
+    sourceIds.has(event.sourceId) && primaryKeys.has(canonical(event.projectileIdentity)));
+  const primaryContactKeys = new Set(primaryProjectileContacts.map((event) =>
+    canonical(event.projectileIdentity)));
+  const secondary = replay.filter((event) =>
+    event.type === "chain-hop-settled" &&
+    sourceIds.has(event.lineage?.primaryProjectileIdentity?.sourceId) &&
+    primaryContactKeys.has(canonical(event.lineage.primaryProjectileIdentity)) &&
+    ["pending", "complete"].includes(event.status) && event.owner != null);
+  return { primary: primary.filter((event) => primaryContactKeys.has(
+    canonical(event.lineage.primaryProjectileIdentity))), primaryProjectileContacts, secondary };
+}
+
+function stormkiteContactWitnessKey(settlement) {
+  return canonical({
+    identity: settlement.lineage.primaryProjectileIdentity,
+    ordinal: settlement.lineage.hopOrdinal ?? 0,
+    owner: settlement.owner,
+    tick: settlement.tick,
+    type: settlement.type,
+  });
 }
 
 const UI_AUDIO_SOURCE_TYPES = new Set([
@@ -559,7 +609,115 @@ function assertSegmentTransactions(driven, fromTick, seenCueSequences, seenStart
   return expectedTick;
 }
 
-test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding driver`, {
+test("game browser endurance: Stormkite refreshes on the first due reaction boundary after an off-grid deployment", () => {
+  const setupBytes = exactStormkiteEnduranceSetupBytes();
+  const setup = JSON.parse(setupBytes);
+  const costs = new Map(JSON.parse(setup.battleSetup).roster.map(({ id, cost }) => [id, cost]));
+  const live = new GameSession(setupBytes);
+  const policy = createSelectedEnduranceWorkloadPolicy({
+    preferredCardId: "stormkite",
+    setupBytes,
+  });
+  let commandId = 0;
+
+  for (let tick = 0; tick < 1_500; tick += ENDURANCE_REACTION_INTERVAL_TICKS) {
+    assert.equal(live.state.tick, tick);
+    const plan = policy.plan(live);
+    if (plan !== null) {
+      const command = { cardId: plan.cardId, commandId: commandId++, point: plan.point,
+        slot: plan.slot, tick: plan.tick, type: "deploy" };
+      assert.equal(live.submitPlayerCommand(canonical(command)).accepted, true,
+        `canonical seed-nine workload accepts its tick-${tick} delivery`);
+    }
+    live.stepMany(ENDURANCE_REACTION_INTERVAL_TICKS);
+  }
+
+  const lastPaidTick = live.state.cardRuntime.history.filter(({ side }) => side === "south").at(-1)?.tick;
+  assert.equal(live.state.tick, 1_500);
+  assert.equal(lastPaidTick, 615,
+    "the actual selected-card delivery moves the refresh deadline off the 300-tick grid");
+  assert.equal(live.state.elixir.sides.south.amount, 8);
+  assert.deepEqual(live.state.decks.south.hand,
+    ["skymaul", "mossguard", "copperskiff", "brassbolt"]);
+  assert.equal(policy.plan(live), null,
+    "the off-grid refresh has not reached its paid-deployment limit at tick 1500");
+
+  const checkpoint = live.serialize();
+  const policyCheckpoint = policy.snapshot();
+  const predicted = policy.nextPlannedAttempt(live, ENDURANCE_BASELINE_INTERVAL_TICKS);
+  assert.ok(predicted, "look-ahead finds the due refresh inside the next 300-tick segment");
+  assert.equal(predicted.ticksAhead, ENDURANCE_REACTION_INTERVAL_TICKS);
+  assert.equal(predicted.plan.tick, 1_515);
+  assert.equal(predicted.plan.tick - lastPaidTick, 900,
+    "the refresh is scheduled at the existing 900-tick paid-deployment limit");
+  assert.equal(predicted.plan.decision, "frozen-GH-baseline");
+
+  const restored = GameSession.restore(checkpoint);
+  const restoredPolicy = createSelectedEnduranceWorkloadPolicy({
+    preferredCardId: "stormkite",
+    setupBytes,
+  });
+  assert.equal(restoredPolicy.restore(policyCheckpoint), true);
+  const restoredPrediction = restoredPolicy.nextPlannedAttempt(
+    restored, ENDURANCE_BASELINE_INTERVAL_TICKS);
+  assert.deepEqual({ ticksAhead: restoredPrediction?.ticksAhead,
+    decision: restoredPrediction?.plan.decision,
+    command: restoredPrediction === null ? null : normalizedWorkloadCommand(restoredPrediction.plan),
+  }, {
+    ticksAhead: predicted.ticksAhead,
+    decision: predicted.plan.decision,
+    command: normalizedWorkloadCommand(predicted.plan),
+  }, "restore reproduces the exact planned refresh boundary and card");
+
+  live.stepMany(ENDURANCE_REACTION_INTERVAL_TICKS);
+  restored.stepMany(ENDURANCE_REACTION_INTERVAL_TICKS);
+  const livePlan = policy.plan(live);
+  const restoredPlan = restoredPolicy.plan(restored);
+  assert.deepEqual({ decision: livePlan?.decision,
+    command: livePlan === null ? null : normalizedWorkloadCommand(livePlan),
+  }, {
+    decision: predicted.plan.decision,
+    command: normalizedWorkloadCommand(predicted.plan),
+  }, "the live 1515-tick plan matches its prior forecast");
+  assert.deepEqual({ decision: restoredPlan?.decision,
+    command: restoredPlan === null ? null : normalizedWorkloadCommand(restoredPlan),
+  }, {
+    decision: livePlan?.decision,
+    command: normalizedWorkloadCommand(livePlan),
+  }, "the restored live plan matches the original branch");
+  assert.ok(live.state.decks.south.hand.includes(livePlan.cardId));
+  assert.ok(costs.get(livePlan.cardId) <= live.state.elixir.sides.south.amount,
+    "the selected-roster refresh card is affordable at tick 1515");
+
+  const refreshCommand = { cardId: livePlan.cardId, commandId: commandId++,
+    point: livePlan.point, slot: livePlan.slot, tick: livePlan.tick, type: "deploy" };
+  assert.equal(live.submitPlayerCommand(canonical(refreshCommand)).accepted, true);
+  assert.equal(restored.submitPlayerCommand(canonical(refreshCommand)).accepted, true);
+  assert.equal(policy.recordAcceptedPhysicalDelivery(refreshCommand), true);
+  assert.equal(restoredPolicy.recordAcceptedPhysicalDelivery(refreshCommand), true);
+  assert.equal(live.serialize(), restored.serialize(),
+    "the same paid refresh keeps the live and restored canonical session bytes identical");
+
+  const liveNext = policy.nextPlannedAttempt(live, ENDURANCE_BASELINE_INTERVAL_TICKS);
+  const restoredNext = restoredPolicy.nextPlannedAttempt(restored, ENDURANCE_BASELINE_INTERVAL_TICKS);
+  assert.deepEqual({ ticksAhead: liveNext?.ticksAhead,
+    decision: liveNext?.plan.decision,
+    command: liveNext === null ? null : normalizedWorkloadCommand(liveNext.plan),
+  }, {
+    ticksAhead: restoredNext?.ticksAhead,
+    decision: restoredNext?.plan.decision,
+    command: restoredNext === null ? null : normalizedWorkloadCommand(restoredNext.plan),
+  }, "preview state remains byte-aligned with the accepted refresh after restore");
+
+  const nonPreferredPolicy = createSelectedEnduranceWorkloadPolicy({ setupBytes });
+  const offGridState = GameSession.restore(checkpoint);
+  offGridState.stepMany(ENDURANCE_REACTION_INTERVAL_TICKS);
+  const nonPreferredPlan = nonPreferredPolicy.plan(offGridState);
+  assert.notEqual(nonPreferredPlan?.decision, "frozen-GH-baseline",
+    "the off-grid fallback is limited to the Stormkite preferred-card workload");
+});
+
+test(`game browser endurance: ${SCENARIO} ${SCENARIO_SEED_LABEL} workload uses the yielding driver`, {
   timeout: MAX_ENDURANCE_WALL_CLOCK_MS + 60_000,
 }, async () => {
   assert.ok(existsSync(PLAYWRIGHT), "installed Playwright equivalent is required");
@@ -684,19 +842,58 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
     const setup = SCENARIO === KILNKEEPER_SCENARIO
       ? exactKilnkeeperEnduranceSetupBytes()
       : SCENARIO === BRACKENWHEEL_SCENARIO
-        ? exactBrackenwheelEnduranceSetupBytes() : exactEnduranceSetupBytes();
+        ? exactBrackenwheelEnduranceSetupBytes()
+        : SCENARIO === STORMKITE_SCENARIO
+          ? exactStormkiteEnduranceSetupBytes() : exactEnduranceSetupBytes();
     const setupSha256 = createHash("sha256").update(setup).digest("hex");
     assert.equal(setupSha256, EXPECTED_SETUP_SHA256,
       SCENARIO === KILNKEEPER_SCENARIO
         ? "the browser receives the reviewed canonical seed-zero Kilnkeeper setup"
         : SCENARIO === BRACKENWHEEL_SCENARIO
           ? "the browser receives the reviewed canonical seed-two Brackenwheel setup"
-          : "the browser receives the reviewed exact seed-zero/default-eight setup");
+          : SCENARIO === STORMKITE_SCENARIO
+            ? "the browser receives the canonical seed-nine Stormkite setup digest"
+            : "the browser receives the reviewed exact seed-zero/default-eight setup");
     telemetry.setupSha256 = setupSha256;
     telemetry.setupBytes = setup.length;
     telemetry.scenarioDeck = SCENARIO === KILNKEEPER_SCENARIO
       ? KILNKEEPER_ENDURANCE_DECK
-      : SCENARIO === BRACKENWHEEL_SCENARIO ? BRACKENWHEEL_ENDURANCE_DECK : null;
+      : SCENARIO === BRACKENWHEEL_SCENARIO ? BRACKENWHEEL_ENDURANCE_DECK
+        : SCENARIO === STORMKITE_SCENARIO ? STORMKITE_ENDURANCE_DECK : null;
+    if (SCENARIO === STORMKITE_SCENARIO) {
+      const selectedSetup = JSON.parse(setup);
+      const battleSetup = JSON.parse(selectedSetup.battleSetup);
+      const sourceQuestions = createChainQuestionFixture();
+      const policyQuestions = battleSetup.chainQuestionPolicy.questions;
+      assert.deepEqual(selectedSetup.deck, STORMKITE_ENDURANCE_DECK);
+      assert.equal(selectedSetup.seed, 9);
+      assert.equal(selectedSetup.projectileRuntimeProfiles,
+        serializeSessionTroopProjectileProfileManifest(),
+        "the canonical Stormkite setup contains the admitted projectile source receipt");
+      assert.equal(battleSetup.chainQuestionPolicy.cardId, "stormkite");
+      assert.equal(battleSetup.chainQuestionPolicy.claimFamily, "chain");
+      for (const [key, record] of Object.entries(sourceQuestions)) {
+        assert.deepEqual(policyQuestions[key], record,
+          `${key} retains its exact source QUESTION record`);
+      }
+      assert.equal(Object.keys(sourceQuestions).length, 11,
+        "the chain fixture retains the eleven source QUESTION records");
+      assert.deepEqual(Object.keys(policyQuestions).sort(),
+        [...Object.keys(sourceQuestions), "simultaneousContactAttributionRule"].sort(),
+        "the admitted policy contains the eleven source records and one separately named host QUESTION");
+      assert.deepEqual(policyQuestions.simultaneousContactAttributionRule, {
+        authoritative: false,
+        confidence: "unverified",
+        disposition: "question",
+        source: "unsourced-live-battle-chain-owner-attribution-question",
+        value: "positive-same-target-contacts-share-any-positive-canonical-owner-loss-on-the-boundary",
+      }, "owner attribution remains a separate, exact non-authoritative QUESTION");
+      telemetry.stormkiteSetup = {
+        chainQuestionCount: Object.keys(sourceQuestions).length,
+        policyQuestionCount: Object.keys(policyQuestions).length,
+        projectileReceiptPresent: true, seed: selectedSetup.seed, setupSha256,
+      };
+    }
     const mounted = await page.evaluate(async (setupBytes) => {
       const [
         { GameSession },
@@ -879,7 +1076,10 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
     let direct = new GameSession(setup);
     const workloadPolicy = SCENARIO === DEFAULT_SCENARIO
       ? createEnduranceWorkloadPolicy()
-      : createSelectedEnduranceWorkloadPolicy({ setupBytes: setup });
+      : createSelectedEnduranceWorkloadPolicy({
+        preferredCardId: SCENARIO === STORMKITE_SCENARIO ? "stormkite" : null,
+        setupBytes: setup,
+      });
     let longTaskCursor = initializationTasks.cursor;
     let firstDriveStartedAt = null;
     const observedLongTaskEntries = [...initializationTasks.tasks];
@@ -916,6 +1116,12 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       restoredAreaDamageEventsAt600: null,
       stateAt600: null,
       restoredStateAt600: null,
+    } : null;
+    const stormkiteEvidence = SCENARIO === STORMKITE_SCENARIO ? {
+      playerDelivery: null, playerDeployment: null, northDeployments: [],
+      successfulPlayerContacts: null, successfulNorthContacts: null,
+      chainEventsAt600: null, restoredChainEventsAt600: null,
+      ownerHealthWitnesses: [],
     } : null;
     const acceptedEmergencyTicksThrough = (tick) => telemetry.transportIdNormalization
       .filter((entry) => entry.timeline === "primary" && entry.tick < tick &&
@@ -1108,6 +1314,20 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
         assert.equal(accepted.accepted, true,
           "the physical browser delivery is accepted by the direct E2 mirror");
         workloadPolicy.recordAcceptedPhysicalDelivery(delivery.command);
+        if (stormkiteEvidence !== null && plan.cardId === "stormkite" &&
+            stormkiteEvidence.playerDelivery === null) {
+          const selectedSetup = JSON.parse(setup);
+          const stormkite = JSON.parse(selectedSetup.battleSetup).roster.find(({ id }) =>
+            id === "stormkite");
+          stormkiteEvidence.playerDelivery = {
+            command: normalizedCommand(delivery.command),
+            costFromSelectedRoster: stormkite.cost,
+            southElixirAtDelivery: direct.state.elixir.sides.south.amount,
+            southHandAtDelivery: direct.state.decks.south.hand,
+            setupDeck: selectedSetup.deck, setupSeed: selectedSetup.seed,
+          };
+          telemetry.initialPlayerStormkiteDelivery = stormkiteEvidence.playerDelivery;
+        }
         recordHostPhase(telemetry, "direct-command-submit-and-normalization", fromTick,
           commandSubmissionStartedAt, { commandId: delivery.command.commandId });
         lastSuccessfulTick = fromTick;
@@ -1208,10 +1428,42 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       const directStepChunkDurations = [];
       for (const chunk of driven.result.chunks) {
         const directStepStartedAt = performance.now();
-        direct.stepMany(chunk.sessionTick - chunk.fromTick);
+        const chunkTicks = chunk.sessionTick - chunk.fromTick;
+        if (stormkiteEvidence === null) {
+          direct.stepMany(chunkTicks);
+        } else {
+          for (let offset = 0; offset < chunkTicks; offset += 1) {
+            const stormkiteBeforeState = direct.state;
+            assert.equal(stormkiteBeforeState.tick, chunk.fromTick + offset,
+              "the direct mirror starts at the exact Stormkite evidence boundary");
+            const boundaryEvents = direct.stepMany(1);
+            const settlements = boundaryEvents.filter((event) =>
+              ["chain-primary-settled", "chain-hop-settled"].includes(event.type) &&
+              ["pending", "complete"].includes(event.status) && event.owner != null);
+            if (settlements.length > 0) {
+              const stormkiteAfterState = direct.state;
+              for (const settlement of settlements) {
+                const witness = captureStormkiteContactOwnerHpWitness({
+                  afterState: stormkiteAfterState,
+                  beforeState: stormkiteBeforeState,
+                  boundaryEvents,
+                  settlement,
+                });
+                const key = stormkiteContactWitnessKey(settlement);
+                assert.equal(witness.key, key,
+                  "owner HP evidence uses the exact primary identity, hop ordinal, owner, and tick");
+                const previous = stormkiteEvidence.ownerHealthWitnesses.find((entry) =>
+                  entry.key === key);
+                if (previous === undefined) stormkiteEvidence.ownerHealthWitnesses.push(witness);
+                else assert.deepEqual(witness, previous,
+                  "restored replay reproduces the exact same per-boundary owner HP evidence");
+              }
+            }
+          }
+        }
         directStepChunkDurations.push(recordHostPhase(telemetry, "direct-step-chunk",
           fromTick, directStepStartedAt, { chunkFromTick: chunk.fromTick,
-            chunkToTick: chunk.sessionTick, tickCount: chunk.sessionTick - chunk.fromTick }));
+            chunkToTick: chunk.sessionTick, tickCount: chunkTicks }));
       }
       const directMirrorAssertionsStartedAt = performance.now();
       assert.equal(direct.state.tick, browserTick);
@@ -1319,6 +1571,33 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
         brackenwheelEvidence.secondaryContactsAt235 = secondaries;
       }
       if (brackenwheelEvidence !== null) telemetry.brackenwheelEvidence = brackenwheelEvidence;
+      if (stormkiteEvidence !== null) {
+        if (stormkiteEvidence.playerDeployment === null) {
+          const playerDeployment = direct.replay.find((event) => event.type === "session-deployed" &&
+            event.side === "south" && event.deployment.cardId === "stormkite");
+          if (playerDeployment !== undefined) {
+            stormkiteEvidence.playerDeployment = playerDeployment;
+            assert.equal(playerDeployment.spend.cost,
+              JSON.parse(JSON.parse(setup).battleSetup).roster.find(({ id }) =>
+                id === "stormkite").cost,
+              "player Stormkite spend comes from the admitted selected roster");
+          }
+        }
+        if (stormkiteEvidence.northDeployments.length === 0) {
+          const northDeployment = direct.replay.find((event) => event.type === "session-deployed" &&
+            event.side === "north" && event.deployment.cardId === "stormkite");
+          if (northDeployment !== undefined) stormkiteEvidence.northDeployments.push(northDeployment);
+        }
+        if (direct.state.tick === 600) {
+          const sourceIds = stormkiteSourceIds(direct.replay);
+          stormkiteEvidence.successfulPlayerContacts = stormkiteCommittedContactEvents(
+            direct.replay, stormkiteSourceIds(direct.replay, "south"));
+          stormkiteEvidence.successfulNorthContacts = stormkiteCommittedContactEvents(
+            direct.replay, stormkiteSourceIds(direct.replay, "north"));
+          stormkiteEvidence.chainEventsAt600 = stormkiteCommittedContactEvents(direct.replay, sourceIds);
+        }
+        telemetry.stormkiteEvidence = stormkiteEvidence;
+      }
 
       if (direct.state.tick === TEST_END_TICK ||
           (SCENARIO !== DEFAULT_SCENARIO && direct.state.terminal)) {
@@ -1402,6 +1681,8 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
           resumed: lifecycle.resumed }, { manual: true, paused: true, resumed: true });
         assert.equal(lifecycle.sessionBytes, direct.serialize(),
           "pause/resume cannot change canonical simulation bytes");
+        assert.equal(workloadPolicy.invalidatePreview(), true,
+          "the next forecast forks after canonical pause/resume transcript entries");
         recordHostPhase(telemetry, "pause-resume-manual-mode-lifecycle", fromTick,
           lifecyclePauseStartedAt);
       }
@@ -1462,7 +1743,14 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
             entry.tick === 234),
           brackenwheelState: brackenwheelEvidence === null ? null
             : brackenwheelScenarioState(direct, brackenwheelEvidence),
+          stormkiteChainEvents: stormkiteEvidence === null ? null
+            : stormkiteCommittedContactEvents(direct.replay, stormkiteSourceIds(direct.replay)),
+          stormkiteOwnerHealthWitnesses: stormkiteEvidence === null ? null
+            : stormkiteEvidence.ownerHealthWitnesses.filter(({ tick }) => tick < direct.state.tick),
         };
+        if (stormkiteEvidence !== null) {
+          stormkiteEvidence.chainEventsAt600 = restoreBranch.stormkiteChainEvents;
+        }
         if (brackenwheelEvidence !== null) {
           brackenwheelEvidence.areaDamageEventsAt600 = restoreBranch.brackenwheelAreaDamageEvents;
           assert.equal(brackenwheelEvidence.areaDamageEventsAt600.length, 4,
@@ -1629,6 +1917,19 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
           kilnkeeperEvidence.restoredProjectileContactsAt600 = restoredContacts;
           telemetry.kilnkeeperEvidence = kilnkeeperEvidence;
         }
+        if (stormkiteEvidence !== null) {
+          const restoredChainEvents = stormkiteCommittedContactEvents(
+            direct.replay, stormkiteSourceIds(direct.replay));
+          assert.deepEqual(restoredChainEvents, restoreBranch.stormkiteChainEvents,
+            "600→300→600 replay restores the same source-linked Stormkite contact receipts");
+          const restoredOwnerHealthWitnesses = stormkiteEvidence.ownerHealthWitnesses.filter(
+            ({ tick }) => tick < restoreBranch.tick);
+          assert.deepEqual(restoredOwnerHealthWitnesses,
+            restoreBranch.stormkiteOwnerHealthWitnesses,
+            "600→300→600 replay restores exact per-boundary owner HP and source attribution");
+          stormkiteEvidence.restoredChainEventsAt600 = restoredChainEvents;
+          telemetry.stormkiteEvidence = stormkiteEvidence;
+        }
         if (brackenwheelEvidence !== null) {
           const restoredAreaDamageEvents = direct.replay.filter((entry) =>
             entry.type === "damage" &&
@@ -1682,6 +1983,33 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
         : "not-qualified-no-terminal-by-18000-tick-bound";
       assert.equal(naturalTerminal, true,
         "expanded qualification requires a naturally reached terminal before the 18,000 bound");
+    }
+    if (stormkiteEvidence !== null) {
+      assert.ok(stormkiteEvidence.playerDeployment,
+        "the controlled player policy pays and deploys Stormkite through GameSession");
+      assert.ok(stormkiteEvidence.northDeployments.length > 0,
+        "the unforced seeded north AI deploys Stormkite through GameSession");
+      for (const [label, side] of [["player", "south"], ["AI", "north"]]) {
+        const contacts = stormkiteCommittedContactEvents(direct.replay,
+          stormkiteSourceIds(direct.replay, side));
+        assert.ok(contacts.primaryProjectileContacts.length > 0,
+          `${label} Stormkite produces a projectile-identity-matched primary contact`);
+        assert.ok(contacts.primary.length > 0,
+          `${label} Stormkite primary contact has a canonical owner-confirmed settlement`);
+        assert.ok(contacts.secondary.length > 0,
+          `${label} Stormkite primary identity produces an owner-confirmed secondary hop`);
+        for (const settlement of [...contacts.primary, ...contacts.secondary]) {
+          const witness = stormkiteEvidence.ownerHealthWitnesses.find(({ key }) =>
+            key === stormkiteContactWitnessKey(settlement));
+          assert.ok(witness,
+            `${label} Stormkite ${settlement.type} has a same-boundary typed-owner HP witness`);
+          assert.ok(witness.beforeHitpoints > witness.afterHitpoints,
+            `${label} Stormkite ${settlement.type} reduces its typed owner's HP`);
+        }
+        if (label === "player") stormkiteEvidence.successfulPlayerContacts = contacts;
+        else stormkiteEvidence.successfulNorthContacts = contacts;
+      }
+      telemetry.stormkiteEvidence = stormkiteEvidence;
     }
     const activeSides = new Set(direct.state.cardRuntime.history.map(({ side }) => side));
     assert.equal(activeSides.has("north") && activeSides.has("south"), true,
@@ -1750,6 +2078,9 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       } else if (SCENARIO === BRACKENWHEEL_SCENARIO) {
         telemetry.qualificationMode = "brackenwheel-natural-terminal-and-same-deck-restart";
         telemetry.qualificationResult = "qualified-natural-terminal-and-same-deck-restart";
+      } else if (SCENARIO === STORMKITE_SCENARIO) {
+        telemetry.qualificationMode = "stormkite-natural-terminal-and-same-deck-restart";
+        telemetry.qualificationResult = "qualified-natural-terminal-and-same-deck-restart";
       }
     } else {
       telemetry.terminal = { smoke: RUN_IS_SMOKE, finalView,
@@ -1757,6 +2088,8 @@ test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding d
       if (SCENARIO === KILNKEEPER_SCENARIO) {
         telemetry.qualificationResult = "bounded-smoke-only";
       } else if (SCENARIO === BRACKENWHEEL_SCENARIO) {
+        telemetry.qualificationResult = "bounded-smoke-only";
+      } else if (SCENARIO === STORMKITE_SCENARIO) {
         telemetry.qualificationResult = "bounded-smoke-only";
       }
       const terminalFinishMarkStartedAt = performance.now();

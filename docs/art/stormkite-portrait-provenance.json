@@ -1,0 +1,41 @@
+{
+  "license": "AGPL-3.0-only",
+  "authorship": "in-repo-authored",
+  "generation_tool": "built-in imagegen",
+  "generation_mode": "built-in default image generation",
+  "encoding_tool": "cwebp 1.6.0",
+  "generation_settings": {
+    "transparent_background": false,
+    "input_images": []
+  },
+  "assets": [
+    {
+      "asset": "public/assets/stormkite-portrait-painted.webp",
+      "source_png": "demo/assets/stormkite-portrait-painted.png",
+      "generation_output": "/Users/me/.codex/generated_images/01a1847a-8928-7be3-99fc-9d723add6507/exec-180e507b-d794-4065-84ef-8fdd6632194b.png, copied intact to demo/assets/stormkite-portrait-painted.png",
+      "source_sha256": "f6a36c3ba07e95ea64163a4b342aa46dbf34fe165b62b8aff38ce7123af0bf1a",
+      "source_bytes": 2870574,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "8d4a6b8945b93d8cf7777eda29f361728f90f668e00f9d963adeafe0d58d2d76",
+      "bytes": 83866,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "88",
+        "-m",
+        "6",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "input_images": [],
+      "prompt": "Use case: stylized-concept\nAsset type: original square collectible card portrait, standalone raster source\nPrimary request: Create a new Moss & Ember character portrait for the card Stormkite. This is original game art; do not imitate any existing franchise or use copied designs.\nSubject: One grounded Rivermark weir-keeper, an original river-otter craftsperson in a weathered teal work coat with stitched reed trim and small copper fasteners. They hold a taut braided wire and fly one kite made from delicate copper ribs and waxed reed paper. A single small forked amber spark travels along the tether from the kite toward the keeper's gloved hand.\nScene/backdrop: Old stone lock wall over a quiet woodland river at dusk, with restrained workshop lantern warmth and soft reeds in the distance. The keeper is visibly standing on the wall; no airborne character pose.\nStyle/medium: Premium hand-painted digital fantasy portrait with richly rendered fur, waxed reed, hammered copper and stone, soft natural brushwork, expressive face, and believable material texture. Match the level of finish and warm, tactile portrait treatment of an original indie fantasy card collection, not the design of any named game.\nComposition/framing: Square 1:1 image. Chest-up portrait; face and coat occupy the central lower half, kite readable in the upper background, tether visibly connecting kite to hand. Keep a clear silhouette and strong value separation so the face, kite ribs and bright spark remain legible when reduced to a small card thumbnail. Calm focused expression; elegant, uncluttered scene.\nPalette/lighting: River-teal, foam-pale reed, weathered copper and herald-gold, with only a restrained dusk-violet note in the spark core. Soft top-front-left light with lantern warmth.\nAvoid: text, letters, symbols, logos, UI, borders, badges, extra people or creatures, wings, flying pose, weapons, multiple kites, dense lightning, photoreal camera effects, or any recognizable copyrighted character."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "artifact": "Stormkite original battle atlas",
+  "cardId": "stormkite",
+  "authorship": "Original procedural otter lockkeeper and tethered copper-rib kite; no reference assets imported",
+  "license": "AGPL-3.0-only",
+  "status": "Packed; independent actual-game visual critique pending",
+  "sourceCommit": "3df9a311ca839823b28c7dce99c6bd2d913c72bf",
+  "sourceBundle": {
+    "modelSource": {
+      "path": "demo/assets/stormkite-battle-source/stormkite_model.py",
+      "sha256": "54ba2ec2c3e55e0feee95dbf02145ea52cee9d752f42966ca2bdc1c5f7df7de2",
+      "byteLength": 13897
+    },
+    "savedModel": {
+      "path": "demo/assets/stormkite-battle-source/stormkite.blend",
+      "sha256": "6327e68f7c0b45dae0b76c7661b87b71ae6f9f8a4d1c13aae385d57977dfb5b1",
+      "byteLength": 135777
+    },
+    "atlasPacker": {
+      "path": "demo/assets/stormkite-battle-source/pack_atlas.py",
+      "sha256": "669f34e40e82d365555d229897e6f69b5ab79167333994006d61bb7166661c95"
+    },
+    "buildReceipt": "demo/assets/stormkite-battle-source/build-receipt.json",
+    "frameProvenance": "demo/assets/stormkite-battle-source/stormkite-battle-sprite-provenance.json",
+    "reductionHelper": {
+      "path": "scripts/build-copperskiff-atlas.py",
+      "sha256": "292d2d85cc8b3fd39c40eb46d8313c2cc2f8da3f76050107dbfe3483e011f937"
+    },
+    "blenderVersion": "5.1.2"
+  },
+  "shippingAsset": {
+    "path": "public/assets/stormkite-battle-sprite.png",
+    "sha256": "05ff6a0db991026211427136b6dbf7d0a2fbe8e8849bca141af308083ff14e6e",
+    "byteLength": 9325,
+    "dimensions": {
+      "width": 256,
+      "height": 256
+    },
+    "format": "PNG RGBA"
+  },
+  "atlas": {
+    "cellSize": 64,
+    "pivot": [32, 54],
+    "columns": ["east", "north", "south", "west"],
+    "rows": [
+      {"team": "ember", "action": "idle"},
+      {"team": "ember", "action": "contact"},
+      {"team": "river", "action": "idle"},
+      {"team": "river", "action": "contact"}
+    ],
+    "reduction": "One fixed 4x4 premultiplied-alpha integer area average; no per-pose fitting",
+    "contactPose": "Static authored contact cue selected only from a canonical current-tick projectile contact record"
+  },
+  "sourceOutputNote": "The full build provenance preserves per-frame raw/native SHA-256, alpha bounds and pose-difference measurements. Raw and native intermediate frames were generated in Astra's scratch output and are not included in the shipping bundle.",
+  "candidateCopyVerification": "Pending candidate-side digest verification when the coordinated runtime slot is released",
+  "simulationChanges": false,
+  "visualVerdict": "Independent actual-game critique pending"
+}

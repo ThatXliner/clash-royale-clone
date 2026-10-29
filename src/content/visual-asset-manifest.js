@@ -576,6 +576,28 @@ const REGISTERED_ASSETS = [
     path: "assets/aether-well-portrait-painted.webp",
     sha256: "f46cb6b879def255c14058428fa6689e996b8e6699f675c02f19e0812638169c",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 9325,
+    dimensions: { height: 256, width: 256 },
+    format: "png",
+    id: "stormkite-battle-sprite",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/stormkite-battle-sprite.png",
+    sha256: "05ff6a0db991026211427136b6dbf7d0a2fbe8e8849bca141af308083ff14e6e",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 83866,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "stormkite-portrait-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/stormkite-portrait-painted.webp",
+    sha256: "8d4a6b8945b93d8cf7777eda29f361728f90f668e00f9d963adeafe0d58d2d76",
+  },
 ];
 
 const MANIFEST = freeze({

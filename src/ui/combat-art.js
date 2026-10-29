@@ -175,7 +175,7 @@ for (const paths of Object.values(shapes)) {
   for (const path of paths) Object.freeze(path);
   Object.freeze(paths);
 }
-export const COMBAT_ART_ARCHETYPES = Object.freeze([...Object.keys(shapes), 'kilnkeeper']);
+export const COMBAT_ART_ARCHETYPES = Object.freeze([...Object.keys(shapes), 'kilnkeeper', 'stormkite']);
 export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'buried-coil', 'ember-basin']);
 Object.freeze(shapes);
 

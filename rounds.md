@@ -12092,3 +12092,395 @@ EVIDENCE FILES:
 - Brackenwheel result and raw logs: `/private/tmp/clash-cards022q-r626-critic-20261028/output/brackenwheel/` and `/private/tmp/clash-cards022q-r626-critic-20261028/logs/`.
 - Matching-source default-eight R625 verdict: `/private/tmp/clash-chain-host-integration-browser-critic-20261028/final-verdict-en.md`.
 
+## Round 627 — 2026-10-28
+
+PIECE: CARDS-024K — Stormkite selectable vertical slice
+
+VERDICT: FAIL — 93/94 unique scoped TAP cases passed; one policy-notice test fixture uses a non-admitted card
+
+EVIDENCE:
+
+The independent review is `/private/tmp/stormkite-critic-20261028-r1/R627-verdict.md`. Unique-selector aggregate: 93 passed, 1 failed, 94 total. Selector results: `stormkite-battle-sprite` 5/5; `ui-combat-effects` 12/12; `editable-deck` 13/13; `visual-asset-manifest` 6/6; `game-browser-policy-notice` 0/1; `rl-environment` 17/17; `app-shell` 1/1; `game-roster-troops-projectile` 12/12; `nondeterminism-guard` 10/10; `shipping-isolation-guard` 13/13; `shipping-isolation-release` 4/4. Setup failures and repeated selector cases are excluded.
+
+The sole test failure is in `tests/game-browser-policy-notice.test.js:175-177`: its Stormkite fixture selects `bulwark-needle`, which is not an admitted mixed-deck card. The setup throws `RangeError` before Chrome starts. The test needs an admitted defensive witness while preserving its policy-notice and restart coverage. This is a test-fixture gap; it is not evidence of an editable-deck production regression. A05's missing-Playwright setup attempt and A16's release-selector path pointed at another worktree are preserved as setup history; corrected A17 passed 4/4, with repeated cases excluded.
+
+Independent native-browser A12 separately passed using a real 720×1280 child at 1× with a 540×960 playable field. Exact normal and reduced-motion restore captures matched; frame scale was 1, body size 13 CSS px, facing north, and the unit-owned hop flash was 22×22 px. This proves the unit-owned hop visual only. Separate simulation evidence verifies an unforced North AI deployment, crown-tower primary contact, and structure damage events; it is not browser proof for all three owner kinds.
+
+The independent source fence matched all 19,995 paths in the frozen candidate and critic copy; all 39 changed-file pins and the one owned asset directory matched, with zero unexpected paths and zero shared hardlinks. Critic-owned runtime processes are closed. The review does not qualify a full repository suite, whole roster, historical/gameplay parity, adoption, or release.
+
+BIGGEST GAP: Correct the single policy-notice fixture to use an admitted defensive card, then obtain a fresh independent result. No product-code change is implicated by R627.
+
+DISPOSITION:
+
+Record CARDS-024K FAIL at round 1 with 93/94 unique scoped TAP cases. Preserve R627 and its setup history. Keep the candidate unadopted and the original accepted 3df deployment/23-card chooser unchanged. R628 is a prepared test-only replacement in `/private/tmp/clash-stormkite-card-r2-20261028/candidate`, changing only the policy test from SHA-256 `543cde80829ddb9a0183f4c10b5d84015ce7f97477e2e5b22e4118ab3cbcc759` to prepared SHA-256 `199f3f8497271dda9bf000a638f7531e36c54f3bb69df9950cc07c8c4f50434c`; it is not yet a verdict. Do not modify the frozen R1 copy or report R2 as passing. No production files have been changed for R2.
+
+EVIDENCE FILES:
+
+- Independent formal verdict and complete scope: `/private/tmp/stormkite-critic-20261028-r1/R627-verdict.md`.
+- Independent candidate/copy source fence: `/private/tmp/stormkite-critic-20261028-r1/source-fence-final.json`.
+- Native-browser evidence: `/private/tmp/stormkite-critic-20261028-r1/A12-native-only.log` and `/private/tmp/stormkite-critic-20261028-r1/native-browser-artifacts-A12/native-only-evidence.json`.
+- Policy-notice failing TAP log: `/private/tmp/stormkite-critic-20261028-r1/A06-game-browser-policy-notice.log`.
+- R2 prepared fresh candidate: `/private/tmp/clash-stormkite-card-r2-20261028/candidate`.
+
+## Round 628 — 2026-10-28
+
+PIECE: CARDS-024K — Stormkite selectable vertical slice
+
+VERDICT: PASS — one fresh policy-notice selector on the corrected R2 test fixture; not a whole-card verdict
+
+EVIDENCE:
+
+The independent R628 report is `/private/tmp/stormkite-critic-r628-20261028/R628-verdict.md`, with machine receipt `/private/tmp/stormkite-critic-r628-20261028/R628-evidence.json`. The corrected `game-browser-policy-notice` selector passed 1/1 unique TAP test in Chrome 156.0.8078.49 at 390×844; it recorded 108 browser checks, zero mismatches, zero console errors, and zero page errors. The 108 checks are not TAP cases. The test verifies both Stormkite+Buried Coil and Stormkite+Brackenwheel notice identities, the defensive QUESTION fields, notice clearing for the default-eight deck, trusted restore, forged-policy rejection, and same-deck restart after a deterministic natural terminal at tick 3,818.
+
+This R628 result is one fresh TAP pass. The 93 previously passing R627 cases are reused version-scoped evidence, not rerun and not fresh R628 cases. R627’s one failed fixture using non-admitted `bulwark-needle` remains preserved as history. R1-to-R2 changes exactly `tests/game-browser-policy-notice.test.js`; all 38 other owned-file pins match, the R2 candidate and independent audit copy match across 19,995 paths, and there are no hardlinks. The environment-only dependency symlink and earlier setup attempts are separately recorded. R1 remains frozen, R2 has no production-source change, and neither candidate is adopted or shipped.
+
+A separate actual-public-app 390×844 viewport addendum at `/private/tmp/stormkite-critic-r628-20261028/public-app-viewport/R628-viewport-addendum.md` corrects the apparent child-frame crop: both Stormkite+Buried Coil and Stormkite+Brackenwheel notices are fully inside the scaled public-app frame, have no internal overflow, and overlap neither the hand nor navigation. At 0.53125 scaling, however, 11px child text becomes 5.84 parent CSS px. This leaves a readability problem even though there is no clipping. The actual public-app geometry and screenshots are captured in `public-app-viewport/public-app-viewport-evidence.json` and `public-app-viewport/captures/`.
+
+BIGGEST GAP: The policy text is too small at actual phone scale. Track the readability improvement separately as APP-024KN. User-facing polish takes priority before the held full 18,000-tick timing run.
+
+DISPOSITION:
+
+Record CARDS-024K R628 as a scoped policy-notice PASS with 1 fresh TAP case and 93 unchanged R627 passing cases reused separately. Keep the overall CARDS-024K row BUILDING at round 2 because readability and full card/browser qualification remain pending. Do not claim 94 fresh cases, full-card PASS, full 18,000-tick timing, full-roster/history parity, adoption, release, or shipment. APP-024KN remains BUILDING 0/0 round 0. The default endurance critic is held and has not run for R2.
+
+EVIDENCE FILES:
+
+- R628 formal verdict and machine receipt: `/private/tmp/stormkite-critic-r628-20261028/R628-verdict.md` and `/private/tmp/stormkite-critic-r628-20261028/R628-evidence.json`.
+- Fresh selector log and evidence: `/private/tmp/stormkite-critic-r628-20261028/policy-artifacts/run.log` and `/private/tmp/stormkite-critic-r628-20261028/policy-artifacts/notice-journey-evidence.json`.
+- Pre/post source fences: `/private/tmp/stormkite-critic-r628-20261028/pretest-source-fence.json` and `/private/tmp/stormkite-critic-r628-20261028/posttest-source-fence.json`.
+- Public-app viewport addendum/evidence: `/private/tmp/stormkite-critic-r628-20261028/public-app-viewport/R628-viewport-addendum.md` and `/private/tmp/stormkite-critic-r628-20261028/public-app-viewport/public-app-viewport-evidence.json`.
+
+## Round 629 — 2026-10-28
+
+PIECE: APP-024KN — Stormkite mixed-deck policy notice readability
+
+VERDICT: FAIL TO CERTIFY — R3 does not prove bottom-line reachability for every clipped case or keyboard access
+
+EVIDENCE:
+
+The independent verdict is `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/APP-024KN-critic-verdict.md`. The fresh focused policy and app-shell selectors passed 1/1 each, and the actual public-app matrix collected ten captures. This is not a passing full-accessibility result.
+
+The review confirms the long policy text is scrollable in the 320×568 normal-motion Stormkite+Buried Coil case. Two trusted wheel inputs moved `scrollTop` 0→450→689; at maximum, the complete last line was inside the scroll region and visible. The earlier “unscrollable” FAIL is withdrawn because its mouse coordinates used the wrong coordinate space; that attempt did not prove an input failure.
+
+The evidence does not prove bottom-line reachability for the other clipped variants: solo Stormkite at 320×568 (`maxScroll=147`), Brackenwheel+Stormkite at 320×568 (`maxScroll=645`), and reduced-motion Buried Coil+Stormkite (`maxScroll=689`). The 390×844 and desktop mixed cases record max scroll positions but not final-line-at-bottom proof; solo cases at those sizes have no overflow. Keyboard disclosure toggling passed, but the scroll list is `tabIndex=-1` with no focusable descendants; keyboard scrolling through clipped details is not established. No concrete browser failure was observed in the verified normal-motion Buried Coil+Stormkite case.
+
+The frozen R3 source contains exactly the five intended UI/test deltas from R2; 19,990 paths are byte/mode/type unchanged and no regular-file inodes are shared. Critic runtime was released. This round does not qualify overall CARDS-024K, adoption, shipping, or the full 18,000-tick browser gate.
+
+BIGGEST GAP: Final-line access for each clipped state and keyboard access to the overflow content remain unproved. The strict accessibility gate therefore remains open despite two focused selector passes and the one successful pointer/wheel example.
+
+DISPOSITION:
+
+Record APP-024KN R3 as FAIL TO CERTIFY at round 1. Preserve the withdrawn mouse-coordinate failure as invalid measurement history, not a product failure. R3 remains frozen. The next authorized builder step is minimal R4 work for a focusable overflow list and trusted keyboard/bottom-of-list checks. Do not claim a source or deployment change, independent PASS, full 18,000-tick result, or overall card qualification. The default endurance critic remains on HOLD.
+
+EVIDENCE FILES:
+
+- Formal R3 critic verdict: `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/APP-024KN-critic-verdict.md`.
+- Focused scroll proof and raw log: `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/focused-scroll-audit/focused-scroll-evidence.json` and `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/focused-scroll-audit.log`.
+- Corrected public-app matrix: `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/corrected-publicapp-audit/` and `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/corrected-publicapp-audit.log`.
+- Frozen R3 handoff and candidate: `/private/tmp/stormkite-notice-r3-20261028/R3-HANDOFF.md` and `/private/tmp/clash-stormkite-card-r3-20261028/candidate`.
+
+## Round 630 — 2026-10-28
+
+PIECE: APP-024KN — Stormkite mixed-deck policy notice readability
+
+VERDICT: PASS — R4 closes compact-screen keyboard and final-line access; wider R3 evidence is version-scoped reuse
+
+EVIDENCE:
+
+The independent verdict is `/private/tmp/stormkite-notice-critic-r4-20261028/review-evidence/APP-024KN-critic-verdict-r4.md`. Two fresh registered selectors passed 1/1 each: the actual-public-app keyboard disclosure test and the R4 policy-notice test. The keyboard test exercised four real 320×568 scenarios: solo Stormkite normal; Buried Coil+Stormkite normal and reduced motion; Brackenwheel+Stormkite normal.
+
+Each case followed trusted keyboard navigation from Sound to the disclosure summary, opened it, tabbed into the labeled scroll region, used PageDown and End to reach the actual scroll boundary, then verified the exact final Stormkite QUESTION sentence inside the list. Maximum scroll values were 147, 689, 689, and 645 respectively. All four cases showed the 3px keyboard focus outline and correct region label. The test verified Shift+Tab/Enter close, exact policy text and card order, exact session bytes and tick before/after, and unchanged arena/audio/crown/timer/viewport/document-scroll geometry. Browser errors were asserted empty. I inspected the four saved screenshots; the complete final text line is visible in each.
+
+The R3 normal-motion viewport matrix and reduced-motion representative are reused as version-scoped evidence for wider viewport layout/overlap, restoration, and default-hidden behavior; they are not fresh R4 captures or test cases. R629’s FAIL TO CERTIFY remains preserved as history. Its earlier “unscrollable” result was withdrawn because the mouse coordinate space was wrong; R630 directly closes the previously missing keyboard and bottom-of-list evidence.
+
+The independent copy matched the frozen R4 candidate's three pinned paths before and after review; no product source changed during the critic run. Both selectors exited 0 and critic browser/server processes closed. This round qualifies APP-024KN only. It does not qualify whole-card CARDS-024K, full release, historical/gameplay parity, or the 18,000-tick endurance gate.
+
+BIGGEST GAP: The Stormkite card as a whole still needs its full matching-source browser/custom journey and release qualification. APP-024KN’s scope is now qualified; it must not be used as a broader card or endurance claim.
+
+DISPOSITION:
+
+Mark APP-024KN PASS at round 2 for the R4 compact-screen keyboard/final-line gate, using two fresh selectors and four keyboard scenarios, with R3's wider viewport matrix explicitly labeled version-scoped reuse. Preserve R629's R3 FAIL TO CERTIFY record unchanged. CARDS-024K remains BUILDING pending full browser/custom journey and release checks. The separately authorized default 18,000-tick critic now owns the sole heavy runtime but has not launched; no endurance result exists.
+
+EVIDENCE FILES:
+
+- R4 independent verdict: `/private/tmp/stormkite-notice-critic-r4-20261028/review-evidence/APP-024KN-critic-verdict-r4.md`.
+- Keyboard selector and metrics: `/private/tmp/stormkite-notice-critic-r4-20261028/review-evidence/app-keyboard-selector.log` and `/private/tmp/stormkite-notice-critic-r4-20261028/review-evidence/app-keyboard-320x568-registered/keyboard-policy-evidence.json`.
+- R4 frozen candidate and handoff: `/private/tmp/clash-stormkite-card-r4-20261028/candidate` and `/private/tmp/stormkite-notice-r4-20261028/R4-HANDOFF.md`.
+- Reused R3 viewport verdict: `/private/tmp/stormkite-notice-critic-r3-20261028/review-evidence/APP-024KN-critic-verdict.md`.
+
+## Round 631 — 2026-10-28
+
+PIECE: CARDS-024K — R4 default-eight full browser endurance
+
+VERDICT: PASS — one strict default-eight seed-zero 18,000-tick browser journey on R4; not an overall card/release verdict
+
+EVIDENCE:
+
+The independent verdict is `/private/tmp/clash-stormkite-card-r4-20261028/default-eight-fullgate-critic-20261028-01/critic-verdict.md`. The unchanged command `npm test -- game-browser-endurance` ran from the isolated R4 candidate with `HOME`, `GAME_BROWSER_ENDURANCE_SCENARIO`, and `GAME_BROWSER_ENDURANCE_TICKS` unset and no cap overrides. Runtime: Node 22.23.4, Playwright 1.58.2, Vite 8.3.3, Chrome 156.0.8078.49. TAP passed 3/3 (3 tests, 0 failed, 0 skipped); the test took 886,661.697 ms and npm PID 31642 exited 0 after 902.16 seconds.
+
+The default-eight seed-zero workload reached natural terminal at tick 18,000: South won 2–1 by `tiebreak_lowest_hp`. Same-seed restart returned to tick 0 and reset visible state. The run used 67 segments; longest segment 10,325/30,000 ms; total endurance 886,442/1,200,000 ms; maximum session-tick slice 29.6/40 ms; maximum restore slice 7.8/40 ms; maximum initialization task 155/300 ms. Driven, restore, terminal-observation, restart, screenshot, final-drain and out-of-segment long-task maxima were 0 ms, and all per-entry 50 ms browser long-task checks passed.
+
+The exact browser snapshot restored from tick 600 to 300 and replayed to 600. The 29 original and 29 replayed typed simulation continuations matched; sink starts remained 55 before and after restore, and UI cue sequence was 2→2→4. Exact snapshot, E2 input, audio continuation and post-restore physical delivery checks passed. Terminal and restart screenshots were captured.
+
+The independent source fence covered all 17,751 regular files in the candidate copy before and after; bytes matched, inodes were distinct, and no hardlinks were present. The only dependency symlink was declared. An artifact-only link to the canonical checkout was omitted and recorded. No product source changed during review; all runtime processes closed.
+
+R631 is one strict default-eight browser journey, not a full repository suite or overall CARDS-024K pass. APP-024KN R630 remains separately scoped. The two-file custom Stormkite journey follow-up is authorized as a quick test-only R5 task and prepared at `/private/tmp/clash-stormkite-full-journey-prep-20261028/R4-STORMKITE-JOURNEY-PREP.md`; it has not produced a result. Publication and full card qualification remain pending.
+
+BIGGEST GAP: The custom Stormkite journey and publication/release checks remain open; the default-eight endurance result alone does not qualify the full card.
+
+DISPOSITION:
+
+Record CARDS-024K R631 as a scoped 3/3 PASS for the unchanged default-eight seed-zero 18,000-tick browser gate on R4. Keep it separate from R627/R628 policy-test counts and R630 APP-024KN accessibility scope. Keep CARDS-024K BUILDING until the authorized custom journey and publication/release evidence are complete. Do not claim the full repository suite, full roster, historical/gameplay parity, adoption, or shipment.
+
+EVIDENCE FILES:
+
+- Formal verdict: `/private/tmp/clash-stormkite-card-r4-20261028/default-eight-fullgate-critic-20261028-01/critic-verdict.md`.
+- Raw TAP and telemetry: `/private/tmp/clash-stormkite-card-r4-20261028/default-eight-fullgate-critic-20261028-01/logs/npm-test-game-browser-endurance.raw.log` and `/private/tmp/clash-stormkite-card-r4-20261028/default-eight-fullgate-critic-20261028-01/browser-artifacts/endurance-result.json`.
+- Source fence: `/private/tmp/clash-stormkite-card-r4-20261028/default-eight-fullgate-critic-20261028-01/source-fence/source-fence-after.json`.
+- Custom journey preparation (authorized, not run): `/private/tmp/clash-stormkite-full-journey-prep-20261028/R4-STORMKITE-JOURNEY-PREP.md`.
+
+## Round 632 — 2026-10-28
+
+PIECE: CARDS-024K — R5 Stormkite custom full browser journey
+
+VERDICT: FAIL — uncapped R5 journey stops at tick 900 on an actual render ReferenceError; contact, terminal, and restart remain unproven
+
+EVIDENCE:
+
+The first corrected foreground uncapped custom attempt used frozen test-only R5 at `/private/tmp/clash-stormkite-card-r5-20261028/critic-full-20261028-02/candidate`, with tick overrides unset and the original caps unchanged. TAP output at `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-02/logs/full-attempt.raw.log` reports two passing helper tests and one failing Stormkite scenario; total TAP duration was 76,133.012 ms (scenario duration 73,752.690 ms), process exit 1.
+
+The scenario advanced to the tick-900 smoke milestone, then rendering the actual death-remnant frame raised `ReferenceError: createStormkiteBattleArt is not defined` from `src/ui/combat-motion.js:269`, while projecting the frame during endurance-segment abort/finalization. The complete uncapped custom run did not finish. Seeded AI Stormkite contact/hop occurred at ticks 462/463; the player Stormkite was paid and deployed at tick 615 at cost 5. Player primary contact, natural terminal, and restart were not reached. No assertion was weakened.
+
+The HP witness also remains a distinct requirement: a pending ownership receipt alone does not prove a real health change. The authorized R6 work must add a real HP-delta witness to the two-test journey, alongside a regression for the actual death-remnant rendering error and the minimal missing import. R5 remains frozen. Root granted the main builder sole heavy ownership of a fresh isolated four-file R6 follow-up; no R6 verdict or builder full run is recorded.
+
+Attempt 01 is preserved as a setup/launch failure: detached launcher 36615 and Node 36619 left a zero-byte log, no artifacts, and no exit record. It is not counted as a test run or failure. Attempt 02 is the first actual foreground test launch, not a retry after a test failure. The cleanup receipt confirms runtime release at 2026-10-29T02:35:20Z: Node 37431, wrapper 37429, test-owned browser/server, and port 54259 are closed. Unrelated HyperFrames Chrome PID 77027 was left untouched.
+
+R631 remains a separate 3/3 PASS for the strict default-eight seed-zero R4 18,000-tick journey; R630 remains a scoped APP-024KN PASS. Neither result overrides this custom R5 failure. CARDS-024K remains BUILDING; no full card, release, or shipment pass is established.
+
+BIGGEST GAP: The uncapped custom Stormkite run aborts during a real death-remnant render before player contact, natural terminal, restart, and actual HP-change evidence are exercised.
+
+DISPOSITION:
+
+Record CARDS-024K R632 FAIL with two helper TAP passes and one failing full-scenario test. Preserve the detached setup failure separately and keep the player-contact assertion/caps strict. Preserve R5 exactly. Cleanup is complete; proceed only with the authorized bounded R6 source fix and two-test journey witness. Keep R631 default-eight and R630 notice-access results separately scoped. No adoption, release, or shipment claim.
+
+EVIDENCE FILES:
+
+- Formal critic verdict: `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-02/critic-verdict.md`.
+- Runtime cleanup receipt: `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-02/cleanup-status.txt` (released 2026-10-29T02:35:20Z; test-owned Chrome/server and port 54259 closed; unrelated HyperFrames PID 77027 left untouched).
+- Raw attempt-02 TAP log: `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-02/logs/full-attempt.raw.log`.
+- Attempt-02 process/result and telemetry artifacts: `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-02/logs/full-attempt.exit.json` and `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-02/artifacts/`.
+- R5 frozen handoff: `/private/tmp/stormkite-card-r5-20261028/R5-HANDOFF.md`.
+- Setup/launch attempt 01 logs and metadata: `/private/tmp/stormkite-card-r5-20261028/critic-full-20261028-01/`.
+
+## Round 633 — 2026-10-28
+
+PIECE: CARDS-024K — R6 Stormkite custom full browser journey
+
+VERDICT: FAIL — independent custom run stopped at tick 1,800 on the unchanged paid-deployment cadence assertion; terminal and restart remain unqualified
+
+EVIDENCE:
+
+The independent focused `stormkite-battle-sprite` selector passed 6/6 fresh cases in 18.408 seconds, including the canonical death render in normal and reduced motion and after restore. The raw log is `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/logs/focused-sprite.raw.log`.
+
+One custom browser scenario then ran with `GAME_BROWSER_ENDURANCE_TICKS` unset and the original caps unchanged. The full TAP result was two passes and one failure; Node PID 50717 exited 1 after 123,595.424 ms. At tick 1,800 the existing assertion that each 900-tick window contain a paid south deployment failed. The last accepted delivery was Stormkite at tick 615 for 5 elixir (south elixir was 7 at delivery). Telemetry records no plan, normalized command, or accepted browser command at ticks 900, 1,200, or 1,500; the gap at tick 1,800 was 1,185 ticks. No later hand or elixir snapshots were recorded, so their values are unknown.
+
+The exact AI chain damage witnesses passed: tick 462 contact reduced the south west crown from 2,921 to 2,729 HP; tick 463 hop reduced unit 6 from 260 to 68 HP. Both matched same-boundary damage events. These do not qualify a player-side chain contact; none was captured before the cadence assertion failed. The failure was not the damage witness helper or a render crash. The 600→300→600 restore checks passed with audio starts 74 at branch, 74 after restore, and 136 after replay.
+
+The run did not reach natural terminal or same-deck/seed restart and did not complete the full 50 ms task, 40 ms slice, 30,000 ms segment, or 1,200,000 ms full-journey gates. No full cap qualification is claimed. The R6 four-file source pins matched before and after; the isolated copy had 17,751 regular files and shared zero device/inode pairs with the frozen source.
+
+Runtime cleanup is complete. The critic receipt `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/cleanup-status.txt` records release at 2026-10-29T02:54:57Z; focused Node 50666 and full-run Node 50717, their wrappers, test browser/profile, and launcher are closed. Unrelated HyperFrames Chrome PID 77027 was left untouched. No retry or source/test mutation occurred during review.
+
+R632 remains the historical R5 FAIL at tick 900; R631 remains a separate default-eight 18,000-tick PASS, and R630 remains a separate APP-024KN PASS. CARDS-024K remains BUILDING. Root authorized bounded R7 reproduction/regression work on two test files: reproduce the paid-at-615 case through the strict 900-tick boundary and add 15 reaction-boundary fallback cases. The builder may copy the small isolated source slice and run cheap Node checks; an 1,800-tick browser check is optional only if needed. Preserve the cadence assertion, caps, default behavior, and all existing checks; no full browser builder run is allowed. No R7 handle or result has been reported yet.
+
+BIGGEST GAP: The selected policy ceases producing paid south deployments after tick 615 and fails the existing cadence requirement at tick 1,800, before player-side chain contact, natural terminal, or restart can be qualified.
+
+DISPOSITION:
+
+Record CARDS-024K R633 FAIL with the focused 6/6 selector and independent full-run TAP 2/3. Preserve R632 exactly, keep the paid-deployment cadence assertion and all caps strict, and retain the confirmed HP witnesses as bounded evidence only. Proceed with the authorized bounded R7 cadence reproduction/regression: isolated small-source copy and cheap Node checks are permitted, with an 1,800-tick browser check only if needed; do not run the full browser builder gate. Keep R630 and R631 separately scoped. No full Stormkite PASS, adoption, release, or shipment claim.
+
+EVIDENCE FILES:
+
+- Formal verdict: `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/critic-verdict.md`.
+- Cleanup receipt: `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/cleanup-status.txt`.
+- Raw full-run TAP: `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/logs/full-run.raw.log`.
+- Full-run telemetry and launch/exit receipts: `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/artifacts-full/endurance-result.json` and `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/logs/full-run.launch.json`, `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/logs/full-run.exit.json`.
+- Focused selector log: `/private/tmp/stormkite-card-r6-20261028/critic-20261028-01/logs/focused-sprite.raw.log`.
+- R6 frozen handoff: `/private/tmp/stormkite-card-r6-20261028/R6-HANDOFF.md`.
+
+## Round 634 — 2026-10-28
+
+PIECE: RL-002 — Deterministic RL training-loop example
+
+VERDICT: FAIL — documentation-only handoff ambiguity; runtime example and focused environment suite passed
+
+EVIDENCE:
+
+The independent critic report is `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/critic-report.txt`. Two example executions exited 0: Node PID 84099 and PID 84110 each produced 545 bytes, and `cmp` exited 0. These two manual invocations are not TAP cases. The focused RL suite exited 0 with 17 passed and 0 failed; npm PID 84141, runner Node PID 84164, and workers 84165 and 84166 are reported exited. Suite duration was 131,964.412 ms.
+
+The example uses legal deployments selected by `actionMask`, which `env.step` validates. It compares the checkpoint observation, original/restored continuation records, and final serialized checkpoints. Output contains four transitions and reaches tick 120 with `terminated: false`, `truncated: true`, and `checkpointContinuationMatched: true`.
+
+The formal failure is documentation-only. The text says samples are collected for an external learner but does not explain that they remain in the local in-memory `samples` array or where an in-process learner would consume them. The stdout exposes only the compact trace, not observations or next observations. The docs need one sentence identifying this as an illustrative in-process integration point. No optimizer or full-battle training is claimed.
+
+The source fence found exactly the two intended product-path changes; 28 `node_modules` omissions and one external legacy symlink omission were expected. There were zero unexpected differences and zero hardlinks in the independent copy. The isolated candidate remains at `/private/tmp/clash-rl-api-parallel-20261029/rl0022-candidate`; an attempted scratch-tree deletion was rejected by the command safety guard, so the candidate and raw evidence are retained. No further cleanup is needed.
+
+BIGGEST GAP: The documentation does not say that transition records remain in the local `samples` array or where in-process learner code consumes them; the example and focused runtime suite passed.
+
+DISPOSITION:
+
+Record RL-002 as BUILDING at round 1: 17/17 focused TAP cases and two byte-identical example executions passed, with a documentation-only FAIL. Preserve those runtime results separately from the documentation gap. Builder R2 is authorized as a one-sentence docs-only correction; do not change the example. If the example source pin remains unchanged after that docs delta, reuse the existing example and focused-suite evidence without a full rerun. No optimizer, full-battle training, or completed RL-002 PASS claim.
+
+EVIDENCE FILES:
+
+- Critic report: `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/critic-report.txt`.
+- Preserved candidate: `/private/tmp/clash-rl-api-parallel-20261029/rl0022-candidate`.
+- Two-file builder handoff: `/private/tmp/clash-rl-api-parallel-20261029/HANDOFF.md`.
+
+## Round 635 — 2026-10-28
+
+PIECE: RL-002 — Deterministic RL training-loop example
+
+VERDICT: PASS — R2 documentation-only correction closes R634's handoff ambiguity; runtime evidence is reused, not rerun
+
+EVIDENCE:
+
+The independent R2 documentation review is `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/critic-report-r2.txt`. It confirms the sole R1 sentence was replaced with: “After collection, learner code can read the transition records from the local `samples` array, while stdout includes only a compact episode summary and transition trace.” This accurately distinguishes the in-memory transition records from the compact printed output. The following documentation still says no policy optimizer is implemented. No API or example behavior changed.
+
+R635 ran no TAP cases, example invocation, or other runtime test. It reuses R634's exact runtime evidence because the example is byte-identical between R1 and R2: two 545-byte stdout outputs compare equal, and the focused RL environment suite passed 17/17 on Node v22.23.4. The output had four transitions, ended truncated at tick 120 with `terminated: false`, and reported `checkpointContinuationMatched: true`. Keep these as R634 evidence reused separately; do not count them as fresh R635 tests.
+
+For final integration, take `examples/rl-training-loop.mjs` from `/private/tmp/clash-rl-api-parallel-20261029/examples/rl-training-loop.mjs` and the corrected `docs/rl-api.md` from `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/docs-r2/rl-api.md`. The R1 overlay doc `/private/tmp/clash-rl-api-parallel-20261029/docs/rl-api.md` is unchanged and stale. No full-battle training, optimizer, or broader RL-system acceptance is claimed.
+
+BIGGEST GAP: No remaining gap on the documentation-only learner handoff. The illustrative example is not an optimizer, full-battle training run, or broader RL-system qualification.
+
+DISPOSITION:
+
+Record RL-002 scoped PASS at round 2 for the illustrative 120-tick API example and corrected learner handoff documentation. Preserve R634's docs-only FAIL as history and retain its runtime counts as version-scoped reuse. Do not promote this to full battle training, optimizer capability, or a full repository suite pass.
+
+EVIDENCE FILES:
+
+- R2 critic report: `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/critic-report-r2.txt`.
+- R1 runtime report and evidence: `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/critic-report.txt` and its retained artifacts.
+- R2 corrected documentation: `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/docs-r2/rl-api.md`.
+- R2 builder handoff: `/private/tmp/clash-rl-api-parallel-20261029/runtime-rl0022/HANDOFF-R2.md`.
+
+## Round 636 — 2026-10-28
+
+PIECE: CARDS-025B — Bulwark Needle mixed editable-choice admission stage
+
+VERDICT: FAIL — editable-deck selector passes, but the focused app-shell launch test classifies Bulwark as a troop before the card detail/deployment assertion
+
+EVIDENCE:
+
+The independent editable-deck selector passed 13/13 TAP cases; raw log: `/private/tmp/clash-bulwark-critic-review-20261029/logs/editable-deck.log`. The focused app-shell selector failed its sole case at `tests/app-shell.test.js:790`; raw log: `/private/tmp/clash-bulwark-critic-review-20261029/logs/app-shell-focused.log`. The test treated Bulwark as a troop, then `projectSessionTroopBattleCard` raised `RangeError: session troop battle card ID is unknown or not admitted` before the full Bulwark detail or deployment was reached.
+
+This is a narrow classification gap in the bounded 25th mixed editable-choice admission stage. It does not qualify art, full card gameplay, spend/cycle, opponent policy, restore/restart, browser endurance, or full-card acceptance. An initial accidental unused temp copy contained reference material; the used critic copy excluded reference and included only the declared existing dependency. Do not treat the unused copy as evidence or as shipped input.
+
+The formal verdict `/private/tmp/clash-bulwark-critic-review-20261029/logs/formal-r6-fail.md` confirms the review-owned processes exited; runtime is released. R1 remains frozen. Builder R2 is source-only on the same three files and corrects the classification; its visual brief has no actual Claude design/review and no R2 run/result is recorded. Root now grants the R7 critic the sole heavy slot for a fresh cadence selector followed by one uncapped full custom run under the unchanged caps; no handle or result has been reported.
+
+BIGGEST GAP: The focused app-shell test classifies Bulwark Needle as a troop and throws before it can verify the structure card detail or deployment path.
+
+DISPOSITION:
+
+Keep CARDS-025B BUILDING at round 1 with 13/13 editable-deck TAP cases and one app-shell case failed. Preserve the focused failure; the formal report confirms runtime release. Review only the named classification correction in R2; do not make art or expand this into full-card qualification. After Bulwark closure, the R7 critic owns a fresh cadence selector followed by one uncapped custom run under the unchanged caps; no launch or result is reported yet. Keep RL-002 R635 scoped PASS and R634 docs-only FAIL history unchanged. No full card or shipment claim.
+
+EVIDENCE FILES:
+
+- Editable-deck focused log: `/private/tmp/clash-bulwark-critic-review-20261029/logs/editable-deck.log`.
+- App-shell focused log: `/private/tmp/clash-bulwark-critic-review-20261029/logs/app-shell-focused.log`.
+- Builder overlay handoff: `/private/tmp/clash-bulwark-playable-parallel-20261029/HANDOFF.md`.
+- Formal critic verdict/process-status report: `/private/tmp/clash-bulwark-critic-review-20261029/logs/formal-r6-fail.md` (all review-owned processes exited; runtime released).
+
+## Round 637 — 2026-10-29
+
+PIECE: CARDS-024K — Original Stormkite QUESTION card as the 24th mixed editable choice
+
+VERDICT: PASS — one frozen R7 seed-nine Stormkite custom journey; no full-roster or historical-parity claim
+
+EVIDENCE:
+
+The formal critic verdict is `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/critic-verdict.md`. The frozen R7 source candidate `/private/tmp/clash-stormkite-card-r7-20261028/candidate` differs from R6 in exactly two test files. An independent copy contained 17,751 regular files and shared zero regular-file device/inode pairs with R6; post-cleanup source pins match the R7 handoff.
+
+The focused cadence regression passed 1/1 fresh TAP case in 26,529.7 ms; it is a separate selector and is not included in the full count. The one uncapped full custom scenario ran with `GAME_BROWSER_ENDURANCE_TICKS` unset and all original caps unchanged. It exited 0 with 4/4 fresh TAP cases; full TAP duration was 725,723.2 ms, with 696,885 ms endurance duration. Telemetry is `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/artifacts-full/endurance-result.json`.
+
+The frozen seed-nine setup was 127,836 bytes with the eight-card deck `stormkite, mossguard, copperskiff, skymaul, brassbolt, reedsting, briar-band, cinderlings`, 11 chain QUESTION records, 12 policy QUESTION records, and the projectile receipt. The player selected and paid Stormkite at tick 615 for 5 elixir (7→2); the same off-grid refresh paid another Stormkite at tick 1,515, exactly 900 ticks later, with the strict cadence assertion enabled. North AI deployed Stormkite at tick 0.
+
+Exact owner-health evidence matched the contact lineage and damage events: player primary at tick 3,315 reduced unit 33 from 202 to 10 HP; player hop at tick 3,316 reduced unit 34 from 202 to 10 HP. AI primary at tick 462 reduced the south west crown from 2,921 to 2,729 HP; AI hop at tick 463 reduced unit 6 from 260 to 68 HP. Full telemetry contains nine player primary contacts and hops, one AI primary contact and hop, and 20 owner-health witnesses; all strict assertions passed.
+
+Restore rewound tick 600 to 300. Typed input replay restored the exact tick-300 Reed Sting command/decision; the replay then accepted Cinderlings at tick 600 and paid Stormkite at tick 615. Audio cursor was 12 at the restore cut; branch/restored sinks each had 74 starts and replay ended at 136. Original and replayed typed simulation continuations matched across 60 events, UI sequence was 2→2→4, and browser/direct session-byte, input, policy restore, and replay assertions passed.
+
+The match reached natural North 1–0 regulation-crown terminal at tick 10,800. Restart returned a nonterminal tick-0 session with `restartCount=1`, the same seed 9, and the same selected deck.
+
+All unchanged timing limits passed: normal driven long tasks 0 ms / 50 ms; initialization 224 ms / 300 ms; simulation slice 31.2 ms / 40 ms; browser segment 10,309 ms / 30,000 ms; endurance 696,885 ms / 1,200,000 ms; restart long task 50 ms / 50 ms permitted. Cleanup receipt `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/cleanup-status.txt` confirms all attempt-owned processes exited and the runtime was released; post-cleanup pins are in `source-pins-after-cleanup.txt`.
+
+R631's R4 default-eight 3/3 result is version-scoped reuse only, not fresh R7 default-eight qualification. R637 passes the original Stormkite QUESTION card as one of the 24 mixed editable choices for this exact custom journey. It does not establish parity for the 57 project-admitted cards or 109-card historical roster, a full npm suite, publication/release, or an optimizer/full-battle RL path. The unqualified Bulwark R2 is not included. Preserve R632/R633 Stormkite failures and the separate R636 Bulwark admission FAIL as historical records; RL-002 R635 remains separately scoped.
+
+BIGGEST GAP: No remaining gap on this bounded R7 seed-nine Stormkite journey. R637 does not freshly qualify the R7 default-eight 18,000-tick case, parity for the 57 project-admitted cards or 109-card historical roster, the full suite, or publication/release.
+
+DISPOSITION:
+
+Record CARDS-024K R637 as a scoped PASS for the frozen R7 Stormkite seed-nine journey under unchanged caps. Preserve R627/R632/R633 failures and the separately scoped R631 default-eight reuse. Keep Bulwark R636 FAIL and its unqualified R2 outside this pass. Do not claim the 57-card project-admitted set, 109-card historical parity, full repository test suite, publication, or release.
+
+EVIDENCE FILES:
+
+- Formal verdict: `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/critic-verdict.md`.
+- Cleanup receipt: `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/cleanup-status.txt`.
+- Post-cleanup source pins: `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/source-pins-after-cleanup.txt`.
+- Raw focused selector: `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/logs/focused.raw.log`.
+- Raw full run and telemetry: `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/logs/full.raw.log` and `/private/tmp/clash-stormkite-card-r7-20261028/critic-20261029-01/artifacts-full/endurance-result.json`.
+
+## Round 638 — 2026-10-29
+
+PIECE: RELEASE-002 — Incremental Stormkite R7 + RL-002 publication readiness, round 1
+
+VERDICT: FAIL — the required focused app-shell case timed out; separate isolation, Pages, and manifest checks passed
+
+EVIDENCE:
+
+Formal independent verdict: `/private/tmp/clash-stormkite-publication-20261029-evidence/critic-independent-20261029/R638-critic-verdict.md`. The independent source copy `/private/tmp/clash-stormkite-release-critic-20261029-01` was checked against frozen candidate `/private/tmp/clash-stormkite-publication-20261029`, HEAD `3df9a311ca839823b28c7dce99c6bd2d913c72bf` and the declared 48 source pins.
+
+Fresh successful TAP checks were shipping-isolation guard 13/13, shipping-isolation release 4/4, and Pages 5/5: **22/22 fresh cases, separate from the required app case**. Pages build exited 0. Independent emitted-manifest size/SHA-256 checks matched all 71 files, 6814582 bytes; manifest integrity is not an additional TAP case.
+
+The required app-shell selector `player shell renders roster-derived cards and launches a paused shared battle frame` exited 1 with `testTimeoutFailure`: **0/1**, duration 120024.139 ms, against the unchanged **120000 ms cap**. Raw log: `/private/tmp/clash-stormkite-publication-20261029-evidence/critic-independent-20261029/logs/app-shell-stormkite-release.log`. Partial Stormkite deployment/notice screenshots and restoration diagnostics do not turn this incomplete case into a pass.
+
+The critic did not repeat the app case, run the two RL example invocations, or rerender canonical tracking after this first actual failure. Before/after checks preserved all 48 source pins, including the declared 32 tracked changed and 16 expected untracked paths, with no staged/deleted paths. Reference remained identical: 26 files, 275126 bytes. Review-owned browser/server processes exited and the capture symlink was removed.
+
+BIGGEST GAP: The required trusted app-shell case exceeded its 120000 ms cap, leaving this bounded incremental publication readiness qualification incomplete.
+
+DISPOSITION:
+
+Preserve this FAIL and all separate successful evidence. It is RELEASE-002 round 1, not a full 109-card release result or evidence of deployment. The timeout cause is unproven. Any authorized repeat must retain the test, command, browser/source pins, and cap; successful unrelated checks cannot substitute for the incomplete app case.
+
+## Round 639 — 2026-10-29
+
+PIECE: RELEASE-002 — Incremental Stormkite R7 + RL-002 publication readiness, round 2
+
+VERDICT: PASS — one authorized quiet repeat closes the focused app qualification under the same cap; earlier checks are explicitly scoped reuse
+
+EVIDENCE:
+
+Formal independent verdict: `/private/tmp/clash-stormkite-publication-20261029-evidence/critic-quiet-repeat-20261029/R639-critic-verdict.md`. The exact focused command, test code, source/browser pins, and **120000 ms cap** were unchanged. Node v22.23.4 PID 77462, foreground session 34496, exited 0. Raw fresh TAP: `/private/tmp/clash-stormkite-publication-20261029-evidence/critic-quiet-repeat-20261029/logs/app-shell-stormkite-release.log`:
+
+```text
+ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  duration_ms: 106501.395708
+# tests 1
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# duration_ms 106798.121291
+```
+
+This is **1/1 fresh app TAP case**, approximately 106.5 seconds for the case under the same 120-second cap. It exercised the 24-card collection, trusted paid Stormkite deployment for five elixir, keyboard QUESTION disclosure at phone widths, desktop layout, exact serialized session restoration, and terminal/restart behavior. The critic inspected fresh 320/390/desktop screenshots. Both motion modes had byte-identical full 540×960 page before/after PNGs; cropped arena-element PNG bytes differed, so no cropped-PNG equality is claimed.
+
+Fresh manual checks, **excluded from TAP counts**: two RL example processes, PIDs 78538 and 78558, exited 0 with empty stderr and byte-identical stdout of **545 bytes each**. Output recorded four transition samples, tick 120 truncation, and `checkpointContinuationMatched:true`. Canonical tracking renderer PID 78570 exited 0; its external `canonical-progress.html` was byte-identical to the frozen progress file at **400876 bytes**. Structured receipt: `/private/tmp/clash-stormkite-publication-20261029-evidence/critic-quiet-repeat-20261029/rl-and-progress-results.json`. That render validates the frozen tracking input; these newly staged PLAN/rounds copies have not been rendered here.
+
+Version-scoped reuse, **not fresh R639 tests**: R638's 13 guard + 4 release-isolation + 5 Pages cases provide **22/22 reused TAP cases**, with its independent 71-file / 6814582-byte manifest integrity check. R637's R7 Stormkite custom journey **4/4** and R631's R4 default-eight **3/3** remain separate evidence with their own source/version scopes; neither was rerun or added to the R639 fresh app count. The readiness record therefore distinguishes 1/1 fresh app, 22/22 reused isolation/Pages, the two manual RL invocations, the manual tracking render, and the separately scoped prior journeys.
+
+The candidate and independent copy still matched **48/48 source pins**, modes and sizes included. HEAD remained `3df9a311ca839823b28c7dce99c6bd2d913c72bf`, with exactly 32 tracked changed plus 16 expected untracked paths, zero staged and zero deleted paths. Reference stayed identical: **26 files, 275126 bytes**. Final receipt: `/private/tmp/clash-stormkite-publication-20261029-evidence/critic-quiet-repeat-20261029/final-integrity-and-cleanup.json`. Capture symlink cleanup completed and no test-owned browser/server process remained.
+
+R638's original timeout FAIL remains intact. This was one authorized quiet repeat, with no timeout increase, skipped step, source/test correction, or further retry. Reported quieter machine load is context only; the cause of the R638 timeout remains **unproven**.
+
+BIGGEST GAP: No remaining gap on this bounded frozen incremental publication readiness qualification; deployed publication, full repository-suite acceptance, optimizer/full-battle RL qualification, 57-card parity, and a full 109-card release remain outside this PASS.
+
+DISPOSITION:
+
+Record RELEASE-002 scoped PASS at round 2 with 1/1 fresh app TAP and 22/22 explicitly reused isolation/Pages TAP. Keep manual RL/render checks outside TAP and prior R637/R631 journey scopes separate. Preserve R638 FAIL as history. This records readiness to proceed with publication; **deployment is not yet done**. No source, original tracking file, progress file, private primary-worktree PLAN/rounds file, index, or ref was changed by this tracking-only job. These two external tracking copies are now frozen for coordinator handoff; no runtime/hash/render/test was executed here.

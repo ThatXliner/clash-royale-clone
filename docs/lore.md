@@ -67,3 +67,7 @@ When emberseed lights began appearing above the Rivermark root bridges, two wood
 ### Duskwing Trio
 
 Three owl-moths hatched from a reed basket warmed beside an emberseed stove at the Emberfall river workshop. Each twilight they carry the seed’s tiny glow through the fern hollows, guiding Rivermark ferrymakers home above the water.
+
+### Stormkite
+
+On storm nights at the Rivermark weir, a lock-keeper flies a kite of copper ribs and waxed reed paper on one long braided wire. When a thread of lightning catches the kite, the wire hums and the keeper sends the spark leaping from one raider to the next.

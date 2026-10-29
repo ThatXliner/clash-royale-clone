@@ -13,9 +13,13 @@ import {
 } from "../src/content/session-troop-roster.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
+import { createChainQuestionFixture } from "../src/content/cards/special-projectiles-chain.js";
+import { serializeSessionTroopProjectileProfileManifest } from
+  "../src/content/session-troop-projectile-profiles.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
+import { createStormkiteChainQuestionPolicy } from "../src/sim/live-battle-chain.js";
 import { createShippedGameSessionSetup } from "../src/ui/game-browser-entry.js";
 
 function canonical(value) {
@@ -109,6 +113,42 @@ test("editable deck setup admits every card in canonical eight-card witnesses an
     assert.equal(chunked.serialize(), direct.serialize());
     assert.equal(GameSession.restore(direct.serialize()).serialize(), direct.serialize());
   }
+});
+
+test("Stormkite setup binds the existing QUESTION chain model only for its selected deck", () => {
+  assert.ok(EDITABLE_DECK_CARD_IDS.includes("stormkite"),
+    "Stormkite has an admitted canonical unit witness");
+  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.includes("stormkite"), true,
+    "the public replacement roster exposes Stormkite with its dedicated arena atlas");
+
+  const deck = ["stormkite", ...PLAYABLE_CARD_IDS.slice(1)];
+  const setupText = createEditableGameSessionSetup(deck, 31);
+  const setup = JSON.parse(setupText);
+  const battleSetup = JSON.parse(setup.battleSetup);
+  const policy = battleSetup.chainQuestionPolicy;
+  const fixture = createChainQuestionFixture();
+
+  assert.equal(setup.projectileRuntimeProfiles,
+    serializeSessionTroopProjectileProfileManifest(),
+    "the real GameSession setup carries the canonical projectile source receipt");
+  assert.equal(policy.cardId, "stormkite");
+  assert.equal(policy.claimFamily, "chain");
+  assert.equal(Object.keys(fixture).length, 11);
+  for (const [key, record] of Object.entries(fixture)) {
+    assert.deepEqual(policy.questions[key], record, `${key} remains QUESTION`);
+  }
+  assert.equal(policy.questions.simultaneousContactAttributionRule.disposition, "question");
+  assert.equal(policy.questions.simultaneousContactAttributionRule.authoritative, false);
+  assert.equal(policy.questions.simultaneousContactAttributionRule.confidence, "unverified");
+  assert.equal(setupText, canonical(setup), "setup bytes remain canonical");
+  const session = new GameSession(setupText);
+  assert.deepEqual(JSON.parse(session.serialize()).setup.deck, deck,
+    "the canonical GameSession admits the selected Stormkite deck");
+
+  const standard = JSON.parse(createEditableGameSessionSetup(PLAYABLE_CARD_IDS, 31));
+  const standardBattleSetup = JSON.parse(standard.battleSetup);
+  assert.equal(Object.hasOwn(standard, "projectileRuntimeProfiles"), false);
+  assert.equal(Object.hasOwn(standardBattleSetup, "chainQuestionPolicy"), false);
 });
 
 test("editable deck setup preserves the shipped standard setup and selected order", () => {
@@ -236,7 +276,7 @@ test("editable mixed witnesses retain troop questions and exact non-unit profile
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("ember-basin"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("buried-coil"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("aether-well"));
-  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 23);
+  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 24);
   assert.throws(() => createEditableMixedDeckWitness(PLAYABLE_CARD_IDS),
     /requires an admitted spell or structure/u);
   assert.throws(() => createEditableMixedDeckWitness([

@@ -11,7 +11,11 @@ import { createSessionTroopWitness } from "../src/content/session-troop-roster.j
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession, getGameSessionAudioReplay } from "../src/sim/game-session.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
-import { SessionTroopProjectileRuntime } from "../src/sim/session-troop-projectile-runtime.js";
+import {
+  SESSION_TROOP_PROJECTILE_RUNTIME_MAX_PROFILES,
+  SESSION_TROOP_PROJECTILE_RUNTIME_MAX_SOURCES,
+  SessionTroopProjectileRuntime,
+} from "../src/sim/session-troop-projectile-runtime.js";
 
 const MANIFEST = createSessionTroopProjectileProfileManifest();
 const RECEIPT = serializeSessionTroopProjectileProfileManifest();
@@ -166,6 +170,78 @@ function questionRecords(dependency) {
     key,
   }));
 }
+
+test("projectile source arrays accept every physical Stormkite source", () => {
+  const battle = new LiveBattle(
+    JSON.stringify(JSON.parse(witnessSetup("stormkite").battleSetup)), undefined, undefined, RECEIPT,
+  );
+  for (let sequence = 0; sequence < 9; sequence += 1) {
+    battle.scheduleDeploy(canonical({
+      cardId: "stormkite",
+      point: { x: 1_500 + sequence * 500, y: 14_500 },
+      sequence,
+      side: "south",
+      tick: 0,
+    }));
+  }
+  battle.stepMany(1);
+
+  const sources = battle.state.units.filter(({ cardId }) => cardId === "stormkite").map((unit) => ({
+    cardId: unit.cardId,
+    damage: unit.damage,
+    delivery: unit.delivery,
+    layer: unit.layer,
+    maxHealth: unit.maxHealth,
+    projectileSpeed: unit.projectileSpeed,
+    rangeMillitiles: unit.reach,
+    sightRangeMillitiles: unit.sightRange,
+    side: unit.side,
+    sourceId: unit.id,
+    targetMode: unit.targetMode,
+  }));
+  assert.equal(sources.length, 9, "the live battle minted nine Stormkite units");
+  assert.equal(new Set(sources.map(({ sourceId }) => sourceId)).size, 9,
+    "each source ID came from a distinct physical unit");
+
+  assert.equal(SESSION_TROOP_PROJECTILE_RUNTIME_MAX_PROFILES, 8);
+  assert.equal(SESSION_TROOP_PROJECTILE_RUNTIME_MAX_SOURCES, 1_024);
+  const runtime = SessionTroopProjectileRuntime.fromReceipt(RECEIPT);
+  const command = JSON.parse(mechanicCommand("stormkite", sources[0].sourceId, 2, 1));
+  assert.equal(runtime.inspectMechanic(command, sources).disposition, "question");
+  assert.deepEqual(runtime.step({ events: [], sources, tick: 1 }), []);
+
+  const maximumSources = Array.from({ length: SESSION_TROOP_PROJECTILE_RUNTIME_MAX_SOURCES },
+    (_, index) => sources[index % sources.length]);
+  assert.equal(runtime.inspectMechanic(command, maximumSources).disposition, "question");
+  const launch = (attackSequence, projectileId, tick) => ({
+    events: [{
+      projectileIdentity: {
+        attackSequence,
+        direction: "unit-to-tower",
+        projectileId,
+        sourceId: sources[0].sourceId,
+      },
+      targetId: 2,
+      tick,
+      type: "projectile-launch",
+    }],
+    sources: maximumSources,
+    tick,
+  });
+  assert.equal(runtime.step(launch(1, 1, 2))[0].type, "projectile-runtime-receipt");
+  const beforeOverflow = runtime.state;
+  const tooManySources = [...maximumSources, sources[0]];
+  assert.throws(() => runtime.inspectMechanic(command, tooManySources), /bounded array/u);
+  assert.throws(() => runtime.step({ ...launch(2, 2, 3), sources: tooManySources }),
+    /bounded array/u);
+  assert.deepEqual(runtime.state, beforeOverflow, "rejecting 1,025 sources is atomic");
+
+  const excessiveProfiles = JSON.parse(RECEIPT);
+  excessiveProfiles.profiles = Array.from({ length: 9 }, () =>
+    clone(excessiveProfiles.profiles[0]));
+  assert.throws(() => SessionTroopProjectileRuntime.fromReceipt(canonical(excessiveProfiles)));
+});
+
 
 test("projectile support is the exact HTP/HTO/HTJP receipt join", () => {
   const sourcedIds = MANIFEST.profiles.map(({ id }) => id);

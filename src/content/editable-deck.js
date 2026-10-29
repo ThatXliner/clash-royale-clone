@@ -11,9 +11,19 @@ import {
 } from "./session-troop-roster.js";
 import { projectSessionNonUnitBattleCard } from "./session-card-catalog.js";
 import { createSessionRadiusSpellProfileReceipts } from "./session-spell-profile-receipts.js";
+import { serializeSessionTroopProjectileProfileManifest } from
+  "./session-troop-projectile-profiles.js";
+import { createStormkiteChainQuestionPolicy } from "../sim/live-battle-chain.js";
 
 export { EDITABLE_DECK_CARD_IDS };
 
+const EDITABLE_SESSION_MIXED_DECK_CARD_IDS = Object.freeze([
+  ...EDITABLE_DECK_CARD_IDS,
+  "squall-orb",
+  "ember-basin",
+  "buried-coil",
+  "aether-well",
+]);
 export const EDITABLE_MIXED_DECK_CARD_IDS = Object.freeze([
   ...EDITABLE_DECK_CARD_IDS,
   "squall-orb",
@@ -73,7 +83,7 @@ export function createEditableMixedDeckWitness(deckIds, ...args) {
   if (args.length !== 0) throw new TypeError("editable mixed deck witness takes exactly one argument");
   const ids = checkedEditableIds(deckIds);
   if (ids.every((id) => EDITABLE_DECK_CARD_IDS.includes(id)) ||
-      ids.some((id) => !EDITABLE_MIXED_DECK_CARD_IDS.includes(id))) {
+      ids.some((id) => !EDITABLE_SESSION_MIXED_DECK_CARD_IDS.includes(id))) {
     throw new RangeError("mixed editable deck requires an admitted spell or structure and supported cards");
   }
   const roster = ids.map((id) => id === "squall-orb"
@@ -133,13 +143,22 @@ export function createEditableGameSessionSetup(deckIds, seed = 0, ...args) {
   const initialWindupTicks = standard
     ? { central: 0, lane: 0 }
     : witness.initialWindupTicks;
-  const battleSetup = canonical(mixed
-    ? { initialWindupTicks, questions, roster,
-      ...(checkedIds.includes("squall-orb")
-        ? { spellProfileReceipts: createSessionRadiusSpellProfileReceipts() }
-        : {}) }
-    : { initialWindupTicks, questions, roster });
+  const stormkiteSelected = selectedIds.includes("stormkite");
+  const battleSetup = canonical({
+    initialWindupTicks,
+    questions,
+    roster,
+    ...(mixed && checkedIds.includes("squall-orb")
+      ? { spellProfileReceipts: createSessionRadiusSpellProfileReceipts() }
+      : {}),
+    ...(stormkiteSelected
+      ? { chainQuestionPolicy: createStormkiteChainQuestionPolicy() }
+      : {}),
+  });
   return canonical({
+    ...(stormkiteSelected
+      ? { projectileRuntimeProfiles: serializeSessionTroopProjectileProfileManifest() }
+      : {}),
     battleSetup,
     deck: selectedIds,
     legalNorthDeployments: selectedIds.map((cardId) => ({

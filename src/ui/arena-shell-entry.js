@@ -510,6 +510,11 @@ function applyAppFrameMessage(controller, message) {
     String(message.presentation.bodyCssPixels);
   frameDocument.documentElement.dataset.combatFrameScale =
     String(message.presentation.frameScale);
+  const frameScale = message.presentation.frameScale;
+  const questionFontSize = Number.isFinite(frameScale) && frameScale > 0
+    ? Math.max(11, Math.ceil(12 / frameScale)) : 11;
+  frameDocument.documentElement.style.setProperty(
+    "--combat-policy-question-font-size", `${questionFontSize}px`);
   const currentDeck = JSON.parse(controller.session.serialize()).setup.deck;
   const deckChanged = !sameDeckIds(currentDeck, message.deckIds);
   if (deckChanged) controller.replaceDeck(message.deckIds);

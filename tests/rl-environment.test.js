@@ -169,6 +169,54 @@ test("RL environment exposes a finite action catalogue and masks legal deploys",
     "playing the selected slot cycles the shared deck state");
 });
 
+test("RL reset, legal mask, deployment, restore, and fork preserve selected Stormkite", () => {
+  const deck = ["stormkite", ...PLAYABLE_CARD_IDS.slice(0, 7)];
+  const seed = seedWithCardInHand(deck, "stormkite");
+  const env = createRLEnvironment({ deck, seed, strideTicks: 1, horizonTicks: 32 });
+  const initial = env.reset();
+  assert.deepEqual(JSON.parse(JSON.parse(env.serialize()).session).setup.deck, deck,
+    "RL reset keeps the selected eight-card Stormkite deck in canonical setup");
+  const slot = initial.hand.indexOf("stormkite");
+  assert.notEqual(slot, -1, "the reset Stormkite deck exposes Stormkite in its RL hand");
+  const action = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 8_500 && point.y === 14_500);
+  assert.ok(action, "the finite action catalogue contains a Stormkite own-side deployment cell");
+  assert.equal(initial.actionMask[action.id], true,
+    "the selected Stormkite deployment is legal in the RL action mask");
+
+  const transition = env.step(action.id);
+  assert.equal(transition.info.actionId, action.id);
+  assert.equal(transition.info.ticksAdvanced, 1);
+  assert.equal(transition.observation.tick, 1);
+  assert.ok(transition.observation.units.some(({ cardId, side }) =>
+    cardId === "stormkite" && side === "south"),
+  "the RL action reaches the canonical GameSession and deploys Stormkite");
+
+  const checkpoint = env.serialize();
+  const snapshot = JSON.parse(checkpoint);
+  const session = GameSession.restore(snapshot.session);
+  const setup = JSON.parse(snapshot.session).setup;
+  const policy = JSON.parse(setup.battleSetup).chainQuestionPolicy;
+  assert.deepEqual(setup.deck, deck);
+  assert.ok(setup.projectileRuntimeProfiles,
+    "the selected Stormkite runtime profile stays attached to the RL GameSession");
+  assert.equal(policy.cardId, "stormkite",
+    "the explicit Stormkite chain QUESTION policy survives through the RL adapter");
+  assert.ok(session.replay.some(({ deployment, side, type }) =>
+    side === "south" && type === "session-deployed" &&
+    deployment.cardId === "stormkite"),
+  "the saved RL GameSession replay contains the committed canonical deployment");
+
+  const restored = RLEnvironment.restore(checkpoint);
+  const fork = RLEnvironment.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint);
+  assert.deepEqual(restored.observe(), transition.observation);
+  assert.deepEqual(restored.step(0), fork.step(0),
+    "restored and forked Stormkite environments continue with identical observations");
+  assert.equal(restored.serialize(), fork.serialize(),
+    "the fork remains byte-identical through the next deterministic RL step");
+});
+
 test("seeded trajectories and restored checkpoints continue identically", () => {
   const config = { seed: "same-seed", strideTicks: 5, horizonTicks: 25 };
   const left = createRLEnvironment(config);

@@ -11,6 +11,7 @@ import { projectSessionNonUnitBattleCard } from "../content/session-card-catalog
 import { createSessionRadiusSpellProfileReceipts } from "../content/session-spell-profile-receipts.js";
 import { getCardPortrait } from "./card-portrait-art.js";
 import { getCardLore } from "./card-lore.js";
+import { createChainQuestionFixture } from "../sim/live-battle-chain.js";
 
 function unitStatQuestion(entity, field, questions) {
   const sourceField = entity.sourceConfidencePolicy?.fields?.find((candidate) =>
@@ -542,6 +543,88 @@ function roleChipsMarkup(chips) {
   return chips.map(({ label, provisional }) => `<li class="role-chip${provisional ? " is-provisional" : ""}">${html(label)}${provisional ? '<span class="visually-hidden"> (provisional)</span>' : ""}</li>`).join("");
 }
 
+const STORMKITE_CHAIN_NUMBER_FIELDS = Object.freeze([
+  Object.freeze({ key: "targetCap", label: "Targets per attack", format: (value) => `${formatter.format(value)} targets` }),
+  Object.freeze({ key: "damagePerHop", label: "Damage per hop", format: (value) => `${formatter.format(value)} damage` }),
+  Object.freeze({ key: "hopRangeMillitiles", label: "Hop range", format: (value) => `${formatter.format(value / 1_000)} tiles` }),
+  Object.freeze({ key: "hopDelayTicks", label: "Hop delay", format: (value) => secondsValue(value) }),
+]);
+
+const STORMKITE_CHAIN_RULE_FIELDS = Object.freeze([
+  Object.freeze({
+    key: "selectionRule",
+    label: "Target selection",
+    fixtureValue: "explicit-primary-then-nearest-eligible-unhit-center-distance-stable-id",
+    text: "Hits its first target, then jumps to the nearest enemy it has not hit. Equal-distance ties follow a fixed order.",
+  }),
+  Object.freeze({
+    key: "targetEligibilityRule",
+    label: "Eligible targets",
+    fixtureValue: "alive-targetable-ground-or-air-troops-and-structures",
+    text: "Alive, targetable ground or air troops and structures.",
+  }),
+  Object.freeze({
+    key: "rangeRule",
+    label: "Range measurement",
+    fixtureValue: "circle-edge-to-circle-edge-inclusive",
+    text: "Measured edge to edge, including the boundary.",
+  }),
+  Object.freeze({
+    key: "candidateDeathRule",
+    label: "Skipped targets",
+    fixtureValue: "dead-before-selection-is-ineligible",
+    text: "A target that is dead before selection is skipped.",
+  }),
+  Object.freeze({
+    key: "lethalHopRule",
+    label: "Lethal hop",
+    fixtureValue: "lethal-current-hit-keeps-snapshotted-origin-and-does-not-cancel-continuation",
+    text: "Defeating a target does not stop the chain; the next jump starts from that target's spot.",
+  }),
+  Object.freeze({
+    key: "attackerCancellationRule",
+    label: "If Stormkite falls",
+    fixtureValue: "death-through-primary-boundary-cancels;death-after-primary-does-not-cancel",
+    text: "Defeat on or before the first hit cancels the chain. After that, its remaining jumps continue.",
+  }),
+  Object.freeze({
+    key: "eventOrderRule",
+    label: "Impact order",
+    fixtureValue: "commands-then-start-hit-damage-death-then-pending-or-complete",
+    text: "Ready attacks land before the next jump is resolved.",
+  }),
+]);
+
+function stormkiteChainQuestionMarkup(card) {
+  if (card.id !== "stormkite") return "";
+  const fixture = createChainQuestionFixture();
+  const entries = Object.entries(fixture);
+  if (entries.length !== 11 || entries.some(([, record]) =>
+    record.disposition !== "question" || record.authoritative !== false ||
+    record.confidence !== "unverified")) {
+    throw new TypeError("Stormkite chain detail requires the exact unverified QUESTION fixture");
+  }
+  const numbers = STORMKITE_CHAIN_NUMBER_FIELDS.map(({ format, key, label }) => {
+    const record = fixture[key];
+    if (record === undefined || !Number.isSafeInteger(record.value) || record.value < 0) {
+      throw new TypeError(`Stormkite chain QUESTION ${key} is not a sourced numeric fixture`);
+    }
+    return [label, format(record.value), "QUESTION"];
+  });
+  const rules = STORMKITE_CHAIN_RULE_FIELDS.map(({ fixtureValue, key, label, text }) => {
+    if (fixture[key]?.value !== fixtureValue) {
+      throw new TypeError(`Stormkite chain QUESTION ${key} has no current plain-language detail`);
+    }
+    return `<li data-flag="question" data-question-key="${key}"><strong>${html(label)}</strong><span>${html(text)}</span><span class="stat-flag">QUESTION</span></li>`;
+  }).join("");
+  return `<section class="unit-profile chain-question-profile" aria-label="Stormkite chain attack QUESTION">
+    <h3>Chain attack · QUESTION</h3>
+    <p>These chain values and rules are unverified for historical comparison.</p>
+    ${statGridMarkup(numbers, [])}
+    <ul class="chain-question-rules" aria-label="Unverified chain rules">${rules}</ul>
+  </section>`;
+}
+
 function renderCardDetails(card) {
   const lore = getCardLore(card.id);
   const unitQuestionFlags = unitQuestionFlagsByCardId.get(card.id) ?? emptyQuestionFlags;
@@ -577,6 +660,7 @@ function renderCardDetails(card) {
           : card.entities.map((entity) => unitProfileMarkup(entity,
             unitQuestionFlags.get(entity) ?? emptyQuestionFlags,
             card.entities.length === 1)).join("")}
+      ${stormkiteChainQuestionMarkup(card)}
       ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}
       ${provisional ? `<p class="detail-legend"><span class="legend-swatch" aria-hidden="true"></span><span>Dashed outlines and ${legendMarks} mark provisional values. The game uses them, but they are not confirmed yet.</span></p>` : ""}
     </section>
