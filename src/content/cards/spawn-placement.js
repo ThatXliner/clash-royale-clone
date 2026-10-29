@@ -367,7 +367,7 @@ export class SpawnBatchMaterializer {
     const result = candidate.apply(operations);
     const candidateBatches = [...this.#batches, ledgerBatch];
     const serialized = serializeSnapshot(candidate, candidateBatches);
-    if (Buffer.byteLength(serialized, "utf8") > SPAWN_SNAPSHOT_MAX_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > SPAWN_SNAPSHOT_MAX_BYTES) {
       throw new RangeError(
         `spawn batch would exceed the ${SPAWN_SNAPSHOT_MAX_BYTES}-byte snapshot bound`,
       );
@@ -385,7 +385,7 @@ export class SpawnBatchMaterializer {
     if (typeof serialized !== "string") {
       throw new TypeError("serialized spawn snapshot must be a string");
     }
-    if (Buffer.byteLength(serialized, "utf8") > SPAWN_SNAPSHOT_MAX_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > SPAWN_SNAPSHOT_MAX_BYTES) {
       throw new RangeError(
         `serialized spawn snapshot exceeds ${SPAWN_SNAPSHOT_MAX_BYTES} UTF-8 bytes`,
       );

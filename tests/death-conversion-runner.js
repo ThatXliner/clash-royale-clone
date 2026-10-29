@@ -10,6 +10,7 @@ for (const selector of selectors) {
 const result = spawnSync(process.execPath, [
   "--test",
   new URL("./death-conversion.test.js", import.meta.url).pathname,
+  new URL("./death-conversion-browser-portability.test.js", import.meta.url).pathname,
 ], { stdio: "inherit" });
 if (result.error) throw result.error;
 if (result.status !== 0) process.exitCode = result.status ?? 1;

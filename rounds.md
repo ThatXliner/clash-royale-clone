@@ -12484,3 +12484,27 @@ BIGGEST GAP: No remaining gap on this bounded frozen incremental publication rea
 DISPOSITION:
 
 Record RELEASE-002 scoped PASS at round 2 with 1/1 fresh app TAP and 22/22 explicitly reused isolation/Pages TAP. Keep manual RL/render checks outside TAP and prior R637/R631 journey scopes separate. Preserve R638 FAIL as history. This records readiness to proceed with publication; **deployment is not yet done**. No source, original tracking file, progress file, private primary-worktree PLAN/rounds file, index, or ref was changed by this tracking-only job. These two external tracking copies are now frozen for coordinator handoff; no runtime/hash/render/test was executed here.
+
+## Round 640 — 2026-10-29
+
+PIECE: API-003 — Portable UTF-8 snapshot guards for bounded card module APIs
+
+VERDICT: PASS — scoped Buffer-absent module API portability; no product journey or historical parity claim
+
+EVIDENCE:
+
+Formal independent verdict: `/private/tmp/clash-fastfix-portability-20261029-evidence/critic-independent-20261029/UNIT-A-CRITIC-VERDICT.md`. The frozen Unit A manifest is `cfc3d979a9f79320fb0929d7665cdd96d90fd97f1b4bbef99206d8ef898d4398`. The critic independently matched all 106 source pins in its copy, checked exactly eight owned deltas, and confirmed that the five production modules differ from the frozen base only in twelve existing UTF-8 byte guards: `Buffer.byteLength(value, "utf8")` becomes `new TextEncoder().encode(value).byteLength`. The runner adds the conversion regression; the other two deltas are focused regressions. Existing QUESTION policy values, bounds, canonical snapshot representations and gameplay ordering remain unchanged.
+
+Fresh independent TAP: **3/3**, Node v22.23.4 PID 86891, exit 0. The two regression files exercise Buffer-absent paid Dusk Ranger activation, invisibility and conversion construction/step/save/restore continuation, Unicode replacement identity and ownership, exact resumed replay bytes, and multibyte oversized input rejection. This is the fresh TAP count; manual browser probes and earlier builder cases are separate evidence.
+
+Fresh manual actual Chrome ESM API check, **excluded from TAP counts**: Chrome 156.0.8078.49, Node host PID 87506, exit 0, imported 28 real source modules from the pinned independent copy with the Buffer property natively absent and no polyfill. Paid activation reached active invisibility with owner elixir 9. A Unicode conversion produced `umber-whelp-🌿` owned by 7 and retained its non-authoritative QUESTION receipt. Champion, invisibility, conversion, death-spawn and placement each produced a canonical snapshot byte-identical to the corresponding native-Buffer Node execution: **five manual byte comparisons**, not five extra TAP cases. All five restore APIs rejected multibyte inputs two bytes above their unchanged UTF-8 limits as RangeError before JSON parsing. There were no page/request errors; browser and server closed and both critic PIDs exited.
+
+Version-scoped builder reuse, **not fresh independent tests**: 19 champion + 26 invisibility + 22 conversion + 18 death-spawn + 18 placement cases = **103 reused builder cases**. The critic did not rerun those cases or independently reproduce the old-source RED run. That builder RED run remains supporting evidence: 0/3 before the guard correction and 3/3 afterward. Do not combine the 103 reused cases, three fresh cases or five manual snapshot comparisons into one fresh-test count.
+
+The next-commit source candidate is based on published `f949458b393ec3c1088b0844fabd6d70dc03b1ce` with the exact eight accepted Unit A files and three tracking files. The guarded source-profile archive is checked against f949 Git blobs and explicitly omits historical artifacts, tracked dist and unneeded design paths; it retains tracked demo source art and provenance-addressed design files. This is not a full repository-copy claim. Publication tracking/build review is separate and pending; no production Pages build, app journey, 18000-tick run, full suite, install or new gameplay correction was performed for this preparation.
+
+BIGGEST GAP: No remaining gap in these bounded Buffer-absent module APIs and their UTF-8 guards; product QUESTION classification, shared-world integration, historical parity, full-suite acceptance, publication build review and deployment remain outside this PASS.
+
+DISPOSITION:
+
+Record API-003 at round 1 as scoped PASS with 3/3 fresh independent TAP, five manual Chrome-to-Node canonical snapshot comparisons and 103 explicitly reused builder cases. Preserve earlier rounds and all existing source-confidence questions. Prepare only the accepted eight implementation/test files plus PLAN.md, rounds.md and canonical-rendered progress.html for a later commit on exact f949. A separate critic will review tracking/source isolation and run the normal production Pages build once with its built-in browser qualifier. No publication is authorized by this round record.

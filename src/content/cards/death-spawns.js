@@ -787,7 +787,7 @@ export class DeathSpawnEncounter {
       state: candidate.state,
       version: 1,
     });
-    if (Buffer.byteLength(candidateBytes, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(candidateBytes).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("death spawn step would exceed snapshot byte bound");
     }
     this.#state = candidate.state;
@@ -808,7 +808,7 @@ export class DeathSpawnEncounter {
       state: checked.state,
       version: 1,
     });
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("death spawn snapshot exceeds its byte bound");
     }
     return serialized;
@@ -818,7 +818,7 @@ export class DeathSpawnEncounter {
     if (typeof serialized !== "string") {
       throw new TypeError("death spawn snapshot must be a string");
     }
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("death spawn snapshot exceeds its byte bound");
     }
     let raw;

@@ -920,7 +920,7 @@ export class InvisibilityRevealEncounter {
       ),
       version: 1,
     });
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("invisibility snapshot exceeds its byte bound");
     }
     return serialized;
@@ -930,7 +930,7 @@ export class InvisibilityRevealEncounter {
     if (typeof serialized !== "string") {
       throw new TypeError("invisibility snapshot must be a string");
     }
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("invisibility snapshot exceeds its byte bound");
     }
     let value;

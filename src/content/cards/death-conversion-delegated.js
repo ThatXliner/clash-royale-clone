@@ -576,7 +576,7 @@ export class DelegatedDeathConversionEncounter {
       candidate.shared,
       makeState(candidate.shared.state, candidate.metadata, candidate.values),
     );
-    if (Buffer.byteLength(bytes, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(bytes).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("death conversion step exceeds snapshot byte bound");
     }
     this.#metadata = candidate.metadata;
@@ -595,7 +595,7 @@ export class DelegatedDeathConversionEncounter {
       this.#shared,
       makeState(this.#shared.state, this.#metadata, this.#values),
     );
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("death conversion snapshot exceeds its byte bound");
     }
     return serialized;
@@ -610,7 +610,7 @@ export function restoreDelegatedEncounter(
   if (typeof serialized !== "string") {
     throw new TypeError("death conversion snapshot must be a string");
   }
-  if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+  if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
     throw new RangeError("death conversion snapshot exceeds its byte bound");
   }
   let raw;

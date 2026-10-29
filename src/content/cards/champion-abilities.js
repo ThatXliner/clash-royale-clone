@@ -690,7 +690,7 @@ export class ChampionAbilityController {
       state: this.#state,
       version: 1,
     });
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("champion snapshot exceeds its byte bound");
     }
     return serialized;
@@ -700,7 +700,7 @@ export class ChampionAbilityController {
     if (typeof serialized !== "string") {
       throw new TypeError("champion snapshot must be a string");
     }
-    if (Buffer.byteLength(serialized, "utf8") > MAX_SNAPSHOT_BYTES) {
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("champion snapshot exceeds its byte bound");
     }
     let parsed;
