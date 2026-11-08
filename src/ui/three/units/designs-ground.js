@@ -199,6 +199,8 @@ export const GROUND_DESIGNS = {
       });
       b.mesh(G.cone(10), "reed", p.head, [0, 0.27, -0.01], [0.3, 0.12, 0.3], [-0.12, 0, 0]);
       b.mesh(G.cyl(10), "team", p.head, [0, 0.235, -0.01], [0.17, 0.035, 0.17], [-0.12, 0, 0]);
+      // Team-dyed crown on top of the straw, so the side reads from above.
+      b.mesh(G.cone(10), "team", p.head, [0, 0.305, -0.016], [0.17, 0.085, 0.17], [-0.12, 0, 0]);
       const pipe = b.group("weapon", p.head, [0, 0.08, 0.12]);
       b.mesh(G.cyl(5), "wood", pipe, [0, 0, 0.26], [0.024, 0.6, 0.024], [Math.PI / 2, 0, 0]);
       b.mesh(G.cyl(5), "brass", pipe, [0, 0, 0.55], [0.034, 0.05, 0.034], [Math.PI / 2, 0, 0]);

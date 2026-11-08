@@ -21,6 +21,8 @@ import {
   PlaneGeometry,
   Quaternion,
   RingGeometry,
+  Shape,
+  ShapeGeometry,
   Vector3,
 } from "../three-module.js";
 import { createUnitModel, UNIT_MODEL_KINDS, unitDesignInfo } from "../units/index.js";
@@ -38,10 +40,42 @@ const STALE_SYNC_MS = 250;
 const DEPLOY_PULSE_SECONDS = 0.7;
 const HIT_COOLDOWN_SECONDS = 0.14;
 const BAR_HEIGHT = 0.17;
-const CROWD_SPACING = 0.8;
-const CROWD_MAX_OFFSET = 0.45;
+// Presentation-only crowd spreading. Distances are measured in tiles with the
+// north-south axis weighted up, because under the 47° camera a unit in front
+// covers the one behind it far more than a neighbour beside it does.
+const CROWD_SPACING = 0.9;
+const CROWD_DEPTH_WEIGHT = 1.45;
+const CROWD_LATERAL = 0.55;
+const CROWD_MAX_OFFSET = 0.62;
+// Pull back toward the simulated spot once neighbours have moved on.
+const CROWD_RETURN = 0.18;
+const BRIDGE_DECK_MARGIN = 0.32;
 const DEPTH_STRETCH = 1 / Math.sin((47 * Math.PI) / 180);
 const CHIP_DECAY_PER_SECOND = 1.6;
+// Every living unit carries an always-on-top side marker, so its side reads
+// from the tilted camera whatever the model wears on top and however tightly a
+// swarm stacks: a small team shield over the head at full health, and once
+// hurt the health bar itself, whose frame and fill are both in team colours.
+const BADGE_WIDTH = 0.38;
+const BADGE_RISE = 0.24;
+const MAX_BADGES = 320;
+const DEATH_BADGE_MS = 650;
+
+function shieldGeometry(width, height) {
+  const w = width / 2;
+  const top = height * 0.42;
+  const shoulder = -height * 0.08;
+  const shape = new Shape();
+  shape.moveTo(-w, top - w * 0.3);
+  shape.quadraticCurveTo(-w, top, -w + w * 0.3, top);
+  shape.lineTo(w - w * 0.3, top);
+  shape.quadraticCurveTo(w, top, w, top - w * 0.3);
+  shape.lineTo(w, shoulder);
+  shape.quadraticCurveTo(w * 0.85, -height * 0.4, 0, -height * 0.58);
+  shape.quadraticCurveTo(-w * 0.85, -height * 0.4, -w, shoulder);
+  shape.closePath();
+  return new ShapeGeometry(shape, 4);
+}
 
 // Uniform placement scale. Models stay true-proportioned (no depth stretch);
 // a uniform enlargement keeps every silhouette readable at phone size next
@@ -58,6 +92,15 @@ function placementInfo(kind) {
 
 const BRIDGES = Object.freeze([[2.5, 4.5], [13.5, 15.5]]);
 const RIVER = Object.freeze({ north: 17.05, south: 14.95 });
+
+/** [west, east] tile edges of the bridge deck at a point on or near the river, else null. */
+export function bridgeDeckAt(tx, ty) {
+  if (ty <= RIVER.south - 0.6 || ty >= RIVER.north + 0.6) return null;
+  for (const deck of BRIDGES) {
+    if (tx >= deck[0] - 0.6 && tx <= deck[1] + 0.6) return deck;
+  }
+  return null;
+}
 
 /** Ground height under a ground unit (bridge decks arch over the river). */
 export function groundHeightAt(tx, ty) {
@@ -131,11 +174,26 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
   }));
   group.add(rings.mesh);
 
-  const teamColor = {
-    south: { bar: new Color(TEAM.south.bar), glow: new Color(TEAM.south.glow), main: new Color(TEAM.south.main) },
-    north: { bar: new Color(TEAM.north.bar), glow: new Color(TEAM.north.glow), main: new Color(TEAM.north.main) },
-  };
+  const badgeLayers = [
+    ["team-badge-edge", shieldGeometry(1.34, 1.5), 33],
+    ["team-badge-fill", shieldGeometry(1, 1.15), 34],
+    ["team-badge-core", shieldGeometry(0.46, 0.5).translate(0, 0.1, 0), 35],
+  ].map(([name, geometry, renderOrder]) => {
+    const instances = keep(createFadingInstances({
+      name, geometry, capacity: MAX_BADGES, renderOrder, depthTest: false,
+    }));
+    group.add(instances.mesh);
+    return instances;
+  });
+  const [badgeEdge, badgeFill, badgeCore] = badgeLayers;
+
   const frameColor = new Color(0x12191c);
+  const teamColors = (team) => ({
+    bar: new Color(team.bar), glow: new Color(team.glow), main: new Color(team.main), light: new Color(team.light),
+    // A damaged unit's bar frame (and so its empty track) stays in team colour.
+    frame: new Color(team.deep).lerp(frameColor, 0.3),
+  });
+  const teamColor = { south: teamColors(TEAM.south), north: teamColors(TEAM.north) };
   const chipColor = new Color(0xe9d7b4);
   const flashColor = new Color(0xffffff);
 
@@ -228,8 +286,9 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     return entity;
   };
 
-  const kill = (entity) => {
+  const kill = (entity, now) => {
     entity.dying = true;
+    entity.diedAt = now;
     // Topple across the screen: sideways when the unit faces along the view
     // axis (north or south), backward when it faces east or west.
     const facesAcross = Math.abs(Math.sin(entity.yaw)) > 0.7;
@@ -341,7 +400,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       }
     }
     for (const entity of entities.values()) {
-      if (!seen.has(entity.key) && !entity.dying) kill(entity);
+      if (!seen.has(entity.key) && !entity.dying) kill(entity, now);
     }
     if (fresh) {
       lastTick = tick;
@@ -396,8 +455,10 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         const second = crowd[b];
         if ((first.layer === "air") !== (second.layer === "air")) continue;
         const reach = (first.info.radius + second.info.radius) * CROWD_SPACING;
-        let dx = (first.baseX - second.baseX);
-        let dz = (first.baseZ - second.baseZ) / DEPTH_STRETCH;
+        // Separation is measured between the current spread positions, so a
+        // spread crowd stays spread instead of collapsing and re-expanding.
+        let dx = (first.baseX + first.offsetX) - (second.baseX + second.offsetX);
+        let dz = ((first.baseZ + first.offsetZ) - (second.baseZ + second.offsetZ)) / DEPTH_STRETCH * CROWD_DEPTH_WEIGHT;
         const distance = Math.hypot(dx, dz);
         if (distance >= reach) continue;
         if (distance < 1e-4) {
@@ -408,27 +469,49 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
           dx /= distance;
           dz /= distance;
         }
+        // A file of units one behind the other also steps aside, so a column
+        // on a bridge or lane fans out into staggered ranks.
+        if (Math.abs(dx) < 0.5) {
+          const side = Math.abs(first.baseX - second.baseX) > 1e-3 ? Math.sign(first.baseX - second.baseX)
+            : first.id > second.id ? 1 : -1;
+          dx += side * CROWD_LATERAL;
+        }
         const push = (reach - distance) * 0.5;
         first.pushX += dx * push;
-        first.pushZ += dz * push;
+        first.pushZ += dz * push / CROWD_DEPTH_WEIGHT;
         second.pushX -= dx * push;
-        second.pushZ -= dz * push;
+        second.pushZ -= dz * push / CROWD_DEPTH_WEIGHT;
       }
     }
-    const ease = reducedMotion ? 1 : 1 - Math.exp(-8 * dtSeconds);
+    const ease = reducedMotion ? 1 : 1 - Math.exp(-6 * dtSeconds);
     for (const entity of crowd) {
-      // Never nudge a ground unit sideways off a bridge deck.
-      if (entity.layer === "ground" && entity.ty > RIVER.south - 0.6 && entity.ty < RIVER.north + 0.6) entity.pushX = 0;
-      let px = entity.pushX;
-      let pz = entity.pushZ;
+      // Accumulate on top of the current spread, bounded, and keep ground
+      // units on a bridge deck between its rails.
+      let px = entity.offsetX * (1 - CROWD_RETURN) + entity.pushX;
+      let pz = entity.offsetZ / DEPTH_STRETCH * (1 - CROWD_RETURN) + entity.pushZ;
       const length = Math.hypot(px, pz);
       if (length > CROWD_MAX_OFFSET) {
         px *= CROWD_MAX_OFFSET / length;
         pz *= CROWD_MAX_OFFSET / length;
       }
+      const deck = entity.layer === "ground" ? bridgeDeckAt(entity.tx, entity.ty) : null;
+      if (deck !== null) {
+        px = Math.max(deck[0] + BRIDGE_DECK_MARGIN - entity.tx, Math.min(deck[1] - BRIDGE_DECK_MARGIN - entity.tx, px));
+      }
       entity.offsetX += (px - entity.offsetX) * ease;
       entity.offsetZ += (pz * DEPTH_STRETCH - entity.offsetZ) * ease;
     }
+  };
+
+  const placeBadge = (index, entity, y, opacity) => {
+    const colors = teamColor[entity.side];
+    const size = Math.min(BADGE_WIDTH, 0.27 + entity.info.radius * 0.12);
+    tmpPosition.set(entity.holder.position.x, y, entity.holder.position.z);
+    tmpScale.set(size, size, 1);
+    tmpMatrix.compose(tmpPosition, billboard, tmpScale);
+    badgeEdge.setAt(index, tmpMatrix, frameColor, 0.92 * opacity);
+    badgeFill.setAt(index, tmpMatrix, colors.bar, opacity);
+    badgeCore.setAt(index, tmpMatrix, colors.light, 0.95 * opacity);
   };
 
   const animate = (now, dtSeconds) => {
@@ -437,6 +520,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     const stale = now - lastSyncAt > STALE_SYNC_MS;
     let busy = pulses.length > 0;
     let bars = 0;
+    let badges = 0;
     for (const entity of entities.values()) {
       if (entity.dying) continue;
       const alpha = Math.min(1, Math.max(0, (now - entity.segmentStart) / entity.segmentMs));
@@ -488,27 +572,45 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         entities.delete(entity.key);
         continue;
       }
-      if (entity.dying || bars >= MAX_BARS) continue;
+      if (entity.dying) {
+        // The side marker lingers while the unit topples, then fades away.
+        const fading = 1 - (now - (entity.diedAt ?? now)) / DEATH_BADGE_MS;
+        if (fading > 0 && !entity.structure && badges < MAX_BADGES) {
+          const drop = entity.info.height * 0.45 * (1 - fading);
+          placeBadge(badges, entity, holder.position.y + entity.info.height + BADGE_RISE - drop, fading);
+          badges += 1;
+        }
+        continue;
+      }
 
       // Health: shown once damaged (structures always), team coloured.
       const fraction = Math.max(0, Math.min(1, entity.hp / Math.max(1, entity.maxHp)));
       entity.chip = Math.max(fraction, entity.chip - CHIP_DECAY_PER_SECOND * dtSeconds * (reducedMotion ? 4 : 1));
-      if (fraction >= 1 && !entity.structure) continue;
       if (entity.hidden && entity.kind === "buried-coil" && fraction >= 1) continue;
-      const width = Math.max(0.72, Math.min(1.3, entity.info.radius * 1.5 + 0.25));
+      const showBar = (fraction < 1 || entity.structure) && bars < MAX_BARS;
+      const width = Math.max(0.56, Math.min(1.3, entity.info.radius * 1.4 + 0.12));
+      const barHeight = width < 0.8 ? BAR_HEIGHT * 0.8 : BAR_HEIGHT;
       const top = entity.info.height + 0.28;
+      const colors = teamColor[entity.side];
+      if (!showBar) {
+        // Full health: a team badge over the head marks the side instead.
+        if (badges >= MAX_BADGES) continue;
+        placeBadge(badges, entity, holder.position.y + entity.info.height + BADGE_RISE, 1);
+        badges += 1;
+        continue;
+      }
       tmpPosition.set(holder.position.x, holder.position.y + top, holder.position.z);
-      tmpScale.set(width + 0.08, BAR_HEIGHT + 0.08, 1);
+      tmpScale.set(width + 0.08, barHeight + 0.08, 1);
       tmpMatrix.compose(tmpPosition, billboard, tmpScale);
       barFrame.setMatrixAt(bars, tmpMatrix);
-      barFrame.setColorAt(bars, frameColor);
+      barFrame.setColorAt(bars, colors.frame);
       const left = holder.position.x - width / 2;
       tmpPosition.set(left, holder.position.y + top, holder.position.z);
-      tmpScale.set(Math.max(0.0001, width * entity.chip), BAR_HEIGHT, 1);
+      tmpScale.set(Math.max(0.0001, width * entity.chip), barHeight, 1);
       tmpMatrix.compose(tmpPosition, billboard, tmpScale);
       barChip.setMatrixAt(bars, tmpMatrix);
       barChip.setColorAt(bars, chipColor);
-      tmpScale.set(Math.max(0.0001, width * fraction), BAR_HEIGHT, 1);
+      tmpScale.set(Math.max(0.0001, width * fraction), barHeight, 1);
       tmpMatrix.compose(tmpPosition, billboard, tmpScale);
       barFill.setMatrixAt(bars, tmpMatrix);
       const flash = Math.max(0, 1 - (now / 1000 - entity.lastHitAt) / 0.12);
@@ -521,6 +623,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     }
+    for (const instances of badgeLayers) instances.commit(badges);
 
     // Deploy markers: a team ring that blooms out at the drop point, then a
     // tight ring that holds while the unit is still deploying.
@@ -596,6 +699,28 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     };
   };
 
+  // Screen-plane coordinates under the tilted orthographic camera: u runs
+  // east, v runs up the screen (both in tiles).
+  const cosE = Math.cos(elevation);
+  const sinE = Math.sin(elevation);
+  const PLATE_OVERLAP = 0.12;
+  /** Whether any live unit's body lies under a camera-facing plate centred at a world point. */
+  const coversPlate = (x, y, z, halfWidth, halfHeight) => {
+    const v = y * cosE - z * sinE;
+    for (const entity of entities.values()) {
+      if (entity.dying || entity.structure) continue;
+      if (entity.hidden && entity.kind === "buried-coil") continue;
+      const position = entity.holder.position;
+      const reach = entity.info.radius * 0.85;
+      if (Math.abs(position.x - x) > halfWidth + reach - PLATE_OVERLAP) continue;
+      const base = position.y * cosE - position.z * sinE - entity.info.radius * sinE * 0.5;
+      const top = base + entity.info.height * cosE;
+      if (top < v - halfHeight + PLATE_OVERLAP || base > v + halfHeight - PLATE_OVERLAP) continue;
+      return true;
+    }
+    return false;
+  };
+
   const notifyAttack = (id, now) => {
     for (const entity of entities.values()) {
       if (entity.id === id && !entity.dying) strikeNow(entity, now);
@@ -608,6 +733,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     animate,
     anchor,
     nearest,
+    coversPlate,
     notifyAttack,
     prewarm,
     acquireForWarm: acquire,

@@ -20,6 +20,9 @@ import { PALETTE, TEAM } from "./palette.js";
 
 const EIGHTH = Math.PI / 8;
 const QUARTER = Math.PI / 4;
+// A health plate with a unit underneath it fades to this opacity.
+const PLATE_COVERED_OPACITY = 0.45;
+const PLATE_FADE_RATE = 14;
 
 // Damage bands by remaining health fraction.
 export function towerCondition(tower) {
@@ -208,6 +211,12 @@ function crackGeometry(front, height, random, count) {
   return mergeParts(parts);
 }
 
+// A destroyed tower leaves a low ruin that troops walk and fly across, so
+// nothing in it stands taller than a small unit's knee: a scorched footing, a
+// ring of broken wall stubs, scattered stones and the roof lying in flat
+// team-coloured shards (the side still reads from above).
+export const RUBBLE_MAX_HEIGHT = 0.36;
+
 function rubbleGeometry(role, side, random) {
   const team = TEAM[side];
   const radius = role === "central" ? 1.8 : 1.15;
@@ -219,30 +228,34 @@ function rubbleGeometry(role, side, random) {
   const stubs = role === "central" ? 12 : 9;
   for (let index = 0; index < stubs; index += 1) {
     const angle = (index / stubs) * Math.PI * 2;
-    const height = 0.25 + random() * 0.75;
+    const height = 0.12 + random() * (RUBBLE_MAX_HEIGHT - 0.2);
     parts.push(part(new BoxGeometry(0.5, height, 0.42), random() > 0.3 ? PALETTE.stoneDark : PALETTE.stone, {
-      position: [Math.sin(angle) * radius, height / 2 + 0.05, Math.cos(angle) * radius],
-      rotation: [(random() - 0.5) * 0.3, angle, (random() - 0.5) * 0.4],
+      position: [Math.sin(angle) * radius, height / 2 + 0.03, Math.cos(angle) * radius],
+      rotation: [(random() - 0.5) * 0.12, angle, (random() - 0.5) * 0.16],
     }));
   }
   for (let index = 0; index < (role === "central" ? 14 : 9); index += 1) {
     const angle = random() * Math.PI * 2;
     const distance = random() * radius * 1.3;
-    parts.push(part(new DodecahedronGeometry(0.16 + random() * 0.22, 0), random() > 0.5 ? PALETTE.rubble : PALETTE.stoneDark, {
-      position: [Math.sin(angle) * distance, 0.12, Math.cos(angle) * distance],
+    const size = 0.1 + random() * 0.12;
+    parts.push(part(new DodecahedronGeometry(size, 0), random() > 0.5 ? PALETTE.rubble : PALETTE.stoneDark, {
+      position: [Math.sin(angle) * distance, size * 0.5, Math.cos(angle) * distance],
       rotation: [random(), random(), random()],
+      scale: [1, 0.7, 1],
     }));
   }
-  // Fallen roof, still in team colours so the side stays readable.
-  const roofSize = role === "central" ? 1.5 : 1.0;
-  parts.push(part(new ConeGeometry(roofSize, roofSize * 0.95, role === "central" ? 4 : 8), team.deep, {
-    position: [radius * 0.55, roofSize * 0.55, radius * 0.25], rotation: [0.3, 0.6, 1.9],
-  }));
+  // Fallen roof: flat team-coloured shards, a door panel and a beam.
+  const shard = role === "central" ? 0.95 : 0.7;
+  for (const [x, z, turn, tone] of [[0.42, 0.22, 0.6, team.deep], [-0.3, -0.28, 2.1, team.main], [0.05, 0.55, 4, team.deep]]) {
+    parts.push(part(new ConeGeometry(shard, 0.16, 3), tone, {
+      position: [radius * x, 0.12, radius * z], rotation: [(random() - 0.5) * 0.18, turn, (random() - 0.5) * 0.18],
+    }));
+  }
   parts.push(part(new BoxGeometry(0.5, 0.8, 0.05), team.main, {
-    position: [-radius * 0.5, 0.12, radius * 0.75], rotation: [-Math.PI / 2 + 0.15, 0.4, 0],
+    position: [-radius * 0.5, 0.1, radius * 0.75], rotation: [-Math.PI / 2 + 0.08, 0.4, 0],
   }));
   parts.push(part(new CylinderGeometry(0.06, 0.06, 1.3, 5), PALETTE.timber, {
-    position: [-radius * 0.2, 0.18, radius * 0.6], rotation: [0.2, 0, Math.PI / 2 - 0.3],
+    position: [-radius * 0.2, 0.1, radius * 0.6], rotation: [0, 0.35, Math.PI / 2],
   }));
   return mergeParts(parts);
 }
@@ -450,6 +463,7 @@ export function createTowerSet({ document, toWorld, isReducedMotion }) {
       condition: null, context, crenels, cracksHeavy, cracksLight, embers, flames, flashUntil: 0, health: null,
       height: parts.spec.height, intact, label, material, model, rubble, side: tower.side, smoke, texture, top,
       labelKey: "", root, roofHoleHeavy, roofHoleLight, topAt: parts.spec.topAt,
+      labelHalf: { width: label.scale.x / 2, height: label.scale.y / 2 },
     };
   };
 
@@ -520,11 +534,32 @@ export function createTowerSet({ document, toWorld, isReducedMotion }) {
 
   const flashColor = new Color(1, 0.55, 0.3);
   const black = new Color(0, 0, 0);
-  /** Advance wall-clock-only presentation; returns true while still animating. */
-  const animate = (now) => {
+  let lastAnimateAt = null;
+  /**
+   * Advance wall-clock-only presentation; returns true while still animating.
+   * `isPlateCovered(x, y, z, halfWidth, halfHeight)` reports whether a unit
+   * stands under a health plate centred at that world point; a covered plate
+   * fades back so the unit behind it stays visible.
+   */
+  const animate = (now, isPlateCovered = null) => {
     animating = false;
     const reducedMotion = isReducedMotion();
+    const dt = lastAnimateAt === null ? 0 : Math.min(0.1, Math.max(0, (now - lastAnimateAt) / 1000));
+    lastAnimateAt = now;
+    const fade = reducedMotion ? 1 : 1 - Math.exp(-PLATE_FADE_RATE * dt);
     for (const entry of towers.values()) {
+      if (entry.label.visible) {
+        const { root, label, labelHalf } = entry;
+        const covered = isPlateCovered?.(root.position.x + label.position.x, label.position.y,
+          root.position.z + label.position.z, labelHalf.width, labelHalf.height) === true;
+        const target = covered ? PLATE_COVERED_OPACITY : 1;
+        const material = label.material;
+        if (Math.abs(material.opacity - target) > 0.005) {
+          material.opacity += (target - material.opacity) * fade;
+          if (Math.abs(material.opacity - target) <= 0.005) material.opacity = target;
+          animating = true;
+        }
+      }
       const flash = Math.max(0, (entry.flashUntil - now) / 140);
       if (flash > 0) {
         animating = true;

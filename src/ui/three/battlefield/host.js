@@ -14,9 +14,44 @@ export const BATTLEFIELD_RENDERERS = Object.freeze(["dom", "three"]);
 // A warm-up that has not finished by then releases the match clock anyway.
 const READY_TIMEOUT_MS = 6000;
 
+// While the 3D board warms up, the shell shows a neutral board-coloured panel
+// instead of the flat DOM arena it is about to replace, so a cold first
+// battle never flashes the old board. If WebGL is unavailable the panel goes
+// and the DOM arena shows as before.
+const LOADING_STYLE = `.battlefield-loading{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse 78% 62% at 50% 46%,#2b4a31 0 52%,#1d3524 84%,#122218 100%);display:grid;place-items:center}
+.battlefield-loading__mark{display:grid;justify-items:center;gap:18px;color:#d9e6c8;font:800 24px/1.2 ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:0;animation:battlefield-loading-in .3s ease-out .15s forwards}
+.battlefield-loading__ring{width:54px;height:54px;border-radius:50%;border:6px solid #d9e6c833;border-top-color:#e9a83a;animation:battlefield-loading-spin .9s linear infinite}
+@keyframes battlefield-loading-spin{to{transform:rotate(1turn)}}
+@keyframes battlefield-loading-in{to{opacity:.85}}
+@media (prefers-reduced-motion:reduce){.battlefield-loading__ring{animation:none}.battlefield-loading__mark{animation:none;opacity:.85}}
+.battle-shell[data-renderer="loading"]{background:#1d3524}
+.battle-shell[data-renderer="loading"] .arena{border-color:transparent!important;background:none!important;box-shadow:none!important}
+.battle-shell[data-renderer="loading"] .arena::before,.battle-shell[data-renderer="loading"] .arena::after{display:none!important}
+.battle-shell[data-renderer="loading"] .arena>.arena-half,.battle-shell[data-renderer="loading"] .arena>.lane,.battle-shell[data-renderer="loading"] .arena>.river,.battle-shell[data-renderer="loading"] .arena>.bridge,.battle-shell[data-renderer="loading"] .arena>.tower-pad,.battle-shell[data-renderer="loading"] .combat-marker{visibility:hidden!important}`;
+
+function createLoadingPanel(document) {
+  if (typeof document.createElement !== "function") return null;
+  const panel = document.createElement("div");
+  panel.className = "battlefield-loading";
+  panel.dataset.ui = "battlefield-loading";
+  panel.setAttribute("aria-hidden", "true");
+  const style = document.createElement("style");
+  style.textContent = LOADING_STYLE;
+  const mark = document.createElement("div");
+  mark.className = "battlefield-loading__mark";
+  const ring = document.createElement("span");
+  ring.className = "battlefield-loading__ring";
+  const label = document.createElement("span");
+  label.textContent = "Preparing the battlefield";
+  mark.append(ring, label);
+  panel.append(style, mark);
+  return panel;
+}
+
 export function createBattlefieldHost({ document, window }) {
   let view = null;
   let shell = null;
+  let loadingPanel = null;
   let latest = null;
   let latestHints = null;
   let state = "loading";
@@ -30,8 +65,24 @@ export function createBattlefieldHost({ document, window }) {
   };
   const timeout = window.setTimeout?.(markReady, READY_TIMEOUT_MS);
 
+  const hideLoading = () => {
+    try { loadingPanel?.remove(); } catch {}
+    loadingPanel = null;
+  };
+  const showLoading = () => {
+    hideLoading();
+    if (shell === null || typeof shell.insertBefore !== "function") return;
+    try {
+      loadingPanel = createLoadingPanel(document);
+      if (loadingPanel !== null) shell.insertBefore(loadingPanel, shell.firstChild);
+    } catch {
+      loadingPanel = null;
+    }
+  };
   const markShell = (renderer) => {
     if (shell !== null) shell.dataset.renderer = renderer;
+    if (renderer === "loading") showLoading();
+    else hideLoading();
   };
   const fallBack = () => {
     if (state === "disposed") return;
@@ -101,6 +152,7 @@ export function createBattlefieldHost({ document, window }) {
       if (state === "disposed") return;
       state = "disposed";
       if (timeout !== undefined) window.clearTimeout?.(timeout);
+      hideLoading();
       markReady();
       const current = view;
       view = null;

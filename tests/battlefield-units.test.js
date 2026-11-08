@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-import { createUnitLayer, groundHeightAt, PLACEMENT_SCALE, resolveModelKind } from "../src/ui/three/battlefield/units-layer.js";
+import {
+  bridgeDeckAt, createUnitLayer, groundHeightAt, PLACEMENT_SCALE, resolveModelKind,
+} from "../src/ui/three/battlefield/units-layer.js";
+import { createTowerSet, RUBBLE_MAX_HEIGHT } from "../src/ui/three/battlefield/towers.js";
+import { TEAM } from "../src/ui/three/battlefield/palette.js";
 import { createEffectLayer } from "../src/ui/three/battlefield/effects-layer.js";
 import { createBattlefieldHost } from "../src/ui/three/battlefield/host.js";
 import { UNIT_MODEL_KINDS } from "../src/ui/three/units/index.js";
@@ -149,7 +153,7 @@ test("battlefield units: overlapping swarm members are spread apart in presentat
   }
   const [cx, cz] = toWorld(9, 22);
   for (const position of positions) {
-    assert.ok(Math.hypot(position.x - cx, (position.z - cz) / DEPTH) <= 0.45 + 1e-6, "offset stays bounded");
+    assert.ok(Math.hypot(position.x - cx, (position.z - cz) / DEPTH) <= 0.62 + 1e-6, "offset stays bounded");
   }
   units.dispose();
 });
@@ -163,6 +167,155 @@ test("battlefield units: the buried coil's hidden state and bridge decks are hon
   assert.equal(groundHeightAt(9, 16), 0);
   assert.equal(groundHeightAt(3.5, 10), 0);
   units.dispose();
+});
+
+function meshNamed(units, name) {
+  return units.group.children.find((node) => node.name === name) ?? null;
+}
+
+function instanceColor(mesh, index) {
+  const colors = mesh.instanceColor.array;
+  return [colors[index * 3], colors[index * 3 + 1], colors[index * 3 + 2]];
+}
+
+test("battlefield units: every living unit shows its side on top: a team badge at full health, a team bar once hurt", () => {
+  const units = layer();
+  units.sync(view(1, [
+    entity(1, "briar-darter", "south", 3500, 10000),
+    entity(2, "briar-darter", "north", 3500, 22000),
+    entity(3, "briar-darter", "north", 9000, 22000, { hp: 200 }),
+  ]), null, 0);
+  run(units, 0, 400);
+  const fill = meshNamed(units, "team-badge-fill");
+  const edge = meshNamed(units, "team-badge-edge");
+  const bars = meshNamed(units, "health-fill");
+  const frames = meshNamed(units, "health-frame");
+  assert.equal(fill.count, 2, "both full-health units carry a badge");
+  assert.equal(bars.count, 1, "the hurt unit carries a bar instead");
+  for (const mesh of [fill, edge, bars]) {
+    assert.equal(mesh.material.depthTest, false, `${mesh.name} draws over every model`);
+  }
+  assert.ok(fill.renderOrder > bars.renderOrder && edge.renderOrder > frames.renderOrder);
+  const sides = [instanceColor(fill, 0), instanceColor(fill, 1)];
+  const close = (a, b) => a.every((value, index) => Math.abs(value - b[index]) < 0.02);
+  // Instance colours are stored linear.
+  const linear = (hex) => {
+    const value = Number.parseInt(hex.slice(1), 16);
+    return [(value >> 16) & 255, (value >> 8) & 255, value & 255].map((channel) => channel / 255)
+      .map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  };
+  assert.ok(sides.some((color) => close(color, linear(TEAM.south.bar))), "a south-coloured badge");
+  assert.ok(sides.some((color) => close(color, linear(TEAM.north.bar))), "a north-coloured badge");
+  // The hurt unit's bar frame (its empty track) stays in its team colour.
+  const [r, g, b] = instanceColor(frames, 0);
+  assert.ok(r > g && r > b, "north bar frame is warm");
+  // Badges sit above the head and follow the unit.
+  const matrix = fill.instanceMatrix.array;
+  const holders = [holderOf(units, "n:1"), holderOf(units, "n:2")];
+  for (let index = 0; index < 2; index += 1) {
+    const x = matrix[index * 16 + 12];
+    const y = matrix[index * 16 + 13];
+    assert.ok(holders.some((holder) => Math.abs(holder.position.x - x) < 1e-6), "badge centred over its unit");
+    assert.ok(y > 0.7, "badge floats over the head");
+  }
+  units.dispose();
+});
+
+test("battlefield units: a column on a bridge fans out across the deck but never off it", () => {
+  const units = layer();
+  const column = [1, 2, 3, 4, 5].map((id) => entity(id, "thornscout", "south", 3500, 15600 + id * 120));
+  units.sync(view(1, column), null, 0);
+  run(units, 0, 1500);
+  const xs = column.map((member) => holderOf(units, member.key).position.x + 9);
+  const [west, east] = bridgeDeckAt(3.5, 16);
+  for (const x of xs) assert.ok(x > west + 0.2 && x < east - 0.2, `stays on the deck (${x.toFixed(2)})`);
+  assert.ok(Math.max(...xs) - Math.min(...xs) > 0.6, "the column steps aside into staggered files");
+  assert.equal(bridgeDeckAt(9, 16), null);
+  assert.equal(bridgeDeckAt(3.5, 10), null);
+  units.dispose();
+});
+
+test("battlefield units: a tower plate knows when a unit stands under it", () => {
+  const units = layer();
+  units.sync(view(1, [entity(1, "coilblade", "south", 3500, 24000)]), null, 0);
+  run(units, 0, 100);
+  // North west lane tower plate: centred 1.95 world units south of the tower, just off the ground.
+  const [x, z] = toWorld(3.5, 25.5);
+  assert.equal(units.coversPlate(x, 0.2, z + 1.95, 1.25, 0.39), true);
+  const [fx, fz] = toWorld(14.5, 25.5);
+  assert.equal(units.coversPlate(fx, 0.2, fz + 1.95, 1.25, 0.39), false);
+  units.dispose();
+});
+
+function fakeCanvasDocument() {
+  const context = new Proxy({}, { get: (target, key) => key in target ? target[key]
+    : () => ({ addColorStop() {} }) });
+  return { createElement: () => ({ width: 0, height: 0, getContext: () => context }) };
+}
+
+function visibleMaxY(root) {
+  let max = -Infinity;
+  root.updateMatrixWorld(true);
+  root.traverseVisible((node) => {
+    if (!node.isMesh) return;
+    node.geometry.computeBoundingBox();
+    const box = node.geometry.boundingBox.clone().applyMatrix4(node.matrixWorld);
+    max = Math.max(max, box.max.y);
+  });
+  return max;
+}
+
+test("battlefield towers: rubble stays low enough to walk across and covered plates fade back", () => {
+  const towers = createTowerSet({ document: fakeCanvasDocument(), toWorld, isReducedMotion: () => false });
+  const tower = (destroyed) => ({ id: "north:lane:west", key: "t:nw", role: "lane", side: "north", x: 3500, y: 25500,
+    healthDenominator: 3052, healthNumerator: destroyed ? 0 : 3052, destroyed });
+  towers.update([tower(false)], 0);
+  assert.ok(visibleMaxY(towers.group) > 3, "a standing tower is tall");
+  const label = towers.group.children[0].children.find((node) => node.isSprite);
+  for (let now = 0; now <= 600; now += 16) towers.animate(now, () => true);
+  assert.ok(label.material.opacity < 0.5, "a plate with a unit under it fades back");
+  for (let now = 616; now <= 1200; now += 16) towers.animate(now, () => false);
+  assert.equal(label.material.opacity, 1, "and returns once the unit has gone");
+  towers.update([tower(true)], 1300);
+  assert.ok(visibleMaxY(towers.group) <= RUBBLE_MAX_HEIGHT + 0.08, "rubble is a low ruin");
+  towers.dispose();
+});
+
+test("battlefield host: a neutral loading panel replaces the flat arena until the renderer settles", async () => {
+  const element = () => {
+    const node = {
+      dataset: {}, children: [], parent: null, className: "", textContent: "",
+      setAttribute() {}, append(...nodes) { for (const child of nodes) { child.parent = node; node.children.push(child); } },
+      remove() {
+        if (node.parent === null) return;
+        node.parent.children.splice(node.parent.children.indexOf(node), 1);
+        node.parent = null;
+      },
+    };
+    return node;
+  };
+  const document = {
+    createElement(name) {
+      if (name === "canvas") return { getContext: () => null, addEventListener() {} };
+      return element();
+    },
+  };
+  const shell = element();
+  Object.defineProperty(shell, "firstChild", { get: () => shell.children[0] ?? null });
+  shell.insertBefore = (node) => { node.parent = shell; shell.children.unshift(node); };
+  const timers = [];
+  const window = { setTimeout(fn) { timers.push(fn); return timers.length; }, clearTimeout() {} };
+  const host = createBattlefieldHost({ document, window });
+  host.attach(shell);
+  assert.equal(shell.dataset.renderer, "loading");
+  const panel = shell.children.find((node) => node.dataset.ui === "battlefield-loading");
+  assert.ok(panel, "loading panel mounted in the shell");
+  const style = panel.children.find((node) => node.textContent.includes('[data-renderer="loading"]'));
+  assert.ok(style.textContent.includes(".arena>.tower-pad"), "the flat arena art is hidden while loading");
+  assert.equal(await host.ready, "dom");
+  assert.equal(shell.dataset.renderer, "dom");
+  assert.equal(shell.children.includes(panel), false, "the DOM fallback shows the flat arena again");
+  host.dispose();
 });
 
 test("battlefield effects: feed launches projectiles once, places team-tinted spell areas, never replays history", () => {

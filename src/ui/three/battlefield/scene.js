@@ -259,8 +259,8 @@ export function createBattlefieldView({ document, window, onFailure }) {
     const began = window.performance.now();
     const dt = lastFrameAt === null ? 0 : Math.min(0.1, Math.max(0, (now - lastFrameAt) / 1000));
     lastFrameAt = now;
-    const towerMotion = towers.animate(now);
     const unitMotion = units.animate(now, dt);
+    const towerMotion = towers.animate(now, units.coversPlate);
     const effectMotion = effects.animate(now, dt);
     const ambient = !reducedMotion;
     if (!dirty && !ambient && !towerMotion && !unitMotion && !effectMotion) return;
