@@ -928,8 +928,9 @@ test("public app-frame states repeat across fresh scaled iframe contexts", {
       page.on("console", (message) => {
         if (message.type() === "error") consoleErrors.push(message.text());
       });
+      // Fresh-context pixel repeatability is a property of the legacy DOM arena.
       const response = await page.goto(
-        `http://${address.host}:${address.port}/public/index.html`,
+        `http://${address.host}:${address.port}/public/index.html?renderer=dom`,
         { waitUntil: "load" },
       );
       assert.equal(response.status(), 200);

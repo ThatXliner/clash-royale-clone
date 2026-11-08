@@ -531,7 +531,10 @@ function stage(layer) {
   return layer.ownerDocument.createElement("div");
 }
 
-export function mountGameUiProjection(value, readyPainterFactory = null) {
+export function mountGameUiProjection(value, readyPainterFactory = null, frameObserver = null) {
+  if (frameObserver !== null && typeof frameObserver !== "function") {
+    throw new TypeError("game UI frame observer must be a function");
+  }
   const layers = ownRecord(value, ["combat", "effects", "feedback", "hud"],
     "game UI projection layers");
   for (const name of ["combat", "effects", "feedback", "hud"]) {
@@ -715,6 +718,11 @@ export function mountGameUiProjection(value, readyPainterFactory = null) {
     source = frame.source;
     lastChildren = Object.fromEntries(Object.keys(layers)
       .map((name) => [name, children(layers[name])]));
+    // Read-only presentation consumers (the 3D battlefield) see each frame
+    // only after it committed. They cannot affect this projection or the session.
+    if (frameObserver !== null) {
+      try { frameObserver(frame); } catch {}
+    }
     return frame;
   };
   return Object.freeze({

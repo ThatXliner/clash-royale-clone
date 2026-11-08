@@ -16,7 +16,7 @@ import {
 import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { homedir, tmpdir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { build as viteBuild } from "vite";
+import { minify as minifyModule, build as viteBuild } from "vite";
 import { assertReleaseFilesIsolated } from "./release-isolation-guard.js";
 import { qualifyBrowserArtifact } from "./release-browser-qualification.js";
 
@@ -30,6 +30,17 @@ const PROTECTED_SEGMENTS = new Set([
   ".agents", ".codex", ".git", "artifacts", "reference", "tests",
 ]);
 const PROTECTED_CONTENT_SEGMENTS = new Set([...PROTECTED_SEGMENTS, "dist"]);
+// The single admitted runtime package: the pinned `three` ES build, reached only
+// through the renderer's import seam. Every other node_modules path stays rejected.
+const VENDORED_PACKAGE = "three";
+const VENDORED_RELEASE_SOURCES = new Set([
+  "node_modules/three/build/three.module.js",
+  "node_modules/three/build/three.core.js",
+]);
+const VENDORED_RELEASE_IMPORTERS = new Set([
+  "src/ui/three/three-module.js",
+  "node_modules/three/build/three.module.js",
+]);
 
 function invariant(condition, message) {
   if (!condition) throw new Error(message);
@@ -48,7 +59,7 @@ function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
-function assertPortablePath(path, label, { source = false } = {}) {
+function assertPortablePath(path, label, { source = false, vendored = false } = {}) {
   invariant(typeof path === "string" && path.length > 0 && !path.startsWith("/") &&
     !path.includes("\\") && !path.includes("\0"), `invalid ${label}: ${String(path)}`);
   const parts = path.split("/");
@@ -58,8 +69,10 @@ function assertPortablePath(path, label, { source = false } = {}) {
   invariant(!parts.some((part) => protectedSegments.has(part.toLowerCase())),
     `protected ${label}: ${path}`);
   invariant(extname(path).toLowerCase() !== ".map", `source maps are not allowed in ${label}: ${path}`);
-  if (source) invariant(!parts.some((part) => part.toLowerCase() === "node_modules"),
-    `node_modules source is not allowed in release graph: ${path}`);
+  if (source && !(vendored && VENDORED_RELEASE_SOURCES.has(path))) {
+    invariant(!parts.some((part) => part.toLowerCase() === "node_modules"),
+      `node_modules source is not allowed in release graph: ${path}`);
+  }
 }
 
 async function nearestExistingRealpath(path) {
@@ -309,7 +322,7 @@ function releasePolicyPlugin() {
   };
 }
 
-function releaseDependencyPolicyPlugin(root) {
+function releaseDependencyPolicyPlugin(root, vendoredSources = new Set()) {
   const generatedPreloadHelperImporters = new Set();
   return {
     enforce: "pre",
@@ -384,7 +397,10 @@ function releaseDependencyPolicyPlugin(root) {
       invariant(isWithin(root, resolvedRealPath) && resolvedRealPath !== root,
         `release source import escapes workspace: ${source}`);
       const resolvedSource = portablePath(relative(root, resolvedRealPath));
-      assertPortablePath(resolvedSource, "resolved source import", { source: true });
+      const importerSource = portablePath(relative(root, await realpath(absoluteImporter)));
+      const vendored = VENDORED_RELEASE_IMPORTERS.has(importerSource);
+      assertPortablePath(resolvedSource, "resolved source import", { source: true, vendored });
+      if (vendored && VENDORED_RELEASE_SOURCES.has(resolvedSource)) vendoredSources.add(resolvedSource);
       return null;
     },
   };
@@ -515,7 +531,7 @@ function normalizedGraph(rawGraph, config) {
   const graph = {};
   const keys = Object.keys(rawGraph).sort();
   for (const key of keys) {
-    assertPortablePath(key, "bundler graph source", { source: true });
+    assertPortablePath(key, "bundler graph source", { source: true, vendored: true });
     const entry = rawGraph[key];
     invariant(entry !== null && typeof entry === "object" && typeof entry.file === "string",
       `invalid Vite graph node: ${key}`);
@@ -566,6 +582,12 @@ async function buildViteGraph(root, config, outDir) {
   ]));
   const viteManifestPath = join(outDir, BUNDLER_MANIFEST_PATH);
   const version = await toolchainVersion();
+  const vendoredSources = new Set();
+  const isVendoredModule = (id) => {
+    const path = id.split(/[?#]/u, 1)[0];
+    return isAbsolute(path) && isWithin(root, path) &&
+      VENDORED_RELEASE_SOURCES.has(portablePath(relative(root, path)));
+  };
   await viteBuild({
     configFile: false,
     root,
@@ -574,7 +596,17 @@ async function buildViteGraph(root, config, outDir) {
     envDir: join(outDir, ".empty-env"),
     mode: "production",
     logLevel: "warn",
-    plugins: [releaseDependencyPolicyPlugin(root), releasePolicyPlugin()],
+    plugins: [releaseDependencyPolicyPlugin(root, vendoredSources), releasePolicyPlugin(), {
+      // Authored game code stays readable in the artifact; only the admitted
+      // third-party renderer chunk is minified to respect the byte budget.
+      name: "moss-and-ember-release-vendor-minify",
+      async renderChunk(code, chunk) {
+        if (chunk.moduleIds.length === 0 || !chunk.moduleIds.every(isVendoredModule)) return null;
+        const result = await minifyModule(chunk.fileName, code, { module: true, compress: true, mangle: true });
+        invariant(!result.errors?.length, `vendored chunk minification failed: ${chunk.fileName}`);
+        return { code: result.code, map: null };
+      },
+    }],
     build: {
       outDir,
       emptyOutDir: true,
@@ -603,6 +635,13 @@ async function buildViteGraph(root, config, outDir) {
           assetFileNames: releaseAssetFileNames(root, config.staticAssetRoots),
           codeSplitting: {
             groups: [{
+              name: "renderer-vendor",
+              test: isVendoredModule,
+              priority: 1,
+              minSize: 1,
+              minModuleSize: 1,
+              minShareCount: 1,
+            }, {
               name: "game-runtime",
               test: (id) => id.startsWith(`${root}${sep}`),
               minSize: 1,
@@ -625,7 +664,7 @@ async function buildViteGraph(root, config, outDir) {
   const graph = normalizedGraph(rawGraph, config);
   await rm(join(outDir, ".vite"), { recursive: true, force: true });
   await rm(join(outDir, ".empty-env"), { recursive: true, force: true });
-  return { graph, version };
+  return { graph, vendoredSources, version };
 }
 
 async function collectOutputFiles(root, config, graph, outDir) {
@@ -691,7 +730,20 @@ async function collectOutputFiles(root, config, graph, outDir) {
   return { files, totalBytes };
 }
 
-function canonicalManifest(config, graph, files, totalBytes, version) {
+async function vendoredRuntimeDependencies(root, vendoredSources) {
+  if (vendoredSources.size === 0) return [];
+  const rootPackage = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+  const pinned = rootPackage.dependencies?.[VENDORED_PACKAGE];
+  invariant(typeof pinned === "string" && /^\d+\.\d+\.\d+$/u.test(pinned),
+    `${VENDORED_PACKAGE} must be pinned as an exact runtime dependency`);
+  const installed = JSON.parse(await readFile(
+    join(root, "node_modules", VENDORED_PACKAGE, "package.json"), "utf8"));
+  invariant(installed.name === VENDORED_PACKAGE && installed.version === pinned,
+    `installed ${VENDORED_PACKAGE} does not match the pinned ${pinned}`);
+  return [`${VENDORED_PACKAGE}@${pinned}`];
+}
+
+function canonicalManifest(config, graph, files, totalBytes, version, runtimeDependencies) {
   const listedFiles = [...files.entries()].sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
     .map(([path, bytes]) => ({ path, size: bytes.length, sha256: sha256(bytes) }));
   const standaloneModules = config.moduleEntrypoints.map((source) => {
@@ -710,7 +762,7 @@ function canonicalManifest(config, graph, files, totalBytes, version) {
       bundler: "vite",
       version,
       qualificationProfile: config.qualificationProfile,
-      runtimeDependencies: [],
+      runtimeDependencies,
       inputs: [...config.entries].sort(),
       staticAssetRoots: [...config.staticAssetRoots].sort(),
       graph,
@@ -780,10 +832,12 @@ export async function buildRelease({
   const scratch = await mkdtemp(join(dirname(safeOutput), `.${safeOutput.split(sep).at(-1)}.vite-`));
   const viteOutput = join(scratch, "bundle");
   try {
-    const { graph, version } = await buildViteGraph(rootReal, config, viteOutput);
+    const { graph, vendoredSources, version } = await buildViteGraph(rootReal, config, viteOutput);
     const { files, totalBytes } = await collectOutputFiles(rootReal, config, graph, viteOutput);
     await assertReleaseFilesIsolated({ files, referenceRoot: rootReal });
-    const manifest = canonicalManifest(config, graph, files, totalBytes, version);
+    const runtimeDependencies = await vendoredRuntimeDependencies(rootReal, vendoredSources);
+    const manifest = canonicalManifest(config, graph, files, totalBytes, version,
+      runtimeDependencies);
     await assertReleaseFilesIsolated({
       files: new Map([[MANIFEST_NAME, Buffer.from(manifest)]]),
       referenceRoot: rootReal,

@@ -727,7 +727,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "the editable mixed collection preserves the 8-card default and admits each supported choice");
     assert.equal(EXPECTED_COLLECTION_IDS.length, EXPECTED_COLLECTION_COUNT,
       "the expected mixed editable collection count matches its admitted card identities");
-    await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
+    // Pixel-exact restore checkpoints below compare the legacy DOM arena.
+    await page.goto(`${origin}/public/index.html?renderer=dom`, { waitUntil: "networkidle" });
     assert.equal(await page.title(), "Moss & Ember — Card battler");
     assert.equal(await page.locator(".app-nav [data-nav-to]").count(), 4);
     assert.equal(await page.locator("#how-to-title").innerText(), "How to play");

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>R3D-001 tower states and alignment harness</title>
+    <link rel="stylesheet" href="../../../src/ui/arena-shell.css">
+    <style>
+      .alignment-overlay { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+      .alignment-overlay svg { width: 100%; height: 100%; overflow: visible; }
+    </style>
+  </head>
+  <body>
+    <div data-root></div>
+    <script type="module">
+      import { mountArenaShell } from "../../../src/ui/arena-shell.js";
+      import { createBattlefieldView } from "../../../src/ui/three/battlefield/scene.js";
+      import { getArenaGeometry } from "../../../src/sim/arena-geometry.js";
+
+      const parameters = new URLSearchParams(location.search);
+      const shell = mountArenaShell(document.querySelector("[data-root]"));
+      const presets = {
+        intact: [1, 1, 1, 1, 1, 1],
+        mixed: [1, 0.5, 0.2, 0, 0.25, 0.55],
+        ruined: [0, 0, 0.1, 0, 0, 0.6],
+      };
+      const health = presets[parameters.get("state") ?? "mixed"];
+      const geometry = getArenaGeometry();
+      const towers = geometry.towers.map((tower, index) => {
+        const max = tower.role === "central" ? 4824 : 3052;
+        const current = Math.round(max * health[index]);
+        return {
+          destroyed: current === 0, healthDenominator: max, healthNumerator: current, id: index + 1,
+          key: `tower:${tower.side}:${tower.role}:${tower.lane ?? "c"}`, role: tower.role, side: tower.side,
+          x: tower.center.x, y: tower.center.y,
+        };
+      });
+      const view = createBattlefieldView({ document, window, onFailure: (reason) => {
+        document.body.dataset.failure = String(reason);
+      } });
+      view.mount(shell);
+      shell.dataset.renderer = "three";
+      view.update({ towers });
+      if (parameters.get("grid") === "1") {
+        // DOM-space overlay drawn with the same percentages the DOM combat layer
+        // uses; it must line up with the 3D ground underneath.
+        const arena = shell.querySelector('[data-ui="arena"]');
+        const overlay = document.createElement("div");
+        overlay.className = "alignment-overlay";
+        const lines = [];
+        const X = (x) => (x / 18000) * 100;
+        const Y = (y) => (1 - y / 32000) * 100;
+        for (let tx = 0; tx <= 18; tx += 1) {
+          lines.push(`<line x1="${X(tx * 1000)}%" x2="${X(tx * 1000)}%" y1="0%" y2="100%" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`);
+        }
+        for (let ty = 0; ty <= 32; ty += 1) {
+          lines.push(`<line y1="${Y(ty * 1000)}%" y2="${Y(ty * 1000)}%" x1="0%" x2="100%" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`);
+        }
+        const rect = ({ minX, maxX, minY, maxY }, color) =>
+          `<rect x="${X(minX)}%" y="${Y(maxY)}%" width="${X(maxX) - X(minX)}%" height="${Y(minY) - Y(maxY)}%" fill="none" stroke="${color}" stroke-width="3"/>`;
+        lines.push(rect(geometry.river, "#ff00ff"));
+        for (const bridge of geometry.bridges) lines.push(rect(bridge.bounds, "#ffff00"));
+        for (const tower of geometry.towers) lines.push(rect(tower.bounds, "#00ffff"));
+        overlay.innerHTML = `<svg>${lines.join("")}</svg>`;
+        arena.appendChild(overlay);
+      }
+      document.body.dataset.ready = "true";
+    </script>
+  </body>
+</html>

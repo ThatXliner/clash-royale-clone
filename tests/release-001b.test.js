@@ -125,7 +125,8 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   assert.equal(manifest.build.bundler, "vite");
   assert.equal(manifest.build.version, rootPackage.devDependencies.vite);
   assert.equal(manifest.build.qualificationProfile, "game");
-  assert.deepEqual(manifest.build.runtimeDependencies, []);
+  // The pinned three.js build is the only admitted runtime package.
+  assert.deepEqual(manifest.build.runtimeDependencies, [`three@${rootPackage.dependencies.three}`]);
   assert.deepEqual(manifest.build.inputs, config.entries.toSorted());
   assert.deepEqual(manifest.build.staticAssetRoots, config.staticAssetRoots);
 
@@ -264,7 +265,7 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   await writeEvidence({
     schemaVersion: 1,
     candidate: "RELEASE-001B",
-    buildToolchain: { vite: manifest.build.version, runtimeDependencies: [] },
+    buildToolchain: { vite: manifest.build.version, runtimeDependencies: manifest.build.runtimeDependencies },
     production: {
       twoCleanBuildsByteIdentical: true,
       fileCount: manifest.fileCount,
