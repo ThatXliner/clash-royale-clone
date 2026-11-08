@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-11-08 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">366</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">290</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">657</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">367</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">292</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">660</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
@@ -56,34 +56,42 @@
       <tr>
         <td><code>R3D-003</code></td>
         <td>Units, projectiles and effects in the 3D battlefield</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
         <td>1</td>
-        <td>Round 1 builder running (with R3D-006 warm-up and R656 enemy-death fix)</td>
+        <td>R659 PASS; follow-up R3D-007 (always-visible team marker, bridge stacking)</td>
       </tr>
       <tr>
         <td><code>R3D-004</code></td>
         <td>Battle HUD restyle</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-pending">PENDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Waiting on R3D-003</td>
+        <td>Ready to build</td>
       </tr>
       <tr>
         <td><code>R3D-005</code></td>
         <td>Card portraits from the 3D models</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-pending">PENDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Waiting on R3D-002</td>
+        <td>Ready to build</td>
       </tr>
       <tr>
         <td><code>R3D-006</code></td>
         <td>First-battle warm-up</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
         <td>1</td>
-        <td>Folded into the R3D-003 round 1 builder (same host files)</td>
+        <td>R660 PASS; follow-up R3D-007 (no flash of the flat arena during warm-up)</td>
+      </tr>
+      <tr>
+        <td><code>R3D-007</code></td>
+        <td>Battlefield readability polish</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>R659: stacked north briar-darters read as beige discs with no team colour; bridge crowds stack; one unit drawn inside rubble. R660: ~0.2 s flash of the flat arena during warm-up</td>
       </tr>
       <tr>
         <td><code>BAL-001</code></td>
@@ -96,10 +104,10 @@
       <tr>
         <td><code>PERF-001</code></td>
         <td>Simulation speed</td>
-        <td class="state-fail">FAIL</td>
-        <td>0/2</td>
-        <td>2</td>
-        <td>R657: stormkite mixed match 14 s (chain candidates include every dead entity each tick); mid-tick faults can desync GameSession snapshot and half-update BattleTowerCombat</td>
+        <td class="state-building">BUILDING</td>
+        <td>0/3</td>
+        <td>4</td>
+        <td>Round 4 builder running: building boundary and RL observe() copies, RL-driven stormkite bench</td>
       </tr>
       <tr>
         <td><code>MATCH-005</code></td>
@@ -128,10 +136,10 @@
       <tr>
         <td><code>TEST-001</code></td>
         <td>Test hygiene</td>
-        <td class="state-pending">PENDING</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
-        <td>0</td>
-        <td>A full run rewrites ~230 tracked artifact files and adds ~80 untracked ones; visual-interface-art &quot;four fresh Chrome captures are exact&quot; fails on origin/main 11a111fa as well (card-selected.png differs across captures)</td>
+        <td>1</td>
+        <td>Round 1 builder running</td>
       </tr>
       <tr>
         <td><code>PUB-001</code></td>
@@ -3627,6 +3635,9 @@
       <li><strong>R655 FAIL</strong> · PERF-001<br>Remove the remaining per-tick work that grows with accumulated dead units and destroyed or expired structures on the spell/structure path, and add a mixed-deck full-match case to bench-sim so a match with spells and buildings also finishes in about 1 s and well under the 10 s floor.</li>
       <li><strong>R656 PASS</strong> · R3D-002<br>Make north-side (enemy) deaths read as a fall from the 47° camera by toppling them sideways or toward the camera (or flattening them) instead of backwards, where a figure lying flat looks almost the same as one standing.</li>
       <li><strong>R657 FAIL</strong> · PERF-001<br>Build the per-tick chain candidate and projectile source lists from live entities only and add a stormkite mixed deck to bench-sim so that match also finishes in about 1 s, and make GameSession.stepMany adopt only after everything that can throw, with direct BattleTowerCombat.step()/stepBoundary() rolling back or poisoning state on failure.</li>
+      <li><strong>R658 FAIL</strong> · PERF-001<br>Make the per-tick building boundary (reduceOwnedBoundary, buildDefensiveIntents, validateOwnedStructure, ~16% of m1 CPU) and the per-call state/observe() copies (~11% of m1, ~37% of RL wall time) do work only for live entities, and add an RL-driven stormkite + buildings full match to bench-sim.</li>
+      <li><strong>R659 PASS</strong> · R3D-003<br>Give every unit a team marker that is always visible from the 47° camera (e.g. a team-coloured hat band or a ring drawn over the hat) and spread stacked units on bridges, so briar-darters and clumped units still show their side at phone size.</li>
+      <li><strong>R660 PASS</strong> · R3D-006<br>Hide the legacy 2D arena (or show a neutral loading state) until the 3D board is ready, so the cold first battle doesn't flash the old flat board for about 200 ms before the 3D swap.</li>
   </ol>
 </body>
 </html>

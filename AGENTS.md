@@ -50,4 +50,6 @@ Work proceeds in build-and-critique rounds delegated to subagents. See
 .agents/skills/gauntlet-round/. PLAN.md holds the piece list and states;
 progress.html is the live view for the human. Do not do the building and
 the judging in the same context. Keep rounds small and shipped: commit
-each accepted round to main.
+each accepted round to main. Commit only a handful of key screenshots
+and the verdict per round (a few MB at most); leave bulk captures and
+logs out of git.

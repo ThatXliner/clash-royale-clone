@@ -12945,3 +12945,24 @@ PIECE: PERF-001
 VERDICT: FAIL
 EVIDENCE: Builder da2d8307. The critic's own scripts matched baseline 1ab2aab3 on 41/41 outputs from round 1's scenarios and on 29/29 outputs for each of two new full mixed AI-vs-AI matches (m1 seed 7 with stormkite into overtime, 18,000 ticks; m2 seed 1234, 16,128 ticks); restore, fork and mutation probes clean. Speed: default 98.8 s → 1.71 s; m2 227 s → 3.36 s; m1 332 s → 13.97 s, over the 10 s floor. m1 regression: 4.39 ms per dead entity per 600 ticks, traced to live-battle-chain planDue validating every unit and structure ever spawned via #chainCandidatesFromState (kernel:7502), plus #projectileSourcesFromState sorting all units each tick. Fault injection: GameSession.stepMany rewinds its transcript after #adopt when the final freeze(clone(events)) throws, leaving the snapshot one step behind the live state; direct BattleTowerCombat.step()/stepBoundary() can be left half-updated and continue silently (baseline failed visibly). 46 selectors: 559 pass, 0 fail, 2 env-gated skips; test diff additions only.
 BIGGEST GAP: Build the per-tick chain candidate and projectile source lists from live entities only and add a stormkite mixed deck to bench-sim so that match also finishes in about 1 s, and make GameSession.stepMany adopt only after everything that can throw, with direct BattleTowerCombat.step()/stepBoundary() rolling back or poisoning state on failure.
+
+## Round 658 — 2026-11-08
+
+PIECE: PERF-001
+VERDICT: FAIL
+EVIDENCE: Builder 33481052. Determinism vs baseline 1ab2aab3: 41/41 (round-1 scenarios), 29/29 (m1), 29/29 (m2) and 28/28 on the critic's new RL scenario (seed 90210, stormkite/brackenwheel/duskwing-trio/gloamwing-cluster/reedsting/squall-orb/ember-basin/buried-coil, played to tick 15,485); all restore/fork booleans true; mutation probes clean. Fault safety: 0 half-updated, 0 swallowed, 0 diverging continuations across GameSession, RL, LiveBattle and direct BattleTowerCombat, including late-match faults with 97 units. Speed per 10,800 ticks: default 1.07 s, mixed 1.21 s, m2 1.55–1.66 s, m1 2.2–2.3 s (4,683–4,948 t/s), r3 via RL 3.6 s (~3,000 t/s; RL observe/state copies ~1.8 ms per step, ~37% of wall time). The 10 s floor holds everywhere (worst full match 5.3 s). Overtime ticks still cost 35–74% more across the dead range at equal live board. Tests: 473 pass, 0 code failures (1 environmental Playwright-missing), 2 env-gated skips; test diff additions only.
+BIGGEST GAP: Make the per-tick building boundary (reduceOwnedBoundary, buildDefensiveIntents, validateOwnedStructure, ~16% of m1 CPU) and the per-call state/observe() copies (~11% of m1, ~37% of RL wall time) do work only for live entities, and add an RL-driven stormkite + buildings full match to bench-sim.
+
+## Round 659 — 2026-11-08
+
+PIECE: R3D-003
+VERDICT: PASS
+EVIDENCE: Builder 1a4a99cd (recommitted 2dab6da8 with lighter evidence); critic verdict in artifacts/r3d-003-round-1/critic/verdict.md. Release 74 files, 7,745,042 B. Matches with a spell/building/flyer/swarm deck and three other decks ran to a result at 390×844 and 1280×800 with 0 console errors, warnings or page errors on Metal. North deaths tip sideways and lie flat by 1.2 s; projectiles fly source to target; squall-orb lands as a team-tinted ring and the tower drops 3052 → 2845. Blind A/B against main's 2D markers on the 3D arena: candidate preferred at both ticks. Renderer-only CPU 1.5/1.7 ms median/p95 at 60 units, 2.1/2.4 ms at 100; live 3D within ~15% of DOM on the same scripted match (sim-bound). Lifecycle: one WebGL context, none lost, heap flat. Tests 87 ok, 0 fail, 1 env skip.
+BIGGEST GAP: Give every unit a team marker that is always visible from the 47° camera (e.g. a team-coloured hat band or a ring drawn over the hat) and spread stacked units on bridges, so briar-darters and clumped units still show their side at phone size.
+
+## Round 660 — 2026-11-08
+
+PIECE: R3D-006
+VERDICT: PASS
+EVIDENCE: Built with R3D-003 (1a4a99cd). Metal, fresh contexts, HTTP cache disabled, shader sources salted per run. Long tasks after the battle becomes interactive: none in 3 no-deploy runs; 129–153 ms with 6–8 early deploys (DOM shows 130 ms in the same scenario). Tick at +6 s after interactive: 3D 362/363/363 vs DOM 367/366/367. Warm-up adds ~265 ms before the board is interactive; the player sees ~0.4 s dark panel, ~0.2 s of the old flat arena with the clock frozen, then the 3D board. Console errors on Metal: none.
+BIGGEST GAP: Hide the legacy 2D arena (or show a neutral loading state) until the 3D board is ready, so the cold first battle doesn't flash the old flat board for about 200 ms before the 3D swap.
