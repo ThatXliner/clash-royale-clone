@@ -63,9 +63,10 @@ export const GROUND_DESIGNS = {
       b.mesh(G.torus(0.2, 4, 10), "brass", body, [0, 0.09, 0], [0.33, 0.33, 0.33], [Math.PI / 2, 0, 0]);
       // Bell helm with visor slit and plume.
       b.mesh(G.lathe("coil-helm", [[0, 0], [0.2, 0], [0.19, 0.06], [0.15, 0.18], [0.09, 0.26], [0, 0.28]], 8),
-        "brass", p.head, [0, 0, 0]);
+        "team", p.head, [0, 0, 0]);
+      b.mesh(G.torus(0.2, 3, 10), "brass", p.head, [0, 0.02, 0], [0.2, 0.2, 0.2], [Math.PI / 2, 0, 0]);
       b.mesh(G.box(), "ink", p.head, [0, 0.1, 0.17], [0.22, 0.045, 0.06], [0, 0, 0], { castShadow: false });
-      b.mesh(G.cone(5), "team", p.head, [0, 0.36, -0.03], [0.06, 0.2, 0.09], [-0.35, 0, 0]);
+      b.mesh(G.cone(5), "brass", p.head, [0, 0.36, -0.03], [0.06, 0.2, 0.09], [-0.35, 0, 0]);
       // Wind-up key on the back.
       const key = b.group("key", body, [0, 0.5, -0.12], [0.5, 0, 0]);
       b.mesh(G.cyl(5), "brass", key, [0, 0, -0.05], [0.025, 0.1, 0.025], [Math.PI / 2, 0, 0]);
@@ -147,7 +148,9 @@ export const GROUND_DESIGNS = {
       const p = biped(b, { hip: 0.24, torsoH: 0.28, torsoW: 0.26, headR: 0.14, armLen: 0.22, armRadius: 0.035 });
       b.mesh(G.cone(6), "team", body, [0, 0.38, -0.02], [0.2, 0.36, 0.17]);
       // Reed hood: tall bent cone with bound tip.
-      b.mesh(G.cone(6), "reed", p.head, [0, 0.36, -0.04], [0.19, 0.5, 0.19], [-0.25, 0, 0]);
+      b.mesh(G.cone(6), "leafLight", p.head, [0, 0.38, -0.04], [0.2, 0.56, 0.2], [-0.25, 0, 0]);
+      b.mesh(G.cone(5), "leaf", p.head, [0.08, 0.26, -0.08], [0.06, 0.34, 0.06], [-0.3, 0, -0.35]);
+      b.mesh(G.cone(5), "leaf", p.head, [-0.08, 0.26, -0.08], [0.06, 0.3, 0.06], [-0.3, 0, 0.35]);
       b.mesh(G.torus(0.3, 4, 8), "team", p.head, [0, 0.2, -0.01], [0.17, 0.17, 0.17], [Math.PI / 2, 0, 0]);
       eyes(b, p.head, 0.12, 0.125, 0.05, 0.02, "eye");
       // Tall bow in the left hand.
@@ -161,39 +164,44 @@ export const GROUND_DESIGNS = {
 
   // Thorn-maze runner: bramble head of thorns, short spear.
   "briar-runner": {
-    layer: "ground", height: 0.66, radius: 0.22, motion: "biped", attack: "thrust", walkRate: 2.4, scale: 1.2,
+    // Silhouette: round green bramble head + a tall upright white thorn spear.
+    layer: "ground", height: 0.8, radius: 0.22, motion: "biped", attack: "thrust", walkRate: 2.4, scale: 1.2, blob: true,
     build(b) {
+      const body = b.joints.body;
       const p = biped(b, {
-        hip: 0.16, torsoH: 0.19, torsoW: 0.27, headR: 0.15, headRole: "leaf",
+        hip: 0.16, torsoH: 0.19, torsoW: 0.27, headR: 0.16, headRole: "leaf",
         legRadius: 0.04, armLen: 0.14, armRadius: 0.035, handRole: "leaf",
       });
-      for (let i = 0; i < 5; i += 1) {
-        const a = (i / 5) * TAU + 0.3;
-        b.mesh(G.cone(4), "leafLight", p.head, [Math.sin(a) * 0.1, 0.24, Math.cos(a) * 0.1],
-          [0.04, 0.16, 0.04], [Math.cos(a) * 0.7, 0, -Math.sin(a) * 0.7]);
+      b.mesh(G.cone(6), "team", body, [0, 0.27, -0.06], [0.17, 0.22, 0.1], [-0.25, 0, 0]);
+      for (let i = 0; i < 6; i += 1) {
+        const a = (i / 6) * TAU + 0.3;
+        b.mesh(G.cone(4), "leafLight", p.head, [Math.sin(a) * 0.12, 0.2, Math.cos(a) * 0.12],
+          [0.045, 0.18, 0.045], [Math.cos(a) * 1.0, 0, -Math.sin(a) * 1.0]);
       }
-      b.mesh(G.box(), "bone", p.head, [0, 0.13, 0.13], [0.2, 0.06, 0.04], [0, 0, 0], { castShadow: false });
-      eyes(b, p.head, 0.135, 0.155, 0.045, 0.02);
-      const spear = b.group("weapon", p.handR, [0, 0, 0], [Math.PI / 2 - 0.2, 0, 0]);
-      b.mesh(G.cyl(4), "wood", spear, [0, 0.08, 0], [0.016, 0.42, 0.016]);
-      b.mesh(G.cone(4), "bone", spear, [0, 0.33, 0], [0.04, 0.1, 0.04]);
+      b.mesh(G.cone(4), "leafLight", p.head, [0, 0.33, 0], [0.05, 0.16, 0.05]);
+      eyes(b, p.head, 0.14, 0.16, 0.05, 0.022, "eye");
+      const spear = b.group("weapon", p.handR, [0, 0, 0.02], [0.2, 0, 0]);
+      b.mesh(G.cyl(4), "wood", spear, [0, 0.28, 0], [0.018, 0.72, 0.018]);
+      b.mesh(G.cone(4), "bone", spear, [0, 0.7, 0], [0.055, 0.2, 0.055]);
+      b.mesh(G.cyl(4), "brass", spear, [0, 0.58, 0], [0.03, 0.04, 0.03]);
+      b.joints.armR.rotation.x = -0.5;
     },
   },
 
-  // Thorn-maze darter: lily-pad hat, long blowpipe at the lips.
+  // Thorn-maze darter: wide straw sun-hat, long blowpipe at the lips.
   "briar-darter": {
-    layer: "ground", height: 0.66, radius: 0.22, motion: "biped", attack: "shoot", walkRate: 2.4, scale: 1.2,
+    // Silhouette: big flat yellow straw disc + long horizontal blowpipe.
+    layer: "ground", height: 0.7, radius: 0.22, motion: "biped", attack: "shoot", walkRate: 2.4, scale: 1.2, blob: true,
     build(b) {
       const p = biped(b, {
-        hip: 0.16, torsoH: 0.19, torsoW: 0.27, headR: 0.14, headRole: "skin",
+        hip: 0.16, torsoH: 0.19, torsoW: 0.27, headR: 0.13, headRole: "skin",
         legRadius: 0.04, armLen: 0.14, armRadius: 0.035,
       });
-      b.mesh(G.cyl(9), "leaf", p.head, [0, 0.25, -0.03], [0.18, 0.025, 0.18], [-0.3, 0, 0]);
-      b.mesh(G.cone(4), "leafLight", p.head, [0, 0.31, -0.04], [0.05, 0.09, 0.05], [-0.3, 0, 0]);
-      b.mesh(G.box(), "leafLight", p.head, [0, 0.13, 0.12], [0.2, 0.05, 0.04], [0, 0, 0], { castShadow: false });
-      const pipe = b.group("weapon", p.head, [0, 0.07, 0.12]);
-      b.mesh(G.cyl(5), "wood", pipe, [0, 0, 0.2], [0.022, 0.46, 0.022], [Math.PI / 2, 0, 0]);
-      b.mesh(G.cyl(5), "brass", pipe, [0, 0, 0.42], [0.03, 0.04, 0.03], [Math.PI / 2, 0, 0]);
+      b.mesh(G.cone(10), "reed", p.head, [0, 0.27, -0.01], [0.3, 0.12, 0.3], [-0.12, 0, 0]);
+      b.mesh(G.cyl(10), "team", p.head, [0, 0.235, -0.01], [0.17, 0.035, 0.17], [-0.12, 0, 0]);
+      const pipe = b.group("weapon", p.head, [0, 0.08, 0.12]);
+      b.mesh(G.cyl(5), "wood", pipe, [0, 0, 0.26], [0.024, 0.6, 0.024], [Math.PI / 2, 0, 0]);
+      b.mesh(G.cyl(5), "brass", pipe, [0, 0, 0.55], [0.034, 0.05, 0.034], [Math.PI / 2, 0, 0]);
       b.joints.armL.rotation.set(-1.3, 0, -0.5);
       b.joints.armR.rotation.set(-1.3, 0, 0.5);
     },
@@ -201,7 +209,7 @@ export const GROUND_DESIGNS = {
 
   // Ember sprout: a team-coloured flame wearing a tilted nutshell cap.
   cinderling: {
-    layer: "ground", height: 0.55, radius: 0.18, motion: "hopper", attack: "thrust", walkRate: 2.6, scale: 1.25,
+    layer: "ground", height: 0.55, radius: 0.18, motion: "hopper", attack: "thrust", walkRate: 2.6, scale: 1.25, blob: true,
     build(b) {
       const body = b.joints.body;
       for (const [name, x] of [["legL", 0.055], ["legR", -0.055]]) {
@@ -293,25 +301,26 @@ export const GROUND_DESIGNS = {
 
   // Fern-path scout: big pale leaf mask with tall leaf ears, light blade.
   thornscout: {
-    layer: "ground", height: 0.78, radius: 0.22, motion: "biped", attack: "swing", walkRate: 2.3, scale: 1.15,
+    // Silhouette: oversized pale leaf mask with two tall leaf ears, twin blades.
+    layer: "ground", height: 0.85, radius: 0.22, motion: "biped", attack: "swing", walkRate: 2.3, scale: 1.15, blob: true,
     build(b) {
       const body = b.joints.body;
       const p = biped(b, {
         hip: 0.2, torsoH: 0.21, torsoW: 0.24, headR: 0.13, headRole: "team",
         legRadius: 0.035, armLen: 0.17, armRadius: 0.03,
       });
-      b.mesh(G.cone(5), "team", body, [0, 0.3, -0.06], [0.16, 0.26, 0.09], [-0.3, 0, 0]);
-      // Mask and ears.
-      b.mesh(G.shape("scout-mask", [[0, -0.15], [0.14, -0.05], [0.15, 0.08], [0.06, 0.15], [0, 0.12], [-0.06, 0.15], [-0.15, 0.08], [-0.14, -0.05]], 0.05),
-        "bone", p.head, [0, 0.13, 0.11]);
-      eyes(b, p.head, 0.15, 0.145, 0.05, 0.022);
-      for (const x of [0.08, -0.08]) {
-        b.mesh(G.shape("leaf", LEAF, 0.03), "leafLight", p.head, [x, 0.2, -0.01], [0.13, 0.22, 1], [0, 0, x > 0 ? -0.35 : 0.35]);
+      b.mesh(G.cone(5), "team", body, [0, 0.3, -0.06], [0.17, 0.27, 0.1], [-0.3, 0, 0]);
+      b.mesh(G.shape("scout-mask-2", [[0, -0.2], [0.18, -0.07], [0.2, 0.1], [0.08, 0.2], [0, 0.16], [-0.08, 0.2], [-0.2, 0.1], [-0.18, -0.07]], 0.05),
+        "bone", p.head, [0, 0.13, 0.11], [1, 1, 1], [-0.35, 0, 0]);
+      eyes(b, p.head, 0.16, 0.15, 0.06, 0.026);
+      for (const x of [0.09, -0.09]) {
+        b.mesh(G.shape("leaf", LEAF, 0.03), "bone", p.head, [x, 0.24, -0.01], [0.14, 0.26, 1], [0, 0, x > 0 ? -0.3 : 0.3]);
       }
-      const blade = b.group("weapon", p.handR, [0, 0, 0.01], [Math.PI / 2 - 0.5, 0, 0]);
-      b.mesh(G.shape("scout-blade", [[-0.02, 0], [0.02, 0], [0.05, 0.18], [0.0, 0.3], [-0.015, 0.16]], 0.015),
-        "steel", blade, [0, 0.02, 0]);
-      b.mesh(G.box(), "brass", blade, [0, 0.01, 0], [0.08, 0.02, 0.03]);
+      for (const hand of [p.handR, p.handL]) {
+        const blade = b.group(hand === p.handR ? "weapon" : "weaponL", hand, [0, 0, 0.01], [Math.PI / 2 - 0.5, 0, 0]);
+        b.mesh(G.shape("scout-blade", [[-0.02, 0], [0.02, 0], [0.05, 0.18], [0.0, 0.3], [-0.015, 0.16]], 0.015),
+          "steel", blade, [0, 0.02, 0]);
+      }
     },
   },
 
@@ -388,6 +397,12 @@ export const GROUND_DESIGNS = {
         b.mesh(G.cyl(4), "bone", antler, [0, 0.12, 0], [0.018, 0.26, 0.018]);
         b.mesh(G.cyl(4), "bone", antler, [side * 0.05, 0.16, 0], [0.014, 0.12, 0.014], [0, 0, -side * 0.9]);
         b.mesh(G.cyl(4), "bone", antler, [-side * 0.03, 0.22, 0], [0.012, 0.09, 0.012], [0, 0, side * 0.7]);
+      }
+      // Sun-thread halo: the warden's bright golden read at range.
+      b.mesh(G.torus(0.24, 3, 14), "sun", p.head, [0, 0.2, -0.1], [0.25, 0.25, 0.25]);
+      for (let i = 0; i < 8; i += 1) {
+        const a = (i / 8) * TAU;
+        b.mesh(G.cone(3), "sun", p.head, [Math.sin(a) * 0.33, 0.2 + Math.cos(a) * 0.33, -0.1], [0.045, 0.12, 0.025], [0, 0, -a]);
       }
       // Yew bow with brass thread.
       const bow = b.group("weapon", p.handL, [0, 0, 0.06], [0, 0, -0.5]);

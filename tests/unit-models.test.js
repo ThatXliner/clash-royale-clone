@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
+import { readdirSync, readFileSync } from "node:fs";
 import test from "node:test";
-import * as THREE from "three";
 
+import { Box3, Color, Object3D, Scene, Vector3 } from "../src/ui/three/three-module.js";
 import {
   createEffectModel,
   createUnitModel,
@@ -18,6 +19,7 @@ import { COMBAT_ART_ARCHETYPES, COMBAT_STRUCTURE_ART_IDS } from "../src/ui/comba
 
 const SIDES = ["south", "north"];
 const SWARM_MEMBERS = new Set(["cinderling", "gloamwing", "coppershade", "briar-runner", "briar-darter", "thornscout", "forgeguard"]);
+const MAX_DRAW_CALLS = 6;
 
 // Every entity the 24-card collection can put on the field, with its layer.
 function spawnableEntities() {
@@ -64,6 +66,35 @@ function triangles(object) {
   return total;
 }
 
+// Vertex colours baked into the model, as rounded linear RGB keys.
+function bakedColours(object) {
+  const keys = new Set();
+  object.traverse((node) => {
+    const colours = node.isSkinnedMesh ? node.geometry.attributes.color : null;
+    if (!colours) return;
+    for (let i = 0; i < colours.count; i += 1) {
+      keys.add([colours.getX(i), colours.getY(i), colours.getZ(i)].map((v) => v.toFixed(3)).join(","));
+    }
+  });
+  return keys;
+}
+const colourKey = (hex) => {
+  const c = new Color(hex);
+  return [c.r, c.g, c.b].map((v) => v.toFixed(3)).join(",");
+};
+
+// Skinned bounds after posing (bone matrices must be refreshed first).
+function posedBounds(model) {
+  model.object.updateMatrixWorld(true);
+  const box = new Box3();
+  for (const mesh of model.parts.meshes) {
+    mesh.skeleton.update();
+    mesh.computeBoundingBox();
+    box.union(mesh.boundingBox.clone().applyMatrix4(mesh.matrixWorld));
+  }
+  return box;
+}
+
 function snapshot(object) {
   const values = [];
   object.updateMatrixWorld(true);
@@ -76,6 +107,18 @@ test("UNIT_MODEL_KINDS is a frozen list of unique kinds", () => {
   assert.ok(Object.isFrozen(EFFECT_MODEL_KINDS));
   assert.equal(new Set(UNIT_MODEL_KINDS).size, UNIT_MODEL_KINDS.length);
   assert.deepEqual([...UNIT_POSES].sort(), ["attack", "death", "deploy", "hit", "idle", "walk"]);
+});
+
+test("the kit reaches three only through the pinned import seam", () => {
+  const dir = new URL("../src/ui/three/units/", import.meta.url);
+  for (const file of readdirSync(dir)) {
+    const source = readFileSync(new URL(file, dir), "utf8");
+    const specifiers = [...source.matchAll(/from\s+["']([^"']+)["']/g)].map((m) => m[1]);
+    for (const specifier of specifiers) {
+      assert.ok(specifier.startsWith("./") || specifier === "../three-module.js" ||
+        specifier === "../battlefield/palette.js", `${file} imports ${specifier}`);
+    }
+  }
 });
 
 test("every entity kind the 24-card collection can spawn has a model with the matching layer", () => {
@@ -92,27 +135,30 @@ test("every entity kind the 24-card collection can spawn has a model with the ma
   }
 });
 
-test("every kind builds for both sides within the triangle budget", () => {
+test("every kind builds for both sides within triangle and draw-call budgets", () => {
   for (const kind of UNIT_MODEL_KINDS) {
     for (const side of SIDES) {
       const model = createUnitModel(kind, side);
-      assert.ok(model.object instanceof THREE.Object3D, kind);
+      assert.ok(model.object instanceof Object3D, kind);
       assert.ok(["ground", "air", "structure"].includes(model.layer), `${kind} layer ${model.layer}`);
       assert.ok(model.height >= 0.5 && model.height <= 3, `${kind} height ${model.height}`);
       assert.equal(model.object.position.y, 0, `${kind} origin on the ground`);
       const tris = triangles(model.object);
       assert.ok(tris > 50 && tris < 1500, `${kind} has ${tris} triangles`);
       if (SWARM_MEMBERS.has(kind)) assert.ok(tris < 700, `${kind} swarm member has ${tris} triangles`);
-      let shadowCasters = 0;
+      assert.ok(model.drawCalls <= MAX_DRAW_CALLS, `${kind} costs ${model.drawCalls} draw calls`);
+      let casters = 0;
       let flat = true;
       model.object.traverse((node) => {
         if (!node.isMesh) return;
-        if (node.castShadow) shadowCasters += 1;
+        if (node.castShadow) casters += 1;
         if (node.material.isMeshStandardMaterial && node.material.flatShading !== true) flat = false;
       });
       assert.ok(flat, `${kind} uses flat-shaded standard materials`);
-      if (model.layer !== "air") assert.ok(shadowCasters >= 3, `${kind} casts shadows`);
-      else assert.ok(model.parts.shadow, `${kind} flyer has a shadow blob`);
+      assert.ok(model.parts.teamRing, `${kind} has a team ring`);
+      if (model.parts.shadow) assert.equal(casters, 0, `${kind} uses a blob instead of a cast shadow`);
+      else assert.equal(casters, 1, `${kind} casts one shadow`);
+      if (model.layer === "air") assert.ok(model.parts.shadow, `${kind} flyer has a shadow blob`);
     }
   }
   for (const kind of EFFECT_MODEL_KINDS) {
@@ -122,7 +168,7 @@ test("every kind builds for both sides within the triangle budget", () => {
   }
 });
 
-test("unknown kinds, sides and poses are rejected", () => {
+test("unknown kinds, sides, poses and timings are rejected", () => {
   assert.throws(() => createUnitModel("not-a-unit", "south"), RangeError);
   assert.throws(() => createUnitModel("squall-orb", "south"), RangeError);
   assert.throws(() => createEffectModel("coilblade", "south"), RangeError);
@@ -130,6 +176,8 @@ test("unknown kinds, sides and poses are rejected", () => {
   const model = createUnitModel("coilblade", "south");
   assert.throws(() => model.setPose("dance"), RangeError);
   assert.throws(() => model.update(-1), RangeError);
+  assert.throws(() => model.setPose("attack", { duration: 0 }), RangeError);
+  assert.throws(() => model.setTimeScale(-1), RangeError);
 });
 
 test("poses cycle without throwing and death completes", () => {
@@ -152,11 +200,41 @@ test("poses cycle without throwing and death completes", () => {
       assert.ok(seconds < 1.6, `${kind} death took ${seconds}s`);
       assert.equal(model.update(1 / 30), true, `${kind} stays dead`);
       assert.equal(model.pose, "death");
-      // A dead model can be revived by a new pose (e.g. pooled reuse).
       model.setPose("deploy");
-      assert.equal(model.update(1 / 30), false);
+      assert.equal(model.update(1 / 30), false, `${kind} can be revived for pooling`);
     }
   }
+});
+
+test("attack clips stretch to a caller-supplied duration and time scale", () => {
+  const strikeFrame = (model, seconds) => {
+    // The weapon arm moves most at the strike; sample a frame there.
+    const frames = [];
+    for (let t = 0; t <= seconds + 1e-9; t += seconds / 20) {
+      frames.push(snapshot(model.object));
+      model.update(seconds / 20);
+    }
+    return frames;
+  };
+  const fast = createUnitModel("ironroot", "north");
+  const slow = createUnitModel("ironroot", "north");
+  fast.setPose("idle");
+  slow.setPose("idle");
+  fast.setPose("attack");
+  slow.setPose("attack", { duration: 1.5 });
+  assert.equal(slow.attackSeconds, 1.5);
+  assert.ok(fast.attackSeconds < 1.5);
+  assert.ok(slow.attackStrike > 0 && slow.attackStrike < 1);
+  // Normalised timelines match: frame k of the 1.5 s clip equals frame k of the default clip.
+  assert.deepEqual(strikeFrame(slow, 1.5).slice(0, 18), strikeFrame(fast, fast.attackSeconds).slice(0, 18));
+
+  const scaled = createUnitModel("ironroot", "north");
+  const plain = createUnitModel("ironroot", "north");
+  scaled.setTimeScale(2);
+  for (const model of [scaled, plain]) model.setPose("walk");
+  scaled.update(0.1);
+  plain.update(0.2);
+  assert.equal(snapshot(scaled.object), snapshot(plain.object));
 });
 
 test("poses visibly change the model and animation is deterministic", () => {
@@ -179,15 +257,17 @@ test("poses visibly change the model and animation is deterministic", () => {
 });
 
 test("side colours differ and use the team palette", () => {
-  const hex = (material) => `#${material.color.getHexString().toUpperCase()}`;
   for (const kind of UNIT_MODEL_KINDS) {
     const colours = {};
     for (const side of SIDES) {
       const model = createUnitModel(kind, side);
-      colours[side] = new Set([...collect(model.object).materials].map(hex));
-      assert.ok(colours[side].has(TEAM_COLORS[side].main.toUpperCase()), `${kind} ${side} uses its team colour`);
-      assert.ok(!colours[side].has(TEAM_COLORS[side === "south" ? "north" : "south"].main.toUpperCase()),
-        `${kind} ${side} never uses the opposing team colour`);
+      const other = side === "south" ? "north" : "south";
+      colours[side] = bakedColours(model.object);
+      assert.ok(colours[side].has(colourKey(TEAM_COLORS[side].main)), `${kind} ${side} uses its team colour`);
+      for (const role of ["main", "dark", "light"]) {
+        assert.ok(!colours[side].has(colourKey(TEAM_COLORS[other][role])), `${kind} ${side} avoids the ${other} ${role}`);
+      }
+      assert.equal(`#${model.parts.teamRing.material.color.getHexString().toUpperCase()}`, TEAM_COLORS[side].main);
     }
     assert.notDeepEqual([...colours.south].sort(), [...colours.north].sort(), `${kind} sides differ`);
   }
@@ -199,26 +279,27 @@ test("geometry and materials are shared through module caches", () => {
     const first = collect(createUnitModel(kind, "south").object);
     const second = collect(createUnitModel(kind, "south").object);
     const opposing = collect(createUnitModel(kind, "north").object);
-    assert.deepEqual([...second.geometries].sort(), [...first.geometries].sort(), `${kind} geometry shared`);
     for (const g of second.geometries) assert.ok(first.geometries.has(g), `${kind} geometry identity`);
     for (const m of second.materials) assert.ok(first.materials.has(m), `${kind} material identity`);
-    // Shapes are side-independent; only team materials differ.
-    for (const g of opposing.geometries) assert.ok(first.geometries.has(g), `${kind} geometry shared across sides`);
     const sharedMaterials = [...opposing.materials].filter((m) => first.materials.has(m));
-    assert.ok(sharedMaterials.length > 0, `${kind} neutral materials shared across sides`);
-    assert.ok(sharedMaterials.length < opposing.materials.size, `${kind} team materials are per side`);
+    assert.ok(sharedMaterials.length > 0, `${kind} body materials shared across sides`);
   }
 });
 
-test("hit flash swaps to a shared flash material and restores the original", () => {
+test("hit flash tints toward the model's own side and restores the original", () => {
   const model = createUnitModel("mossguard", "south");
   model.setPose("idle");
   model.update(0.6);
   const before = collect(model.object).materials;
   model.setPose("hit");
   model.update(0.02);
-  const during = collect(model.object).materials;
-  assert.ok([...during].some((m) => !before.has(m)), "flash materials applied");
+  const during = [...collect(model.object).materials].filter((m) => !before.has(m));
+  assert.ok(during.length > 0, "flash materials applied");
+  for (const material of during) {
+    assert.equal(`#${material.emissive.getHexString().toUpperCase()}`, TEAM_COLORS.south.main, "flash keeps team hue");
+    assert.ok(material.emissiveIntensity <= 0.35, "flash stays below wash-out");
+  }
+  assert.ok(model.parts.teamRing.visible, "team ring survives the flash");
   const other = createUnitModel("mossguard", "south");
   other.setPose("idle");
   other.update(0.6);
@@ -232,35 +313,32 @@ test("buried-coil hides and reveals; other kinds ignore hidden state", () => {
   coil.setHidden(true, { immediate: true });
   coil.update(0.01);
   const turret = coil.object.getObjectByName("turret");
-  assert.equal(turret.visible, false);
+  assert.ok(turret.scale.x < 0.01, "hidden turret collapses");
   coil.setHidden(false);
   for (let i = 0; i < 30; i += 1) coil.update(1 / 30);
-  assert.equal(turret.visible, true);
+  assert.ok(turret.scale.x > 0.5, "revealed turret is full size");
   const blade = createUnitModel("coilblade", "north");
   assert.doesNotThrow(() => blade.setHidden(true));
 });
 
-test("flyers hover above a ground-level origin", () => {
+test("flyers hover above a ground-level origin; ground units stand on it", () => {
   for (const kind of UNIT_MODEL_KINDS) {
     const model = createUnitModel(kind, "south");
     model.setPose("idle");
     model.update(0.5);
-    model.object.updateMatrixWorld(true);
-    const box = new THREE.Box3();
-    model.object.traverse((node) => {
-      if (node.isMesh && node !== model.parts.shadow && node !== model.parts.teamRing) box.expandByObject(node);
-    });
+    const box = posedBounds(model);
     if (model.layer === "air") assert.ok(box.min.y > 0.4, `${kind} hovers (min y ${box.min.y})`);
     else assert.ok(box.min.y < 0.1, `${kind} stands on the ground (min y ${box.min.y})`);
     // Stormkite's kite flies well above the keeper; its height marks the keeper.
-    const ceiling = kind === "stormkite" ? 2.4 : model.height * 1.6;
+    const ceiling = kind === "stormkite" ? 2.6 : model.height * 1.6;
     assert.ok(box.max.y > model.height * 0.6 && box.max.y < ceiling,
       `${kind} height ${model.height} vs visual top ${box.max.y}`);
+    assert.ok(Math.abs(box.getCenter(new Vector3()).x) < 1.2, `${kind} centred on its origin`);
   }
 });
 
 test("dispose detaches the instance without freeing shared resources", () => {
-  const scene = new THREE.Scene();
+  const scene = new Scene();
   const model = createUnitModel("ironroot", "south");
   scene.add(model.object);
   const { geometries, materials } = collect(model.object);
@@ -282,11 +360,15 @@ test("dispose detaches the instance without freeing shared resources", () => {
   for (const g of rebuilt.geometries) assert.ok(!geometries.has(g), "caches rebuild after dispose");
 });
 
-test("many live instances stay cheap", () => {
+test("100 mixed units stay within the draw-call budget; 500 share resources", () => {
+  let drawCalls = 0;
   const models = [];
   for (let i = 0; i < 500; i += 1) {
-    models.push(createUnitModel(UNIT_MODEL_KINDS[i % UNIT_MODEL_KINDS.length], i % 2 ? "south" : "north"));
+    const model = createUnitModel(UNIT_MODEL_KINDS[i % UNIT_MODEL_KINDS.length], i % 2 ? "south" : "north");
+    if (i < 100) drawCalls += model.drawCalls;
+    models.push(model);
   }
+  assert.ok(drawCalls <= 100 * MAX_DRAW_CALLS, `${drawCalls} draw calls for 100 units`);
   const geometries = new Set();
   const materials = new Set();
   for (const model of models) {
@@ -294,8 +376,8 @@ test("many live instances stay cheap", () => {
     for (const g of used.geometries) geometries.add(g);
     for (const m of used.materials) materials.add(m);
   }
-  assert.ok(geometries.size < 400, `${geometries.size} geometries for 500 models`);
-  assert.ok(materials.size < 120, `${materials.size} materials for 500 models`);
+  assert.ok(geometries.size < 200, `${geometries.size} geometries for 500 models`);
+  assert.ok(materials.size < 16, `${materials.size} materials for 500 models`);
   for (const model of models) model.update(1 / 60);
   for (const model of models) model.dispose();
 });

@@ -132,7 +132,7 @@ export const STRUCTURE_DESIGNS = {
       b.mesh(G.ball(0), "ember", scoop, [0, -0.3, 0], 0.06, [0, 0, 0], { castShadow: false });
       // Flasks by the rim.
       for (const [x, z] of [[0.48, 0.42], [0.62, 0.22]]) {
-        b.mesh(G.ball(0), "glass", body, [x, 0.12, z], [0.1, 0.12, 0.1], [0, 0, 0], { castShadow: false });
+        b.mesh(G.ball(0), "teamLight", body, [x, 0.12, z], [0.1, 0.12, 0.1]);
         b.mesh(G.ball(0), "ember", body, [x, 0.1, z], 0.06, [0, 0, 0], { castShadow: false });
         b.mesh(G.cyl(5), "wood", body, [x, 0.25, z], [0.035, 0.07, 0.035]);
       }

@@ -118,12 +118,12 @@ export const AIR_DESIGNS = {
     shadowRadius: 0.26,
     build(b) {
       const body = b.joints.body;
-      b.mesh(G.ball(0), "violetDark", body, [0, 0.16, 0], [0.11, 0.12, 0.15]);
-      b.mesh(G.ball(0), "team", body, [0, 0.12, 0.05], [0.08, 0.08, 0.09]);
+      b.mesh(G.ball(0), "team", body, [0, 0.16, 0], [0.12, 0.13, 0.16]);
+      b.mesh(G.ball(0), "teamLight", body, [0, 0.12, 0.06], [0.08, 0.08, 0.09]);
       const head = b.group("head", body, [0, 0.25, 0.08]);
-      b.mesh(G.ball(0), "violetDark", head, [0, 0.03, 0], 0.09);
+      b.mesh(G.ball(0), "team", head, [0, 0.03, 0], 0.095);
       for (const x of [0.05, -0.05]) {
-        b.mesh(G.cone(4), "team", head, [x, 0.13, -0.02], [0.035, 0.13, 0.03], [0, 0, x > 0 ? -0.25 : 0.25]);
+        b.mesh(G.cone(4), "violetDark", head, [x, 0.13, -0.02], [0.035, 0.13, 0.03], [0, 0, x > 0 ? -0.25 : 0.25]);
       }
       eyes(b, head, 0.04, 0.075, 0.035, 0.022, "eye");
       const wing = [[0, 0.08], [0.16, 0.18], [0.36, 0.22], [0.34, 0.06], [0.27, -0.05], [0.21, 0.02], [0.14, -0.1], [0.07, -0.03], [0, -0.1]];

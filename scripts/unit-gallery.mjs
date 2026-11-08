@@ -52,6 +52,14 @@ if (shotsDir) {
     { name: "phone-idle-dpr1", query: "view=phone&pose=idle", viewport: { width: 390, height: 844 }, scale: 1 },
     { name: "phone-walk-labels-dpr2", query: "view=phone&pose=walk&labels=1", viewport: { width: 390, height: 844 }, scale: 2 },
     { name: "phone-attack-dpr3", query: "view=phone&pose=attack", viewport: { width: 390, height: 844 }, scale: 3 },
+    { name: "phone-hit-dpr3", query: "view=phone&pose=hit&t=0.05", viewport: { width: 390, height: 844 }, scale: 3 },
+    { name: "phone-hit-dpr1", query: "view=phone&pose=hit&t=0.05", viewport: { width: 390, height: 844 }, scale: 1 },
+    ...["idle", "hit"].map((pose) => ({
+      name: `phone-pairs-${pose}-dpr3`,
+      query: `view=phone&pose=${pose}${pose === "hit" ? "&t=0.05" : ""}&labels=1&kinds=` +
+        "briar-runner,briar-darter,thornscout,reedsting,sunthread-warden,cinderling,coilblade,gloamwing",
+      viewport: { width: 390, height: 844 }, scale: 3,
+    })),
   ];
   for (const shot of shots) {
     const page = await browser.newPage({ viewport: shot.viewport, deviceScaleFactor: shot.scale });

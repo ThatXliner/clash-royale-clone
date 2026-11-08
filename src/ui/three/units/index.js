@@ -1,13 +1,29 @@
 // Procedural low-poly model kit for every unit, structure and spell prop.
 //
-// createUnitModel(kind, side) returns a self-animating THREE.Object3D:
-// 1 world unit = 1 tile, origin at the ground contact point (flyers are
-// lifted inside the object, origin stays on the ground beneath them), facing
-// +Z. Geometry and materials are shared through module caches; a model owns
-// only its Object3D wrappers, so dispose() never frees shared resources.
-import * as THREE from "three";
+// createUnitModel(kind, side) returns a self-animating Object3D:
+// - 1 world unit = 1 tile; origin at the ground contact point (flyers are
+//   lifted inside the object, origin stays on the ground beneath them);
+//   faces +Z by default.
+// - Models are true-proportioned. The battlefield stretches ground depth by
+//   1/sin(47°) so tiles read square under its 47° orthographic camera, but it
+//   does NOT stretch its towers, and units must match the towers: place a
+//   model at boardToWorld(x, y) with a uniform scale. Footprints and team
+//   rings then foreshorten to sin(47°) on screen exactly like tower bases.
+//   Do not counter-scale model z (it would shear under facing rotation).
+// - Each model draws one skinned lit mesh (+ its shadow pass), an optional
+//   unlit glow mesh, and a team ring (+ a shadow blob for flyers and small
+//   units, which skip shadow casting): at most 6 draw calls.
+// - Baked geometry is cached per kind + side and materials are global; a
+//   model owns only its Object3D wrappers and Skeleton, which dispose() frees.
+//
+// Model API: { object, kind, side, height, layer, radius, parts, pose,
+//   setPose(pose, { duration }), update(dt) -> deathFinished, setTimeScale(s),
+//   attackSeconds, attackStrike, setHidden(hidden, { immediate }), dispose() }.
+// setPose("attack", { duration }) stretches the one-shot attack clip to the
+// sim's attack cadence; the blow lands at attackStrike * duration.
+import { MeshBasicMaterial, Group, Mesh } from "../three-module.js";
 import {
-  assertSide, createBuilder, disposeKitCaches, G, mergeStaticMeshes, overlayMaterial, TEAM_COLORS, triangleCount,
+  assertSide, bakeModel, createBuilder, disposeKitCaches, drawCallCount, G, overlayMaterial, TEAM_COLORS, triangleCount,
 } from "./kit.js";
 import { createRig, UNIT_POSES } from "./rig.js";
 import { GROUND_DESIGNS } from "./designs-ground.js";
@@ -21,11 +37,12 @@ export const EFFECT_MODEL_KINDS = Object.freeze(Object.keys(EFFECT_DESIGNS));
 export { UNIT_POSES, TEAM_COLORS };
 
 function teamRingMaterial(side) {
-  return overlayMaterial(`team-ring:${side}`, () => new THREE.MeshBasicMaterial({
+  return overlayMaterial(`team-ring:${side}`, () => new MeshBasicMaterial({
     color: TEAM_COLORS[side].main,
     transparent: true,
-    opacity: 0.9,
+    opacity: 0.95,
     depthWrite: false,
+    toneMapped: false,
     polygonOffset: true,
     polygonOffsetFactor: -2,
     polygonOffsetUnits: -2,
@@ -33,7 +50,7 @@ function teamRingMaterial(side) {
 }
 
 function shadowMaterial() {
-  return overlayMaterial("shadow-blob", () => new THREE.MeshBasicMaterial({
+  return overlayMaterial("shadow-blob", () => new MeshBasicMaterial({
     color: "#10181C",
     transparent: true,
     opacity: 0.32,
@@ -47,32 +64,34 @@ function shadowMaterial() {
 function build(kind, design, side, reducedMotion) {
   assertSide(side);
   if (typeof reducedMotion !== "boolean") throw new TypeError("reducedMotion must be a boolean");
-  const object = new THREE.Group();
+  const object = new Group();
   object.name = `unit:${kind}:${side}`;
   const scale = design.scale ?? 1;
-  const scaler = new THREE.Group();
+  const scaler = new Group();
   scaler.name = "scaler";
   scaler.scale.setScalar(scale);
-  const mover = new THREE.Group();
+  const mover = new Group();
   mover.name = "mover";
-  const lift = new THREE.Group();
+  const lift = new Group();
   lift.name = "lift";
   lift.position.y = design.hover ?? 0;
   object.add(scaler);
   scaler.add(mover);
   mover.add(lift);
 
+  const blob = design.motion === "flyer" || design.blob === true;
   const b = createBuilder(side);
   b.group("body", lift);
   design.build(b);
-  const meshes = mergeStaticMeshes(kind, lift, b.joints, b.meshes);
-  // Flyers rely on the shadow blob; a cast shadow lands far off to the side.
-  if (design.motion === "flyer") for (const mesh of meshes) mesh.castShadow = false;
+  const { meshes, skeleton } = bakeModel({
+    kind, side, host: mover, root: object, joints: b.joints, parts: b.parts, castShadow: !blob,
+  });
 
   let teamRing = null;
-  if (design.layer === "ground" || design.layer === "structure") {
-    const ringRadius = (design.layer === "structure" ? design.radius * 1.02 : design.radius) * scale;
-    teamRing = new THREE.Mesh(G.ring(design.layer === "structure" ? 0.86 : 0.7), teamRingMaterial(side));
+  if (design.layer !== "effect") {
+    const ringRadius = (blob ? design.shadowRadius ?? design.radius : design.radius) * scale *
+      (design.layer === "structure" ? 1.02 : 1);
+    teamRing = new Mesh(G.ring(design.layer === "structure" ? 0.86 : blob ? 0.74 : 0.7), teamRingMaterial(side));
     teamRing.name = "team-ring";
     teamRing.scale.set(ringRadius, 1, ringRadius);
     teamRing.userData.baseRadius = ringRadius;
@@ -81,19 +100,17 @@ function build(kind, design, side, reducedMotion) {
     object.add(teamRing);
   }
   let shadow = null;
-  if (design.motion === "flyer") {
-    shadow = new THREE.Mesh(G.disc(16), shadowMaterial());
+  if (blob) {
+    shadow = new Mesh(G.disc(16), shadowMaterial());
     shadow.name = "shadow-blob";
     shadow.position.y = 0.008;
-    shadow.userData.baseRadius = (design.shadowRadius ?? design.radius) * scale;
     shadow.renderOrder = 1;
     object.add(shadow);
   }
 
-  const frame = { mover, lift, shadow, teamRing };
   const rig = createRig({
-    design: { ...design, joints: b.joints, shadowRadius: (design.shadowRadius ?? design.radius) * scale },
-    frame,
+    design: { ...design, side, joints: b.joints, shadowRadius: (design.shadowRadius ?? design.radius) * scale },
+    frame: { mover, lift, shadow, teamRing },
     meshes,
     reducedMotion,
   });
@@ -109,16 +126,22 @@ function build(kind, design, side, reducedMotion) {
     height: design.height * scale,
     layer: design.layer,
     radius: design.radius * scale,
-    parts: Object.freeze({ teamRing, shadow, body: b.joints.body }),
+    parts: Object.freeze({ teamRing, shadow, body: b.joints.body, meshes: Object.freeze([...meshes]) }),
     get pose() { return rig.pose; },
     get triangles() { return triangleCount(object); },
-    setPose(pose) {
+    get drawCalls() { return drawCallCount(object); },
+    get attackSeconds() { return rig.attackSeconds; },
+    attackStrike: rig.attackStrike,
+    setPose(pose, options) {
       if (disposed) throw new Error("unit model is disposed");
-      rig.setPose(pose);
+      rig.setPose(pose, options);
     },
     update(dtSeconds) {
       if (disposed) return true;
       return rig.update(dtSeconds);
+    },
+    setTimeScale(timeScale) {
+      rig.setTimeScale(timeScale);
     },
     // Only buried-coil has a hidden state; other kinds ignore it.
     setHidden(hidden, options) {
@@ -129,6 +152,7 @@ function build(kind, design, side, reducedMotion) {
       disposed = true;
       object.removeFromParent();
       object.clear();
+      skeleton.dispose();
     },
   };
 }

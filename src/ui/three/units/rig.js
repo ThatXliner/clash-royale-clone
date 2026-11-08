@@ -80,7 +80,10 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
     deathDone: false,
     hidden: design.hidden === true ? false : null,
     hiddenAmount: 0,
+    attackSeconds: timing.seconds,
+    timeScale: 1,
   };
+  const jointList = Object.values(j);
   for (const mesh of meshes) mesh.userData.baseMaterial = mesh.material;
 
   function setFlash(on) {
@@ -88,7 +91,7 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
     state.flashing = on;
     for (const mesh of meshes) {
       if (mesh.userData.noFlash) continue;
-      mesh.material = on ? flashMaterial(mesh.userData.baseMaterial) : mesh.userData.baseMaterial;
+      mesh.material = on ? flashMaterial(mesh.userData.baseMaterial, design.side) : mesh.userData.baseMaterial;
     }
   }
 
@@ -151,7 +154,7 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
   }
 
   function attack(t) {
-    const u = clamp01(t / timing.seconds);
+    const u = clamp01(t / state.attackSeconds);
     const s = timing.strike;
     const wind = easeInOut(span(u, 0, s * 0.85));
     const hit = easeOutCubic(span(u, s * 0.85, s));
@@ -320,7 +323,7 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
     } else if (pose === "idle") idle(t);
     else if (pose === "walk") walk(t);
     else if (pose === "attack") {
-      if (t <= timing.seconds) attackInfo = attack(t);
+      if (t <= state.attackSeconds) attackInfo = attack(t);
       else {
         pose = "idle";
         idle(t);
@@ -334,6 +337,10 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
       joints: j, pose, t, clock: state.clock, amp, attack: attackInfo, reducedMotion,
       hiddenAmount: state.hiddenAmount,
     });
+    // Parts are skinned to bones, so a hidden joint collapses instead.
+    for (const joint of jointList) {
+      if (joint.visible === false) joint.scale.setScalar(1e-4);
+    }
     if (frame.teamRing) {
       const r = frame.teamRing.userData.baseRadius * Math.min(1, frame.mover.scale.x);
       frame.teamRing.scale.set(r, 1, r);
@@ -348,8 +355,12 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
 
   return {
     get pose() { return state.pose; },
-    setPose(pose) {
+    setPose(pose, { duration } = {}) {
       if (!UNIT_POSES.includes(pose)) throw new RangeError(`unknown unit pose ${String(pose)}`);
+      if (duration !== undefined && (!Number.isFinite(duration) || duration <= 0)) {
+        throw new RangeError("pose duration must be a positive number of seconds");
+      }
+      if (pose === "attack") state.attackSeconds = duration ?? timing.seconds;
       if (pose === "hit") {
         if (state.pose === "death") return;
         state.hitT = 0;
@@ -366,6 +377,7 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
     },
     update(dt) {
       if (!Number.isFinite(dt) || dt < 0) throw new RangeError("unit update dt must be a finite non-negative number");
+      dt *= state.timeScale;
       state.t += dt;
       state.clock += dt;
       state.hitT += dt;
@@ -394,9 +406,14 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
       if (immediate) state.hiddenAmount = hidden ? 1 : 0;
       apply();
     },
+    setTimeScale(scale) {
+      if (!Number.isFinite(scale) || scale < 0) throw new RangeError("unit time scale must be a finite non-negative number");
+      state.timeScale = scale;
+    },
     apply,
     deathSeconds,
-    attackSeconds: timing.seconds,
+    get attackSeconds() { return state.attackSeconds; },
+    attackStrike: timing.strike,
     setFlash,
   };
 }
