@@ -34,8 +34,10 @@ const HUD_TOWER_IDS = Object.freeze([
   "south:lane:right",
 ]);
 const HUD_FRAME_SCALES = Object.freeze({
-  "390x844": 34 / 64,
-  "720x1280": 58 / 64,
+  // Phone battles hide the app chrome and may crop the frame's outer 56px
+  // bands (no HUD content lives there), so the arena gets the full width.
+  "390x844": 40 / 64,
+  "720x1280": 64 / 64,
   "1440x933": 37 / 64,
   "1280x720": 35 / 64,
 });
@@ -393,6 +395,14 @@ async function inspectHudCases(frame, cases) {
 }
 
 function assertReadableHudCard(card, scale, viewport, expectedPortraits, expectedCards) {
+  const isNext = card.kind === "next";
+  // Hand faces are 144x152 with a 138x100 portrait and a 45px name plate;
+  // Next is a 244x44 strip: 38px thumbnail, one-line name, small cost gem.
+  const geometry = isNext
+    ? { costFont: 22, costHeight: 28, costWidth: 26, measure: 150, nameHeight: 38,
+      portraitHeight: 38, portraitWidth: 38, wordWidth: 152 }
+    : { costFont: 27, costHeight: 42, costWidth: 38, measure: 132, nameHeight: 45,
+      portraitHeight: 100, portraitWidth: 138, wordWidth: 118 };
   const expected = expectedCards[card.id];
   const portrait = expectedPortraits[card.id];
   assert.ok(expected && portrait, `${card.id} is in the canonical roster and portrait map`);
@@ -405,14 +415,14 @@ function assertReadableHudCard(card, scale, viewport, expectedPortraits, expecte
   assert.equal(card.wordBreak, "normal");
   assert.equal(card.overflowWrap, "normal");
   assert.equal(card.hyphens, "manual");
-  assert.equal(card.nameWhiteSpace, "normal");
-  assert.ok(card.nameContentWidth >= 124,
-    `${card.id} has a 124px name measure inside its outer plate`);
-  assert.ok(card.nameLineCount <= 2,
-    `${card.id} uses at most two whole-word lines: ${JSON.stringify(card.words)}`);
+  assert.equal(card.nameWhiteSpace, isNext ? "nowrap" : "normal");
+  assert.ok(card.nameContentWidth >= geometry.measure,
+    `${card.id} has a ${geometry.measure}px name measure inside its outer plate: ${card.nameContentWidth}`);
+  assert.ok(card.nameLineCount <= (isNext ? 1 : 2),
+    `${card.id} uses at most ${isNext ? "one line" : "two whole-word lines"}: ${JSON.stringify(card.words)}`);
   assert.ok(card.words.length > 0 && card.words.every(({ rectCount, width }) =>
-    rectCount === 1 && width <= 118),
-  `${card.id} keeps every whole word within 118 frame pixels: ${JSON.stringify(card.words)}`);
+    rectCount === 1 && width <= geometry.wordWidth),
+  `${card.id} keeps every whole word within ${geometry.wordWidth} frame pixels: ${JSON.stringify(card.words)}`);
   assert.ok(card.nameScrollWidth <= card.nameClientWidth &&
     card.nameScrollHeight <= card.nameClientHeight,
   `${card.id} has no clipped name pixels`);
@@ -426,18 +436,26 @@ function assertReadableHudCard(card, scale, viewport, expectedPortraits, expecte
   assert.ok(card.cost.left >= card.card.left && card.cost.right <= card.card.right &&
     card.cost.top >= card.card.top && card.cost.bottom <= card.card.bottom,
   `${card.id} cost disc remains inside its outer card`);
-  assert.equal(intersects(card.cost, card.portrait), true,
-    `${card.id} cost disc sits over the portrait as an intentional layer`);
-  assert.ok(card.cost.left >= card.portrait.left && card.cost.right <= card.portrait.right &&
-    card.cost.top >= card.portrait.top && card.cost.bottom <= card.portrait.bottom,
-  `${card.id} cost disc is contained by the portrait window`);
-  assert.equal(card.name.height, 51, `${card.id} has a 51px outer name band`);
-  assert.equal(card.portrait.width, 130, `${card.id} has a 130px portrait window`);
-  assert.equal(card.portrait.height, card.kind === "next" ? 84 : 104,
+  if (isNext) {
+    assert.equal(intersects(card.cost, card.portrait), false,
+      `${card.id} Next cost gem sits at the strip's end, clear of the thumbnail`);
+  } else {
+    assert.equal(intersects(card.cost, card.portrait), true,
+      `${card.id} cost gem sits over the portrait as an intentional layer`);
+    assert.ok(card.cost.left >= card.portrait.left && card.cost.right <= card.portrait.right &&
+      card.cost.top >= card.portrait.top && card.cost.bottom <= card.portrait.bottom,
+    `${card.id} cost gem is contained by the portrait window`);
+  }
+  assert.equal(card.name.height, geometry.nameHeight,
+    `${card.id} has a ${geometry.nameHeight}px outer name band`);
+  assert.equal(card.portrait.width, geometry.portraitWidth,
+    `${card.id} has a ${geometry.portraitWidth}px portrait window`);
+  assert.equal(card.portrait.height, geometry.portraitHeight,
     `${card.id} has the intended portrait crop height`);
-  assert.equal(card.cost.width, 46, `${card.id} has a 46px cost disc`);
-  assert.equal(card.cost.height, 46, `${card.id} has a 46px cost disc`);
-  assert.equal(card.costFont, 30, `${card.id} cost stays 30 frame pixels`);
+  assert.equal(card.cost.width, geometry.costWidth, `${card.id} has its cost gem width`);
+  assert.equal(card.cost.height, geometry.costHeight, `${card.id} has its cost gem height`);
+  assert.equal(card.costFont, geometry.costFont,
+    `${card.id} cost stays ${geometry.costFont} frame pixels`);
   assert.equal(card.image.complete, true, `${card.id} portrait is complete`);
   assert.ok(card.image.naturalWidth > 0 && card.image.naturalHeight > 0,
     `${card.id} portrait has decoded original pixels`);
@@ -447,18 +465,19 @@ function assertReadableHudCard(card, scale, viewport, expectedPortraits, expecte
   assert.equal(card.image.cellAttribute,
     portrait.cell === null ? null : String(portrait.cell));
   assert.equal(card.image.objectFit, portrait.cell === null ? "cover" : "fill");
+  const cellSize = geometry.portraitWidth;
   if (portrait.cell === null) {
-    assert.equal(card.image.width, 130, `${card.id} single image fills the square cell`);
-    assert.equal(card.image.height, 130, `${card.id} single image fills the square cell`);
+    assert.equal(card.image.width, cellSize, `${card.id} single image fills the square cell`);
+    assert.equal(card.image.height, cellSize, `${card.id} single image fills the square cell`);
   } else {
-    assert.equal(card.image.width, 520, `${card.id} atlas uses four 130px columns`);
-    const expectedLeft = -(portrait.cell % 4) * 130;
-    const expectedTop = -Math.floor(portrait.cell / 4) * 130;
+    assert.equal(card.image.width, cellSize * 4, `${card.id} atlas uses four ${cellSize}px columns`);
+    const expectedLeft = -(portrait.cell % 4) * cellSize;
+    const expectedTop = -Math.floor(portrait.cell / 4) * cellSize;
     assert.ok(card.image.left === expectedLeft,
       `${card.id} selects the exact horizontal atlas cell: ${card.image.left} !== ${expectedLeft}`);
     assert.ok(card.image.top === expectedTop,
       `${card.id} selects the exact vertical atlas cell: ${card.image.top} !== ${expectedTop}`);
-    assert.equal(card.image.height, 260, `${card.id} atlas preserves its 4×2 cell ratio`);
+    assert.equal(card.image.height, cellSize * 2, `${card.id} atlas preserves its 4×2 cell ratio`);
   }
   const nameFloor = viewport.width === 1280 ? 10 : 11;
   assert.ok(card.nameFont * scale >= nameFloor,
@@ -676,11 +695,15 @@ async function measureHud(page, viewport, expectedPortraits, expectedCards) {
   assert.notEqual(view.next.id, null);
   assert.equal(new Set([...view.cards.map(({ id }) => id), view.next.id]).size, 5,
     "the hand and next preview show five distinct cards from one cycle");
-  assert.deepEqual(view.cards.map(({ target }) => target.left), [149, 291, 433, 575]);
-  assert.deepEqual(view.cards.map(({ target }) => target.width), [136, 136, 136, 136]);
-  assert.deepEqual(view.cards.map(({ target }) => target.height), [162, 162, 162, 162]);
+  assert.deepEqual(view.cards.map(({ target }) => target.left), [60, 212, 364, 516]);
+  assert.deepEqual(view.cards.map(({ target }) => target.width), [144, 144, 144, 144]);
+  assert.deepEqual(view.cards.map(({ target }) => target.height), [152, 152, 152, 152]);
   assert.deepEqual([view.next.target.left, view.next.target.top,
-    view.next.target.width, view.next.target.height], [7, 1076, 136, 162]);
+    view.next.target.width, view.next.target.height], [60, 1230, 244, 44]);
+  for (const card of [...view.cards, view.next]) {
+    assert.ok(card.target.left >= 56 && card.target.left + card.target.width <= 664,
+      `${card.nameText} stays inside the frame's uncroppable x 56..664 band`);
+  }
 
   for (const card of [...view.cards, view.next]) {
     assert.ok(Math.abs(card.card.left - card.target.left) <= 0.5 &&
@@ -688,7 +711,9 @@ async function measureHud(page, viewport, expectedPortraits, expectedCards) {
       Math.abs(card.card.width - card.target.width) <= 0.5 &&
       Math.abs(card.card.height - card.target.height) <= 0.5,
     `${card.nameText} face stays aligned with its static input region: ${JSON.stringify({ face: card.card, target: card.target })}`);
-    assert.ok(card.target.width * scale >= 44 && card.target.height * scale >= 44,
+    // Next is a read-only preview; only the four hand cards are touch targets.
+    assert.ok(card === view.next ||
+      (card.target.width * scale >= 44 && card.target.height * scale >= 44),
       `${card.nameText} target clears 44×44 physical pixels: ${JSON.stringify({
         width: card.target.width * scale,
         height: card.target.height * scale,

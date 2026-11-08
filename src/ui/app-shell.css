@@ -1642,3 +1642,58 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
     padding-top: 8px;
   }
 }
+
+/* ---------- Phone battle: the arena takes the whole screen ----------
+   The header, tab bar and battle title collapse into one compact Leave
+   control over the frame's top-left corner. The title stays in the
+   accessibility tree; navigation returns with the tab bar after leaving. */
+@media (max-width: 760px) {
+  .app-shell[data-view-active="battle"] .app-nav { display: none; }
+  .app-shell[data-view-active="battle"] .app-main { padding: 0; }
+  .app-shell[data-view-active="battle"] .battle-view { position: relative; }
+  .app-shell[data-view-active="battle"] .battle-frame-slot {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    background: #060b0a;
+  }
+  .app-shell[data-view-active="battle"] .battle-heading {
+    position: absolute;
+    z-index: 5;
+    top: calc(8px + env(safe-area-inset-top));
+    left: 8px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+  .app-shell[data-view-active="battle"] .battle-heading > div {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .app-shell[data-view-active="battle"] .leave-battle {
+    width: 44px;
+    min-height: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 2px solid #4f6158;
+    border-radius: 9px;
+    color: transparent;
+    background: linear-gradient(180deg, rgb(29 43 38 / 95%), rgb(13 21 19 / 95%));
+    box-shadow: 0 3px 10px rgb(0 0 0 / 45%);
+    font-size: 0;
+  }
+  .app-shell[data-view-active="battle"] .leave-battle > span[aria-hidden="true"] {
+    color: var(--paper);
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .app-shell[data-view-active="battle"] .leave-battle:hover { border-color: var(--copper); }
+}

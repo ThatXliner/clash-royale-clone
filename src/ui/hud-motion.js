@@ -1,4 +1,7 @@
-import { ELIXIR_ACCUMULATOR_DENOMINATOR } from '../sim/elixir.js';
+import { ELIXIR_ACCUMULATOR_DENOMINATOR, getElixirPhase } from '../sim/elixir.js';
+
+// Final-seconds warning window for the match clock (60 ticks per second).
+const URGENT_CLOCK_TICKS = 600;
 
 // Called only with minted frame state, while its HUD is still detached.
 export function bindHudMotion(node, hud, receipt) {
@@ -6,6 +9,10 @@ export function bindHudMotion(node, hud, receipt) {
   const age = receipt ? hud.tick - receipt.tick : 24;
   const arrival = age >= 0 ? Math.max(0, 1 - age / 18) : 0;
   node.dataset.arrivalSlot = String(receipt?.slot ?? -1);
+  // Presentation-only hooks for the HUD skin: elixir rate phase and clock urgency.
+  node.dataset.elixirRate = hud.phase === 'ended' ? 'ended' : getElixirPhase(hud.tick).name;
+  node.dataset.clock = hud.phase !== 'ended' && hud.timer.remainingTicks <= URGENT_CLOCK_TICKS
+    ? 'urgent' : 'calm';
   node.style.setProperty('--opening-offset', `${opening * 14}px`);
   node.style.setProperty('--arrival-offset', `${arrival * 22}px`);
   node.style.setProperty('--arrival-tilt', `${arrival * -8}deg`);

@@ -446,7 +446,7 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
   assert.notEqual(paint.missingCanvas, true,
     JSON.stringify({ consoleErrors, moduleState: paint.moduleState, pageErrors,
       body: paint.body, dataset: paint.dataset }, null, 2));
-  assert.deepEqual(paint.canvasSize, { height: 172, width: 714 });
+  assert.deepEqual(paint.canvasSize, { height: 220, width: 608 });
   assert.equal(paint.appFrame, "true");
   assert.equal(paint.canvasConnected, true);
   assert.equal(paint.canvasVisible, true);
@@ -457,7 +457,7 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
   assert.equal(paint.semanticFacesHidden, true);
   assert.ok(paint.opaquePixels > 50_000, JSON.stringify(paint));
   assert.ok(paint.uniquePixelValues > 100, JSON.stringify(paint));
-  assert.ok(paint.bounds.width > 700 && paint.bounds.height > 160, JSON.stringify(paint));
+  assert.ok(paint.bounds.width > 600 && paint.bounds.height > 200, JSON.stringify(paint));
   assert.deepEqual(pageErrors, []);
   await page.screenshot({ path: join(ARTIFACTS, "integrated-app-frame.png") });
   writeFileSync(join(ARTIFACTS, "integrated-paint.json"),
@@ -697,7 +697,7 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
     canvas.setAttribute("aria-hidden", "true");
     canvas.style.cssText = [
       "position:fixed", "left:0", "top:0", "z-index:9999", "display:block",
-      "width:714px", "height:172px", "transform-origin:top left",
+      "width:608px", "height:220px", "transform-origin:top left",
       "pointer-events:none", "opacity:1",
     ].join(";");
     document.body.appendChild(canvas);
@@ -739,8 +739,8 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
       };
       const { target: firstTarget, ...firstInput } = cases[0];
       paint(firstInput);
-      const sx = canvas.width / 714;
-      const sy = canvas.height / 172;
+      const sx = canvas.width / 608;
+      const sy = canvas.height / 220;
       const cropHash = (x, y, width = 40, height = 40) => {
         const left = Math.max(0, Math.floor(x * sx));
         const top = Math.max(0, Math.floor(y * sy));
@@ -776,24 +776,28 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
         const view = paint(hudInput);
         const { cardId, position } = target;
         const actualId = position === 4 ? view.next.id : view.hand[position].id;
-        const x = position === 4 ? 5 : [147, 289, 431, 573][position];
+        // Hand cards are 144x152 at y 12; Next is a 244x44 strip whose
+        // portrait thumbnail occupies its left 38px square.
+        const x = position === 4 ? 4 : [4, 156, 308, 460][position];
         targetSamples.push({
           actualId,
           cardId,
-          cardBounds: { height: 162, width: 136, x, y: 5 },
+          cardBounds: position === 4
+            ? { height: 44, width: 244, x, y: 170 }
+            : { height: 152, width: 144, x, y: 12 },
           position,
-          sample: cropHash(x + 60, 40),
+          sample: position === 4 ? cropHash(x + 6, 176, 30, 30) : cropHash(x + 50, 40),
         });
       }
       const stateSamples = Object.create(null);
       for (const { label, input } of states) {
         paint(input);
         const fullHash = pixelsHash();
-        const selectedX = 147;
+        const selectedX = 4;
         stateSamples[label] = {
-          badgeHash: regionHash(selectedX + 8, 13, 46, 46),
+          badgeHash: regionHash(selectedX + 4, 8, 42, 50),
           fullHash,
-          haloHash: regionHash(selectedX - 5, 35, 5, 100),
+          haloHash: regionHash(selectedX - 4, 40, 4, 100),
         };
       }
       const normalInput = states.find(({ label }) => label === "normal").input;
@@ -826,15 +830,15 @@ test("app-frame startup mounts a visible Canvas with real card pixels", {
     await page.screenshot({ path: join(ARTIFACTS,
       `painter-matrix-${viewport.width}x${viewport.height}.png`) });
     const expectedBacking = {
-      height: Math.round(172 * viewport.scale),
-      width: Math.round(714 * viewport.scale),
+      height: Math.round(220 * viewport.scale),
+      width: Math.round(608 * viewport.scale),
     };
     assert.deepEqual(result.backing, expectedBacking, `${viewport.width}x${viewport.height} backing size`);
     assert.equal(result.canvasVisible, true, `${viewport.width}x${viewport.height} visible painter surface`);
     assert.equal(result.devicePixelRatio, 1);
-    assert.ok(Math.abs(result.bounds.width - 714 * viewport.scale) < 0.01,
+    assert.ok(Math.abs(result.bounds.width - 608 * viewport.scale) < 0.01,
       `${viewport.width}x${viewport.height} composited width ${result.bounds.width}`);
-    assert.ok(Math.abs(result.bounds.height - 172 * viewport.scale) < 0.01,
+    assert.ok(Math.abs(result.bounds.height - 220 * viewport.scale) < 0.01,
       `${viewport.width}x${viewport.height} composited height ${result.bounds.height}`);
     assert.equal(result.sameCanvasAtoBtoA, true);
     assert.equal(result.targets.length,
@@ -1038,8 +1042,8 @@ test("public app-frame states repeat across fresh scaled iframe contexts", {
         assert.equal(canvas.canvasVisible, true);
         assert.equal(canvas.reducedMotion, reducedMotion);
         assert.deepEqual(canvas.backing, {
-          height: Math.round(172 * ready.frameScale),
-          width: Math.round(714 * ready.frameScale),
+          height: Math.round(220 * ready.frameScale),
+          width: Math.round(608 * ready.frameScale),
         });
         assert.ok(canvas.opaquePixels > canvas.backing.width * canvas.backing.height / 2,
           `${label} has substantial actual RGBA paint: ${JSON.stringify(canvas)}`);

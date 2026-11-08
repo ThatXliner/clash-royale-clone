@@ -1,0 +1,639 @@
+/*
+ * Moss & Ember battle HUD skin for the shipped Battle screen (app frame).
+ *
+ * Everything here is scoped to html body[data-app-frame="true"], so the standalone
+ * DOM arena and its pinned evidence keep their older look. Coordinates are in
+ * the 720x1280 frame space. Essential HUD content stays inside x 56..664: a
+ * narrow phone may crop the outer 56px bands so the arena can fill the screen.
+ *
+ * Visual language: faceted (cut-corner) slate plaques with brass rims, echoing
+ * the low-poly diorama. South (you) is tide teal, north (rival) is ember.
+ */
+
+html body[data-app-frame="true"] {
+  --hud-ink: #0b1311;
+  --hud-slate: #15211d;
+  --hud-slate-high: #1f302a;
+  --hud-cream: #f4ebd6;
+  --hud-brass: #e9a83a;
+  --hud-brass-deep: #a8681c;
+  --hud-tide: #3fa7b5;
+  --hud-tide-text: #7fd8e3;
+  --hud-ember: #d9573b;
+  --hud-ember-text: #ff9a7c;
+  --hud-elixir-hi: #f3a6f6;
+  --hud-elixir: #b549d0;
+  --hud-elixir-deep: #5c1f7e;
+  --hud-font: "Barlow Condensed", "Avenir Next Condensed", system-ui, sans-serif;
+}
+
+/* ---------- Top band: rival crowns · clock · your crowns · sound ---------- */
+
+html body[data-app-frame="true"] .match-rail--top,
+html body[data-app-frame="true"] .match-rail--bottom {
+  display: none;
+}
+
+/* The faceted plate is drawn with gradient corners rather than clip-path or
+   border-radius: the clock repaints every second and gradient pixels raster
+   identically on every repaint, where curved/clipped edges did not. */
+html body[data-app-frame="true"] [data-ui="hud-projection"] [data-ui="hud-timer"] {
+  --rim: var(--hud-brass);
+  --fill: #15231f;
+  z-index: 19;
+  top: 12px;
+  left: 296px;
+  width: 128px;
+  min-width: 0;
+  height: 60px;
+  translate: none;
+  display: grid;
+  place-items: center;
+  padding: 3px 3px 5px;
+  border: 0;
+  border-radius: 0;
+  color: var(--hud-cream);
+  background:
+    linear-gradient(135deg, transparent 7px, var(--fill) 7px) top left / 51% 51% no-repeat content-box,
+    linear-gradient(225deg, transparent 7px, var(--fill) 7px) top right / 51% 51% no-repeat content-box,
+    linear-gradient(315deg, transparent 7px, var(--fill) 7px) bottom right / 51% 51% no-repeat content-box,
+    linear-gradient(45deg, transparent 7px, var(--fill) 7px) bottom left / 51% 51% no-repeat content-box,
+    linear-gradient(135deg, transparent 8px, var(--rim) 8px) top left / 51% 51% no-repeat border-box,
+    linear-gradient(225deg, transparent 8px, var(--rim) 8px) top right / 51% 51% no-repeat border-box,
+    linear-gradient(315deg, transparent 8px, var(--rim) 8px) bottom right / 51% 51% no-repeat border-box,
+    linear-gradient(45deg, transparent 8px, var(--rim) 8px) bottom left / 51% 51% no-repeat border-box;
+  box-shadow: none;
+  font-family: var(--hud-font);
+  font-size: 44px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-shadow: none;
+}
+
+html body[data-app-frame="true"] [data-ui="hud-projection"][data-phase="overtime"] [data-ui="hud-timer"] {
+  --rim: var(--hud-ember);
+  --fill: #2c110c;
+}
+
+html body[data-app-frame="true"] [data-ui="hud-projection"][data-phase="ended"] [data-ui="hud-timer"] {
+  --rim: #6b7276;
+  --fill: #2a3033;
+  color: #d8d3c6;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame[data-clock="urgent"] [data-ui="hud-timer"] {
+  color: #ffc2ad;
+}
+
+/* Rate / phase tag under the clock. */
+html body[data-app-frame="true"] [data-ui="hud-projection"]::after {
+  --cut: 6px;
+  content: none;
+  position: absolute;
+  z-index: 20;
+  top: 66px;
+  left: 50%;
+  translate: -50% 0;
+  padding: 3px 12px 2px;
+  clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut));
+  color: #fff;
+  background: linear-gradient(180deg, #8a3aa6, #55206f);
+  font: 700 18px/1 var(--hud-font);
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 #0008;
+  pointer-events: none;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame[data-elixir-rate="double"] [data-ui="hud-projection"][data-phase="regulation"]::after {
+  content: "\D7 2 ELIXIR";
+}
+
+html body[data-app-frame="true"] [data-ui="hud-projection"][data-phase="overtime"]::after {
+  content: "OVERTIME";
+  color: #fff4ee;
+  background: linear-gradient(180deg, #b23a22, #6e1d0f);
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame[data-elixir-rate="double"] [data-ui="hud-projection"][data-phase="overtime"]::after {
+  content: "OVERTIME \B7  \D7 2";
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame[data-elixir-rate="triple"] [data-ui="hud-projection"][data-phase="overtime"]::after {
+  content: "OVERTIME \B7  \D7 3";
+}
+
+html body[data-app-frame="true"] [data-ui="hud-projection"][data-phase="ended"]::after {
+  content: "FINAL";
+  color: #191d22;
+  background: #c9c3b4;
+}
+
+/* Crown plaques: ::before is the rival (north), ::after is you (south). */
+html body[data-app-frame="true"] [data-ui="hud-crowns"] {
+  --crown-empty: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 22'%3E%3Cpath d='M3 18 4.5 6l5 5.5L13 3l3.5 8.5 5-5.5L23 18Z' fill='%23182420' stroke='%234d6058' stroke-width='1.6' stroke-linejoin='round'/%3E%3Crect x='3' y='18' width='20' height='2.6' rx='.8' fill='%234d6058'/%3E%3C/svg%3E");
+  --crown-north: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 22'%3E%3Cpath d='M3 18 4.5 6l5 5.5L13 3l3.5 8.5 5-5.5L23 18Z' fill='%23e8643f' stroke='%23ffd0b8' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M13 3l3.5 8.5L13 18Z' fill='%23ffffff' fill-opacity='.22'/%3E%3Crect x='3' y='18' width='20' height='2.6' rx='.8' fill='%23e9a83a'/%3E%3C/svg%3E");
+  --crown-south: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 22'%3E%3Cpath d='M3 18 4.5 6l5 5.5L13 3l3.5 8.5 5-5.5L23 18Z' fill='%2347b9c7' stroke='%23d4f6fa' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M13 3l3.5 8.5L13 18Z' fill='%23ffffff' fill-opacity='.22'/%3E%3Crect x='3' y='18' width='20' height='2.6' rx='.8' fill='%23e9a83a'/%3E%3C/svg%3E");
+  --n1: var(--crown-empty);
+  --n2: var(--crown-empty);
+  --n3: var(--crown-empty);
+  --s1: var(--crown-empty);
+  --s2: var(--crown-empty);
+  --s3: var(--crown-empty);
+  z-index: 19;
+  top: 20px;
+  left: 148px;
+  width: 424px;
+  min-width: 0;
+  height: 46px;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+html body[data-app-frame="true"] [data-ui="hud-crowns"]:is([data-north="1"], [data-north="2"], [data-north="3"]) { --n1: var(--crown-north); }
+html body[data-app-frame="true"] [data-ui="hud-crowns"]:is([data-north="2"], [data-north="3"]) { --n2: var(--crown-north); }
+html body[data-app-frame="true"] [data-ui="hud-crowns"][data-north="3"] { --n3: var(--crown-north); }
+html body[data-app-frame="true"] [data-ui="hud-crowns"]:is([data-south="1"], [data-south="2"], [data-south="3"]) { --s1: var(--crown-south); }
+html body[data-app-frame="true"] [data-ui="hud-crowns"]:is([data-south="2"], [data-south="3"]) { --s2: var(--crown-south); }
+html body[data-app-frame="true"] [data-ui="hud-crowns"][data-south="3"] { --s3: var(--crown-south); }
+
+html body[data-app-frame="true"] [data-ui="hud-crowns"]::before,
+html body[data-app-frame="true"] [data-ui="hud-crowns"]::after {
+  --cut: 9px;
+  position: absolute;
+  top: 0;
+  width: 144px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut));
+  font: 700 19px/1 var(--hud-font);
+  letter-spacing: 0.08em;
+  background-repeat: no-repeat;
+  background-size: 24px 20px, 24px 20px, 24px 20px, 100% 100%, 100% 100%;
+}
+
+html body[data-app-frame="true"] [data-ui="hud-crowns"]::before {
+  content: "RIVAL";
+  left: 0;
+  padding-left: 13px;
+  color: var(--hud-ember-text);
+  background-image: var(--n1), var(--n2), var(--n3),
+    linear-gradient(90deg, var(--hud-ember) 0 6px, transparent 6px),
+    linear-gradient(180deg, #1d2b26f2, #0d1513f2);
+  background-position: 68px 13px, 93px 13px, 118px 13px, 0 0, 0 0;
+}
+
+html body[data-app-frame="true"] [data-ui="hud-crowns"]::after {
+  content: "YOU";
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 14px;
+  color: var(--hud-tide-text);
+  background-image: var(--s1), var(--s2), var(--s3),
+    linear-gradient(270deg, var(--hud-tide) 0 6px, transparent 6px),
+    linear-gradient(180deg, #1d2b26f2, #0d1513f2);
+  background-position: 8px 13px, 33px 13px, 58px 13px, 0 0, 0 0;
+}
+
+/* Sound toggle: icon button. Its accessible name stays on aria-label. */
+html body[data-app-frame="true"] .audio-toggle {
+  top: 16px;
+  right: auto;
+  left: 592px;
+  width: 64px;
+  min-height: 0;
+  height: 54px;
+  overflow: hidden;
+  border: 2px solid #4f6158;
+  border-radius: 9px;
+  color: transparent;
+  background: linear-gradient(180deg, #1d2b26f2, #0d1513f2);
+  box-shadow: none;
+  font-size: 0;
+}
+
+html body[data-app-frame="true"] .audio-toggle::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 15px;
+  width: 20px;
+  height: 20px;
+  background: var(--hud-cream);
+  clip-path: polygon(0 32%, 34% 32%, 78% 0, 78% 100%, 34% 68%, 0 68%);
+}
+
+html body[data-app-frame="true"] .audio-toggle::after {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: 14px;
+  width: 16px;
+  height: 22px;
+  border: 3px solid var(--hud-cream);
+  border-left: 0;
+  border-radius: 0 20px 20px 0;
+  clip-path: inset(0 0 0 2px);
+}
+
+html body[data-app-frame="true"] .audio-toggle[aria-pressed="true"] {
+  border-color: #6e3b30;
+}
+
+html body[data-app-frame="true"] .audio-toggle[aria-pressed="true"]::after {
+  left: 34px;
+  top: 23px;
+  width: 18px;
+  height: 4px;
+  border: 0;
+  border-radius: 2px;
+  clip-path: none;
+  background: var(--hud-ember-text);
+  rotate: 45deg;
+  box-shadow: 0 0 0 0 transparent;
+}
+
+html body[data-app-frame="true"] .audio-toggle:focus-visible {
+  outline: 4px solid var(--hud-brass);
+  outline-offset: 2px;
+}
+
+html body[data-app-frame="true"] .combat-policy-question {
+  top: 94px;
+  left: 64px;
+}
+
+/* ---------- Bottom band: hand, next card, elixir ---------- */
+
+html body[data-app-frame="true"] .hand-tray {
+  top: 1068px;
+  left: 0;
+  width: 720px;
+  height: 212px;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(90deg, transparent 4%, #3fa7b599 26%, #e9a83add 50%, #3fa7b599 74%, transparent 96%) top / 100% 2px no-repeat,
+    repeating-linear-gradient(118deg, #ffffff06 0 22px, transparent 22px 44px),
+    linear-gradient(180deg, #13201cf0, #0a110f 46%, #060b0a);
+  box-shadow: none;
+}
+
+html body[data-app-frame="true"] .hand-tray::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: -26px;
+  width: 100%;
+  height: 26px;
+  background: linear-gradient(180deg, transparent, #060b0a8c);
+  pointer-events: none;
+}
+
+html body[data-app-frame="true"] .hand-tray > .next-card,
+html body[data-app-frame="true"] .hand-tray > .card-slot {
+  position: absolute;
+  top: 4px;
+  width: 144px;
+  height: 152px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  opacity: 1;
+}
+
+html body[data-app-frame="true"] .hand-tray > .next-card {
+  top: 162px;
+  left: 60px;
+  width: 244px;
+  height: 44px;
+}
+
+html body[data-app-frame="true"] .hand-tray > .card-slot:nth-child(2) { left: 60px; }
+html body[data-app-frame="true"] .hand-tray > .card-slot:nth-child(3) { left: 212px; }
+html body[data-app-frame="true"] .hand-tray > .card-slot:nth-child(4) { left: 364px; }
+html body[data-app-frame="true"] .hand-tray > .card-slot:nth-child(5) { left: 516px; }
+
+html body[data-app-frame="true"] .game-ui-hud-frame > .game-ui-hud-painter {
+  left: 56px;
+  top: 1060px;
+  width: 608px;
+  height: 220px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] {
+  left: 60px;
+  top: 1072px;
+  width: 600px;
+  height: 152px;
+  grid-template-columns: repeat(4, 144px);
+  column-gap: 8px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] {
+  left: 60px;
+  top: 1230px;
+  width: 244px;
+  height: 44px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card {
+  width: 144px;
+  height: 152px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card {
+  width: 244px;
+  height: 44px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card__portrait {
+  top: 0;
+  width: 138px;
+  height: 100px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card__portrait-cell {
+  top: -11px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card__name {
+  inset: 101px 0 0;
+  line-height: 19px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"] .hud-card__cost {
+  top: 5px;
+  left: 5px;
+  width: 38px;
+  height: 42px;
+  font-size: 27px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__portrait {
+  top: 0;
+  width: 38px;
+  height: 38px;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__portrait-cell {
+  top: 0;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__name {
+  inset: 0 30px 0 44px;
+  justify-content: flex-start;
+  white-space: nowrap;
+  text-align: left;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-next"] .hud-card__cost {
+  top: 5px;
+  left: auto;
+  right: 3px;
+  width: 26px;
+  height: 28px;
+  font-size: 22px;
+}
+
+/* Elixir counter gem. The number is the ::before (attr(data-amount)). */
+html body[data-app-frame="true"] [data-ui="hud-elixir"] {
+  --cut: 0px;
+  z-index: 19;
+  top: 1228px;
+  left: 312px;
+  width: 50px;
+  min-width: 0;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  padding: 0 0 1px;
+  border: 0;
+  border-radius: 0;
+  color: #fff;
+  background: linear-gradient(180deg, #ffd27a, var(--hud-brass) 50%, var(--hud-brass-deep));
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  box-shadow: none;
+  font: 700 30px/1 var(--hud-font);
+  text-shadow: 0 2px 0 #3a0f4c, 0 0 2px #3a0f4c;
+}
+
+html body[data-app-frame="true"] [data-ui="hud-elixir"]::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  z-index: -1;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background:
+    linear-gradient(135deg, #ffffff40 0 30%, transparent 30%),
+    linear-gradient(160deg, var(--hud-elixir-hi), var(--hud-elixir) 50%, var(--hud-elixir-deep));
+}
+
+html body[data-app-frame="true"] .elixir-rail {
+  z-index: 16;
+  top: 1237px;
+  left: 368px;
+  width: 292px;
+  height: 30px;
+  overflow: visible;
+  border: 2px solid #2c3a35;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #2c3a35 calc(10% - 2px) 10%),
+    linear-gradient(180deg, #05080799, #101916);
+  box-shadow: inset 0 3px 6px #000c;
+}
+
+html body[data-app-frame="true"] .elixir-fill,
+html body[data-app-frame="true"] .elixir-ticks {
+  opacity: 0;
+}
+
+/* Rate badge on the bar's right end in double / triple elixir. */
+html body[data-app-frame="true"] .game-ui-hud-frame::after {
+  content: none;
+  position: absolute;
+  z-index: 20;
+  right: 65px;
+  top: 1242px;
+  pointer-events: none;
+  padding: 2px 6px 1px;
+  border-radius: 2px;
+  color: #fff;
+  background: #2a0f38e6;
+  box-shadow: 0 0 0 1px #f3a6f6;
+  font: 700 18px/1 var(--hud-font);
+  letter-spacing: 0.08em;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame[data-elixir-rate="double"]::after {
+  content: "\D7 2";
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame[data-elixir-rate="triple"]::after {
+  content: "\D7 3";
+}
+
+/* Whole elixir is solid; the charging fraction is lighter. */
+html body[data-app-frame="true"] .hud-resource-progress {
+  --whole: 0%;
+  top: 1239px;
+  left: 370px;
+  width: 288px;
+  height: 26px;
+  border-radius: 2px;
+  clip-path: inset(0 calc(100% - var(--resource-percent)) 0 0);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #1c0a26b3 calc(10% - 2px) 10%),
+    linear-gradient(180deg, #ffffff59 0 3px, transparent 3px 21px, #00000040 21px),
+    linear-gradient(90deg, #9b3cbf 0, #c25ad9 var(--whole), #6d3d82 var(--whole));
+  box-shadow: none;
+}
+
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="1"]) .hud-resource-progress { --whole: 10%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="2"]) .hud-resource-progress { --whole: 20%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="3"]) .hud-resource-progress { --whole: 30%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="4"]) .hud-resource-progress { --whole: 40%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="5"]) .hud-resource-progress { --whole: 50%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="6"]) .hud-resource-progress { --whole: 60%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="7"]) .hud-resource-progress { --whole: 70%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="8"]) .hud-resource-progress { --whole: 80%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="9"]) .hud-resource-progress { --whole: 90%; }
+html body[data-app-frame="true"] .game-ui-hud-frame:has([data-ui="hud-elixir"][data-amount="10"]) .hud-resource-progress { --whole: 100%; }
+
+/* Faster regeneration reads as a brighter, striped fill. */
+html body[data-app-frame="true"] .game-ui-hud-frame:is([data-elixir-rate="double"], [data-elixir-rate="triple"]) .hud-resource-progress {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #1c0a26b3 calc(10% - 2px) 10%),
+    repeating-linear-gradient(120deg, #ffffff2e 0 8px, transparent 8px 18px),
+    linear-gradient(180deg, #ffffff66 0 3px, transparent 3px 21px, #00000040 21px),
+    linear-gradient(90deg, #b043d6 0, #e070ef var(--whole), #7a4592 var(--whole));
+}
+
+/* ---------- Match result ---------- */
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__overlay {
+  inset: 410px 112px 500px;
+  display: grid;
+  place-content: start center;
+  justify-items: center;
+  gap: 6px;
+  padding: 44px 20px 0;
+  border: 3px solid var(--hud-brass);
+  border-radius: 10px;
+  color: var(--hud-cream);
+  background:
+    linear-gradient(160deg, #ffffff0f 0 34%, transparent 34%),
+    linear-gradient(180deg, #1c2b26f7, #0b1311fa);
+  box-shadow: inset 0 0 0 3px #0b1311, inset 0 0 0 4px #e9a83a55, 0 24px 60px #000b;
+  text-shadow: 0 2px 0 #000a;
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__overlay::before {
+  content: "DRAW";
+  color: #ffcf7a;
+  font: 700 26px/1 var(--hud-font);
+  letter-spacing: 0.32em;
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__overlay[data-winner="south"]::before {
+  content: "VICTORY";
+  color: var(--hud-tide-text);
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__overlay[data-winner="north"]::before {
+  content: "DEFEAT";
+  color: var(--hud-ember-text);
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__overlay strong,
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__overlay[data-winner] strong {
+  color: var(--hud-cream);
+  font: 700 58px/1 var(--hud-font);
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__result {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  color: var(--hud-cream);
+  font: 700 46px/1 var(--hud-font);
+  font-variant-numeric: tabular-nums;
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__result::before,
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__result::after {
+  padding: 5px 9px 4px;
+  border-radius: 3px;
+  color: #0b1311;
+  font: 700 18px/1 var(--hud-font);
+  letter-spacing: 0.14em;
+  text-shadow: none;
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__result::before {
+  content: "RIVAL";
+  background: var(--hud-ember-text);
+}
+
+html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__result::after {
+  content: "YOU";
+  background: var(--hud-tide-text);
+}
+
+html body[data-app-frame="true"] .restart-control {
+  left: 250px;
+  top: 680px;
+  width: 220px;
+  min-height: 0;
+  height: 68px;
+  border: 0;
+  border-radius: 8px;
+  color: #191d22;
+  background: linear-gradient(180deg, #ffd88a, var(--hud-brass) 55%, #c98424);
+  box-shadow: inset 0 -5px 0 #a8681c, inset 0 2px 0 #fff4d0, 0 8px 20px #000a;
+  font: 700 32px/1 var(--hud-font);
+  letter-spacing: 0.04em;
+  text-shadow: none;
+}
+
+html body[data-app-frame="true"] .restart-control:focus-visible {
+  outline: 4px solid var(--hud-cream);
+  outline-offset: 4px;
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html body[data-app-frame="true"] .game-ui-hud-frame[data-clock="urgent"] [data-ui="hud-timer"] {
+    animation: hud-clock-urgent 1s ease-in-out infinite;
+  }
+
+  html body[data-app-frame="true"] .game-ui-hud-frame:is([data-elixir-rate="double"], [data-elixir-rate="triple"]) .hud-resource-progress {
+    animation: hud-elixir-surge 1.4s linear infinite;
+  }
+}
+
+@keyframes hud-clock-urgent {
+  50% { filter: brightness(1.35); }
+}
+
+@keyframes hud-elixir-surge {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 0 0, 36px 0, 0 0, 0 0; }
+}

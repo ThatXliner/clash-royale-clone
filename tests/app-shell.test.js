@@ -403,6 +403,34 @@ async function renderedDetailPortrait(page) {
   });
 }
 
+// The 3D battlefield warms up before a resumed clock runs, so manual stepping
+// is entered only once the loop has actually started ticking. (An async
+// waitForFunction predicate resolves to a truthy Promise, so poll instead.)
+async function waitForRunningClock(frame, entryUrl, timeout = 15_000) {
+  const deadline = Date.now() + timeout;
+  for (;;) {
+    const state = await frame.evaluate(async (url) => {
+      const { arenaHudController } = await import(url);
+      return arenaHudController.state;
+    }, entryUrl);
+    if (state.running && state.sessionTick > 0) return state;
+    if (Date.now() > deadline) {
+      throw new Error(`battle clock never started: ${JSON.stringify(state)}`);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
+}
+
+// Phone battles hide the tab bar behind a compact Leave control; reach the
+// tab bar the way a player would before switching views.
+async function clickAppNav(page, view) {
+  const nav = page.locator(`.app-nav [data-nav-to="${view}"]`);
+  if (!(await nav.isVisible())) {
+    await page.locator('[data-action="leave-battle"]').click();
+  }
+  await nav.click();
+}
+
 async function cardFrameTick(frame, moduleUrl) {
   return frame.evaluate(async (entryUrl) => {
     const { arenaHudController } = await import(entryUrl);
@@ -920,7 +948,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.match(await page.locator("[data-card-empty]").innerText(), /not in the playable collection yet/u);
     assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 0);
     await page.locator('[data-card-search]').fill("");
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     assert.equal(await page.locator("[data-deck-cards] [data-card-id]").count(), 8);
     assert.match(await page.locator("[data-view-active]").getAttribute("data-view-active"), /deck/u);
     await page.screenshot({ path: join(ARTIFACTS, "phone-deck-720x1280.png"), fullPage: true });
@@ -1320,23 +1348,35 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.deepEqual([smallLayout.viewport.width, smallLayout.viewport.height], [720, 1280],
       "small phones retain the source arena coordinate space");
     const { viewport, contentBox, frame: iframeBox } = smallFrameGeometry ?? {};
+    // The frame may crop its outer 56px side bands on a narrow phone; the
+    // arena and every HUD control live inside x 56..664 and must stay visible.
+    const smallScale = iframeBox?.width / 720;
+    const visibleFrameBox = (box) => ({
+      left: iframeBox.left + box.left * smallScale,
+      right: iframeBox.left + (box.left + box.width) * smallScale,
+      top: iframeBox.top + box.top * smallScale,
+      bottom: iframeBox.top + (box.top + box.height) * smallScale,
+    });
+    const smallArenaBox = smallLayout.arena[0] ? visibleFrameBox(smallLayout.arena[0]) : null;
     assert.ok(viewport?.width === 390 && viewport?.height === 844 &&
       contentBox?.right > contentBox?.left && contentBox?.bottom > contentBox?.top &&
       iframeBox?.width > 0 && iframeBox?.height > 0 &&
-      iframeBox.left >= contentBox.left && iframeBox.right <= contentBox.right &&
       iframeBox.top >= contentBox.top && iframeBox.bottom <= contentBox.bottom &&
-      iframeBox.left >= 0 && iframeBox.top >= 0 && iframeBox.right <= viewport.width &&
-      iframeBox.bottom <= viewport.height,
+      iframeBox.top >= 0 && iframeBox.bottom <= viewport.height &&
+      smallArenaBox !== null &&
+      smallArenaBox.left >= contentBox.left && smallArenaBox.right <= contentBox.right &&
+      smallArenaBox.left >= 0 && smallArenaBox.right <= viewport.width,
     `the full arena stays inside the measured 390x844 slot content box and viewport: ${JSON.stringify(smallFrameGeometry)}`);
     const smallControlBoxes = [...smallLayout.cardSlots, ...smallLayout.hand,
       ...smallLayout.next, ...smallLayout.elixir, ...smallLayout.timer,
       ...smallLayout.arena];
     assert.ok(smallControlBoxes.every((box) => box.visible && box.left >= 0 && box.top >= 0 &&
-      box.left + box.width <= 720 + 1 && box.top + box.height <= 1280 + 1),
+      box.left + box.width <= 720 + 1 && box.top + box.height <= 1280 + 1 &&
+      visibleFrameBox(box).left >= -0.5 && visibleFrameBox(box).right <= 390 + 0.5),
     `all battle controls remain visible on a 390x844 phone: ${JSON.stringify({ smallLayout, smallFrameBox })}`);
     await page.screenshot({ path: join(ARTIFACTS, "phone-small-battle-390x844.png") });
     await page.setViewportSize({ width: 720, height: 1280 });
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     await page.waitForTimeout(100);
     const pausedTick = await cardFrameTick(child, arenaControllerUrl);
     assert.ok(pausedTick >= runningTick, "leaving Battle keeps the same session state");
@@ -1347,7 +1387,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.ok(await cardFrameTick(child, arenaControllerUrl) > pausedTick, "Deck returns to the same resumed Battle session");
 
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     const replaceSlot = page.locator('[data-replace-slot="1"]');
     await replaceSlot.focus();
     await page.keyboard.press("Enter");
@@ -1389,7 +1429,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     "Stonehauler details show the live setup projection");
     assert.equal(await page.locator("[data-card-detail] .detail-cost").innerText(), "5");
     await page.screenshot({ path: join(ARTIFACTS, "custom-card-stonehauler-390x844.png"), fullPage: true });
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     assert.deepEqual(await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
       nodes.map((node) => node.dataset.cardId)), deckIds,
     "the selected order survives navigating to collection and back");
@@ -1475,7 +1515,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       return JSON.parse(arenaHudController.session.serialize()).setup.deck;
     }, arenaControllerUrl), deckIds, "duplicate IDs and messages from the frame itself cannot replace the deck");
 
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     const customPausedTick = await cardFrameTick(child, arenaControllerUrl);
     await page.waitForTimeout(100);
     assert.equal(await cardFrameTick(child, arenaControllerUrl), customPausedTick,
@@ -1681,7 +1721,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.screenshot({ path: join(ARTIFACTS,
       "custom-battle-coppershade-projectile-390x844.png") });
 
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     await page.locator('[data-replace-slot="3"]').focus();
     await page.keyboard.press("Enter");
     assert.equal(await page.locator("[data-replacement-title]").innerText(),
@@ -2426,7 +2466,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Restart restores the same serialized eight-card session opening");
     await page.screenshot({ path: join(ARTIFACTS, "custom-battle-restart-390x844.png") });
 
-    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await clickAppNav(page, "deck");
     await page.locator('[data-replace-slot="2"]').click();
     await page.locator('[data-replacement-card-id="squall-orb"]').click();
     const spellDeckIds = await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
@@ -2724,7 +2764,7 @@ test("keyboard scrolling reaches the last Stormkite QUESTION detail in the compa
       nodes.map((node) => node.dataset.cardId));
     assert.equal(openingDeckIds.length, 8, "the public app starts with its saved eight-card deck");
     const replaceCard = async (slot, cardId) => {
-      await page.locator('.app-nav [data-nav-to="deck"]').click();
+      await clickAppNav(page, "deck");
       const slotButton = page.locator(`[data-replace-slot="${slot}"]`);
       await slotButton.focus();
       await page.keyboard.press("Enter");
@@ -2746,6 +2786,7 @@ test("keyboard scrolling reaches the last Stormkite QUESTION detail in the compa
         const snapshot = JSON.parse(arenaHudController.session.serialize());
         return JSON.stringify(snapshot.setup.deck) === JSON.stringify(expectedDeck);
       }, { entryUrl: controllerUrl, expectedDeck: selected }, { timeout: 10_000 });
+      await waitForRunningClock(child, controllerUrl);
       await child.evaluate(async (entryUrl) => {
         const { arenaHudController } = await import(entryUrl);
         arenaHudController.enterManualStepMode();
@@ -2753,7 +2794,7 @@ test("keyboard scrolling reaches the last Stormkite QUESTION detail in the compa
       return { child, deck: selected };
     };
     const remountSelectedBattle = async (expectedDeck) => {
-      await page.locator('.app-nav [data-nav-to="deck"]').click();
+      await clickAppNav(page, "deck");
       await page.locator('[data-nav-to="battle"]').click();
       await page.waitForFunction(() =>
         document.querySelector("[data-battle-frame-slot] iframe") !== null,
@@ -2766,6 +2807,7 @@ test("keyboard scrolling reaches the last Stormkite QUESTION detail in the compa
         const snapshot = JSON.parse(arenaHudController.session.serialize());
         return JSON.stringify(snapshot.setup.deck) === JSON.stringify(deck);
       }, { entryUrl: controllerUrl, deck: expectedDeck }, { timeout: 10_000 });
+      await waitForRunningClock(child, controllerUrl);
       await child.evaluate(async (entryUrl) => {
         const { arenaHudController } = await import(entryUrl);
         arenaHudController.enterManualStepMode();

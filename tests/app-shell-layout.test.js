@@ -117,11 +117,12 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
       height: slotBounds.height - borderTop - borderBottom,
     };
     const expectedSlotWidth = expectPhone ? 390 : 1_296;
-    const expectedSlotHeight = expectPhone ? 725 : 761.125;
+    const expectedSlotHeight = expectPhone ? 844 : 761.125;
     const slotSettled = Math.abs(slotBounds.width - expectedSlotWidth) <= layoutUnit &&
       Math.abs(slotBounds.height - expectedSlotHeight) <= layoutUnit &&
       getComputedStyle(main).paddingLeft === (expectPhone ? "0px" : "72px");
-    const fit = Math.min(content.width / 720, content.height / 1_280, 8);
+    // HUD content lives in x 56..664, so a narrow slot may crop the side bands.
+    const fit = Math.min(content.width / 608, content.height / 1_280, 8);
     let scaleUnits = Math.floor(fit * 64);
     while (scaleUnits > 0) {
       const reciprocal = Math.fround(64 / scaleUnits);
@@ -138,8 +139,8 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
     const frameFits = Number.isFinite(scale) && scale === expectedScale &&
       Math.abs(bounds.x / expectedScale - Math.round(bounds.x / expectedScale)) <= matrixScaleEpsilon &&
       Math.abs(bounds.y / expectedScale - Math.round(bounds.y / expectedScale)) <= matrixScaleEpsilon &&
-      bounds.x >= content.x - layoutUnit &&
-      bounds.x + bounds.width <= content.x + content.width + layoutUnit &&
+      bounds.x + 56 * expectedScale >= content.x - layoutUnit &&
+      bounds.x + 664 * expectedScale <= content.x + content.width + layoutUnit &&
       bounds.y >= content.y - layoutUnit &&
       bounds.y + bounds.height <= content.y + content.height + layoutUnit;
     const fits = slotSettled && frameFits;
@@ -213,7 +214,7 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
 
 function assertFrameFits(layout, description) {
   assert.ok(layout, `${description}: the real battle iframe is mounted`);
-  const fit = Math.min(layout.slotContent.width / 720,
+  const fit = Math.min(layout.slotContent.width / 608,
     layout.slotContent.height / 1_280, 8);
   let scaleUnits = Math.floor(fit * 64);
   while (scaleUnits > 0) {
@@ -229,13 +230,13 @@ function assertFrameFits(layout, description) {
     `${description}: iframe page x origin is rounded to a scale multiple; ${JSON.stringify(layout)}`);
   assert.ok(Math.abs(layout.iframe.y / layout.scale - Math.round(layout.iframe.y / layout.scale)) <= MATRIX_SCALE_EPSILON,
     `${description}: iframe page y origin is rounded to a scale multiple; ${JSON.stringify(layout)}`);
-  assert.ok(layout.iframe.x >= layout.slotContent.x - CSS_LAYOUT_UNIT &&
-    layout.iframe.x + layout.iframe.width <= layout.slotContent.x +
+  assert.ok(layout.iframe.x + 56 * layout.scale >= layout.slotContent.x - CSS_LAYOUT_UNIT &&
+    layout.iframe.x + 664 * layout.scale <= layout.slotContent.x +
       layout.slotContent.width + CSS_LAYOUT_UNIT &&
     layout.iframe.y >= layout.slotContent.y - CSS_LAYOUT_UNIT &&
     layout.iframe.y + layout.iframe.height <= layout.slotContent.y +
       layout.slotContent.height + CSS_LAYOUT_UNIT,
-  `${description}: scaled iframe remains inside the slot content box; ${JSON.stringify(layout)}`);
+  `${description}: the scaled frame's HUD-safe band remains inside the slot content box; ${JSON.stringify(layout)}`);
   assert.deepEqual([layout.frameViewport.width, layout.frameViewport.height], [720, 1_280],
     `${description}: responsive outer layout preserves the original battle coordinate space`);
 }
@@ -292,6 +293,8 @@ test("battle iframe follows the settled slot across viewport, motion, and view c
   await waitForFrameAndSlotToSettle(page, "phone Battle after desktop resize", true);
   layouts.push(await readFrameLayout(page));
 
+  // The phone battle hides the tab bar behind its compact Leave control.
+  await page.locator('[data-action="leave-battle"]').click();
   await page.locator('.app-nav [data-nav-to="deck"]').click();
   await page.waitForFunction(() => document.querySelector('[data-app-view="deck"]')?.hidden === false,
     null, { polling: "raf", timeout: 8_000 });
@@ -309,7 +312,7 @@ test("battle iframe follows the settled slot across viewport, motion, and view c
   assert.equal(homeDeckCardCount, 8, "the standard home deck remains eight cards");
   assertFrameFits(layouts[0], "desktop Battle");
   assert.ok(Math.abs(layouts[1].slot.width - 390) <= CSS_LAYOUT_UNIT &&
-    Math.abs(layouts[1].slot.height - 725) <= CSS_LAYOUT_UNIT,
+    Math.abs(layouts[1].slot.height - 844) <= CSS_LAYOUT_UNIT,
   `390x844 Battle reaches the expanded full-width phone slot: ${JSON.stringify(layouts[1])}`);
   assertFrameFits(layouts[1], "phone Battle after desktop resize");
   assertFrameFits(layouts[2], "desktop Battle after hidden-slot resize");

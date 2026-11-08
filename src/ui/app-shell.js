@@ -836,6 +836,8 @@ function ensureBattleFrame() {
   layoutBattleFrame();
 }
 
+const BATTLE_FRAME_SAFE_WIDTH = 720 - 2 * 56;
+
 function layoutBattleFrame() {
   if (battleFrame === null) return;
   const bounds = battleFrameSlot.getBoundingClientRect();
@@ -844,9 +846,13 @@ function layoutBattleFrame() {
   const borderRight = Number.parseFloat(slotStyle.borderRightWidth) || 0;
   const borderTop = Number.parseFloat(slotStyle.borderTopWidth) || 0;
   const borderBottom = Number.parseFloat(slotStyle.borderBottomWidth) || 0;
+  const paddingTop = Number.parseFloat(slotStyle.paddingTop) || 0;
+  const paddingBottom = Number.parseFloat(slotStyle.paddingBottom) || 0;
   const width = bounds.width - borderLeft - borderRight;
-  const height = bounds.height - borderTop - borderBottom;
-  const fit = Math.min(width / 720, height / 1_280, 8);
+  const height = bounds.height - borderTop - borderBottom - paddingTop - paddingBottom;
+  // The battle HUD keeps every control inside x 56..664 of the 720px frame,
+  // so a narrow slot may crop the outer bands and give the arena more room.
+  const fit = Math.min(width / BATTLE_FRAME_SAFE_WIDTH, height / 1_280, 8);
   if (!Number.isFinite(fit) || fit <= 0) return;
 
   let scaleUnits = Math.floor(fit * 64);
@@ -859,17 +865,18 @@ function layoutBattleFrame() {
   if (scaleUnits === 0) return;
   const scale = scaleUnits / 64;
   const contentLeft = bounds.left + borderLeft;
-  const contentTop = bounds.top + borderTop;
+  const contentTop = bounds.top + borderTop + paddingTop;
   const pageOffset = (origin, available, frameSize) => {
     const maximum = origin + available - frameSize * scale;
     const nearest = Math.round((origin + (available - frameSize * scale) / 2) / scale) * scale;
+    if (maximum < origin) return nearest - origin;
     const firstInside = Math.ceil(origin / scale) * scale;
     const lastInside = Math.floor(maximum / scale) * scale;
     return Math.max(firstInside, Math.min(lastInside, nearest)) - origin;
   };
 
   battleFrame.style.left = `${pageOffset(contentLeft, width, 720)}px`;
-  battleFrame.style.top = `${pageOffset(contentTop, height, 1_280)}px`;
+  battleFrame.style.top = `${paddingTop + pageOffset(contentTop, height, 1_280)}px`;
   battleFrame.style.transform = `scale(${scale})`;
   battleFrameScale = scale;
   postBattleState(currentView === "battle");

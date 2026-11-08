@@ -1,21 +1,59 @@
 import { getCardPortrait, getCardPortraitIds } from "./card-portrait-art.js";
 
-const CANVAS_WIDTH = 714;
-const CANVAS_HEIGHT = 172;
-const CARD_WIDTH = 136;
-const CARD_HEIGHT = 162;
-const CARD_X = Object.freeze([5, 147, 289, 431, 573]);
-const CARD_Y = 5;
-const PAINTER_REVISION = "hud-card-painter-1";
+// Frame-space geometry. The canvas sits at (56, 1060) inside the 720×1280
+// battle frame, inside the 56px side bands that a phone may crop away.
+export const HUD_PAINTER_GEOMETRY = Object.freeze({
+  canvas: Object.freeze({ height: 220, left: 56, top: 1060, width: 608 }),
+  card: Object.freeze({ height: 152, width: 144, y: 12 }),
+  cardX: Object.freeze([4, 156, 308, 460]),
+  lift: 8,
+  next: Object.freeze({ height: 44, width: 244, x: 4, y: 170 }),
+});
 
-function roundedPath(context, x, y, width, height, radius) {
-  const r = Math.min(radius, width / 2, height / 2);
+const CANVAS_WIDTH = HUD_PAINTER_GEOMETRY.canvas.width;
+const CANVAS_HEIGHT = HUD_PAINTER_GEOMETRY.canvas.height;
+const CARD_WIDTH = HUD_PAINTER_GEOMETRY.card.width;
+const CARD_HEIGHT = HUD_PAINTER_GEOMETRY.card.height;
+const CARD_X = HUD_PAINTER_GEOMETRY.cardX;
+const CARD_Y = HUD_PAINTER_GEOMETRY.card.y;
+const LIFT = HUD_PAINTER_GEOMETRY.lift;
+const NEXT = HUD_PAINTER_GEOMETRY.next;
+const PORTRAIT_HEIGHT = 100;
+const CHAMFER = 9;
+const PAINTER_REVISION = "hud-card-painter-2";
+const NAME_FONT = '700 22px "Barlow Condensed", sans-serif';
+const LABEL_FONT = '700 15px "Barlow Condensed", sans-serif';
+
+const INK = "#0b1311";
+const CREAM = "#f4ebd6";
+const BRASS = "#e9a83a";
+const PLATE = "#15211d";
+
+/** Low-poly card silhouette: a rectangle with cut (faceted) corners. */
+function facetPath(context, x, y, width, height, cut) {
+  const c = Math.min(cut, width / 2, height / 2);
   context.beginPath();
-  context.moveTo(x + r, y);
-  context.arcTo(x + width, y, x + width, y + height, r);
-  context.arcTo(x + width, y + height, x, y + height, r);
-  context.arcTo(x, y + height, x, y, r);
-  context.arcTo(x, y, x + width, y, r);
+  context.moveTo(x + c, y);
+  context.lineTo(x + width - c, y);
+  context.lineTo(x + width, y + c);
+  context.lineTo(x + width, y + height - c);
+  context.lineTo(x + width - c, y + height);
+  context.lineTo(x + c, y + height);
+  context.lineTo(x, y + height - c);
+  context.lineTo(x, y + c);
+  context.closePath();
+}
+
+function hexPath(context, cx, cy, width, height) {
+  const w = width / 2;
+  const h = height / 2;
+  context.beginPath();
+  context.moveTo(cx, cy - h);
+  context.lineTo(cx + w, cy - h / 2);
+  context.lineTo(cx + w, cy + h / 2);
+  context.lineTo(cx, cy + h);
+  context.lineTo(cx - w, cy + h / 2);
+  context.lineTo(cx - w, cy - h / 2);
   context.closePath();
 }
 
@@ -33,7 +71,8 @@ function clippedImage(context, image, source, x, y, width, height) {
     sx += (sourceWidth - sw) / 2;
   } else if (sourceRatio < targetRatio) {
     sh = sourceWidth / targetRatio;
-    sy += (sourceHeight - sh) / 2;
+    // Portraits put faces in the upper half; bias the crop upward.
+    sy += (sourceHeight - sh) * 0.3;
   }
   context.drawImage(image, sx, sy, sw, sh, x, y, width, height);
 }
@@ -52,6 +91,7 @@ function imageSource(image, cell) {
   };
 }
 
+/** Whole-word lines only: a name never breaks inside a word. */
 function cardNameLines(context, name, maxWidth) {
   const words = name.split(/\s+/u);
   const lines = [];
@@ -70,124 +110,184 @@ function cardNameLines(context, name, maxWidth) {
   return [lines[0], lines.slice(1).join(" ")];
 }
 
-function drawCost(context, x, y, cost, state) {
-  const outer = state === "ended" ? "#191d22" : "#f4ebd6";
-  const border = state === "insufficient" ? "#b455c4" : "#191d22";
-  const fill = state === "ended" ? "#5d6468"
-    : state === "insufficient" ? "#191d22" : "#743684";
+/** Faceted elixir gem with its cost. */
+function drawCost(context, cx, cy, width, height, cost, state, fontSize) {
   context.save();
-  context.shadowColor = state === "ended" ? "transparent" : "#191d2288";
-  context.shadowBlur = state === "ended" ? 0 : 3;
-  context.shadowOffsetX = state === "ended" ? 0 : 2;
-  context.shadowOffsetY = state === "ended" ? 0 : 3;
-  context.beginPath();
-  context.arc(x + 23, y + 23, 23, 0, Math.PI * 2);
-  context.fillStyle = outer;
+  if (state !== "ended") {
+    context.shadowColor = "#05090899";
+    context.shadowBlur = 2;
+    context.shadowOffsetY = 2;
+  }
+  hexPath(context, cx, cy, width + 4, height + 4);
+  context.fillStyle = state === "ended" ? "#2a2f33" : state === "insufficient" ? "#c27ad6" : BRASS;
   context.fill();
   context.shadowColor = "transparent";
-  context.beginPath();
-  context.arc(x + 23, y + 23, 20, 0, Math.PI * 2);
-  context.fillStyle = fill;
-  context.fill();
-  context.lineWidth = 3;
-  context.strokeStyle = border;
-  context.stroke();
+  hexPath(context, cx, cy, width, height);
   if (state === "normal") {
-    const glow = context.createRadialGradient(x + 17, y + 16, 2, x + 23, y + 23, 22);
-    glow.addColorStop(0, state === "insufficient" ? "#f2a9ed" : "#f2a9ed");
-    glow.addColorStop(0.58, state === "insufficient" ? "#b455c4" : "#b455c4");
-    glow.addColorStop(1, "#743684");
-    context.beginPath();
-    context.arc(x + 23, y + 23, 18.5, 0, Math.PI * 2);
+    const glow = context.createLinearGradient(cx - width / 2, cy - height / 2, cx + width / 2, cy + height / 2);
+    glow.addColorStop(0, "#f3a6f6");
+    glow.addColorStop(0.45, "#b549d0");
+    glow.addColorStop(1, "#5c1f7e");
     context.fillStyle = glow;
+  } else {
+    context.fillStyle = state === "ended" ? "#4b5257" : "#1d1424";
+  }
+  context.fill();
+  if (state === "normal") {
+    // Upper-left facet catches the light like the diorama's low-poly faces.
+    context.beginPath();
+    context.moveTo(cx, cy - height / 2);
+    context.lineTo(cx - width / 2, cy - height / 4);
+    context.lineTo(cx - width / 2, cy + height / 6);
+    context.lineTo(cx, cy);
+    context.closePath();
+    context.fillStyle = "#ffffff38";
     context.fill();
   }
-  context.fillStyle = state === "insufficient" ? "#f2a9ed" : "#fff";
-  if (state === "ended") context.fillStyle = "#f4ebd6";
-  context.font = '700 30px "Barlow Condensed", sans-serif';
+  context.font = `700 ${fontSize}px "Barlow Condensed", sans-serif`;
   context.textAlign = "center";
   context.textBaseline = "middle";
-  context.fillText(String(cost), x + 23, y + 24);
+  context.lineJoin = "round";
+  context.lineWidth = Math.max(3, fontSize / 7);
+  context.strokeStyle = state === "ended" ? "#2a2f33" : state === "insufficient" ? "#0b0710" : "#3a0f4c";
+  context.strokeText(String(cost), cx, cy + 1);
+  context.fillStyle = state === "ended" ? "#e6e1d3" : state === "insufficient" ? "#f0c2f7" : "#ffffff";
+  context.fillText(String(cost), cx, cy + 1);
   context.restore();
 }
 
-function drawCard(context, card, kind, x, y, phase, assets) {
-  const ended = kind === "hand" && phase === "ended";
-  const insufficient = kind === "hand" && !ended && card.insufficient;
-  const selected = kind === "hand" && !ended && card.selected;
-  const state = ended ? "ended" : insufficient ? "insufficient" : "normal";
-  if (selected) {
-    roundedPath(context, x - 5, y - 5, CARD_WIDTH + 10, CARD_HEIGHT + 10, 14);
-    context.fillStyle = "#191d22";
-    context.fill();
-    roundedPath(context, x - 3, y - 3, CARD_WIDTH + 6, CARD_HEIGHT + 6, 12);
-    context.fillStyle = "#e9a83a";
-    context.fill();
-  }
-
-  context.save();
-  roundedPath(context, x, y, CARD_WIDTH, CARD_HEIGHT, 10);
-  context.fillStyle = ended ? "#5d6468" : "#18232c";
-  context.fill();
-  context.save();
-  roundedPath(context, x + 3, y + 3, CARD_WIDTH - 6, CARD_HEIGHT - 6, 7);
-  context.clip();
+function drawPortrait(context, card, assets, x, y, width, height, filter) {
   const portrait = getCardPortrait(card.id);
   const image = assets.get(portrait.src);
-  context.filter = kind === "next"
-    ? "saturate(.85) brightness(.92)"
-    : ended ? "grayscale(1) brightness(.6)"
-      : insufficient ? "grayscale(.6) brightness(.55)" : "none";
-  if (kind === "next") {
-    clippedImage(context, image, imageSource(image, portrait.cell),
-      x + 3, y + 23, 130, 84);
-  } else {
-    clippedImage(context, image, imageSource(image, portrait.cell),
-      x + 3, y - 5, 130, 130);
-  }
+  context.filter = filter;
+  clippedImage(context, image, imageSource(image, portrait.cell), x, y, width, height);
   context.filter = "none";
-  context.fillStyle = ended ? "#8b8578" : selected ? "#e9a83a" : "#f4ebd6";
-  context.fillRect(x + 3, y + 108, 130, 51);
+}
+
+function drawHandCard(context, card, x, phase, amount, assets) {
+  const ended = phase === "ended";
+  const insufficient = !ended && card.insufficient;
+  const selected = !ended && card.selected;
+  const state = ended ? "ended" : insufficient ? "insufficient" : "normal";
+  const y = CARD_Y - (selected ? LIFT : 0);
+
+  context.save();
+  if (selected) {
+    context.save();
+    context.shadowColor = "#e9a83acc";
+    context.shadowBlur = 14;
+    facetPath(context, x - 3, y - 3, CARD_WIDTH + 6, CARD_HEIGHT + 6, CHAMFER + 2);
+    context.fillStyle = BRASS;
+    context.fill();
+    context.restore();
+  } else if (!ended) {
+    // Hard vertical drop, inset 2px so the card's sides stay clean for the
+    // selection halo.
+    facetPath(context, x + 2, y + 4, CARD_WIDTH - 4, CARD_HEIGHT, CHAMFER);
+    context.fillStyle = "#000000b3";
+    context.fill();
+  }
+  facetPath(context, x, y, CARD_WIDTH, CARD_HEIGHT, CHAMFER);
+  context.fillStyle = ended ? "#3a4044" : INK;
+  context.fill();
+
+  // Portrait window.
+  context.save();
+  facetPath(context, x + 3, y + 3, CARD_WIDTH - 6, CARD_HEIGHT - 6, CHAMFER - 2);
+  context.clip();
+  drawPortrait(context, card, assets, x + 3, y + 3, CARD_WIDTH - 6, PORTRAIT_HEIGHT,
+    ended ? "grayscale(1) brightness(.55)"
+      : insufficient ? "grayscale(.65) brightness(.72)" : "saturate(1.08)");
+  if (insufficient) {
+    // Charge veil: the uncharged share of the cost stays dark and recedes as
+    // whole elixir arrives, so "how close am I" reads at a glance.
+    const share = Math.max(0, Math.min(1, amount / card.cost));
+    const veil = Math.round(PORTRAIT_HEIGHT * (1 - share));
+    context.fillStyle = "#070b0a8c";
+    context.fillRect(x + 3, y + 3, CARD_WIDTH - 6, veil);
+    if (share > 0) {
+      context.fillStyle = "#d58ae8";
+      context.fillRect(x + 3, y + 3 + veil - 1, CARD_WIDTH - 6, 2);
+    }
+  } else if (!ended) {
+    // Soft top-left light facet.
+    context.beginPath();
+    context.moveTo(x + 3, y + 3);
+    context.lineTo(x + 70, y + 3);
+    context.lineTo(x + 3, y + 62);
+    context.closePath();
+    context.fillStyle = "#ffffff14";
+    context.fill();
+  }
+  // Name plate.
+  const plateY = y + 3 + PORTRAIT_HEIGHT + 1;
+  context.fillStyle = ended ? "#565d61" : selected ? BRASS : PLATE;
+  context.fillRect(x + 3, plateY, CARD_WIDTH - 6, CARD_HEIGHT - 6 - PORTRAIT_HEIGHT - 1);
+  context.fillStyle = selected ? "#fff3cf66" : "#e9a83a40";
+  context.fillRect(x + 3, plateY, CARD_WIDTH - 6, 1);
   context.restore();
 
-  context.lineWidth = 3;
-  context.setLineDash(insufficient ? [7, 5] : []);
-  context.strokeStyle = ended ? "#5d6468" : selected ? "#e9a83a"
-    : insufficient ? "#8b8578" : "#191d22";
-  roundedPath(context, x + 1.5, y + 1.5, CARD_WIDTH - 3, CARD_HEIGHT - 3, 9);
+  // Rim.
+  context.lineWidth = selected ? 2.5 : 1.5;
+  context.strokeStyle = ended ? "#6b7276" : selected ? "#fff0c4"
+    : insufficient ? "#4a5450" : "#8a9c90";
+  facetPath(context, x + 1.25, y + 1.25, CARD_WIDTH - 2.5, CARD_HEIGHT - 2.5, CHAMFER - 1);
   context.stroke();
-  context.setLineDash([]);
-  if (kind === "next") {
-    context.fillStyle = "#191d22";
-    roundedPath(context, x + 3, y + 3, 130, 20, 7);
-    context.fill();
-    context.fillStyle = "#f4ebd6";
-    context.font = '900 16px "Barlow Condensed", sans-serif';
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillText("NEXT", x + 68, y + 13);
-    context.strokeStyle = "#b8672e";
-    context.lineWidth = 1;
-    roundedPath(context, x + 4, y + 4, 128, 154, 6);
-    context.stroke();
-  }
-  const name = card.displayName;
-  context.fillStyle = ended ? "#f4ebd6" : "#191d22";
-  context.font = '700 22px "Barlow Condensed", sans-serif';
+
+  // Name.
+  context.font = NAME_FONT;
   context.textAlign = "center";
   context.textBaseline = "middle";
-  const lines = cardNameLines(context, name, 124);
-  const lineHeight = 22;
-  const startY = y + 134 - ((lines.length - 1) * lineHeight) / 2;
+  context.fillStyle = ended ? "#ece6d6" : selected ? "#191d22"
+    : insufficient ? "#c9c3b4" : CREAM;
+  const lines = cardNameLines(context, card.displayName, CARD_WIDTH - 12);
+  const lineHeight = 19;
+  const plateMid = plateY + (CARD_HEIGHT - 6 - PORTRAIT_HEIGHT - 1) / 2;
+  const startY = plateMid + 1 - ((lines.length - 1) * lineHeight) / 2;
   for (let index = 0; index < lines.length; index += 1) {
-    context.fillText(lines[index], x + 68, startY + index * lineHeight, 124);
+    context.fillText(lines[index], x + CARD_WIDTH / 2, startY + index * lineHeight,
+      CARD_WIDTH - 10);
   }
-  if (kind === "hand") {
-    drawCost(context, x + 8, y + 8, card.cost, state);
-  } else {
-    drawCost(context, x + 8, y + 28, card.cost, "normal");
-  }
+  drawCost(context, x + 24, y + 26, 34, 38, card.cost, state, 27);
   context.restore();
+}
+
+function drawNextCard(context, card, phase, assets) {
+  const { x, y, width, height } = NEXT;
+  const ended = phase === "ended";
+  context.save();
+  facetPath(context, x, y, width, height, 7);
+  context.fillStyle = ended ? "#30363a" : "#101915";
+  context.fill();
+  context.lineWidth = 1.5;
+  context.strokeStyle = ended ? "#5d6468" : "#4f6158";
+  facetPath(context, x + 0.75, y + 0.75, width - 1.5, height - 1.5, 6.5);
+  context.stroke();
+  context.save();
+  facetPath(context, x + 3, y + 3, height - 6, height - 6, 5);
+  context.clip();
+  drawPortrait(context, card, assets, x + 3, y + 3, height - 6, height - 6,
+    ended ? "grayscale(1) brightness(.55)" : "saturate(.85) brightness(.92)");
+  context.restore();
+  const textX = x + height + 3;
+  context.textAlign = "left";
+  context.textBaseline = "alphabetic";
+  context.font = LABEL_FONT;
+  context.letterSpacing = "2px";
+  context.fillStyle = ended ? "#c9c3b4" : BRASS;
+  context.fillText("NEXT", textX, y + 15);
+  context.letterSpacing = "0px";
+  context.font = NAME_FONT;
+  context.fillStyle = ended ? "#ece6d6" : CREAM;
+  context.fillText(card.displayName, textX, y + 37, width - height - 3 - 34);
+  drawCost(context, x + width - 19, y + height / 2, 26, 30, card.cost,
+    ended ? "ended" : "normal", 22);
+  context.restore();
+}
+
+function drawCard(context, card, kind, x, phase, amount, assets) {
+  if (kind === "next") drawNextCard(context, card, phase, assets);
+  else drawHandCard(context, card, x, phase, amount, assets);
 }
 
 function readPresentation(document) {
@@ -210,7 +310,9 @@ function renderKey(view, size) {
     assets: PAINTER_REVISION,
     height: size.height,
     hand: view.hand.map(({ cost, displayName, id, insufficient, selected }) =>
-      [id, displayName, cost, ended ? false : selected, ended ? false : insufficient]),
+      [id, displayName, cost, ended ? false : selected, ended ? false : insufficient,
+        // The charge veil depends on whole elixir only while a card is short.
+        !ended && insufficient ? view.elixir.amount : null]),
     next: [view.next.id, view.next.displayName, view.next.cost],
     phase: view.phase,
     width: size.width,
@@ -224,10 +326,13 @@ function makePlan(view, document) {
 
 function drawFrame(context, view, assets) {
   context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  const cards = [view.next, ...view.hand];
-  for (let index = 0; index < cards.length; index += 1) {
-    drawCard(context, cards[index], index === 0 ? "next" : "hand",
-      CARD_X[index], CARD_Y, view.phase, assets);
+  drawCard(context, view.next, "next", NEXT.x, view.phase, view.elixir.amount, assets);
+  // Paint the selected card last so its lifted halo overlaps its neighbours.
+  const order = view.hand.map((card, index) => index)
+    .sort((a, b) => Number(view.hand[a].selected) - Number(view.hand[b].selected));
+  for (const index of order) {
+    drawCard(context, view.hand[index], "hand", CARD_X[index], view.phase,
+      view.elixir.amount, assets);
   }
 }
 
