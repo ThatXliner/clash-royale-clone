@@ -1522,3 +1522,36 @@ test("Kilnkeeper UI projectile follows the authenticated live position through r
   assert.equal(projectionBytes(createGameUiFrame(restored)), projectionBytes(warmContact));
   assert.equal(projectionBytes(createGameUiFrame(forked)), projectionBytes(warmContact));
 });
+
+test("game UI projection: a frame observer sees committed frames with read-only animation hints", () => {
+  const observed = [];
+  const session = new GameSession(setup());
+  const twin = new GameSession(setup());
+  const { layers } = fixture();
+  const mounted = mountGameUiProjection(layers, null, (frame, hints) => {
+    observed.push({ frame, hints });
+    // A hostile observer cannot write back into what it was handed.
+    assert.throws(() => { hints.units.push({}); }, TypeError);
+    assert.throws(() => { hints.tick = -1; }, TypeError);
+  });
+  for (let step = 0; step < 90; step += 1) {
+    session.step();
+    twin.step();
+    mounted.project(createGameUiFrame(session));
+  }
+  assert.equal(observed.length, 90);
+  const last = observed.at(-1);
+  assert.equal(last.hints.tick, last.frame.tick);
+  const liveIds = new Set(session.state.battle.units.filter((unit) => unit.alive && unit.hitpoints > 0)
+    .map((unit) => unit.id));
+  assert.deepEqual(new Set(last.hints.units.map((unit) => unit.id)), liveIds);
+  for (const unit of last.hints.units) {
+    const source = session.state.battle.units.find((candidate) => candidate.id === unit.id);
+    assert.equal(unit.hitSpeedTicks, source.attack.config.hitSpeedTicks);
+    assert.equal(unit.nextStrikeTick, source.attack.nextAttackTick === null ? null
+      : source.spawnedAt + source.attack.nextAttackTick);
+  }
+  assert.ok(last.hints.lastCardPlay.north === null || typeof last.hints.lastCardPlay.north.cardId === "string");
+  // Observing never changes the session: an unobserved twin stays byte-identical.
+  assert.equal(session.serialize(), twin.serialize());
+});

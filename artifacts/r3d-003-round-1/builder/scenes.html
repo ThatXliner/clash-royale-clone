@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R3D-003 builder scenes</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0e1418; overflow: hidden; }
+  .battle-shell { position: relative; width: 100vw; height: 100vh; }
+  .arena { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+  #status { position: fixed; left: 6px; top: 4px; z-index: 5; font: 12px/1.3 ui-monospace, monospace; color: #fff; text-shadow: 0 1px 2px #000; }
+</style>
+</head>
+<body>
+<main class="battle-shell" data-ui="arena-shell"><section class="arena" data-ui="arena"></section></main>
+<div id="status"></div>
+<script type="module">
+// Builder harness (not shipped): drives the real 3D battlefield view with
+// synthetic, scripted frames so specific moments (deaths on both sides,
+// projectiles, spell areas) and a renderer-only stress load can be captured
+// without the simulation. Query: ?scene=showcase|stress&units=60&t=<seconds>&freeze=1
+import { createBattlefieldView } from "/src/ui/three/battlefield/scene.js";
+
+const params = new URLSearchParams(location.search);
+const sceneName = params.get("scene") ?? "showcase";
+const unitTarget = Number(params.get("units") ?? 48);
+const freezeAt = params.has("t") ? Number(params.get("t")) : null;
+const shell = document.querySelector(".battle-shell");
+const arena = document.querySelector(".arena");
+const fit = () => {
+  const width = Math.min(innerWidth - 8, (innerHeight - 8) * 18 / 32);
+  arena.style.width = `${width}px`;
+  arena.style.height = `${width * 32 / 18}px`;
+};
+fit();
+addEventListener("resize", fit);
+
+const view = createBattlefieldView({ document, window, onFailure: (reason) => console.error("battlefield failure", reason) });
+const TOWERS = [
+  { id: "south:central", role: "central", side: "south", x: 9000, y: 3000 },
+  { id: "south:lane:west", role: "lane", side: "south", x: 3500, y: 6500 },
+  { id: "south:lane:east", role: "lane", side: "south", x: 14500, y: 6500 },
+  { id: "north:central", role: "central", side: "north", x: 9000, y: 29000 },
+  { id: "north:lane:west", role: "lane", side: "north", x: 3500, y: 25500 },
+  { id: "north:lane:east", role: "lane", side: "north", x: 14500, y: 25500 },
+];
+const towerHp = { central: 4824, lane: 3052 };
+const towers = (damage = {}) => TOWERS.map((tower) => {
+  const max = towerHp[tower.role];
+  const hp = Math.max(0, max - (damage[tower.id] ?? 0));
+  return { healthDenominator: max, healthNumerator: hp, id: tower.id, key: `t:${tower.id}`, side: tower.side,
+    x: tower.x, y: tower.y, destroyed: hp === 0, role: tower.role };
+});
+
+const source = {};
+let eventId = 0;
+const events = [];
+const rational = (x, y) => ({ denominator: "1", xNumerator: String(Math.round(x)), yNumerator: String(Math.round(y)) });
+const projectile = (tick, sourceId, from, to, direction = "unit-to-unit") => {
+  events.push({ eventId: ++eventId, parentId: null, phase: "open", rootId: `projectile.${direction}.${sourceId}.${eventId}`,
+    tick, type: "projectile", payload: { direction, effectId: null, from: rational(...from), impactTick: tick + 4,
+      projectileId: eventId, radius: 0, segments: [], sequence: eventId, sourceId, to: rational(...to) } });
+};
+const area = (tick, x, y, radius, effectId) => {
+  events.push({ eventId: ++eventId, parentId: null, phase: "open", rootId: `area.area.none.${effectId}`,
+    tick, type: "area", payload: { direction: "area", effectId, from: rational(x, y), impactTick: tick, projectileId: null,
+      radius, segments: [], sequence: null, sourceId: null, to: null } });
+};
+
+// Scripted entities: { id, kind, layer, side, path(t) -> [x, y], hp(t), alive(t), target }
+const units = [];
+let nextId = 1;
+const add = (kind, layer, side, x, y, options = {}) => {
+  const unit = { id: nextId++, kind, layer, side, x, y, born: options.born ?? 0, dies: options.dies ?? Infinity,
+    max: options.max ?? 600, dx: options.dx ?? 0, dy: options.dy ?? 0, stopY: options.stopY ?? null,
+    target: options.target ?? null, hitSpeed: options.hitSpeed ?? 60, ranged: options.ranged ?? false };
+  units.push(unit);
+  return unit;
+};
+
+if (sceneName === "showcase") {
+  // A bridge fight on the west lane, both sides, with a death on each side.
+  const south = [["mossguard", "ground"], ["brassbolt", "ground"], ["coilblade", "ground"], ["reedsting", "ground"],
+    ["copperskiff", "air"], ["stonehauler", "ground"]];
+  const north = [["ironroot", "ground"], ["kilnkeeper", "ground"], ["forgeguard", "ground"], ["thornscout", "ground"],
+    ["skymaul", "air"], ["briar-runner", "ground"]];
+  south.forEach(([kind, layer], index) => add(kind, layer, "south", 2600 + (index % 3) * 900, 11800 + Math.floor(index / 3) * 1300,
+    { max: 900, ranged: kind === "brassbolt" || kind === "reedsting" || kind === "copperskiff", dies: index === 2 ? 1.0 : Infinity }));
+  north.forEach(([kind, layer], index) => add(kind, layer, "north", 2600 + (index % 3) * 900, 19400 - Math.floor(index / 3) * 1300,
+    { max: 900, ranged: kind === "kilnkeeper" || kind === "thornscout", dies: index === 0 ? 1.15 : index === 3 ? 1.3 : Infinity }));
+  // East lane: a swarm crossing, a flyer pack, and structures.
+  for (let i = 0; i < 6; i += 1) add("cinderling", "ground", "north", 13800 + (i % 3) * 500, 17800 - Math.floor(i / 3) * 500, { dy: -900, stopY: 13000 });
+  for (let i = 0; i < 4; i += 1) add("gloamwing", "air", "south", 13600 + i * 600, 11000, { dy: 700, stopY: 15500 });
+  add("ember-basin", "ground", "south", 11500, 8500, { max: 1356, ranged: true });
+  add("buried-coil", "ground", "north", 9000, 21500, { max: 1152 });
+  add("aether-well", "ground", "south", 6500, 4500, { max: 1070 });
+  add("stormkite", "ground", "south", 9800, 12500, { ranged: true });
+  add("duskwing", "air", "north", 8200, 18500, { dy: -400, ranged: true });
+  add("sunthread-warden", "ground", "north", 5500, 22000, { dy: -600 });
+  add("briar-darter", "ground", "south", 6200, 9600, { dy: 500 });
+  add("coppershade", "air", "north", 11200, 20500, { dy: -700 });
+  add("brackenwheel", "ground", "south", 15000, 10500, { dy: 600 });
+} else if (sceneName === "deaths") {
+  // One of several kinds per side, spread out, all dying at t = 1.0 s:
+  // north units face the camera (south), south units face away.
+  const kinds = [["mossguard", "ground"], ["coilblade", "ground"], ["stonehauler", "ground"], ["reedsting", "ground"],
+    ["copperskiff", "air"], ["skymaul", "air"]];
+  kinds.forEach(([kind, layer], index) => {
+    add(kind, layer, "north", 1500 + index * 3000, 19500, { dies: 1.0, max: 500 });
+    add(kind, layer, "south", 1500 + index * 3000, 12500, { dies: 1.0, max: 500 });
+  });
+} else {
+  const kinds = [["cinderling", "ground"], ["thornscout", "ground"], ["mossguard", "ground"], ["brassbolt", "ground"],
+    ["gloamwing", "air"], ["duskwing", "air"], ["coppershade", "air"], ["forgeguard", "ground"], ["briar-runner", "ground"],
+    ["reedsting", "ground"], ["kilnkeeper", "ground"], ["skymaul", "air"]];
+  for (let i = 0; i < unitTarget; i += 1) {
+    const [kind, layer] = kinds[i % kinds.length];
+    const side = i % 2 === 0 ? "south" : "north";
+    const lane = (i >> 1) % 2 === 0 ? 3500 : 14500;
+    const row = Math.floor(i / 4);
+    add(kind, layer, side, lane - 1500 + (row % 4) * 1000, side === "south" ? 9000 + (row % 5) * 900 : 23000 - (row % 5) * 900,
+      { dy: side === "south" ? 800 : -800, stopY: side === "south" ? 14200 : 17800, ranged: i % 3 === 0, hitSpeed: 54 + (i % 5) * 6 });
+  }
+}
+
+const startedAt = performance.now();
+let tick = 0;
+let lastTick = -1;
+const hpAt = (unit, t) => unit.dies === Infinity ? unit.max * (1 - 0.25 * Math.min(1, Math.max(0, t - 0.4))) :
+  Math.max(0, Math.round(unit.max * (1 - Math.min(1, Math.max(0, t - 0.2) / (unit.dies - 0.2)))));
+const frameAt = (t) => {
+  const entities = [];
+  const links = [];
+  for (const unit of units) {
+    if (t < unit.born || t >= unit.dies) continue;
+    let y = unit.y + unit.dy * t;
+    if (unit.stopY !== null) y = unit.dy > 0 ? Math.min(unit.stopY, y) : Math.max(unit.stopY, y);
+    const x = unit.x + unit.dx * t;
+    const hp = Math.max(1, hpAt(unit, t));
+    const kind = unit.kind;
+    entities.push({ healthDenominator: unit.max, healthNumerator: hp, id: unit.id, key: `n:${unit.id}`, side: unit.side,
+      x, y, kind, layer: unit.layer, ...(kind === "buried-coil" ? { hidden: t % 6 < 3 } : {}) });
+  }
+  // Each unit targets the nearest enemy.
+  for (const entity of entities) {
+    let best = null;
+    let bestDistance = Infinity;
+    for (const other of entities) {
+      if (other.side === entity.side) continue;
+      const distance = Math.hypot(other.x - entity.x, other.y - entity.y);
+      if (distance < bestDistance) { bestDistance = distance; best = other; }
+    }
+    if (best !== null && bestDistance < 6000) links.push({ fromKey: entity.key, toKey: best.key, x1: entity.x, y1: entity.y, x2: best.x, y2: best.y });
+  }
+  return { entities, links };
+};
+
+const hints = (t, entities, links) => ({
+  lastCardPlay: { north: null, south: null }, spells: [], tick,
+  units: entities.map((entity) => {
+    const unit = units[entity.id - 1];
+    const cadence = unit.hitSpeed;
+    const engaged = links.some((link) => link.fromKey === entity.key);
+    const next = engaged ? (Math.floor(tick / cadence) + 1) * cadence + (entity.id % 7) : null;
+    return { attackPhase: engaged ? "cycling" : "idle", attackSequence: 0, deployTicks: 60, hitSpeedTicks: cadence,
+      id: entity.id, nextStrikeTick: next, spawnedAt: Math.round(unit.born * 60), statusWork: false };
+  }),
+});
+
+const status = document.querySelector("#status");
+let frozen = false;
+const step = () => {
+  requestAnimationFrame(step);
+  const t = (performance.now() - startedAt) / 1000;
+  if (freezeAt !== null && t >= freezeAt) {
+    if (!frozen) { frozen = true; view.element.battlefieldDebug.freeze(true); document.body.dataset.frozen = "true"; }
+    return;
+  }
+  tick = Math.floor(t * 60);
+  if (tick === lastTick) return;
+  // Projectiles from ranged units each cadence; a spell every 2.5 s.
+  const { entities, links } = frameAt(t);
+  for (const link of links) {
+    const unit = units[Number(link.fromKey.slice(2)) - 1];
+    if (!unit.ranged) continue;
+    const phase = (tick + unit.id % 7) % unit.hitSpeed;
+    if (lastTick >= 0 && phase < tick - lastTick) projectile(tick, unit.id, [link.x1, link.y1], [link.x2, link.y2]);
+  }
+  if (sceneName === "showcase" && Math.floor(t / 2.5) !== Math.floor(Math.max(0, lastTick) / 60 / 2.5) && t > 0.5) {
+    area(tick, 3500, 18600, 2500, Math.floor(t / 2.5));
+  }
+  // Towers shoot the nearest unit in range.
+  for (const tower of TOWERS) {
+    if (tick % 50 !== (tower.id.length * 7) % 50) continue;
+    const enemy = entities.find((entity) => entity.side !== tower.side && Math.hypot(entity.x - tower.x, entity.y - tower.y) < 7500);
+    if (enemy) projectile(tick, tower.id, [tower.x, tower.y], [enemy.x, enemy.y], "tower-to-unit");
+  }
+  lastTick = tick;
+  const frame = {
+    combat: { entities, links, tick, towers: towers({ "north:lane:west": 900, "south:lane:west": 2300 }) },
+    effects: { areas: [], events: events.slice(-400), tick },
+    source,
+    tick,
+  };
+  view.update(frame, hints(t, entities, links));
+  status.textContent = `${sceneName} t=${t.toFixed(2)} units=${entities.length}`;
+};
+await view.warm(null);
+view.mount(shell);
+requestAnimationFrame(step);
+window.__scene = { view };
+</script>
+</body>
+</html>
