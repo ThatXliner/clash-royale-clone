@@ -223,8 +223,9 @@ export const GROUND_DESIGNS = {
       b.mesh(G.ball(1), "team", body, [0, 0.19, 0], [0.16, 0.15, 0.16]);
       const flame = b.group("flame", body, [0, 0.3, 0]);
       b.mesh(G.cone(6), "teamFlame", flame, [0, 0.12, -0.02], [0.12, 0.28, 0.12], [-0.15, 0, 0]);
-      b.mesh(G.cone(5), "teamGlow", flame, [0.08, 0.04, 0], [0.06, 0.14, 0.06], [0, 0, -0.5]);
-      b.mesh(G.cone(5), "teamGlow", flame, [-0.08, 0.03, 0.01], [0.055, 0.12, 0.055], [0, 0, 0.5]);
+      // Pale ember flicks either side: the kind accent next to the team body.
+      b.mesh(G.cone(5), "ember", flame, [0.08, 0.04, 0], [0.06, 0.14, 0.06], [0, 0, -0.5]);
+      b.mesh(G.cone(5), "ember", flame, [-0.08, 0.03, 0.01], [0.055, 0.12, 0.055], [0, 0, 0.5]);
       b.mesh(G.ball(0), "ember", body, [0, 0.17, 0.08], [0.09, 0.08, 0.07], [0, 0, 0], { castShadow: false });
       const cap = b.group("head", body, [0.04, 0.29, 0.03], [0.25, 0, -0.35]);
       b.mesh(G.dome(7, 3), "wood", cap, [0, 0, 0], [0.11, 0.07, 0.11]);
@@ -305,7 +306,7 @@ export const GROUND_DESIGNS = {
 
   // Fern-path scout: big pale leaf mask with tall leaf ears, light blade.
   thornscout: {
-    // Silhouette: oversized pale team-tinted leaf mask with two tall team leaf ears, twin blades.
+    // Silhouette: oversized pale leaf mask (kind accent) with two tall team leaf ears, twin blades.
     layer: "ground", height: 0.85, radius: 0.22, motion: "biped", attack: "swing", walkRate: 2.3, scale: 1.15, blob: true,
     build(b) {
       const body = b.joints.body;
@@ -315,7 +316,7 @@ export const GROUND_DESIGNS = {
       });
       b.mesh(G.cone(5), "team", body, [0, 0.3, -0.06], [0.17, 0.27, 0.1], [-0.3, 0, 0]);
       b.mesh(G.shape("scout-mask-2", [[0, -0.2], [0.18, -0.07], [0.2, 0.1], [0.08, 0.2], [0, 0.16], [-0.08, 0.2], [-0.2, 0.1], [-0.18, -0.07]], 0.05),
-        "teamLight", p.head, [0, 0.13, 0.11], [1, 1, 1], [-0.35, 0, 0]);
+        "bone", p.head, [0, 0.13, 0.11], [1, 1, 1], [-0.35, 0, 0]);
       eyes(b, p.head, 0.16, 0.15, 0.06, 0.026);
       for (const x of [0.09, -0.09]) {
         b.mesh(G.shape("leaf", LEAF, 0.03), "team", p.head, [x, 0.24, -0.01], [0.14, 0.26, 1], [0, 0, x > 0 ? -0.3 : 0.3]);

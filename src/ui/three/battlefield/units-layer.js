@@ -46,16 +46,17 @@ const BAR_HEIGHT = 0.17;
 const CROWD_SPACING = 0.92;
 const CROWD_DEPTH_WEIGHT = 0.85;
 const CROWD_LATERAL = 0.55;
-// Offset bounds in tiles: across the lane (east-west) and along it.
-const CROWD_MAX_ACROSS = 0.9;
-const CROWD_MAX_ALONG = 1.5;
-// Flyers may drift further sideways, off a crowded deck and over the water.
-const CROWD_MAX_ACROSS_AIR = 1.3;
-// Pull back toward the simulated spot once neighbours have moved on.
-const CROWD_RETURN = 0.06;
-const CROWD_PASSES = 3;
-// Fraction of an overlap resolved per pass (under-relaxed so crowds settle).
-const CROWD_STIFFNESS = 0.45;
+// Largest drawn offset from the simulated spot, in tiles. A unit fighting a
+// target within CROWD_ENGAGED_RANGE tiles also stays within its simulated gap
+// plus CROWD_LINK_SLACK tiles of that target.
+const CROWD_MAX_OFFSET = 0.5;
+const CROWD_ENGAGED_RANGE = 1.5;
+const CROWD_LINK_SLACK = 0.25;
+// Relaxation passes per simulated tick; each resolves part of every overlap.
+const CROWD_PASSES = 7;
+const CROWD_STIFFNESS = 0.6;
+// A pass that moves no spread further than this (tiles) ends the solve early.
+const CROWD_SETTLED = 0.004;
 const CROWD_EASE_RATE = 7;
 const BRIDGE_DECK_MARGIN = 0.24;
 const DEPTH_STRETCH = 1 / Math.sin((47 * Math.PI) / 180);
@@ -262,6 +263,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       targetPoint: null, attack: null, hint: null, attackUntil: 0, strikeTick: null,
       spawnTick: tick, deployUntilTick: tick, dying: false, hidden: record.hidden === true,
       baseX: x, baseZ: z, offsetX: 0, offsetZ: 0, spreadX: 0, spreadZ: 0, pushX: 0, pushZ: 0,
+      linkKey: null, linkTarget: null,
     };
     if (kind === "buried-coil") model.setHidden(entity.hidden, { immediate: true });
     entities.set(record.key, entity);
@@ -319,6 +321,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     const targets = new Map();
     for (const link of combat.links) targets.set(link.fromKey, link);
     const seen = new Set();
+    let membershipChanged = false;
     for (const record of combat.entities) {
       seen.add(record.key);
       let entity = entities.get(record.key);
@@ -328,6 +331,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
           entity.holder.removeFromParent();
         }
         entity = spawn(record, now, tick);
+        membershipChanged = true;
       }
       const hint = hintById.get(record.id) ?? null;
       entity.hint = hint;
@@ -363,8 +367,10 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       if (link !== undefined) {
         const [lx, lz] = toWorld(link.x2 / 1000, link.y2 / 1000);
         entity.targetPoint = { x: lx, z: lz };
+        entity.linkKey = typeof link.toKey === "string" ? link.toKey : null;
       } else {
         entity.targetPoint = null;
+        entity.linkKey = null;
       }
       if (record.healthNumerator < entity.hp) {
         const at = now / 1000;
@@ -382,11 +388,17 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       }
     }
     for (const entity of entities.values()) {
-      if (!seen.has(entity.key) && !entity.dying) kill(entity);
+      if (!seen.has(entity.key) && !entity.dying) {
+        kill(entity);
+        membershipChanged = true;
+      }
     }
     if (fresh) {
       lastTick = tick;
       lastSyncAt = now;
+      // The layout is re-solved every other tick (and whenever units come or go);
+      // the drawn offsets ease between solves.
+      if (tick % 2 === 0 || membershipChanged) layout();
     }
   };
 
@@ -418,21 +430,24 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
   };
 
   // The simulation treats troops as points, so a swarm can share one exact
-  // spot. Presentation spreads overlapping bodies apart on screen (at most
-  // CROWD_MAX_ACROSS tiles east-west, CROWD_MAX_ALONG north-south, and never
-  // past a bridge's rails) so every member stays visible. A few relaxation
-  // passes per frame move each unit's spread target; the drawn offset eases
-  // toward it, so crowds open up quickly without jitter. Deterministic per
-  // entity id and never read by the simulation.
+  // spot. Presentation spreads overlapping bodies apart on screen so every
+  // member stays visible. Every other simulated tick a deterministic layout is
+  // solved from scratch from the simulated positions alone (ids break ties),
+  // so a held match draws a perfectly still board; the drawn offset then
+  // eases toward that layout. Offsets stay small and honest: at most
+  // CROWD_MAX_OFFSET tiles, never past a bridge's rails, and an attacker in
+  // close combat stays beside its target. Never read by the simulation.
   const crowd = [];
+  const linked = [];
   const byScreenU = (first, second) => first.screenU - second.screenU || first.id - second.id;
+  const byId = (first, second) => first.id - second.id;
   const relax = (widest) => {
     for (const entity of crowd) {
       entity.pushX = 0;
       entity.pushZ = 0;
       // Where the body is drawn, in screen tiles (u east, v up the screen).
-      entity.screenU = entity.baseX + entity.spreadX;
-      entity.screenV = -(entity.baseZ + entity.spreadZ) / DEPTH_STRETCH + entity.lift;
+      entity.screenU = entity.to.x + entity.spreadX;
+      entity.screenV = -(entity.to.z + entity.spreadZ) / DEPTH_STRETCH + entity.lift;
     }
     // Sweep east to west: only bodies whose screen columns overlap can touch.
     crowd.sort(byScreenU);
@@ -451,7 +466,8 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         const distance = Math.hypot(du, dv);
         if (distance >= 1) continue;
         if (distance < 1e-4) {
-          const angle = ((first.id * 0.6180339887 + second.id * 0.3819660113) % 1) * Math.PI * 2;
+          const angle = ((Math.min(first.id, second.id) * 0.6180339887 + Math.max(first.id, second.id) * 0.3819660113) % 1)
+            * Math.PI * 2 * (first.id < second.id ? 1 : -1);
           du = Math.cos(angle);
           dv = Math.sin(angle);
         } else {
@@ -461,14 +477,14 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         // A file of units one behind the other also steps aside, so a column
         // on a bridge or lane fans out into staggered ranks.
         if (Math.abs(du) < 0.5) {
-          const side = Math.abs(first.screenU - second.screenU) > 0.08 ? Math.sign(first.screenU - second.screenU)
+          const side = Math.abs(first.to.x - second.to.x) > 0.02 ? Math.sign(first.to.x - second.to.x)
             : first.id > second.id ? 1 : -1;
           du += side * CROWD_LATERAL;
         }
-        // A flyer over a ground crowd does most of the moving: it is free of
-        // the bridge rails and the ground units are already packed.
+        // A flyer over a ground crowd does most of the moving: the ground
+        // units are already packed between the rails.
         const firstAir = first.layer === "air";
-        const share = firstAir === (second.layer === "air") ? 0.5 : firstAir ? 0.85 : 0.15;
+        const share = firstAir === (second.layer === "air") ? 0.5 : firstAir ? 0.8 : 0.2;
         const push = (1 - distance) * CROWD_STIFFNESS;
         // pushZ is in tiles toward the south (screen down).
         first.pushX += du * push * spanU * share;
@@ -477,30 +493,37 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         second.pushZ += dv * push * spanV * (1 - share);
       }
     }
+    let moved = 0;
     for (const entity of crowd) {
-      // Pull back toward the simulated spot, bound the spread, and keep
-      // ground units on a bridge deck between its rails.
-      let px = entity.spreadX * (1 - CROWD_RETURN) + entity.pushX;
-      let pz = entity.spreadZ / DEPTH_STRETCH * (1 - CROWD_RETURN) + entity.pushZ;
-      const across = entity.layer === "air" ? CROWD_MAX_ACROSS_AIR : CROWD_MAX_ACROSS;
-      const bound = Math.hypot(px / across, pz / CROWD_MAX_ALONG);
-      if (bound > 1) {
-        px /= bound;
-        pz /= bound;
-      }
-      // pz runs south (world +z); the deck is checked at the sim spot and at
-      // the drawn spot, so nobody is drawn standing in the river.
-      const deck = entity.layer !== "ground" ? null
-        : bridgeDeckAt(entity.tx, entity.ty) ?? bridgeDeckAt(entity.tx, entity.ty - pz);
-      if (deck !== null) {
-        px = Math.max(deck[0] + BRIDGE_DECK_MARGIN - entity.tx, Math.min(deck[1] - BRIDGE_DECK_MARGIN - entity.tx, px));
-      }
-      entity.spreadX = px;
-      entity.spreadZ = pz * DEPTH_STRETCH;
+      moved = Math.max(moved, bound(entity, entity.spreadX + entity.pushX, entity.spreadZ / DEPTH_STRETCH + entity.pushZ));
     }
+    return moved;
   };
-  const separate = (dtSeconds, reducedMotion) => {
+  /** Clamp a spread (px east, pz south, tiles) to the offset cap and the bridge rails. */
+  const bound = (entity, px, pz) => {
+    const length = Math.hypot(px, pz);
+    if (length > CROWD_MAX_OFFSET) {
+      px *= CROWD_MAX_OFFSET / length;
+      pz *= CROWD_MAX_OFFSET / length;
+    }
+    // The deck is checked at the sim spot and at the drawn spot, so nobody is
+    // drawn standing in the river.
+    const deck = entity.layer !== "ground" ? null
+      : bridgeDeckAt(entity.tx, entity.ty) ?? bridgeDeckAt(entity.tx, entity.ty - pz);
+    // Only a unit standing on the deck is held between its rails (one on the
+    // bank beside a bridge end keeps its own spot).
+    if (deck !== null && entity.tx >= deck[0] && entity.tx <= deck[1]) {
+      px = Math.max(Math.min(0, deck[0] + BRIDGE_DECK_MARGIN - entity.tx),
+        Math.min(Math.max(0, deck[1] - BRIDGE_DECK_MARGIN - entity.tx), px));
+    }
+    const moved = Math.hypot(px - entity.spreadX, pz - entity.spreadZ / DEPTH_STRETCH);
+    entity.spreadX = px;
+    entity.spreadZ = pz * DEPTH_STRETCH;
+    return moved;
+  };
+  const layout = () => {
     crowd.length = 0;
+    linked.length = 0;
     let widest = 0;
     for (const entity of entities.values()) {
       if (entity.dying || entity.structure) continue;
@@ -511,12 +534,43 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       entity.lift = (info.hover + body * 0.5) * cosE;
       entity.halfU = Math.max(info.radius * 0.85, (halfWidths.get(entity.kind) ?? 0) * 0.7);
       entity.halfV = Math.max(info.radius * sinE, body * 0.5 * cosE) * CROWD_DEPTH_WEIGHT;
+      entity.spreadX = 0;
+      entity.spreadZ = 0;
       widest = Math.max(widest, entity.halfU);
       crowd.push(entity);
     }
-    for (let pass = 0; pass < CROWD_PASSES; pass += 1) relax(widest);
-    const ease = reducedMotion ? 1 : 1 - Math.exp(-CROWD_EASE_RATE * dtSeconds);
+    // Close-combat pairs: the attacker keeps beside its target.
     for (const entity of crowd) {
+      const target = entity.linkKey === null ? undefined : entities.get(entity.linkKey);
+      entity.linkTarget = target !== undefined && !target.dying && !target.structure &&
+        Math.hypot(target.tx - entity.tx, target.ty - entity.ty) <= CROWD_ENGAGED_RANGE ? target : null;
+      if (entity.linkTarget !== null) linked.push(entity);
+    }
+    linked.sort(byId);
+    // Each pass spreads overlaps, then holds every close-combat attacker
+    // within its simulated gap (plus a little slack) of its target: it may
+    // step around the target, never away from it.
+    for (let pass = 0; pass < CROWD_PASSES; pass += 1) {
+      const moved = relax(widest);
+      for (const entity of linked) holdToTarget(entity, entity.linkTarget);
+      if (moved < CROWD_SETTLED) break;
+    }
+  };
+  const holdToTarget = (entity, target) => {
+    const simX = entity.to.x - target.to.x;
+    const simZ = (entity.to.z - target.to.z) / DEPTH_STRETCH;
+    const dx = simX + entity.spreadX - target.spreadX;
+    const dz = simZ + (entity.spreadZ - target.spreadZ) / DEPTH_STRETCH;
+    const drawn = Math.hypot(dx, dz);
+    const allowed = Math.hypot(simX, simZ) + CROWD_LINK_SLACK;
+    if (drawn <= allowed) return;
+    const keep = allowed / drawn;
+    bound(entity, target.spreadX + dx * keep - simX, target.spreadZ / DEPTH_STRETCH + dz * keep - simZ);
+  };
+  const separate = (dtSeconds, reducedMotion) => {
+    const ease = reducedMotion ? 1 : 1 - Math.exp(-CROWD_EASE_RATE * dtSeconds);
+    for (const entity of entities.values()) {
+      if (entity.dying || entity.structure) continue;
       entity.offsetX += (entity.spreadX - entity.offsetX) * ease;
       entity.offsetZ += (entity.spreadZ - entity.offsetZ) * ease;
     }

@@ -206,10 +206,14 @@ export function createEffectLayer({ toWorld, elevation, depthScale, isReducedMot
         const target = units.nearest(toWorldPoint.x, toWorldPoint.z);
         if (target !== null) {
           targetHeight = target.layer === "air" ? Math.max(target.hover, target.height * 0.55) : target.height * 0.5;
+          // Fly to where the target is drawn (crowds are spread on screen).
+          toWorldPoint.x = target.x;
+          toWorldPoint.z = target.z;
         }
       }
-      const startX = origin?.tower ? origin.x : fromWorld.x;
-      const startZ = origin?.tower ? origin.z : fromWorld.z;
+      // Launch from where the shooter is drawn, falling back to the sim point.
+      const startX = origin !== null ? origin.x : fromWorld.x;
+      const startZ = origin !== null ? origin.z : fromWorld.z;
       const distance = Math.hypot(toWorldPoint.x - startX, toWorldPoint.z - startZ, targetHeight - launchHeight);
       const simSeconds = Math.max(0, (payload.impactTick - record.tick) / TICKS_PER_SECOND);
       const flight = Math.min(1.1, Math.max(simSeconds, Math.min(0.55, Math.max(0.1, distance / STYLE_SPEED[style]))));
@@ -556,6 +560,12 @@ export function createEffectLayer({ toWorld, elevation, depthScale, isReducedMot
     reset,
     showcase,
     get activeCount() { return projectiles.length + bursts.length + waves.length + orbs.length; },
+    /** Launch and landing points of live projectiles, world x/z (diagnostics and tests). */
+    get flights() {
+      return projectiles.map((projectile) => ({
+        from: [projectile.from.x, projectile.from.z], to: [projectile.to.x, projectile.to.z],
+      }));
+    },
     get counts() {
       return {
         projectiles: projectiles.length, bursts: bursts.length, waves: waves.length, orbs: orbs.length,

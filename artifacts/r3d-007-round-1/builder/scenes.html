@@ -129,6 +129,12 @@ if (sceneName === "showcase") {
   add("brassbolt", "ground", "south", 4100, 24300, { max: 600, ranged: true });
   // A south lane tower destroyed too, north darters on its rubble.
   for (let i = 0; i < 3; i += 1) add("briar-darter", "ground", "north", 14500, 6500, { ranged: true, max: 300, full: true });
+} else if (sceneName === "swarm12") {
+  // Single-kind swarms dropped on one point: can you count them?
+  for (let i = 0; i < 12; i += 1) add("cinderling", "ground", "south", 9000, 10000, { full: true });
+  for (let i = 0; i < 12; i += 1) add("cinderling", "ground", "north", 9000, 22000, { full: true });
+  for (let i = 0; i < 6; i += 1) add("gloamwing", "air", "south", 4500, 10000, { full: true });
+  for (let i = 0; i < 4; i += 1) add("thornscout", "ground", "north", 14500, 16000, { full: true });
 } else if (sceneName === "roster" || sceneName === "roster2") {
   // Every troop kind, both sides, full health, in rows: side must read from the body.
   const kinds = sceneName === "roster" ? [["cinderling", "ground"], ["thornscout", "ground"], ["briar-runner", "ground"],

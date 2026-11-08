@@ -1,0 +1,19 @@
+R3D-007 round 3 builder metrics (critic round-2 probes, Metal, 390x844@3)
+cand = this build, prev = main @81fb8ce4. Same scripted plan (plan-m.json, swarm deck mirrored).
+
+Offsets drawn vs sim (tiles), analyze.mjs:
+  cand offAll med 0.32 p90 0.50 p99 0.50 max 0.50 (ground med 0.24, air med 0.47); over 0.75: 0
+  prev offAll med 0.15 p90 0.45 p99 0.45 max 0.45
+  (round 2 was med 0.28 p99 1.16 max 1.31; 31 over 1 tile)
+Close-combat links (sim <= 1.2 tiles), drawn minus sim gap:
+  cand med 0.14 p99 0.25 max 0.26; drawn > 1.5 tiles: 0
+  prev med -0.06 p99 0.73 max 0.90; drawn > 1.5 tiles: 13
+Unit projectile launch gap (actual drawn launch point vs drawn shooter, probe-launch variant):
+  cand 60 shots: median 0, max 0, over 0.75: 0   (shots now leave the drawn shooter and land on the drawn target)
+  prev launches from the sim point: critic projSrcErr over 0.75 = 14/60
+Held settle (jit.mjs stress scene, units moving > 0.05 tile in 3 s at t=10/20/30 s):
+  cand 100 units: 0/0/0   40 units: 0/0/0
+  prev 100 units: 0/0/0   40 units: 0/0/0
+  (round 2 was 93 of 100 never settling)
+Render CPU, 100-unit stress (scenes.mjs --stress=100 --full): per frame median 2.5 vs 2.4-2.6 main;
+  per sim tick update 0.2-0.3 ms vs 0.1 ms (layout solved every other tick, early exit when settled).

@@ -250,7 +250,8 @@ test("battlefield units: a flyer over a ground swarm moves aside on screen", () 
   run(units, 0, 1500);
   const holder = holderOf(units, "n:9");
   const [fx] = toWorld(3.5, 14.2);
-  assert.ok(Math.abs(holder.position.x - fx) > 0.5, "the flyer slides sideways off the crowd");
+  assert.ok(Math.abs(holder.position.x - fx) > 0.3, "the flyer slides sideways off the crowd");
+  assert.ok(Math.abs(holder.position.x - fx) <= 0.5 + 1e-6, "but stays within half a tile of its simulated spot");
   const xs = swarm.map((member) => holderOf(units, member.key).position.x + 9);
   const [west, east] = bridgeDeckAt(3.5, 15.5);
   for (const x of xs) assert.ok(x > west && x < east, "the swarm stays on the deck");
@@ -266,7 +267,7 @@ test("battlefield units: a column on a bridge fans out across the deck but never
   const xs = column.map((member) => holderOf(units, member.key).position.x + 9);
   const [west, east] = bridgeDeckAt(3.5, 16);
   for (const x of xs) assert.ok(x > west + 0.2 && x < east - 0.2, `stays on the deck (${x.toFixed(2)})`);
-  assert.ok(Math.max(...xs) - Math.min(...xs) > 0.6, "the column steps aside into staggered files");
+  assert.ok(Math.max(...xs) - Math.min(...xs) > 0.4, "the column steps aside into staggered files");
   assert.equal(bridgeDeckAt(9, 16), null);
   assert.equal(bridgeDeckAt(3.5, 10), null);
   units.dispose();
@@ -357,7 +358,10 @@ test("battlefield host: a neutral loading panel replaces the flat arena until th
 
 test("battlefield effects: feed launches projectiles once, places team-tinted spell areas, never replays history", () => {
   const units = layer();
-  units.sync(view(10, [entity(1, "brassbolt", "south", 3500, 12000), entity(2, "mossguard", "north", 3500, 18000)]), null, 0);
+  // Two shooters share one spot, so the drawn shooter is spread off the sim point.
+  units.sync(view(10, [entity(1, "brassbolt", "south", 3500, 12000), entity(3, "brassbolt", "south", 3500, 12000),
+    entity(2, "mossguard", "north", 3500, 18000)]), null, 0);
+  run(units, 0, 1000);
   const towers = new Map();
   const effects = createEffectLayer({
     toWorld, elevation: ELEVATION, depthScale: DEPTH, isReducedMotion: () => false, units,
@@ -373,6 +377,13 @@ test("battlefield effects: feed launches projectiles once, places team-tinted sp
   effects.sync({ areas: [], events: [], tick: 9 }, null, 0, source);
   effects.sync({ areas: [], events, tick: 10 }, null, 10, source);
   assert.equal(effects.counts.projectiles, 1);
+  const [flight] = effects.flights;
+  const shooter = units.anchor(1);
+  const [simX, simZ] = toWorld(3.5, 12);
+  assert.ok(Math.hypot(shooter.x - simX, shooter.z - simZ) > 0.1, "the shooter is drawn off its sim point");
+  assert.ok(Math.hypot(flight.from[0] - shooter.x, flight.from[1] - shooter.z) < 1e-6, "the shot leaves the drawn shooter");
+  const target = units.anchor(2);
+  assert.ok(Math.hypot(flight.to[0] - target.x, flight.to[1] - target.z) < 1e-6, "and lands on the drawn target");
   effects.sync({ areas: [], events, tick: 11 }, null, 20, source);
   assert.equal(effects.counts.projectiles, 1, "a record is consumed once");
   events.push({ eventId: 2, parentId: null, phase: "open", rootId: "area.area.none.7.none.none", tick: 12, type: "area",
