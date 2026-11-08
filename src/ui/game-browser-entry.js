@@ -31,6 +31,7 @@ import {
 import { createGameAudioUiBridge } from "./game-audio-bridge.js";
 import { mountGameAudioControls } from "./game-audio-controls.js";
 import { getMatchFeedbackStyleText } from "./match-feedback.js";
+import { BATTLEFIELD_RENDERERS, createBattlefieldHost } from "./three/battlefield/host.js";
 
 const LOCAL_SIDE = "south";
 const APP_FRAME_HUD_PREPARATION = new WeakMap();
@@ -473,6 +474,7 @@ export function mountShippedGameBrowser(
   session = null,
   audioContextFactory = createNativeAudioContext,
   deckChoiceEnabled = false,
+  renderer = "dom",
 ) {
   if (!scheduler || typeof scheduler.requestAnimationFrame !== "function" ||
       typeof scheduler.cancelAnimationFrame !== "function") {
@@ -483,6 +485,9 @@ export function mountShippedGameBrowser(
   }
   if (typeof deckChoiceEnabled !== "boolean") {
     throw new TypeError("shipped browser deck choice option is invalid");
+  }
+  if (!BATTLEFIELD_RENDERERS.includes(renderer)) {
+    throw new TypeError("shipped browser renderer option is invalid");
   }
   assertGameBrowserRootAvailable(root);
   const appFrame = root.ownerDocument?.body?.dataset?.appFrame === "true";
@@ -503,6 +508,11 @@ export function mountShippedGameBrowser(
   let lastSession = session ?? new GameSession(createShippedGameSessionSetup());
   let enduranceDrive = null;
   let enduranceYield = null;
+  // One WebGL battlefield per mounted browser, reused across restarts and deck
+  // changes so remounting a battle never creates another GL context.
+  const battlefield = renderer === "three" && root.ownerDocument?.defaultView
+    ? createBattlefieldHost({ document: root.ownerDocument, window: root.ownerDocument.defaultView })
+    : null;
   let enduranceYieldPolicy = scheduler.scheduler !== null &&
     (typeof scheduler.scheduler === "object" || typeof scheduler.scheduler === "function") &&
     typeof scheduler.scheduler.yield === "function"
@@ -643,6 +653,7 @@ export function mountShippedGameBrowser(
         audioRuntime.setMuted(policy.muted);
       }
       const shell = mountArenaShell(root);
+      battlefield?.attach(shell);
       const questionNotice = shell.querySelector('[data-ui="policy-question"]');
       projectCombatPolicyQuestion(questionNotice, authenticSession);
       const deckChoiceInertState = deckChoiceEnabled
@@ -747,6 +758,7 @@ export function mountShippedGameBrowser(
       loop = mountGameBrowserLoop({
         createInput: createInputFactory(shell, audioUiBridge),
         ...(hudPainterFactory === null ? {} : { hudPainterFactory }),
+        ...(battlefield === null ? {} : { frameObserver: battlefield.observe }),
         layers: createProjectionLayers(shell),
         root,
         scheduler: {
@@ -866,6 +878,7 @@ export function mountShippedGameBrowser(
       const current = graph;
       graph = null;
       const errors = cleanup(current);
+      try { battlefield?.dispose(); } catch (error) { errors.push(error); }
       if (errors.length > 0) {
         throw new AggregateError(errors, "shipped browser cleanup failed");
       }

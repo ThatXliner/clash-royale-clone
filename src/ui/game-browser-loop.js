@@ -117,8 +117,12 @@ function cleanupGraph(graph, preserveProjection = false) {
  */
 export function mountGameBrowserLoop(options) {
   const checked = exact(options, ["createInput", "layers", "root", "scheduler", "session",
-    ...(options && Object.hasOwn(options, "hudPainterFactory") ? ["hudPainterFactory"] : [])],
+    ...(options && Object.hasOwn(options, "hudPainterFactory") ? ["hudPainterFactory"] : []),
+    ...(options && Object.hasOwn(options, "frameObserver") ? ["frameObserver"] : [])],
     "game browser options");
+  if (Object.hasOwn(checked, "frameObserver") && typeof checked.frameObserver !== "function") {
+    throw new TypeError("game browser frame observer is invalid");
+  }
   assertGameBrowserRootAvailable(checked.root);
   if (!isAuthenticGameSession(checked.session)) {
     throw new TypeError("game browser loop requires one authentic GameSession");
@@ -256,7 +260,7 @@ export function mountGameBrowserLoop(options) {
         ? new GameInputBridge(input, candidateSession)
         : GameInputBridge.restore(bridgeBytes, input, candidateSession);
       projection = retainedProjection ?? mountGameUiProjection(layers,
-        checked.hudPainterFactory ?? null);
+        checked.hudPainterFactory ?? null, checked.frameObserver ?? null);
       const candidate = { bridge, input, projection };
       graph = candidate;
       selectedCardId = typeof input.selectedCardId === "string"

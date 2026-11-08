@@ -12903,3 +12903,17 @@ Record R651 scoped PASS for 19/19 full-file cases with exact accepted parent and
 TRACKING HANDOFF:
 
 Final ordered external tracking proposal: exact frozen successor22 R648 PLAN/rounds preimages at `/private/tmp/clash-bc-suite-repair-successor22-20261029/candidate/`, then actual-complete **R649 PASS → R650 FAIL → R651 PASS**. Existing piece rows/bars and all rounds through R648 remain unchanged. No placeholder or unfinished verdict is present; R652 is reserved only and its HUD R5 runtime remains ungranted. The proposal changes PLAN/rounds only; it neither mutates frozen21/22/publication candidates nor generates progress. This tracking builder ran no Node/runtime/browser/test/hash/renderer, index/ref or shared write. Integrator 004 receives the frozen exact-preimage patches for separately authorized application and one later canonical progress render; that execution is not claimed here.
+
+## Round 652 — 2026-11-07
+
+PIECE: BAL-001
+VERDICT: FAIL
+EVIDENCE: Builder commit 2b465c72 (worktree-agent-aa279df15d0582198). Determinism holds: seed critic-s1 gave latest.json sha256 63e0b671… on jobs 2, jobs 2 and jobs 1; seed critic-s2 differs. Tests: rl-environment 17/17, balance 7/7, nondeterminism-guard 10/10. Hand spot-checks of buried-coil, aether-well, ironroot and skymaul match the report. Failures: it drives GameSession directly instead of the RL API; both sides play a random affordable card every 60 ticks at one fixed point, which starves expensive cards (ironroot played in 16.7% of matches) and casts the only spell on its own bridge; H2H counts matches where the exclusive card was never played; an 8-point threshold at n=20 flags a perfectly balanced card with probability 0.503; the default 8-match run can never flag anything; bare `--decks` and `--seed --quiet` are mis-parsed. The engine shares one roster between both sides, so decks differ by one withheld card.
+BIGGEST GAP: Drive both sides through the RL API with a policy that saves elixir for its card and aims spells at enemy units, count H2H only when the exclusive card was actually played, and flag only on a significance test corrected for 24 cards.
+
+## Round 653 — 2026-11-07
+
+PIECE: R3D-001
+VERDICT: PASS
+EVIDENCE: Builder 6057fd71, critic evidence in artifacts/r3d-001-round-1/critic/verdict.md. Release build 74 files, 7,544,103 B (three chunk 659 KB). A full AI match through the real UI had 0 console errors; towers were damaged, became rubble and rebuilt on Play again. DOM grid overlay matches the 3D bridges, river and edges, and taps spawn at the 3D bridge foot. Four Battle round-trips plus a deck change kept exactly 1 WebGL context. Metal frame time median 8.3 ms, p95 9.3 ms, same as DOM. Targeted tests: 71 pass, 0 fail, 1 env-gated skip. Blind A/B preferred the 3D candidate before unblinding.
+BIGGEST GAP: Warm up the WebGL scene (shader compiles, shadow map, board texture) before the match clock starts, so the first battle doesn't open with a ~2.5 s freeze while the sim keeps running.

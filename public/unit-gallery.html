@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unit Model Gallery</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #2B3A2C; color: #F4EBD6; font: 13px/1.3 system-ui, sans-serif; overflow: hidden; }
+    #stage { position: fixed; inset: 0; }
+    #stage canvas { display: block; }
+    #labels { position: fixed; inset: 0; pointer-events: none; }
+    .unit-label { position: absolute; transform: translate(-50%, 0); white-space: nowrap; padding: 1px 6px; border-radius: 4px;
+      background: #191D22CC; font-weight: 600; letter-spacing: .02em; }
+    .unit-label small { font-weight: 400; opacity: .7; margin-left: 4px; }
+    #hud { position: fixed; left: 8px; top: 8px; padding: 6px 10px; border-radius: 6px; background: #191D22CC; }
+    #hud a { color: #E9A83A; margin-right: 8px; }
+    body.phone #hud, body.bare #labels, body.bare #hud { display: none; }
+    body.phone .unit-label { font-size: 6px; font-weight: 500; padding: 0 2px; border-radius: 2px; background: #191D2299; }
+    body.phone .unit-label small { display: none; }
+  </style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="labels"></div>
+  <div id="hud">
+    <strong>Unit model kit</strong> · pose <span id="pose">cycle</span> ·
+    <a href="?">cycle</a><a href="?pose=idle">idle</a><a href="?pose=walk">walk</a><a href="?pose=attack">attack</a><a href="?pose=hit">hit</a><a href="?pose=death">death</a><a href="?pose=deploy">deploy</a><a href="?view=phone">phone scale</a>
+  </div>
+  <script type="module" src="../src/ui/three/units/gallery-entry.js"></script>
+</body>
+</html>

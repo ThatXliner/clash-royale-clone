@@ -490,9 +490,16 @@ const appFrameBootstrap = typeof document === "object" && document !== null &&
         profile !== "stonehauler-witness") {
       throw new TypeError("public game session profile is invalid");
     }
+    const rendererValue = parameters.get("renderer");
+    if (rendererValue !== null && rendererValue !== "dom" && rendererValue !== "three") {
+      throw new TypeError("public renderer option is invalid");
+    }
     const appFrame = appFrameValue === "1";
     if (appFrame) document.body.dataset.appFrame = "true";
-    return { appFrame, document, profile, window };
+    // The shipped Battle screen draws the 3D battlefield; `?renderer=dom`
+    // keeps the legacy DOM arena for pixel-exact comparisons.
+    const renderer = rendererValue ?? (appFrame ? "three" : "dom");
+    return { appFrame, document, profile, renderer, window };
   })()
   : null;
 
@@ -539,7 +546,8 @@ if (appFrameBootstrap?.appFrame) {
 }
 
 export const arenaHudController = appFrameBootstrap === null ? null : (() => {
-  const { appFrame, document: frameDocument, profile, window: frameWindow } = appFrameBootstrap;
+  const { appFrame, document: frameDocument, profile, renderer,
+    window: frameWindow } = appFrameBootstrap;
   const session = profile === null ? null : new GameSession(
     createShippedGameSessionSetup(
       profile === "live-seed-2-terminal" ? 2 : 1, profile,
@@ -547,7 +555,7 @@ export const arenaHudController = appFrameBootstrap === null ? null : (() => {
   );
   const controller = mountShippedGameBrowser(
     frameDocument.querySelector("[data-arena-shell-root]"), frameWindow, session,
-    undefined, profile === null && !appFrame,
+    undefined, profile === null && !appFrame, renderer,
   );
   if (appFrame) {
     controller.pause();

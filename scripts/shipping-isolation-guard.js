@@ -28,6 +28,12 @@ const DEFAULT_BOUNDS = Object.freeze({
   maxTokensPerFile: 250_000,
 });
 const SOURCE_EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".json"]);
+// Exactly the admitted vendored runtime build and its own static imports
+// (mirrors VENDORED_RELEASE_SOURCES in build-release.js).
+const VENDORED_SOURCE_IMPORTS = new Map([
+  ["node_modules/three/build/three.module.js", ["./three.core.js"]],
+  ["node_modules/three/build/three.core.js", []],
+]);
 const RESOLVE_EXTENSIONS = ["", ".js", ".mjs", ".cjs", ".json"];
 const DISTRIBUTABLE_DIRECTORIES = ["dist", "build"];
 const BUILTIN_MODULES = new Set([
@@ -1095,6 +1101,19 @@ export function auditShippingIsolation(options = {}) {
     const bytes = readFileSync(path);
     totalBytes += bytes.length;
     if (!SOURCE_EXTENSIONS.has(extname(path))) {
+      continue;
+    }
+    const vendoredImports = VENDORED_SOURCE_IMPORTS.get(display(path));
+    if (vendoredImports !== undefined) {
+      // The pinned three.js build is admitted third-party code that this
+      // lightweight tokenizer cannot read (regex literals). Its bytes still
+      // count toward the distributable checks below; its fixed relative
+      // imports are followed explicitly instead of parsed.
+      for (const specifier of vendoredImports) {
+        dependencyCount += 1;
+        queueResolution(resolveFile(specifier, path, rootReal, "import", bounds),
+          depth + 1, display(path), specifier);
+      }
       continue;
     }
     let analysis;
