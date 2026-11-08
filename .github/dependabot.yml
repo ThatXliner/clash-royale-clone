@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # Only the shipped app's manifest. artifacts/ and design/ hold frozen
+  # evidence snapshots whose dependencies must stay as they were recorded.
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    exclude-paths:
+      - "artifacts/**"
+      - "design/**"
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    exclude-paths:
+      - "artifacts/**"
+      - "design/**"
