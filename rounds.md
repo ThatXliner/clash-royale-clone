@@ -12966,3 +12966,18 @@ PIECE: R3D-006
 VERDICT: PASS
 EVIDENCE: Built with R3D-003 (1a4a99cd). Metal, fresh contexts, HTTP cache disabled, shader sources salted per run. Long tasks after the battle becomes interactive: none in 3 no-deploy runs; 129–153 ms with 6–8 early deploys (DOM shows 130 ms in the same scenario). Tick at +6 s after interactive: 3D 362/363/363 vs DOM 367/366/367. Warm-up adds ~265 ms before the board is interactive; the player sees ~0.4 s dark panel, ~0.2 s of the old flat arena with the clock frozen, then the 3D board. Console errors on Metal: none.
 BIGGEST GAP: Hide the legacy 2D arena (or show a neutral loading state) until the 3D board is ready, so the cold first battle doesn't flash the old flat board for about 200 ms before the 3D swap.
+
+## Round 661 — 2026-11-08
+
+PIECE: R3D-007
+VERDICT: FAIL
+EVIDENCE: Builder 120ef0d5 on main 81fb8ce4. No console/page errors on Metal across 3 live swarm matches, scripted runs and 6 cold starts. Side reads in every pose at DPR 3 and DPR 1 (team shields, team-framed bars, red darter crowns). Cold first battle ×3: dark shell → "Preparing the battlefield" → 3D, no flat-arena frame (main flashed it), 634–641 ms to interactive vs 643–653 ms, no long tasks after. Rubble low (≤0.36 tiles), checked synthetically only. Plates fade to 45% under units, legible but muddied. Real bridge fights with the 7 swarm cards mirrored still pile into a column; 8–12 overlapping shields hide thornscout/cinderling/gloamwing models so kinds can't be read or counted (main shows the kinds at the same ticks). Blind A/B at the crowded and death moments: main preferred both times. Renderer CPU 2.2–2.3 ms median at 100 units, draw calls 432–504. Tests 92 ok, 0 fail, 1 env skip; spread change is display-only (identical live counts at 25 scripted ticks).
+BIGGEST GAP: In real bridge fights the always-on-top shields pile into a stack that hides the swarm models; shrink or merge markers in dense crowds (or drop them where body colour already shows side) and make the spread actually separate real bridge crowds so kinds read and a blind A/B beats R3D-003.
+
+## Round 662 — 2026-11-08
+
+PIECE: PERF-001
+VERDICT: FAIL
+EVIDENCE: Builder 7ef58169. Determinism vs baseline 1ab2aab3: 41/41, 29/29, 29/29, 28/28 (r3 RL) and 28/28 on the critic's new reactive RL overtime match r4 (seed 31337, 417 units / 40 structures created); cache-contamination probe across interleaved sessions clean; mutation probes clean. Wall t/s (s per 10,800 ticks): default 9,060–9,430 (1.15–1.19), mixed 9,160–10,500 (1.03–1.18), m1 5,680–6,310 (1.71–1.90), m2 6,010–7,510, r3 via RL 4,970–5,520, r4 2,850–2,930 (3.6–3.8; baseline 26). All under 10 s. Dead-entity slope 0.6–1.1 µs per dead entity per tick; at 300–400 dead a browser tick costs ~1.7–2.0 ms of which ~1 ms is dead-entity overhead. Fault probes: 0 half-updated or diverging across gs, lb, rl, adopt, fault-r3, new fault-r4, btc (btc fails closed). 46 selectors: 643 pass, 0 code failures, 2 env skips; test diff additions and one moved source pin.
+BIGGEST GAP: Make the per-tick combat and kernel passes (BattleCombat #targetCandidates/isDead, get state/#publicUnit/deepFreeze, liveUnitsNotOn, chain and projectile source scans) walk only live entities, keeping dead ones in a frozen append-only archive, so a reactive RL swarm-and-buildings overtime match reaches ≥5,000 CPU ticks/s with per-tick cost flat in the dead count.
+DISPOSITION: Dead-entity growth has been the named gap in R655, R657, R658 and R662 — four rounds. Per the gauntlet rule the piece is wrong-shaped: it bundles a delivered 60–270× speedup with a structural storage redesign. Split into PERF-001A (the delivered speedup, independently re-checked) and PERF-002 (live-only per-tick passes with a dead archive).
