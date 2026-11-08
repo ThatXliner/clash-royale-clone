@@ -651,6 +651,8 @@ function walkFiles(directory, predicate) {
   if (!existsSync(directory)) return [];
   const files = [];
   for (const entry of readdirSync(directory).sort()) {
+    // Dependencies, git internals and local agent worktrees are never shipped config.
+    if (entry === "node_modules" || entry === ".git" || entry === ".claude") continue;
     const path = join(directory, entry);
     const stats = statSync(path);
     if (stats.isDirectory()) {
