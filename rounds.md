@@ -12917,3 +12917,24 @@ PIECE: R3D-001
 VERDICT: PASS
 EVIDENCE: Builder 6057fd71, critic evidence in artifacts/r3d-001-round-1/critic/verdict.md. Release build 74 files, 7,544,103 B (three chunk 659 KB). A full AI match through the real UI had 0 console errors; towers were damaged, became rubble and rebuilt on Play again. DOM grid overlay matches the 3D bridges, river and edges, and taps spawn at the 3D bridge foot. Four Battle round-trips plus a deck change kept exactly 1 WebGL context. Metal frame time median 8.3 ms, p95 9.3 ms, same as DOM. Targeted tests: 71 pass, 0 fail, 1 env-gated skip. Blind A/B preferred the 3D candidate before unblinding.
 BIGGEST GAP: Warm up the WebGL scene (shader compiles, shadow map, board texture) before the match clock starts, so the first battle doesn't open with a ~2.5 s freeze while the sim keeps running.
+
+## Round 654 — 2026-11-08
+
+PIECE: R3D-002
+VERDICT: FAIL
+EVIDENCE: Builder f92fae6f. unit-models 13/13, nondeterminism-guard 10/10; no console errors (Metal and SwiftShader); 50 models at 120 fps on Metal. Under the battlefield's 47° camera and ACES tone mapping at 20 px/tile, the 0.12 s emissive hit flash (#FFF6E8 at 0.6) turns bodies near-white; flyers have no team ring, so copperskiff, skymaul, duskwing, gloamwing and coppershade lose their side during hits. Weak resting side colour: cinderling, coilblade, gloamwing. Confusable at phone scale: briar-runner/briar-darter/thornscout, reedsting/sunthread-warden. Blind A/B: the kit beat the shipped 2D sprites on looks and resting team colour. Integration blockers: bare `import "three"` is rejected by the release builder (must use src/ui/three/three-module.js); ground depth stretch 1/sin 47° not handled; 15 draw calls per model on average plus shadows (~2,600 per 100 units); attack duration not exposed.
+BIGGEST GAP: Make the hit flash preserve team colour (tint it toward the side colour or cap emissive near 0.25 with team-coloured parts excluded) and give flyers a team marker that survives the flash, re-verified under the battlefield's ACES tone mapping at 47°.
+
+## Round 655 — 2026-11-08
+
+PIECE: PERF-001
+VERDICT: FAIL
+EVIDENCE: Builder 6e8ee310. The critic's own hash script matched baseline 1ab2aab3 and the candidate on all 44 keys: default battle to tick 12,074 (serialize, replay, state, events, admissions, audio, effect feed, projection) and an RL mixed deck with 2 spells and 4 buildings to tick 3,900 (observations, rewards, env serialize, inner session/replay/effects/structures). Restore, fork and RL restore continue byte-identically; a baseline snapshot restores on the candidate to the same end state. Mutation probe: session views fully deep-frozen, RL outputs fresh copies, no leak. Speed: default deck 63.3 s → 1.14 s (9,439 ticks/s). A full mixed spell/structure match through the RL API takes 17.9 s (604 ticks/s), over the 10 s floor. Mixed-deck cost per 1,800 ticks rises 1.73 s → 10.0 s with 0–5 units alive as dead units and structures accumulate (14 → 154 units, 3 → 38 structures); default deck still +42% per chunk with 100+ dead. 23 selectors, 0 failures; changed test pins are source-hash tripwires only.
+BIGGEST GAP: Remove the remaining per-tick work that grows with accumulated dead units and destroyed or expired structures on the spell/structure path, and add a mixed-deck full-match case to bench-sim so a match with spells and buildings also finishes in about 1 s and well under the 10 s floor.
+
+## Round 656 — 2026-11-08
+
+PIECE: R3D-002
+VERDICT: PASS
+EVIDENCE: Builder e3a1b1da (rebased on main). unit-models 15/15, nondeterminism-guard 10/10, shipping-isolation-guard 13/13; 0 console errors on Metal across the battlefield harness (shipped createBattlefieldView, ACES 1.08, 47°), gallery and A/B pages. Round-654 items all fixed: the hit flash tints to the side colour with team rings untouched; flyers carry an unlit team ring; briar-runner/briar-darter/thornscout and reedsting/sunthread-warden are separable at DPR 1; cinderling, coilblade and gloamwing carry side colour; only the three-module seam imports three, and a release build including all 24 kinds passed (74 files, 7,687,812 B); 100 mixed units cost 413 draw calls (was ~2,638). Blind A/B against round 1: round 2 preferred in 7 of 7 pairs.
+BIGGEST GAP: Make north-side (enemy) deaths read as a fall from the 47° camera by toppling them sideways or toward the camera (or flattening them) instead of backwards, where a figure lying flat looks almost the same as one standing.

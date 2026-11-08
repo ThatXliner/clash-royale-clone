@@ -24,11 +24,11 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-11-07 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-11-08 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">365</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">289</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">653</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">290</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">656</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
@@ -48,18 +48,18 @@
       <tr>
         <td><code>R3D-002</code></td>
         <td>Low-poly unit model kit</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>1</td>
-        <td>Round 1 built (f92fae6f); critic running</td>
+        <td class="state-pass">PASS</td>
+        <td>1/2</td>
+        <td>2</td>
+        <td>R656 PASS; enemy deaths topple away from the 47° camera and barely read — carried into R3D-003</td>
       </tr>
       <tr>
         <td><code>R3D-003</code></td>
         <td>Units, projectiles and effects in the 3D battlefield</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
-        <td>0</td>
-        <td>Waiting on R3D-002 (R3D-001 passed R653)</td>
+        <td>1</td>
+        <td>Round 1 builder running (with R3D-006 warm-up and R656 enemy-death fix)</td>
       </tr>
       <tr>
         <td><code>R3D-004</code></td>
@@ -80,10 +80,10 @@
       <tr>
         <td><code>R3D-006</code></td>
         <td>First-battle warm-up</td>
-        <td class="state-pending">PENDING</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
-        <td>0</td>
-        <td>R653: cold first battle freezes ~2.5 s (1.4 s + 1.0 s long tasks) while the sim keeps running</td>
+        <td>1</td>
+        <td>Folded into the R3D-003 round 1 builder (same host files)</td>
       </tr>
       <tr>
         <td><code>BAL-001</code></td>
@@ -97,9 +97,9 @@
         <td><code>PERF-001</code></td>
         <td>Simulation speed</td>
         <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>1</td>
-        <td>BAL-001 builder measured 145 s per match; ~78% in GameSession.stepMany defensive cloning/validation, ~18% GC, per-tick cost grows with dead entities</td>
+        <td>0/1</td>
+        <td>2</td>
+        <td>Round 2 built (da2d8307): mixed match 106 s → 1.35 s, flat per-segment cost; critic running</td>
       </tr>
       <tr>
         <td><code>MATCH-005</code></td>
@@ -3615,6 +3615,9 @@
       <li><strong>R651 PASS — all 19 full-file cases execute with exact-parent comparison and unchanged post-input pins; original ART/full-suite failures remain separate history</strong> · ART-004 — Successor22 complete ui-combat-state qualification with exact accepted-5ed parent enabled<br>No gap remains in the focused exact-parent full ui-combat-state qualification on successor22. A new ordinary full-suite PASS, full 109-card execution/parity, Bulwark full-card/HUD closure and production publication/build/deployment qualification remain outside this result.</li>
       <li><strong>R652 FAIL</strong> · BAL-001<br>Drive both sides through the RL API with a policy that saves elixir for its card and aims spells at enemy units, count H2H only when the exclusive card was actually played, and flag only on a significance test corrected for 24 cards.</li>
       <li><strong>R653 PASS</strong> · R3D-001<br>Warm up the WebGL scene (shader compiles, shadow map, board texture) before the match clock starts, so the first battle doesn't open with a ~2.5 s freeze while the sim keeps running.</li>
+      <li><strong>R654 FAIL</strong> · R3D-002<br>Make the hit flash preserve team colour (tint it toward the side colour or cap emissive near 0.25 with team-coloured parts excluded) and give flyers a team marker that survives the flash, re-verified under the battlefield's ACES tone mapping at 47°.</li>
+      <li><strong>R655 FAIL</strong> · PERF-001<br>Remove the remaining per-tick work that grows with accumulated dead units and destroyed or expired structures on the spell/structure path, and add a mixed-deck full-match case to bench-sim so a match with spells and buildings also finishes in about 1 s and well under the 10 s floor.</li>
+      <li><strong>R656 PASS</strong> · R3D-002<br>Make north-side (enemy) deaths read as a fall from the 47° camera by toppling them sideways or toward the camera (or flattening them) instead of backwards, where a figure lying flat looks almost the same as one standing.</li>
   </ol>
 </body>
 </html>
