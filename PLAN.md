@@ -1,4 +1,30 @@
-# Pre-Evolutions Card Battler Plan
+# Moss & Ember Plan
+
+## Direction — 2026-11-07
+
+The project is now an original lane card battler with genre-familiar
+mechanics; see AGENTS.md. Historical parity with one specific commercial
+game is no longer a goal. Every piece below whose only open gap is
+historical parity (QUESTION/BLOCKED on corpus-absent tick semantics,
+footage-dependent VIS pieces, card-for-card roster expansion toward the
+109-card target) is retired: do not select it for a round. Its record
+stays as history. `./reference` remains test-only and may calibrate
+genre-level rules, never individual cards.
+
+The current priority, requested by the user, is art: replace the flat
+painted backdrop and DOM sprite markers with a real-time three.js
+battlefield. Mechanics work continues through self-play balance.
+
+| ID | Piece | Independent acceptance bar | Depends on | State | Pass rate | Rounds | Current gap |
+| --- | --- | --- | --- | --- | --- | ---: | --- |
+| R3D-001 | Three.js battlefield scene | Shipped Battle screen renders a lit, stylized low-poly 3D arena (terrain, river, two bridges, lane paths, six towers with team colors, damage and destroyed states, readable health) from the existing combat view model, behind the unchanged DOM HUD; tilted camera fits phone 390×844 and desktop; DOM renderer still available with `?renderer=dom` for legacy pixel tests; no console errors; `npm test` green; release build within limits | — | PENDING | 0/0 | 0 | Not built |
+| R3D-002 | Low-poly unit model kit | One procedural three.js model per entity kind in the 24-card collection, with unmistakable team colour, silhouettes distinct at phone scale, and idle/walk/attack/hit/death poses; a gallery page renders all of them | — | PENDING | 0/0 | 0 | Not built |
+| R3D-003 | Units, projectiles and effects in the 3D battlefield | Battlefield shows every live entity with its R3D-002 model, smooth interpolated movement and facing, attack/hit/death animation driven by combat events, projectiles and spell areas; full AI match plays to a result with no console errors | R3D-001, R3D-002 | BLOCKED | 0/0 | 0 | Waiting on R3D-001 and R3D-002 |
+| R3D-004 | Battle HUD restyle | Card hand, elixir bar, timer and crowns restyled to match the 3D look; card names fully legible at 390px; blind A/B beats the previous HUD | R3D-003 | BLOCKED | 0/0 | 0 | Waiting on R3D-003 |
+| R3D-005 | Card portraits from the 3D models | Collection, deck and hand portraits rendered from the R3D-002 models in one consistent style | R3D-002 | BLOCKED | 0/0 | 0 | Waiting on R3D-002 |
+| BAL-001 | Self-play balance report | `npm run balance` plays seeded AI-vs-AI matches through the RL API across deck pairings, deterministically, and reports per-card win and usage rates with outliers flagged | — | PENDING | 0/0 | 0 | Not built |
+
+## Earlier plan (historical)
 
 The comparison target is `./reference`; it is test-only and must never be
 imported, copied, or bundled into a shipped artifact. Runtime content uses

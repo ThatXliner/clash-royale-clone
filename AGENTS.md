@@ -1,38 +1,53 @@
-# Clash Royale Clone — Pre-Evolutions
+# Moss & Ember
 
 ## What this is
-An open-source real-time card battler that should be mechanically
-indistinguishable from Clash Royale as it existed before the March 2023
-Evolution update.
+An original, open-source real-time lane card battler. Its core rules sit
+in the same genre as the classic mobile lane battlers: elixir that
+refills on a timer, a hand of four from an eight-card deck, two lanes
+and a river, crown towers, three-minute matches with overtime. Its
+cards, balance, arena, art and audio are our own.
+
+Direction changed on 2026-11-07. The earlier goal of being
+indistinguishable from one specific commercial game is retired. Do not
+add card-for-card stat copies of that game's roster, match its arena
+layout or art, or compare our frames against its footage. PLAN.md pieces
+whose only bar was historical parity are retired, not failing.
 
 ## Hard rules
-- Original art, original card names, original audio. Never copy assets,
-  names, or text from the real game into the shipped product.
-- Nothing in ./reference is ever imported, copied, or bundled. It is a
-  comparison target only.
+- Original art, original card names, original audio, original card
+  designs. Never copy assets, names, text or per-card stats from another
+  game into the shipped product.
+- Nothing in ./reference is ever imported, copied, or bundled. It may
+  calibrate genre-level rules (elixir rate, match timing, arena scale),
+  never individual cards.
 - Simulation must be deterministic: same inputs and seed produce the
   same outcome, every time. No wall-clock timing in game logic, no
-  unseeded randomness. The whole verification approach depends on this.
+  unseeded randomness. Rendering may interpolate on wall-clock time, but
+  must never feed back into the simulation.
 
 ## The bar
-./reference holds the comparison target.
-- reference/stats/cards.json, towers.json, arena.json — the numbers.
-- reference/stats/SOURCES.md — provenance and confidence. Read it. Any
-  value flagged low-confidence is not authoritative; treat a mismatch
-  against it as a question, not a failure.
-- reference/footage/ — real gameplay stills and clips for visual
-  comparison.
+- Mechanics: rules feel familiar to a genre player, and every card has a
+  clear role and counters. Balance is judged by AI self-play through the
+  RL API (docs/rl-api.md), not by matching outside stat tables.
+- Art: a cohesive, readable, attractive original look on phone and
+  desktop. The current priority is a real-time three.js battlefield
+  (lit, stylized low-poly) replacing the flat DOM/sprite arena. Judged by
+  blind A/B against our own previous render, plus a readability check at
+  phone size: can you tell every unit, side and tower state apart?
+- Product: the shipped browser game is playable start to finish against
+  the AI with no errors in the console.
 
 ## Verification
-- `npm test` runs the interaction suite: known matchup in, documented
-  outcome out. Every card interaction we claim to support needs a test
-  derived from the stat tables.
-- Visual work is verified by rendering our equivalent of a reference
-  still and comparing them side by side.
-- Source review alone never verifies anything. Run it or render it.
+- `npm test` must stay green. Mechanics changes need deterministic tests.
+- Visual work is verified by rendering it in a real browser (Playwright)
+  and looking at the screenshots. Source review alone never verifies
+  anything. Run it or render it.
+- Critics are harsh but judge what a player would notice. A
+  1-channel pixel delta is not a gap; an unreadable unit is.
 
 ## How work proceeds
-Work on this repo proceeds in build-and-critique rounds, delegated to
-subagents. See .agents/skills/gauntlet-round/. PLAN.md holds the piece
-list and their states; progress.html is the live view for the human.
-Do not do the building and the judging in the same context.
+Work proceeds in build-and-critique rounds delegated to subagents. See
+.agents/skills/gauntlet-round/. PLAN.md holds the piece list and states;
+progress.html is the live view for the human. Do not do the building and
+the judging in the same context. Keep rounds small and shipped: commit
+each accepted round to main.

@@ -1,6 +1,6 @@
 ---
 name: gauntlet-round
-description: Runs one build-and-critique round on a single piece of the Clash Royale clone — delegating a builder subagent and a separate blind critic subagent, then recording the result. Trigger this for any request to improve, fix, extend, or advance a piece listed in PLAN.md, and re-enter it automatically after each round completes until the piece passes or the human stops the run. Do not trigger for one-off questions, reference-corpus work, or repo setup.
+description: Runs one build-and-critique round on a single piece of Moss & Ember — delegating a builder subagent and a separate blind critic subagent, then recording the result. Trigger this for any request to improve, fix, extend, or advance a piece listed in PLAN.md, and re-enter it automatically after each round completes until the piece passes or the human stops the run. Do not trigger for one-off questions, reference-corpus work, or repo setup.
 ---
 
 # Gauntlet Round
@@ -21,7 +21,7 @@ cannot be judged that way, split it in PLAN.md first and pick a half.
 Delegate to one builder. Give it:
 - the piece name and its entry in PLAN.md
 - the last critic verdict for this piece, if any — this is the brief
-- the relevant slice of ./reference and the tests that cover the piece
+- the relevant design notes (AGENTS.md bar, docs/) and the tests that cover the piece
 - the files it owns for this round
 
 Constraints:
@@ -43,25 +43,28 @@ Open its prompt with the role boundary, verbatim:
 > build, delegate, or orchestrate. You evaluate the output in front of
 > you against the bar and return a verdict.
 
-Give it: the built artifact, the relevant slice of ./reference, and the
-command to run the tests. Nothing else.
+Give it: the built artifact, the bar from AGENTS.md and PLAN.md, the
+previous accepted version to compare against, and the command to run the
+tests. Nothing else.
 
 The critic must:
 - **Run it.** Execute the tests, or render the frame, or play the sim.
   A verdict reached by reading source is void.
 - **Paste evidence.** Actual failing test output, actual numbers, actual
   rendered image. Not a summary of them.
-- **Compare blind where possible.** For visual pieces: render our frame
-  to match a reference still, present both unlabeled, and answer which
-  one is the real game and what gave it away. For numeric pieces: state
-  our value and the reference value side by side.
-- **Be harsh.** The default verdict is FAIL. Passing requires the output
-  to be indistinguishable from the bar on the dimension being judged,
-  not merely close or plausible.
+- **Compare blind where possible.** For visual pieces: render the new
+  frame and the previous accepted frame of the same game state, label
+  them A/B in random order, decide which is better and why before
+  unblinding. For mechanics pieces: run self-play or the interaction
+  tests and paste the numbers.
+- **Be harsh about what a player would notice.** The default verdict is
+  FAIL. Passing requires the output to clearly meet the piece's bar.
+  Imperceptible differences (single-channel pixel deltas, sub-tick
+  ordering nobody can see) are not gaps.
 - **Name one gap.** A single sentence describing the biggest remaining
   difference, specific enough to act on. "Movement feels off" is
-  useless; "Hog Rider crosses the bridge in 2.1s against 1.6s in the
-  reference" is a brief.
+  useless; "at 390px wide the Thornscouts and Briar Band are the same
+  brown blob and cannot be told apart" is a brief.
 
 Verdict format:
 
