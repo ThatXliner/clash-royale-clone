@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">369</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">292</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">662</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">664</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">32</div><div class="label">open questions</div></div>
   </div>
   <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
@@ -88,10 +88,10 @@
       <tr>
         <td><code>R3D-007</code></td>
         <td>Battlefield readability polish</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/1</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/2</td>
         <td>2</td>
-        <td>Round 2 built (b16f7f47): shields removed, side in body colour, screen-space spread; critic running</td>
+        <td>R664: side readable and swarms countable, but spread oscillates (90/100 never settle), projectiles launch from sim not drawn shooter, melee pairs drawn 1.5 tiles apart, kind contrast lost at DPR 1</td>
       </tr>
       <tr>
         <td><code>BAL-001</code></td>
@@ -152,10 +152,10 @@
       <tr>
         <td><code>TEST-001</code></td>
         <td>Test hygiene</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/1</td>
         <td>1</td>
-        <td>Round 1 built (131764db): 1,908/0 and clean git status; critic running full suite</td>
+        <td>R663: clean git status and 1,913/0 achieved, but time scale loosens accepted endurance perf caps and 0.5% perceptual threshold lets missing card names pass</td>
       </tr>
       <tr>
         <td><code>PUB-001</code></td>
@@ -3656,6 +3656,8 @@
       <li><strong>R660 PASS</strong> · R3D-006<br>Hide the legacy 2D arena (or show a neutral loading state) until the 3D board is ready, so the cold first battle doesn't flash the old flat board for about 200 ms before the 3D swap.</li>
       <li><strong>R661 FAIL</strong> · R3D-007<br>In real bridge fights the always-on-top shields pile into a stack that hides the swarm models; shrink or merge markers in dense crowds (or drop them where body colour already shows side) and make the spread actually separate real bridge crowds so kinds read and a blind A/B beats R3D-003.</li>
       <li><strong>R662 FAIL</strong> · PERF-001<br>Make the per-tick combat and kernel passes (BattleCombat #targetCandidates/isDead, get state/#publicUnit/deepFreeze, liveUnitsNotOn, chain and projectile source scans) walk only live entities, keeping dead ones in a frozen append-only archive, so a reactive RL swarm-and-buildings overtime match reaches ≥5,000 CPU ticks/s with per-tick cost flat in the dead count.</li>
+      <li><strong>R663 FAIL</strong> · TEST-001<br>Exempt the endurance performance caps from TEST_TIME_SCALE so they keep the unchanged values the PLAN bars require, and tighten maxDifferingFraction to near the measured noise (~0.05%, a few hundred px) so a launch missing card names or the selection ring fails.</li>
+      <li><strong>R664 FAIL</strong> · R3D-007<br>Make the spread settle and stay honest: stop the relaxation from oscillating, launch unit projectiles from the drawn shooter, and cap flyer and melee-pair offsets so attackers aren't drawn 1.5 tiles from targets 0.6 tiles away in sim, while keeping kind contrast (e.g. pale wing panels) so mixed bridge fights read at DPR 1.</li>
   </ol>
 </body>
 </html>
