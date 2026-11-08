@@ -153,6 +153,7 @@ for (const selector of selectors) {
       "match-timing",
       "content-schema",
       "combat-effect-protocol",
+      "unit-models",
     ].includes(selector)
   ) {
     throw new TypeError(`unknown test selector: ${selector}`);
@@ -761,4 +762,8 @@ if (selectors.length === 0 || selectors.includes("visual-combat-assets")) {
 
 if (selectors.length === 0 || selectors.includes("visual-motion-polish")) {
   run([new URL("./visual-motion-polish-runner.js", import.meta.url).pathname, "visual-motion-polish"]);
+}
+
+if (selectors.length === 0 || selectors.includes("unit-models")) {
+  run([new URL("./unit-models-runner.js", import.meta.url).pathname, "unit-models"]);
 }
