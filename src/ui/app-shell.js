@@ -823,6 +823,11 @@ function ensureBattleFrame() {
   if (battleFrame !== null) return;
   const template = document.querySelector("#battle-frame-template");
   battleFrame = template.content.firstElementChild.cloneNode(true);
+  // Forward an explicit renderer choice (`?renderer=dom` keeps the legacy arena).
+  const renderer = new URLSearchParams(window.location.search).get("renderer");
+  if (renderer === "dom" || renderer === "three") {
+    battleFrame.setAttribute("src", `${battleFrame.getAttribute("src")}&renderer=${renderer}`);
+  }
   battleFrame.addEventListener("load", () => {
     battleFrameReady = true;
     postBattleState(currentView === "battle");
