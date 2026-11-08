@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-11-08 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">365</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">366</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">290</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">656</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">657</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">31</div><div class="label">open questions</div></div>
   </div>
   <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
@@ -96,10 +96,10 @@
       <tr>
         <td><code>PERF-001</code></td>
         <td>Simulation speed</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/1</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/2</td>
         <td>2</td>
-        <td>Round 2 built (da2d8307): mixed match 106 s → 1.35 s, flat per-segment cost; critic running</td>
+        <td>R657: stormkite mixed match 14 s (chain candidates include every dead entity each tick); mid-tick faults can desync GameSession snapshot and half-update BattleTowerCombat</td>
       </tr>
       <tr>
         <td><code>MATCH-005</code></td>
@@ -124,6 +124,14 @@
         <td>0/0</td>
         <td>0</td>
         <td>Waiting on fast simulation and real per-side decks; 8-match reports are noise</td>
+      </tr>
+      <tr>
+        <td><code>TEST-001</code></td>
+        <td>Test hygiene</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>A full run rewrites ~230 tracked artifact files and adds ~80 untracked ones; visual-interface-art &quot;four fresh Chrome captures are exact&quot; fails on origin/main 11a111fa as well (card-selected.png differs across captures)</td>
       </tr>
       <tr>
         <td><code>PUB-001</code></td>
@@ -3618,6 +3626,7 @@
       <li><strong>R654 FAIL</strong> · R3D-002<br>Make the hit flash preserve team colour (tint it toward the side colour or cap emissive near 0.25 with team-coloured parts excluded) and give flyers a team marker that survives the flash, re-verified under the battlefield's ACES tone mapping at 47°.</li>
       <li><strong>R655 FAIL</strong> · PERF-001<br>Remove the remaining per-tick work that grows with accumulated dead units and destroyed or expired structures on the spell/structure path, and add a mixed-deck full-match case to bench-sim so a match with spells and buildings also finishes in about 1 s and well under the 10 s floor.</li>
       <li><strong>R656 PASS</strong> · R3D-002<br>Make north-side (enemy) deaths read as a fall from the 47° camera by toppling them sideways or toward the camera (or flattening them) instead of backwards, where a figure lying flat looks almost the same as one standing.</li>
+      <li><strong>R657 FAIL</strong> · PERF-001<br>Build the per-tick chain candidate and projectile source lists from live entities only and add a stormkite mixed deck to bench-sim so that match also finishes in about 1 s, and make GameSession.stepMany adopt only after everything that can throw, with direct BattleTowerCombat.step()/stepBoundary() rolling back or poisoning state on failure.</li>
   </ol>
 </body>
 </html>
