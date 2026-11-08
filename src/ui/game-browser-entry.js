@@ -513,6 +513,9 @@ export function mountShippedGameBrowser(
   const battlefield = renderer === "three" && root.ownerDocument?.defaultView
     ? createBattlefieldHost({ document: root.ownerDocument, window: root.ownerDocument.defaultView })
     : null;
+  // A resume requested while the battlefield is still compiling waits for it,
+  // so the warm-up never runs on a live match clock. Pause cancels it.
+  let pendingResume = null;
   let enduranceYieldPolicy = scheduler.scheduler !== null &&
     (typeof scheduler.scheduler === "object" || typeof scheduler.scheduler === "function") &&
     typeof scheduler.scheduler.yield === "function"
@@ -1006,6 +1009,7 @@ export function mountShippedGameBrowser(
     },
     pause() {
       assertActive();
+      pendingResume = null;
       const changed = graph.loop.pause();
       graph.audioRuntime.renderFrame();
       renderRestart(graph);
@@ -1162,6 +1166,18 @@ export function mountShippedGameBrowser(
     },
     resume() {
       assertActive();
+      if (battlefield !== null && !battlefield.isReady) {
+        if (pendingResume !== null) return false;
+        const token = Object.freeze({});
+        pendingResume = token;
+        battlefield.ready.then(() => {
+          if (pendingResume !== token || !active || graph === null || replacing) return;
+          pendingResume = null;
+          try { api.resume(); } catch {}
+        });
+        return false;
+      }
+      pendingResume = null;
       const changed = graph.loop.resume();
       graph.audioRuntime.renderFrame();
       renderRestart(graph);

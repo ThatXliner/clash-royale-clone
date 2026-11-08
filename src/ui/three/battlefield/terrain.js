@@ -514,6 +514,7 @@ export function createTerrain(toWorld, { document, maxAnisotropy, tileDepth }) {
 
   return {
     group,
+    textures: [boardTexture],
     water: water.uniforms,
     dispose() {
       for (const value of disposables) value.dispose();

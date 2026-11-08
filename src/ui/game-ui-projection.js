@@ -36,6 +36,7 @@ const FRAME_PARTS = new WeakSet();
 const FRAME_MOTION = new WeakMap();
 const FRAME_HUD_RECEIPT = new WeakMap();
 const FRAME_TERMINAL_TICK = new WeakMap();
+const FRAME_PRESENTATION = new WeakMap();
 const OPTIONS = new WeakSet();
 const HUD_PAINTER_SURFACES = new WeakSet();
 const STRUCTURE_IDS = new Map([
@@ -157,6 +158,42 @@ function combatState(state, effectEvents) {
     type: event.phase === "contact" ? "target" : event.phase,
   }));
   return { entities, events, tick: state.tick, towers };
+}
+
+// Read-only animation hints for presentation observers (the 3D battlefield):
+// each live unit's attack clock and each pending spell's caster. Plain frozen
+// copies; nothing here feeds back into the session or the DOM projection.
+function presentationHints(state, snapshot) {
+  const units = [];
+  for (const unit of state.battle.units) {
+    if (!unit.alive || unit.hitpoints <= 0) continue;
+    const cycle = unit.attack;
+    units.push(Object.freeze({
+      attackPhase: cycle.phase,
+      attackSequence: cycle.attackSequence,
+      deployTicks: cycle.config.deployTicks,
+      hitSpeedTicks: cycle.config.hitSpeedTicks,
+      id: unit.id,
+      nextStrikeTick: Number.isSafeInteger(cycle.nextAttackTick)
+        ? unit.spawnedAt + cycle.nextAttackTick : null,
+      spawnedAt: unit.spawnedAt,
+      statusWork: cycle.statusWork === true,
+    }));
+  }
+  const spells = (state.battle.pendingSpellIntents ?? []).map((intent) => Object.freeze({
+    cardId: intent.cardId, effectId: intent.effectId, impactTick: intent.impactTick,
+    side: intent.side, x: intent.point.x, y: intent.point.y,
+  }));
+  const plays = snapshot.hudFeedback.lastCardPlay;
+  return Object.freeze({
+    lastCardPlay: Object.freeze({
+      north: plays.north === null ? null : Object.freeze({ cardId: plays.north.cardId, tick: plays.north.tick }),
+      south: plays.south === null ? null : Object.freeze({ cardId: plays.south.cardId, tick: plays.south.tick }),
+    }),
+    spells: Object.freeze(spells),
+    tick: state.tick,
+    units: Object.freeze(units),
+  });
 }
 
 function briarAttackContacts(state, motion) {
@@ -330,6 +367,7 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
     briarAttackContacts(state, motion),
   ));
   FRAME_TERMINAL_TICK.set(frame, options.terminalPresentationTick);
+  FRAME_PRESENTATION.set(frame, presentationHints(state, snapshot));
   return frame;
 }
 
@@ -721,7 +759,7 @@ export function mountGameUiProjection(value, readyPainterFactory = null, frameOb
     // Read-only presentation consumers (the 3D battlefield) see each frame
     // only after it committed. They cannot affect this projection or the session.
     if (frameObserver !== null) {
-      try { frameObserver(frame); } catch {}
+      try { frameObserver(frame, FRAME_PRESENTATION.get(frame) ?? null); } catch {}
     }
     return frame;
   };

@@ -21,6 +21,9 @@
 //   attackSeconds, attackStrike, setHidden(hidden, { immediate }), dispose() }.
 // setPose("attack", { duration }) stretches the one-shot attack clip to the
 // sim's attack cadence; the blow lands at attackStrike * duration.
+// setPose("death", { fall }) topples a ground unit "back" (default), "left" or
+// "right" in its own frame; the battlefield picks the one that reads across
+// the screen under its tilted camera.
 import { MeshBasicMaterial, Group, Mesh } from "../three-module.js";
 import {
   assertSide, bakeModel, createBuilder, disposeKitCaches, drawCallCount, G, overlayMaterial, TEAM_COLORS, triangleCount,
@@ -155,6 +158,22 @@ function build(kind, design, side, reducedMotion) {
       skeleton.dispose();
     },
   };
+}
+
+/** Static placement facts for a kind, without building a model. */
+export function unitDesignInfo(kind) {
+  const design = Object.hasOwn(UNIT_DESIGNS, kind) ? UNIT_DESIGNS[kind]
+    : Object.hasOwn(EFFECT_DESIGNS, kind) ? EFFECT_DESIGNS[kind] : null;
+  if (design === null) throw new RangeError(`no unit model for kind ${String(kind)}`);
+  const scale = design.scale ?? 1;
+  return Object.freeze({
+    attack: design.attack ?? "none",
+    height: design.height * scale,
+    hover: (design.hover ?? 0) * scale,
+    layer: design.layer,
+    motion: design.motion,
+    radius: design.radius * scale,
+  });
 }
 
 export function createUnitModel(kind, side, { reducedMotion = false } = {}) {

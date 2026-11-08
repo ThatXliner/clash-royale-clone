@@ -82,6 +82,7 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
     hiddenAmount: 0,
     attackSeconds: timing.seconds,
     timeScale: 1,
+    fall: 0,
   };
   const jointList = Object.values(j);
   for (const mesh of meshes) mesh.userData.baseMaterial = mesh.material;
@@ -285,7 +286,12 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
       flap(6, 0.9 * (1 - fall));
     } else {
       const topple = easeInCubic(span(u, 0, 0.42));
-      m.rotation.x -= (Math.PI / 2) * 0.92 * topple * (reducedMotion ? 0.3 : 1);
+      const angle = (Math.PI / 2) * 0.92 * topple * (reducedMotion ? 0.3 : 1);
+      // fall 0 topples backward (local -Z); right/left topple toward local -X/+X
+      // (the model faces +Z, so its right hand is -X). Placement uses this to
+      // keep every fall across the screen, never along the view direction.
+      if (state.fall === 0) m.rotation.x -= angle;
+      else m.rotation.z += state.fall * angle;
       m.position.y += Math.sin(Math.PI * span(u, 0, 0.3)) * 0.12 * h * amp;
       if (j.armL) j.armL.rotation.z += 0.8 * topple * amp;
       if (j.armR) j.armR.rotation.z -= 0.8 * topple * amp;
@@ -355,11 +361,15 @@ export function createRig({ design, frame, meshes, reducedMotion }) {
 
   return {
     get pose() { return state.pose; },
-    setPose(pose, { duration } = {}) {
+    setPose(pose, { duration, fall } = {}) {
       if (!UNIT_POSES.includes(pose)) throw new RangeError(`unknown unit pose ${String(pose)}`);
       if (duration !== undefined && (!Number.isFinite(duration) || duration <= 0)) {
         throw new RangeError("pose duration must be a positive number of seconds");
       }
+      if (fall !== undefined && fall !== "back" && fall !== "left" && fall !== "right") {
+        throw new RangeError("death fall must be back, left or right");
+      }
+      if (pose === "death") state.fall = fall === "right" ? 1 : fall === "left" ? -1 : 0;
       if (pose === "attack") state.attackSeconds = duration ?? timing.seconds;
       if (pose === "hit") {
         if (state.pose === "death") return;

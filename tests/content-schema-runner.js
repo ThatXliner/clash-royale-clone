@@ -154,6 +154,7 @@ for (const selector of selectors) {
       "content-schema",
       "combat-effect-protocol",
       "unit-models",
+      "battlefield-units",
     ].includes(selector)
   ) {
     throw new TypeError(`unknown test selector: ${selector}`);
@@ -766,4 +767,8 @@ if (selectors.length === 0 || selectors.includes("visual-motion-polish")) {
 
 if (selectors.length === 0 || selectors.includes("unit-models")) {
   run([new URL("./unit-models-runner.js", import.meta.url).pathname, "unit-models"]);
+}
+
+if (selectors.length === 0 || selectors.includes("battlefield-units")) {
+  run([new URL("./battlefield-units-runner.js", import.meta.url).pathname, "battlefield-units"]);
 }

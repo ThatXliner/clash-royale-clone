@@ -6,6 +6,7 @@
 // and bundles them; nothing else under node_modules may enter the release.
 export {
   ACESFilmicToneMapping,
+  AdditiveBlending,
   Bone,
   Box3,
   BoxGeometry,
@@ -24,6 +25,7 @@ export {
   Group,
   HemisphereLight,
   IcosahedronGeometry,
+  InstancedBufferAttribute,
   InstancedMesh,
   LatheGeometry,
   LinearFilter,
@@ -43,6 +45,7 @@ export {
   SRGBColorSpace,
   Scene,
   Shape,
+  ShapeGeometry,
   Skeleton,
   SkinnedMesh,
   SphereGeometry,
