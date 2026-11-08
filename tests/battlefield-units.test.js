@@ -6,10 +6,10 @@ import {
   bridgeDeckAt, createUnitLayer, groundHeightAt, PLACEMENT_SCALE, resolveModelKind,
 } from "../src/ui/three/battlefield/units-layer.js";
 import { createTowerSet, RUBBLE_MAX_HEIGHT } from "../src/ui/three/battlefield/towers.js";
-import { TEAM } from "../src/ui/three/battlefield/palette.js";
 import { createEffectLayer } from "../src/ui/three/battlefield/effects-layer.js";
 import { createBattlefieldHost } from "../src/ui/three/battlefield/host.js";
-import { UNIT_MODEL_KINDS } from "../src/ui/three/units/index.js";
+import { createUnitModel, TEAM_COLORS, UNIT_MODEL_KINDS } from "../src/ui/three/units/index.js";
+import { Color, Vector3 } from "../src/ui/three/three-module.js";
 
 const ELEVATION = (47 * Math.PI) / 180;
 const DEPTH = 1 / Math.sin(ELEVATION);
@@ -178,7 +178,50 @@ function instanceColor(mesh, index) {
   return [colors[index * 3], colors[index * 3 + 1], colors[index * 3 + 2]];
 }
 
-test("battlefield units: every living unit shows its side on top: a team badge at full health, a team bar once hurt", () => {
+test("battlefield units: every model shows its side in its own body from the 47° camera", () => {
+  // Share of the camera-facing surface painted in strong team colours (main,
+  // dark, glow), for every kind, side and facing: no overlay marker needed.
+  const view = new Vector3(0, Math.sin(ELEVATION), Math.cos(ELEVATION));
+  const a = new Vector3();
+  const b = new Vector3();
+  const c = new Vector3();
+  const normal = new Vector3();
+  const colour = new Color();
+  for (const kind of UNIT_MODEL_KINDS) {
+    for (const side of ["south", "north"]) {
+      const team = [TEAM_COLORS[side].main, TEAM_COLORS[side].dark, TEAM_COLORS[side].glow].map((hex) => new Color(hex));
+      for (const yaw of [0, Math.PI, Math.PI / 2]) {
+        const model = createUnitModel(kind, side);
+        model.setPose("idle");
+        model.update(0.6);
+        model.object.rotation.y = yaw;
+        model.object.updateMatrixWorld(true);
+        let teamArea = 0;
+        let total = 0;
+        for (const mesh of model.parts.meshes) {
+          const positions = mesh.geometry.attributes.position;
+          const colours = mesh.geometry.attributes.color;
+          for (let index = 0; index < positions.count; index += 3) {
+            mesh.getVertexPosition(index, a).applyMatrix4(mesh.matrixWorld);
+            mesh.getVertexPosition(index + 1, b).applyMatrix4(mesh.matrixWorld);
+            mesh.getVertexPosition(index + 2, c).applyMatrix4(mesh.matrixWorld);
+            const facing = normal.subVectors(b, a).cross(c.sub(a)).dot(view) / 2;
+            if (facing <= 0) continue;
+            total += facing;
+            colour.fromBufferAttribute(colours, index);
+            if (team.some((t) => Math.abs(t.r - colour.r) + Math.abs(t.g - colour.g) + Math.abs(t.b - colour.b) < 0.03)) {
+              teamArea += facing;
+            }
+          }
+        }
+        model.dispose();
+        assert.ok(teamArea / total >= 0.15, `${kind} ${side} shows its side (${(teamArea / total).toFixed(2)})`);
+      }
+    }
+  }
+});
+
+test("battlefield units: no marker covers a full-health unit; a hurt unit's bar is in team colours", () => {
   const units = layer();
   units.sync(view(1, [
     entity(1, "briar-darter", "south", 3500, 10000),
@@ -186,40 +229,34 @@ test("battlefield units: every living unit shows its side on top: a team badge a
     entity(3, "briar-darter", "north", 9000, 22000, { hp: 200 }),
   ]), null, 0);
   run(units, 0, 400);
-  const fill = meshNamed(units, "team-badge-fill");
-  const edge = meshNamed(units, "team-badge-edge");
   const bars = meshNamed(units, "health-fill");
   const frames = meshNamed(units, "health-frame");
-  assert.equal(fill.count, 2, "both full-health units carry a badge");
-  assert.equal(bars.count, 1, "the hurt unit carries a bar instead");
-  for (const mesh of [fill, edge, bars]) {
-    assert.equal(mesh.material.depthTest, false, `${mesh.name} draws over every model`);
-  }
-  assert.ok(fill.renderOrder > bars.renderOrder && edge.renderOrder > frames.renderOrder);
-  const sides = [instanceColor(fill, 0), instanceColor(fill, 1)];
-  const close = (a, b) => a.every((value, index) => Math.abs(value - b[index]) < 0.02);
-  // Instance colours are stored linear.
-  const linear = (hex) => {
-    const value = Number.parseInt(hex.slice(1), 16);
-    return [(value >> 16) & 255, (value >> 8) & 255, value & 255].map((channel) => channel / 255)
-      .map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-  };
-  assert.ok(sides.some((color) => close(color, linear(TEAM.south.bar))), "a south-coloured badge");
-  assert.ok(sides.some((color) => close(color, linear(TEAM.north.bar))), "a north-coloured badge");
-  // The hurt unit's bar frame (its empty track) stays in its team colour.
+  assert.equal(bars.count, 1, "only the hurt unit carries an overlay");
+  assert.equal(units.group.children.some((node) => /badge/u.test(node.name)), false);
+  // The bar frame (its empty track) and fill stay in the unit's team colour.
   const [r, g, b] = instanceColor(frames, 0);
   assert.ok(r > g && r > b, "north bar frame is warm");
-  // Badges sit above the head and follow the unit.
-  const matrix = fill.instanceMatrix.array;
-  const holders = [holderOf(units, "n:1"), holderOf(units, "n:2")];
-  for (let index = 0; index < 2; index += 1) {
-    const x = matrix[index * 16 + 12];
-    const y = matrix[index * 16 + 13];
-    assert.ok(holders.some((holder) => Math.abs(holder.position.x - x) < 1e-6), "badge centred over its unit");
-    assert.ok(y > 0.7, "badge floats over the head");
-  }
+  const [fr, fg, fb] = instanceColor(bars, 0);
+  assert.ok(fr > fg && fr > fb, "north bar fill is warm");
   units.dispose();
 });
+
+test("battlefield units: a flyer over a ground swarm moves aside on screen", () => {
+  const units = layer();
+  const swarm = [1, 2, 3, 4, 5, 6].map((id) => entity(id, "cinderling", "south", 3500, 15500 + (id % 3) * 200));
+  // The flyer's ground spot is south of the swarm, so its body is drawn right over it.
+  const flyer = entity(9, "duskwing", "south", 3500, 14200, { layer: "air" });
+  units.sync(view(1, [...swarm, flyer]), null, 0);
+  run(units, 0, 1500);
+  const holder = holderOf(units, "n:9");
+  const [fx] = toWorld(3.5, 14.2);
+  assert.ok(Math.abs(holder.position.x - fx) > 0.5, "the flyer slides sideways off the crowd");
+  const xs = swarm.map((member) => holderOf(units, member.key).position.x + 9);
+  const [west, east] = bridgeDeckAt(3.5, 15.5);
+  for (const x of xs) assert.ok(x > west && x < east, "the swarm stays on the deck");
+  units.dispose();
+});
+
 
 test("battlefield units: a column on a bridge fans out across the deck but never off it", () => {
   const units = layer();

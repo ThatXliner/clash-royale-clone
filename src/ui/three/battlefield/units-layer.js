@@ -11,6 +11,7 @@
 // (health bars, deploy rings) are instanced so a busy board costs a handful
 // of draw calls on top of the models themselves.
 import {
+  Box3,
   Color,
   Euler,
   Group,
@@ -21,8 +22,6 @@ import {
   PlaneGeometry,
   Quaternion,
   RingGeometry,
-  Shape,
-  ShapeGeometry,
   Vector3,
 } from "../three-module.js";
 import { createUnitModel, UNIT_MODEL_KINDS, unitDesignInfo } from "../units/index.js";
@@ -40,42 +39,27 @@ const STALE_SYNC_MS = 250;
 const DEPLOY_PULSE_SECONDS = 0.7;
 const HIT_COOLDOWN_SECONDS = 0.14;
 const BAR_HEIGHT = 0.17;
-// Presentation-only crowd spreading. Distances are measured in tiles with the
-// north-south axis weighted up, because under the 47° camera a unit in front
-// covers the one behind it far more than a neighbour beside it does.
-const CROWD_SPACING = 0.9;
-const CROWD_DEPTH_WEIGHT = 1.45;
+// Presentation-only crowd spreading, measured on screen: each body is an
+// ellipse as tall as it stands under the 47° camera, flyers drawn where they
+// hover, and overlapping ellipses push apart (a little vertical overlap is
+// allowed: the head of the unit behind still shows).
+const CROWD_SPACING = 0.92;
+const CROWD_DEPTH_WEIGHT = 0.85;
 const CROWD_LATERAL = 0.55;
-const CROWD_MAX_OFFSET = 0.62;
+// Offset bounds in tiles: across the lane (east-west) and along it.
+const CROWD_MAX_ACROSS = 0.9;
+const CROWD_MAX_ALONG = 1.5;
+// Flyers may drift further sideways, off a crowded deck and over the water.
+const CROWD_MAX_ACROSS_AIR = 1.3;
 // Pull back toward the simulated spot once neighbours have moved on.
-const CROWD_RETURN = 0.18;
-const BRIDGE_DECK_MARGIN = 0.32;
+const CROWD_RETURN = 0.06;
+const CROWD_PASSES = 3;
+// Fraction of an overlap resolved per pass (under-relaxed so crowds settle).
+const CROWD_STIFFNESS = 0.45;
+const CROWD_EASE_RATE = 7;
+const BRIDGE_DECK_MARGIN = 0.24;
 const DEPTH_STRETCH = 1 / Math.sin((47 * Math.PI) / 180);
 const CHIP_DECAY_PER_SECOND = 1.6;
-// Every living unit carries an always-on-top side marker, so its side reads
-// from the tilted camera whatever the model wears on top and however tightly a
-// swarm stacks: a small team shield over the head at full health, and once
-// hurt the health bar itself, whose frame and fill are both in team colours.
-const BADGE_WIDTH = 0.38;
-const BADGE_RISE = 0.24;
-const MAX_BADGES = 320;
-const DEATH_BADGE_MS = 650;
-
-function shieldGeometry(width, height) {
-  const w = width / 2;
-  const top = height * 0.42;
-  const shoulder = -height * 0.08;
-  const shape = new Shape();
-  shape.moveTo(-w, top - w * 0.3);
-  shape.quadraticCurveTo(-w, top, -w + w * 0.3, top);
-  shape.lineTo(w - w * 0.3, top);
-  shape.quadraticCurveTo(w, top, w, top - w * 0.3);
-  shape.lineTo(w, shoulder);
-  shape.quadraticCurveTo(w * 0.85, -height * 0.4, 0, -height * 0.58);
-  shape.quadraticCurveTo(-w * 0.85, -height * 0.4, -w, shoulder);
-  shape.closePath();
-  return new ShapeGeometry(shape, 4);
-}
 
 // Uniform placement scale. Models stay true-proportioned (no depth stretch);
 // a uniform enlargement keeps every silhouette readable at phone size next
@@ -174,22 +158,9 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
   }));
   group.add(rings.mesh);
 
-  const badgeLayers = [
-    ["team-badge-edge", shieldGeometry(1.34, 1.5), 33],
-    ["team-badge-fill", shieldGeometry(1, 1.15), 34],
-    ["team-badge-core", shieldGeometry(0.46, 0.5).translate(0, 0.1, 0), 35],
-  ].map(([name, geometry, renderOrder]) => {
-    const instances = keep(createFadingInstances({
-      name, geometry, capacity: MAX_BADGES, renderOrder, depthTest: false,
-    }));
-    group.add(instances.mesh);
-    return instances;
-  });
-  const [badgeEdge, badgeFill, badgeCore] = badgeLayers;
-
   const frameColor = new Color(0x12191c);
   const teamColors = (team) => ({
-    bar: new Color(team.bar), glow: new Color(team.glow), main: new Color(team.main), light: new Color(team.light),
+    bar: new Color(team.bar), glow: new Color(team.glow), main: new Color(team.main),
     // A damaged unit's bar frame (and so its empty track) stays in team colour.
     frame: new Color(team.deep).lerp(frameColor, 0.3),
   });
@@ -240,6 +211,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
   };
 
   const entities = new Map();
+  const halfWidths = new Map();
   const pulses = [];
   let lastTick = -1;
   let lastSyncAt = 0;
@@ -259,6 +231,17 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     const kind = resolveModelKind(record.kind, record.layer);
     const info = placementInfo(kind);
     const model = acquire(kind, record.side);
+    if (!halfWidths.has(kind)) {
+      // Drawn half width (wings, weapons, hats) in the bind pose, once per kind.
+      const box = new Box3();
+      for (const mesh of model.parts.meshes) {
+        if (mesh.geometry.boundingBox === null) mesh.geometry.computeBoundingBox();
+        box.union(mesh.geometry.boundingBox);
+      }
+      const designScale = model.object.getObjectByName("scaler")?.scale.x ?? 1;
+      const half = Math.max(Math.abs(box.min.x), Math.abs(box.max.x)) * designScale * info.scale;
+      halfWidths.set(kind, Number.isFinite(half) ? half : info.radius);
+    }
     const holder = new Group();
     holder.scale.setScalar(info.scale);
     holder.name = `entity:${record.key}`;
@@ -278,7 +261,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       hp: record.healthNumerator, maxHp: record.healthDenominator, chip: 1, lastHitAt: -Infinity,
       targetPoint: null, attack: null, hint: null, attackUntil: 0, strikeTick: null,
       spawnTick: tick, deployUntilTick: tick, dying: false, hidden: record.hidden === true,
-      baseX: x, baseZ: z, offsetX: 0, offsetZ: 0, pushX: 0, pushZ: 0,
+      baseX: x, baseZ: z, offsetX: 0, offsetZ: 0, spreadX: 0, spreadZ: 0, pushX: 0, pushZ: 0,
     };
     if (kind === "buried-coil") model.setHidden(entity.hidden, { immediate: true });
     entities.set(record.key, entity);
@@ -286,9 +269,8 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     return entity;
   };
 
-  const kill = (entity, now) => {
+  const kill = (entity) => {
     entity.dying = true;
-    entity.diedAt = now;
     // Topple across the screen: sideways when the unit faces along the view
     // axis (north or south), backward when it faces east or west.
     const facesAcross = Math.abs(Math.sin(entity.yaw)) > 0.7;
@@ -400,7 +382,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       }
     }
     for (const entity of entities.values()) {
-      if (!seen.has(entity.key) && !entity.dying) kill(entity, now);
+      if (!seen.has(entity.key) && !entity.dying) kill(entity);
     }
     if (fresh) {
       lastTick = tick;
@@ -435,83 +417,109 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     startAttack(entity, duration, offset, now);
   };
 
-  /** Advance animation on the wall clock. Returns true while anything moves. */
   // The simulation treats troops as points, so a swarm can share one exact
-  // spot. Presentation spreads overlapping models apart a little (never more
-  // than CROWD_MAX_OFFSET tiles) so every member stays visible; the offset is
-  // eased, deterministic per entity id, and never leaves the renderer.
+  // spot. Presentation spreads overlapping bodies apart on screen (at most
+  // CROWD_MAX_ACROSS tiles east-west, CROWD_MAX_ALONG north-south, and never
+  // past a bridge's rails) so every member stays visible. A few relaxation
+  // passes per frame move each unit's spread target; the drawn offset eases
+  // toward it, so crowds open up quickly without jitter. Deterministic per
+  // entity id and never read by the simulation.
   const crowd = [];
-  const separate = (dtSeconds, reducedMotion) => {
-    crowd.length = 0;
-    for (const entity of entities.values()) {
-      if (entity.dying || entity.structure) continue;
+  const byScreenU = (first, second) => first.screenU - second.screenU || first.id - second.id;
+  const relax = (widest) => {
+    for (const entity of crowd) {
       entity.pushX = 0;
       entity.pushZ = 0;
-      crowd.push(entity);
+      // Where the body is drawn, in screen tiles (u east, v up the screen).
+      entity.screenU = entity.baseX + entity.spreadX;
+      entity.screenV = -(entity.baseZ + entity.spreadZ) / DEPTH_STRETCH + entity.lift;
     }
+    // Sweep east to west: only bodies whose screen columns overlap can touch.
+    crowd.sort(byScreenU);
     for (let a = 0; a < crowd.length; a += 1) {
       const first = crowd[a];
+      const reachU = (first.halfU + widest) * CROWD_SPACING;
       for (let b = a + 1; b < crowd.length; b += 1) {
         const second = crowd[b];
-        if ((first.layer === "air") !== (second.layer === "air")) continue;
-        const reach = (first.info.radius + second.info.radius) * CROWD_SPACING;
-        // Separation is measured between the current spread positions, so a
-        // spread crowd stays spread instead of collapsing and re-expanding.
-        let dx = (first.baseX + first.offsetX) - (second.baseX + second.offsetX);
-        let dz = ((first.baseZ + first.offsetZ) - (second.baseZ + second.offsetZ)) / DEPTH_STRETCH * CROWD_DEPTH_WEIGHT;
-        const distance = Math.hypot(dx, dz);
-        if (distance >= reach) continue;
+        if (second.screenU - first.screenU >= reachU) break;
+        // Overlap of the two drawn bodies, as an ellipse metric: < 1 overlaps.
+        const spanU = (first.halfU + second.halfU) * CROWD_SPACING;
+        const spanV = (first.halfV + second.halfV) * CROWD_SPACING;
+        let dv = (first.screenV - second.screenV) / spanV;
+        if (dv >= 1 || dv <= -1) continue;
+        let du = (first.screenU - second.screenU) / spanU;
+        const distance = Math.hypot(du, dv);
+        if (distance >= 1) continue;
         if (distance < 1e-4) {
           const angle = ((first.id * 0.6180339887 + second.id * 0.3819660113) % 1) * Math.PI * 2;
-          dx = Math.cos(angle);
-          dz = Math.sin(angle);
+          du = Math.cos(angle);
+          dv = Math.sin(angle);
         } else {
-          dx /= distance;
-          dz /= distance;
+          du /= distance;
+          dv /= distance;
         }
         // A file of units one behind the other also steps aside, so a column
         // on a bridge or lane fans out into staggered ranks.
-        if (Math.abs(dx) < 0.5) {
-          const side = Math.abs(first.baseX - second.baseX) > 1e-3 ? Math.sign(first.baseX - second.baseX)
+        if (Math.abs(du) < 0.5) {
+          const side = Math.abs(first.screenU - second.screenU) > 0.08 ? Math.sign(first.screenU - second.screenU)
             : first.id > second.id ? 1 : -1;
-          dx += side * CROWD_LATERAL;
+          du += side * CROWD_LATERAL;
         }
-        const push = (reach - distance) * 0.5;
-        first.pushX += dx * push;
-        first.pushZ += dz * push / CROWD_DEPTH_WEIGHT;
-        second.pushX -= dx * push;
-        second.pushZ -= dz * push / CROWD_DEPTH_WEIGHT;
+        // A flyer over a ground crowd does most of the moving: it is free of
+        // the bridge rails and the ground units are already packed.
+        const firstAir = first.layer === "air";
+        const share = firstAir === (second.layer === "air") ? 0.5 : firstAir ? 0.85 : 0.15;
+        const push = (1 - distance) * CROWD_STIFFNESS;
+        // pushZ is in tiles toward the south (screen down).
+        first.pushX += du * push * spanU * share;
+        first.pushZ -= dv * push * spanV * share;
+        second.pushX -= du * push * spanU * (1 - share);
+        second.pushZ += dv * push * spanV * (1 - share);
       }
     }
-    const ease = reducedMotion ? 1 : 1 - Math.exp(-6 * dtSeconds);
     for (const entity of crowd) {
-      // Accumulate on top of the current spread, bounded, and keep ground
-      // units on a bridge deck between its rails.
-      let px = entity.offsetX * (1 - CROWD_RETURN) + entity.pushX;
-      let pz = entity.offsetZ / DEPTH_STRETCH * (1 - CROWD_RETURN) + entity.pushZ;
-      const length = Math.hypot(px, pz);
-      if (length > CROWD_MAX_OFFSET) {
-        px *= CROWD_MAX_OFFSET / length;
-        pz *= CROWD_MAX_OFFSET / length;
+      // Pull back toward the simulated spot, bound the spread, and keep
+      // ground units on a bridge deck between its rails.
+      let px = entity.spreadX * (1 - CROWD_RETURN) + entity.pushX;
+      let pz = entity.spreadZ / DEPTH_STRETCH * (1 - CROWD_RETURN) + entity.pushZ;
+      const across = entity.layer === "air" ? CROWD_MAX_ACROSS_AIR : CROWD_MAX_ACROSS;
+      const bound = Math.hypot(px / across, pz / CROWD_MAX_ALONG);
+      if (bound > 1) {
+        px /= bound;
+        pz /= bound;
       }
-      const deck = entity.layer === "ground" ? bridgeDeckAt(entity.tx, entity.ty) : null;
+      // pz runs south (world +z); the deck is checked at the sim spot and at
+      // the drawn spot, so nobody is drawn standing in the river.
+      const deck = entity.layer !== "ground" ? null
+        : bridgeDeckAt(entity.tx, entity.ty) ?? bridgeDeckAt(entity.tx, entity.ty - pz);
       if (deck !== null) {
         px = Math.max(deck[0] + BRIDGE_DECK_MARGIN - entity.tx, Math.min(deck[1] - BRIDGE_DECK_MARGIN - entity.tx, px));
       }
-      entity.offsetX += (px - entity.offsetX) * ease;
-      entity.offsetZ += (pz * DEPTH_STRETCH - entity.offsetZ) * ease;
+      entity.spreadX = px;
+      entity.spreadZ = pz * DEPTH_STRETCH;
     }
   };
-
-  const placeBadge = (index, entity, y, opacity) => {
-    const colors = teamColor[entity.side];
-    const size = Math.min(BADGE_WIDTH, 0.27 + entity.info.radius * 0.12);
-    tmpPosition.set(entity.holder.position.x, y, entity.holder.position.z);
-    tmpScale.set(size, size, 1);
-    tmpMatrix.compose(tmpPosition, billboard, tmpScale);
-    badgeEdge.setAt(index, tmpMatrix, frameColor, 0.92 * opacity);
-    badgeFill.setAt(index, tmpMatrix, colors.bar, opacity);
-    badgeCore.setAt(index, tmpMatrix, colors.light, 0.95 * opacity);
+  const separate = (dtSeconds, reducedMotion) => {
+    crowd.length = 0;
+    let widest = 0;
+    for (const entity of entities.values()) {
+      if (entity.dying || entity.structure) continue;
+      // Body half extents on screen: flyers sit higher than their ground
+      // spot, and a standing body is taller on screen than it is wide.
+      const info = entity.info;
+      const body = Math.max(0.2, info.height - info.hover);
+      entity.lift = (info.hover + body * 0.5) * cosE;
+      entity.halfU = Math.max(info.radius * 0.85, (halfWidths.get(entity.kind) ?? 0) * 0.7);
+      entity.halfV = Math.max(info.radius * sinE, body * 0.5 * cosE) * CROWD_DEPTH_WEIGHT;
+      widest = Math.max(widest, entity.halfU);
+      crowd.push(entity);
+    }
+    for (let pass = 0; pass < CROWD_PASSES; pass += 1) relax(widest);
+    const ease = reducedMotion ? 1 : 1 - Math.exp(-CROWD_EASE_RATE * dtSeconds);
+    for (const entity of crowd) {
+      entity.offsetX += (entity.spreadX - entity.offsetX) * ease;
+      entity.offsetZ += (entity.spreadZ - entity.offsetZ) * ease;
+    }
   };
 
   const animate = (now, dtSeconds) => {
@@ -520,7 +528,6 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     const stale = now - lastSyncAt > STALE_SYNC_MS;
     let busy = pulses.length > 0;
     let bars = 0;
-    let badges = 0;
     for (const entity of entities.values()) {
       if (entity.dying) continue;
       const alpha = Math.min(1, Math.max(0, (now - entity.segmentStart) / entity.segmentMs));
@@ -572,33 +579,19 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         entities.delete(entity.key);
         continue;
       }
-      if (entity.dying) {
-        // The side marker lingers while the unit topples, then fades away.
-        const fading = 1 - (now - (entity.diedAt ?? now)) / DEATH_BADGE_MS;
-        if (fading > 0 && !entity.structure && badges < MAX_BADGES) {
-          const drop = entity.info.height * 0.45 * (1 - fading);
-          placeBadge(badges, entity, holder.position.y + entity.info.height + BADGE_RISE - drop, fading);
-          badges += 1;
-        }
-        continue;
-      }
+      if (entity.dying || bars >= MAX_BARS) continue;
 
-      // Health: shown once damaged (structures always), team coloured.
+      // Health: shown once damaged (structures always). Models carry their
+      // side in their own team-coloured bodies; the bar's frame (and so its
+      // empty track) and fill are in team colours too.
       const fraction = Math.max(0, Math.min(1, entity.hp / Math.max(1, entity.maxHp)));
       entity.chip = Math.max(fraction, entity.chip - CHIP_DECAY_PER_SECOND * dtSeconds * (reducedMotion ? 4 : 1));
+      if (fraction >= 1 && !entity.structure) continue;
       if (entity.hidden && entity.kind === "buried-coil" && fraction >= 1) continue;
-      const showBar = (fraction < 1 || entity.structure) && bars < MAX_BARS;
       const width = Math.max(0.56, Math.min(1.3, entity.info.radius * 1.4 + 0.12));
       const barHeight = width < 0.8 ? BAR_HEIGHT * 0.8 : BAR_HEIGHT;
       const top = entity.info.height + 0.28;
       const colors = teamColor[entity.side];
-      if (!showBar) {
-        // Full health: a team badge over the head marks the side instead.
-        if (badges >= MAX_BADGES) continue;
-        placeBadge(badges, entity, holder.position.y + entity.info.height + BADGE_RISE, 1);
-        badges += 1;
-        continue;
-      }
       tmpPosition.set(holder.position.x, holder.position.y + top, holder.position.z);
       tmpScale.set(width + 0.08, barHeight + 0.08, 1);
       tmpMatrix.compose(tmpPosition, billboard, tmpScale);
@@ -623,7 +616,6 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     }
-    for (const instances of badgeLayers) instances.commit(badges);
 
     // Deploy markers: a team ring that blooms out at the drop point, then a
     // tight ring that holds while the unit is still deploying.

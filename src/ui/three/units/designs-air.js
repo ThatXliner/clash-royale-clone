@@ -102,7 +102,11 @@ export const AIR_DESIGNS = {
       const wing = [[0, 0.02], [0.18, 0.18], [0.44, 0.22], [0.56, 0.08], [0.5, -0.12], [0.3, -0.26], [0.1, -0.16], [0, -0.06]];
       for (const [name, side] of [["wingL", 1], ["wingR", -1]]) {
         const w = b.group(name, body, [side * 0.12, 0.26, -0.03]);
-        b.mesh(G.shape("duskwing-wing", wing, 0.025), "teamLight", w, [0, 0, 0], [side, 1, 1], [-Math.PI / 2 + 0.15, 0, 0]);
+        // Wings in full team colour (the side must read from above), with a
+        // pale moth panel on the inner wing.
+        b.mesh(G.shape("duskwing-wing", wing, 0.025), "team", w, [0, 0, 0], [side, 1, 1], [-Math.PI / 2 + 0.15, 0, 0]);
+        b.mesh(G.shape("duskwing-wing", wing, 0.025), "teamLight", w, [side * 0.03, 0.016, 0.0],
+          [side * 0.55, 0.55, 1], [-Math.PI / 2 + 0.15, 0, 0], { castShadow: false });
         b.mesh(G.cyl(8), "teamDark", w, [side * 0.34, 0.012, 0.02], [0.08, 0.02, 0.08], [0, 0, 0], { castShadow: false });
         b.mesh(G.cyl(8), "brass", w, [side * 0.34, 0.02, 0.02], [0.035, 0.02, 0.035], [0, 0, 0], { castShadow: false });
       }

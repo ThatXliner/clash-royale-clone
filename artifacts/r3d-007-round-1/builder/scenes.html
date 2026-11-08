@@ -129,6 +129,19 @@ if (sceneName === "showcase") {
   add("brassbolt", "ground", "south", 4100, 24300, { max: 600, ranged: true });
   // A south lane tower destroyed too, north darters on its rubble.
   for (let i = 0; i < 3; i += 1) add("briar-darter", "ground", "north", 14500, 6500, { ranged: true, max: 300, full: true });
+} else if (sceneName === "roster" || sceneName === "roster2") {
+  // Every troop kind, both sides, full health, in rows: side must read from the body.
+  const kinds = sceneName === "roster" ? [["cinderling", "ground"], ["thornscout", "ground"], ["briar-runner", "ground"],
+    ["briar-darter", "ground"], ["mossguard", "ground"], ["coilblade", "ground"], ["forgeguard", "ground"],
+    ["brassbolt", "ground"], ["gloamwing", "air"], ["duskwing", "air"], ["coppershade", "air"], ["skymaul", "air"]]
+    : [["sunthread-warden", "ground"], ["kilnkeeper", "ground"], ["reedsting", "ground"], ["stonehauler", "ground"],
+      ["ironroot", "ground"], ["brackenwheel", "ground"], ["stormkite", "ground"], ["copperskiff", "air"]];
+  kinds.forEach(([kind, layer], index) => {
+    const x = 1500 + (index % 6) * 3000;
+    const row = Math.floor(index / 6);
+    add(kind, layer, "north", x, 24500 - row * 3500, { full: true });
+    add(kind, layer, "south", x, 12000 - row * 3500, { full: true });
+  });
 } else if (sceneName === "deaths") {
   // One of several kinds per side, spread out, all dying at t = 1.0 s:
   // north units face the camera (south), south units face away.
