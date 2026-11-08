@@ -1,0 +1,262 @@
+TAP version 13
+# Subtest: nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+ok 1 - nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+  ---
+  duration_ms: 20.130042
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: permits deterministic locals and ignores comments and strings
+ok 2 - nondeterminism-guard: permits deterministic locals and ignores comments and strings
+  ---
+  duration_ms: 2.241333
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+ok 3 - nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+  ---
+  duration_ms: 2.850375
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: scans every simulation module and probes its runtime boundary
+ok 4 - nondeterminism-guard: scans every simulation module and probes its runtime boundary
+  ---
+  duration_ms: 548.077667
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: simulation closure admits only exact authorities and audits melee policy
+ok 5 - nondeterminism-guard: simulation closure admits only exact authorities and audits melee policy
+  ---
+  duration_ms: 398.785375
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+ok 6 - nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+  ---
+  duration_ms: 50.917208
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+ok 7 - nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+  ---
+  duration_ms: 105.30375
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+ok 8 - nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+  ---
+  duration_ms: 54.134375
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: reports canonical output and fails a source set atomically
+ok 9 - nondeterminism-guard: reports canonical output and fails a source set atomically
+  ---
+  duration_ms: 0.439166
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+ok 10 - nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+  ---
+  duration_ms: 0.413334
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1243.953291
+TAP version 13
+# shipping guard Node package targets: 4/4 covered
+# shipping guard reference adversaries: 12/12 detected
+# shipping guard identity adversaries: 11/11 detected
+# Subtest: shipping isolation guard: clean graph is canonical and excludes test fixtures
+ok 1 - shipping isolation guard: clean graph is canonical and excludes test fixtures
+  ---
+  duration_ms: 188.294125
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects every encoded reference specifier form
+ok 2 - shipping isolation guard: rejects every encoded reference specifier form
+  ---
+  duration_ms: 10.804416
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects protected identities after static evaluation
+ok 3 - shipping isolation guard: rejects protected identities after static evaluation
+  ---
+  duration_ms: 8.273083
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: scans unreachable distributable outputs bytewise
+ok 4 - shipping isolation guard: scans unreachable distributable outputs bytewise
+  ---
+  duration_ms: 2.29525
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: detects embedded reference-file bytes
+ok 5 - shipping isolation guard: detects embedded reference-file bytes
+  ---
+  duration_ms: 1.948083
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+ok 6 - shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+  ---
+  duration_ms: 3.527833
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: benign words, similar paths, URLs, and comments pass
+ok 7 - shipping isolation guard: benign words, similar paths, URLs, and comments pass
+  ---
+  duration_ms: 2.984083
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: path traversal and symlink escapes are rejected
+ok 8 - shipping isolation guard: path traversal and symlink escapes are rejected
+  ---
+  duration_ms: 2.207958
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: in-root symlink aliases cannot conceal reference files
+ok 9 - shipping isolation guard: in-root symlink aliases cannot conceal reference files
+  ---
+  duration_ms: 1.941083
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: depth, count, byte, and token bounds fail closed
+ok 10 - shipping isolation guard: depth, count, byte, and token bounds fail closed
+  ---
+  duration_ms: 4.1315
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: failures are collected atomically without mutation
+ok 11 - shipping isolation guard: failures are collected atomically without mutation
+  ---
+  duration_ms: 0.947042
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: executable CLI reports canonical success and failure
+ok 12 - shipping isolation guard: executable CLI reports canonical success and failure
+  ---
+  duration_ms: 113.053541
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: this repository's shipped entry graph passes
+ok 13 - shipping isolation guard: this repository's shipped entry graph passes
+  ---
+  duration_ms: 50713.729584
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 51123.105291
+TAP version 13
+# Subtest: UNIT_MODEL_KINDS is a frozen list of unique kinds
+ok 1 - UNIT_MODEL_KINDS is a frozen list of unique kinds
+  ---
+  duration_ms: 0.913542
+  type: 'test'
+  ...
+# Subtest: the kit reaches three only through the pinned import seam
+ok 2 - the kit reaches three only through the pinned import seam
+  ---
+  duration_ms: 0.826875
+  type: 'test'
+  ...
+# Subtest: every entity kind the 24-card collection can spawn has a model with the matching layer
+ok 3 - every entity kind the 24-card collection can spawn has a model with the matching layer
+  ---
+  duration_ms: 59.067375
+  type: 'test'
+  ...
+# Subtest: every kind builds for both sides within triangle and draw-call budgets
+ok 4 - every kind builds for both sides within triangle and draw-call budgets
+  ---
+  duration_ms: 30.403958
+  type: 'test'
+  ...
+# Subtest: unknown kinds, sides, poses and timings are rejected
+ok 5 - unknown kinds, sides, poses and timings are rejected
+  ---
+  duration_ms: 0.630625
+  type: 'test'
+  ...
+# Subtest: poses cycle without throwing and death completes
+ok 6 - poses cycle without throwing and death completes
+  ---
+  duration_ms: 32.484125
+  type: 'test'
+  ...
+# Subtest: attack clips stretch to a caller-supplied duration and time scale
+ok 7 - attack clips stretch to a caller-supplied duration and time scale
+  ---
+  duration_ms: 2.791333
+  type: 'test'
+  ...
+# Subtest: poses visibly change the model and animation is deterministic
+ok 8 - poses visibly change the model and animation is deterministic
+  ---
+  duration_ms: 11.948041
+  type: 'test'
+  ...
+# Subtest: side colours differ and use the team palette
+ok 9 - side colours differ and use the team palette
+  ---
+  duration_ms: 34.422875
+  type: 'test'
+  ...
+# Subtest: geometry and materials are shared through module caches
+ok 10 - geometry and materials are shared through module caches
+  ---
+  duration_ms: 8.531958
+  type: 'test'
+  ...
+# Subtest: hit flash tints toward the model's own side and restores the original
+ok 11 - hit flash tints toward the model's own side and restores the original
+  ---
+  duration_ms: 0.4955
+  type: 'test'
+  ...
+# Subtest: buried-coil hides and reveals; other kinds ignore hidden state
+ok 12 - buried-coil hides and reveals; other kinds ignore hidden state
+  ---
+  duration_ms: 0.514625
+  type: 'test'
+  ...
+# Subtest: flyers hover above a ground-level origin; ground units stand on it
+ok 13 - flyers hover above a ground-level origin; ground units stand on it
+  ---
+  duration_ms: 12.186041
+  type: 'test'
+  ...
+# Subtest: dispose detaches the instance without freeing shared resources
+ok 14 - dispose detaches the instance without freeing shared resources
+  ---
+  duration_ms: 1.874917
+  type: 'test'
+  ...
+# Subtest: 100 mixed units stay within the draw-call budget; 500 share resources
+ok 15 - 100 mixed units stay within the draw-call budget; 500 share resources
+  ---
+  duration_ms: 91.21975
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 485.198291
+exit=0
