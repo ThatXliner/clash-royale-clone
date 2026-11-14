@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">370</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">293</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">667</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">668</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">32</div><div class="label">open questions</div></div>
   </div>
   <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
@@ -89,9 +89,9 @@
         <td><code>R3D-007</code></td>
         <td>Battlefield readability polish</td>
         <td class="state-building">BUILDING</td>
-        <td>0/3</td>
-        <td>4</td>
-        <td>Round 3 FAIL (round 666): same-kind bridge swarms still an uncountable clump; round 4 building</td>
+        <td>0/4</td>
+        <td>5</td>
+        <td>Round 4 FAIL (round 668): bridge blocks re-solved per frame, held units drift up to 2.5 tiles; round 5 building</td>
       </tr>
       <tr>
         <td><code>BAL-001</code></td>
@@ -3669,6 +3669,7 @@
       <li><strong>R665 FAIL</strong> · R3D-004<br>Put the crown counts back into the accessibility tree (e.g. visually-hidden &quot;Rival 1 crown, You 0 crowns&quot; text on hud-crowns) and keep Home/Deck/Cards reachable during phone battles instead of hiding the tab bar behind a bare ← icon.</li>
       <li><strong>R666 FAIL</strong> · R3D-007<br>Fan same-kind swarms on a bridge out along the deck so each unit gets its own footprint and can be counted, instead of the current ~0.1-tile spacing under the 0.5-tile cap and deck clamp.</li>
       <li><strong>R667 PASS</strong> · R3D-004<br>Move the phase/FINAL tag (`[data-ui=&quot;hud-projection&quot;]::after`) beside the clock plate so it no longer covers the tip of the rival king's roof at 390×844.</li>
+      <li><strong>R668 FAIL</strong> · R3D-007<br>Pin each bridge-block member to its slot once the block forms, re-slot only when a member dies or arrives (eased), and cap how far a unit is drawn from an unchanged sim spot, so held units stop drifting and shots land on the drawn body.</li>
   </ol>
 </body>
 </html>
