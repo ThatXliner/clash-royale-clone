@@ -50,8 +50,36 @@ const CROWD_LATERAL = 0.55;
 // target within CROWD_ENGAGED_RANGE tiles also stays within its simulated gap
 // plus CROWD_LINK_SLACK tiles of that target.
 const CROWD_MAX_OFFSET = 0.5;
+// On a bridge deck a ground crowd may fan out further along the deck than
+// across it (the rails bound the across axis anyway).
+const CROWD_DECK_ALONG = 1.3;
+const CROWD_DECK_ACROSS = 0.75;
+// A same-kind group of at least SWARM_MIN ground units on a deck is laid out
+// as a block, slots SWARM_PITCH body widths apart.
+const SWARM_MIN = 3;
+const SWARM_PITCH = 0.95;
+// Rows along the deck sit further apart: under the tilted camera the unit
+// behind would otherwise stand in the unit in front of it.
+const SWARM_ROW_PITCH = 1.35;
+const SWARM_ROW_MIN = 0.6;
+// Candidate along-deck shifts of a swarm block (tiles north) and the cost of
+// each tile of shift against flyer cover.
+const SWARM_SHIFTS = Object.freeze([0, -0.25, 0.25, -0.5, 0.5, -0.75, 0.75, -1, 1]);
+const SWARM_SHIFT_COST = 0.4;
+const CROWD_NEAR = 0.6;
+// A flyer just behind a deck swarm block (on screen, it is drawn high above
+// its ground spot and would bury the block) dips: it flies lower by this
+// share of its hover height, easing in and out at FLYER_DIP_RATE.
+const FLYER_DIP = 0.6;
+const FLYER_DIP_RATE = 5;
+// How far from a block a flyer's ground spot may be for it to dip (tiles).
+const FLYER_DIP_ACROSS = 1.6;
+const FLYER_DIP_SOUTH = 2.2;
+const FLYER_DIP_NORTH = 0.5;
 const CROWD_ENGAGED_RANGE = 1.5;
 const CROWD_LINK_SLACK = 0.25;
+// ...but never closer in than this (tiles): a swarm on one target rings it.
+const CROWD_ENGAGED_REACH = 0.6;
 // Relaxation passes per simulated tick; each resolves part of every overlap.
 const CROWD_PASSES = 7;
 const CROWD_STIFFNESS = 0.6;
@@ -263,7 +291,8 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       targetPoint: null, attack: null, hint: null, attackUntil: 0, strikeTick: null,
       spawnTick: tick, deployUntilTick: tick, dying: false, hidden: record.hidden === true,
       baseX: x, baseZ: z, offsetX: 0, offsetZ: 0, spreadX: 0, spreadZ: 0, pushX: 0, pushZ: 0,
-      linkKey: null, linkTarget: null,
+      linkKey: null, linkTarget: null, swarm: null, fixed: false, crowded: false, dip: false, dipAmount: 0,
+      liftNode: model.object.getObjectByName("lift") ?? null,
     };
     if (kind === "buried-coil") model.setHidden(entity.hidden, { immediate: true });
     entities.set(record.key, entity);
@@ -484,7 +513,14 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         // A flyer over a ground crowd does most of the moving: the ground
         // units are already packed between the rails.
         const firstAir = first.layer === "air";
-        const share = firstAir === (second.layer === "air") ? 0.5 : firstAir ? 0.8 : 0.2;
+        // A unit laid out in a deck swarm block holds its slot against anyone
+        // outside its block; block mates push each other evenly. A toppling
+        // unit stays put; the living step around it.
+        if (first.fixed && second.fixed) continue;
+        const share = first.fixed ? 0 : second.fixed ? 1
+          : first.swarm !== null && second.swarm === null ? 0.15
+          : second.swarm !== null && first.swarm === null ? 0.85
+          : firstAir === (second.layer === "air") ? 0.5 : firstAir ? 0.8 : 0.2;
         const push = (1 - distance) * CROWD_STIFFNESS;
         // pushZ is in tiles toward the south (screen down).
         first.pushX += du * push * spanU * share;
@@ -495,23 +531,26 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     }
     let moved = 0;
     for (const entity of crowd) {
+      if (entity.fixed) continue;
       moved = Math.max(moved, bound(entity, entity.spreadX + entity.pushX, entity.spreadZ / DEPTH_STRETCH + entity.pushZ));
     }
     return moved;
   };
   /** Clamp a spread (px east, pz south, tiles) to the offset cap and the bridge rails. */
   const bound = (entity, px, pz) => {
-    const length = Math.hypot(px, pz);
-    if (length > CROWD_MAX_OFFSET) {
-      px *= CROWD_MAX_OFFSET / length;
-      pz *= CROWD_MAX_OFFSET / length;
-    }
     // The deck is checked at the sim spot and at the drawn spot, so nobody is
-    // drawn standing in the river.
-    const deck = entity.layer !== "ground" ? null
-      : bridgeDeckAt(entity.tx, entity.ty) ?? bridgeDeckAt(entity.tx, entity.ty - pz);
-    // Only a unit standing on the deck is held between its rails (one on the
-    // bank beside a bridge end keeps its own spot).
+    // drawn standing in the river. Only a unit standing on the deck is held
+    // between its rails (one on the bank beside a bridge end keeps its spot).
+    const simDeck = entity.layer === "ground" ? bridgeDeckAt(entity.tx, entity.ty) : null;
+    const onDeck = simDeck !== null && entity.tx >= simDeck[0] && entity.tx <= simDeck[1];
+    const across = onDeck ? CROWD_DECK_ACROSS : CROWD_MAX_OFFSET;
+    const along = onDeck ? CROWD_DECK_ALONG : CROWD_MAX_OFFSET;
+    const reach = Math.hypot(px / across, pz / along);
+    if (reach > 1) {
+      px /= reach;
+      pz /= reach;
+    }
+    const deck = entity.layer !== "ground" ? null : simDeck ?? bridgeDeckAt(entity.tx, entity.ty - pz);
     if (deck !== null && entity.tx >= deck[0] && entity.tx <= deck[1]) {
       px = Math.max(Math.min(0, deck[0] + BRIDGE_DECK_MARGIN - entity.tx),
         Math.min(Math.max(0, deck[1] - BRIDGE_DECK_MARGIN - entity.tx), px));
@@ -526,7 +565,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     linked.length = 0;
     let widest = 0;
     for (const entity of entities.values()) {
-      if (entity.dying || entity.structure) continue;
+      if (entity.structure) continue;
       // Body half extents on screen: flyers sit higher than their ground
       // spot, and a standing body is taller on screen than it is wide.
       const info = entity.info;
@@ -534,19 +573,27 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       entity.lift = (info.hover + body * 0.5) * cosE;
       entity.halfU = Math.max(info.radius * 0.85, (halfWidths.get(entity.kind) ?? 0) * 0.7);
       entity.halfV = Math.max(info.radius * sinE, body * 0.5 * cosE) * CROWD_DEPTH_WEIGHT;
-      entity.spreadX = 0;
-      entity.spreadZ = 0;
+      // A dying unit is a fixed obstacle where it fell; the rest start at
+      // their simulated spot.
+      entity.fixed = entity.dying;
+      entity.spreadX = entity.dying ? entity.offsetX : 0;
+      entity.spreadZ = entity.dying ? entity.offsetZ : 0;
+      entity.swarm = null;
+      entity.linkTarget = null;
+      entity.dip = false;
       widest = Math.max(widest, entity.halfU);
       crowd.push(entity);
     }
     // Close-combat pairs: the attacker keeps beside its target.
     for (const entity of crowd) {
+      if (entity.fixed) continue;
       const target = entity.linkKey === null ? undefined : entities.get(entity.linkKey);
       entity.linkTarget = target !== undefined && !target.dying && !target.structure &&
         Math.hypot(target.tx - entity.tx, target.ty - entity.ty) <= CROWD_ENGAGED_RANGE ? target : null;
       if (entity.linkTarget !== null) linked.push(entity);
     }
     linked.sort(byId);
+    formDeckSwarms();
     // Each pass spreads overlaps, then holds every close-combat attacker
     // within its simulated gap (plus a little slack) of its target: it may
     // step around the target, never away from it.
@@ -555,6 +602,120 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       for (const entity of linked) holdToTarget(entity, entity.linkTarget);
       if (moved < CROWD_SETTLED) break;
     }
+    markCrowded();
+  };
+  // A unit with two or more neighbours drawn within CROWD_NEAR tiles is in a
+  // crowd (its health bar is drawn slimmer).
+  const markCrowded = () => {
+    for (const entity of crowd) {
+      entity.near = 0;
+    }
+    for (let a = 0; a < crowd.length; a += 1) {
+      const first = crowd[a];
+      for (let b = a + 1; b < crowd.length; b += 1) {
+        const second = crowd[b];
+        const du = (first.to.x + first.spreadX) - (second.to.x + second.spreadX);
+        const dv = ((first.to.z + first.spreadZ) - (second.to.z + second.spreadZ)) / DEPTH_STRETCH;
+        if (Math.abs(du) < CROWD_NEAR && Math.abs(dv) < CROWD_NEAR) {
+          first.near += 1;
+          second.near += 1;
+        }
+      }
+    }
+    for (const entity of crowd) entity.crowded = entity.near >= 2;
+  };
+  // A same-kind swarm on a bridge deck is packed in a few exact sim spots, and
+  // the rails leave no room to push it apart sideways alone. Lay it out as a
+  // block on the deck instead: as many columns as fit between the rails, rows
+  // running along the deck (northmost units in the north row), centred on the
+  // swarm's simulated centre. The relaxation then starts from that block.
+  const swarmGroups = new Map();
+  const bySimNorth = (first, second) => second.ty - first.ty || first.id - second.id;
+  const formDeckSwarms = () => {
+    swarmGroups.clear();
+    for (const entity of crowd) {
+      if (entity.layer !== "ground" || entity.fixed) continue;
+      const deck = bridgeDeckAt(entity.tx, entity.ty);
+      if (deck === null || entity.tx < deck[0] || entity.tx > deck[1]) continue;
+      const key = `${deck[0]}:${entity.side}:${entity.kind}`;
+      let group = swarmGroups.get(key);
+      if (group === undefined) {
+        group = { deck, members: [] };
+        swarmGroups.set(key, group);
+      }
+      group.members.push(entity);
+    }
+    // Flyers just behind a block dip lower, so they no longer bury it.
+    for (const { deck, members } of swarmGroups.values()) {
+      if (members.length < SWARM_MIN) continue;
+      let south = Infinity;
+      let north = -Infinity;
+      for (const member of members) {
+        south = Math.min(south, member.ty);
+        north = Math.max(north, member.ty);
+      }
+      const middle = (deck[0] + deck[1]) / 2;
+      for (const flyer of crowd) {
+        if (flyer.layer !== "air" || flyer.fixed || flyer.dip) continue;
+        if (Math.abs(flyer.tx - middle) > FLYER_DIP_ACROSS) continue;
+        if (flyer.ty < south - FLYER_DIP_SOUTH || flyer.ty > north + FLYER_DIP_NORTH) continue;
+        flyer.dip = true;
+        flyer.lift -= flyer.info.hover * FLYER_DIP * cosE;
+      }
+    }
+    for (const group of swarmGroups.values()) {
+      const { deck, members } = group;
+      if (members.length < SWARM_MIN) continue;
+      members.sort(bySimNorth);
+      const sample = members[0];
+      const pitchU = sample.halfU * 2 * SWARM_PITCH;
+      const pitchV = Math.max(SWARM_ROW_MIN, sample.halfV * 2 * SWARM_ROW_PITCH);
+      const west = deck[0] + BRIDGE_DECK_MARGIN;
+      const east = deck[1] - BRIDGE_DECK_MARGIN;
+      const columns = Math.max(1, Math.min(members.length, Math.floor((east - west) / pitchU) + 1));
+      const rows = Math.ceil(members.length / columns);
+      let centreY = 0;
+      for (const member of members) centreY += member.ty;
+      centreY /= members.length;
+      const centreX = (west + east) / 2;
+      const slot = (index, shift) => {
+        const row = Math.floor(index / columns);
+        const inRow = Math.min(columns, members.length - row * columns);
+        const column = index - row * columns;
+        return [centreX + (column - (inRow - 1) / 2) * pitchU, centreY + shift + ((rows - 1) / 2 - row) * pitchV];
+      };
+      // Flyers are drawn high above their ground spot and would bury the
+      // block; slide it along the deck to where they cover it least, counting
+      // each flyer where it will be once it has risen clear (see relax).
+      let bestShift = 0;
+      let bestCost = Infinity;
+      for (const shift of SWARM_SHIFTS) {
+        let cost = Math.abs(shift) * SWARM_SHIFT_COST;
+        members.forEach((member, index) => {
+          const [x, y] = slot(index, shift);
+          const [wx, wz] = toWorld(x, y);
+          const v = -wz / DEPTH_STRETCH + member.lift;
+          for (const other of crowd) {
+            if (other.swarm === group || members.includes(other)) continue;
+            const otherV = -other.to.z / DEPTH_STRETCH + other.lift;
+            const du = (wx - other.to.x) / (member.halfU + other.halfU);
+            const dv = (v - otherV) / (member.halfV + other.halfV);
+            // A flyer over the block hides it; a ground unit beside it only touches.
+            cost += Math.max(0, 1 - Math.hypot(du, dv)) * (other.layer === "air" ? 1 : 0.5);
+          }
+        });
+        if (cost < bestCost - 1e-9) {
+          bestCost = cost;
+          bestShift = shift;
+        }
+      }
+      members.forEach((member, index) => {
+        const [slotX, slotY] = slot(index, bestShift);
+        // pz runs south: a slot north of the sim spot is a negative pz.
+        bound(member, slotX - member.tx, member.ty - slotY);
+        member.swarm = group;
+      });
+    }
   };
   const holdToTarget = (entity, target) => {
     const simX = entity.to.x - target.to.x;
@@ -562,7 +723,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     const dx = simX + entity.spreadX - target.spreadX;
     const dz = simZ + (entity.spreadZ - target.spreadZ) / DEPTH_STRETCH;
     const drawn = Math.hypot(dx, dz);
-    const allowed = Math.hypot(simX, simZ) + CROWD_LINK_SLACK;
+    const allowed = Math.max(Math.hypot(simX, simZ) + CROWD_LINK_SLACK, CROWD_ENGAGED_REACH);
     if (drawn <= allowed) return;
     const keep = allowed / drawn;
     bound(entity, target.spreadX + dx * keep - simX, target.spreadZ / DEPTH_STRETCH + dz * keep - simZ);
@@ -627,6 +788,11 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         }
       }
       const finished = model.update(dtSeconds);
+      if (entity.layer === "air" && entity.liftNode !== null) {
+        const dip = entity.dip && !entity.dying ? 1 : 0;
+        entity.dipAmount += (dip - entity.dipAmount) * (reducedMotion ? 1 : 1 - Math.exp(-FLYER_DIP_RATE * dtSeconds));
+        entity.liftNode.position.y *= 1 - FLYER_DIP * entity.dipAmount;
+      }
       if (entity.dying && finished) {
         release(model);
         holder.removeFromParent();
@@ -642,8 +808,9 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       entity.chip = Math.max(fraction, entity.chip - CHIP_DECAY_PER_SECOND * dtSeconds * (reducedMotion ? 4 : 1));
       if (fraction >= 1 && !entity.structure) continue;
       if (entity.hidden && entity.kind === "buried-coil" && fraction >= 1) continue;
-      const width = Math.max(0.56, Math.min(1.3, entity.info.radius * 1.4 + 0.12));
-      const barHeight = width < 0.8 ? BAR_HEIGHT * 0.8 : BAR_HEIGHT;
+      // In a crowd the bars are slimmer so they cover less of the units behind.
+      const width = Math.max(0.56, Math.min(1.3, entity.info.radius * 1.4 + 0.12)) * (entity.crowded ? 0.8 : 1);
+      const barHeight = (width < 0.8 ? BAR_HEIGHT * 0.8 : BAR_HEIGHT) * (entity.crowded ? 0.65 : 1);
       const top = entity.info.height + 0.28;
       const colors = teamColor[entity.side];
       tmpPosition.set(holder.position.x, holder.position.y + top, holder.position.z);
@@ -718,7 +885,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         y: entity.holder.position.y,
         z: entity.holder.position.z,
         height: entity.info.height,
-        hover: entity.info.hover,
+        hover: entity.info.hover * (1 - FLYER_DIP * entity.dipAmount),
         kind: entity.kind,
         attack: entity.info.attack,
         layer: entity.info.layer,
@@ -741,7 +908,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     }
     return best === null ? null : {
       side: best.side, x: best.holder.position.x, y: best.holder.position.y, z: best.holder.position.z,
-      height: best.info.height, hover: best.info.hover, layer: best.info.layer,
+      height: best.info.height, hover: best.info.hover * (1 - FLYER_DIP * best.dipAmount), layer: best.info.layer,
     };
   };
 
@@ -785,6 +952,14 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     acquireForWarm: acquire,
     release,
     get count() { return entities.size; },
+    /** Simulated spot, solved spread and crowd role of every live unit (diagnostics). */
+    crowdDebug() {
+      return [...entities.values()].filter((entity) => !entity.dying).map((entity) => ({
+        key: entity.key, kind: entity.kind, side: entity.side, tx: entity.tx, ty: entity.ty,
+        spreadX: entity.spreadX, spreadY: -entity.spreadZ / DEPTH_STRETCH,
+        swarm: entity.swarm !== null && entity.swarm !== undefined, target: entity.linkTarget?.key ?? null,
+      }));
+    },
     /** Current presentation pose of a live entity (diagnostics and tests). */
     poseOf(id) {
       for (const entity of entities.values()) {

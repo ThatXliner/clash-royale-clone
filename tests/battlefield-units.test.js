@@ -241,20 +241,47 @@ test("battlefield units: no marker covers a full-health unit; a hurt unit's bar 
   units.dispose();
 });
 
-test("battlefield units: a flyer over a ground swarm moves aside on screen", () => {
+test("battlefield units: a flyer just behind a deck swarm flies lower instead of burying it", () => {
   const units = layer();
   const swarm = [1, 2, 3, 4, 5, 6].map((id) => entity(id, "cinderling", "south", 3500, 15500 + (id % 3) * 200));
-  // The flyer's ground spot is south of the swarm, so its body is drawn right over it.
+  // The flyer's ground spot is south of the swarm, so at full height its body is drawn right over it.
   const flyer = entity(9, "duskwing", "south", 3500, 14200, { layer: "air" });
-  units.sync(view(1, [...swarm, flyer]), null, 0);
+  const lone = entity(10, "duskwing", "south", 9000, 8000, { layer: "air" });
+  units.sync(view(1, [...swarm, flyer, lone]), null, 0);
   run(units, 0, 1500);
+  const liftOf = (key) => holderOf(units, key).getObjectByName("lift").position.y;
+  assert.ok(liftOf("n:9") < liftOf("n:10") * 0.6, "the flyer behind the swarm dips");
   const holder = holderOf(units, "n:9");
-  const [fx] = toWorld(3.5, 14.2);
-  assert.ok(Math.abs(holder.position.x - fx) > 0.3, "the flyer slides sideways off the crowd");
-  assert.ok(Math.abs(holder.position.x - fx) <= 0.5 + 1e-6, "but stays within half a tile of its simulated spot");
+  const [fx, fz] = toWorld(3.5, 14.2);
+  assert.ok(Math.hypot(holder.position.x - fx, (holder.position.z - fz) / DEPTH) <= 0.5 + 1e-6,
+    "and keeps within half a tile of its simulated spot");
   const xs = swarm.map((member) => holderOf(units, member.key).position.x + 9);
   const [west, east] = bridgeDeckAt(3.5, 15.5);
   for (const x of xs) assert.ok(x > west && x < east, "the swarm stays on the deck");
+  units.dispose();
+});
+
+test("battlefield units: a same-kind swarm packed on a bridge deck fans out so each member has its own footprint", () => {
+  const units = layer();
+  // Seven cinderlings on two exact sim spots, as in a real bridge push.
+  const swarm = [1, 2, 3, 4, 5, 6, 7].map((id) => entity(id, "cinderling", "south", 3500, id < 3 ? 16650 : 16700));
+  units.sync(view(2, swarm), null, 0);
+  run(units, 0, 2000);
+  const spots = swarm.map((member) => {
+    const position = holderOf(units, member.key).position;
+    return [position.x + 9, 16 - position.z / DEPTH];
+  });
+  let closest = Infinity;
+  for (let a = 0; a < spots.length; a += 1) {
+    for (let b = a + 1; b < spots.length; b += 1) {
+      closest = Math.min(closest, Math.hypot(spots[a][0] - spots[b][0], spots[a][1] - spots[b][1]));
+    }
+  }
+  assert.ok(closest >= 0.5, `members stand apart (closest ${closest.toFixed(2)} tiles)`);
+  const [west, east] = bridgeDeckAt(3.5, 16.7);
+  for (const [x] of spots) assert.ok(x > west && x < east, "on the deck between the rails");
+  const ys = spots.map(([, y]) => y);
+  assert.ok(Math.max(...ys) - Math.min(...ys) > 0.9, "the block runs along the deck");
   units.dispose();
 });
 
