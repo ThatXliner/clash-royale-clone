@@ -41,11 +41,11 @@ html body[data-app-frame="true"] [data-ui="hud-projection"] [data-ui="hud-timer"
   --rim: var(--hud-brass);
   --fill: #15231f;
   z-index: 19;
-  top: 12px;
+  top: 6px;
   left: 296px;
   width: 128px;
   min-width: 0;
-  height: 60px;
+  height: 50px;
   translate: none;
   display: grid;
   place-items: center;
@@ -64,7 +64,7 @@ html body[data-app-frame="true"] [data-ui="hud-projection"] [data-ui="hud-timer"
     linear-gradient(45deg, transparent 8px, var(--rim) 8px) bottom left / 51% 51% no-repeat border-box;
   box-shadow: none;
   font-family: var(--hud-font);
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 1;
@@ -92,7 +92,7 @@ html body[data-app-frame="true"] [data-ui="hud-projection"]::after {
   content: none;
   position: absolute;
   z-index: 20;
-  top: 66px;
+  top: 50px;
   left: 50%;
   translate: -50% 0;
   padding: 3px 12px 2px;
@@ -142,7 +142,7 @@ html body[data-app-frame="true"] [data-ui="hud-crowns"] {
   --s2: var(--crown-empty);
   --s3: var(--crown-empty);
   z-index: 19;
-  top: 20px;
+  top: 8px;
   left: 148px;
   width: 424px;
   min-width: 0;
@@ -181,7 +181,7 @@ html body[data-app-frame="true"] [data-ui="hud-crowns"]::after {
 }
 
 html body[data-app-frame="true"] [data-ui="hud-crowns"]::before {
-  content: "RIVAL";
+  content: "RIVAL" / "";
   left: 0;
   padding-left: 13px;
   color: var(--hud-ember-text);
@@ -192,7 +192,7 @@ html body[data-app-frame="true"] [data-ui="hud-crowns"]::before {
 }
 
 html body[data-app-frame="true"] [data-ui="hud-crowns"]::after {
-  content: "YOU";
+  content: "YOU" / "";
   right: 0;
   justify-content: flex-end;
   padding-right: 14px;
@@ -205,12 +205,12 @@ html body[data-app-frame="true"] [data-ui="hud-crowns"]::after {
 
 /* Sound toggle: icon button. Its accessible name stays on aria-label. */
 html body[data-app-frame="true"] .audio-toggle {
-  top: 16px;
+  top: 6px;
   right: auto;
   left: 592px;
   width: 64px;
   min-height: 0;
-  height: 54px;
+  height: 50px;
   overflow: hidden;
   border: 2px solid #4f6158;
   border-radius: 9px;
@@ -224,7 +224,7 @@ html body[data-app-frame="true"] .audio-toggle::before {
   content: "";
   position: absolute;
   left: 13px;
-  top: 15px;
+  top: 13px;
   width: 20px;
   height: 20px;
   background: var(--hud-cream);
@@ -235,7 +235,7 @@ html body[data-app-frame="true"] .audio-toggle::after {
   content: "";
   position: absolute;
   left: 32px;
-  top: 14px;
+  top: 12px;
   width: 16px;
   height: 22px;
   border: 3px solid var(--hud-cream);
@@ -250,7 +250,7 @@ html body[data-app-frame="true"] .audio-toggle[aria-pressed="true"] {
 
 html body[data-app-frame="true"] .audio-toggle[aria-pressed="true"]::after {
   left: 34px;
-  top: 23px;
+  top: 21px;
   width: 18px;
   height: 4px;
   border: 0;
@@ -563,7 +563,7 @@ html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__
   color: var(--hud-cream);
   font: 700 58px/1 var(--hud-font);
   letter-spacing: 0.01em;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 html body[data-app-frame="true"] .game-browser-layer--feedback .match-feedback__result {

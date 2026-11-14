@@ -615,7 +615,9 @@ export function bindMatchFeedback(layer, view) {
     overlay.dataset.reason = view.overlay.reason;
     overlay.dataset.winner = view.overlay.winner ?? "draw";
     const title = document.createElement("strong");
-    title.textContent = view.overlay.winner === null ? "Draw" : `${view.overlay.winner} wins`;
+    // The browser player is always the south side; name sides as the HUD does.
+    title.textContent = view.overlay.winner === null ? "Draw"
+      : view.overlay.winner === "south" ? "You win" : "Rival wins";
     overlay.appendChild(title);
     const detail = document.createElement("span");
     detail.className = "match-feedback__result";

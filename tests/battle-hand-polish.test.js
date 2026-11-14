@@ -34,10 +34,11 @@ const HUD_TOWER_IDS = Object.freeze([
   "south:lane:right",
 ]);
 const HUD_FRAME_SCALES = Object.freeze({
-  // Phone battles hide the app chrome and may crop the frame's outer 56px
-  // bands (no HUD content lives there), so the arena gets the full width.
+  // Phone battles collapse the app chrome to a slim tab strip and may crop
+  // the frame's outer 56px bands (no HUD content lives there), so the arena
+  // gets the full width.
   "390x844": 40 / 64,
-  "720x1280": 64 / 64,
+  "720x1280": 59 / 64,
   "1440x933": 37 / 64,
   "1280x720": 35 / 64,
 });

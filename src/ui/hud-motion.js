@@ -23,12 +23,23 @@ export function bindHudMotion(node, hud, receipt) {
   progress.setAttribute('aria-hidden', 'true');
   progress.style.setProperty('--resource-percent', `${(hud.elixir.amount + hud.elixir.accumulator / ELIXIR_ACCUMULATOR_DENOMINATOR) * 10}%`);
   node.appendChild(progress);
+  // The crown plaques are drawn with CSS, so the score is spoken from this
+  // visually hidden polite status; it changes only when a crown is earned.
+  const local = hud.elixir.side;
+  const rival = local === 'south' ? 'north' : 'south';
+  const crowns = (count) => `${count} crown${count === 1 ? '' : 's'}`;
+  const score = node.ownerDocument.createElement('span');
+  score.className = 'hud-crowns-label';
+  score.setAttribute('role', 'status');
+  score.textContent = `Rival ${crowns(hud.crowns[rival])}, You ${crowns(hud.crowns[local])}`;
+  node.appendChild(score);
 }
 
 export const HUD_MOTION_STYLE = `
 .game-ui-hud-frame [data-ui="hud-hand"]{transform:translateY(var(--opening-offset))}
 ${[0,1,2,3].map(slot => `.game-ui-hud-frame[data-arrival-slot="${slot}"] .hud-card[data-slot="${slot}"]{transform:translateY(var(--arrival-offset)) rotate(var(--arrival-tilt));transform-origin:50% 100%}`).join('')}
 .game-ui-hud-frame [data-ui="hud-elixir"]{transform:scale(var(--spend-scale))}
+.hud-crowns-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .hud-resource-progress{position:absolute;left:115px;top:1251px;width:496px;height:22px;pointer-events:none;z-index:17;border-radius:7px;background:#5B4B8A;clip-path:inset(0 calc(100% - var(--resource-percent)) 0 0 round 7px);box-shadow:inset 0 3px #DCEDE9;transform:translateZ(0)}
 @media(prefers-reduced-motion:reduce){.game-ui-hud-frame [data-ui="hud-hand"],.game-ui-hud-frame .hud-card[data-slot],.game-ui-hud-frame [data-ui="hud-elixir"]{transform:none!important}}
 `;

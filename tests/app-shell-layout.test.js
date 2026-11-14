@@ -117,7 +117,7 @@ async function waitForFrameAndSlotToSettle(page, description, phone) {
       height: slotBounds.height - borderTop - borderBottom,
     };
     const expectedSlotWidth = expectPhone ? 390 : 1_296;
-    const expectedSlotHeight = expectPhone ? 844 : 761.125;
+    const expectedSlotHeight = expectPhone ? 800 : 761.125;
     const slotSettled = Math.abs(slotBounds.width - expectedSlotWidth) <= layoutUnit &&
       Math.abs(slotBounds.height - expectedSlotHeight) <= layoutUnit &&
       getComputedStyle(main).paddingLeft === (expectPhone ? "0px" : "72px");
@@ -293,8 +293,6 @@ test("battle iframe follows the settled slot across viewport, motion, and view c
   await waitForFrameAndSlotToSettle(page, "phone Battle after desktop resize", true);
   layouts.push(await readFrameLayout(page));
 
-  // The phone battle hides the tab bar behind its compact Leave control.
-  await page.locator('[data-action="leave-battle"]').click();
   await page.locator('.app-nav [data-nav-to="deck"]').click();
   await page.waitForFunction(() => document.querySelector('[data-app-view="deck"]')?.hidden === false,
     null, { polling: "raf", timeout: 8_000 });
@@ -312,7 +310,7 @@ test("battle iframe follows the settled slot across viewport, motion, and view c
   assert.equal(homeDeckCardCount, 8, "the standard home deck remains eight cards");
   assertFrameFits(layouts[0], "desktop Battle");
   assert.ok(Math.abs(layouts[1].slot.width - 390) <= CSS_LAYOUT_UNIT &&
-    Math.abs(layouts[1].slot.height - 844) <= CSS_LAYOUT_UNIT,
+    Math.abs(layouts[1].slot.height - 800) <= CSS_LAYOUT_UNIT,
   `390x844 Battle reaches the expanded full-width phone slot: ${JSON.stringify(layouts[1])}`);
   assertFrameFits(layouts[1], "phone Battle after desktop resize");
   assertFrameFits(layouts[2], "desktop Battle after hidden-slot resize");

@@ -1643,29 +1643,57 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
   }
 }
 
-/* ---------- Phone battle: the arena takes the whole screen ----------
-   The header, tab bar and battle title collapse into one compact Leave
-   control over the frame's top-left corner. The title stays in the
-   accessibility tree; navigation returns with the tab bar after leaving. */
+/* ---------- Phone battle: the arena takes the screen, navigation stays ----------
+   The header and battle title collapse; the tab bar shrinks to a slim 44px
+   strip with a labelled Leave control at its left. The strip costs no arena
+   size at 390x844 because the frame is width-bound there. */
 @media (max-width: 760px) {
-  .app-shell[data-view-active="battle"] .app-nav { display: none; }
-  .app-shell[data-view-active="battle"] .app-main { padding: 0; }
-  .app-shell[data-view-active="battle"] .battle-view { position: relative; }
+  .app-shell[data-view-active="battle"] .app-main { padding: 0 0 calc(44px + env(safe-area-inset-bottom)); }
   .app-shell[data-view-active="battle"] .battle-frame-slot {
     padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
     background: #060b0a;
   }
-  .app-shell[data-view-active="battle"] .battle-heading {
-    position: absolute;
-    z-index: 5;
-    top: calc(8px + env(safe-area-inset-top));
-    left: 8px;
-    height: auto;
-    margin: 0;
-    padding: 0;
+  .app-shell[data-view-active="battle"] .app-nav {
+    left: 96px;
+    min-height: 0;
+    height: calc(44px + env(safe-area-inset-bottom));
+    padding: 0 4px env(safe-area-inset-bottom) 0;
+    gap: 2px;
+    align-items: stretch;
+    border-top: 1px solid rgb(233 168 58 / 32%);
+    background: #070d0b;
+  }
+  .app-shell[data-view-active="battle"] .app-nav button,
+  .app-shell[data-view-active="battle"] .app-nav .nav-battle {
+    min-height: 0;
+    height: 43px;
+    padding: 0 2px;
+    flex-direction: row;
+    gap: 5px;
+    border-radius: 0;
+    font-size: 12px;
+  }
+  .app-shell[data-view-active="battle"] .app-nav .nav-battle[aria-current="page"] {
     border: 0;
-    background: none;
+    color: var(--copper);
+    background: transparent;
+    box-shadow: inset 0 -3px 0 var(--copper);
+  }
+  .app-shell[data-view-active="battle"] .nav-icon { width: 14px; height: 14px; }
+  .app-shell[data-view-active="battle"] .battle-heading {
+    position: fixed;
+    z-index: 51;
+    left: 0;
+    bottom: 0;
+    width: 96px;
+    height: calc(44px + env(safe-area-inset-bottom));
+    margin: 0;
+    padding: 2px 4px calc(2px + env(safe-area-inset-bottom)) 6px;
+    display: flex;
+    align-items: stretch;
+    border: 0;
+    border-top: 1px solid rgb(233 168 58 / 32%);
+    background: #070d0b;
   }
   .app-shell[data-view-active="battle"] .battle-heading > div {
     position: absolute;
@@ -1676,24 +1704,28 @@ h1, h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; }
     white-space: nowrap;
   }
   .app-shell[data-view-active="battle"] .leave-battle {
-    width: 44px;
-    min-height: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    border: 2px solid #4f6158;
-    border-radius: 9px;
-    color: transparent;
-    background: linear-gradient(180deg, rgb(29 43 38 / 95%), rgb(13 21 19 / 95%));
-    box-shadow: 0 3px 10px rgb(0 0 0 / 45%);
-    font-size: 0;
-  }
-  .app-shell[data-view-active="battle"] .leave-battle > span[aria-hidden="true"] {
+    width: 100%;
+    min-height: 0;
+    height: 39px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid #4f6158;
+    border-radius: 8px;
     color: var(--paper);
-    font-size: 22px;
+    background: linear-gradient(180deg, #1d2b26, #0d1513);
+    font-size: 13px;
     font-weight: 800;
-    line-height: 1;
+  }
+  .app-shell[data-view-active="battle"] .leave-battle-more {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   .app-shell[data-view-active="battle"] .leave-battle:hover { border-color: var(--copper); }
 }
