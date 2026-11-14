@@ -27,8 +27,8 @@
   <p class="sub">Updated 2026-11-14 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">370</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">292</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">666</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">293</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">667</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">32</div><div class="label">open questions</div></div>
   </div>
   <p class="note">R623 passes APP-002P’s phone Deck action-clearance checks at 390×844; the lower Replace actions are clear at scrollY=0. The hint still needs a scroll, and independent desktop screenshots differ by 2,093 pixels (RMSE 0.0016), so no exact-pixel claim follows. R611’s app-frame painter deployment, R615’s one default-eight browser run, and R616’s phone summary pass remain scoped results. The broader 109-card roster and full release remain unfinished.</p>
@@ -64,10 +64,10 @@
       <tr>
         <td><code>R3D-004</code></td>
         <td>Battle HUD restyle</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/1</td>
+        <td class="state-pass">PASS</td>
+        <td>1/2</td>
         <td>2</td>
-        <td>Paused mid round 2 (crown counts in a11y tree, phone nav reachable) in worktree-agent-a1985ecfd19e02752</td>
+        <td>Round 2 PASS (round 667); follow-up nit: phase tag touches rival king roof at 390</td>
       </tr>
       <tr>
         <td><code>R3D-005</code></td>
@@ -3668,6 +3668,7 @@
       <li><strong>R664 FAIL</strong> · R3D-007<br>Make the spread settle and stay honest: stop the relaxation from oscillating, launch unit projectiles from the drawn shooter, and cap flyer and melee-pair offsets so attackers aren't drawn 1.5 tiles from targets 0.6 tiles away in sim, while keeping kind contrast (e.g. pale wing panels) so mixed bridge fights read at DPR 1.</li>
       <li><strong>R665 FAIL</strong> · R3D-004<br>Put the crown counts back into the accessibility tree (e.g. visually-hidden &quot;Rival 1 crown, You 0 crowns&quot; text on hud-crowns) and keep Home/Deck/Cards reachable during phone battles instead of hiding the tab bar behind a bare ← icon.</li>
       <li><strong>R666 FAIL</strong> · R3D-007<br>Fan same-kind swarms on a bridge out along the deck so each unit gets its own footprint and can be counted, instead of the current ~0.1-tile spacing under the 0.5-tile cap and deck clamp.</li>
+      <li><strong>R667 PASS</strong> · R3D-004<br>Move the phase/FINAL tag (`[data-ui=&quot;hud-projection&quot;]::after`) beside the clock plate so it no longer covers the tip of the rival king's roof at 390×844.</li>
   </ol>
 </body>
 </html>
