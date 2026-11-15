@@ -1,0 +1,24 @@
+cand1-rt.json samples 61 rAF med 100.4 p95 125.6
+held windows 55 range med 0.17 p90 0.49 max 0.91 speed(tiles/s) med 0.14 p90 0.44 >0.3 range 15
+cand2-rt.json samples 64 rAF med 99.4 p95 116.8
+held windows 50 range med 0.2 p90 0.53 max 0.91 speed(tiles/s) med 0.17 p90 0.56 >0.3 range 15
+main1-rt.json samples 60 rAF med 115.2 p95 150.1
+held windows 47 range med 0.13 p90 0.47 max 1.15 speed(tiles/s) med 0.14 p90 0.85 >0.3 range 10
+main2-rt.json samples 61 rAF med 99.9 p95 126.4
+held windows 55 range med 0.15 p90 0.39 max 0.81 speed(tiles/s) med 0.2 p90 0.75 >0.3 range 9
+cand1-rt.json fit x [ 0.001, -9 ] z [ -0.001, 16 ]
+  air n 596 med 0.66 p90 1.25 max 2.01 >0.75 240 >1.0 138
+  ground n 534 med 0.91 p90 1.52 max 2.37 >0.75 366 >1.0 243
+  worst air 2.01 7918 n:145 unit:gloamwing:south | 1.96 7930 n:145 unit:gloamwing:south | 1.9 7924 n:145 unit:gloamwing:south | 1.89 7912 n:145 unit:gloamwing:south
+cand2-rt.json fit x [ 0.001, -9 ] z [ -0.001, 16 ]
+  air n 614 med 0.77 p90 1.19 max 1.95 >0.75 327 >1.0 142
+  ground n 553 med 0.89 p90 1.45 max 2.44 >0.75 342 >1.0 240
+  worst air 1.95 7917 n:145 unit:gloamwing:south | 1.95 7923 n:145 unit:gloamwing:south | 1.93 7929 n:145 unit:gloamwing:south | 1.85 7912 n:145 unit:gloamwing:south
+main1-rt.json fit x [ 0.001, -9 ] z [ -0.001, 16 ]
+  air n 571 med 0.36 p90 0.71 max 1.27 >0.75 48 >1.0 23
+  ground n 500 med 0.45 p90 1.14 max 1.95 >0.75 92 >1.0 62
+  worst air 1.27 7925 n:145 unit:gloamwing:south | 1.24 7932 n:145 unit:gloamwing:south | 1.24 7891 n:147 unit:gloamwing:south | 1.22 7891 n:148 unit:gloamwing:south
+main2-rt.json fit x [ 0.001, -9 ] z [ -0.001, 16 ]
+  air n 601 med 0.35 p90 0.57 max 1.29 >0.75 32 >1.0 15
+  ground n 540 med 0.45 p90 0.9 max 1.62 >0.75 78 >1.0 41
+  worst air 1.29 7914 n:145 unit:gloamwing:south | 1.22 7920 n:145 unit:gloamwing:south | 1.17 7908 n:144 unit:gloamwing:south | 1.16 7908 n:145 unit:gloamwing:south
