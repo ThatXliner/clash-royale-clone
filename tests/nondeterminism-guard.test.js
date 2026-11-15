@@ -73,6 +73,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
     "combat-effect-feed.js",
   "damage.js",
   "deck.js",
+  "deployment-pockets.js",
   "deployment.js",
   "elixir.js",
   "entities.js",

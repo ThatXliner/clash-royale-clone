@@ -824,14 +824,16 @@ test("natural engine completion reports one sparse reward and seals the episode"
 });
 
 test("wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore", () => {
+  // MATCH-006: towers fall at 698 and 2943; the AI then also plays its open
+  // pockets, so the central tower falls at 4898 (was 4837 before pockets).
   const config = { seed: 2, strideTicks: 600, horizonTicks: 18_000 };
   const expected = {
     crowns: { north: 3, south: 0 },
-    endedAtTick: 4_837,
+    endedAtTick: 4_898,
     kind: "win",
     reason: "central_destroyed",
     reward: -1,
-    tick: 4_838,
+    tick: 4_899,
     winner: "north",
   };
   const env = createRLEnvironment(config);
@@ -862,7 +864,7 @@ test("wait-only seed 2 reaches its pinned natural engine terminal after checkpoi
 
   assert.equal(transitions, 9);
   assert.equal(observation.tick, expected.tick);
-  assert.equal(result.info.ticksAdvanced, 38,
+  assert.equal(result.info.ticksAdvanced, 99,
     "the final engine step stops at its natural terminal inside the 600-tick stride");
   assert.equal(result.terminated, true);
   assert.equal(result.truncated, false,

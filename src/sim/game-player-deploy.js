@@ -277,6 +277,8 @@ export class PlayerDeployBridge {
 
   get deckBytes() { return this.#deck.serializeJson(); }
   get elixirBytes() { return this.#elixir.serialize(); }
+  /** Lanes whose crown tower facing `side` has fallen. */
+  destroyedOpposingLaneTowers(side) { return this.#battle.destroyedOpposingLaneTowers(side); }
   get rosterBytes() { return canonical(derivedHudRoster(this.#battle.serialize())); }
 
   play(receiptValue) {
@@ -435,7 +437,8 @@ export class PlayerDeployBridge {
       throw new RangeError("player spell receipt does not match an admitted radius profile");
     }
     const decision = evaluateDeployment({
-      destroyedOpposingLaneTowers: [], placementClass: spell ? "global_effect" : "ground_entity",
+      destroyedOpposingLaneTowers: this.#battle.destroyedOpposingLaneTowers(receipt.side),
+      placementClass: spell ? "global_effect" : "ground_entity",
       point: receipt.point, side: receipt.side,
     });
     if (!decision.legal) throw new RangeError(`player deploy placement is illegal: ${decision.reason}`);

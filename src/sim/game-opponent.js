@@ -2,6 +2,7 @@ import { DeckCycle } from "./deck.js";
 import { ELIXIR_MATCH_TICKS, ElixirMatch } from "./elixir.js";
 import { LiveBattle } from "./live-battle.js";
 import { OpponentController } from "./opponent-controller.js";
+import { pocketDeploymentCandidates } from "./deployment-pockets.js";
 
 export const GAME_OPPONENT_ALGORITHM = "north-opponent-battle-transaction-v1";
 export const GAME_OPPONENT_MAX_BATCH_TICKS = 4_096;
@@ -393,8 +394,18 @@ export class OpponentBattleRuntime {
     for (let offset = 0; offset < count; offset += 1) {
       const tick = firstTick + offset;
       const hand = this.#deck.state.hand;
+      // Think ticks also offer open pocket points; the battle is first caught
+      // up to this exact tick so the offer is independent of batch sizes.
+      let legal = this.#legal;
+      if (tick >= this.#setup.thinkOffsetTicks &&
+          (tick - this.#setup.thinkOffsetTicks) % this.#setup.thinkIntervalTicks === 0) {
+        battleEvents.push(...this.#battle.stepMany(tick - this.#battle.state.tick));
+        const offers = pocketDeploymentCandidates(this.#legal,
+          this.#battle.destroyedOpposingLaneTowers("north"), "north", () => true);
+        if (offers.length > 0) legal = [...legal, ...offers].sort(compareDeployment);
+      }
       const observation = {
-        legalNorthDeployments: this.#legal.filter(({ cardId: id }) => hand.includes(id)),
+        legalNorthDeployments: legal.filter(({ cardId: id }) => hand.includes(id)),
         northCardCosts: hand.map((id) => ({ cardId: id, cost: this.#costs.get(id) }))
           .sort((left, right) => left.cardId < right.cardId ? -1 : 1),
         northElixir: this.#elixir.state.sides.north.amount,

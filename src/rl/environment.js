@@ -8,6 +8,7 @@ import { AttackCycle } from "../sim/attack-cycle.js";
 import { PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
 import { EDITABLE_DECK_CARD_IDS } from "../content/session-troop-roster.js";
 import { GAME_SESSION_MAX_BATCH_TICKS, GameSession } from "../sim/game-session.js";
+import { destroyedOpposingLaneTowers } from "../sim/deployment-pockets.js";
 import { evaluateDeployment } from "../sim/deployment.js";
 
 // Version 2 adds deterministic structure state to each public observation.
@@ -30,10 +31,19 @@ const STRUCTURE_RUNTIMES = new Map(EDITABLE_MIXED_DECK_CARD_IDS.flatMap((id) => 
   }]] : [];
 }));
 const DEFENSIVE_BUILDING_QUESTIONS = createDefensiveBuildingQuestionRecords();
-const PLACEMENT_MASKS = new Map([
-  "global_effect",
-  "ground_entity",
-].map((placementClass) => [placementClass, buildPlacementMask(placementClass)]));
+// Keyed by placement class and the open pocket lanes ("", "east", "west",
+// "east,west"); built on first use from the same rule GameSession enforces.
+const PLACEMENT_MASKS = new Map();
+
+function placementMask(placementClass, lanes) {
+  const key = `${placementClass}:${lanes.join(",")}`;
+  let mask = PLACEMENT_MASKS.get(key);
+  if (mask === undefined) {
+    mask = buildPlacementMask(placementClass, lanes);
+    PLACEMENT_MASKS.set(key, mask);
+  }
+  return mask;
+}
 
 function clone(value) {
   return structuredClone(value);
@@ -187,9 +197,9 @@ function publicStructure(structure, tick) {
   return result;
 }
 
-function buildPlacementMask(placementClass) {
+function buildPlacementMask(placementClass, lanes) {
   return ACTIONS.slice(1, 1 + GRID_ROWS * GRID_COLUMNS).map(({ point }) => evaluateDeployment({
-    destroyedOpposingLaneTowers: [],
+    destroyedOpposingLaneTowers: lanes,
     placementClass,
     point,
     side: "south",
@@ -245,13 +255,15 @@ export class RLEnvironment {
     const cards = new Map(state.cardRuntime.cards.map((card) => [card.id, card]));
     const hand = [...state.decks.south.hand];
     const elixir = state.elixir.sides.south.amount;
+    const lanes = destroyedOpposingLaneTowers(state.battle.towers, "south");
     const actionMask = Array(RL_ACTION_COUNT).fill(false);
     if (status === "running") actionMask[0] = true;
     for (let slot = 0; status === "running" && slot < hand.length; slot += 1) {
       const card = cards.get(hand[slot]);
       if (!card || card.cost > elixir) continue;
-      const legal = PLACEMENT_MASKS.get(card.placementClass);
-      if (!legal) continue;
+      if (card.placementClass !== "global_effect" &&
+          card.placementClass !== "ground_entity") continue;
+      const legal = placementMask(card.placementClass, lanes);
       const offset = 1 + slot * GRID_ROWS * GRID_COLUMNS;
       for (let index = 0; index < legal.length; index += 1) {
         actionMask[offset + index] = legal[index];

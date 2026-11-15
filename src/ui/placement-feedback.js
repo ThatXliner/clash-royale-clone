@@ -168,7 +168,7 @@ const PREDECISION_REASONS = new Set([
   "nothing_selected",
 ]);
 
-function checkedCommand(value, expectedSequence) {
+function checkedCommand(value, expectedSequence, lanes) {
   const command = dataRecord(
     value,
     `deploy command ${expectedSequence}`,
@@ -213,7 +213,7 @@ function checkedCommand(value, expectedSequence) {
     `deploy command ${expectedSequence}.point`,
   );
   const decision = evaluateDeployment({
-    destroyedOpposingLaneTowers: [],
+    destroyedOpposingLaneTowers: lanes,
     placementClass: "ground_entity",
     point,
     side: "south",
@@ -224,7 +224,8 @@ function checkedCommand(value, expectedSequence) {
   return { command: clone(command), decision, point };
 }
 
-function checkedCommandHistory(value) {
+// Towers never revive, so every past command stays legal under today's lanes.
+function checkedCommandHistory(value, lanes) {
   if (
     !Array.isArray(value) ||
     Object.getPrototypeOf(value) !== Array.prototype ||
@@ -252,7 +253,7 @@ function checkedCommandHistory(value) {
     ) {
       throw new TypeError("placement command history must be dense data");
     }
-    commands.push(checkedCommand(descriptor.value, index).command);
+    commands.push(checkedCommand(descriptor.value, index, lanes).command);
   }
   if (
     Object.keys(descriptors).some((key) =>
@@ -370,12 +371,21 @@ export class PlacementFeedbackController {
   #acceptedCommands = [];
   #catalog;
   #history = [];
+  #lanes;
   #source = null;
   #state = initialState();
 
-  constructor(cards = [], initialCommands = []) {
+  /**
+   * `lanes` returns the open pocket lanes for south (see
+   * destroyedOpposingLaneTowers in the sim); the default keeps them closed.
+   */
+  constructor(cards = [], initialCommands = [], lanes = () => []) {
+    if (typeof lanes !== "function") {
+      throw new TypeError("placement feedback lane source must be a function");
+    }
+    this.#lanes = lanes;
     this.#catalog = checkedCatalog(cards);
-    this.#acceptedCommands = checkedCommandHistory(initialCommands).map((entry) =>
+    this.#acceptedCommands = checkedCommandHistory(initialCommands, lanes()).map((entry) =>
       Object.freeze(clone(entry)));
   }
 
@@ -403,7 +413,7 @@ export class PlacementFeedbackController {
     if (this.#state.selectedCardId === null) return this.view;
     const point = validateArenaPoint(pointValue, "placement preview point");
     const decision = evaluateDeployment({
-      destroyedOpposingLaneTowers: [],
+      destroyedOpposingLaneTowers: this.#lanes(),
       placementClass: "ground_entity",
       point,
       side: "south",
@@ -437,7 +447,8 @@ export class PlacementFeedbackController {
   recordPlacement(receipt) {
     const payload = consumeArenaInputFeedbackReceipt(receipt);
     const selectedCardId = checkedCardId(payload.selectedCardIdBefore);
-    const commands = checkedCommandHistory(payload.commands);
+    const lanes = this.#lanes();
+    const commands = checkedCommandHistory(payload.commands, lanes);
     if (
       this.#source !== null &&
       payload.source !== this.#source
@@ -475,6 +486,7 @@ export class PlacementFeedbackController {
       const checked = checkedCommand(
         result.command,
         commands.length - 1,
+        lanes,
       );
       const command = checked.command;
       const card = this.#catalog.get(command.cardId);
@@ -551,7 +563,7 @@ export class PlacementFeedbackController {
         throw new TypeError("decided rejection must contain an arena point");
       }
       const decision = evaluateDeployment({
-        destroyedOpposingLaneTowers: [],
+        destroyedOpposingLaneTowers: lanes,
         placementClass: "ground_entity",
         point,
         side: "south",
@@ -704,6 +716,7 @@ export function mountPlacementFeedback(shell, browserInput) {
   const controller = new PlacementFeedbackController(
     browserInput.cards,
     browserInput.input?.commands ?? [],
+    () => browserInput.destroyedOpposingLaneTowers ?? [],
   );
   const render = (view) => bindPlacementFeedback(node, view);
   const feedback = {

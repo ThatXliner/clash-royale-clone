@@ -147,8 +147,12 @@ the observation's `actionMask` before choosing. Mask index equals action ID.
 The wait action is available while a match is running. Deployment entries are
 available only when the current slot has enough elixir and the real engine's
 `evaluateDeployment` accepts that center for the card's placement class. The
-mask uses the engine's current south-side rule with
-`destroyedOpposingLaneTowers: []`; it does not probe or mutate a live session.
+mask uses the engine's south-side rule with `destroyedOpposingLaneTowers` set
+to the lanes whose north crown tower has zero hitpoints in the observed
+`towers`. Once a north lane tower falls, that lane's forward pocket on the
+north half (river edge up to the fallen tower) becomes legal ground for units
+and buildings; the other lane and the rest of the north half stay masked. The
+mask does not probe or mutate a live session.
 Finished observations have an all-false mask.
 
 An observation is detached, JSON-safe data with `version`, `status`, `tick`,

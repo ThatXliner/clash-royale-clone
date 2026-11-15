@@ -11,6 +11,9 @@ import { assertOpaqueContinuationHandle, opaqueContinuation } from "./opaque-con
 import { DamageSystem } from "./damage.js";
 import { DeckCycle } from "./deck.js";
 import { evaluateDeployment } from "./deployment.js";
+import {
+  destroyedOpposingLaneTowers, pocketDeploymentCandidates,
+} from "./deployment-pockets.js";
 import { layoutFormation } from "./formations.js";
 import { MOVEMENT_TICKS_PER_SECOND } from "./movement.js";
 import { findGroundPath, isGroundNavigationNode } from "./pathfinding.js";
@@ -4380,7 +4383,7 @@ function resolveQuestion(policy, questionValues) {
   return questionValues.get(policy.questionKey);
 }
 
-function checkedDeploy(value, currentTick, rosterById) {
+function checkedDeploy(value, currentTick, rosterById, destroyedLanes) {
   const command = exact(value, DEPLOY_KEYS, "live battle deploy command");
   const tick = integer(command.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
     "live battle deploy command.tick");
@@ -4396,7 +4399,7 @@ function checkedDeploy(value, currentTick, rosterById) {
   }
   const point = validateArenaPoint(command.point, "live battle deploy command.point");
   const decision = evaluateDeployment({
-    destroyedOpposingLaneTowers: [],
+    destroyedOpposingLaneTowers: destroyedLanes(command.side),
     placementClass: "ground_entity",
     point,
     side: command.side,
@@ -4405,7 +4408,7 @@ function checkedDeploy(value, currentTick, rosterById) {
   return { cardId: command.cardId, point: { ...point }, sequence, side: command.side, tick };
 }
 
-function checkedStructureDeploy(value, currentTick, rosterById) {
+function checkedStructureDeploy(value, currentTick, rosterById, destroyedLanes) {
   const command = exact(value, STRUCTURE_DEPLOY_KEYS, "live battle structure deploy command");
   const tick = integer(command.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
     "live battle structure deploy command.tick");
@@ -4425,13 +4428,14 @@ function checkedStructureDeploy(value, currentTick, rosterById) {
   if ((command.cardId === "burrow-rig") !== (destination !== null)) {
     throw new TypeError("underground travel structures require exactly one destination");
   }
-  const decision = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+  const lanes = destroyedLanes(command.side);
+  const decision = evaluateDeployment({ destroyedOpposingLaneTowers: lanes,
     placementClass: "ground_entity", point, side: command.side });
   if (!decision.legal) {
     throw new RangeError(`live battle structure deployment is illegal: ${decision.reason}`);
   }
   if (destination !== null) {
-    const destinationDecision = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+    const destinationDecision = evaluateDeployment({ destroyedOpposingLaneTowers: lanes,
       placementClass: "ground_entity", point: destination, side: command.side });
     if (!destinationDecision.legal) {
       throw new RangeError(`live battle structure destination is illegal: ${destinationDecision.reason}`);
@@ -5253,6 +5257,11 @@ class LiveBattle {
       return value.#battleRuntime().combatEffectFeed;
     };
   }
+  /** Lanes whose crown tower facing `side` has fallen, from authoritative tower state. */
+  destroyedOpposingLaneTowers(side) {
+    return destroyedOpposingLaneTowers(this.#towerSnapshot(), side);
+  }
+
   scheduleDeploy(serialized) {
     const command = parsedCommandBytes(serialized, "live battle deploy command");
     return this.#scheduleDeployChecked(command);
@@ -5268,7 +5277,8 @@ class LiveBattle {
     // must name the same boundary, and a second projection needlessly clones
     // every live unit/projectile during an active deployment transaction.
     const battleTick = battle.state.tick;
-    const checked = checkedDeploy(command, battleTick, this.#rosterById);
+    const checked = checkedDeploy(command, battleTick, this.#rosterById,
+      (side) => this.destroyedOpposingLaneTowers(side));
     if (this.#pending.some((entry) =>
       entry.tick === checked.tick && entry.sequence === checked.sequence) ||
         this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
@@ -5319,7 +5329,8 @@ class LiveBattle {
       throw new RangeError("live battle structure deployment/history bound exceeded");
     }
     const battle = this.#battleRuntime();
-    const checked = checkedStructureDeploy(command, battle.state.tick, this.#rosterById);
+    const checked = checkedStructureDeploy(command, battle.state.tick, this.#rosterById,
+      (side) => this.destroyedOpposingLaneTowers(side));
     if (this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
         entry.sequence === checked.sequence) || this.#pending.some((entry) =>
       entry.tick === checked.tick && entry.sequence === checked.sequence) ||
@@ -7495,9 +7506,11 @@ class LiveBattle {
 
   #materializeStructure(deployment) {
     const id = this.#nextEntityId;
+    const lanes = this.destroyedOpposingLaneTowers(deployment.side);
     const structure = this.#buildingRuntime.materializePlacement(canonical({
       cardId: deployment.cardId,
       destination: deployment.destination,
+      ...(lanes.length === 0 ? {} : { destroyedOpposingLaneTowers: lanes }),
       id,
       point: deployment.point,
       side: deployment.side,
@@ -10715,7 +10728,10 @@ class GameSession {
       if (hasSourcedSpellProfile && command.tick !== clock.tick) {
         throw new RangeError("player spell command must target the current shared tick");
       }
-      const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+      // Towers never revive, so a pocket open at submission stays open at the
+      // command's (equal or later) tick.
+      const southLanes = battle.destroyedOpposingLaneTowers("south");
+      const placement = evaluateDeployment({ destroyedOpposingLaneTowers: southLanes,
         placementClass: admitted.placementClass,
         point: command.point, side: "south" });
       if (!placement.legal) throw new RangeError(`player session command is illegal: ${placement.reason}`);
@@ -10729,7 +10745,8 @@ class GameSession {
             throw new TypeError("underground travel player command requires exactly one destination");
           }
           if (destination !== null) {
-            const destinationPlacement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+            const destinationPlacement = evaluateDeployment({
+              destroyedOpposingLaneTowers: southLanes,
               placementClass: admitted.placementClass, point: destination, side: "south" });
             if (!destinationPlacement.legal) {
               throw new RangeError(`player session destination is illegal: ${destinationPlacement.reason}`);
@@ -10885,6 +10902,8 @@ class GameSession {
       return cardId !== "burrow-rig" &&
         (kind !== "effect" || battle.hasRadiusSpellProfile(cardId));
     });
+    const thinkInterval = this.#setup.thinkIntervalTicks;
+    const thinkOffset = this.#setup.thinkOffsetTicks;
     for (let tick = firstTick; tick < endTick; tick += 1) {
       const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
       if (player) {
@@ -10915,9 +10934,23 @@ class GameSession {
         }
       }
       const hand = this.#decks.north.state.hand;
+      // On think ticks the opponent also sees one pocket point per open lane
+      // for each ground card. The battle is flushed to this exact tick first,
+      // so the offer never depends on how a caller chunks its advances.
+      let pocketDeployments = [];
+      if (tick >= thinkOffset && (tick - thinkOffset) % thinkInterval === 0) {
+        if (batchBattleAdvance) flushBattleTo(tick);
+        pocketDeployments = pocketDeploymentCandidates(northLegalDeployments,
+          battle.destroyedOpposingLaneTowers("north"), "north",
+          (cardId) => this.#cardRuntime.card(cardId).placementClass === "ground_entity");
+      }
       // The deterministic opponent proposal has no sourced destination field;
       // underground travel remains player-only until one exists.
-      const observation = { legalNorthDeployments: northLegalDeployments.filter(({ cardId }) =>
+      const offered = pocketDeployments.length === 0 ? northLegalDeployments
+        : [...northLegalDeployments, ...pocketDeployments].sort((left, right) =>
+          (left.cardId < right.cardId ? -1 : left.cardId > right.cardId ? 1 : 0) ||
+          left.point.x - right.point.x || left.point.y - right.point.y);
+      const observation = { legalNorthDeployments: offered.filter(({ cardId }) =>
         hand.includes(cardId)),
         northCardCosts: hand.map((cardId) => ({ cardId, cost: this.#costs.get(cardId) }))
           .sort((a, b) => a.cardId < b.cardId ? -1 : 1),

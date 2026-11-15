@@ -73,11 +73,20 @@ function checkedDeck(value) {
   }
   return cards;
 }
+const ROUTE_KEYS = ["cardId", "commandId", "point", "sequence", "side", "tick"];
+// Optional route fields. Lanes appear only once a pocket is open, so routes
+// from matches without a fallen tower keep their exact original bytes.
+const OPTIONAL_ROUTE_KEYS = ["destroyedOpposingLaneTowers", "target"];
+
 function checkedRoute(value) {
   const hasTarget = Object.hasOwn(value, "target");
-  const route = exact(value, hasTarget
-    ? ["cardId", "commandId", "point", "sequence", "side", "target", "tick"]
-    : ["cardId", "commandId", "point", "sequence", "side", "tick"], "session card route");
+  const hasLanes = Object.hasOwn(value, "destroyedOpposingLaneTowers");
+  const route = exact(value, [...ROUTE_KEYS,
+    ...OPTIONAL_ROUTE_KEYS.filter((key) => Object.hasOwn(value, key))], "session card route");
+  if (hasLanes && (!Array.isArray(route.destroyedOpposingLaneTowers) ||
+      route.destroyedOpposingLaneTowers.length === 0)) {
+    throw new TypeError("session card route lanes must be omitted when none are open");
+  }
   exact(route.point, ["x", "y"], "session card route.point");
   if (typeof route.cardId !== "string" || !["north", "south"].includes(route.side) ||
       !Number.isSafeInteger(route.commandId) || route.commandId < 0 ||
@@ -136,7 +145,8 @@ export class SessionCardRuntime {
         (entry.side === route.side && entry.commandId === route.commandId))) {
       throw new RangeError("session card route identity is duplicate");
     }
-    const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+    const lanes = route.destroyedOpposingLaneTowers ?? [];
+    const placement = evaluateDeployment({ destroyedOpposingLaneTowers: lanes,
       placementClass: card.placementClass, point: route.point, side: route.side });
     if (!placement.legal) throw new RangeError(`session card route is illegal: ${placement.reason}`);
     if (Object.hasOwn(route, "target") && card.kind !== "effect") {
@@ -146,6 +156,7 @@ export class SessionCardRuntime {
       kind: card.kind, placementClass: card.placementClass, point: route.point,
       sequence: route.sequence, side: route.side, tick: route.tick,
       type: "session-card-routed" };
+    if (lanes.length > 0) event.destroyedOpposingLaneTowers = [...lanes];
     if (Object.hasOwn(route, "target")) event.target = route.target;
     freeze(event);
     this.#history.push(clone(event));
@@ -167,11 +178,10 @@ export class SessionCardRuntime {
     }
     const runtime = new SessionCardRuntime(canonical(value.cards));
     for (const route of value.history) {
-      const input = exact(route, Object.hasOwn(route, "target")
-        ? ["cardId", "commandId", "kind", "placementClass", "point", "sequence", "side",
-          "target", "tick", "type"]
-        : ["cardId", "commandId", "kind", "placementClass", "point", "sequence", "side",
-          "tick", "type"], "session card history route");
+      const input = exact(route, ["cardId", "commandId", "kind", "placementClass", "point",
+        "sequence", "side", "tick", "type",
+        ...OPTIONAL_ROUTE_KEYS.filter((key) => Object.hasOwn(route, key))],
+      "session card history route");
       const card = runtime.card(input.cardId);
       if (input.type !== "session-card-routed" || input.kind !== card.kind ||
           input.placementClass !== card.placementClass) {
@@ -180,6 +190,8 @@ export class SessionCardRuntime {
       const reproduced = runtime.route(canonical({ cardId: input.cardId,
         commandId: input.commandId, point: input.point, sequence: input.sequence,
         side: input.side, ...(Object.hasOwn(input, "target") ? { target: input.target } : {}),
+        ...(Object.hasOwn(input, "destroyedOpposingLaneTowers")
+          ? { destroyedOpposingLaneTowers: input.destroyedOpposingLaneTowers } : {}),
         tick: input.tick }));
       if (canonical(reproduced) !== canonical(input)) {
         throw new TypeError("session card history route is noncanonical");

@@ -500,8 +500,16 @@ function checkedProfileReceipt(value) {
 }
 
 function checkedPlacement(value, profiles) {
-  const route = exact(value, ["cardId", "destination", "id", "point", "side", "tick"],
-    "session building placement receipt");
+  // Lanes are present only while a destroyed-tower pocket is open for `side`.
+  const hasLanes = value !== null && typeof value === "object" &&
+    Object.hasOwn(value, "destroyedOpposingLaneTowers");
+  const route = exact(value, ["cardId", "destination", "id", "point", "side", "tick",
+    ...(hasLanes ? ["destroyedOpposingLaneTowers"] : [])],
+  "session building placement receipt");
+  if (hasLanes && (!Array.isArray(route.destroyedOpposingLaneTowers) ||
+      route.destroyedOpposingLaneTowers.length === 0)) {
+    throw new TypeError("session building placement lanes must be omitted when none are open");
+  }
   if (!ADMITTED.has(route.cardId) || !profiles.has(route.cardId) || !SIDES.has(route.side)) {
     throw new TypeError("session building placement receipt has an unknown identity");
   }
@@ -513,7 +521,8 @@ function checkedPlacement(value, profiles) {
   if ((route.cardId === "burrow-rig") !== (destination !== null)) {
     throw new TypeError("underground travel receipt must carry exactly one destination");
   }
-  const legality = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+  const legality = evaluateDeployment({
+    destroyedOpposingLaneTowers: hasLanes ? route.destroyedOpposingLaneTowers : [],
     placementClass: "ground_entity", point: placement, side: route.side });
   if (!legality.legal) throw new RangeError(`session building placement is illegal: ${legality.reason}`);
   return { cardId: route.cardId, destination, id, point: placement, side: route.side, tick };

@@ -14,6 +14,7 @@ import {
   GameAudioRuntime,
 } from "../audio/game-audio-runtime.js";
 import { DeckCycle } from "../sim/deck.js";
+import { destroyedOpposingLaneTowers } from "../sim/deployment-pockets.js";
 import { ElixirMatch } from "../sim/elixir.js";
 import { GameSession } from "../sim/game-session.js";
 import { createChainQuestionFixture } from "../sim/live-battle-chain.js";
@@ -361,10 +362,15 @@ function projectCombatPolicyQuestion(questionNotice, session) {
 
 function inputSystems(session, cards, cache) {
   const state = session.state;
+  // Open pockets come from the session's authoritative tower records.
+  const lanes = destroyedOpposingLaneTowers(state.battle.towers, LOCAL_SIDE);
   const continued = cache.get(session);
   if (continued !== undefined && continued.elixir.tick <= state.tick) {
     continued.elixir.advanceTicks(state.tick - continued.elixir.tick);
-    if (matchesInputSystems(continued, state)) return continued;
+    if (matchesInputSystems(continued, state)) {
+      continued.destroyedOpposingLaneTowers = lanes;
+      return continued;
+    }
   }
 
   const snapshot = JSON.parse(session.serialize());
@@ -388,7 +394,7 @@ function inputSystems(session, cards, cache) {
     }
     elixir.step();
   }
-  const systems = { deck, elixir };
+  const systems = { deck, destroyedOpposingLaneTowers: lanes, elixir };
   cache.set(session, systems);
   return systems;
 }
@@ -441,6 +447,7 @@ function createInputFactory(shell, audioUiBridge = null) {
       nextCommandId,
       () => {},
       updateHooks,
+      systems.destroyedOpposingLaneTowers,
     ));
     if (selectedCardId !== null && systems.deck.state.hand.includes(selectedCardId)) {
       const selection = mounted.input.select(selectedCardId);

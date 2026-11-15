@@ -1,0 +1,260 @@
+{
+  "lane": "east",
+  "steps": [
+    {
+      "card": "mossguard",
+      "tick": 0
+    },
+    {
+      "card": "mossguard",
+      "tick": 30
+    },
+    {
+      "card": "brassbolt",
+      "tick": 60
+    },
+    {
+      "card": "briar-band",
+      "tick": 90
+    },
+    {
+      "card": "cinderlings",
+      "tick": 210
+    }
+  ],
+  "before": {
+    "elixir": 10,
+    "hand": [
+      {
+        "cost": 3,
+        "id": "mossguard",
+        "kind": "unit"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "kind": "unit"
+      },
+      {
+        "cost": 4,
+        "id": "copperskiff",
+        "kind": "unit"
+      },
+      {
+        "cost": 1,
+        "id": "cinderlings",
+        "kind": "unit"
+      }
+    ],
+    "tick": 0,
+    "towers": [
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 4824,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:east"
+      }
+    ],
+    "zone": {
+      "openLanes": "",
+      "visible": "true"
+    }
+  },
+  "lockedClick": {
+    "elixir": 10,
+    "hand": [
+      {
+        "cost": 3,
+        "id": "mossguard",
+        "kind": "unit"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "kind": "unit"
+      },
+      {
+        "cost": 4,
+        "id": "copperskiff",
+        "kind": "unit"
+      },
+      {
+        "cost": 1,
+        "id": "cinderlings",
+        "kind": "unit"
+      }
+    ],
+    "tick": 0,
+    "towers": [
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 4824,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:east"
+      }
+    ],
+    "zone": {
+      "openLanes": "",
+      "visible": "true"
+    }
+  },
+  "fallen": {
+    "elixir": 2,
+    "hand": [
+      {
+        "cost": 3,
+        "id": "reedsting",
+        "kind": "unit"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "kind": "unit"
+      },
+      {
+        "cost": 4,
+        "id": "copperskiff",
+        "kind": "unit"
+      },
+      {
+        "cost": 4,
+        "id": "coilblade",
+        "kind": "unit"
+      }
+    ],
+    "tick": 690,
+    "towers": [
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 0,
+        "id": "south:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 4824,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 0,
+        "id": "north:lane:east"
+      }
+    ],
+    "zone": {
+      "openLanes": "",
+      "visible": "false"
+    }
+  },
+  "after": {
+    "elixir": 3,
+    "hand": [
+      {
+        "cost": 3,
+        "id": "reedsting",
+        "kind": "unit"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "kind": "unit"
+      },
+      {
+        "cost": 4,
+        "id": "copperskiff",
+        "kind": "unit"
+      },
+      {
+        "cost": 4,
+        "id": "coilblade",
+        "kind": "unit"
+      }
+    ],
+    "tick": 705,
+    "towers": [
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 0,
+        "id": "south:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 4824,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 0,
+        "id": "north:lane:east"
+      }
+    ],
+    "zone": {
+      "openLanes": "east",
+      "visible": "true"
+    }
+  },
+  "pocketDrop": [
+    {
+      "cardId": "reedsting",
+      "point": {
+        "x": 14581,
+        "y": 20033
+      },
+      "tick": 705
+    }
+  ],
+  "consoleErrors": []
+}

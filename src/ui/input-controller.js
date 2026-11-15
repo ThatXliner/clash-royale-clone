@@ -1,9 +1,10 @@
 import {
   ARENA_LENGTH_MILLITILES,
   ARENA_WIDTH_MILLITILES,
+  getArenaGeometry,
   validateArenaPoint,
 } from "../sim/arena-geometry.js";
-import { evaluateDeployment } from "../sim/deployment.js";
+import { evaluateDeployment, getDeploymentPolicy } from "../sim/deployment.js";
 import {
   DECK_MAX_PLAY_COMMANDS,
   DeckCycle,
@@ -411,14 +412,26 @@ function checkedElixirSystem(value) {
   return ElixirMatch.restore(snapshot.bytes);
 }
 
+/** Open pocket lanes: a sorted, duplicate-free array of "east"/"west". */
+function checkedPocketLanes(value) {
+  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype ||
+      value.length > 2 || value.some((lane, index) =>
+        (lane !== "east" && lane !== "west") || (index > 0 && value[index - 1] >= lane))) {
+    throw new TypeError("arena input destroyed opposing lanes are invalid");
+  }
+  return Object.freeze([...value]);
+}
+
 function checkedSystems(options) {
   const optionDescriptors = Object.getOwnPropertyDescriptors(options);
   const authoritative = Object.hasOwn(optionDescriptors, "deployBridge");
   const continued = Object.hasOwn(optionDescriptors, "commandIdOffset");
+  const pockets = Object.hasOwn(optionDescriptors, "destroyedOpposingLaneTowers");
   const checked = exactRecord(
     options,
     ["cards", "commitSystems", ...(continued ? ["commandIdOffset"] : []), "deck",
-      ...(authoritative ? ["deployBridge"] : []), "elixir", "hudUpdate"],
+      ...(authoritative ? ["deployBridge"] : []),
+      ...(pockets ? ["destroyedOpposingLaneTowers"] : []), "elixir", "hudUpdate"],
     "arena input options",
   );
   const cards = checkedCards(checked.cards);
@@ -443,6 +456,8 @@ function checkedSystems(options) {
     commandIdOffset: continued ? checked.commandIdOffset : 0,
     deck,
     deployBridge: authoritative ? checked.deployBridge : null,
+    destroyedOpposingLaneTowers: pockets
+      ? checkedPocketLanes(checked.destroyedOpposingLaneTowers) : Object.freeze([]),
     elixir,
     hudUpdate: checked.hudUpdate,
   };
@@ -478,6 +493,7 @@ export function createArenaInputHudCapability(
   update,
   bridgeWitness = null,
   commandIdOffset = 0,
+  destroyedOpposingLaneTowers = [],
 ) {
   // All untrusted state positions are rejected by typeof alone before any
   // parse or object operation. typeof on a Proxy executes no traps.
@@ -523,6 +539,7 @@ export function createArenaInputHudCapability(
     commitSystems: replaceInteractionSystems,
     commandIdOffset,
     deck,
+    destroyedOpposingLaneTowers,
     elixir,
     hudUpdate: update,
   } : {
@@ -553,13 +570,15 @@ export function createArenaInputSessionContinuationCapability(
   nextCommandId,
   replaceInteractionSystems,
   update,
+  destroyedOpposingLaneTowers = [],
 ) {
   if (!Number.isSafeInteger(nextCommandId) || nextCommandId < 1 ||
       nextCommandId > MAX_ACTIONS + 1) {
     throw new TypeError("arena input next command ID is invalid");
   }
   return createArenaInputHudCapability(cardsText, deckBytes, elixirBytes,
-    replaceInteractionSystems, update, null, nextCommandId - 1);
+    replaceInteractionSystems, update, null, nextCommandId - 1,
+    destroyedOpposingLaneTowers);
 }
 
 export class ArenaInputController {
@@ -571,6 +590,7 @@ export class ArenaInputController {
   #commitSystems;
   #deck;
   #deployBridge;
+  #destroyedLanes;
   #disposed = false;
   #elixir;
   #faultCode = null;
@@ -590,6 +610,7 @@ export class ArenaInputController {
     this.#commandIdOffset = checked.commandIdOffset;
     this.#deck = checked.deck;
     this.#deployBridge = checked.deployBridge;
+    this.#destroyedLanes = checked.destroyedOpposingLaneTowers;
     this.#elixir = checked.elixir;
     this.#hudUpdate = checked.hudUpdate;
     this.#initialDeck = JSON.parse(this.#deck.serializeJson());
@@ -620,6 +641,12 @@ export class ArenaInputController {
       }
       throw error;
     }
+  }
+
+  /** Lanes whose north crown tower has fallen: their forward pockets accept ground cards. */
+  get destroyedOpposingLaneTowers() {
+    return this.#deployBridge === null ? [...this.#destroyedLanes]
+      : this.#deployBridge.destroyedOpposingLaneTowers(LOCAL_SIDE);
   }
 
   get selectedCardId() {
@@ -823,7 +850,7 @@ export class ArenaInputController {
       });
     }
     const decision = evaluateDeployment({
-      destroyedOpposingLaneTowers: [],
+      destroyedOpposingLaneTowers: this.destroyedOpposingLaneTowers,
       placementClass: card.kind === "effect" ? "global_effect" : "ground_entity",
       point,
       side: LOCAL_SIDE,
@@ -1268,6 +1295,69 @@ function sameClientPoint(left, right) {
   );
 }
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+const DEPLOY_ZONE_STYLE = `.deploy-zone{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible;opacity:0;transition:opacity 120ms ease-out}
+.deploy-zone[data-visible="true"]{opacity:1}
+.deploy-zone__locked{fill:url(#deploy-zone-hatch);stroke:#ffb4a2;stroke-opacity:.55;stroke-width:2;vector-effect:non-scaling-stroke}
+.deploy-zone__pocket{fill:#c9f27a;fill-opacity:.2;stroke:#e8ffb0;stroke-width:3;stroke-dasharray:7 5;vector-effect:non-scaling-stroke}
+@media (prefers-reduced-motion:reduce){.deploy-zone{transition:none}}`;
+
+// Arena millitiles to the SVG's top-down view: north (y = 32000) at the top.
+function zoneRect(rectangle) {
+  return `M${rectangle.minX} ${ARENA_LENGTH_MILLITILES - rectangle.maxY}` +
+    `H${rectangle.maxX}V${ARENA_LENGTH_MILLITILES - rectangle.minY}H${rectangle.minX}Z`;
+}
+
+/**
+ * Placement highlight shown while a ground card is selected: the rival half is
+ * hatched as locked, and each pocket opened by a fallen north crown tower is
+ * cut out of it and lit. Presentation only; legality stays with
+ * evaluateDeployment, whose own pocket table this reads.
+ */
+function createDeployZone(arena) {
+  const document = arena.ownerDocument;
+  if (document === null || typeof document?.createElementNS !== "function" ||
+      typeof arena.appendChild !== "function") return null;
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "deploy-zone");
+  svg.setAttribute("data-ui", "deploy-zone");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("viewBox", `0 0 ${ARENA_WIDTH_MILLITILES} ${ARENA_LENGTH_MILLITILES}`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.innerHTML = `<style>${DEPLOY_ZONE_STYLE}</style><defs>` +
+    `<pattern id="deploy-zone-hatch" patternUnits="userSpaceOnUse" width="700" height="700" ` +
+    `patternTransform="rotate(45)"><rect width="700" height="700" fill="#5a1620" fill-opacity=".34"/>` +
+    `<rect width="260" height="700" fill="#ff8f7a" fill-opacity=".22"/></pattern></defs>`;
+  const locked = document.createElementNS(SVG_NS, "path");
+  locked.setAttribute("class", "deploy-zone__locked");
+  locked.setAttribute("fill-rule", "evenodd");
+  const pockets = document.createElementNS(SVG_NS, "g");
+  pockets.setAttribute("class", "deploy-zone__pockets");
+  svg.appendChild(locked);
+  svg.appendChild(pockets);
+  arena.appendChild(svg);
+  return { locked, pockets, svg };
+}
+
+function paintDeployZone({ locked, pockets: group, svg }, lanes) {
+  svg.setAttribute("data-visible", String(lanes !== null));
+  const open = lanes ?? [];
+  svg.setAttribute("data-open-lanes", open.join(" "));
+  const pockets = getDeploymentPolicy().estimatedMasksNotCollisionAuthoritative
+    .forwardPockets[LOCAL_SIDE];
+  const rival = { minX: 0, maxX: ARENA_WIDTH_MILLITILES,
+    minY: getArenaGeometry().river.maxY, maxY: ARENA_LENGTH_MILLITILES };
+  locked.setAttribute("d",
+    [rival, ...open.map((lane) => pockets[lane])].map(zoneRect).join(""));
+  group.replaceChildren(...open.map((lane) => {
+    const path = svg.ownerDocument.createElementNS(SVG_NS, "path");
+    path.setAttribute("class", "deploy-zone__pocket");
+    path.setAttribute("data-lane", lane);
+    path.setAttribute("d", zoneRect(pockets[lane]));
+    return path;
+  }));
+}
+
 /**
  * Browser seam: bind the four hand slots and arena to one deterministic input
  * controller. Returned direct handlers are also the browser smoke-test seam.
@@ -1320,14 +1410,21 @@ export function mountArenaInputController(shell, hudCapability) {
       ["shell validation failed"]);
   }
   let input;
+  // Assigned once the deploy-zone node exists; selection changes repaint it.
+  let syncDeployZone = () => {};
   try {
     const inputOptions = {
       cards: admitted.cards,
       commitSystems: admitted.commitSystems,
       commandIdOffset: admitted.commandIdOffset,
       deck: admitted.deck,
+      destroyedOpposingLaneTowers: [...admitted.destroyedOpposingLaneTowers],
       elixir: admitted.elixir,
-      hudUpdate: admitted.hudUpdate,
+      hudUpdate: (...args) => {
+        const result = admitted.hudUpdate(...args);
+        syncDeployZone(args[0]);
+        return result;
+      },
     };
     if (admitted.deployBridge !== null) inputOptions.deployBridge = admitted.deployBridge;
     input = new ArenaInputController(inputOptions);
@@ -1375,6 +1472,14 @@ export function mountArenaInputController(shell, hudCapability) {
     });
     arena.appendChild(spellPreview);
   }
+  const deployZone = createDeployZone(arena);
+  syncDeployZone = (selectedCardId) => {
+    if (deployZone === null) return;
+    const card = cardMap(admitted.cards).get(selectedCardId);
+    paintDeployZone(deployZone, card !== undefined && card.kind !== "effect"
+      ? input.destroyedOpposingLaneTowers : null);
+  };
+  syncDeployZone(input.selectedCardId);
   const updateSpellPreview = (clientPoint = lastPreviewPoint) => {
     if (spellPreview === null) return;
     const selectedCardId = trustedReader().selectedCardId;
@@ -1565,6 +1670,7 @@ export function mountArenaInputController(shell, hudCapability) {
     }
     registrations.length = 0;
     try { spellPreview?.remove?.(); } catch { errors.push("spell preview removal failed"); }
+    try { deployZone?.svg.remove?.(); } catch { errors.push("deploy zone removal failed"); }
     return errors;
   };
   try {
@@ -1640,6 +1746,7 @@ export function mountArenaInputController(shell, hudCapability) {
     onMouse,
     onPointer,
     onTouch,
+    get destroyedOpposingLaneTowers() { return input.destroyedOpposingLaneTowers; },
     get selectedCardId() { return trustedReader().selectedCardId; },
     setFeedback,
   });

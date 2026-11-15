@@ -78,8 +78,9 @@ export function createStageSideDeployment({
         ? "radius spell placement accepts a trusted center without a target"
         : "direct-target spell placement requires one sourced shared unit target");
     }
+    const destroyedOpposingLaneTowers = battle.destroyedOpposingLaneTowers(side);
     const placement = evaluateDeployment({
-      destroyedOpposingLaneTowers: [],
+      destroyedOpposingLaneTowers,
       placementClass: admittedCard.placementClass,
       point,
       side,
@@ -92,10 +93,14 @@ export function createStageSideDeployment({
     if (!cycle.accepted || cycle.slot !== slot) {
       throw new Error("prevalidated side deployment failed to cycle its deck");
     }
+    // Key order is canonical. Lanes are carried only while a pocket is open.
+    const routeLanes = destroyedOpposingLaneTowers.length === 0 ||
+      admittedCard.placementClass !== "ground_entity" ? {} : { destroyedOpposingLaneTowers };
     const route = hasSessionCards
       ? sessionCards.route(JSON.stringify(hasSourcedSpellProfile && !hasRadiusSpellProfile
-        ? { cardId, commandId, point, sequence: deploymentSequence, side, target, tick }
-        : { cardId, commandId, point, sequence: deploymentSequence, side, tick }))
+        ? { cardId, commandId, ...routeLanes, point, sequence: deploymentSequence, side, target,
+          tick }
+        : { cardId, commandId, ...routeLanes, point, sequence: deploymentSequence, side, tick }))
       : null;
     const structureMaterializes = admittedCard.kind === "structure" &&
       battle.supportsStructureRuntime(cardId);
