@@ -26,7 +26,7 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-11-14 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">370</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">371</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">293</div><div class="label">passed</div></div>
     <div class="card"><div class="num">668</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">32</div><div class="label">open questions</div></div>
@@ -132,6 +132,14 @@
         <td>0/0</td>
         <td>0</td>
         <td>Engine takes one roster shared by both sides and rejects non-south commands; starts after PERF-001A merges (both edit src/sim)</td>
+      </tr>
+      <tr>
+        <td><code>MATCH-006</code></td>
+        <td>Pocket deploys after a crown tower falls</td>
+        <td class="state-building">BUILDING</td>
+        <td>0/0</td>
+        <td>1</td>
+        <td>2026-11-14 user request; every caller of evaluateDeployment passes destroyedOpposingLaneTowers: [] so the pocket never unlocks</td>
       </tr>
       <tr>
         <td><code>AI-001</code></td>
