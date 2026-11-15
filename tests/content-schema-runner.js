@@ -131,6 +131,7 @@ for (const selector of selectors) {
       "visual-motion-polish",
       "visual-interface-art",
       "release-build",
+      "release-002",
       "fixed-step-kernel",
       "rng",
       "entities",
@@ -749,6 +750,9 @@ if (selectors.length === 0 || selectors.includes("release-build")) {
     new URL("./release-build-runner.js", import.meta.url).pathname,
     "release-build",
   ]);
+}
+if (selectors.length === 0 || selectors.includes("release-002")) {
+  run([new URL("./release-002.test.js", import.meta.url).pathname]);
 }
 if (selectors.length === 0 || selectors.includes("combat-effect-protocol")) {
   run([

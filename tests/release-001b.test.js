@@ -138,7 +138,7 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
     assert.equal(file.size, bytes.length);
     assert.equal(file.sha256, manifestHash(bytes));
   }
-  assert.ok(paths.has("src/ui/app-shell.js"));
+  assert.ok([...paths].some((path) => /^assets\/index-[\w-]{8}\.js$/u.test(path)));
   assert.ok(paths.has("src/ui/arena-shell-entry.js"));
   assert.ok(paths.has("src/rl/environment.js"));
   assert.ok(sourceAssetWasRequested(paths, "BarlowCondensed-Bold.ttf"),
@@ -256,7 +256,7 @@ test("RELEASE-001B emits a deterministic bounded graph and serves the exact game
   });
   assert.ok(productionRequests.some(({ path }) => path === "public/index.html"));
   assert.ok(productionRequests.some(({ path }) => path === "public/ui-arena-shell.html"));
-  assert.ok(productionRequests.some(({ path }) => path === "src/ui/arena-shell-bootstrap.js"));
+  assert.ok(productionRequests.some(({ path }) => /^assets\/ui-arena-shell-[\w-]{8}\.js$/u.test(path)));
   assert.ok(productionRequests.some(({ path }) => path === "src/ui/arena-shell-entry.js"));
   assert.ok(productionRequests.some(({ path }) => path === "src/rl/environment.js"));
   assert.ok(productionRequests.some(({ path }) => path.endsWith(".ttf")),

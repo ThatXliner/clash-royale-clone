@@ -31,6 +31,8 @@ jobs:
         run: npm run test:shipping-isolation-guard
       - name: Verify the release artifact builder
         run: npm run test:release-build
+      - name: Verify fresh releases reach cached browsers
+        run: npm run test:release-002
       - name: Verify the Pages artifact
         run: npm run test:publication-pages
       - name: Configure Pages

@@ -435,11 +435,13 @@ async function assertRegularTree(root, relativePath, { maxDepth = 64 } = {}) {
   return files;
 }
 
-async function copyStaticAssets(root, config, outDir) {
+async function copyStaticAssets(root, config, outDir, hashedStaticSources) {
   const result = new Map();
   for (const staticRoot of config.staticAssetRoots) {
     const sources = await assertRegularTree(root, staticRoot);
     for (const source of sources) {
+      // Assets the bundler imported already ship under a content-hashed name.
+      if (hashedStaticSources.has(source.path)) continue;
       assertPortablePath(source.path, "release static asset", { source: true });
       const extension = extname(source.path).toLowerCase();
       invariant(config.allowedExtensions.includes(extension),
@@ -460,8 +462,10 @@ async function copyStaticAssets(root, config, outDir) {
   return result;
 }
 
-function releaseAssetFileNames(root, staticAssetRoots) {
-  // Keep imported static-root assets beside their copied originals; other assets stay hashed.
+function releaseAssetFileNames(root, staticAssetRoots, hashedStaticSources) {
+  // Every asset the bundler emits is content-hashed so a cached copy of one
+  // release is never served for the next. Imported static-root assets are
+  // recorded so the verbatim, unhashed copy of the original is skipped.
   const absoluteRoot = resolve(root);
   const absoluteStaticRoots = staticAssetRoots.map((staticRoot) => {
     assertPortablePath(staticRoot, "release static asset root", { source: true });
@@ -521,7 +525,10 @@ function releaseAssetFileNames(root, staticAssetRoots) {
     invariant(caseCollision === undefined || caseCollision === canonicalPath,
       `case-colliding release static asset output: ${caseCollision} and ${canonicalPath}`);
     assignedCaseFoldedPaths.set(caseFoldedPath, canonicalPath);
-    return canonicalPath;
+    hashedStaticSources.add(canonicalPath);
+    const staticName = canonicalPath.split("/").at(-1);
+    const staticExtension = extname(staticName);
+    return `assets/${staticName.slice(0, staticName.length - staticExtension.length)}-[hash]${staticExtension}`;
   };
 }
 
@@ -583,6 +590,7 @@ async function buildViteGraph(root, config, outDir) {
   const viteManifestPath = join(outDir, BUNDLER_MANIFEST_PATH);
   const version = await toolchainVersion();
   const vendoredSources = new Set();
+  const hashedStaticSources = new Set();
   const isVendoredModule = (id) => {
     const path = id.split(/[?#]/u, 1)[0];
     return isAbsolute(path) && isWithin(root, path) &&
@@ -630,9 +638,9 @@ async function buildViteGraph(root, config, outDir) {
         output: {
           strictExecutionOrder: true,
           entryFileNames: (chunk) => config.outputNames[chunk.name] ??
-            `assets/${chunk.name}-[hash].js`,
+            `assets/${chunk.name.split("/").at(-1)}-[hash].js`,
           chunkFileNames: "assets/[name]-[hash].js",
-          assetFileNames: releaseAssetFileNames(root, config.staticAssetRoots),
+          assetFileNames: releaseAssetFileNames(root, config.staticAssetRoots, hashedStaticSources),
           codeSplitting: {
             groups: [{
               name: "renderer-vendor",
@@ -664,10 +672,34 @@ async function buildViteGraph(root, config, outDir) {
   const graph = normalizedGraph(rawGraph, config);
   await rm(join(outDir, ".vite"), { recursive: true, force: true });
   await rm(join(outDir, ".empty-env"), { recursive: true, force: true });
-  return { graph, vendoredSources, version };
+  return { graph, vendoredSources, version, hashedStaticSources };
 }
 
-async function collectOutputFiles(root, config, graph, outDir) {
+// HTML entries live at stable URLs, so a page that embeds another entry page
+// (the shell's battle iframe) reaches it through a URL carrying a hash of the
+// target's bytes. Those bytes name the target's own hashed scripts and styles,
+// so a new release changes the embedded URL and no cached page is reused.
+async function versionLinkedPages(config, outDir) {
+  const pages = config.entries.filter((entry) => extname(entry).toLowerCase() === ".html");
+  const original = new Map();
+  for (const page of pages) original.set(page, await readFile(join(outDir, ...page.split("/"))));
+  for (const page of pages) {
+    let html = original.get(page).toString("utf8");
+    for (const target of pages) {
+      if (target === page) continue;
+      const href = `./${portablePath(relative(dirname(page), target))}`;
+      const version = sha256(original.get(target)).slice(0, 12);
+      html = html.replaceAll(/((?:src|href)=")([^"#]*)"/gu, (match, attribute, value) => {
+        const [path, query = ""] = value.split("?", 2);
+        if (path !== href) return match;
+        return `${attribute}${path}?${query ? `${query}&` : ""}v=${version}"`;
+      });
+    }
+    await writeFile(join(outDir, ...page.split("/")), html);
+  }
+}
+
+async function collectOutputFiles(root, config, graph, outDir, hashedStaticSources) {
   const files = new Map();
   let totalBytes = 0;
   async function visit(directory, prefix = "") {
@@ -696,7 +728,7 @@ async function collectOutputFiles(root, config, graph, outDir) {
     }
   }
   await visit(outDir);
-  const staticFiles = await copyStaticAssets(root, config, outDir);
+  const staticFiles = await copyStaticAssets(root, config, outDir, hashedStaticSources);
   for (const [path, bytes] of staticFiles) {
     if (files.has(path)) {
       invariant(files.get(path).equals(bytes), `duplicate release output file: ${path}`);
@@ -832,8 +864,11 @@ export async function buildRelease({
   const scratch = await mkdtemp(join(dirname(safeOutput), `.${safeOutput.split(sep).at(-1)}.vite-`));
   const viteOutput = join(scratch, "bundle");
   try {
-    const { graph, vendoredSources, version } = await buildViteGraph(rootReal, config, viteOutput);
-    const { files, totalBytes } = await collectOutputFiles(rootReal, config, graph, viteOutput);
+    const { graph, vendoredSources, version, hashedStaticSources } =
+      await buildViteGraph(rootReal, config, viteOutput);
+    await versionLinkedPages(config, viteOutput);
+    const { files, totalBytes } = await collectOutputFiles(
+      rootReal, config, graph, viteOutput, hashedStaticSources);
     await assertReleaseFilesIsolated({ files, referenceRoot: rootReal });
     const runtimeDependencies = await vendoredRuntimeDependencies(rootReal, vendoredSources);
     const manifest = canonicalManifest(config, graph, files, totalBytes, version,

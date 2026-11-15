@@ -77,38 +77,38 @@ test("Pages build contains the branded landing, approved source assets, and isol
   assert.ok(release.files.some(({ path }) => path === "public/index.html"));
   const gameLanding = await readFile(join(releaseRoot, "public/index.html"), "utf8");
   assert.match(gameLanding,
-    /<script type="module"[^>]*src="\.\.\/src\/ui\/app-shell\.js"[^>]*><\/script>/u);
+    /<script type="module"[^>]*src="\.\.\/assets\/index-[\w-]{8}\.js"[^>]*><\/script>/u);
   assert.match(gameLanding, /data-deck-size/u);
   assert.match(gameLanding, /data-average-cost/u);
-  assert.match(gameLanding, /src="\.\/ui-arena-shell\.html\?app-frame=1"/u);
+  assert.match(gameLanding, /src="\.\/ui-arena-shell\.html\?app-frame=1&v=[0-9a-f]{12}"/u);
   assert.equal(await readFile(join(releaseRoot, "index.html"), "utf8")
     .then((html) => /\.\/public\/index\.html/u.test(html)), true);
   assert.equal(await stat(join(releaseRoot, "public/index.html")).then((info) => info.isFile()), true);
   assert.equal(release.fileCount, release.files.length);
-  assert.ok(release.files.some(({ path }) => path === "src/ui/app-shell.js"));
+  const appEntryPath = gameLanding.match(/<script type="module"[^>]*src="\.\.\/(assets\/index-[\w-]{8}\.js)"/u)[1];
+  assert.ok(release.files.some(({ path }) => path === appEntryPath));
   assert.ok(release.files.every(({ path }) =>
     !/(?:^|\/)(?:reference|tests|artifacts|dist)(?:\/|$)/u.test(path)));
 
   const publicAssetPaths = (await listFiles(join(WORKSPACE, "public/assets")))
     .map((path) => `public/assets/${path}`);
-  const emittedPublicAssets = release.files.filter(({ path }) => path.startsWith("public/assets/"));
-  assert.deepEqual(emittedPublicAssets.map(({ path }) => path).toSorted(),
-    publicAssetPaths.toSorted(), "every approved public asset keeps its canonical path");
-  const publicAssetHashes = new Set();
+  // REL-002: public assets the game loads ship under content-hashed URLs; ones
+  // nothing loads keep their canonical path. Either way each source ships once.
   for (const path of publicAssetPaths) {
     const sourceBytes = await readFile(join(WORKSPACE, ...path.split("/")));
-    const emitted = release.files.find((file) => file.path === path);
-    assert.ok(emitted, `${path} remains available in the release`);
-    assert.equal(emitted.size, sourceBytes.length, `${path} preserves its source byte count`);
-    assert.equal(emitted.sha256, createHash("sha256").update(sourceBytes).digest("hex"),
-      `${path} preserves its source hash`);
-    assert.deepEqual(await readFile(join(releaseRoot, ...path.split("/"))), sourceBytes,
+    const sourceHash = createHash("sha256").update(sourceBytes).digest("hex");
+    const stem = path.split("/").at(-1).replace(/\.[^.]+$/u, "");
+    const extension = path.slice(path.lastIndexOf("."));
+    const copies = release.files.filter((file) => file.sha256 === sourceHash &&
+      (file.path === path ||
+        new RegExp(`^assets/${stem.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")}-[A-Za-z0-9_-]{8}\\${extension}$`, "u").test(file.path)));
+    assert.equal(copies.length, 1, `${path} ships exactly once, byte-for-byte`);
+    assert.equal(copies[0].size, sourceBytes.length, `${path} preserves its source byte count`);
+    assert.deepEqual(await readFile(join(releaseRoot, ...copies[0].path.split("/"))), sourceBytes,
       `${path} is emitted byte-for-byte`);
-    publicAssetHashes.add(emitted.sha256);
   }
-  assert.deepEqual(release.files.filter(({ path, sha256 }) =>
-    !path.startsWith("public/assets/") && publicAssetHashes.has(sha256)), [],
-  "public assets do not keep redundant hashed copies");
+  assert.ok(release.files.some(({ path }) => /^assets\/[\w-]+-[A-Za-z0-9_-]{8}\.webp$/u.test(path)),
+    "imported public images are emitted under content-hashed names");
   const generatedStylesheets = release.files.filter(({ path }) =>
     path.startsWith("assets/") && path.endsWith(".css"));
   assert.ok(generatedStylesheets.length > 0, "generated non-public assets remain in the release graph");
@@ -165,15 +165,17 @@ test("local preview serves the landing and playable routes without escaping its 
 
   const game = await fetch(`${base}/game/public/index.html`);
   assert.equal(game.status, 200);
-  assert.match(await game.text(), /<title>/u);
+  const gameHtml = await game.text();
+  assert.match(gameHtml, /<title>/u);
+  const appEntryPath = gameHtml.match(/src="\.\.\/(assets\/index-[\w-]{8}\.js)"/u)[1];
 
-  const gameModule = await fetch(`${base}/game/src/ui/app-shell.js`);
+  const gameModule = await fetch(`${base}/game/${appEntryPath}`);
   assert.equal(gameModule.status, 200);
   assert.match(gameModule.headers.get("content-type"), /javascript/u);
   const appBootstrap = await gameModule.text();
-  const runtimeImport = appBootstrap.match(/from ["']\.\.\/\.\.\/(assets\/[^"']+\.js)["']/u);
+  const runtimeImport = appBootstrap.match(/from ["']\.\/([^"']+\.js)["']/u);
   assert.ok(runtimeImport, "the app bootstrap points to a generated runtime chunk");
-  assert.equal(await stat(join(output, "game", runtimeImport[1])).then((info) => info.isFile()), true,
+  assert.equal(await stat(join(output, "game/assets", runtimeImport[1])).then((info) => info.isFile()), true,
     "the Pages preview serves the referenced runtime chunk");
 
   const gameplay = await fetch(`${base}/brand/gameplay.png`);
@@ -204,7 +206,7 @@ test("local preview serves the landing and playable routes without escaping its 
   const mountedGame = await fetch(`${mountedBase}/game/public/index.html`);
   assert.equal(mountedGame.status, 200);
   assert.match(await mountedGame.text(), /data-deck-size/u);
-  const mountedBootstrapResponse = await fetch(`${mountedBase}/game/src/ui/app-shell.js`);
+  const mountedBootstrapResponse = await fetch(`${mountedBase}/game/${appEntryPath}`);
   assert.equal(mountedBootstrapResponse.status, 200);
   assert.match(await mountedBootstrapResponse.text(), /game-runtime/u);
   assert.equal((await fetch(`http://127.0.0.1:${mounted.server.address().port}/game/`)).status, 404);
@@ -264,8 +266,10 @@ test("local preview serves the landing and playable routes without escaping its 
       "skymaul", "brassbolt", "reedsting", "briar-band",
       "cinderlings", "coilblade", "mossguard", "copperskiff",
     ];
-    const expectedAtlasUrl =
-      `${mountedBase}/game/public/assets/briar-runner-painted-sheet.png`;
+    const atlasFile = release.files.find(({ path }) =>
+      /^assets\/briar-runner-painted-sheet-[A-Za-z0-9_-]{8}\.png$/u.test(path));
+    assert.ok(atlasFile, "the Briar atlas ships under a content-hashed name");
+    const expectedAtlasUrl = `${mountedBase}/game/${atlasFile.path}`;
     evidence.boot = await page.evaluate(async ({ deck, expectedAtlasUrl }) => {
       const moduleUrl = new URL("../src/ui/arena-shell-entry.js", location.href).href;
       const { arenaHudController: controller } = await import(moduleUrl);
@@ -418,7 +422,7 @@ test("local preview serves the landing and playable routes without escaping its 
       prefix: PAGES_PREFIX,
     });
     assert.ok(evidence.requests.some(({ path, status }) =>
-      path === "game/public/assets/briar-runner-painted-sheet.png" && status === 200),
+      path === `game/${atlasFile.path}` && status === 200),
     "the actual painted atlas request stays within the Pages project prefix");
     assert.deepEqual(evidence.requestFailures, []);
     assert.deepEqual(evidence.browserErrors, []);
