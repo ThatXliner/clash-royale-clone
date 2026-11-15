@@ -1,0 +1,154 @@
+{
+ "twoFall": {
+  "c30a": {
+   "tick": 5185,
+   "falls": [
+    "north:lane:east@604",
+    "south:lane:west@3611",
+    "north:central@5184"
+   ],
+   "southPocket": 11,
+   "northPocket": [
+    "3500,14000@4080"
+   ],
+   "state": "098898a5d0f1b693",
+   "replay": "98bbd67ca93f6a60",
+   "restoreOk": true
+  },
+  "c30b": {
+   "tick": 5185,
+   "falls": [
+    "north:lane:east@604",
+    "south:lane:west@3611",
+    "north:central@5184"
+   ],
+   "southPocket": 11,
+   "northPocket": [
+    "3500,14000@4080"
+   ],
+   "state": "098898a5d0f1b693",
+   "replay": "98bbd67ca93f6a60",
+   "restoreOk": true
+  },
+  "c1": {
+   "tick": 5185,
+   "falls": [
+    "north:lane:east@604",
+    "south:lane:west@3611",
+    "north:central@5184"
+   ],
+   "southPocket": 11,
+   "northPocket": [
+    "3500,14000@4080"
+   ],
+   "state": "098898a5d0f1b693",
+   "replay": "98bbd67ca93f6a60",
+   "restoreOk": true
+  },
+  "c7": {
+   "tick": 5185,
+   "falls": [
+    "north:lane:east@604",
+    "south:lane:west@3611",
+    "north:central@5184"
+   ],
+   "southPocket": 11,
+   "northPocket": [
+    "3500,14000@4080"
+   ],
+   "state": "098898a5d0f1b693",
+   "replay": "98bbd67ca93f6a60",
+   "restoreOk": true
+  }
+ },
+ "waitTwoFall": {
+  "c600": {
+   "tick": 4899,
+   "falls": [
+    "south:lane:west@698",
+    "south:lane:east@2943",
+    "south:central@4898"
+   ],
+   "northPocket": 3,
+   "state": "bfc17c382e7c19c8",
+   "replay": "74e89cf431c1c933"
+  },
+  "c1": {
+   "tick": 4899,
+   "falls": [
+    "south:lane:west@698",
+    "south:lane:east@2943",
+    "south:central@4898"
+   ],
+   "northPocket": 3,
+   "state": "bfc17c382e7c19c8",
+   "replay": "74e89cf431c1c933"
+  },
+  "c97": {
+   "tick": 4899,
+   "falls": [
+    "south:lane:west@698",
+    "south:lane:east@2943",
+    "south:central@4898"
+   ],
+   "northPocket": 3,
+   "state": "bfc17c382e7c19c8",
+   "replay": "74e89cf431c1c933"
+  },
+  "c600b": {
+   "tick": 4899,
+   "falls": [
+    "south:lane:west@698",
+    "south:lane:east@2943",
+    "south:central@4898"
+   ],
+   "northPocket": 3,
+   "state": "bfc17c382e7c19c8",
+   "replay": "74e89cf431c1c933"
+  }
+ },
+ "rlMirror": {
+  "endTick": 5686,
+  "status": "terminated",
+  "falls": [
+   "north:lane:east@574",
+   "south:lane:west@3611",
+   "north:central@5685"
+  ],
+  "checks": 13824,
+  "mismatches": 0,
+  "snaps": [
+   {
+    "tick": 690,
+    "lanes": "east",
+    "eastPocket": true,
+    "westPocket": false,
+    "deepEast": false,
+    "hp": {
+     "south:central:": 4824,
+     "south:lane:west": 1282,
+     "south:lane:east": 3052,
+     "north:central:": 4824,
+     "north:lane:west": 3052,
+     "north:lane:east": 0
+    }
+   }
+  ],
+  "northPocket": [
+   "skymaul@3500,14000@4080",
+   "briar-band@3500,14000@5580"
+  ],
+  "northIllegal": 0,
+  "southPocketDrops": [
+   "14500,20500@690",
+   "14500,20500@1200",
+   "14500,20500@1680",
+   "14500,20500@2190",
+   "14500,20500@2700"
+  ],
+  "finalCrowns": {
+   "north": 1,
+   "south": 3
+  }
+ }
+}
