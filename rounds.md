@@ -13037,3 +13037,31 @@ PIECE: TEST-001
 VERDICT: FAIL
 EVIDENCE: Builder faf44671. Confirmed: game-browser-endurance caps unscaled (50/40/300/30,000/1,200,000 ms); threshold 0.05% (460 px) at >24/255. Negative controls fail: names hidden 2,359 px, ring recoloured 3,327 px, half the names 1,179 px. A single missing card name still passes (379 and 362 px). Launch noise 0 px. visual-interface-art 9/9 (load 6.2), hud-card-painter 2/2 (load 7.5). game-session-endurance hit the critic's 1-hour limit at segment 203/204 with no assertion failed (load 12–47): peak 8,755 ms CPU and 75,694 ms wall per segment, 13 segments over 30 s wall. The segment guard changed from `elapsedMs < 30_000` wall to `cpuMs < scaledMs(30_000)`, which is 90 s CPU at the default scale; this weakens accepted GAME-001EWC's "30s segment bound". game-browser-endurance was not run: load stayed at 29–38 from 22:58 to 23:40. `git status --porcelain` clean.
 BIGGEST GAP: Make the game-session-endurance segment guard an unscaled 30,000 ms cap (CPU time is fine if recorded against GAME-001EWC), and give game-browser-endurance a quiet-machine run or a same-load comparison against main.
+
+## Round 671 — 2026-11-15
+
+PIECE: MATCH-006
+VERDICT: PASS
+EVIDENCE: Builder 2bf6a6a6 vs main 9dadf3a0, Playwright Chromium, 3D renderer. 390×844 touch: after a real push felled north:lane:east (tick 4599) the east pocket lit; a Briar Band and a Buried Coil building dropped in it; taps on the west pocket, deeper ground and the king front were refused (elixir unchanged). 1280×800 mouse: west pocket opened after tick 1180 fall, other lane refused. No zone before any fall. 0 console/page errors. AI pocket-deployed after taking a tower. Determinism: byte-identical to main on wait-only seeds 1–4 through first fall and on scripted seeds; two-fall matches identical across repeat runs and chunk sizes; RL south mask matched evaluateDeployment on 13,824/13,824 tiles. Golden change (seed 2 terminal 4838→4899) comes only from post-fall AI pocket drops. Tests: pocket-deployment 10/10, deployment 12/12, game-session 11/11, game-opponent 13 + 1 skip, rl-environment 17/17, nondeterminism-guard 10/10, ui-input 18/18, ui-placement-feedback 14/14, shipping-isolation-guard 13/13, game-browser-journey 1/1.
+BIGGEST GAP: Extend the forward pocket to cover the fallen tower's footprint and the ground just behind it (genre players expect to drop on the rubble), and let the AI pick more than one pocket anchor.
+
+## Round 672 — 2026-11-15
+
+PIECE: PERF-001A
+VERDICT: PASS
+EVIDENCE: Builder 7ef58169 vs merge-base 1ab2aab3. Median wall per 10,800 ticks on a quiet machine: default 1.50 s (baseline 133 s), mixed 1.35 s (201 s), m1 2.19 s, m2 2.80 s, r3 RL 3.42 s, r4 RL 6.72 s (worst 9.14). Byte diff vs baseline: 579 fields, 0 differ, plus 25 extra random seeds identical. Fault injection: 177/177 mid-tick throws rolled back with the next call byte-identical to an unfaulted control. Tests over 50 sim/determinism/RL selectors: 696 pass, 0 fail, 2 skip (fork-base env unset); sim-golden-hash 12/12, sim-fault-injection 3/3. Needs a rebase onto MATCH-006 before landing.
+BIGGEST GAP: r4 RL has the least headroom (6.7 s median, 9.1 s worst per 10,800 ticks); profile and cut RL step/observe overhead before adding content.
+
+## Round 673 — 2026-11-15
+
+PIECE: R3D-007
+VERDICT: PASS
+EVIDENCE: Builder 2a6768b2 (round 5) vs main 9dadf3a0. Held drift med/p90/max: cand 0.17/0.49/0.91 tiles (main 0.13/0.47/1.15); the round-4 slosh is gone. Shots launch from the drawn shooter (0.00, main 0.45) and land 0/79 over 0.75 tiles from the drawn target (main 1/79). Bridge crowd t7860–7940: ~5 separate cinderlings with flyers stepped aside (main one fused pile). Rubble respected. Cold start shows "Preparing the battlefield", no flat-arena flash. Blind A/B: candidate preferred 3/3. Frame time 16.9/25.4 ms (390), 17.5/25.6 (1280). 0 console/page errors. Tests: battlefield-units 19/19, unit-models 15/15, game-ui-projection 38 + 1 skip, nondeterminism-guard 10/10, shipping-isolation-guard 13/13, game-browser-journey 1/1.
+BIGGEST GAP: A dipping flyer can be drawn up to 1.2 tiles (2.0 with hover sway) from its sim spot, so an area spell aimed at what the player sees can miss at the edge; shrink FLYER_DIP_REACH or preview spell hits against sim positions.
+
+## Round 674 — 2026-11-15
+
+PIECE: UX-001
+VERDICT: FAIL
+EVIDENCE: Builder 86809f95. Full runs at 390×844 touch, 1280×800 mouse and keyboard-only with real WebGL (the battlefield is three.js; the builder's flat screenshot was a no-WebGL fallback). All 11 steps complete in all three modes; copy matches the sim; skip, replay, storage-throws and reduced motion work; screen-reader region and live announcements present; 0 console errors. Fails: the coach panel covers the river, the left bridge (step 5) and your deploy area and crown towers (step 9) on phone; the pocket step glows for ~5 s then vanishes because the pocket is not legal; the drag ghost is empty (cards are drawn on the HUD canvas), also in normal matches; keyboard focus falls to body after step 9; only 7 logic tests, no browser test. Tests: tutorial 7/7, app-shell 2/2, ui-hud-state 10/10, shipping-isolation-guard 13/13, game-browser-journey 1/1, release-build 24 + 1 load timeout.
+BIGGEST GAP: Keep the coach panel off the river, bridges and your deploy area on every play step (dock or shrink on phone), show the pocket step only when the pocket is legal, and make the dragged card visible under the finger.
