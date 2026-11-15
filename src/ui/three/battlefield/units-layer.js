@@ -66,12 +66,38 @@ const SWARM_ROW_MIN = 0.6;
 // each tile of shift against flyer cover.
 const SWARM_SHIFTS = Object.freeze([0, -0.25, 0.25, -0.5, 0.5, -0.75, 0.75, -1, 1]);
 const SWARM_SHIFT_COST = 0.4;
+// Rows searched either side of the anchor for an arrival's free cell, and how
+// close (in pitches) another member's cell may be for a cell to count as free.
+const SWARM_ROW_REACH = 6;
+const SWARM_CELL_FREE = 0.75;
+// A formed block slides to a new shift only if that lowers its cover cost by
+// this much (no flip-flopping between near-equal spots).
+const SWARM_SHIFT_SWITCH = 0.3;
+// A formed block follows its swarm's simulated centre along the deck only once
+// that centre is more than SWARM_RECENTRE tiles away (a dead zone), so a block
+// the simulation holds is drawn held while a marching one still moves with it.
+const SWARM_RECENTRE = 0.25;
+// A unit whose simulated spot has not changed for HOLD_GRACE_TICKS is pinned
+// where it is drawn (a block member in its cell): moving units step around
+// it, and a moving close-combat target is drawn beside it. It is released
+// when its spot changes or when its block forms. A held attacker whose held
+// target is drawn over HOLD_LINK_SLACK tiles beyond its close-combat reach
+// closes only that excess, each stepping half.
+const HOLD_GRACE_TICKS = 2;
+const HOLD_LINK_SLACK = 0.3;
+// Every other unit starts each solve from its last solved spread, shrunk by
+// this factor, so the layout changes only as much as the board does and
+// drifts back toward the simulated spots once a crowd thins.
+const CROWD_WARM = 0.85;
 const CROWD_NEAR = 0.6;
 // A flyer just behind a deck swarm block (on screen, it is drawn high above
 // its ground spot and would bury the block) dips: it flies lower by this
 // share of its hover height, easing in and out at FLYER_DIP_RATE.
 const FLYER_DIP = 0.6;
 const FLYER_DIP_RATE = 5;
+// A dipping flyer may also be drawn this far (tiles) from its simulated spot,
+// so it steps aside from a block that holds still under it.
+const FLYER_DIP_REACH = 1.2;
 // How far from a block a flyer's ground spot may be for it to dip (tiles).
 const FLYER_DIP_ACROSS = 1.6;
 const FLYER_DIP_SOUTH = 2.2;
@@ -243,6 +269,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
   const halfWidths = new Map();
   const pulses = [];
   let lastTick = -1;
+  let lastLayoutTick = -Infinity;
   let lastSyncAt = 0;
   let source = null;
 
@@ -254,6 +281,8 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     entities.clear();
     pulses.length = 0;
     lastTick = -1;
+    lastLayoutTick = -Infinity;
+    blockMemory.clear();
   };
 
   const spawn = (record, now, tick) => {
@@ -291,7 +320,8 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       targetPoint: null, attack: null, hint: null, attackUntil: 0, strikeTick: null,
       spawnTick: tick, deployUntilTick: tick, dying: false, hidden: record.hidden === true,
       baseX: x, baseZ: z, offsetX: 0, offsetZ: 0, spreadX: 0, spreadZ: 0, pushX: 0, pushZ: 0,
-      linkKey: null, linkTarget: null, swarm: null, fixed: false, crowded: false, dip: false, dipAmount: 0,
+      linkKey: null, lastLinkKey: null, linkTarget: null, swarm: null, fixed: false, crowded: false, dip: false, dipAmount: 0,
+      heldAt: null, heldSince: tick, solved: null, pinned: false, toCell: false,
       liftNode: model.object.getObjectByName("lift") ?? null,
     };
     if (kind === "buried-coil") model.setHidden(entity.hidden, { immediate: true });
@@ -427,7 +457,10 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       lastSyncAt = now;
       // The layout is re-solved every other tick (and whenever units come or go);
       // the drawn offsets ease between solves.
-      if (tick % 2 === 0 || membershipChanged) layout();
+      if (tick - lastLayoutTick >= 2 || tick < lastLayoutTick || membershipChanged) {
+        lastLayoutTick = tick;
+        layout();
+      }
     }
   };
 
@@ -460,10 +493,11 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
 
   // The simulation treats troops as points, so a swarm can share one exact
   // spot. Presentation spreads overlapping bodies apart on screen so every
-  // member stays visible. Every other simulated tick a deterministic layout is
-  // solved from scratch from the simulated positions alone (ids break ties),
-  // so a held match draws a perfectly still board; the drawn offset then
-  // eases toward that layout. Offsets stay small and honest: at most
+  // member stays visible. Every other simulated tick a layout is solved from
+  // the simulated positions (ids break ties) and the units' hold state: a
+  // unit the simulation keeps on one spot is pinned where it was drawn, and
+  // deck blocks keep their cells, so a held fight draws a still board. The
+  // drawn offset eases toward each layout. Offsets stay small and honest: at most
   // CROWD_MAX_OFFSET tiles, never past a bridge's rails, and an attacker in
   // close combat stays beside its target. Never read by the simulation.
   const crowd = [];
@@ -515,9 +549,11 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         const firstAir = first.layer === "air";
         // A unit laid out in a deck swarm block holds its slot against anyone
         // outside its block; block mates push each other evenly. A toppling
-        // unit stays put; the living step around it.
-        if (first.fixed && second.fixed) continue;
-        const share = first.fixed ? 0 : second.fixed ? 1
+        // or pinned unit stays put; the others step around it.
+        const firstHeld = first.fixed || first.pinned;
+        const secondHeld = second.fixed || second.pinned;
+        if (firstHeld && secondHeld) continue;
+        const share = firstHeld ? 0 : secondHeld ? 1
           : first.swarm !== null && second.swarm === null ? 0.15
           : second.swarm !== null && first.swarm === null ? 0.85
           : firstAir === (second.layer === "air") ? 0.5 : firstAir ? 0.8 : 0.2;
@@ -531,7 +567,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     }
     let moved = 0;
     for (const entity of crowd) {
-      if (entity.fixed) continue;
+      if (entity.fixed || entity.pinned) continue;
       moved = Math.max(moved, bound(entity, entity.spreadX + entity.pushX, entity.spreadZ / DEPTH_STRETCH + entity.pushZ));
     }
     return moved;
@@ -543,8 +579,9 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     // between its rails (one on the bank beside a bridge end keeps its spot).
     const simDeck = entity.layer === "ground" ? bridgeDeckAt(entity.tx, entity.ty) : null;
     const onDeck = simDeck !== null && entity.tx >= simDeck[0] && entity.tx <= simDeck[1];
-    const across = onDeck ? CROWD_DECK_ACROSS : CROWD_MAX_OFFSET;
-    const along = onDeck ? CROWD_DECK_ALONG : CROWD_MAX_OFFSET;
+    const free = entity.dip ? FLYER_DIP_REACH : CROWD_MAX_OFFSET;
+    const across = onDeck ? CROWD_DECK_ACROSS : free;
+    const along = onDeck ? CROWD_DECK_ALONG : free;
     const reach = Math.hypot(px / across, pz / along);
     if (reach > 1) {
       px /= reach;
@@ -573,23 +610,28 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       entity.lift = (info.hover + body * 0.5) * cosE;
       entity.halfU = Math.max(info.radius * 0.85, (halfWidths.get(entity.kind) ?? 0) * 0.7);
       entity.halfV = Math.max(info.radius * sinE, body * 0.5 * cosE) * CROWD_DEPTH_WEIGHT;
-      // A dying unit is a fixed obstacle where it fell; the rest start at
-      // their simulated spot.
+      // A dying unit is a fixed obstacle where it fell and a pinned one keeps
+      // its spread; the rest start near their last solved spread.
       entity.fixed = entity.dying;
-      entity.spreadX = entity.dying ? entity.offsetX : 0;
-      entity.spreadZ = entity.dying ? entity.offsetZ : 0;
+      holdState(entity);
+      const warm = entity.pinned ? 1 : CROWD_WARM;
+      entity.spreadX = entity.dying ? entity.offsetX : (entity.solved?.[0] ?? 0) * warm;
+      entity.spreadZ = entity.dying ? entity.offsetZ : (entity.solved?.[1] ?? 0) * warm;
       entity.swarm = null;
       entity.linkTarget = null;
       entity.dip = false;
       widest = Math.max(widest, entity.halfU);
       crowd.push(entity);
     }
-    // Close-combat pairs: the attacker keeps beside its target.
+    // Close-combat pairs: the attacker keeps beside its target (the last one
+    // while the simulation's link drops between blows).
     for (const entity of crowd) {
       if (entity.fixed) continue;
-      const target = entity.linkKey === null ? undefined : entities.get(entity.linkKey);
+      const targetKey = entity.linkKey ?? entity.lastLinkKey;
+      const target = targetKey === null ? undefined : entities.get(targetKey);
       entity.linkTarget = target !== undefined && !target.dying && !target.structure &&
         Math.hypot(target.tx - entity.tx, target.ty - entity.ty) <= CROWD_ENGAGED_RANGE ? target : null;
+      entity.lastLinkKey = entity.linkTarget?.key ?? null;
       if (entity.linkTarget !== null) linked.push(entity);
     }
     linked.sort(byId);
@@ -602,6 +644,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       for (const entity of linked) holdToTarget(entity, entity.linkTarget);
       if (moved < CROWD_SETTLED) break;
     }
+    for (const entity of crowd) if (!entity.fixed) entity.solved = [entity.spreadX, entity.spreadZ];
     markCrowded();
   };
   // A unit with two or more neighbours drawn within CROWD_NEAR tiles is in a
@@ -630,6 +673,8 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
   // running along the deck (northmost units in the north row), centred on the
   // swarm's simulated centre. The relaxation then starts from that block.
   const swarmGroups = new Map();
+  const blockMemory = new Map();
+  const liveBlocks = new Set();
   const bySimNorth = (first, second) => second.ty - first.ty || first.id - second.id;
   const formDeckSwarms = () => {
     swarmGroups.clear();
@@ -645,14 +690,18 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       }
       group.members.push(entity);
     }
-    // Flyers just behind a block dip lower, so they no longer bury it.
-    for (const { deck, members } of swarmGroups.values()) {
-      if (members.length < SWARM_MIN) continue;
+    // Flyers just behind a block (where its members stand or are drawn) dip
+    // lower, so they no longer bury it.
+    for (const [key, { deck, members }] of swarmGroups) {
+      const block = blockMemory.get(key);
+      if (members.length < (block === undefined ? SWARM_MIN : 2)) continue;
       let south = Infinity;
       let north = -Infinity;
       for (const member of members) {
-        south = Math.min(south, member.ty);
-        north = Math.max(north, member.ty);
+        const cell = block?.cells.get(member.key);
+        const drawnY = cell === undefined ? member.ty : block.anchorY + block.shift + cell[1];
+        south = Math.min(south, member.ty, drawnY);
+        north = Math.max(north, member.ty, drawnY);
       }
       const middle = (deck[0] + deck[1]) / 2;
       for (const flyer of crowd) {
@@ -663,59 +712,165 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
         flyer.lift -= flyer.info.hover * FLYER_DIP * cosE;
       }
     }
-    for (const group of swarmGroups.values()) {
-      const { deck, members } = group;
-      if (members.length < SWARM_MIN) continue;
-      members.sort(bySimNorth);
-      const sample = members[0];
-      const pitchU = sample.halfU * 2 * SWARM_PITCH;
-      const pitchV = Math.max(SWARM_ROW_MIN, sample.halfV * 2 * SWARM_ROW_PITCH);
-      const west = deck[0] + BRIDGE_DECK_MARGIN;
-      const east = deck[1] - BRIDGE_DECK_MARGIN;
-      const columns = Math.max(1, Math.min(members.length, Math.floor((east - west) / pitchU) + 1));
-      const rows = Math.ceil(members.length / columns);
-      let centreY = 0;
-      for (const member of members) centreY += member.ty;
-      centreY /= members.length;
-      const centreX = (west + east) / 2;
-      const slot = (index, shift) => {
-        const row = Math.floor(index / columns);
-        const inRow = Math.min(columns, members.length - row * columns);
-        const column = index - row * columns;
-        return [centreX + (column - (inRow - 1) / 2) * pitchU, centreY + shift + ((rows - 1) / 2 - row) * pitchV];
-      };
-      // Flyers are drawn high above their ground spot and would bury the
-      // block; slide it along the deck to where they cover it least, counting
-      // each flyer where it will be once it has risen clear (see relax).
-      let bestShift = 0;
-      let bestCost = Infinity;
-      for (const shift of SWARM_SHIFTS) {
-        let cost = Math.abs(shift) * SWARM_SHIFT_COST;
-        members.forEach((member, index) => {
-          const [x, y] = slot(index, shift);
-          const [wx, wz] = toWorld(x, y);
-          const v = -wz / DEPTH_STRETCH + member.lift;
-          for (const other of crowd) {
-            if (other.swarm === group || members.includes(other)) continue;
-            const otherV = -other.to.z / DEPTH_STRETCH + other.lift;
-            const du = (wx - other.to.x) / (member.halfU + other.halfU);
-            const dv = (v - otherV) / (member.halfV + other.halfV);
-            // A flyer over the block hides it; a ground unit beside it only touches.
-            cost += Math.max(0, 1 - Math.hypot(du, dv)) * (other.layer === "air" ? 1 : 0.5);
+    for (const [key, group] of swarmGroups) {
+      // A formed block lives on while two members remain; a new one needs SWARM_MIN.
+      let block = blockMemory.get(key);
+      if (group.members.length < (block === undefined ? SWARM_MIN : 2)) continue;
+      if (block === undefined) {
+        block = formBlock(group);
+        blockMemory.set(key, block);
+      } else {
+        updateBlock(block, group.members);
+      }
+      liveBlocks.add(key);
+      for (const member of group.members) {
+        member.swarm = group;
+        if (member.pinned) continue;
+        const [cellX, cellY] = block.cells.get(member.key);
+        // pz runs south: a slot north of the sim spot is a negative pz.
+        bound(member, block.centreX + cellX - member.tx, member.ty - (block.anchorY + block.shift + cellY));
+      }
+    }
+    for (const key of blockMemory.keys()) if (!liveBlocks.has(key)) blockMemory.delete(key);
+    liveBlocks.clear();
+  };
+  // How much the units around a block would cover it at a shift along the
+  // deck, counting each flyer where it will be once it has risen clear (see
+  // relax).
+  const coverCost = (block, members, shift) => {
+    let cost = Math.abs(shift) * SWARM_SHIFT_COST;
+    for (const member of members) {
+      const [cellX, cellY] = block.cells.get(member.key);
+      const [wx, wz] = toWorld(block.centreX + cellX, block.anchorY + shift + cellY);
+      const v = -wz / DEPTH_STRETCH + member.lift;
+      for (const other of crowd) {
+        if (block.cells.has(other.key)) continue;
+        const otherV = -other.to.z / DEPTH_STRETCH + other.lift;
+        const du = (wx - other.to.x) / (member.halfU + other.halfU);
+        const dv = (v - otherV) / (member.halfV + other.halfV);
+        // A flyer over the block hides it; a ground unit beside it only touches.
+        cost += Math.max(0, 1 - Math.hypot(du, dv)) * (other.layer === "air" ? 1 : 0.5);
+      }
+    }
+    return cost;
+  };
+  // A new block: as many columns as fit between the rails, rows running along
+  // the deck (northmost units in the north row), centred on the swarm's
+  // simulated centre. The members move into their cells once, eased, and then
+  // keep them (see updateBlock).
+  const formBlock = ({ deck, members }) => {
+    members.sort(bySimNorth);
+    const sample = members[0];
+    const pitchU = sample.halfU * 2 * SWARM_PITCH;
+    const pitchV = Math.max(SWARM_ROW_MIN, sample.halfV * 2 * SWARM_ROW_PITCH);
+    const west = deck[0] + BRIDGE_DECK_MARGIN;
+    const east = deck[1] - BRIDGE_DECK_MARGIN;
+    const columns = Math.max(1, Math.min(members.length, Math.floor((east - west) / pitchU) + 1));
+    const rows = Math.ceil(members.length / columns);
+    let anchorY = 0;
+    for (const member of members) anchorY += member.ty;
+    anchorY /= members.length;
+    const cells = new Map();
+    members.forEach((member, index) => {
+      const row = Math.floor(index / columns);
+      const inRow = Math.min(columns, members.length - row * columns);
+      const column = index - row * columns;
+      cells.set(member.key, [(column - (inRow - 1) / 2) * pitchU, ((rows - 1) / 2 - row) * pitchV]);
+    });
+    // Later arrivals take free cells on the same lattice.
+    const rowPhase = ((rows - 1) / 2) * pitchV;
+    const block = { centreX: (west + east) / 2, anchorY, shift: 0, pitchU, pitchV, columns, rowPhase, cells };
+    block.shift = bestShift(block, members, Infinity);
+    for (const member of members) unpin(member);
+    return block;
+  };
+  // Flyers are drawn high above their ground spot and would bury a block; it
+  // goes where they cover it least along the deck. Only a shift that beats
+  // the current one by more than `margin` is taken.
+  const bestShift = (block, members, margin) => {
+    let best = block.shift;
+    let bestCost = coverCost(block, members, block.shift) - margin;
+    for (const shift of SWARM_SHIFTS) {
+      const cost = coverCost(block, members, shift);
+      if (cost < bestCost - 1e-9) {
+        bestCost = cost;
+        best = shift;
+      }
+    }
+    return best;
+  };
+  // An existing block keeps every member's cell, so a fight the simulation
+  // holds is drawn held: a member that leaves leaves a gap, and an arrival
+  // takes the free cell nearest its simulated spot. The anchor follows the
+  // swarm's simulated centre only out of its dead zone; a block that moves
+  // (it is marching) closes up around its anchor and may slide to where
+  // flyers cover it least.
+  const updateBlock = (block, members) => {
+    const present = new Set(members.map((member) => member.key));
+    for (const memberKey of block.cells.keys()) if (!present.has(memberKey)) block.cells.delete(memberKey);
+    const arrivals = members.filter((member) => !block.cells.has(member.key)).sort(bySimNorth);
+    for (const member of arrivals) block.cells.set(member.key, freeCell(block, member));
+    let simCentre = 0;
+    for (const member of members) simCentre += member.ty;
+    simCentre /= members.length;
+    const anchorY = block.anchorY;
+    block.anchorY = Math.min(simCentre + SWARM_RECENTRE, Math.max(simCentre - SWARM_RECENTRE, anchorY));
+    if (block.anchorY === anchorY) return;
+    let middle = 0;
+    for (const [, cellY] of block.cells.values()) middle += cellY;
+    const rows = Math.round(middle / block.cells.size / block.pitchV);
+    if (rows !== 0) for (const cell of block.cells.values()) cell[1] -= rows * block.pitchV;
+    block.shift = bestShift(block, members, SWARM_SHIFT_SWITCH);
+  };
+  const freeCell = (block, member) => {
+    const wantX = member.tx - block.centreX;
+    const wantY = member.ty - block.anchorY - block.shift;
+    let best = [0, wantY];
+    let bestDistance = Infinity;
+    for (let row = -SWARM_ROW_REACH; row <= SWARM_ROW_REACH; row += 1) {
+      const cellY = block.rowPhase - row * block.pitchV;
+      for (let column = 0; column < block.columns; column += 1) {
+        const cellX = (column - (block.columns - 1) / 2) * block.pitchU;
+        const distance = Math.hypot(cellX - wantX, cellY - wantY);
+        if (distance >= bestDistance - 1e-9) continue;
+        let free = true;
+        for (const [takenX, takenY] of block.cells.values()) {
+          if (Math.hypot((takenX - cellX) / block.pitchU, (takenY - cellY) / block.pitchV) < SWARM_CELL_FREE) {
+            free = false;
+            break;
           }
-        });
-        if (cost < bestCost - 1e-9) {
-          bestCost = cost;
-          bestShift = shift;
+        }
+        if (free) {
+          best = [cellX, cellY];
+          bestDistance = distance;
         }
       }
-      members.forEach((member, index) => {
-        const [slotX, slotY] = slot(index, bestShift);
-        // pz runs south: a slot north of the sim spot is a negative pz.
-        bound(member, slotX - member.tx, member.ty - slotY);
-        member.swarm = group;
-      });
     }
+    return best;
+  };
+  // Hysteresis: a unit the simulation holds on one spot is drawn held too.
+  const holdState = (entity) => {
+    if (entity.dying) {
+      entity.pinned = false;
+      return;
+    }
+    const sameSpot = entity.heldAt !== null && entity.heldAt[0] === entity.to.x && entity.heldAt[1] === entity.to.z;
+    if (!sameSpot) {
+      entity.heldAt = [entity.to.x, entity.to.z];
+      entity.heldSince = lastTick;
+    }
+    const pinned = lastTick - entity.heldSince >= HOLD_GRACE_TICKS && entity.solved !== null;
+    // A unit that just stopped is pinned where it is drawn, so it does not
+    // slide on after the simulation has stopped it; one sent to a block cell
+    // is pinned in its cell.
+    if (pinned && !entity.pinned && !entity.toCell) entity.solved = [entity.offsetX, entity.offsetZ];
+    if (pinned) entity.toCell = false;
+    entity.pinned = pinned;
+  };
+  const unpin = (entity) => {
+    entity.pinned = false;
+    entity.toCell = true;
+    entity.heldSince = lastTick;
   };
   const holdToTarget = (entity, target) => {
     const simX = entity.to.x - target.to.x;
@@ -725,8 +880,24 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
     const drawn = Math.hypot(dx, dz);
     const allowed = Math.max(Math.hypot(simX, simZ) + CROWD_LINK_SLACK, CROWD_ENGAGED_REACH);
     if (drawn <= allowed) return;
-    const keep = allowed / drawn;
-    bound(entity, target.spreadX + dx * keep - simX, target.spreadZ / DEPTH_STRETCH + dz * keep - simZ);
+    if (entity.pinned && !target.pinned) {
+      // A held attacker stays put: a moving target is drawn beside it instead.
+      const keep = allowed / drawn;
+      bound(target, simX + entity.spreadX - dx * keep, simZ + entity.spreadZ / DEPTH_STRETCH - dz * keep);
+      return;
+    }
+    if (!entity.pinned) {
+      const keep = allowed / drawn;
+      bound(entity, target.spreadX + dx * keep - simX, target.spreadZ / DEPTH_STRETCH + dz * keep - simZ);
+      return;
+    }
+    // Two held units only close in as far as the hold slack demands, each
+    // stepping half of the excess.
+    const excess = drawn - allowed - HOLD_LINK_SLACK;
+    if (excess <= 0) return;
+    const step = excess / 2 / drawn;
+    bound(entity, entity.spreadX - dx * step, entity.spreadZ / DEPTH_STRETCH - dz * step);
+    bound(target, target.spreadX + dx * step, target.spreadZ / DEPTH_STRETCH + dz * step);
   };
   const separate = (dtSeconds, reducedMotion) => {
     const ease = reducedMotion ? 1 : 1 - Math.exp(-CROWD_EASE_RATE * dtSeconds);
@@ -957,7 +1128,7 @@ export function createUnitLayer({ toWorld, elevation, isReducedMotion }) {
       return [...entities.values()].filter((entity) => !entity.dying).map((entity) => ({
         key: entity.key, kind: entity.kind, side: entity.side, tx: entity.tx, ty: entity.ty,
         spreadX: entity.spreadX, spreadY: -entity.spreadZ / DEPTH_STRETCH,
-        swarm: entity.swarm !== null && entity.swarm !== undefined, target: entity.linkTarget?.key ?? null,
+        swarm: entity.swarm !== null && entity.swarm !== undefined, pinned: entity.pinned, target: entity.linkTarget?.key ?? null,
       }));
     },
     /** Current presentation pose of a live entity (diagnostics and tests). */

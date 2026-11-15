@@ -286,6 +286,43 @@ test("battlefield units: a same-kind swarm packed on a bridge deck fans out so e
 });
 
 
+test("battlefield units: a swarm the simulation holds on a deck is drawn still while the fight around it changes", () => {
+  const units = layer();
+  const swarm = [1, 2, 3, 4, 5, 6, 7].map((id) => entity(id, "cinderling", "south", 3500, id < 3 ? 16650 : 16700));
+  const foes = [11, 12].map((id) => entity(id, "cinderling", "north", 3500 + (id - 11) * 600, 17600));
+  let now = 0;
+  const step = (tick, records) => {
+    units.sync(view(tick, records), null, now);
+    run(units, now, now + 2 * TICK_MS);
+    now += 2 * TICK_MS + 1;
+  };
+  for (let tick = 2; tick <= 120; tick += 2) step(tick, [...swarm, ...foes]);
+  run(units, now, now + 1500);
+  now += 1501;
+  const drawn = () => new Map(swarm.map((member) => {
+    const holder = holderOf(units, member.key);
+    return holder === null ? [member.key, null] : [member.key, [holder.position.x, holder.position.z / DEPTH]];
+  }));
+  const before = drawn();
+  // A flyer sweeps over the block, a foe walks up, and one member falls.
+  for (let tick = 122; tick <= 360; tick += 2) {
+    const flyer = entity(20, "duskwing", "south", 3500, 14000 + (tick - 122) * 15, { layer: "air" });
+    const walker = entity(13, "cinderling", "north", 4000, 19000 - (tick - 122) * 5);
+    const living = tick < 200 ? swarm : swarm.filter((member) => member.id !== 4);
+    step(tick, [...living, ...foes, flyer, walker]);
+  }
+  run(units, now, now + 1500);
+  const after = drawn();
+  for (const member of swarm) {
+    if (member.id === 4) continue;
+    const [x0, y0] = before.get(member.key);
+    const [x1, y1] = after.get(member.key);
+    assert.ok(Math.hypot(x1 - x0, y1 - y0) < 0.05,
+      `${member.key} held still (moved ${Math.hypot(x1 - x0, y1 - y0).toFixed(3)} tiles)`);
+  }
+  units.dispose();
+});
+
 test("battlefield units: a column on a bridge fans out across the deck but never off it", () => {
   const units = layer();
   const column = [1, 2, 3, 4, 5].map((id) => entity(id, "thornscout", "south", 3500, 15600 + id * 120));
